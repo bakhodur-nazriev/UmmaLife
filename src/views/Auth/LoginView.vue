@@ -1,8 +1,18 @@
 <template>
-  <h1 class="title">Login Page</h1>
+  <LayoutAuth>
+    <form action="">login form</form>
+  </LayoutAuth>
 </template>
 
-<script></script>
+<script>
+import LayoutAuth from '@/components/layouts/LayoutAuth.vue'
+
+export default {
+  components: {
+    LayoutAuth
+  }
+}
+</script>
 
 <style scoped>
 

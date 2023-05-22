@@ -1,5 +1,15 @@
 <template>
-  <h1 class="h1">Register Page</h1>
+  <LayoutAuth>
+    <form action="">register form</form>
+  </LayoutAuth>
 </template>
 
-<script></script>
+<script>
+import LayoutAuth from '@/components/layouts/LayoutAuth.vue'
+
+export default {
+  components: {
+    LayoutAuth
+  }
+}
+</script>

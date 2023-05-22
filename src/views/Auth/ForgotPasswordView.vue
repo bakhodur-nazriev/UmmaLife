@@ -1,9 +1,12 @@
 <template>
-  <h1>Page Forgot Password</h1>
+  <LayoutAuth>
+    <form action="">forgot form</form>
+  </LayoutAuth>
 </template>
 
 <script setup>
 
+import LayoutAuth from '@/components/layouts/LayoutAuth.vue'
 </script>
 
 <style scoped>

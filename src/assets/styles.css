@@ -1,9 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
 
-* {
-    font-family: 'Lato', sans-serif  ;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    font-family: inherit;
 }
 
-.title {
-    text-decoration: underline;
+img {
+    max-width: 100%;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    -webkit-clip-path: inset(100%);
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+}
+
+.container {
+    width: 90vw;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page {
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: 'Lato', 'Arial',  sans-serif ;
+}
+
+.page__body {
+    margin: 0;
 }
