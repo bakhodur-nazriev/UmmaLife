@@ -2,7 +2,12 @@
 
 :root {
     --base-black: #000;
-    --base-white: #fff
+    --base-white: #fff;
+    --base-primary: #49A399;
+}
+
+.primary {
+    color: #49A399;
 }
 
 *,
@@ -44,8 +49,26 @@ img {
 
 .page__body {
     margin: 0;
+    background-color: #F1F1F1;
 }
 
 .auth-title {
     font-size: 44px;
+    width: 95%;
+}
+
+.btn {
+    padding: 15px;
+    color: #fff;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #49A399;
+}
+
+.input-primary {
+    background-color: #f1f1f1;
+    border: none;
+    outline: none;
 }

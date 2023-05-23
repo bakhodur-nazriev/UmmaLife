@@ -1,0 +1,34 @@
+{
+  "login": {
+    "title": "Вход",
+    "placeholders": {
+      "email": "Введите ваш email...",
+      "password": "Введите ваш пароль..."
+    },
+    "forgot_password": "Забыли пароль?",
+    "create_account": "Создать аккаунт"
+  },
+  "footer": {
+    "links": {
+      "terms": "Условия",
+      "privacy_policy": "Политика",
+      "contacts": "Контакты",
+      "about_us": "О нас"
+    }
+  },
+  "register": {
+    "title": "Регистрация",
+    "placeholders": {
+      "name": "Введите ваше имя...",
+      "last_name": "Введите вашу фамилию...",
+      "email": "Введите ваш email...",
+      "code_from_email": "Введите код из почтового сообщения..."
+    },
+    "label": "Есть аккаунт?"
+  },
+  "buttons": {
+    "login": "Войти",
+    "get_code_by_email": "Получить код на почту",
+    "next": "Далее"
+  }
+}

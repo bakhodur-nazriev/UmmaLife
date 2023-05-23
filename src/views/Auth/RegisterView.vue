@@ -1,12 +1,13 @@
 <template>
   <LayoutAuth>
-    <h1 class="auth-title">Регистрация</h1>
-    <form action="">
-      <button>Получить код на почту</button>
+    <h1 class="auth-title">{{ $t('register.title') }}</h1>
+    <form action="" class="register-form">
+      <input type="email" :placeholder="$t('register.placeholders.email')">
+      <button class="btn btn-primary submit-button">{{ $t('buttons.get_code_by_email') }}</button>
     </form>
+    <label>{{ $t('register.label') }}</label>
+    <router-link :to="{name: 'login'}">{{ $t('buttons.login') }}</router-link>
   </LayoutAuth>
-  <label>Есть аккаунт?</label>
-  <router-link :to="{name: 'login'}">Вход</router-link>
 </template>
 
 <script>
@@ -18,3 +19,14 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.submit-button {
+  border-radius: 10px;
+}
+</style>

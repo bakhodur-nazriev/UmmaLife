@@ -38,13 +38,18 @@ export default {
 
 .layout__logo {
   order: 1;
+  display: flex;
+  justify-content: center;
 }
 
 .layout__inner {
   order: 2;
   display: flex;
   align-items: center;
+  flex-direction: column;
   flex-grow: 1;
+  background-color: #fff;
+  border-radius: 20px;
 }
 
 .layout__footer {

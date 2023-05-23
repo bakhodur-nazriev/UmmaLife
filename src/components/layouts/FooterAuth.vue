@@ -1,10 +1,10 @@
 <template>
   <footer class="footer">
     <nav class="footer__navigation">
-      <router-link class="footer__link" :to="{name: 'terms'}">Условия</router-link>
-      <router-link class="footer__link" :to="{name: 'privacy-policy'}">Политика</router-link>
-      <router-link class="footer__link" :to="{name: 'contacts'}">Контакты</router-link>
-      <router-link class="footer__link" :to="{name: 'about-us'}">О нас</router-link>
+      <router-link class="footer__link" :to="{name: 'terms'}">{{ $t('footer.links.terms') }}</router-link>
+      <router-link class="footer__link" :to="{name: 'privacy-policy'}">{{ $t('footer.links.privacy_policy') }}</router-link>
+      <router-link class="footer__link" :to="{name: 'contacts'}">{{ $t('footer.links.contacts') }}</router-link>
+      <router-link class="footer__link" :to="{name: 'about-us'}">{{ $t('footer.links.about_us') }}</router-link>
     </nav>
 
     <p class="footer__copyright">(c) 2023 Umma Life</p>

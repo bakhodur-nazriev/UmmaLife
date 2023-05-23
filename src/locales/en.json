@@ -1,0 +1,34 @@
+{
+  "login": {
+    "title": "Login",
+    "placeholders": {
+      "email": "Enter your email...",
+      "password": "Enter your password..."
+    },
+    "forgot_password": "Forgot password?",
+    "create_account": "Create an account"
+  },
+  "footer": {
+    "links": {
+      "terms": "Terms of Use",
+      "privacy_policy": "Privacy Policy",
+      "contacts": "Contacts",
+      "about_us": "About Us"
+    }
+  },
+  "register": {
+    "title": "Registration",
+    "placeholders": {
+      "name": "Enter your name...",
+      "email": "Enter your email...",
+      "last_name": "Enter you last name...",
+      "code_from_email": "Enter code from email..."
+    },
+    "label": "Have an account?"
+  },
+  "buttons": {
+    "login": "Login",
+    "get_code_by_email": "Get code by email",
+    "next": "Next"
+  }
+}
