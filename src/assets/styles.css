@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
 
+:root {
+    --base-black: #000;
+    --base-white: #fff
+}
+
 *,
 *::before,
 *::after {
@@ -34,9 +39,13 @@ img {
 .page {
     font-size: 16px;
     line-height: 1.5;
-    font-family: 'Lato', 'Arial',  sans-serif ;
+    font-family: 'Lato', 'Arial', sans-serif;
 }
 
 .page__body {
     margin: 0;
+}
+
+.auth-title {
+    font-size: 44px;
 }

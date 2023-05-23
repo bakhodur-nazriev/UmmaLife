@@ -1,6 +1,9 @@
 <template>
   <LayoutAuth>
-    <form action="">forgot form</form>
+    <h1 class="auth-title">Забыли пароль?</h1>
+    <form action="">
+      <input type="text">
+    </form>
   </LayoutAuth>
 </template>
 

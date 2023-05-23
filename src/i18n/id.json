@@ -1,0 +1,12 @@
+{
+  "login": {
+    "title": "Login",
+    "placeholders": {
+      "email": "Enter your email...",
+      "password": "Enter your password..."
+    },
+    "forget-password": "Forgot password?",
+    "button": "Login",
+    "create-account": "Create Account"
+  }
+}

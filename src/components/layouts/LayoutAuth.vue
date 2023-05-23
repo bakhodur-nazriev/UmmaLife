@@ -1,11 +1,13 @@
 <template>
   <div class="layout container">
-    <locales-dropdown/>
-    <main-logo/>
+    <locales-dropdown class="layout__locales"/>
+    <main-logo class="layout__logo"/>
 
-    <slot></slot>
+    <div class="layout__inner">
+      <slot></slot>
+    </div>
 
-    <footer-auth/>
+    <footer-auth class="layout__footer"/>
   </div>
 </template>
 
@@ -23,4 +25,29 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.layout__locales {
+  order: 3;
+}
+
+.layout__logo {
+  order: 1;
+}
+
+.layout__inner {
+  order: 2;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.layout__footer {
+  order: 4;
+}
+</style>

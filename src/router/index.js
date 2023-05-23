@@ -3,7 +3,10 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/Auth/LoginView.vue'
 import RegisterView from '../views/Auth/RegisterView.vue'
 import ForgotPasswordView from '../views/Auth/ForgotPasswordView.vue'
-import ConditionsView from '../views/ConditionsView.vue'
+import TermsView from '../views/TermsView.vue'
+import PrivacyPolicyView from '../views/PrivacyPolicyView.vue'
+import ContactsView from '../views/ContactsView.vue'
+import AboutUs from '../views/AboutUs.vue'
 
 const routes = [
   {
@@ -27,24 +30,24 @@ const routes = [
     component: ForgotPasswordView
   },
   {
-    path: '/conditions',
-    name: 'conditions',
-    component: ConditionsView
+    path: '/terms',
+    name: 'terms',
+    component: TermsView
   },
   {
-    path: '/politic',
-    name: 'politic',
-    component: ForgotPasswordView
+    path: '/privacy-policy',
+    name: 'privacy-policy',
+    component: PrivacyPolicyView
   },
   {
     path: '/contacts',
     name: 'contacts',
-    component: ForgotPasswordView
+    component: ContactsView
   },
   {
-    path: '/about',
-    name: 'about',
-    component: ForgotPasswordView
+    path: '/about-us',
+    name: 'about-us',
+    component: AboutUs
   }
 ]
 

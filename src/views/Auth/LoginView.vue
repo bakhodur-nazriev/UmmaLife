@@ -1,6 +1,11 @@
 <template>
   <LayoutAuth>
-    <form action="">login form</form>
+    <form action="">
+      <input type="text">
+      <input type="text">
+      <button>Войти</button>
+    </form>
+    <router-link :to="{name: 'register'}">Создать аккаунт</router-link>
   </LayoutAuth>
 </template>
 
