@@ -8,13 +8,11 @@
     "forgot_password": "Forgot password?",
     "create_account": "Create an account"
   },
-  "footer": {
-    "links": {
-      "terms": "Terms of Use",
-      "privacy_policy": "Privacy Policy",
-      "contacts": "Contacts",
-      "about_us": "About Us"
-    }
+  "links": {
+    "terms": "Terms of Use",
+    "privacy_policy": "Privacy Policy",
+    "contacts": "Contacts",
+    "about_us": "About Us"
   },
   "register": {
     "title": "Registration",
@@ -24,11 +22,16 @@
       "last_name": "Enter you last name...",
       "code_from_email": "Enter code from email..."
     },
-    "label": "Have an account?"
+    "label": "Have an account?",
+    "agreement_to_creating_account": "By creating an account, you agree to our"
   },
   "buttons": {
     "login": "Login",
     "get_code_by_email": "Get code by email",
     "next": "Next"
+  },
+  "languages": {
+    "title": "English",
+    "name": "English"
   }
 }

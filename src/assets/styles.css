@@ -4,10 +4,14 @@
     --base-black: #000;
     --base-white: #fff;
     --base-primary: #49A399;
+
+    --tablet-width: 768px;
+    --desktop-width: 1200px;
 }
 
-.primary {
-    color: #49A399;
+.active-link {
+    color: #00819D;
+    text-decoration: underline;
 }
 
 *,
@@ -53,7 +57,7 @@ img {
 }
 
 .auth-title {
-    font-size: 44px;
+    font-size: 34px;
     width: 95%;
 }
 

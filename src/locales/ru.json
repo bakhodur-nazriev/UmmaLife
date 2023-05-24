@@ -8,13 +8,11 @@
     "forgot_password": "Забыли пароль?",
     "create_account": "Создать аккаунт"
   },
-  "footer": {
-    "links": {
-      "terms": "Условия",
-      "privacy_policy": "Политика",
-      "contacts": "Контакты",
-      "about_us": "О нас"
-    }
+  "links": {
+    "terms": "Условия",
+    "privacy_policy": "Политика",
+    "contacts": "Контакты",
+    "about_us": "О нас"
   },
   "register": {
     "title": "Регистрация",
@@ -24,11 +22,15 @@
       "email": "Введите ваш email...",
       "code_from_email": "Введите код из почтового сообщения..."
     },
-    "label": "Есть аккаунт?"
+    "label": "Есть аккаунт?",
+    "agreement_to_creating_account": "Создавая аккаунт, вы соглашаетесь с нашими "
   },
   "buttons": {
     "login": "Войти",
     "get_code_by_email": "Получить код на почту",
     "next": "Далее"
+  },
+  "languages": {
+    "title": "Язык"
   }
 }
