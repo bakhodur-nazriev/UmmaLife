@@ -9,9 +9,8 @@
     --desktop-width: 1200px;
 }
 
-.active-link {
+.link-primary {
     color: #00819D;
-    text-decoration: underline;
 }
 
 *,
@@ -69,10 +68,4 @@ img {
 
 .btn-primary {
     background-color: #49A399;
-}
-
-.input-primary {
-    background-color: #f1f1f1;
-    border: none;
-    outline: none;
 }

@@ -6,7 +6,8 @@
       "password": "Введите ваш пароль..."
     },
     "forgot_password": "Забыли пароль?",
-    "create_account": "Создать аккаунт"
+    "create_account": "Создать аккаунт",
+    "with_phone_number": "Войти по номеру телефона"
   },
   "links": {
     "terms": "Условия",

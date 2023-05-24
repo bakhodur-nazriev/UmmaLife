@@ -10,7 +10,7 @@
 
 <style scoped>
   .title {
-    margin: 0;
+    margin: 0 0 40px 0;
     font-weight: 500;
     font-size: 34px;
     line-height: 1;

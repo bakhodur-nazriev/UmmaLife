@@ -3,29 +3,43 @@
     <form-auth>
       <title-sample>{{ $t('login.title') }}</title-sample>
 
-      <input placeholder="text">
+      <sample-input
+        type="email"
+        class="email-input"
+        :placeholder="$t('login.placeholders.email')"
+      ></sample-input>
+      <sample-input
+        type="password"
+        class="password-input"
+        :placeholder="$t('login.placeholders.password')"
+      ></sample-input>
+
+      <router-link
+        :to="{name: 'forgot-password'}"
+        class="forgot-password-link link-primary"
+      >
+        {{ $t('login.forgot_password') }}
+      </router-link>
+
+      <div class="login-button-section">
+        <sample-button>{{ $t('buttons.login') }}</sample-button>
+      </div>
+
+      <router-link
+        class="link-primary create-account-link"
+        :to="{name: 'register'}"
+      >
+        {{ $t('login.create_account') }}
+      </router-link>
     </form-auth>
-<!--    <form class="login-form">-->
-<!--      <h1 class="auth-title">{{ $t('login.title') }}</h1>-->
-<!--      <input-->
-<!--        type="email"-->
-<!--        class="input-primary email-input"-->
-<!--        :placeholder="$t('login.placeholders.email')"-->
-<!--      >-->
-<!--      <input-->
-<!--        type="password"-->
-<!--        class="input-primary password-input"-->
-<!--        :placeholder="$t('login.placeholders.password')"-->
-<!--      >-->
-<!--      <router-link-->
-<!--        :to="{name: 'forgot-password'}"-->
-<!--        class="forgot-password-link active-link"-->
-<!--      >-->
-<!--        {{ $t('login.forgot_password') }}-->
-<!--      </router-link>-->
-<!--      <button class="btn btn-primary submit-btn">{{ $t('buttons.login') }}</button>-->
-<!--      <router-link :to="{name: 'register'}">{{ $t('login.create_account') }}</router-link>-->
-<!--    </form>-->
+    <div class="login-with-phone-section">
+      <router-link
+        class="link-with-phone-number"
+        :to="{name: 'register'}"
+      >
+        {{ $t('login.with_phone_number') }}
+      </router-link>
+    </div>
   </LayoutAuth>
 </template>
 
@@ -33,9 +47,13 @@
 import LayoutAuth from '@/components/layouts/LayoutAuth.vue'
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
+import SampleButton from '@/components/ui/SampleButton.vue'
+import SampleInput from '@/components/ui/SampleInput.vue'
 
 export default {
   components: {
+    SampleInput,
+    SampleButton,
     LayoutAuth,
     FormAuth,
     TitleSample
@@ -44,19 +62,15 @@ export default {
 </script>
 
 <style scoped>
-.submit-btn {
-  width: 320px;
-  border-radius: 10px;
-
+.create-account-link {
+  text-decoration: none;
+  text-align: center;
+  margin-top: 40px;
 }
 
-.login-form {
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  background-color: white;
-  border-radius: 20px;
-  padding: 24px 32px;
+.forgot-password-link {
+  margin-bottom: 64px;
+  font-size: 14px;
 }
 
 .email-input {
@@ -67,13 +81,29 @@ export default {
   margin-bottom: 12px;
 }
 
-.email-input, .password-input {
-  border-radius: 10px;
-  height: 48px;
-  padding: 14px;
+.link-with-phone-number {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1F1F1F;
+  text-decoration: none;
 }
 
-.forgot-password-link {
-  margin-bottom: 64px;
+.login-with-phone-section {
+  margin-top: 32px;
+}
+
+.login-button-section {
+  display: flex;
+  justify-content: center;
+}
+
+.login-button-section button {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .login-button-section button {
+    max-width: 320px;
+  }
 }
 </style>
