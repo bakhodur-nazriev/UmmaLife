@@ -3,7 +3,7 @@
     <form-auth>
       <title-sample>{{ $t('login.forgot_password') }}</title-sample>
 
-      <sample-input typpe="email" :placeholder="$t('login.placeholders.email')"></sample-input>
+      <sample-input class="email-input" typpe="email" :placeholder="$t('login.placeholders.email')"></sample-input>
 
       <sample-button type="submit">{{ $t('buttons.get_code_by_email') }}</sample-button>
 
@@ -34,5 +34,9 @@ import SampleButton from '@/components/ui/SampleButton.vue'
 
 .login-section > label, a {
   margin: 0 4px;
+}
+
+.email-input {
+  margin-bottom: 24px;
 }
 </style>

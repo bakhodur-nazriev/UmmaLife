@@ -8,30 +8,21 @@
         :placeholder="$t('register.placeholders.email')"
       ></sample-input>
 
-      <sample-button>{{ $t('buttons.get_code_by_email') }}</sample-button>
+      <check-box class="register-checkbox" name="agreement">
+        {{ $t('register.agreement_to_creating_account') }} <br>
+        <router-link to="/terms">{{ $t('links.terms') }}</router-link> &
+        <router-link to="/privacy-policy">{{ $t('links.privacy_policy') }}</router-link>
+      </check-box>
+
+      <div class="login-button-section">
+        <sample-button>{{ $t('buttons.get_code_by_email') }}</sample-button>
+      </div>
+
+      <div class="login-section">
+        <label>{{ $t('register.label') }}</label>
+        <router-link class="active-link" :to="{name: 'login'}">{{ $t('buttons.login') }}</router-link>
+      </div>
     </form-auth>
-    <!--    <form action="" class="register-form">
-          <input
-            type="text"
-            class="input-primary email-input"
-            :placeholder="$t('register.placeholders.email')"
-          >
-
-          <div class="checkbox-section">
-            <input type="checkbox" class="terms-and-policy-checkbox">
-            <label>
-              {{ $t('register.agreement_to_creating_account') }}<br>
-              <a href="" class="active-link">{{ $t('links.terms') }}</a> &
-              <a href="" class="active-link">{{ $t('links.privacy_policy') }}</a>
-            </label>
-          </div>
-
-          <button class="btn btn-primary submit-button">{{ $t('buttons.get_code_by_email') }}</button>
-        </form>-->
-    <!--    <div class="bottom-section">-->
-    <!--      <label>{{ $t('register.label') }}</label>-->
-    <!--      <router-link :to="{name: 'login'}">{{ $t('buttons.login') }}</router-link>-->
-    <!--    </div>-->
   </LayoutAuth>
 </template>
 
@@ -41,6 +32,7 @@ import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import SampleInput from '@/components/ui/SampleInput.vue'
+import CheckBox from '@/components/ui/CheckBox.vue'
 
 export default {
   components: {
@@ -48,55 +40,50 @@ export default {
     SampleButton,
     TitleSample,
     LayoutAuth,
-    FormAuth
+    FormAuth,
+    CheckBox
   }
 }
 </script>
 
 <style scoped>
-.register-form {
+.login-section {
+  margin-top: 40px;
   display: flex;
-  flex-direction: column;
-  margin-bottom: 40px;
+  justify-content: center;
+  align-items: center;
 }
 
-.submit-button {
-  border-radius: 10px;
-  width: 320px;
+.login-section > label, a {
+  margin: 0 4px;
 }
 
-.email-input {
-  margin-bottom: 24px;
+.login-section > label {
+  color: #B0B0B0;
 }
 
-.email-input {
-  border-radius: 10px;
-  height: 48px;
-  padding: 14px;
+.register-checkbox {
+  margin-top: 24px;
+  margin-bottom: 64px;
+  text-decoration: none;
 }
 
-.bottom-section {
+.register-checkbox a {
+  text-decoration: underline;
+}
+
+.login-button-section {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+}
+
+.login-button-section button {
   width: 100%;
 }
 
-.terms-and-policy-checkbox {
-  appearance: none;
-  background-color: #f1f1f1;
-  height: 32px;
-  width: 32px;
-  border: none;
-  outline: none;
-  border-radius: 2px;
-}
-
-.terms-and-policy-checkbox:checked {
-  background: #49A399;
-}
-
-.checkbox-section {
-  display: flex;
-  align-items: ;
+@media (min-width: 768px) {
+  .login-button-section button {
+    max-width: 320px;
+  }
 }
 </style>

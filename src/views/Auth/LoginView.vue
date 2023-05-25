@@ -16,7 +16,7 @@
 
       <router-link
         :to="{name: 'forgot-password'}"
-        class="forgot-password-link link-primary"
+        class="forgot-password-link active-link"
       >
         {{ $t('login.forgot_password') }}
       </router-link>
@@ -26,7 +26,7 @@
       </div>
 
       <router-link
-        class="link-primary create-account-link"
+        class="active-link create-account-link"
         :to="{name: 'register'}"
       >
         {{ $t('login.create_account') }}
@@ -36,6 +36,7 @@
       <router-link
         class="link-with-phone-number"
         :to="{name: 'register'}"
+        @click="loginWithPhone"
       >
         {{ $t('login.with_phone_number') }}
       </router-link>
@@ -57,6 +58,11 @@ export default {
     LayoutAuth,
     FormAuth,
     TitleSample
+  },
+  methods: {
+    loginWithPhone () {
+      console.log('Just Test')
+    }
   }
 }
 </script>
@@ -71,6 +77,7 @@ export default {
 .forgot-password-link {
   margin-bottom: 64px;
   font-size: 14px;
+  width: max-content;
 }
 
 .email-input {
@@ -83,7 +90,7 @@ export default {
 
 .link-with-phone-number {
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 550;
   color: #1F1F1F;
   text-decoration: none;
 }

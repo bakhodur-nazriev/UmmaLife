@@ -1,15 +1,15 @@
-<script setup>
-
-</script>
-
 <template>
-  <button class="button">
+  <button class="btn">
     <slot/>
   </button>
 </template>
 
+<script>
+
+</script>
+
 <style scoped>
-.button {
+.btn {
   background-color: #49A399;
   color: #fff;
   border: none;
@@ -17,5 +17,16 @@
   padding: 15px;
   font-size: 16px;
   cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #00819D;
+  color: #fff;
+  transition: 0.2s;
+}
+
+.btn::placeholder {
+  color: #B0B0B0;
+  font-weight: 400;
 }
 </style>

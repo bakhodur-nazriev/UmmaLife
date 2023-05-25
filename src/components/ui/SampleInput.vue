@@ -16,5 +16,10 @@ export default {
   border-radius: 10px;
   font-size: 14px;
   padding: 16px;
+  color: #1F1F1F;
+}
+
+.base-input::placeholder {
+  color: #B0B0B0;
 }
 </style>
