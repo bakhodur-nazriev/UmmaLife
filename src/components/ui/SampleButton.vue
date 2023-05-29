@@ -1,7 +1,7 @@
 <template>
-  <button class="btn">
-    <slot/>
-  </button>
+    <button class="btn">
+      <slot/>
+    </button>
 </template>
 
 <script>
@@ -28,5 +28,11 @@
 .btn::placeholder {
   color: #B0B0B0;
   font-weight: 400;
+}
+
+@media (min-width: 768px) {
+  .btn {
+    max-width: 320px;
+  }
 }
 </style>

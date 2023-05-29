@@ -18,6 +18,8 @@
     --desktop-width: 1200px;
 }
 
+/* Font sizes */
+
 .main-heading {
     font-size: 24px;
 }
@@ -28,6 +30,7 @@
 
 .text-1 {
     font-size: 16px;
+    margin: 0;
 }
 
 .text-2 {
@@ -41,6 +44,24 @@
 .errors {
     font-size: 12px;
 }
+
+/* Font weights */
+.light {
+    font-weight: 300;
+}
+
+.roman {
+    font-weight: 400;
+}
+
+.medium {
+    font-weight: 550;
+}
+
+.bold {
+    font-weight: 700;
+}
+
 
 .active-link {
     color: #00819D;
@@ -91,10 +112,4 @@ img {
 .page__body {
     margin: 0;
     background-color: #F1F1F1;
-}
-
-.auth-title {
-    font-size: 34px;
-    width: 95%;
-    font-weight: 550;
 }

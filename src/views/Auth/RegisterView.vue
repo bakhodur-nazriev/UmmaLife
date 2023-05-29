@@ -10,8 +10,8 @@
 
       <check-box class="register-checkbox" name="agreement">
         {{ $t('register.agreement_to_creating_account') }} <br>
-        <router-link to="/terms">{{ $t('links.terms') }}</router-link> &
-        <router-link to="/privacy-policy">{{ $t('links.privacy_policy') }}</router-link>
+        <router-link class="active-link" :to="`/${$i18n.locale}/terms`">{{ $t('links.terms') }}</router-link> &
+        <router-link class="active-link" :to="`/${$i18n.locale}/privacy-policy`">{{ $t('links.privacy_policy') }}</router-link>
       </check-box>
 
       <div class="login-button-section">
@@ -19,8 +19,11 @@
       </div>
 
       <div class="login-section">
-        <label>{{ $t('register.label') }}</label>
-        <router-link class="active-link" :to="{name: 'login'}">{{ $t('buttons.login') }}</router-link>
+        <label class="medium">{{ $t('register.label') }}</label>
+        <router-link
+          class="medium"
+          :to="`/${$i18n.locale}/login`"
+        >{{ $t('login.title') }}</router-link>
       </div>
     </form-auth>
   </LayoutAuth>

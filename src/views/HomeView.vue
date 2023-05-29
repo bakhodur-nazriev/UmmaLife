@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>Home Page</h1>
+    <h1>{{$t('login.title')}}</h1>
   </div>
 </template>
 

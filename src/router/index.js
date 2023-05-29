@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import i18n from '@/i18n'
+import { supportedLanguages } from '@/constants'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/Auth/LoginView.vue'
 import RegisterView from '../views/Auth/RegisterView.vue'
@@ -11,51 +12,72 @@ import AboutUs from '../views/AboutUs.vue'
 
 const routes = [
   {
-    path: '/',
+    path: '/:lang?/',
     name: 'home',
     component: HomeView
   },
   {
-    path: '/login',
+    path: '/:lang?/login',
     name: 'login',
     component: LoginView
   },
   {
-    path: '/register',
+    path: '/:lang?/register',
     name: 'register',
     component: RegisterView
   },
   {
-    path: '/forgot-password',
+    path: '/:lang?/forgot-password',
     name: 'forgot-password',
     component: ForgotPasswordView
   },
   {
-    path: '/terms',
+    path: '/:lang?/terms',
     name: 'terms',
     component: TermsView
   },
   {
-    path: '/privacy-policy',
+    path: '/:lang?/privacy-policy',
     name: 'privacy-policy',
     component: PrivacyPolicyView
   },
   {
-    path: '/contacts',
+    path: '/:lang?/contacts',
     name: 'contacts',
     component: ContactsView
   },
   {
-    path: '/about-us',
+    path: '/:lang?/about-us',
     name: 'about-us',
     component: AboutUs
   }
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(process.env.BASE_URL),
   mode: 'history',
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const lang = to.params.lang || i18n.global.locale.value
+
+  if (supportedLanguages.includes(lang)) {
+    // Установка языка для i18n
+    i18n.global.locale = lang
+  } else {
+    // Если указанный язык не поддерживается, перенаправляем на язык по умолчанию
+    const defaultLang = i18n.global.locale || 'ru'
+    return next(`/${defaultLang}${to.path}`)
+  }
+
+  // Если язык в URL не совпадает с текущим языком, перенаправляем на правильный URL
+  if (to.params.lang !== lang) {
+    const pathWithoutLang = to.path.replace(`/${to.params.lang}`, `/${lang}`)
+    return next(`/${lang}${pathWithoutLang}`)
+  }
+
+  return next()
 })
 
 export default router

@@ -25,6 +25,7 @@ export default {
   display: flex;
   align-items: center;
   gap: 12px;
+  font-size: 14px;
 }
 
 .checkbox__icon {

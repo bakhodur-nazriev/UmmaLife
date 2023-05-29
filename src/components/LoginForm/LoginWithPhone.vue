@@ -1,19 +1,21 @@
 <template>
-  <LayoutAuth>
-    <form-auth>
-      <title-sample>{{ $t('login.title') }}</title-sample>
-    </form-auth>
-  </LayoutAuth>
+  <form-auth>
+    <title-sample>{{ $t('login.title') }}</title-sample>
+
+    <sample-input-locale></sample-input-locale>
+  </form-auth>
 </template>
 
 <script>
-import LayoutAuth from '@/components/layouts/LayoutAuth.vue'
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
+import SampleInputLocale from '@/components/ui/SampleInputLocale.vue'
 
 export default {
   components: {
-
+    SampleInputLocale,
+    FormAuth,
+    TitleSample
   }
 }
 </script>

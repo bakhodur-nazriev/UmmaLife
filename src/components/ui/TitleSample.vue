@@ -12,7 +12,7 @@
   .title {
     margin: 0 0 40px 0;
     font-weight: 550;
-    font-size: 34px;
+    font-size: 44px;
     line-height: 1;
     color: #1F1F1F;
   }

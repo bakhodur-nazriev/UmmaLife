@@ -3,10 +3,14 @@
     "title": "Login",
     "placeholders": {
       "email": "Enter your email...",
-      "password": "Enter your password..."
+      "password": "Enter your password...",
+      "phone": "Enter your phone number..."
     },
     "forgot_password": "Forgot password?",
-    "create_account": "Create an account"
+    "resetPassword": "We will send you a message to change your password",
+    "create_account": "Create an account",
+    "with_phone_number": "Login with phone number",
+    "with_email": "Login with email"
   },
   "links": {
     "terms": "Terms of Use",
