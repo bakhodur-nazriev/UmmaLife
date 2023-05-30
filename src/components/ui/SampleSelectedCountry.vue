@@ -3,7 +3,7 @@
     <div class="country-select-button" @click="toggleDropdown">
       <img :src="selectedCountry.flag" :alt="selectedCountry.name" class="flag-icon"/>
       <span class="country-code">{{ selectedCountry.code }}</span>
-      <dropdown-icon/>
+      <dropdown-icon class="locales__icon locales__icon--dropdown"/>
     </div>
     <div v-if="isDropdownOpen" class="country-dropdown">
       <ul>
@@ -37,10 +37,10 @@ export default {
         .then((response) => {
           this.countries = response.data.map((country) => ({
             name: country.name,
-            code: country.callingCodes[0],
+            code: '+' + country.callingCodes[0],
             flag: country.flags.png
           }))
-          this.selectedCountry = this.countries[5] // Set the initial selected country
+          this.selectedCountry = this.countries[1] // Set the initial selected country
         })
         .catch((error) => {
           console.error('Error fetching countries:', error)
@@ -112,5 +112,20 @@ export default {
 
 .country-dropdown li:hover {
   background-color: #ddd;
+}
+
+.locales__icon {
+  display: inline-block;
+  min-width: max-content;
+  color: #1F1F1F;
+}
+
+.locales__icon--dropdown {
+  margin-left: auto;
+  transition: 0.3s;
+}
+
+.locales--shown .locales__icon--dropdown {
+  transform: scaleY(-1);
 }
 </style>

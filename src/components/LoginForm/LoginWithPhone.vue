@@ -60,4 +60,19 @@ export default {
     max-width: 320px;
   }
 }
+
+.locales__icon {
+  display: inline-block;
+  min-width: max-content;
+  color: #b0b0b0
+}
+
+.locales__icon--dropdown {
+  margin-left: auto;
+  transition: 0.3s;
+}
+
+.locales--shown .locales__icon--dropdown {
+  transform: scaleY(-1);
+}
 </style>

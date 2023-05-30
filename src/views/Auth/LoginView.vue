@@ -6,7 +6,7 @@
 
     <div class="login-with-phone-section">
       <button class="link-with-phone-number" @click="toggleForm">
-        {{ selectedForm ? $t('login.with_phone_number') : $t('login.with_email') }}
+        {{ selectedForm === 'email' ? $t('login.with_phone_number') : $t('login.with_email') }}
       </button>
     </div>
 

@@ -9,8 +9,8 @@
     />
 
     <button type="button" class="eye-button" @click="togglePasswordVisibility">
-      <eye-icon v-if="isPasswordVisible"></eye-icon>
-      <eye-slash-icon v-else></eye-slash-icon>
+      <eye-slash-icon v-if="isPasswordVisible"></eye-slash-icon>
+      <eye-icon v-else></eye-icon>
     </button>
   </div>
 </template>
