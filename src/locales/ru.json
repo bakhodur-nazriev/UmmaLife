@@ -36,6 +36,15 @@
     "submit": "Отправить"
   },
   "languages": {
-    "title": "Язык"
+    "title": "Русский",
+    "names": {
+      "russian": "Русский",
+      "english": "English",
+      "arabic": "اَلْعَرَبِيَّةُ",
+      "turkish": "Türk",
+      "uzbek": "O'zbek",
+      "indonesia": "Bahasa Indonesia",
+      "malay": "Melayu"
+    }
   }
 }

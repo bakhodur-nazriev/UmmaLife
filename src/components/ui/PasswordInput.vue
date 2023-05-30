@@ -41,6 +41,7 @@ export default {
 .input-with-eye {
   position: relative;
   display: flex;
+  z-index: 1;
 }
 
 .input-field {

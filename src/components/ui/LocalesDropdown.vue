@@ -6,28 +6,31 @@
       @click="handleButtonClick"
     >
       <global-icon class="locales__icon"/>
-      <span>Русский </span>
+      <span class="dropdown__locale-title">{{ currentLanguageName }}</span>
       <dropdown-icon class="locales__icon locales__icon--dropdown"/>
     </button>
 
     <ul class="locales__list" :data-locale="$t('languages.title')">
       <li class="locales__item">
-        <a class="locales__link" href="">English</a>
+        <a class="locales__link" :href="getLocalizedLink('en')">{{ $t('languages.names.english') }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" href="">اَلْعَرَبِيَّةُ</a>
+        <a class="locales__link" :href="getLocalizedLink('ar')">{{ $t('languages.names.arabic') }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" href="">Türk</a>
+        <a class="locales__link" :href="getLocalizedLink('ru')">{{ $t('languages.names.russian') }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" href="">O'zbek</a>
+        <a class="locales__link" :href="getLocalizedLink('tr')">{{ $t('languages.names.turkish') }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" href="">Bahasa Indonesia</a>
+        <a class="locales__link" :href="getLocalizedLink('uz')">{{ $t('languages.names.uzbek') }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" href="">Melayu</a>
+        <a class="locales__link" :href="getLocalizedLink('id')">{{ $t('languages.names.indonesia') }}</a>
+      </li>
+      <li class="locales__item">
+        <a class="locales__link" :href="getLocalizedLink('ms')">{{ $t('languages.names.malay') }}</a>
       </li>
     </ul>
   </div>
@@ -42,8 +45,18 @@ export default {
     GlobalIcon,
     DropdownIcon
   },
+  computed: {
+    currentLanguageName () {
+      return this.$i18n.t('languages.title')
+    }
+  },
   methods: {
     handleButtonClick () {
+      const container = this.$refs.container
+      if (!container) {
+        return
+      }
+
       const handleDocumentClick = (evt) => !evt.target.closest('.locales') && closeDropdown()
       const handleEscapeKeydown = (evt) => (evt.keyCode === 27) && closeDropdown()
       const openDropdown = () => {
@@ -57,12 +70,37 @@ export default {
         document.removeEventListener('keydown', handleEscapeKeydown)
       }
       !this.$refs.container.classList.contains('locales--shown') ? openDropdown() : closeDropdown()
+    },
+    getLocalizedLink (lang) {
+      const currentPath = this.$route.path
+      const languagePrefix = '/' + this.$i18n.locale
+      const newPath = currentPath.replace(languagePrefix, '')
+      switch (lang) {
+        case 'en':
+          return '/en' + newPath
+        case 'ar':
+          return '/ar' + newPath
+        case 'ru':
+          return '/ru' + newPath
+        case 'tr':
+          return '/tr' + newPath
+        case 'uz':
+          return '/uz' + newPath
+        case 'id':
+          return '/id' + newPath
+        case 'ms':
+          return '/ms' + newPath
+      }
     }
   }
 }
 </script>
 
 <style scoped>
+.locales {
+  z-index: 1;
+}
+
 .locales::before {
   content: "";
   position: absolute;
@@ -79,6 +117,7 @@ export default {
 
 .locales--shown::before {
   opacity: 1;
+  z-index: 2;
 }
 
 .locales__button {
@@ -95,6 +134,7 @@ export default {
   color: #1f1f1f;
   width: 155px;
   cursor: pointer;
+  z-index: 3;
 }
 
 .locales__button span {
@@ -137,6 +177,7 @@ export default {
   list-style: none;
   padding: 16px;
   gap: 4px;
+  z-index: 3;
 }
 
 .locales--shown .locales__list {
@@ -166,6 +207,9 @@ export default {
   line-height: 1.5;
   color: inherit;
 }
+.dropdown__locale-title{
+  line-height: 1.2;
+}
 
 @media (min-width: 768px) {
   .locales {
@@ -177,7 +221,7 @@ export default {
 
   .locales__button {
     position: relative;
-    z-index: 1;
+    z-index: 5;
     font-size: 14px;
     line-height: 1;
   }

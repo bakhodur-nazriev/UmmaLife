@@ -52,6 +52,7 @@ export default {
   flex-grow: 1;
   flex-direction: column;
   justify-content: center;
+  z-index: 0;
 }
 
 .layout__footer {

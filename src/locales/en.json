@@ -32,10 +32,19 @@
   "buttons": {
     "login": "Login",
     "get_code_by_email": "Get code by email",
-    "next": "Next"
+    "next": "Next",
+    "submit": "Submit"
   },
   "languages": {
     "title": "English",
-    "name": "English"
+    "names": {
+      "russian": "Русский",
+      "english": "English",
+      "arabic": "اَلْعَرَبِيَّةُ",
+      "turkish": "Türk",
+      "uzbek": "O'zbek",
+      "indonesia": "Bahasa Indonesia",
+      "malay": "Melayu"
+    }
   }
 }

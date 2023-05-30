@@ -1,11 +1,11 @@
 <template>
   <LayoutAuth>
-    <login-with-email v-if="selectedForm"></login-with-email>
+    <login-with-email v-if="selectedForm === 'email'"></login-with-email>
 
-    <login-with-phone v-if="!selectedForm"></login-with-phone>
+    <login-with-phone v-if="selectedForm === 'phone'"></login-with-phone>
 
     <div class="login-with-phone-section">
-      <button class="link-with-phone-number" @click="selectedForm = !selectedForm">
+      <button class="link-with-phone-number" @click="toggleForm">
         {{ selectedForm ? $t('login.with_phone_number') : $t('login.with_email') }}
       </button>
     </div>
@@ -26,8 +26,17 @@ export default {
   },
   data () {
     return {
-      selectedForm: true
+      selectedForm: ''
     }
+  },
+  methods: {
+    toggleForm () {
+      this.selectedForm = this.selectedForm === 'phone' ? 'email' : 'phone'
+      sessionStorage.setItem('selectedForm', this.selectedForm)
+    }
+  },
+  created () {
+    this.selectedForm = sessionStorage.getItem('selectedForm') || 'email'
   }
 }
 </script>

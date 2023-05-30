@@ -30,5 +30,17 @@
     "login": "تسجيل الدخول",
     "get_code_by_email": "احصل على الكود عن طريق البريد الإلكتروني",
     "next": "التالي"
+  },
+  "languages": {
+    "title": "اَلْعَرَبِيَّةُ",
+    "names": {
+      "russian": "Русский",
+      "english": "English",
+      "arabic": "اَلْعَرَبِيَّةُ",
+      "turkish": "Türk",
+      "uzbek": "O'zbek",
+      "indonesia": "Bahasa Indonesia",
+      "malay": "Melayu"
+    }
   }
 }
