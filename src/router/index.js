@@ -10,6 +10,10 @@ import PrivacyPolicyView from '../views/PrivacyPolicyView.vue'
 import ContactsView from '../views/ContactsView.vue'
 import AboutUs from '../views/AboutUs.vue'
 
+const isProduction = process.env.NODE_ENV === 'production'
+
+const baseDomain = isProduction ? 'front1.ummalife.dev' : 'localhost'
+
 const routes = [
   {
     path: '/:lang?/',
@@ -52,6 +56,12 @@ const routes = [
     component: AboutUs
   }
 ]
+
+if (isProduction) {
+  routes.forEach(route => {
+    route.path = `/${baseDomain}${route.path}`
+  })
+}
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

@@ -14,12 +14,22 @@
   </LayoutAuth>
 </template>
 
-<script setup>
+<script>
 import LayoutAuth from '@/components/layouts/LayoutAuth.vue'
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleInput from '@/components/ui/SampleInput.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
+
+export default {
+  components: {
+    LayoutAuth,
+    FormAuth,
+    TitleSample,
+    SampleInput,
+    SampleButton
+  }
+}
 </script>
 
 <style scoped>

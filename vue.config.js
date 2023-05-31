@@ -1,6 +1,6 @@
-const {defineConfig} = require('@vue/cli-service')
+const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
-  publicPath: '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
   devServer: {
     historyApiFallback: true,
   },
@@ -40,5 +40,10 @@ module.exports = defineConfig({
         return options;
       })
       .end();
-  },
+
+    config.plugin('define').tap((definitions) => {
+      definitions[0]['process.env']['VUE_APP_DOMAIN'] = JSON.stringify(process.env.VUE_APP_DOMAIN_NAME);
+      return definitions;
+    });
+  }
 })
