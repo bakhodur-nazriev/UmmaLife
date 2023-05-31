@@ -1,22 +1,21 @@
 <template>
-  <form-auth>
-    <title-sample>{{ $t('login.title') }}</title-sample>
-
-    <div class="sample__phone-input">
-      <sample-phone-input></sample-phone-input>
-    </div>
-
-    <div class="login-button-section">
-      <sample-button>{{ $t('buttons.login') }}</sample-button>
-    </div>
-
-    <router-link
-      class="active-link create-account-link"
-      :to="`/${$i18n.locale}/register`"
-    >
-      {{ $t('login.create_account') }}
-    </router-link>
+  <form-auth v-if="false">
+      <title-sample>{{ $t('login.title') }}</title-sample>
+      <div class="sample__phone-input">
+        <sample-phone-input></sample-phone-input>
+      </div>
+      <div class="login-button-section">
+        <sample-button>{{ $t('buttons.login') }}</sample-button>
+      </div>
+      <router-link
+        class="active-link create-account-link"
+        :to="`/${$i18n.locale}/register`"
+      >
+        {{ $t('login.create_account') }}
+      </router-link>
   </form-auth>
+
+  <verify-phone v-else></verify-phone>
 </template>
 
 <script>
@@ -24,13 +23,20 @@ import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SamplePhoneInput from '@/components/ui/SamplePhoneInput.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
+import VerifyPhone from '@/components/LoginForm/VerifyPhone.vue'
 
 export default {
   components: {
+    VerifyPhone,
     SamplePhoneInput,
     FormAuth,
     TitleSample,
     SampleButton
+  },
+  methods: {
+    toggleForm () {
+
+    }
   }
 }
 </script>

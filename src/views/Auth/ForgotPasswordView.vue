@@ -3,7 +3,7 @@
     <form-auth>
       <title-sample>{{ $t('login.forgot_password') }}</title-sample>
 
-      <h5 class="text-1 roman reminder-message">{{ $t('login.resetPassword') }}</h5>
+      <h5 class="text-1 roman reminder-message">{{ $t('login.messages.reset_password') }}</h5>
 
       <sample-input class="email-input" typpe="email" :placeholder="$t('login.placeholders.email')"></sample-input>
 

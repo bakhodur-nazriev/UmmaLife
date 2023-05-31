@@ -7,16 +7,21 @@
       "phone": "Enter your phone number..."
     },
     "forgot_password": "Forgot password?",
-    "resetPassword": "We will send you a message to change your password",
     "create_account": "Create an account",
     "with_phone_number": "Login with phone number",
-    "with_email": "Login with email"
+    "with_email": "Login with email",
+    "messages": {
+      "reset_password": "We will send you a message to change your password",
+      "verify_with_phone": "A message with a code was sent to your phone number",
+      "didnt_receive_code": "Didn't receive a code?"
+    }
   },
   "links": {
     "terms": "Terms of Use",
     "privacy_policy": "Privacy Policy",
     "contacts": "Contacts",
-    "about_us": "About Us"
+    "about_us": "About Us",
+    "resend": "Resend"
   },
   "register": {
     "title": "Registration",
@@ -27,7 +32,10 @@
       "code_from_email": "Enter code from email..."
     },
     "label": "Have an account?",
-    "agreement_to_creating_account": "By creating an account, you agree to our"
+    "messages" : {
+      "agreement_to_creating_account": "By creating an account, you agree to our",
+      "verify_with_email":  "A message with a code has been sent to your email address.",
+    }
   },
   "buttons": {
     "login": "Login",

@@ -44,7 +44,7 @@ export default {
 <style scoped>
 .link-with-phone-number {
   font-size: 16px;
-  font-weight: 550;
+  font-weight: 500;
   color: #1F1F1F;
   cursor: pointer;
   border: none;

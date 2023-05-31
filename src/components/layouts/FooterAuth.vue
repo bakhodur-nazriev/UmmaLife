@@ -28,13 +28,14 @@
   display: flex;
   align-items: center;
   width: 100%;
-  gap: 32px;
+  gap: 27px;
   justify-content: center;
 }
 
 .footer__link {
   text-decoration: none;
   color: inherit;
+  font-size: 14px;
 }
 
 .footer__copyright {
@@ -48,11 +49,16 @@
   .footer {
     padding-bottom: 16px;
     flex-wrap: nowrap;
+    font-size: 16px;
   }
 
   .footer__navigation,
   .footer__copyright {
     width: auto;
+  }
+
+  .footer__navigation {
+    gap: 32px;
   }
 }
 </style>

@@ -25,7 +25,7 @@ export default {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .checkbox__icon {
@@ -43,5 +43,11 @@ export default {
 .checkbox__input:checked+.checkbox__icon {
   background: #49A399;
   color: white;
+}
+
+@media (min-width: 768px) {
+  .checkbox {
+    font-size: 14px;
+  }
 }
 </style>
