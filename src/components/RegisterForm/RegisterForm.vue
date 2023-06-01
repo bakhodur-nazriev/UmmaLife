@@ -25,7 +25,7 @@
     </check-box>
 
     <div class="login-button-section">
-      <sample-button>{{ $t('buttons.get_code_by_email') }}</sample-button>
+      <sample-button @click="handleSubmit">{{ $t('buttons.get_code_by_email') }}</sample-button>
     </div>
 
     <div class="login-section">
@@ -49,6 +49,14 @@ export default {
     FormAuth,
     SampleInput,
     SampleButton
+  },
+  methods: {
+    handleSubmit () {
+      // Выполните необходимую обработку данных формы
+
+      // Переключитесь на следующий шаг
+      this.$emit('nextStep')
+    }
   }
 }
 </script>

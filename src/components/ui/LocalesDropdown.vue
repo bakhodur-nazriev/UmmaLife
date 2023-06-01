@@ -207,7 +207,7 @@ export default {
   line-height: 1.5;
   color: inherit;
 }
-.dropdown__locale-title{
+.dropdown__locale-title {
   line-height: 1.2;
 }
 
@@ -215,6 +215,7 @@ export default {
   .locales {
     position: relative;
   }
+
   .locales::before {
     display: none;
   }

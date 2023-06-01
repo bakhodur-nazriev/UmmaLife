@@ -1,14 +1,10 @@
 <template>
   <LayoutAuth>
-    <register-form v-if="false"></register-form>
-
-    <verify-with-email v-if="false"></verify-with-email>
-
-    <create-new-password v-if="false"></create-new-password>
-
-    <base-user-info v-if="false"></base-user-info>
-
-    <add-phone-and-login v-if="true"></add-phone-and-login>
+    <register-form v-if="currentStep === 'registerForm'"></register-form>
+    <verify-with-email v-if="currentStep === 'verifyWithEmail'"></verify-with-email>
+    <create-new-password v-if="currentStep === 'createNewPassword'"></create-new-password>
+    <base-user-info v-if="currentStep === 'baseUserInfo'"></base-user-info>
+    <add-phone-and-login v-if="currentStep === 'addPhoneAndLogin'"></add-phone-and-login>
   </LayoutAuth>
 </template>
 
@@ -28,6 +24,26 @@ export default {
     CreateNewPassword,
     VerifyWithEmail,
     LayoutAuth
+  },
+  data () {
+    return {
+      currentStep: 'verifyWithEmail'
+    }
+  },
+  methods: {
+    nextStep () {
+      if (this.currentStep === 'registerForm') {
+        this.currentStep = 'registerForm'
+      }
+      if (this.currentStep === 'verifyWithEmail') {
+        this.currentStep = 'createNewPassword'
+      } else if (this.currentStep === 'createNewPassword') {
+        this.currentStep = 'baseUserInfo'
+      } else if (this.currentStep === 'baseUserInfo') {
+        this.currentStep = 'addPhoneAndLogin'
+      }
+      // ...и так далее
+    }
   }
 }
 </script>

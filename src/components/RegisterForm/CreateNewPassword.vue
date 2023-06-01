@@ -7,7 +7,7 @@
     <password-input :placeholder="$t('register.placeholders.your_password')"></password-input>
 
     <div class="login__button-section">
-      <sample-button>{{ $t('buttons.next') }}</sample-button>
+      <sample-button @click="handleSubmit">{{ $t('buttons.next') }}</sample-button>
     </div>
   </form-auth>
 </template>
@@ -19,7 +19,20 @@ import PasswordInput from '@/components/ui/PasswordInput.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 
 export default {
-  components: { PasswordInput, TitleSample, FormAuth, SampleButton }
+  components: {
+    PasswordInput,
+    TitleSample,
+    FormAuth,
+    SampleButton
+  },
+  methods: {
+    handleSubmit () {
+      // Выполните обработку данных формы
+
+      // Переключитесь на следующий шаг
+      this.$emit('nextStep')
+    }
+  }
 }
 </script>
 

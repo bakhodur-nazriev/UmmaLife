@@ -10,7 +10,7 @@
     <sample-phone-input></sample-phone-input>
 
     <div class="login__button-section">
-      <sample-button>{{ $t('buttons.login') }}</sample-button>
+      <sample-button @click="handleSubmit">{{ $t('buttons.login') }}</sample-button>
     </div>
 
     <div class="skip__link-section">
@@ -26,7 +26,15 @@ import SampleButton from '@/components/ui/SampleButton.vue'
 import SamplePhoneInput from '@/components/ui/SamplePhoneInput.vue'
 export default {
   components: { SamplePhoneInput, TitleSample, FormAuth, SampleButton },
-  data () {}
+  data () {},
+  methods: {
+    handleSubmit () {
+      // Выполните обработку данных формы
+
+      // Переключитесь на следующий шаг
+      this.$emit('nextStep')
+    }
+  }
 }
 </script>
 

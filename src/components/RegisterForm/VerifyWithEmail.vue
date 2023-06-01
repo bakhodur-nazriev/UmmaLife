@@ -7,16 +7,16 @@
     <h5 class="title bold reply__phone-number">mylovelymail@gmail.com</h5>
 
     <div class="verify__number-section">
-      <sample-input></sample-input>
-      <sample-input></sample-input>
-      <sample-input></sample-input>
-      <sample-input></sample-input>
-      <sample-input></sample-input>
-      <sample-input></sample-input>
+      <sample-code-number-input @next="focusNextInput" @backspace="clearPreviousInputs"></sample-code-number-input>
+      <sample-code-number-input @next="focusNextInput" @backspace="clearPreviousInputs"></sample-code-number-input>
+      <sample-code-number-input @next="focusNextInput" @backspace="clearPreviousInputs"></sample-code-number-input>
+      <sample-code-number-input @next="focusNextInput" @backspace="clearPreviousInputs"></sample-code-number-input>
+      <sample-code-number-input @next="focusNextInput" @backspace="clearPreviousInputs"></sample-code-number-input>
+      <sample-code-number-input @next="focusNextInput" @backspace="clearPreviousInputs"></sample-code-number-input>
     </div>
 
     <div class="login__button-section">
-      <sample-button>{{ $t('buttons.next') }}</sample-button>
+      <sample-button @click="handleSubmit">{{ $t('buttons.next') }}</sample-button>
     </div>
 
     <div class="resend__code">
@@ -33,18 +33,51 @@
 
 <script>
 import FormAuth from '@/components/ui/FormAuth.vue'
-import SampleInput from '@/components/ui/SampleInput.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
+import SampleCodeNumberInput from '@/components/ui/SampleCodeNumberInput.vue'
 
 export default {
   components: {
     SampleButton,
-    SampleInput,
+    SampleCodeNumberInput,
     FormAuth,
     TitleSample
   },
-  data () {}
+  data () {},
+  methods: {
+    handleSubmit () {
+      // Выполните необходимую обработку данных формы
+
+      // Переключитесь на следующий шаг
+      this.$emit('nextStep')
+    },
+
+    focusNextInput () {
+      // Получить все компоненты sample-input внутри verify__number-section
+      const inputs = this.$el.querySelectorAll('.verify__number-section input')
+      // Найти индекс текущего активного input
+      const currentIndex = Array.from(inputs).findIndex(input => input === document.activeElement)
+      // Если currentIndex >= 0 и currentIndex < inputs.length - 1, установить фокус на следующий input
+      if (currentIndex >= 0 && currentIndex < inputs.length - 1) {
+        inputs[currentIndex + 1].focus()
+      }
+    },
+
+    clearPreviousInputs () {
+      const inputs = this.$el.querySelectorAll('.verify__number-section input')
+      const currentIndex = Array.from(inputs).findIndex((input) => input === document.activeElement)
+
+      // Измените условие в цикле for, чтобы он не очищал текущее поле
+      for (let i = currentIndex - 1; i >= 0; i--) {
+        if (inputs[i].value !== '') {
+          inputs[i].value = '' // Очистить предыдущее поле
+        } else {
+          break // Прекратить цикл, если найдено пустое поле
+        }
+      }
+    }
+  }
 }
 </script>
 
@@ -68,6 +101,7 @@ export default {
 
 .resend__code > label, a {
   margin: 0 4px;
+  text-decoration: none;
 }
 
 .resend__code > label {
