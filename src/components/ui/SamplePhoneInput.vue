@@ -1,16 +1,15 @@
 <template>
   <div class="phone__field-section">
     <sample-selected-country></sample-selected-country>
-    <sample-input type="text" v-model="phoneNumber" :placeholder="$t('login.placeholders.phone')"/>
+    <input class="base-input" type="text" v-model="phoneNumber" :placeholder="$t('login.placeholders.phone')"/>
   </div>
 </template>
 
 <script>
-import SampleInput from '@/components/ui/SampleInput.vue'
 import SampleSelectedCountry from '@/components/ui/SampleSelectedCountry.vue'
 
 export default {
-  components: { SampleSelectedCountry, SampleInput },
+  components: { SampleSelectedCountry },
   data () {
     return {
       phoneNumber: ''
@@ -20,6 +19,21 @@ export default {
 </script>
 
 <style scoped>
+.base-input {
+  background-color: #f1f1f1;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  font-size: 14px;
+  padding: 16px;
+  color: #1F1F1F;
+  width: 100%;
+}
+
+.base-input::placeholder {
+  color: #B0B0B0;
+}
+
 .phone__field-section {
   display: flex;
   justify-content: center;

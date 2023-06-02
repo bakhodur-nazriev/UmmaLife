@@ -44,7 +44,9 @@ export default {
     FormAuth,
     TitleSample
   },
-  data () {},
+  data () {
+    return {}
+  },
   methods: {
     handleSubmit () {
       // Выполните необходимую обработку данных формы

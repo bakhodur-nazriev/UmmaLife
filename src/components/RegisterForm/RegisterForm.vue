@@ -3,8 +3,11 @@
     <title-sample>{{ $t('register.title') }}</title-sample>
 
     <sample-input
-      typeof="email"
+      type="email"
+      v-model="email"
       :placeholder="$t('register.placeholders.email')"
+      :error="emailError"
+      :error-message="$t('login.validation.email')"
     ></sample-input>
 
     <check-box class="register-checkbox" name="agreement">
@@ -50,12 +53,46 @@ export default {
     SampleInput,
     SampleButton
   },
+  data () {
+    return {
+      email: '',
+      emailError: false
+    }
+  },
   methods: {
     handleSubmit () {
-      // Выполните необходимую обработку данных формы
+      // Выполните обработку данных формы
 
       // Переключитесь на следующий шаг
       this.$emit('nextStep')
+    },
+    submit (event) {
+      console.log('submit button called')
+      event.preventDefault()
+
+      let isValid = true
+
+      if (!this.email) {
+        this.emailError = true
+        isValid = false
+      }
+
+      if (!this.password) {
+        this.passwordError = true
+        isValid = false
+      }
+
+      if (isValid) {
+        console.log('test')
+        // axios
+        //   .post('/')
+        //   .then(res => {
+        //     console.log(res)
+        //   })
+        //   .catch(err => {
+        //     console.log(err)
+        //   })
+      }
     }
   }
 }

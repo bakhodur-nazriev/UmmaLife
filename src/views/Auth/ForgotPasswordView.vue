@@ -5,10 +5,17 @@
 
       <h5 class="text-1 roman reminder-message">{{ $t('login.messages.reset_password') }}</h5>
 
-      <sample-input class="email-input" typpe="email" :placeholder="$t('login.placeholders.email')"></sample-input>
+      <sample-input
+        class="email-input"
+        typpe="email"
+        v-model="email"
+        :placeholder="$t('login.placeholders.email')"
+        :error="emailError"
+        :error-message="$t('login.validation.email')"
+      ></sample-input>
 
       <div class="login-button-section">
-        <sample-button type="submit">{{ $t('buttons.submit') }}</sample-button>
+        <sample-button @click="submit" type="submit">{{ $t('buttons.submit') }}</sample-button>
       </div>
     </form-auth>
   </LayoutAuth>
@@ -28,6 +35,41 @@ export default {
     TitleSample,
     SampleInput,
     SampleButton
+  },
+  data () {
+    return {
+      email: ''
+    }
+  },
+  methods: {
+    submit (event) {
+      console.log('submit button called')
+      event.preventDefault()
+
+      let isValid = true
+
+      if (!this.email) {
+        this.emailError = true
+        isValid = false
+      }
+
+      if (!this.password) {
+        this.passwordError = true
+        isValid = false
+      }
+
+      if (isValid) {
+        console.log('test')
+        // axios
+        //   .post('/')
+        //   .then(res => {
+        //     console.log(res)
+        //   })
+        //   .catch(err => {
+        //     console.log(err)
+        //   })
+      }
+    }
   }
 }
 </script>

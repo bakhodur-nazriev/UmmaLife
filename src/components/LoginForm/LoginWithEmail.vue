@@ -5,11 +5,17 @@
     <sample-input
       type="email"
       class="email-input"
+      v-model="email"
       :placeholder="$t('login.placeholders.email')"
+      :error="emailError"
+      :error-message="$t('login.validation.email')"
     ></sample-input>
     <password-input
       class="password-input"
+      v-model="password"
       :placeholder="$t('login.placeholders.password')"
+      :error="passwordError"
+      :error-message="$t('login.validation.password')"
     ></password-input>
 
     <router-link
@@ -20,7 +26,7 @@
     </router-link>
 
     <div class="login-button-section">
-      <sample-button>{{ $t('buttons.login') }}</sample-button>
+      <sample-button @click="submit">{{ $t('buttons.login') }}</sample-button>
     </div>
 
     <router-link
@@ -38,6 +44,7 @@ import SampleInput from '@/components/ui/SampleInput.vue'
 import PasswordInput from '@/components/ui/PasswordInput.vue'
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
+// import axios from 'axios'
 
 export default {
   components: {
@@ -46,6 +53,44 @@ export default {
     PasswordInput,
     SampleInput,
     SampleButton
+  },
+  data () {
+    return {
+      email: '',
+      password: '',
+      emailError: false,
+      passwordError: false
+    }
+  },
+  methods: {
+    submit (event) {
+      console.log('submit button called')
+      event.preventDefault()
+
+      let isValid = true
+
+      if (!this.email) {
+        this.emailError = true
+        isValid = false
+      }
+
+      if (!this.password) {
+        this.passwordError = true
+        isValid = false
+      }
+
+      if (isValid) {
+        console.log('test')
+        // axios
+        //   .post('/')
+        //   .then(res => {
+        //     console.log(res)
+        //   })
+        //   .catch(err => {
+        //     console.log(err)
+        //   })
+      }
+    }
   }
 }
 </script>
@@ -58,6 +103,7 @@ export default {
 }
 
 .forgot-password-link {
+  margin-top: 8px;
   margin-bottom: 64px;
   font-size: 14px;
   width: max-content;
@@ -79,6 +125,7 @@ export default {
 .login-button-section button {
   width: 100%;
 }
+.test{}
 
 @media (min-width: 768px) {
   .login-button-section button {

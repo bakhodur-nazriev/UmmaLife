@@ -1,10 +1,10 @@
 <template>
   <LayoutAuth>
-    <register-form v-if="currentStep === 'registerForm'"></register-form>
-    <verify-with-email v-if="currentStep === 'verifyWithEmail'"></verify-with-email>
-    <create-new-password v-if="currentStep === 'createNewPassword'"></create-new-password>
-    <base-user-info v-if="currentStep === 'baseUserInfo'"></base-user-info>
-    <add-phone-and-login v-if="currentStep === 'addPhoneAndLogin'"></add-phone-and-login>
+    <register-form v-if="currentStep === 'registerForm'" @nextStep="handleNextStep"></register-form>
+    <verify-with-email v-if="currentStep === 'verifyWithEmail'" @nextStep="handleNextStep"></verify-with-email>
+    <create-new-password v-if="currentStep === 'createNewPassword'" @nextStep="handleNextStep"></create-new-password>
+    <base-user-info v-if="currentStep === 'baseUserInfo'" @nextStep="handleNextStep"></base-user-info>
+    <add-phone-and-login v-if="currentStep === 'addPhoneAndLogin'" @nextStep="handleNextStep"></add-phone-and-login>
   </LayoutAuth>
 </template>
 
@@ -27,22 +27,20 @@ export default {
   },
   data () {
     return {
-      currentStep: 'verifyWithEmail'
+      currentStep: 'registerForm'
     }
   },
   methods: {
-    nextStep () {
+    handleNextStep () {
       if (this.currentStep === 'registerForm') {
-        this.currentStep = 'registerForm'
-      }
-      if (this.currentStep === 'verifyWithEmail') {
+        this.currentStep = 'verifyWithEmail'
+      } else if (this.currentStep === 'verifyWithEmail') {
         this.currentStep = 'createNewPassword'
       } else if (this.currentStep === 'createNewPassword') {
         this.currentStep = 'baseUserInfo'
       } else if (this.currentStep === 'baseUserInfo') {
         this.currentStep = 'addPhoneAndLogin'
       }
-      // ...и так далее
     }
   }
 }
