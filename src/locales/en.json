@@ -34,7 +34,12 @@
       "name": "Enter your name...",
       "email": "Enter your email...",
       "last_name": "Enter you last name...",
-      "code_from_email": "Enter code from email..."
+      "code_from_email": "Enter code from email...",
+      "gender": {
+        "title": "Choose gender",
+        "male": "Male",
+        "female": "Female"
+      }
     },
     "label": "Have an account?",
     "messages" : {
