@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     handleSubmit () {
-      this.$emit('nextStep')
+      this.$emit('next-step')
     }
   }
 }

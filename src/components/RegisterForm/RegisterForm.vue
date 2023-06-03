@@ -64,7 +64,7 @@ export default {
       // Выполните обработку данных формы
 
       // Переключитесь на следующий шаг
-      this.$emit('nextStep')
+      this.$emit('next-step')
     },
     submit (event) {
       console.log('submit button called')

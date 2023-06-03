@@ -52,7 +52,7 @@ export default {
       // Выполните необходимую обработку данных формы
 
       // Переключитесь на следующий шаг
-      this.$emit('nextStep')
+      this.$emit('next-step')
     },
 
     focusNextInput () {
