@@ -6,13 +6,13 @@
       <h5 class="text-1 roman reminder-message">{{ $t('login.messages.reset_password') }}</h5>
 
       <sample-input
-        class="email-input"
-        typpe="email"
+        type="email"
         v-model="email"
+        class="email-input"
         :placeholder="$t('login.placeholders.email')"
         :error="emailError"
         :error-message="$t('login.validation.email')"
-      ></sample-input>
+      />
 
       <div class="login-button-section">
         <sample-button @click="submit" type="submit">{{ $t('buttons.submit') }}</sample-button>
@@ -38,7 +38,8 @@ export default {
   },
   data () {
     return {
-      email: ''
+      email: '',
+      emailError: false
     }
   },
   methods: {
@@ -50,11 +51,6 @@ export default {
 
       if (!this.email) {
         this.emailError = true
-        isValid = false
-      }
-
-      if (!this.password) {
-        this.passwordError = true
         isValid = false
       }
 

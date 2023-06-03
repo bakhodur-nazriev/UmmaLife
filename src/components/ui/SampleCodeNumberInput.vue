@@ -10,9 +10,18 @@
 
 <script>
 export default {
+  props: {
+    error: Boolean,
+    errorMessage: String
+  },
   data () {
     return {
       inputValue: ''
+    }
+  },
+  computed: {
+    isError () {
+      return this.error && !this.inputValue
     }
   },
   methods: {

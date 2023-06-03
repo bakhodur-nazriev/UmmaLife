@@ -92,9 +92,9 @@ export default {
   background-color: #f1f1f1;
   border-radius: 0 0 10px 10px;
   padding: 10px;
-  max-height: 200px;
+  max-height: 210px;
   overflow-y: auto;
-  width: 450px;
+  width: 470px;
 }
 
 .country-dropdown ul {

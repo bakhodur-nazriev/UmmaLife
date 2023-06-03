@@ -1,84 +1,39 @@
 <template>
-  <form-auth v-if="false">
-      <title-sample>{{ $t('login.title') }}</title-sample>
-      <div class="sample__phone-input">
-        <sample-phone-input></sample-phone-input>
-      </div>
-      <div class="login-button-section">
-        <sample-button>{{ $t('buttons.login') }}</sample-button>
-      </div>
-      <router-link
-        class="active-link create-account-link"
-        :to="`/${$i18n.locale}/register`"
-      >
-        {{ $t('login.create_account') }}
-      </router-link>
-  </form-auth>
+  <enter-phone-form
+    v-if="currentStep === 'enterPhoneForm'"
+    @nextStep="handleNextStep"
+  ></enter-phone-form>
 
-  <verify-phone v-else></verify-phone>
+  <verify-phone-form
+    v-if="currentStep === 'verifyPhoneForm'"
+    @nextStep="handleNextStep"
+  ></verify-phone-form>
 </template>
 
 <script>
-import FormAuth from '@/components/ui/FormAuth.vue'
-import TitleSample from '@/components/ui/TitleSample.vue'
-import SamplePhoneInput from '@/components/ui/SamplePhoneInput.vue'
-import SampleButton from '@/components/ui/SampleButton.vue'
-import VerifyPhone from '@/components/LoginForm/VerifyPhone.vue'
+import VerifyPhoneForm from '@/components/LoginForm/VerifyPhoneForm.vue'
+import EnterPhoneForm from '@/components/LoginForm/EnterPhoneForm.vue'
 
 export default {
   components: {
-    VerifyPhone,
-    SamplePhoneInput,
-    FormAuth,
-    TitleSample,
-    SampleButton
+    EnterPhoneForm,
+    VerifyPhoneForm
+  },
+  data () {
+    return {
+      currentStep: 'enterPhoneForm'
+    }
   },
   methods: {
-    toggleForm () {
-
+    handleNextStep () {
+      if (this.currentStep === 'enterPhoneForm') {
+        this.currentStep = 'verifyPhoneForm'
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-.create-account-link {
-  text-decoration: none;
-  text-align: center;
-  margin-top: 40px;
-}
 
-.sample__phone-input {
-  margin-bottom: 64px;
-}
-
-.login-button-section {
-  display: flex;
-  justify-content: center;
-}
-
-.login-button-section button {
-  width: 100%;
-}
-
-@media (min-width: 768px) {
-  .login-button-section button {
-    max-width: 320px;
-  }
-}
-
-.locales__icon {
-  display: inline-block;
-  min-width: max-content;
-  color: #b0b0b0
-}
-
-.locales__icon--dropdown {
-  margin-left: auto;
-  transition: 0.3s;
-}
-
-.locales--shown .locales__icon--dropdown {
-  transform: scaleY(-1);
-}
 </style>
