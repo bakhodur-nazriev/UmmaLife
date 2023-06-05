@@ -4,7 +4,7 @@
 
     <h5 class="subhead roman reminder-message">{{ $t('login.messages.verify_with_phone') }}</h5>
 
-    <h5 class="title bold reply__phone-number">+380664561212</h5>
+    <h5 class="title bold reply__phone-number">{{ phoneNumber }}</h5>
 
     <div class="verify__number-section">
       <sample-code-number-input @next="focusNextInput" @backspace="clearPreviousInputs" @input="checkCodeFilled"></sample-code-number-input>
@@ -50,6 +50,11 @@ export default {
   data () {
     return {
       isCodeFilled: false
+    }
+  },
+  computed: {
+    phoneNumber () {
+      return this.$store.getters.getPhoneNumber
     }
   },
   methods: {

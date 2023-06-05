@@ -18,7 +18,10 @@ const routes = [
   {
     path: '/:lang?/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/:lang?/login',

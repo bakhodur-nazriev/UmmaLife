@@ -16,8 +16,8 @@
       "didnt_receive_code": "Didn't receive a code?"
     },
     "validation": {
-      "email": "The field must not be empty",
-      "password": "The field must not be empty"
+      "empty_email": "The field must not be empty",
+      "empty_password": "The field must not be empty"
     }
   },
   "links": {
@@ -35,6 +35,7 @@
       "email": "Enter your email...",
       "last_name": "Enter you last name...",
       "code_from_email": "Enter code from email...",
+      "your_password": "Your registration password...",
       "gender": {
         "title": "Choose gender",
         "male": "Male",
@@ -50,6 +51,12 @@
       "required_fields" : "(Required fields to fill in)",
       "enter_your_phone": "Enter your phone number",
       "can_login_with_phone_number": "You will be able to access the network using your phone number"
+    },
+    "validation": {
+      "empty_email": "The field must not be empty",
+      "incorrect_email": "Incorrect email",
+      "incorrect_code": "Incorrect code",
+      "empty_password": "Поле не должно быть пустым"
     }
   },
   "buttons": {

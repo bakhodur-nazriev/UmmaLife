@@ -3,7 +3,7 @@
     <input
       class="base-input"
       :placeholder="placeholder"
-      v-model="inputValue"
+      :value="value"
     />
     <small v-if="isError" class="error-message">{{ errorMessage }}</small>
   </div>
@@ -14,9 +14,14 @@ export default {
   props: {
     placeholder: String,
     error: Boolean,
-    errorMessage: String
+    errorMessage: String,
+    value: String
+  },
+  data () {
+    return {}
   },
   computed: {
+
     isError () {
       return this.error && !this.inputValue
     },

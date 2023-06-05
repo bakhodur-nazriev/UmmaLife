@@ -12,11 +12,14 @@
 export default {
   props: {
     error: Boolean,
-    errorMessage: String
+    errorMessage: String,
+    value: {
+      type: Number
+    }
   },
   data () {
     return {
-      inputValue: ''
+      inputValue: this.value
     }
   },
   computed: {
@@ -27,11 +30,10 @@ export default {
   methods: {
     handleInput () {
       const value = this.inputValue
+      this.$emit('input', this.inputValue)
       if (value.length === 1) {
-        // Если введено одно число, перейти к следующему компоненту
         this.$emit('next')
       } else if (value.length > 1) {
-        // Если введено более одного числа, обрезать до одного числа
         this.inputValue = value.slice(0, 1)
       }
     },

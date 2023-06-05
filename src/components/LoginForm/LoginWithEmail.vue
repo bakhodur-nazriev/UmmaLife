@@ -8,14 +8,14 @@
       v-model="email"
       :placeholder="$t('login.placeholders.email')"
       :error="emailError"
-      :error-message="$t('login.validation.email')"
+      :error-message="$t('login.validation.empty_email')"
     ></sample-input>
     <password-input
       class="password-input"
       v-model="password"
       :placeholder="$t('login.placeholders.password')"
       :error="passwordError"
-      :error-message="$t('login.validation.password')"
+      :error-message="$t('login.validation.empty_password')"
     ></password-input>
 
     <router-link

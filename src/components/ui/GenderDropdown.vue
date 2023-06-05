@@ -5,11 +5,11 @@
       class="genders__button"
       @click="handleButtonClick"
     >
-      <span class="dropdown__gender-title">{{ selectedGender || $t('register.placeholders.gender.title') }}</span>
+      <span :class="{'gender-title': !selectedGender, 'selected-gender': selectedGender}">{{ selectedGender || $t('register.placeholders.gender.title') }}</span>
       <dropdown-icon class="genders__icon genders__icon--dropdown"/>
     </button>
 
-    <ul class="genders__list" :data-genders="$t('languages.title')">
+    <ul class="genders__list" :data-genders="$t('languages.title')" ref="list">
       <li class="genders__item" @click="selectGender(`${$t('register.placeholders.gender.male')}`)">{{ $t('register.placeholders.gender.male') }}</li>
       <li class="genders__item" @click="selectGender(`${$t('register.placeholders.gender.female')}`)">{{ $t('register.placeholders.gender.female') }}</li>
     </ul>
@@ -28,6 +28,11 @@ export default {
   },
   methods: {
     handleButtonClick () {
+      const list = this.$refs.list
+      if (!list) {
+        return
+      }
+
       const container = this.$refs.container
       if (!container) {
         return
@@ -36,6 +41,7 @@ export default {
     },
     openDropdown () {
       this.$refs.container.classList.add('genders--shown')
+      this.$refs.list.style.display = 'flex'
       document.addEventListener('click', this.handleDocumentClick)
       document.addEventListener('keydown', this.handleEscapeKeydown)
     },
@@ -45,6 +51,7 @@ export default {
         return
       }
       container.classList.remove('genders--shown')
+      this.$refs.list.style.display = 'none'
       document.removeEventListener('click', this.handleDocumentClick)
       document.removeEventListener('keydown', this.handleEscapeKeydown)
     },
@@ -54,7 +61,6 @@ export default {
     handleEscapeKeydown (evt) {
       return (evt.keyCode === 27) && this.closeDropdown()
     },
-
     selectGender (gender) {
       this.selectedGender = gender
       this.closeDropdown()
@@ -91,7 +97,14 @@ export default {
   -webkit-line-clamp: 1;
   line-clamp: 1;
   -webkit-box-orient: vertical;
+}
+
+.gender-title {
   color: #B0B0B0;
+}
+
+.selected-gender {
+  color: #1F1F1F;
 }
 
 .genders__icon {
@@ -109,6 +122,11 @@ export default {
   transform: scaleY(-1);
 }
 
+.genders--shown .genders__list {
+  visibility: visible;
+  opacity: 1;
+}
+
 .genders__list {
   position: absolute;
   display: flex;
@@ -124,11 +142,6 @@ export default {
   list-style: none;
   padding: 50px 0 0 0;
   z-index: 1;
-}
-
-.genders--shown .genders__list {
-  visibility: visible;
-  opacity: 1;
 }
 
 .genders__list::before {
