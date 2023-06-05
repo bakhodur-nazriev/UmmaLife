@@ -8,29 +8,48 @@
     </div>
 
     <div class="sample__inputs-section">
-      <div :class="['input-wrapper', { error: hasError }]">
+      <div :class="['input-wrapper', { error: hasError.name }]">
         <input
           v-model="name"
           class="base-input"
           :placeholder="$t('register.placeholders.name')"
         />
-        <small v-if="hasError" class="error-message">
-          {{ $t(isInvalidEmail ? 'register.validation.incorrect_email' : 'register.validation.empty_email') }}
+        <small v-if="hasError.name" class="error-message">
+          {{ $t('register.validation.empty_name') }}
         </small>
       </div>
 
-      <div :class="['input-wrapper', { error: hasError }]">
+      <div :class="['input-wrapper', { error: hasError.lastName }]">
         <input
           v-model="last_name"
           class="base-input"
           :placeholder="$t('register.placeholders.last_name')"
         />
-        <small v-if="hasError" class="error-message">
-          {{ $t(isInvalidEmail ? 'register.validation.incorrect_email' : 'register.validation.empty_email') }}
+        <small v-if="hasError.lastName" class="error-message">
+          {{ $t('register.validation.empty_last_name') }}
         </small>
       </div>
 
-      <gender-dropdown></gender-dropdown>
+      <div :class="['input-wrapper', { error: hasError.gender }]">
+        <div class="genders" ref="container">
+          <button
+            type="button"
+            class="genders__button"
+            @click="handleButtonClick"
+          >
+            <span :class="{'gender-title': !selectedGender, 'selected-gender': selectedGender}">{{ selectedGender || $t('register.placeholders.gender.title') }}</span>
+            <dropdown-icon class="genders__icon genders__icon--dropdown"/>
+          </button>
+
+          <ul class="genders__list" :data-genders="$t('languages.title')" ref="list">
+            <li class="genders__item" @click="selectGender(`${$t('register.placeholders.gender.male')}`)">{{ $t('register.placeholders.gender.male') }}</li>
+            <li class="genders__item" @click="selectGender(`${$t('register.placeholders.gender.female')}`)">{{ $t('register.placeholders.gender.female') }}</li>
+          </ul>
+        </div>
+        <small v-if="hasError.gender" class="error-message">
+          {{ $t('register.validation.empty_gender') }}
+        </small>
+      </div>
     </div>
 
     <div class="login__button-section">
@@ -43,11 +62,11 @@
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
-import GenderDropdown from '@/components/ui/GenderDropdown.vue'
+import DropdownIcon from '@/components/icons/DropdownIcon.vue'
 
 export default {
   components: {
-    GenderDropdown,
+    DropdownIcon,
     TitleSample,
     FormAuth,
     SampleButton
@@ -57,24 +76,86 @@ export default {
       name: '',
       last_name: '',
       gender: true,
-      hasError: false
+      hasError: {
+        name: false,
+        lastName: false,
+        gender: false
+      },
+      selectedGender: null
+    }
+  },
+  watch: {
+    name (newName) {
+      if (newName.trim() !== '') {
+        this.hasError.name = false
+      }
+    },
+    last_name (newLastName) {
+      if (newLastName.trim() !== '') {
+        this.hasError.lastName = false
+      }
+    },
+    gender (newGender) {
+      this.hasError.gender = newGender === null
     }
   },
   methods: {
     handleSubmit () {
-      // Выполните обработку данных формы
-      if (this.name.trim() === '' || this.last_name.trim() === '' || this.gender.trim() === '') {
-        this.hasError = true
-      } else {
-        // Perform form submission logic here
-        // ...
+      // Проверка на пустые поля
+      this.hasError.name = this.name.trim() === ''
+      this.hasError.lastName = this.last_name.trim() === ''
+      this.hasError.gender = this.selectedGender === null
 
-        this.$emit('nextStep')
+      // Проверка на наличие ошибок
+      if (this.hasError.name || this.hasError.lastName || this.hasError.gender) {
+        return // Прекратить отправку формы в случае ошибок
       }
+      // Выполнить остальную логику отправки формы
+      // ...
+
+      this.$emit('nextStep')
     },
     submit (event) {
       event.preventDefault()
       this.handleSubmit()
+    },
+    handleButtonClick () {
+      const list = this.$refs.list
+      if (!list) {
+        return
+      }
+
+      const container = this.$refs.container
+      if (!container) {
+        return
+      }
+      !this.$refs.container.classList.contains('genders--shown') ? this.openDropdown() : this.closeDropdown()
+    },
+    openDropdown () {
+      this.$refs.container.classList.add('genders--shown')
+      this.$refs.list.style.display = 'flex'
+      document.addEventListener('click', this.handleDocumentClick)
+      document.addEventListener('keydown', this.handleEscapeKeydown)
+    },
+    closeDropdown () {
+      const container = this.$refs.container
+      if (!container) {
+        return
+      }
+      container.classList.remove('genders--shown')
+      this.$refs.list.style.display = 'none'
+      document.removeEventListener('click', this.handleDocumentClick)
+      document.removeEventListener('keydown', this.handleEscapeKeydown)
+    },
+    handleDocumentClick (evt) {
+      return !evt.target.closest('.genders') && this.closeDropdown()
+    },
+    handleEscapeKeydown (evt) {
+      return (evt.keyCode === 27) && this.closeDropdown()
+    },
+    selectGender (gender) {
+      this.selectedGender = gender
+      this.closeDropdown()
     }
   }
 }
@@ -86,6 +167,10 @@ export default {
 }
 
 .input-wrapper.error .base-input {
+  border: 1.4px solid red;
+}
+
+.input-wrapper.error .genders__button {
   border: 1.4px solid red;
 }
 
@@ -133,6 +218,100 @@ export default {
 .login__button-section button {
   width: 100%;
   margin-top: 64px;
+}
+
+.genders {
+  z-index: 1;
+  position: relative;
+}
+
+.genders__button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #F1F1F1;
+  border: 1px solid #F1F1F1;
+  border-radius: 10px;
+  min-height: 40px;
+  padding: 14px 16px;
+  font-size: 14px;
+  line-height: 1.34;
+  color: #1f1f1f;
+  width: 100%;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.genders__button span {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.gender-title {
+  color: #B0B0B0;
+}
+
+.selected-gender {
+  color: #1F1F1F;
+}
+
+.genders__icon {
+  display: inline-block;
+  min-width: max-content;
+  color: #b0b0b0
+}
+
+.genders__icon--dropdown {
+  margin-left: auto;
+  transition: 0.3s;
+}
+
+.genders--shown .genders__icon--dropdown {
+  transform: scaleY(-1);
+}
+
+.genders--shown .genders__list {
+  visibility: visible;
+  opacity: 1;
+}
+
+.genders__list {
+  position: absolute;
+  display: none;
+  opacity: 0;
+  transition: 0.3s;
+  flex-direction: column;
+  left: 0;
+  top: 0;
+  background: #F1F1F1;
+  border-radius: 10px;
+  width: 100%;
+  margin: 0;
+  list-style: none;
+  padding: 50px 0 0 0;
+  z-index: 1;
+}
+
+.genders__list::before {
+  content: attr(data-locale);
+  font-weight: 500;
+}
+
+.genders__item {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #F1F1F1;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.genders__item:hover {
+  background-color: #bdbdbd;
+  color: #fff;
 }
 
 @media (min-width: 768px) {

@@ -54,6 +54,13 @@ export default {
       passwordError: false
     }
   },
+  watch: {
+    password (newPassword) {
+      if (newPassword.trim() !== '') {
+        this.hasError = false
+      }
+    }
+  },
   methods: {
     handleSubmit () {
       // Выполните обработку данных формы

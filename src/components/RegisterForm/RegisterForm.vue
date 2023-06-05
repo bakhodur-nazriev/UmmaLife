@@ -4,6 +4,7 @@
 
     <div :class="['input-wrapper', { error: hasError || isInvalidEmail }]">
       <input
+        type="email"
         v-model="email"
         class="base-input"
         :placeholder="$t('register.placeholders.email')"
@@ -69,6 +70,9 @@ export default {
   watch: {
     email (newEmail) {
       this.$store.commit('setEmail', newEmail)
+      if (newEmail.trim() !== '') {
+        this.hasError = false
+      }
     }
   },
   methods: {
