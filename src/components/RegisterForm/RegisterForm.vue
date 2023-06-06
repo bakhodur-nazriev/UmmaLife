@@ -1,14 +1,18 @@
 <template>
-  <form-auth>
+  <form-auth @submit="submit">
     <title-sample>{{ $t('register.title') }}</title-sample>
 
-    <sample-input
-      type="email"
-      v-model="email"
-      :placeholder="$t('register.placeholders.email')"
-      :error="emailError"
-      :error-message="$t('login.validation.email')"
-    ></sample-input>
+    <div :class="['input-wrapper', { error: hasError || isInvalidEmail }]">
+      <input
+        type="email"
+        v-model="email"
+        class="base-input"
+        :placeholder="$t('register.placeholders.email')"
+      />
+      <small v-if="hasError || isInvalidEmail" class="error-message">
+        {{ $t(isInvalidEmail ? 'register.validation.incorrect_email' : 'register.validation.empty_email') }}
+      </small>
+    </div>
 
     <check-box class="register-checkbox" name="agreement">
       {{ $t('register.messages.agreement_to_creating_account') }} <br>
@@ -40,7 +44,6 @@
 
 <script>
 import SampleButton from '@/components/ui/SampleButton.vue'
-import SampleInput from '@/components/ui/SampleInput.vue'
 import FormAuth from '@/components/ui/FormAuth.vue'
 import CheckBox from '@/components/ui/CheckBox.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
@@ -50,55 +53,90 @@ export default {
     TitleSample,
     CheckBox,
     FormAuth,
-    SampleInput,
     SampleButton
   },
   data () {
     return {
       email: '',
-      emailError: false
+      hasError: false
+    }
+  },
+  computed: {
+    isInvalidEmail () {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      return this.email.trim() !== '' && !emailRegex.test(this.email)
+    }
+  },
+  watch: {
+    email (newEmail) {
+      this.$store.commit('setEmail', newEmail)
+      if (newEmail.trim() !== '') {
+        this.hasError = false
+      }
     }
   },
   methods: {
     handleSubmit () {
-      // Выполните обработку данных формы
+      this.$store.commit('setEmail', this.email)
 
-      // Переключитесь на следующий шаг
-      this.$emit('next-step')
+      if (this.email.trim() === '' || this.isInvalidEmail) {
+        this.hasError = true
+      } else {
+        // Perform form submission logic here
+        // ...
+
+        this.$emit('nextStep')
+      }
     },
+
     submit (event) {
       console.log('submit button called')
       event.preventDefault()
+      this.handleSubmit()
 
-      let isValid = true
-
-      if (!this.email) {
-        this.emailError = true
-        isValid = false
-      }
-
-      if (!this.password) {
-        this.passwordError = true
-        isValid = false
-      }
-
-      if (isValid) {
-        console.log('test')
-        // axios
-        //   .post('/')
-        //   .then(res => {
-        //     console.log(res)
-        //   })
-        //   .catch(err => {
-        //     console.log(err)
-        //   })
-      }
+      // axios
+      //   .post('/')
+      //   .then(res => {
+      //     console.log(res)
+      //   })
+      //   .catch(err => {
+      //     console.log(err)
+      //   })
     }
   }
 }
 </script>
 
 <style scoped>
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper.error .base-input {
+  border: 1.4px solid red;
+}
+
+.input-wrapper .error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.base-input {
+  background-color: #f1f1f1;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  font-size: 14px;
+  padding: 16px;
+  color: #1F1F1F;
+  width: 100%;
+}
+
+.base-input::placeholder {
+  color: #B0B0B0;
+}
+
 .symbol__ampersand {
   margin: 0 4px;
 }

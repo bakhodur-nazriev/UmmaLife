@@ -43,6 +43,7 @@
   color: #8D98B4;
   text-align: center;
   width: 100%;
+  font-size: 14px;
 }
 
 @media (min-width: 768px) {

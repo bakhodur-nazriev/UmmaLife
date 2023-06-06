@@ -1,18 +1,24 @@
 <template>
-  <form-auth>
+  <form-auth @submit="submit">
     <title-sample>{{ $t('register.title') }}</title-sample>
 
     <h5 class="subhead roman reminder-message">{{ $t('register.messages.verify_with_email') }}</h5>
 
-    <h5 class="title bold reply__phone-number">mylovelymail@gmail.com</h5>
+    <h5 class="title bold reply__phone-number">{{ mainEmail }}</h5>
 
-    <div class="verify__number-section">
-      <sample-code-number-input @next="focusNextInput" @backspace="clearPreviousInputs"></sample-code-number-input>
-      <sample-code-number-input @next="focusNextInput" @backspace="clearPreviousInputs"></sample-code-number-input>
-      <sample-code-number-input @next="focusNextInput" @backspace="clearPreviousInputs"></sample-code-number-input>
-      <sample-code-number-input @next="focusNextInput" @backspace="clearPreviousInputs"></sample-code-number-input>
-      <sample-code-number-input @next="focusNextInput" @backspace="clearPreviousInputs"></sample-code-number-input>
-      <sample-code-number-input @next="focusNextInput" @backspace="clearPreviousInputs"></sample-code-number-input>
+    <div :class="['input-wrapper', { error: hasError }]">
+      <div class="verify__number-section">
+        <sample-code-number-input
+          v-for="index in 6"
+          :key="index"
+          v-model="code[index-1]"
+          @next="focusNextInput"
+          @backspace="handleBackspace"
+        ></sample-code-number-input>
+      </div>
+      <small v-if="hasError" class="error-message">
+        {{ $t('register.validation.incorrect_code') }}
+      </small>
     </div>
 
     <div class="login__button-section">
@@ -45,38 +51,47 @@ export default {
     TitleSample
   },
   data () {
-    return {}
+    return {
+      code: ['', '', '', '', '', ''],
+      hasError: false
+    }
+  },
+  computed: {
+    mainEmail () {
+      return this.$store.getters.getEmail
+    }
   },
   methods: {
     handleSubmit () {
-      // Выполните необходимую обработку данных формы
+      if (this.code.some(val => val.trim() === '')) {
+        this.hasError = true
+      } else {
+        const fullCode = this.code.join('') // объединение значений кода в одну строку
+        console.log(fullCode)
+        // Perform form submission logic here
+        // ...
 
-      // Переключитесь на следующий шаг
-      this.$emit('next-step')
+        this.$emit('nextStep')
+      }
     },
 
+    submit (event) {
+      event.preventDefault()
+      this.handleSubmit()
+    },
     focusNextInput () {
-      // Получить все компоненты sample-input внутри verify__number-section
       const inputs = this.$el.querySelectorAll('.verify__number-section input')
-      // Найти индекс текущего активного input
       const currentIndex = Array.from(inputs).findIndex(input => input === document.activeElement)
-      // Если currentIndex >= 0 и currentIndex < inputs.length - 1, установить фокус на следующий input
       if (currentIndex >= 0 && currentIndex < inputs.length - 1) {
         inputs[currentIndex + 1].focus()
       }
     },
-
-    clearPreviousInputs () {
+    handleBackspace () {
       const inputs = this.$el.querySelectorAll('.verify__number-section input')
-      const currentIndex = Array.from(inputs).findIndex((input) => input === document.activeElement)
+      const currentIndex = Array.from(inputs).findIndex(input => input === document.activeElement)
 
-      // Измените условие в цикле for, чтобы он не очищал текущее поле
-      for (let i = currentIndex - 1; i >= 0; i--) {
-        if (inputs[i].value !== '') {
-          inputs[i].value = '' // Очистить предыдущее поле
-        } else {
-          break // Прекратить цикл, если найдено пустое поле
-        }
+      if (currentIndex > 0) {
+        inputs[currentIndex - 1].focus()
       }
     }
   }
@@ -84,6 +99,20 @@ export default {
 </script>
 
 <style scoped>
+.input-wrapper {
+  position: relative;
+  margin-bottom: 48px;
+}
+
+.input-wrapper.error .base-input {
+  border: 1.4px solid red;
+}
+
+.input-wrapper .error-message {
+  color: red;
+  font-size: 12px;
+}
+
 .reminder-message {
   margin-top: 0;
   margin-bottom: 24px;
@@ -114,7 +143,7 @@ export default {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 48px;
+  margin-bottom: 8px;
 }
 
 .verify__number-section input {

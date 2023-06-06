@@ -16,8 +16,11 @@
       "didnt_receive_code": "Не получили код?"
     },
     "validation": {
-      "email": "Поле не должно быть пустым",
-      "password": "Поле не должно быть пустым"
+      "empty_email": "Поле не должно быть пустым",
+      "empty_password": "Поле не должно быть пустым",
+      "incorrect_email": "Неверный email",
+      "incorrect_password": "Неверный пароль",
+      "incorrect_code": "Неверный код"
     }
   },
   "links": {
@@ -51,6 +54,22 @@
       "required_fields" : "(Обязательные поля для заполнения)",
       "enter_your_phone" : "Введите свой номер телефона",
       "can_login_with_phone_number" : "Вы сможете заходить в сеть при помощи вашего номера телефона"
+    },
+    "validation": {
+      "empty_email": "Поле не должно быть пустым",
+      "incorrect_email": "Неверный email",
+      "incorrect_code": "Неверный код",
+      "empty_password": "Поле не должно быть пустым",
+      "empty_name": "Поле не должно быть пустым",
+      "empty_last_name": "Поле не должно быть пустым",
+      "empty_gender": "Поле не должно быть пустым",
+      "incorrect_phone_number": "Неверный номер телефона"
+    }
+  },
+  "forgot_password": {
+    "validation": {
+      "empty_email": "Поле не должно быть пустым",
+      "incorrect_email": "Неверный email"
     }
   },
   "buttons": {

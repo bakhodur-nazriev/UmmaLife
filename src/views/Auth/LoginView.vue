@@ -33,6 +33,12 @@ export default {
     toggleForm () {
       this.selectedForm = this.selectedForm === 'phone' ? 'email' : 'phone'
       sessionStorage.setItem('selectedForm', this.selectedForm)
+    },
+    handleLoginSuccess () {
+      // Логика успешного входа пользователя
+
+      const redirectTo = this.$route.query.redirect || { name: 'home' }
+      this.$router.push(redirectTo)
     }
   },
   created () {

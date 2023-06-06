@@ -27,22 +27,34 @@ export default {
   props: {
     placeholder: String,
     error: Boolean,
-    errorMessage: String
+    errorMessage: String,
+    value: {
+      type: String
+    }
   },
   data () {
     return {
       isPasswordVisible: false,
-      passwordError: false
+      passwordError: false,
+      inputValue: this.value
     }
   },
   methods: {
     togglePasswordVisibility () {
       this.isPasswordVisible = !this.isPasswordVisible
+    },
+    validate () {
+      return this.inputValue.trim() !== ''
+    }
+  },
+  watch: {
+    inputValue () {
+      this.$emit('input', this.inputValue)
     }
   },
   computed: {
     isError () {
-      return this.error && !this.inputValue
+      return !this.validate()
     }
   }
 }

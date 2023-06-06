@@ -52,6 +52,7 @@ export default {
     selectCountry (country) {
       this.selectedCountry = country
       this.isDropdownOpen = false
+      this.$emit('country-selected', country.code)
     }
   },
   mounted () {

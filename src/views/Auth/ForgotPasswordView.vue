@@ -1,21 +1,24 @@
 <template>
   <LayoutAuth>
-    <form-auth>
+    <form-auth @submit="submit">
       <title-sample>{{ $t('login.forgot_password') }}</title-sample>
 
       <h5 class="text-1 roman reminder-message">{{ $t('login.messages.reset_password') }}</h5>
 
-      <sample-input
-        type="email"
-        v-model="email"
-        class="email-input"
-        :placeholder="$t('login.placeholders.email')"
-        :error="emailError"
-        :error-message="$t('login.validation.email')"
-      />
+      <div :class="['input-wrapper', { error: hasError || isInvalidEmail }]">
+        <input
+          type="email"
+          v-model="email"
+          class="base-input"
+          :placeholder="$t('login.placeholders.email')"
+        />
+        <small v-if="hasError || isInvalidEmail" class="error-message">
+          {{ $t(isInvalidEmail ? 'forgot_password.validation.incorrect_email' : 'forgot_password.validation.empty_email') }}
+        </small>
+      </div>
 
       <div class="login-button-section">
-        <sample-button @click="submit" type="submit">{{ $t('buttons.submit') }}</sample-button>
+        <sample-button @click="handleSubmit">{{ $t('buttons.submit') }}</sample-button>
       </div>
     </form-auth>
   </LayoutAuth>
@@ -25,7 +28,6 @@
 import LayoutAuth from '@/components/layouts/LayoutAuth.vue'
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
-import SampleInput from '@/components/ui/SampleInput.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 
 export default {
@@ -33,46 +35,76 @@ export default {
     LayoutAuth,
     FormAuth,
     TitleSample,
-    SampleInput,
     SampleButton
   },
   data () {
     return {
       email: '',
-      emailError: false
+      hasError: false
+    }
+  },
+  watch: {
+    email (newEmail) {
+      if (newEmail.trim() !== '') {
+        this.hasError = false
+      }
+    }
+  },
+  computed: {
+    isInvalidEmail () {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      return this.email.trim() !== '' && !emailRegex.test(this.email)
     }
   },
   methods: {
+    handleSubmit () {
+      if (this.email.trim() === '' || this.isInvalidEmail) {
+        this.hasError = true
+      } else {
+        // Perform form submission logic here
+        // ...
+
+        this.$emit('nextStep')
+      }
+    },
     submit (event) {
       console.log('submit button called')
       event.preventDefault()
-
-      let isValid = true
-
-      if (!this.email) {
-        this.emailError = true
-        isValid = false
-      }
-
-      if (isValid) {
-        console.log('test')
-        // axios
-        //   .post('/')
-        //   .then(res => {
-        //     console.log(res)
-        //   })
-        //   .catch(err => {
-        //     console.log(err)
-        //   })
-      }
+      this.handleSubmit()
     }
   }
 }
 </script>
 
 <style scoped>
-.email-input {
+.input-wrapper {
+  position: relative;
   margin-bottom: 24px;
+}
+
+.input-wrapper.error .base-input {
+  border: 1.4px solid red;
+}
+
+.input-wrapper .error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.base-input {
+  background-color: #f1f1f1;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  font-size: 14px;
+  padding: 16px;
+  color: #1F1F1F;
+  width: 100%;
+}
+
+.base-input::placeholder {
+  color: #B0B0B0;
 }
 
 .reminder-message {

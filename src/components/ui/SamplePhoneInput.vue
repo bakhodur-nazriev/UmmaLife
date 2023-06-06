@@ -1,7 +1,12 @@
 <template>
   <div class="phone__field-section">
-    <sample-selected-country></sample-selected-country>
-    <input class="base-input" type="text" v-model="phoneNumber" :placeholder="$t('login.placeholders.phone')"/>
+    <sample-selected-country @country-selected="handleCountrySelected"></sample-selected-country>
+    <input
+      type="text"
+      class="base-input"
+      v-model="phoneNumber"
+      :placeholder="$t('login.placeholders.phone')"
+    />
   </div>
 </template>
 
@@ -12,8 +17,17 @@ export default {
   components: { SampleSelectedCountry },
   data () {
     return {
-      phoneNumber: ''
+      phoneNumber: '',
+      selectedCountryCode: ''
     }
+  },
+  methods: {
+    handleCountrySelected (countryCode) {
+      this.selectedCountryCode = countryCode
+    }
+  },
+  mounted () {
+    this.handleCountrySelected()
   }
 }
 </script>

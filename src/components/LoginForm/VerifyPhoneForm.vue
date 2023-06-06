@@ -1,22 +1,30 @@
 <template>
-  <form-auth>
+  <form-auth @submit="submit">
     <title-sample>{{ $t('login.title') }}</title-sample>
 
     <h5 class="subhead roman reminder-message">{{ $t('login.messages.verify_with_phone') }}</h5>
 
-    <h5 class="title bold reply__phone-number">+380664561212</h5>
+    <h5 class="title bold reply__phone-number">{{ phoneNumber }}</h5>
 
-    <div class="verify__number-section">
-      <sample-code-number-input @next="focusNextInput" @backspace="clearPreviousInputs" @input="checkCodeFilled"></sample-code-number-input>
-      <sample-code-number-input @next="focusNextInput" @backspace="clearPreviousInputs" @input="checkCodeFilled"></sample-code-number-input>
-      <sample-code-number-input @next="focusNextInput" @backspace="clearPreviousInputs" @input="checkCodeFilled"></sample-code-number-input>
-      <sample-code-number-input @next="focusNextInput" @backspace="clearPreviousInputs" @input="checkCodeFilled"></sample-code-number-input>
-      <sample-code-number-input @next="focusNextInput" @backspace="clearPreviousInputs" @input="checkCodeFilled"></sample-code-number-input>
-      <sample-code-number-input @next="focusNextInput" @backspace="clearPreviousInputs" @input="checkCodeFilled"></sample-code-number-input>
+    <div :class="['input-wrapper', { error: hasError }]">
+      <div class="verify__number-section">
+        <sample-code-number-input
+          v-for="index in 6"
+          :key="index"
+          v-model="code[index-1]"
+          @next="focusNextInput"
+          @backspace="handleBackspace"
+          @input="checkCodeFilled"
+        ></sample-code-number-input>
+      </div>
+      <small v-if="hasError" class="error-message">
+        {{ $t('login.validation.incorrect_code') }}
+      </small>
     </div>
 
     <div class="login__button-section">
       <sample-button
+        @click="handleSubmit"
         :disabled="!isCodeFilled"
         :class="{ 'inActive-button': !isCodeFilled }"
       >{{ $t('buttons.login') }}</sample-button>
@@ -49,34 +57,51 @@ export default {
   },
   data () {
     return {
-      isCodeFilled: false
+      isCodeFilled: false,
+      code: ['', '', '', '', '', ''],
+      hasError: false
+    }
+  },
+  computed: {
+    phoneNumber () {
+      return this.$store.getters.getPhoneNumber
     }
   },
   methods: {
+    handleSubmit () {
+      if (this.code.some(val => val.trim() === '')) {
+        this.hasError = true
+      } else {
+        const fullCode = this.code.join('') // объединение значений кода в одну строку
+        console.log(fullCode)
+        // Perform form submission logic here
+        // ...
+
+        this.$emit('nextStep')
+      }
+    },
+
+    submit (event) {
+      event.preventDefault()
+      this.handleSubmit()
+    },
+
     checkCodeFilled () {
       const inputs = this.$el.querySelectorAll('.verify__number-section input')
       const isFilled = Array.from(inputs).every(input => input.value !== '')
       this.isCodeFilled = isFilled
     },
-    clearPreviousInputs () {
+    handleBackspace () {
       const inputs = this.$el.querySelectorAll('.verify__number-section input')
-      const currentIndex = Array.from(inputs).findIndex((input) => input === document.activeElement)
+      const currentIndex = Array.from(inputs).findIndex(input => input === document.activeElement)
 
-      // Измените условие в цикле for, чтобы он не очищал текущее поле
-      for (let i = currentIndex - 1; i >= 0; i--) {
-        if (inputs[i].value !== '') {
-          inputs[i].value = '' // Очистить предыдущее поле
-        } else {
-          break // Прекратить цикл, если найдено пустое поле
-        }
+      if (currentIndex > 0) {
+        inputs[currentIndex - 1].focus()
       }
     },
     focusNextInput () {
-      // Получить все компоненты sample-input внутри verify__number-section
       const inputs = this.$el.querySelectorAll('.verify__number-section input')
-      // Найти индекс текущего активного input
       const currentIndex = Array.from(inputs).findIndex(input => input === document.activeElement)
-      // Если currentIndex >= 0 и currentIndex < inputs.length - 1, установить фокус на следующий input
       if (currentIndex >= 0 && currentIndex < inputs.length - 1) {
         inputs[currentIndex + 1].focus()
       }
@@ -86,6 +111,20 @@ export default {
 </script>
 
 <style scoped>
+.input-wrapper {
+  position: relative;
+  margin-bottom: 48px;
+}
+
+.input-wrapper.error .base-input {
+  border: 1.4px solid red;
+}
+
+.input-wrapper .error-message {
+  color: red;
+  font-size: 12px;
+}
+
 .inActive-button {
  background-color: #B0B0B0;
 }
@@ -127,7 +166,7 @@ export default {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 48px;
+  margin-bottom: 8px;
 }
 
 .verify__number-section input {
