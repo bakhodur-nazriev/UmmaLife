@@ -3,6 +3,7 @@ module.exports = defineConfig({
   publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
   devServer: {
     historyApiFallback: true,
+    allowedHosts: "all",
   },
   transpileDependencies: true,
 
@@ -42,7 +43,7 @@ module.exports = defineConfig({
       .end();
 
     config.plugin('define').tap((definitions) => {
-      definitions[0]['process.env']['VUE_APP_DOMAIN'] = JSON.stringify(process.env.VUE_APP_DOMAIN_NAME);
+      definitions[0]['process.env']['VUE_APP_DOMAIN_NAME'] = JSON.stringify(process.env.VUE_APP_DOMAIN_NAME);
       return definitions;
     });
   }
