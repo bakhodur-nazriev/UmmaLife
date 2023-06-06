@@ -9,6 +9,7 @@ import TermsView from '../views/TermsView.vue'
 import PrivacyPolicyView from '../views/PrivacyPolicyView.vue'
 import ContactsView from '../views/ContactsView.vue'
 import AboutUs from '../views/AboutUs.vue'
+import store from '@/store/store'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -18,10 +19,7 @@ const routes = [
   {
     path: '/:lang?/',
     name: 'home',
-    component: HomeView,
-    meta: {
-      requiresAuth: true
-    }
+    component: HomeView
   },
   {
     path: '/:lang?/login',
@@ -88,6 +86,19 @@ router.beforeEach((to, from, next) => {
   if (to.params.lang !== lang) {
     const pathWithoutLang = to.path.replace(`/${to.params.lang}`, `/${lang}`)
     return next(`/${lang}${pathWithoutLang}`)
+  }
+
+  // Проверка статуса авторизации
+  const isAuthenticated = store.getters.getAuthenticated
+
+  // Если пользователь авторизован, перенаправляем на главную страницу
+  if (isAuthenticated) {
+    return next('/')
+  }
+
+  // Если пользователь не авторизован, перенаправляем на страницу входа
+  if (!isAuthenticated && to.name !== 'login') {
+    return next('/login')
   }
 
   return next()

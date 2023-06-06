@@ -4,7 +4,8 @@ const store = createStore({
   state () {
     return {
       email: '',
-      phoneNumber: ''
+      phoneNumber: '',
+      isAuthenticated: false
     }
   },
   getters: {
@@ -13,6 +14,9 @@ const store = createStore({
     },
     getPhoneNumber (state) {
       return state.phoneNumber
+    },
+    getAuthenticated (state) {
+      return state.isAuthenticated
     }
   },
   mutations: {
@@ -21,7 +25,14 @@ const store = createStore({
     },
     setPhoneNumber (state, phoneNumber) {
       state.phoneNumber = phoneNumber
+    },
+    setAuthenticated (state, isAuthenticated) {
+      state.isAuthenticated = isAuthenticated
     }
+  },
+  actions: {
+    login () {},
+    logout () {}
   }
 })
 export default store
