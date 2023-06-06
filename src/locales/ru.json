@@ -19,7 +19,8 @@
       "empty_email": "Поле не должно быть пустым",
       "empty_password": "Поле не должно быть пустым",
       "incorrect_email": "Неверный email",
-      "incorrect_password": "Неверный пароль"
+      "incorrect_password": "Неверный пароль",
+      "incorrect_code": "Неверный код"
     }
   },
   "links": {
@@ -63,6 +64,12 @@
       "empty_last_name": "Поле не должно быть пустым",
       "empty_gender": "Поле не должно быть пустым",
       "incorrect_phone_number": "Неверный номер телефона"
+    }
+  },
+  "forgot_password": {
+    "validation": {
+      "empty_email": "Поле не должно быть пустым",
+      "incorrect_email": "Неверный email"
     }
   },
   "buttons": {

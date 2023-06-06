@@ -19,7 +19,8 @@
       "empty_email": "The field must not be empty",
       "empty_password": "The field must not be empty",
       "incorrect_email": "Invalid email",
-      "incorrect_password": "Invalid password"
+      "incorrect_password": "Invalid password",
+      "incorrect_code": "Invalid code"
     }
   },
   "links": {
@@ -61,6 +62,12 @@
       "empty_password": "The field must not be empty",
       "empty_gender": "The field must not be empty",
       "incorrect_phone_number": "Incorrect phone number"
+    }
+  },
+  "forgot_password": {
+    "validation": {
+      "empty_email": "The field must not be empty",
+      "incorrect_email": "Incorrect email"
     }
   },
   "buttons": {

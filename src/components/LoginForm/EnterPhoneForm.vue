@@ -1,31 +1,38 @@
 <template>
-  <form-auth>
+  <form-auth @submit="submit">
     <title-sample>{{ $t('login.title') }}</title-sample>
     <div class="sample__phone-input">
-      <div class="phone__field-section">
-        <div class="country-select">
-          <div class="country-select-button" @click="toggleDropdown">
-            <img :src="selectedCountry.flag" :alt="selectedCountry.name" class="flag-icon"/>
-            <span class="country-code">{{ selectedCountry.code }}</span>
-            <dropdown-icon class="locales__icon locales__icon--dropdown"/>
+
+      <div :class="['input-wrapper', { error: hasError }]">
+        <div class="phone__field-section">
+          <div class="country-select">
+            <div class="country-select-button" @click="toggleDropdown">
+              <img :src="selectedCountry.flag" :alt="selectedCountry.name" class="flag-icon"/>
+              <span class="country-code">{{ selectedCountry.code }}</span>
+              <dropdown-icon class="locales__icon locales__icon--dropdown"/>
+            </div>
+            <div v-if="isDropdownOpen" class="country-dropdown">
+              <ul>
+                <li v-for="country in countries" :key="country.code" @click="selectCountry(country)">
+                  <img :src="country.flag" :alt="country.name" class="flag-icon"/>
+                  <span class="country-code">{{ country.name }}</span>
+                  <span class="country-code">{{ country.code }}</span>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div v-if="isDropdownOpen" class="country-dropdown">
-            <ul>
-              <li v-for="country in countries" :key="country.code" @click="selectCountry(country)">
-                <img :src="country.flag" :alt="country.name" class="flag-icon"/>
-                <span class="country-code">{{ country.name }}</span>
-                <span class="country-code">{{ country.code }}</span>
-              </li>
-            </ul>
-          </div>
+          <input
+            type="tel"
+            class="base-input"
+            v-model="phoneNumber"
+            :placeholder="$t('login.placeholders.phone')"
+          />
         </div>
-        <input
-          type="tel"
-          class="base-input"
-          v-model="phoneNumber"
-          :placeholder="$t('login.placeholders.phone')"
-        />
+        <small v-if="hasError" class="error-message">
+          {{ $t('register.validation.incorrect_phone_number') }}
+        </small>
       </div>
+
     </div>
     <div class="login-button-section">
       <sample-button @click="handleSubmit">{{ $t('buttons.login') }}</sample-button>
@@ -58,13 +65,17 @@ export default {
       phoneNumber: '',
       countries: [],
       selectedCountry: { name: '', code: '', flag: '' },
-      isDropdownOpen: false
+      isDropdownOpen: false,
+      hasError: false
     }
   },
   watch: {
     phoneNumber (newPhoneNumber) {
       const fullPhoneNumber = this.selectedCountry.code + newPhoneNumber
       this.$store.commit('setPhoneNumber', fullPhoneNumber)
+      if (newPhoneNumber.trim() !== '') {
+        this.hasError = false
+      }
     }
   },
   methods: {
@@ -91,8 +102,18 @@ export default {
       this.isDropdownOpen = false
     },
     handleSubmit () {
+      this.hasError = this.phoneNumber.trim() === ''
+
+      if (this.hasError) {
+        return
+      }
+
       this.phoneNumber = this.selectedCountry.code + this.phoneNumber
       this.$emit('nextStep')
+    },
+    submit (event) {
+      console.log('submit button called')
+      event.preventDefault()
     }
   },
   mounted () {
@@ -102,6 +123,21 @@ export default {
 </script>
 
 <style scoped>
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper.error .phone__field-section {
+  border: 1.4px solid red;
+  border-radius: 10px;
+}
+
+.input-wrapper .error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
 .create-account-link {
   text-decoration: none;
   text-align: center;
