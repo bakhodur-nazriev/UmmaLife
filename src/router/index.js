@@ -91,17 +91,21 @@ router.beforeEach((to, from, next) => {
   // Проверка статуса авторизации
   const isAuthenticated = store.getters.getAuthenticated
 
+  // Роуты, на которых разрешено продолжить навигацию для неавторизованных пользователей
+  const allowedRoutes = ['login', 'register', 'forgot-password']
+
   // Если пользователь авторизован, перенаправляем на главную страницу
   if (isAuthenticated) {
     return next('/')
   }
 
-  // Если пользователь не авторизован, перенаправляем на страницу входа
-  if (!isAuthenticated && to.name !== 'login') {
-    return next('/login')
+  // Если пользователь не авторизован и находится на разрешенных роутах, разрешаем продолжить навигацию
+  if (!isAuthenticated && allowedRoutes.includes(to.name)) {
+    return next()
   }
 
-  return next()
+  // Если пользователь не авторизован и находится на других роутах, перенаправляем на страницу входа
+  return next('/login')
 })
 
 export default router
