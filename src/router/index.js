@@ -8,7 +8,18 @@ import ForgotPasswordView from '../views/Auth/ForgotPasswordView.vue'
 import TermsView from '../views/TermsView.vue'
 import PrivacyPolicyView from '../views/PrivacyPolicyView.vue'
 import ContactsView from '../views/ContactsView.vue'
-import AboutUs from '../views/AboutUs.vue'
+import AboutUs from '../views/AboutUsView.vue'
+import MessengerView from '@/views/MessengerView.vue'
+import ArticlesView from '@/views/ArticlesView.vue'
+import LibraryView from '@/views/LibraryView.vue'
+import MarriageAgencyView from '@/views/MarriageAgencyView.vue'
+import MyAlbumsView from '@/views/MyAlbumsView.vue'
+import MyAudiosView from '@/views/MyAudiosView.vue'
+import MyGroupsView from '@/views/MyGroupsView.vue'
+import MyPageView from '@/views/MyPageView.vue'
+import NewsView from '@/views/NewsView.vue'
+import SavedView from '@/views/SavedView.vue'
+import VideoView from '@/views/VideoView.vue'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -57,6 +68,66 @@ const routes = [
     path: '/:lang?/about-us',
     name: 'about-us',
     component: AboutUs
+  },
+  {
+    path: '/:lang?/articles',
+    name: 'articles',
+    component: ArticlesView
+  },
+  {
+    path: '/:lang?/library',
+    name: 'library',
+    component: LibraryView
+  },
+  {
+    path: '/:lang?/marriage-agency',
+    name: 'marriage-agency',
+    component: MarriageAgencyView
+  },
+  {
+    path: '/:lang?/my-albums',
+    name: 'my-albums',
+    component: MyAlbumsView
+  },
+  {
+    path: '/:lang?/messenger',
+    name: 'messenger',
+    component: MessengerView
+  },
+  {
+    path: '/:lang?/my-albums',
+    name: 'my-albums',
+    component: MyAlbumsView
+  },
+  {
+    path: '/:lang?/my-audios',
+    name: 'my-audios',
+    component: MyAudiosView
+  },
+  {
+    path: '/:lang?/my-groups',
+    name: 'my-groups',
+    component: MyGroupsView
+  },
+  {
+    path: '/:lang?/my-page',
+    name: 'my-page',
+    component: MyPageView
+  },
+  {
+    path: '/:lang?/news',
+    name: 'news',
+    component: NewsView
+  },
+  {
+    path: '/:lang?/saved',
+    name: 'saved',
+    component: SavedView
+  },
+  {
+    path: '/:lang?/video',
+    name: 'video',
+    component: VideoView
   }
 ]
 
