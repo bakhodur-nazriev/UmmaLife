@@ -109,7 +109,7 @@ export default {
       }
 
       this.phoneNumber = this.selectedCountry.code + this.phoneNumber
-      this.$emit('nextStep')
+      this.$emit('next-step')
     },
     submit (event) {
       console.log('submit button called')
