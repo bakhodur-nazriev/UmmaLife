@@ -29,7 +29,18 @@
     "contacts": "Контакты",
     "about_us": "О нас",
     "resend" : "Отправить повторно",
-    "skip": "Пропустить"
+    "skip": "Пропустить",
+    "news": "Новости",
+    "my_page": "Моя страница",
+    "messenger": "Мессенджер",
+    "my_groups": "Мои группы",
+    "my_albums": "Мои альбомы",
+    "my_audio": "Мои аудио",
+    "saved": "Сохраненное",
+    "articles": "Статьи",
+    "video": "Видео",
+    "library": "Библиотека",
+    "marriage_agency": "Брачное агенство"
   },
   "register": {
     "title": "Регистрация",
@@ -76,7 +87,8 @@
     "login": "Войти",
     "get_code_by_email": "Получить код на почту",
     "next": "Далее",
-    "submit": "Отправить"
+    "submit": "Отправить",
+    "create": "+ Создать"
   },
   "languages": {
     "title": "Русский",
@@ -89,5 +101,12 @@
       "indonesia": "Bahasa Indonesia",
       "malay": "Melayu"
     }
+  },
+  "placeholders": {
+    "search_input": "Поиск"
+  },
+  "toggle_theme": {
+    "dark": "Dark",
+    "light": "Light"
   }
 }

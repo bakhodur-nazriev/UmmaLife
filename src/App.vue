@@ -1,18 +1,15 @@
 <template>
-  <router-view/>
+  <main-layout></main-layout>
 </template>
 
 <script>
-// export default {
-//   methods: {
-//     isLoggedIn () {
-//       return false
-//     }
-//   },
-//   created () {
-//     if (!this.isLoggedIn() && this.$route.name !== 'login') {
-//       this.$router.push({ name: 'login' })
-//     }
-//   }
-// }
+import MainLayout from '@/components/layouts/MainLayout.vue'
+
+export default {
+  components: { MainLayout }
+}
 </script>
+
+<style scoped>
+
+</style>

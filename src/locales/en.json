@@ -29,7 +29,18 @@
     "contacts": "Contacts",
     "about_us": "About Us",
     "resend": "Resend",
-    "skip": "Skip"
+    "skip": "Skip",
+    "news": "News",
+    "my_page": "My Page",
+    "messenger": "Messenger",
+    "my_groups": "My groups",
+    "my_albums": "My albums",
+    "my_audio": "My audio",
+    "saved": "Saved",
+    "articles": "Articles",
+    "video": "Video",
+    "library": "Library",
+    "marriage_agency": "Marriage agency"
   },
   "register": {
     "title": "Registration",
@@ -74,7 +85,8 @@
     "login": "Login",
     "get_code_by_email": "Get code by email",
     "next": "Next",
-    "submit": "Submit"
+    "submit": "Submit",
+    "create": "+ Create"
   },
   "languages": {
     "title": "English",
@@ -87,5 +99,8 @@
       "indonesia": "Bahasa Indonesia",
       "malay": "Melayu"
     }
+  },
+  "placeholders": {
+    "search_input": "Search"
   }
 }

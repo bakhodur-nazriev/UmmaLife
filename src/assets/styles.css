@@ -9,10 +9,27 @@
     font-style: normal;
 }
 
+/* White Theme */
 :root {
-    --base-black: #000;
-    --base-white: #fff;
-    --base-primary: #49A399;
+    --color-primary: #1F1F1F;
+    --color-secondary: #D94B4B;
+    --color-background: #F1F1F1;
+    --color-text: #F0F0F0;
+    --color-accent: #49A399;
+    /* Дополнительные переменные в соответствии с вашими цветами */
+
+    --tablet-width: 768px;
+    --desktop-width: 1200px;
+}
+
+/* Black Theme */
+:root[data-theme="dark"] {
+    --color-primary: #FFFFFF;
+    --color-secondary: #D94B4B;
+    --color-background: #1F1F1F;
+    --color-text: #434953;
+    --color-accent: #49A399;
+    /* Дополнительные переменные в соответствии с вашими цветами */
 
     --tablet-width: 768px;
     --desktop-width: 1200px;

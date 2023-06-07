@@ -20,6 +20,7 @@ import MyPageView from '@/views/MyPageView.vue'
 import NewsView from '@/views/NewsView.vue'
 import SavedView from '@/views/SavedView.vue'
 import VideoView from '@/views/VideoView.vue'
+import SettingsView from '@/views/SettingsView.vue'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -31,103 +32,160 @@ const routes = [
     name: 'home',
     component: HomeView,
     meta: {
-      requiresAuth: true
+      title: 'Home'
     }
   },
   {
     path: '/:lang?/login',
     name: 'login',
-    component: LoginView
+    component: LoginView,
+    meta: {
+      title: 'Login'
+    }
   },
   {
     path: '/:lang?/register',
     name: 'register',
-    component: RegisterView
+    component: RegisterView,
+    meta: {
+      title: 'Register'
+    }
   },
   {
     path: '/:lang?/forgot-password',
     name: 'forgot-password',
-    component: ForgotPasswordView
+    component: ForgotPasswordView,
+    meta: {
+      title: 'Forgot Password'
+    }
   },
   {
     path: '/:lang?/terms',
     name: 'terms',
-    component: TermsView
+    component: TermsView,
+    meta: {
+      title: 'Terms'
+    }
   },
   {
     path: '/:lang?/privacy-policy',
     name: 'privacy-policy',
-    component: PrivacyPolicyView
+    component: PrivacyPolicyView,
+    meta: {
+      title: 'Privacy Policy'
+    }
   },
   {
     path: '/:lang?/contacts',
     name: 'contacts',
-    component: ContactsView
+    component: ContactsView,
+    meta: {
+      title: 'Contacts'
+    }
   },
   {
     path: '/:lang?/about-us',
     name: 'about-us',
-    component: AboutUs
+    component: AboutUs,
+    meta: {
+      title: 'About Us'
+    }
   },
   {
     path: '/:lang?/articles',
     name: 'articles',
-    component: ArticlesView
+    component: ArticlesView,
+    meta: {
+      title: 'Articles'
+    }
   },
   {
     path: '/:lang?/library',
     name: 'library',
-    component: LibraryView
+    component: LibraryView,
+    meta: {
+      title: 'Library'
+    }
   },
   {
     path: '/:lang?/marriage-agency',
     name: 'marriage-agency',
-    component: MarriageAgencyView
+    component: MarriageAgencyView,
+    meta: {
+      title: 'Marriage Agency'
+    }
   },
   {
     path: '/:lang?/my-albums',
     name: 'my-albums',
-    component: MyAlbumsView
+    component: MyAlbumsView,
+    meta: {
+      title: 'My Albums'
+    }
   },
   {
     path: '/:lang?/messenger',
     name: 'messenger',
-    component: MessengerView
+    component: MessengerView,
+    meta: {
+      title: 'Messenger'
+    }
   },
   {
-    path: '/:lang?/my-albums',
-    name: 'my-albums',
-    component: MyAlbumsView
-  },
-  {
-    path: '/:lang?/my-audios',
-    name: 'my-audios',
-    component: MyAudiosView
+    path: '/:lang?/my-audio',
+    name: 'my-audio',
+    component: MyAudiosView,
+    meta: {
+      title: 'My Audio'
+    }
   },
   {
     path: '/:lang?/my-groups',
     name: 'my-groups',
-    component: MyGroupsView
+    component: MyGroupsView,
+    meta: {
+      title: 'My Groups'
+    }
   },
   {
     path: '/:lang?/my-page',
     name: 'my-page',
-    component: MyPageView
+    component: MyPageView,
+    meta: {
+      title: 'My Page'
+    }
   },
   {
     path: '/:lang?/news',
     name: 'news',
-    component: NewsView
+    component: NewsView,
+    meta: {
+      title: 'News'
+    }
   },
   {
     path: '/:lang?/saved',
     name: 'saved',
-    component: SavedView
+    component: SavedView,
+    meta: {
+      title: 'Saved'
+    }
   },
   {
     path: '/:lang?/video',
     name: 'video',
-    component: VideoView
+    component: VideoView,
+    meta: {
+      title: 'Video'
+    }
+  },
+  {
+    path: '/:lang?/settings',
+    name: 'settings',
+    component: SettingsView,
+    meta: {
+      title: 'Settings'
+    }
   }
 ]
 
@@ -160,6 +218,8 @@ router.beforeEach((to, from, next) => {
     const pathWithoutLang = to.path.replace(`/${to.params.lang}`, `/${lang}`)
     return next(`/${lang}${pathWithoutLang}`)
   }
+
+  document.title = `${to.meta.title}`
 
   return next()
 })
