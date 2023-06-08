@@ -1,4 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
+/* eslint-disable */
+import { createRouter, createWebHistory } from "vue-router";
 import i18n from '@/i18n'
 import { supportedLanguages } from '@/constants'
 import HomeView from '../views/HomeView.vue'
@@ -23,7 +24,6 @@ import VideoView from '@/views/VideoView.vue'
 import SettingsView from '@/views/SettingsView.vue'
 
 const isProduction = process.env.NODE_ENV === 'production'
-
 const baseDomain = isProduction ? 'front1.ummalife.dev' : 'localhost'
 
 const routes = [
@@ -32,7 +32,7 @@ const routes = [
     name: 'home',
     component: HomeView,
     meta: {
-      title: 'Home'
+      title: i18n.global.t('meta_title.home')
     }
   },
   {
@@ -40,7 +40,7 @@ const routes = [
     name: 'login',
     component: LoginView,
     meta: {
-      title: 'Login'
+      title: i18n.global.t('meta_title.login')
     }
   },
   {
@@ -48,7 +48,7 @@ const routes = [
     name: 'register',
     component: RegisterView,
     meta: {
-      title: 'Register'
+      title: i18n.global.t('meta_title.register')
     }
   },
   {
@@ -56,7 +56,7 @@ const routes = [
     name: 'forgot-password',
     component: ForgotPasswordView,
     meta: {
-      title: 'Forgot Password'
+      title: i18n.global.t('meta_title.forgot_password')
     }
   },
   {
@@ -64,7 +64,7 @@ const routes = [
     name: 'terms',
     component: TermsView,
     meta: {
-      title: 'Terms'
+      title: i18n.global.t('meta_title.terms')
     }
   },
   {
@@ -72,7 +72,7 @@ const routes = [
     name: 'privacy-policy',
     component: PrivacyPolicyView,
     meta: {
-      title: 'Privacy Policy'
+      title: i18n.global.t('meta_title.privacy_policy')
     }
   },
   {
@@ -80,7 +80,7 @@ const routes = [
     name: 'contacts',
     component: ContactsView,
     meta: {
-      title: 'Contacts'
+      title: i18n.global.t('meta_title.contacts')
     }
   },
   {
@@ -88,7 +88,7 @@ const routes = [
     name: 'about-us',
     component: AboutUs,
     meta: {
-      title: 'About Us'
+      title: i18n.global.t('meta_title.about_us')
     }
   },
   {
@@ -96,7 +96,7 @@ const routes = [
     name: 'articles',
     component: ArticlesView,
     meta: {
-      title: 'Articles'
+      title: i18n.global.t('meta_title.articles')
     }
   },
   {
@@ -104,7 +104,7 @@ const routes = [
     name: 'library',
     component: LibraryView,
     meta: {
-      title: 'Library'
+      title: i18n.global.t('meta_title.library')
     }
   },
   {
@@ -112,7 +112,7 @@ const routes = [
     name: 'marriage-agency',
     component: MarriageAgencyView,
     meta: {
-      title: 'Marriage Agency'
+      title: i18n.global.t('meta_title.marriage_agency')
     }
   },
   {
@@ -120,7 +120,7 @@ const routes = [
     name: 'my-albums',
     component: MyAlbumsView,
     meta: {
-      title: 'My Albums'
+      title: i18n.global.t('meta_title.my_albums')
     }
   },
   {
@@ -128,7 +128,7 @@ const routes = [
     name: 'messenger',
     component: MessengerView,
     meta: {
-      title: 'Messenger'
+      title: i18n.global.t('meta_title.messenger')
     }
   },
   {
@@ -136,7 +136,7 @@ const routes = [
     name: 'my-audio',
     component: MyAudiosView,
     meta: {
-      title: 'My Audio'
+      title: i18n.global.t('meta_title.my_audio')
     }
   },
   {
@@ -144,7 +144,7 @@ const routes = [
     name: 'my-groups',
     component: MyGroupsView,
     meta: {
-      title: 'My Groups'
+      title: i18n.global.t('meta_title.my_groups')
     }
   },
   {
@@ -152,7 +152,7 @@ const routes = [
     name: 'my-page',
     component: MyPageView,
     meta: {
-      title: 'My Page'
+      title: i18n.global.t('meta_title.my_page')
     }
   },
   {
@@ -160,7 +160,7 @@ const routes = [
     name: 'news',
     component: NewsView,
     meta: {
-      title: 'News'
+      title: i18n.global.t('meta_title.news')
     }
   },
   {
@@ -168,7 +168,7 @@ const routes = [
     name: 'saved',
     component: SavedView,
     meta: {
-      title: 'Saved'
+      title: i18n.global.t('meta_title.saved')
     }
   },
   {
@@ -176,7 +176,7 @@ const routes = [
     name: 'video',
     component: VideoView,
     meta: {
-      title: 'Video'
+      title: i18n.global.t('meta_title.video')
     }
   },
   {
@@ -184,7 +184,7 @@ const routes = [
     name: 'settings',
     component: SettingsView,
     meta: {
-      title: 'Settings'
+      title: i18n.global.t('meta_title.settings')
     }
   }
 ]
@@ -216,10 +216,10 @@ router.beforeEach((to, from, next) => {
   // Если язык в URL не совпадает с текущим языком, перенаправляем на правильный URL
   if (to.params.lang !== lang) {
     const pathWithoutLang = to.path.replace(`/${to.params.lang}`, `/${lang}`)
-    return next(`/${lang}${pathWithoutLang}`)
+    return next({ path: `/${lang}${pathWithoutLang}`, params: { lang } })
   }
 
-  document.title = `${to.meta.title}`
+  document.title = `${to.meta.title} | ${process.env.VUE_APP_TITLE}`
 
   return next()
 })

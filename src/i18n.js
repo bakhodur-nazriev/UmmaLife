@@ -16,12 +16,6 @@ function loadLocaleMessages () {
 
 const userLanguage = getUserLanguage()
 
-const i18n = createI18n({
-  locale: userLanguage || 'ru',
-  fallbackLocale: 'en',
-  messages: loadLocaleMessages()
-})
-
 function getUserLanguage () {
   const userLang = navigator.language.substring(0, 2)
   if (supportedLanguages.includes(userLang)) {
@@ -29,5 +23,11 @@ function getUserLanguage () {
   }
   return null
 }
+
+const i18n = createI18n({
+  locale: userLanguage || 'ru',
+  fallbackLocale: 'en',
+  messages: loadLocaleMessages()
+})
 
 export default i18n

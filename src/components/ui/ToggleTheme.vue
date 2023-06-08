@@ -1,22 +1,24 @@
 <template>
   <div class="toggle__block">
     <button
+      v-if="!isSidebarCollapsed || selectedTheme === 'light'"
       type="button"
       class="toggle__button"
-      :class="{ active: selectedTheme === 'light' }"
-      @click="toggleTheme('light')"
+      :class="{ active: selectedTheme === 'light', 'collapsed': isSidebarCollapsed }"
+      @click="toggleTheme(!isSidebarCollapsed ? 'light' : 'dark')"
     >
       <sunny-icon class="toggle__button--icon"></sunny-icon>
-      {{ $t('toggle_theme.light') }}
+      {{ isSidebarCollapsed ? '' : $t('buttons.toggle_theme.light') }}
     </button>
     <button
+      v-if="!isSidebarCollapsed || selectedTheme === 'dark'"
       type="button"
       class="toggle__button"
-      :class="{ active: selectedTheme === 'dark' }"
-      @click="toggleTheme('dark')"
+      :class="{ active: selectedTheme === 'dark', 'collapsed': isSidebarCollapsed }"
+      @click="toggleTheme(!isSidebarCollapsed ? 'dark' : 'light')"
     >
       <moon-icon class="toggle__button--icon"></moon-icon>
-      {{ $t('toggle_theme.dark') }}
+      {{ isSidebarCollapsed ? '' : $t('buttons.toggle_theme.dark') }}
     </button>
   </div>
 </template>
@@ -30,6 +32,12 @@ export default {
     MoonIcon,
     SunnyIcon
   },
+  props: {
+    isSidebarCollapsed: {
+      type: Boolean,
+      required: true
+    }
+  },
   data () {
     return {
       selectedTheme: 'light' // Изначально выбрана светлая тема
@@ -37,9 +45,11 @@ export default {
   },
   methods: {
     toggleTheme (theme) {
-      this.selectedTheme = theme
-      // Здесь вы можете вызвать соответствующую функцию для изменения темы
-      // Например, можете использовать Vuex для хранения выбранной темы и применения ее в приложении
+      if (this.selectedTheme === theme && !this.isSidebarCollapsed) {
+        this.selectedTheme = null
+      } else {
+        this.selectedTheme = theme
+      }
     }
   }
 }
@@ -66,8 +76,29 @@ export default {
   transition: background-color 0.4s;
 }
 
+.toggle__button.collapsed {
+  width: 100%;
+}
+
+.toggle__button.collapsed .toggle__button--icon {
+  margin-right: 0;
+}
+
 .toggle__button.active {
   background-color: #ffffff;
+  color: #000;
+}
+
+.toggle__button {
+  color: #B0B0B0;
+}
+
+.toggle__button .toggle__button--icon {
+  color: #B0B0B0;
+}
+
+.toggle__button.active .toggle__button--icon {
+  color: #00819D;
 }
 
 .toggle__button--icon {

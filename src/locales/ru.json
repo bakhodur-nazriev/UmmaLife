@@ -1,4 +1,27 @@
 {
+  "lang": "ru",
+  "meta_title": {
+    "home": "Главная",
+    "login": "Логин",
+    "register": "Регистрация",
+    "forgot_password": "Забыл пароль",
+    "terms": "Условия",
+    "privacy_policy": "Политика",
+    "contacts": "Контакты",
+    "about_us": "О нас",
+    "articles": "Статьи",
+    "library": "Библиотека",
+    "marriage_agency": "Брачное агенство",
+    "my_albums": "Мои альбомы",
+    "messenger": "Мессенджер",
+    "my_audio": "Мои альбомы",
+    "my_groups": "Мои группы",
+    "my_page": "Моя страница",
+    "news": "Новости",
+    "saved": "Сохраненное",
+    "video": "Видео",
+    "settings": "Настройки"
+  },
   "login": {
     "title": "Вход",
     "placeholders": {
@@ -88,7 +111,11 @@
     "get_code_by_email": "Получить код на почту",
     "next": "Далее",
     "submit": "Отправить",
-    "create": "+ Создать"
+    "create": "+ Создать",
+    "toggle_theme": {
+      "dark": "Dark",
+      "light": "Light"
+    }
   },
   "languages": {
     "title": "Русский",
@@ -104,9 +131,5 @@
   },
   "placeholders": {
     "search_input": "Поиск"
-  },
-  "toggle_theme": {
-    "dark": "Dark",
-    "light": "Light"
   }
 }

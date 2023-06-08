@@ -31,6 +31,29 @@ export default {
   color: #B0B0B0;
 }
 
+@media (min-width: 768px) {
+  .main__search--block {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search__icon {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
+    display: flex;
+  }
+
+  .base__search--input {
+    border-radius: 50px;
+    width: 300px;
+    font-size: 16px;
+    padding: 12px 12px 12px 48px;
+  }
+}
+
 @media (min-width: 1280px) {
   .main__search--block {
     position: relative;

@@ -1,46 +1,44 @@
 <template>
   <header class="header">
     <nav class="navbar">
-      <div>
-        <button type="button" class="menu__button">
+      <div class="right__nav--side">
+        <button type="button" class="menu__button" @click="toggleSidebar">
           <menu-icon></menu-icon>
         </button>
-      </div>
-      <div>
         <main-page-logo class="main__logo"></main-page-logo>
-      </div>
-      <div>
         <sample-button class="create__button">{{ $t('buttons.create') }}</sample-button>
       </div>
       <div>
         <search-input :placeholder="$t('placeholders.search_input')"></search-input>
       </div>
-      <ul class="navbar__right--buttons">
-        <li class="music__button">
-          <music-icon></music-icon>
-        </li>
-        <li class="email__button">
-          <email-icon></email-icon>
-        </li>
-        <li class="notification__button">
-          <notification-icon></notification-icon>
-        </li>
-        <router-link :to="`/${$i18n.locale}/settings`">
-          <li class="settings__button">
-            <setting-icon></setting-icon>
+      <div class="right__nav--side">
+        <ul class="navbar__right--buttons">
+          <li class="music__button">
+            <music-icon></music-icon>
           </li>
-        </router-link>
-      </ul>
-      <div class="user__menu--block">
-        <div class="profile__image">
-          <img
-            src="@/assets/images/woman.svg"
-            alt="avatar-logo"
-            width="48"
-            height="48"
-          >
+          <li class="email__button">
+            <email-icon></email-icon>
+          </li>
+          <li class="notification__button">
+            <notification-icon></notification-icon>
+          </li>
+          <router-link :to="`/${$i18n.locale}/settings`">
+            <li class="settings__button">
+              <setting-icon></setting-icon>
+            </li>
+          </router-link>
+        </ul>
+        <div class="user__menu--block">
+          <div class="profile__image">
+            <img
+              src="@/assets/images/woman.svg"
+              alt="avatar-logo"
+              width="48"
+              height="48"
+            >
+          </div>
+          <arrow-icon class="dropdown__icon"></arrow-icon>
         </div>
-        <arrow-icon class="dropdown__icon"></arrow-icon>
       </div>
     </nav>
   </header>
@@ -68,6 +66,16 @@ export default {
     SearchInput,
     SampleButton,
     MainPageLogo
+  },
+  data () {
+    return {
+      isMenuOpen: false
+    }
+  },
+  methods: {
+    toggleSidebar () {
+      this.$emit('toggle-sidebar')
+    }
   }
 }
 </script>
@@ -76,7 +84,7 @@ export default {
 .navbar {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   position: fixed;
   height: 80px;
   top: 0;
@@ -84,6 +92,15 @@ export default {
   transform: translateY(0);
   transition: transform 0.3s ease;
   background-color: #fff;
+}
+
+.right__nav--side {
+  display: flex;
+}
+
+.right__nav--side {
+  display: flex;
+  align-items: center;
 }
 
 .navbar__right--buttons {
@@ -118,6 +135,11 @@ export default {
 
 .menu__button {
   background-color: #fff;
+  margin: 24px;
+}
+
+.main__logo {
+  margin-right: 100px;
 }
 
 .create__button {
