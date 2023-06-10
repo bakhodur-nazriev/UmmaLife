@@ -4,7 +4,8 @@ const store = createStore({
   state () {
     return {
       email: '',
-      phoneNumber: ''
+      phoneNumber: '',
+      selectedTheme: 'light'
     }
   },
   getters: {
@@ -13,6 +14,9 @@ const store = createStore({
     },
     getPhoneNumber (state) {
       return state.phoneNumber
+    },
+    getSelectedTheme (state) {
+      return state.selectedTheme
     }
   },
   mutations: {
@@ -21,6 +25,15 @@ const store = createStore({
     },
     setPhoneNumber (state, phoneNumber) {
       state.phoneNumber = phoneNumber
+    },
+    setSelectedTheme (state, selectedTheme) {
+      state.selectedTheme = selectedTheme
+    }
+  },
+  actions: {
+    toggleTheme ({ commit, state }) {
+      const newTheme = state.selectedTheme === 'light' ? 'dark' : 'light'
+      commit('setSelectedTheme', newTheme)
     }
   }
 })

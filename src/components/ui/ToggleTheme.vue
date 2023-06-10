@@ -39,16 +39,24 @@ export default {
     }
   },
   data () {
-    return {
-      selectedTheme: 'light' // Изначально выбрана светлая тема
+    return {}
+  },
+  computed: {
+    selectedTheme: {
+      get () {
+        return this.$store.state.selectedTheme
+      },
+      set (theme) {
+        this.$store.commit('setSelectedTheme', theme)
+      }
     }
   },
   methods: {
     toggleTheme (theme) {
       if (this.selectedTheme === theme && !this.isSidebarCollapsed) {
-        this.selectedTheme = null
+        this.$store.commit('setSelectedTheme', null)
       } else {
-        this.selectedTheme = theme
+        this.$store.commit('setSelectedTheme', theme)
       }
     }
   }
@@ -58,7 +66,7 @@ export default {
 <style scoped>
 .toggle__block {
   display: flex;
-  background-color: var(--color-background);
+  background-color: var(--color-divider);
   padding: 2px;
   height: 44px;
   border-radius: 8px;

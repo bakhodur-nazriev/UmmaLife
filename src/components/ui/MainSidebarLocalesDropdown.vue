@@ -1,12 +1,13 @@
 <template>
-  <div class="main__sidebar--locales" ref="container">
+  <div ref="container" class="main__sidebar--locales">
     <button
       type="button"
       class="locales__button"
+      :class="{ active: isSidebarCollapsed }"
       @click="handleButtonClick"
     >
       <global-icon class="locales__icon"/>
-      <span class="dropdown__locale-title">{{ currentLanguageName }}</span>
+      <span v-if="!isSidebarCollapsed" class="dropdown__locale-title">{{ currentLanguageName }}</span>
       <dropdown-icon class="locales__icon locales__icon--dropdown"/>
     </button>
     <ul class="locales__list" :data-locale="$t('languages.title')">
@@ -42,6 +43,12 @@ import GlobalIcon from '@/components/icons/GlobalIcon.vue'
 export default {
   components: {
     GlobalIcon, DropdownIcon
+  },
+  props: {
+    isSidebarCollapsed: {
+      type: Boolean,
+      required: true
+    }
   },
   computed: {
     currentLanguageName () {
@@ -112,7 +119,7 @@ export default {
   display: flex;
   align-items: center;
   background-color: white;
-  border: 1px solid #F1F1F1;
+  border: 2px solid #F1F1F1;
   border-radius: 20px;
   min-height: 40px;
   padding: 8px 16px;
@@ -123,6 +130,12 @@ export default {
   width: 155px;
   cursor: pointer;
   z-index: 3;
+}
+
+.locales__button.active {
+  width: 60px;
+  height: 40px;
+  padding: 8px;
 }
 
 .locales__button span {
@@ -136,7 +149,8 @@ export default {
 .locales__icon {
   display: inline-block;
   min-width: max-content;
-  color: #b0b0b0
+  color: #b0b0b0;
+  transform: rotate(180deg);
 }
 
 .locales__icon--dropdown {
@@ -145,9 +159,10 @@ export default {
 }
 
 .locales--shown .locales__icon--dropdown {
-  transform: scaleY(-1);
+  transform: rotate(180deg) scaleY(-1);
 }
 
+/*
 .locales__list {
   display: flex;
   opacity: 0;
@@ -165,6 +180,7 @@ export default {
   gap: 4px;
   z-index: 3;
 }
+*/
 
 .locales--shown .locales__list {
   transform: translateY(-100%);
@@ -197,7 +213,7 @@ export default {
   line-height: 1.2;
 }
 
-/*@media (min-width: 768px) {
+@media (min-width: 768px) {
   .locales__button {
     position: relative;
     z-index: 5;
@@ -207,13 +223,14 @@ export default {
 
   .locales__list {
     position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    gap: 0;
+    left: 42px;
+    bottom: 125px;
+    width: 155px;
+    border: 2px solid #F1F1F1;
     background-color: white;
-    padding: 40px 8px 0 8px;
+    padding: 0 8px;
     border-radius: 20px;
+    z-index: 3;
   }
 
   .locales--shown .locales__list {
@@ -239,5 +256,5 @@ export default {
     font-size: 14px;
     line-height: 1;
   }
-}*/
+}
 </style>

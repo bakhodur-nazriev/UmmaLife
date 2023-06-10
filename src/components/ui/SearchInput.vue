@@ -48,7 +48,7 @@ export default {
 
   .base__search--input {
     border-radius: 50px;
-    width: 300px;
+    width: 280px;
     font-size: 16px;
     padding: 12px 12px 12px 48px;
   }

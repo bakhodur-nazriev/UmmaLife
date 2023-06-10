@@ -6,6 +6,9 @@
           <menu-icon></menu-icon>
         </button>
         <main-page-logo class="main__logo"></main-page-logo>
+
+      </div>
+      <div>
         <sample-button class="create__button">{{ $t('buttons.create') }}</sample-button>
       </div>
       <div>
@@ -84,7 +87,7 @@ export default {
 .navbar {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   position: fixed;
   height: 80px;
   top: 0;
@@ -168,6 +171,14 @@ export default {
 }
 
 @media (min-width: 768px) {
+  .user__menu--block {
+    margin-right: 24px;
+  }
+}
 
+@media (min-width: 1200px) {
+  .user__menu--block {
+    margin-right: 45px;
+  }
 }
 </style>
