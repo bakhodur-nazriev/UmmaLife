@@ -112,6 +112,7 @@
     "next": "Далее",
     "submit": "Отправить",
     "create": "+ Создать",
+    "create_umma_video": "+ Создать Umma Video",
     "toggle_theme": {
       "dark": "Dark",
       "light": "Light"
@@ -131,5 +132,10 @@
   },
   "placeholders": {
     "search_input": "Поиск"
+  },
+  "tabs": {
+    "publications": "Публикации",
+    "umma_shorts": "UmmaShorts",
+    "umma_video": "UmmaVideo"
   }
 }

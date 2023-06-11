@@ -32,7 +32,8 @@ const routes = [
     name: 'home',
     component: HomeView,
     meta: {
-      title: i18n.global.t('meta_title.home')
+      title: i18n.global.t('meta_title.home'),
+      requiresAuth: true
     }
   },
   {
@@ -40,7 +41,8 @@ const routes = [
     name: 'login',
     component: LoginView,
     meta: {
-      title: i18n.global.t('meta_title.login')
+      title: i18n.global.t('meta_title.login'),
+      requiresAuth: false
     }
   },
   {
@@ -48,7 +50,8 @@ const routes = [
     name: 'register',
     component: RegisterView,
     meta: {
-      title: i18n.global.t('meta_title.register')
+      title: i18n.global.t('meta_title.register'),
+      requiresAuth: false
     }
   },
   {
@@ -56,7 +59,8 @@ const routes = [
     name: 'forgot-password',
     component: ForgotPasswordView,
     meta: {
-      title: i18n.global.t('meta_title.forgot_password')
+      title: i18n.global.t('meta_title.forgot_password'),
+      requiresAuth: false
     }
   },
   {
@@ -64,7 +68,8 @@ const routes = [
     name: 'terms',
     component: TermsView,
     meta: {
-      title: i18n.global.t('meta_title.terms')
+      title: i18n.global.t('meta_title.terms'),
+      requiresAuth: false
     }
   },
   {
@@ -72,7 +77,8 @@ const routes = [
     name: 'privacy-policy',
     component: PrivacyPolicyView,
     meta: {
-      title: i18n.global.t('meta_title.privacy_policy')
+      title: i18n.global.t('meta_title.privacy_policy'),
+      requiresAuth: false
     }
   },
   {
@@ -80,7 +86,8 @@ const routes = [
     name: 'contacts',
     component: ContactsView,
     meta: {
-      title: i18n.global.t('meta_title.contacts')
+      title: i18n.global.t('meta_title.contacts'),
+      requiresAuth: false
     }
   },
   {
@@ -88,7 +95,8 @@ const routes = [
     name: 'about-us',
     component: AboutUs,
     meta: {
-      title: i18n.global.t('meta_title.about_us')
+      title: i18n.global.t('meta_title.about_us'),
+      requiresAuth: false
     }
   },
   {
@@ -96,7 +104,8 @@ const routes = [
     name: 'articles',
     component: ArticlesView,
     meta: {
-      title: i18n.global.t('meta_title.articles')
+      title: i18n.global.t('meta_title.articles'),
+      requiresAuth: true
     }
   },
   {
@@ -104,7 +113,8 @@ const routes = [
     name: 'library',
     component: LibraryView,
     meta: {
-      title: i18n.global.t('meta_title.library')
+      title: i18n.global.t('meta_title.library'),
+      requiresAuth: true
     }
   },
   {
@@ -112,7 +122,8 @@ const routes = [
     name: 'marriage-agency',
     component: MarriageAgencyView,
     meta: {
-      title: i18n.global.t('meta_title.marriage_agency')
+      title: i18n.global.t('meta_title.marriage_agency'),
+      requiresAuth: true
     }
   },
   {
@@ -120,7 +131,8 @@ const routes = [
     name: 'my-albums',
     component: MyAlbumsView,
     meta: {
-      title: i18n.global.t('meta_title.my_albums')
+      title: i18n.global.t('meta_title.my_albums'),
+      requiresAuth: true
     }
   },
   {
@@ -128,7 +140,8 @@ const routes = [
     name: 'messenger',
     component: MessengerView,
     meta: {
-      title: i18n.global.t('meta_title.messenger')
+      title: i18n.global.t('meta_title.messenger'),
+      requiresAuth: true
     }
   },
   {
@@ -136,7 +149,8 @@ const routes = [
     name: 'my-audio',
     component: MyAudiosView,
     meta: {
-      title: i18n.global.t('meta_title.my_audio')
+      title: i18n.global.t('meta_title.my_audio'),
+      requiresAuth: true
     }
   },
   {
@@ -144,7 +158,8 @@ const routes = [
     name: 'my-groups',
     component: MyGroupsView,
     meta: {
-      title: i18n.global.t('meta_title.my_groups')
+      title: i18n.global.t('meta_title.my_groups'),
+      requiresAuth: true
     }
   },
   {
@@ -152,7 +167,8 @@ const routes = [
     name: 'my-page',
     component: MyPageView,
     meta: {
-      title: i18n.global.t('meta_title.my_page')
+      title: i18n.global.t('meta_title.my_page'),
+      requiresAuth: true
     }
   },
   {
@@ -160,7 +176,8 @@ const routes = [
     name: 'news',
     component: NewsView,
     meta: {
-      title: i18n.global.t('meta_title.news')
+      title: i18n.global.t('meta_title.news'),
+      requiresAuth: true
     }
   },
   {
@@ -168,7 +185,8 @@ const routes = [
     name: 'saved',
     component: SavedView,
     meta: {
-      title: i18n.global.t('meta_title.saved')
+      title: i18n.global.t('meta_title.saved'),
+      requiresAuth: true
     }
   },
   {
@@ -176,7 +194,8 @@ const routes = [
     name: 'video',
     component: VideoView,
     meta: {
-      title: i18n.global.t('meta_title.video')
+      title: i18n.global.t('meta_title.video'),
+      requiresAuth: true
     }
   },
   {
@@ -184,7 +203,8 @@ const routes = [
     name: 'settings',
     component: SettingsView,
     meta: {
-      title: i18n.global.t('meta_title.settings')
+      title: i18n.global.t('meta_title.settings'),
+      requiresAuth: true
     }
   }
 ]
@@ -201,8 +221,13 @@ const router = createRouter({
   routes
 })
 
+function isUserAuthenticated() {
+  // Здесь проверяйте, аутентифицирован ли пользователь
+  // Возвращайте true, если пользователь аутентифицирован, иначе false
+}
 router.beforeEach((to, from, next) => {
   const lang = to.params.lang || i18n.global.locale.value
+  const requiresAuth = to.matched.some(route => route.meta.requiresAuth)
 
   if (supportedLanguages.includes(lang)) {
     // Установка языка для i18n
@@ -220,6 +245,12 @@ router.beforeEach((to, from, next) => {
   }
 
   document.title = `${to.meta.title} | ${process.env.VUE_APP_TITLE}`
+
+  // if (requiresAuth && !isUserAuthenticated()) {
+  //   // Если маршрут требует авторизации и пользователь не аутентифицирован, перенаправляем на страницу авторизации
+  //   return next({ name: 'login' })
+  // }
+
 
   return next()
 })

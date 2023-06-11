@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { createStore } from 'vuex'
 
 const store = createStore({
@@ -5,7 +6,8 @@ const store = createStore({
     return {
       email: '',
       phoneNumber: '',
-      selectedTheme: 'light'
+      selectedTheme: 'light',
+      isAuthenticated: false
     }
   },
   getters: {
@@ -17,6 +19,9 @@ const store = createStore({
     },
     getSelectedTheme (state) {
       return state.selectedTheme
+    },
+    isAuthenticated (state) {
+      return state.isAuthenticated
     }
   },
   mutations: {
@@ -28,12 +33,25 @@ const store = createStore({
     },
     setSelectedTheme (state, selectedTheme) {
       state.selectedTheme = selectedTheme
+    },
+    setAuthenticated (state, isAuthenticated) {
+      state.isAuthenticated = isAuthenticated
     }
   },
   actions: {
     toggleTheme ({ commit, state }) {
       const newTheme = state.selectedTheme === 'light' ? 'dark' : 'light'
       commit('setSelectedTheme', newTheme)
+    },
+    login({ commit }) {
+      // Логика для аутентификации пользователя
+      // Установка isAuthenticated в true при успешной аутентификации
+      commit('setAuthenticated', true)
+    },
+    logout({ commit }) {
+      // Логика для выхода пользователя
+      // Установка isAuthenticated в false при выходе
+      commit('setAuthenticated', false)
     }
   }
 })

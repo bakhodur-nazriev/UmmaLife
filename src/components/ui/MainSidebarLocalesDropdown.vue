@@ -10,27 +10,27 @@
       <span v-if="!isSidebarCollapsed" class="dropdown__locale-title">{{ currentLanguageName }}</span>
       <dropdown-icon class="locales__icon locales__icon--dropdown"/>
     </button>
-    <ul class="locales__list" :data-locale="$t('languages.title')">
+    <ul class="locales__list" :class="{ active: isSidebarCollapsed }" ref="list">
       <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('en')">{{ $t('languages.names.english') }}</a>
+        <a class="locales__link" :href="getLocalizedLink('en')">{{ `${isSidebarCollapsed ? 'En' : $t('languages.names.english')}` }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('ar')">{{ $t('languages.names.arabic') }}</a>
+        <a class="locales__link" :href="getLocalizedLink('ar')">{{ `${isSidebarCollapsed ? 'Ar' : $t('languages.names.arabic')}` }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('ru')">{{ $t('languages.names.russian') }}</a>
+        <a class="locales__link" :href="getLocalizedLink('ru')">{{ `${isSidebarCollapsed ? 'Ru' : $t('languages.names.russian')}` }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('tr')">{{ $t('languages.names.turkish') }}</a>
+        <a class="locales__link" :href="getLocalizedLink('tr')">{{ `${isSidebarCollapsed ? 'Tr' : $t('languages.names.turkish')}` }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('uz')">{{ $t('languages.names.uzbek') }}</a>
+        <a class="locales__link" :href="getLocalizedLink('uz')">{{ `${isSidebarCollapsed ? 'Uz' : $t('languages.names.uzbek')}` }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('id')">{{ $t('languages.names.indonesia') }}</a>
+        <a class="locales__link" :href="getLocalizedLink('id')">{{ `${isSidebarCollapsed ? 'Id' : $t('languages.names.indonesia')}` }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('ms')">{{ $t('languages.names.malay') }}</a>
+        <a class="locales__link" :href="getLocalizedLink('ms')">{{ `${isSidebarCollapsed ? 'Ms' : $t('languages.names.malay')}` }}</a>
       </li>
     </ul>
   </div>
@@ -57,26 +57,51 @@ export default {
   },
   methods: {
     handleButtonClick () {
+      const list = this.$refs.list
       const container = this.$refs.container
-      if (!container) {
+
+      if (!list || !container) {
         return
       }
 
-      const handleDocumentClick = (evt) => !evt.target.closest('.main__sidebar--locales') && closeDropdown()
-      const handleEscapeKeydown = (evt) => (evt.keyCode === 27) && closeDropdown()
-      const openDropdown = () => {
-        this.$refs.container.classList.add('locales--shown')
-        document.addEventListener('click', handleDocumentClick)
-        document.addEventListener('keydown', handleEscapeKeydown)
+      if (!container.classList.contains('locales--shown')) {
+        this.openDropdown()
+      } else {
+        this.closeDropdown()
       }
-      const closeDropdown = () => {
-        this.$refs.container.classList.remove('locales--shown')
-        document.removeEventListener('click', handleDocumentClick)
-        document.removeEventListener('keydown', handleEscapeKeydown)
-      }
-      !this.$refs.container.classList.contains('locales--shown') ? openDropdown() : closeDropdown()
     },
+    openDropdown () {
+      const list = this.$refs.list
+      const container = this.$refs.container
 
+      if (!list || !container) {
+        return
+      }
+
+      this.$refs.container.classList.add('locales--shown')
+      this.$refs.list.style.display = 'flex'
+      document.addEventListener('click', this.handleDocumentClick)
+      document.addEventListener('keydown', this.handleEscapeKeydown)
+    },
+    closeDropdown () {
+      const list = this.$refs.list
+      const container = this.$refs.container
+
+      if (!list || !container) {
+        return
+      }
+
+      this.$refs.container.classList.remove('locales--shown')
+      this.$refs.list.style.display = 'none'
+      document.removeEventListener('click', this.handleDocumentClick)
+      document.removeEventListener('keydown', this.handleEscapeKeydown)
+    },
+    handleDocumentClick (evt) {
+      return !evt.target.closest('.main__sidebar--locales') && this.closeDropdown()
+    },
+    handleEscapeKeydown (evt) {
+      return (evt.keyCode === 27) && this.closeDropdown()
+    },
     getLocalizedLink (lang) {
       const currentPath = this.$route.path
       const languagePrefix = '/' + this.$i18n.locale
@@ -162,25 +187,12 @@ export default {
   transform: rotate(180deg) scaleY(-1);
 }
 
-/*
 .locales__list {
   display: flex;
   opacity: 0;
   transition: 0.3s;
   flex-direction: column;
-  left: 0;
-  top: 100%;
-  background: #F1F1F1;
-  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.15);
-  border-radius: 20px 20px 0 0;
-  width: 100%;
-  margin: 0;
-  list-style: none;
-  padding: 16px;
-  gap: 4px;
-  z-index: 3;
-}
-*/
+ }
 
 .locales--shown .locales__list {
   transform: translateY(-100%);
@@ -203,12 +215,18 @@ export default {
   padding: 8px 16px;
 }
 
+.locales__list.active .locales__item {
+  display: flex;
+  justify-content: center;
+}
+
 .locales__link {
   text-decoration: none;
   font-size: 16px;
   line-height: 1.5;
   color: inherit;
 }
+
 .dropdown__locale-title {
   line-height: 1.2;
 }
@@ -222,6 +240,7 @@ export default {
   }
 
   .locales__list {
+    display: none;
     position: absolute;
     left: 42px;
     bottom: 125px;
@@ -229,6 +248,19 @@ export default {
     border: 2px solid #F1F1F1;
     background-color: white;
     padding: 0 8px;
+    border-radius: 20px;
+    z-index: 3;
+  }
+
+  .locales__list.active {
+    display: none;
+    position: absolute;
+    left: 0;
+    bottom: 125px;
+    width: 100%;
+    border: 2px solid #F1F1F1;
+    background-color: white;
+    padding: 2px 8px;
     border-radius: 20px;
     z-index: 3;
   }

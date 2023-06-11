@@ -130,4 +130,9 @@
   "placeholders": {
     "search_input": "Search"
   },
+  "tabs": {
+    "publications": "Publications",
+    "umma_shorts": "UmmaShorts",
+    "umma_video": "UmmaVideo"
+  }
 }

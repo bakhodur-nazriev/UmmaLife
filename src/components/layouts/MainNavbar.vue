@@ -6,7 +6,6 @@
           <menu-icon></menu-icon>
         </button>
         <main-page-logo class="main__logo"></main-page-logo>
-
       </div>
       <div>
         <sample-button class="create__button">{{ $t('buttons.create') }}</sample-button>
@@ -143,6 +142,7 @@ export default {
 
 .main__logo {
   margin-right: 100px;
+  min-width: 151px;
 }
 
 .create__button {

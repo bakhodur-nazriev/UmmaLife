@@ -5,7 +5,7 @@
     <main-sidebar :is-sidebar-collapsed="isSidebarCollapsed"></main-sidebar>
 
     <main class="main__content">
-      <router-view/>
+      <slot></slot>
     </main>
   </div>
 </template>
@@ -34,16 +34,15 @@ export default {
 
 <style scoped>
 .main__container {
-  margin-top: 80px; /* Добавьте верхний отступ */
+  margin-top: 80px;
   display: flex;
   flex-direction: row;
-  height: calc(100vh - 80px); /* Учитывайте высоту navbar */
+  height: calc(100vh - 80px);
   overflow: hidden;
 }
 
 .main__content {
   flex-grow: 1;
   overflow-y: auto;
-  padding: 20px;
 }
 </style>

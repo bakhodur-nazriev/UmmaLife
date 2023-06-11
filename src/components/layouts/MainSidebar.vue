@@ -147,6 +147,7 @@ export default {
   top: 0;
   background-color: var(--color-background);
   width: 240px;
+  min-width: 240px;
   padding: 4px;
   height: 100vh;
   overflow-y: auto;
@@ -159,6 +160,8 @@ export default {
 
 .sidebar--collapsed {
   width: 68px;
+  min-width: 68px;
+  transition: width 0.3s ease;
 }
 
 hr {
@@ -193,6 +196,7 @@ hr.dark-theme {
   background-color: var(--color-divider);
   border-radius: 20px;
   cursor: pointer;
+  transition: all .2s ease;
 }
 
 .sidebar__item:hover.dark-theme {
