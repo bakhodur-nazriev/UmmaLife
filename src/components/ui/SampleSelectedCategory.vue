@@ -32,17 +32,15 @@ export default {
   border-radius: 50px;
   padding: 13px 26px;
   cursor: pointer;
+  width: 146px;
 }
 
-@media (min-width: 768px) {
-  .selected__country {
-    margin: 8px;
-  }
+.category__button:hover {
+  background-color: var(--color-link);
+  color: var(--color-background);
 }
 
-@media (min-width: 1280px) {
-  .selected__country {
-    margin: 4px;
-  }
-}
+@media (min-width: 768px) {  }
+
+@media (min-width: 1280px) {  }
 </style>

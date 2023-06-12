@@ -35,11 +35,6 @@ img {
   border-radius: 15px;
 }
 
-.umma__video--block {
-  max-width: 364px;
-  margin: 12px 8px;
-}
-
 .title__section {
   display: flex;
   justify-content: space-between;
@@ -84,9 +79,13 @@ img {
   font-weight: 500;
 }
 
+/*.umma__video--block {
+  min-width: 364px;
+}*/
+
 @media (min-width: 768px) {
   .umma__video--block {
-    width: 320px;
+    max-width: 320px;
   }
 }
 </style>

@@ -141,7 +141,6 @@ export default {
 }
 
 .main__logo {
-  margin-right: 100px;
   min-width: 151px;
 }
 

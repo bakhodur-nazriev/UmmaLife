@@ -114,8 +114,8 @@
     "create": "+ Создать",
     "create_umma_video": "+ Создать Umma Video",
     "toggle_theme": {
-      "dark": "Dark",
-      "light": "Light"
+      "dark": "Темный",
+      "light": "Светлый"
     }
   },
   "languages": {

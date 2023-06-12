@@ -146,8 +146,6 @@ export default {
   position: sticky;
   top: 0;
   background-color: var(--color-background);
-  width: 240px;
-  min-width: 240px;
   padding: 4px;
   height: 100vh;
   overflow-y: auto;
@@ -158,9 +156,8 @@ export default {
   background-color: var(--color-background-dark);
 }
 
-.sidebar--collapsed {
+.sidebar.sidebar--collapsed {
   width: 68px;
-  min-width: 68px;
   transition: width 0.3s ease;
 }
 
@@ -226,7 +223,8 @@ hr.dark-theme {
   color: inherit;
   font-size: 16px;
   cursor: pointer;
-  padding: 11px 0 11px 22px;
+  padding: 15px 0 15px 22px;
+  line-height: 1;
 }
 
 .sidebar__item--icon {
@@ -236,5 +234,19 @@ hr.dark-theme {
 .sidebar__locales {
   margin-top: auto;
   margin-bottom: 95px;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    min-width: 240px;
+  }
+
+  .sidebar.sidebar--collapsed {
+    min-width: 68px;
+  }
+}
+
+@media (min-width: 1280px) {
+
 }
 </style>

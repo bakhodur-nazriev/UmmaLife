@@ -1,11 +1,8 @@
 <template>
   <main-layout>
-    <div class="">
       <sample-tabs
         :tabsArray="[`${$t('tabs.publications')}`, `${$t('tabs.umma_shorts')}`, `${$t('tabs.umma_video')}`]"
-        :tabsContentArray="[content1, content2, content3]"
       ></sample-tabs>
-    </div>
   </main-layout>
 </template>
 

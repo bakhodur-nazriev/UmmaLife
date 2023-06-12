@@ -18,43 +18,26 @@
         v-show="activeTab === index"
         class="tabs__content--inside--section"
       >
-        <!--{{ tab.content }}-->
-        <section class="category__section">
-          <div class="selected__country--button">
-            <sample-selected-category
-              v-for="(item, index) in categories"
-              :key="index"
-              :title="item"
-            ></sample-selected-category>
-          </div>
-          <div>
-            <sample-button class="create__umma--video--button">{{ $t('buttons.create_umma_video') }}</sample-button>
-          </div>
-        </section>
-        <section class="umma__videos--section">
-          <umma-video v-for="(item, index) in 7" :key="index"></umma-video>
-        </section>
+        <tab-publications v-if="index === 0"></tab-publications>
+        <tab-umma-shorts v-if="index === 1"></tab-umma-shorts>
+        <tab-umma-video v-if="index === 2"></tab-umma-video>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import SampleButton from '@/components/ui/SampleButton.vue'
-import SampleSelectedCategory from '@/components/ui/SampleSelectedCategory.vue'
-import UmmaVideo from '@/components/ui/UmmaVideo.vue'
+import TabUmmaVideo from '@/components/blocks/TabUmmaVideo.vue'
+import TabPublications from '@/components/blocks/TabPublications.vue'
+import TabUmmaShorts from '@/components/blocks/TabUmmaShorts.vue'
 export default {
   components: {
-    UmmaVideo,
-    SampleButton,
-    SampleSelectedCategory
+    TabUmmaShorts,
+    TabPublications,
+    TabUmmaVideo
   },
   props: {
     tabsArray: {
-      type: Array,
-      required: true
-    },
-    tabsContentArray: {
       type: Array,
       required: true
     }
@@ -69,14 +52,19 @@ export default {
   methods: {
     changeTab (index) {
       this.activeTab = index
+      sessionStorage.setItem('activeTab', index.toString())
     }
   },
   mounted () {
+    const savedTab = sessionStorage.getItem('activeTab')
+
+    if (savedTab) {
+      this.activeTab = parseInt(savedTab)
+    }
+
     this.tabs = this.tabsArray.map((title, index) => ({
-      title,
-      content: this.tabsContentArray[index]
+      title
     }))
-    this.categories = ['Категория 1', 'Категория 2', 'Категория 3', 'Категория 4', 'Категория 5', 'Категория 6']
   }
 }
 </script>
@@ -108,6 +96,7 @@ export default {
   padding: 16px 0;
   color: var(--color-text);
   font-weight: 500;
+  font-size: 18px;
   margin: 0 50px;
   width: 200px;
 }
@@ -116,6 +105,8 @@ export default {
   position: relative;
   color: var(--color-primary);
   padding-bottom: 16px;
+  font-weight: 600;
+  z-index: 100;
 }
 
 .tabs__header-item.active::after {
@@ -129,33 +120,15 @@ export default {
   border-radius: 1px 1px 0 0;
 }
 
-.create__umma--video--button {
-  padding: 12px 32px;
-  width: 242px;
-}
-
-.selected__country--button {
+.tabs__content {
   display: flex;
-  flex-wrap: wrap;
-}
-
-.category__section {
-  display: flex;
-  justify-content: space-between;
-}
-
-.umma__videos--section {
-  display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
+  min-width: -webkit-fill-available;
 }
 
 @media (min-width: 768px) {
   .tabs__content {
     padding: 16px 24px;
-  }
-
-  .category__section {
-    margin-bottom: 8px;
   }
 }
 
@@ -164,15 +137,5 @@ export default {
     display: flex;
     padding: 16px 88px;
   }
-
-  .category__section {
-    margin-bottom: 24px;
-  }
 }
-
-/*.tabs__content--inside--section {
-  display: flex;
-  flex-direction: column;
-  ali
-}*/
 </style>
