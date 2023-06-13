@@ -1,17 +1,21 @@
 <template>
   <div class="umma__shorts--main--container">
     <div class="umma__shorts--block" v-for="i in 7" :key="i">
+      <img src="../../assets/images/UmmaShorts.png" alt="">
       <div class="umma__shorts--title__section">
-        <img src="../../assets/images/UmmaShorts.png" alt="">
-        <h3 class="title umma__shorts--title">#history #muslim #desert и все об исламе #history #muslim #desert и все об
-          исламе</h3>
+        <div class="umma__shorts--title--button">
+          <h3 class="title umma__shorts--title">
+            #history #muslim #desert и все об исламе #history #muslim #desert и все об исламе
+          </h3>
+          <sample-menu-details-button></sample-menu-details-button>
+        </div>
         <div class="subtitle">
           <div>
-            <date>20.08.2022</date>
-            <small>-</small> <small>1 тыс. просмотров</small>
+            <time class="shorts__time" datetime="2022.08.20">20.08.2022</time>
+            <small>-</small> <small>1 тыс. {{ $t('video.views') }}</small>
           </div>
           <div>
-            <small>255 реакций</small>
+            <small>255 {{ $t('video.reactions') }}</small>
           </div>
         </div>
       </div>
@@ -20,7 +24,11 @@
 </template>
 
 <script>
-export default {}
+import SampleMenuDetailsButton from '@/components/ui/SampleMenuDetailsButton.vue'
+
+export default {
+  components: { SampleMenuDetailsButton }
+}
 </script>
 
 <style scoped>
@@ -38,7 +46,23 @@ export default {}
   -webkit-box-orient: vertical;
 }
 
+.umma__shorts--title--button {
+  display: flex;
+}
+.menu__details--button {
+  transform: rotate(90deg);
+}
+
+.umma__shorts--title--button .menu__details--button {
+  height: max-content;
+}
+
 .subtitle small {
+  color: var(--color-gray-4);
+}
+
+.shorts__time {
+  font-size: 12px;
   color: var(--color-gray-4);
 }
 

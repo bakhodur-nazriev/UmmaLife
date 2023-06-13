@@ -123,7 +123,6 @@ export default {
 .tabs__content {
   display: flex;
   justify-content: center;
-  min-width: -webkit-fill-available;
 }
 
 @media (min-width: 768px) {

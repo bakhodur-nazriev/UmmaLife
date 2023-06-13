@@ -110,6 +110,7 @@
     "next": "Next",
     "submit": "Submit",
     "create": "+ Create",
+    "create_umma_video": "+ Create Umma Video",
     "toggle_theme": {
       "dark": "Dark",
       "light": "Light"
@@ -134,5 +135,9 @@
     "publications": "Publications",
     "umma_shorts": "UmmaShorts",
     "umma_video": "UmmaVideo"
+  },
+  "video":{
+    "reactions": "reactions",
+    "views": "views"
   }
 }

@@ -137,5 +137,9 @@
     "publications": "Публикации",
     "umma_shorts": "UmmaShorts",
     "umma_video": "UmmaVideo"
+  },
+  "video": {
+    "reactions": "реакций",
+    "views": "просмотров"
   }
 }

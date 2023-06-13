@@ -13,10 +13,10 @@
     </div>
     <div class="subtitle__section">
       <div>
-        <small>20.08.2022</small> <small>-</small> <small>1 тыс. просмотров</small>
+        <time class="video__time" datetime="2022.08.20">20.08.2022</time><small>-</small> <small>1 тыс. {{ $t('video.views') }}</small>
       </div>
       <div>
-        <small>255 реакций</small>
+        <small>255 {{ $t('video.reactions') }}</small>
       </div>
     </div>
   </div>
@@ -79,13 +79,17 @@ img {
   font-weight: 500;
 }
 
+.video__time {
+  font-size: 12px;
+  color: var(--color-gray-4);
+}
 /*.umma__video--block {
   min-width: 364px;
 }*/
 
 @media (min-width: 768px) {
   .umma__video--block {
-    max-width: 320px;
+    max-width: 364px;
   }
 }
 </style>

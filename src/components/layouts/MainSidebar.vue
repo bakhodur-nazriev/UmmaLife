@@ -1,5 +1,8 @@
 <template>
-  <aside class="sidebar" :class="{ 'sidebar--collapsed': isSidebarCollapsed, 'dark-theme': isDarkTheme }">
+  <aside
+    class="sidebar"
+    :class="{ 'sidebar--collapsed': isSidebarCollapsed, 'dark-theme': isDarkTheme }"
+  >
     <div class="sidebar__main--links">
       <div>
         <toggle-theme :is-sidebar-collapsed="isSidebarCollapsed"></toggle-theme>
@@ -149,16 +152,17 @@ export default {
   padding: 4px;
   height: 100vh;
   overflow-y: auto;
-  transition: width 0.3s ease;
-}
-
-.sidebar.dark-theme {
-  background-color: var(--color-background-dark);
+  width: 260px;
+  transition: 0.3s;
 }
 
 .sidebar.sidebar--collapsed {
   width: 68px;
   transition: width 0.3s ease;
+}
+
+.sidebar.dark-theme {
+  background-color: var(--color-background-dark);
 }
 
 hr {
@@ -193,7 +197,7 @@ hr.dark-theme {
   background-color: var(--color-divider);
   border-radius: 20px;
   cursor: pointer;
-  transition: all .2s ease;
+  transition: all 0.2s ease;
 }
 
 .sidebar__item:hover.dark-theme {
@@ -236,17 +240,7 @@ hr.dark-theme {
   margin-bottom: 95px;
 }
 
-@media (min-width: 768px) {
-  .sidebar {
-    min-width: 240px;
-  }
+@media (min-width: 768px) {  }
 
-  .sidebar.sidebar--collapsed {
-    min-width: 68px;
-  }
-}
-
-@media (min-width: 1280px) {
-
-}
+@media (min-width: 1280px) {  }
 </style>
