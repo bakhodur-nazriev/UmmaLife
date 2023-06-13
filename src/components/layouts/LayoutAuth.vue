@@ -4,7 +4,7 @@
     <main-logo class="layout__logo"/>
 
     <div class="layout__inner">
-      <slot/>
+      <slot></slot>
     </div>
 
     <footer-auth class="layout__footer"/>

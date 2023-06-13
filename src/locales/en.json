@@ -1,4 +1,27 @@
 {
+  "lang": "en",
+  "meta_title": {
+    "home": "Home",
+    "login": "Login",
+    "register": "Register",
+    "forgot_password": "Forgot Password",
+    "terms": "Terms",
+    "privacy_policy": "Privacy Policy",
+    "contacts": "Contacts",
+    "about_us": "About Us",
+    "articles": "Articles",
+    "library": "Library",
+    "marriage_agency": "Marriage Agency",
+    "my_albums": "My Albums",
+    "messenger": "Messenger",
+    "my_audio": "My Audio",
+    "my_groups": "My Groups",
+    "my_page": "My Page",
+    "news": "News",
+    "saved": "Saved",
+    "video": "video",
+    "settings": "Settings"
+  },
   "login": {
     "title": "Login",
     "placeholders": {
@@ -29,7 +52,18 @@
     "contacts": "Contacts",
     "about_us": "About Us",
     "resend": "Resend",
-    "skip": "Skip"
+    "skip": "Skip",
+    "news": "News",
+    "my_page": "My Page",
+    "messenger": "Messenger",
+    "my_groups": "My groups",
+    "my_albums": "My albums",
+    "my_audio": "My audio",
+    "saved": "Saved",
+    "articles": "Articles",
+    "video": "Video",
+    "library": "Library",
+    "marriage_agency": "Marriage agency"
   },
   "register": {
     "title": "Registration",
@@ -74,7 +108,13 @@
     "login": "Login",
     "get_code_by_email": "Get code by email",
     "next": "Next",
-    "submit": "Submit"
+    "submit": "Submit",
+    "create": "+ Create",
+    "create_umma_video": "+ Create Umma Video",
+    "toggle_theme": {
+      "dark": "Dark",
+      "light": "Light"
+    }
   },
   "languages": {
     "title": "English",
@@ -87,5 +127,17 @@
       "indonesia": "Bahasa Indonesia",
       "malay": "Melayu"
     }
+  },
+  "placeholders": {
+    "search_input": "Search"
+  },
+  "tabs": {
+    "publications": "Publications",
+    "umma_shorts": "UmmaShorts",
+    "umma_video": "UmmaVideo"
+  },
+  "video":{
+    "reactions": "reactions",
+    "views": "views"
   }
 }

@@ -1,4 +1,27 @@
 {
+  "lang": "ru",
+  "meta_title": {
+    "home": "Главная",
+    "login": "Логин",
+    "register": "Регистрация",
+    "forgot_password": "Забыл пароль",
+    "terms": "Условия",
+    "privacy_policy": "Политика",
+    "contacts": "Контакты",
+    "about_us": "О нас",
+    "articles": "Статьи",
+    "library": "Библиотека",
+    "marriage_agency": "Брачное агенство",
+    "my_albums": "Мои альбомы",
+    "messenger": "Мессенджер",
+    "my_audio": "Мои альбомы",
+    "my_groups": "Мои группы",
+    "my_page": "Моя страница",
+    "news": "Новости",
+    "saved": "Сохраненное",
+    "video": "Видео",
+    "settings": "Настройки"
+  },
   "login": {
     "title": "Вход",
     "placeholders": {
@@ -29,7 +52,18 @@
     "contacts": "Контакты",
     "about_us": "О нас",
     "resend" : "Отправить повторно",
-    "skip": "Пропустить"
+    "skip": "Пропустить",
+    "news": "Новости",
+    "my_page": "Моя страница",
+    "messenger": "Мессенджер",
+    "my_groups": "Мои группы",
+    "my_albums": "Мои альбомы",
+    "my_audio": "Мои аудио",
+    "saved": "Сохраненное",
+    "articles": "Статьи",
+    "video": "Видео",
+    "library": "Библиотека",
+    "marriage_agency": "Брачное агенство"
   },
   "register": {
     "title": "Регистрация",
@@ -76,7 +110,13 @@
     "login": "Войти",
     "get_code_by_email": "Получить код на почту",
     "next": "Далее",
-    "submit": "Отправить"
+    "submit": "Отправить",
+    "create": "+ Создать",
+    "create_umma_video": "+ Создать Umma Video",
+    "toggle_theme": {
+      "dark": "Темный",
+      "light": "Светлый"
+    }
   },
   "languages": {
     "title": "Русский",
@@ -89,5 +129,17 @@
       "indonesia": "Bahasa Indonesia",
       "malay": "Melayu"
     }
+  },
+  "placeholders": {
+    "search_input": "Поиск"
+  },
+  "tabs": {
+    "publications": "Публикации",
+    "umma_shorts": "UmmaShorts",
+    "umma_video": "UmmaVideo"
+  },
+  "video": {
+    "reactions": "реакций",
+    "views": "просмотров"
   }
 }
