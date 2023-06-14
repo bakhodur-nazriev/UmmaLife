@@ -1,7 +1,7 @@
 <template>
   <main-layout>
       <sample-tabs
-        :tabsArray="[`${$t('tabs.publications')}`, `${$t('tabs.umma_shorts')}`, `${$t('tabs.umma_video')}`]"
+        :tabsArray="[`${$t('tabs.news_page.publications')}`, `${$t('tabs.news_page.umma_shorts')}`, `${$t('tabs.news_page.umma_video')}`]"
       ></sample-tabs>
   </main-layout>
 </template>
@@ -16,9 +16,6 @@ export default {
   },
   data () {
     return {
-      content1: 'Содержимое первой вкладки',
-      content2: 'Содержимое второй вкладки',
-      content3: 'Содержимое третьей вкладки'
     }
   }
 }

@@ -28,7 +28,7 @@
     <div class="resend__code">
       <label>{{ $t('login.messages.didnt_receive_code') }}</label>
       <router-link
-        class="active-link"
+        class="link"
         :to="`/${$i18n.locale}/login`"
       >
         {{ $t('links.resend') }} 00:32

@@ -63,7 +63,9 @@
     "articles": "Статьи",
     "video": "Видео",
     "library": "Библиотека",
-    "marriage_agency": "Брачное агенство"
+    "marriage_agency": "Брачное агенство",
+    "all_groups": "Все группы",
+    "all_people": "Все люди"
   },
   "register": {
     "title": "Регистрация",
@@ -116,7 +118,11 @@
     "toggle_theme": {
       "dark": "Темный",
       "light": "Светлый"
-    }
+    },
+    "join": "+ Вступить",
+    "in_group": "В группе",
+    "subscribe": "Подписаться",
+    "follow": "Слежу"
   },
   "languages": {
     "title": "Русский",
@@ -131,15 +137,30 @@
     }
   },
   "placeholders": {
-    "search_input": "Поиск"
+    "search_input": "Поиск",
+    "publications_input": "Напиши благое или молчи..."
   },
   "tabs": {
-    "publications": "Публикации",
-    "umma_shorts": "UmmaShorts",
-    "umma_video": "UmmaVideo"
+    "news_page": {
+      "publications": "Публикации",
+      "umma_shorts": "UmmaShorts",
+      "umma_video": "UmmaVideo"
+    },
+    "publications_inside": {
+      "publications": "Публикации",
+      "articles": "Статьи",
+      "photo": "Фото",
+      "video": "Видео",
+      "audio": "Аудио"
+    }
   },
   "video": {
     "reactions": "реакций",
     "views": "просмотров"
+  },
+  "sections_title": {
+    "last_actions": "Последние действия",
+    "recommended_groups": "Рекомендуемые группы",
+    "recommended_people": "Рекомендуемые люди"
   }
 }

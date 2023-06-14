@@ -39,7 +39,7 @@
 
     <router-link
       :to="`/${$i18n.locale}/forgot-password`"
-      class="forgot-password-link active-link"
+      class="forgot-password-link link"
     >
       {{ $t('login.forgot_password') }}
     </router-link>
@@ -49,7 +49,7 @@
     </div>
 
     <router-link
-      class="active-link create-account-link"
+      class="link create-account-link"
       :to="`/${$i18n.locale}/register`"
     >
       {{ $t('login.create_account') }}

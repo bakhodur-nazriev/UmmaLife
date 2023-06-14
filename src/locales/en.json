@@ -63,7 +63,9 @@
     "articles": "Articles",
     "video": "Video",
     "library": "Library",
-    "marriage_agency": "Marriage agency"
+    "marriage_agency": "Marriage agency",
+    "all_groups": "All groups",
+    "all_people": "All people"
   },
   "register": {
     "title": "Registration",
@@ -129,15 +131,30 @@
     }
   },
   "placeholders": {
-    "search_input": "Search"
+    "search_input": "Search",
+    "publications_input": "Write good or be silent..."
   },
   "tabs": {
-    "publications": "Publications",
-    "umma_shorts": "UmmaShorts",
-    "umma_video": "UmmaVideo"
+    "news_page": {
+      "publications": "Publications",
+      "umma_shorts": "UmmaShorts",
+      "umma_video": "UmmaVideo"
+    },
+    "publications_inside": {
+      "publications": "Публикации",
+      "articles": "Статьи",
+      "photo": "Фото",
+      "video": "Видео",
+      "audio": "Аудио"
+    }
   },
   "video":{
     "reactions": "reactions",
     "views": "views"
+  },
+  "sections_title": {
+    "last_actions": "Last actions",
+    "recommended_groups": "Recommended groups",
+    "recommended_people": "Recommended people"
   }
 }

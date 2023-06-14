@@ -252,6 +252,9 @@ router.beforeEach((to, from, next) => {
   // }
 
 
+  if (to.name === 'home') {
+    return next({ name: 'news' });
+  }
   return next()
 })
 

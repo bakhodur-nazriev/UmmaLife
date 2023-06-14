@@ -18,23 +18,31 @@
         v-show="activeTab === index"
         class="tabs__content--inside--section"
       >
-        <tab-publications v-if="index === 0"></tab-publications>
-        <tab-umma-shorts v-if="index === 1"></tab-umma-shorts>
-        <tab-umma-video v-if="index === 2"></tab-umma-video>
+        <publications-tab v-if="index === 0"></publications-tab>
+        <article-tab v-if="index === 1"></article-tab>
+        <photo-tab v-if="index === 2"></photo-tab>
+        <video-tab v-if="index === 3"></video-tab>
+        <audio-tab v-if="index === 4"></audio-tab>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import TabUmmaVideo from '@/components/blocks/TabUmmaVideo.vue'
-import TabPublications from '@/components/blocks/TabPublications.vue'
-import TabUmmaShorts from '@/components/blocks/TabUmmaShorts.vue'
+
+import PublicationsTab from '@/components/ui/Publications/PublicationsTab.vue'
+import ArticleTab from '@/components/ui/Publications/ArticleTab.vue'
+import PhotoTab from '@/components/ui/Publications/PhotoTab.vue'
+import VideoTab from '@/components/ui/Publications/VideoTab.vue'
+import AudioTab from '@/components/ui/Publications/AudioTab.vue'
+
 export default {
   components: {
-    TabUmmaShorts,
-    TabPublications,
-    TabUmmaVideo
+    AudioTab,
+    VideoTab,
+    PhotoTab,
+    ArticleTab,
+    PublicationsTab
   },
   props: {
     tabsArray: {
@@ -45,8 +53,7 @@ export default {
   data () {
     return {
       activeTab: 0,
-      tabs: [],
-      categories: []
+      tabs: []
     }
   },
   methods: {
@@ -70,21 +77,20 @@ export default {
 </script>
 
 <style scoped>
+.tabs {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
 .tabs__header {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-}
-
-.tabs__header::after {
-  content: "";
-  width: 100%;
-  height: 1px;
-  bottom: 0;
-  left: 0;
-  background-color: var(--color-gray-2);
-  position: absolute;
+  background-color: var(--color-background);
+  border-radius: 15px;
+  overflow: hidden;
 }
 
 .tabs__header-item {
@@ -94,8 +100,7 @@ export default {
   padding: 16px 0;
   color: var(--color-text);
   font-weight: 500;
-  font-size: 18px;
-  margin: 0 50px;
+  font-size: 16px;
   width: 200px;
 }
 
@@ -110,7 +115,7 @@ export default {
 .tabs__header-item.active::after {
   content: "";
   position: absolute;
-  width: 200px;
+  width: 100%;
   height: 2px;
   bottom: 0;
   left: 0;
@@ -121,18 +126,20 @@ export default {
 .tabs__content {
   display: flex;
   justify-content: center;
+  background-color: var(--color-background);
+  border-radius: 15px;
 }
 
 @media (min-width: 768px) {
   .tabs__content {
-    padding: 24px;
+    padding: 16px 24px;
   }
 }
 
 @media (min-width: 1280px) {
   .tabs__content {
     display: flex;
-    padding: 24px 88px;
+    padding: 16px 88px;
   }
 }
 </style>

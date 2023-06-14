@@ -17,14 +17,14 @@
     <check-box class="register-checkbox" name="agreement">
       {{ $t('register.messages.agreement_to_creating_account') }} <br>
       <router-link
-        class="active-link"
+        class="link"
         :to="`/${$i18n.locale}/terms`"
       >
         {{ $t('links.terms') }}
       </router-link>
       <span class="symbol__ampersand">&</span>
       <router-link
-        class="active-link"
+        class="link"
         :to="`/${$i18n.locale}/privacy-policy`"
       >
         {{ $t('links.privacy_policy') }}
