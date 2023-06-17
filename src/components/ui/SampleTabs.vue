@@ -132,7 +132,7 @@ export default {
 @media (min-width: 1280px) {
   .tabs__content {
     display: flex;
-    padding: 24px 88px;
+    padding: 24px
   }
 }
 </style>

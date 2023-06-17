@@ -59,11 +59,11 @@ export default {
   methods: {
     changeTab (index) {
       this.activeTab = index
-      sessionStorage.setItem('activeTab', index.toString())
+      sessionStorage.setItem('activePublicationTab', index.toString())
     }
   },
   mounted () {
-    const savedTab = sessionStorage.getItem('activeTab')
+    const savedTab = sessionStorage.getItem('activePublicationTab')
 
     if (savedTab) {
       this.activeTab = parseInt(savedTab)
@@ -132,14 +132,16 @@ export default {
 
 @media (min-width: 768px) {
   .tabs__content {
-    padding: 16px 24px;
+    width: 100%;
+    padding: 16px;
   }
 }
 
 @media (min-width: 1280px) {
   .tabs__content {
+    width: 100%;
     display: flex;
-    padding: 16px 88px;
+    padding: 16px;
   }
 }
 </style>

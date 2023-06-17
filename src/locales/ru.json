@@ -122,7 +122,10 @@
     "join": "+ Вступить",
     "in_group": "В группе",
     "subscribe": "Подписаться",
-    "follow": "Слежу"
+    "follow": "Слежу",
+    "like": "Ма ша Аллах!",
+    "comment": "Комментировать",
+    "share": "Поделиться"
   },
   "languages": {
     "title": "Русский",
@@ -162,5 +165,15 @@
     "last_actions": "Последние действия",
     "recommended_groups": "Рекомендуемые группы",
     "recommended_people": "Рекомендуемые люди"
+  },
+  "labels": {
+    "subscribers" : {
+      "plural": "подписчиков",
+      "singular4": "подписчик"
+    },
+    "members": {
+      "plural": "участников",
+      "singular": "участник"
+    }
   }
 }
