@@ -206,6 +206,16 @@ const routes = [
       title: i18n.global.t('meta_title.settings'),
       requiresAuth: true
     }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: (to) => {
+      // Перенаправляем пользователя на текущую страницу
+      return {
+        name: router.currentRoute.value.name,
+        params: { lang: router.currentRoute.value.params.lang }
+      };
+    }
   }
 ]
 

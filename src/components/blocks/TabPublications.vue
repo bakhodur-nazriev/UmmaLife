@@ -4,7 +4,7 @@
       <section class="publications__form--section">
         <form action="" class="form__section">
           <div class="form__left--side">
-            <img src="../../assets/images/Ellipse.png" alt="">
+            <img width="48" height="48" src="../../assets/images/Ellipse.png" alt="">
 
             <textarea rows="1" :placeholder="$t('placeholders.publications_input')"></textarea>
           </div>
@@ -29,7 +29,7 @@
         </form>
       </section>
       <section class="tab__publications--section">
-        <publications-inside-tabs :tabs-array="tabLabels"></publications-inside-tabs>
+        <main-publications-tab :tabs-array="tabLabels"></main-publications-tab>
       </section>
     </div>
     <aside class="aside__publications">
@@ -98,15 +98,15 @@
 import ImageIcon from '@/components/icons/ImageIcon.vue'
 import AudioPublicationIcon from '@/components/icons/AudioPublicationIcon.vue'
 import ClipIcon from '@/components/icons/ClipIcon.vue'
-import VideoPublicationsIcon from '@/assets/images/VideoPublicationsIcon.vue'
-import PublicationsInsideTabs from '@/components/ui/Publications/PublicationsInsideTabs.vue'
+import VideoPublicationsIcon from '@/components/icons/VideoPublicationsIcon.vue'
+import MainPublicationsTab from '@/components/ui/Publications/MainPublicationsTab.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import FileUpload from '@/components/ui/FileUpload.vue'
 
 export default {
   components: {
     FileUpload,
-    PublicationsInsideTabs,
+    MainPublicationsTab,
     VideoPublicationsIcon,
     ClipIcon,
     AudioPublicationIcon,
@@ -284,7 +284,7 @@ svg {
 
 .publications__form--section {
   border-radius: 15px;
-  padding: 16px;
+  padding: 16px 24px;
   background-color: var(--color-background);
 }
 

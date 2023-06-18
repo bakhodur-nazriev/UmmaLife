@@ -53,10 +53,6 @@ export default {
   transform: rotate(90deg);
 }
 
-.umma__shorts--title--button .menu__details--button {
-  height: max-content;
-}
-
 .subtitle small {
   color: var(--color-gray-4);
 }

@@ -116,7 +116,14 @@
     "toggle_theme": {
       "dark": "Dark",
       "light": "Light"
-    }
+    },
+    "join": "+ Join",
+    "in_group": "In group",
+    "subscribe": "Subscribe",
+    "follow": "I follow",
+    "like": "Masha Allah!",
+    "comment": "Comment",
+    "share": "Share"
   },
   "languages": {
     "title": "English",
@@ -141,11 +148,11 @@
       "umma_video": "UmmaVideo"
     },
     "publications_inside": {
-      "publications": "Публикации",
-      "articles": "Статьи",
-      "photo": "Фото",
-      "video": "Видео",
-      "audio": "Аудио"
+      "publications": "Publications",
+      "articles": "Articles",
+      "photo": "Photo",
+      "video": "Video",
+      "audio": "Audio"
     }
   },
   "video":{
@@ -156,5 +163,23 @@
     "last_actions": "Last actions",
     "recommended_groups": "Recommended groups",
     "recommended_people": "Recommended people"
+  },
+  "labels": {
+    "subscribers" : {
+      "plural": "subscribers",
+      "singular": "subscribe"
+    },
+    "members": {
+      "plural": "members",
+      "singular": "member"
+    },
+    "comments": {
+      "plural": "comments",
+      "singular": "comment"
+    },
+    "reposts": {
+      "plural": "reposts",
+      "singular": "repost"
+    }
   }
 }

@@ -42,11 +42,13 @@ export default {
 
 <style scoped>
 .file-upload {
-  display: inline-block;
+  display: flex;
 }
 
 .file-upload__label {
   cursor: pointer;
+  width: 24px;
+  height: 24px;
 }
 
 .file-upload__input {

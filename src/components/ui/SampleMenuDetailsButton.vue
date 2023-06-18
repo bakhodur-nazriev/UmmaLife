@@ -17,7 +17,10 @@ export default {
   border: none;
   cursor: pointer;
   display: flex;
+  align-items: center;
   justify-content: flex-start;
+  height: 34px;
+  width: 34px;
 }
 
 .menu__details--button svg {

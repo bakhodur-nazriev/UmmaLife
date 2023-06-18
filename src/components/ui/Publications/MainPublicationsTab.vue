@@ -18,11 +18,13 @@
         v-show="activeTab === index"
         class="tabs__content--inside--section"
       >
-        <publications-tab v-if="index === 0"></publications-tab>
-        <article-tab v-if="index === 1"></article-tab>
-        <photo-tab v-if="index === 2"></photo-tab>
-        <video-tab v-if="index === 3"></video-tab>
-        <audio-tab v-if="index === 4"></audio-tab>
+        <div v-for="repeatIndex in 5" :key="repeatIndex">
+          <publications-content v-if="index === 0"></publications-content>
+          <article-content v-if="index === 1"></article-content>
+          <photo-content v-if="index === 2"></photo-content>
+          <video-content v-if="index === 3"></video-content>
+          <audio-content v-if="index === 4"></audio-content>
+        </div>
       </div>
     </div>
   </div>
@@ -30,19 +32,19 @@
 
 <script>
 
-import PublicationsTab from '@/components/ui/Publications/PublicationsTab.vue'
-import ArticleTab from '@/components/ui/Publications/ArticleTab.vue'
-import PhotoTab from '@/components/ui/Publications/PhotoTab.vue'
-import VideoTab from '@/components/ui/Publications/VideoTab.vue'
-import AudioTab from '@/components/ui/Publications/AudioTab.vue'
+import PublicationsContent from '@/components/ui/Publications/PublicationsContent.vue'
+import ArticleContent from '@/components/ui/Publications/ArticleContent.vue'
+import PhotoContent from '@/components/ui/Publications/PhotoContent.vue'
+import VideoContent from '@/components/ui/Publications/VideoContent.vue'
+import AudioContent from '@/components/ui/Publications/AudioContent.vue'
 
 export default {
   components: {
-    AudioTab,
-    VideoTab,
-    PhotoTab,
-    ArticleTab,
-    PublicationsTab
+    AudioContent,
+    VideoContent,
+    PhotoContent,
+    ArticleContent,
+    PublicationsContent
   },
   props: {
     tabsArray: {
@@ -53,7 +55,8 @@ export default {
   data () {
     return {
       activeTab: 0,
-      tabs: []
+      tabs: [],
+      tabIndex: 0
     }
   },
   methods: {
@@ -77,6 +80,10 @@ export default {
 </script>
 
 <style scoped>
+.tabs__content--inside--section {
+  width: 100%;
+}
+
 .tabs {
   display: flex;
   flex-direction: column;
@@ -101,7 +108,7 @@ export default {
   color: var(--color-text);
   font-weight: 500;
   font-size: 16px;
-  width: 200px;
+  width: 185px;
 }
 
 .tabs__header-item.active {
@@ -123,25 +130,16 @@ export default {
   border-radius: 1px 1px 0 0;
 }
 
-.tabs__content {
-  display: flex;
-  justify-content: center;
-  background-color: var(--color-background);
-  border-radius: 15px;
-}
-
 @media (min-width: 768px) {
-  .tabs__content {
+  /*.tabs__content {
     width: 100%;
-    padding: 16px;
-  }
+  }*/
 }
 
 @media (min-width: 1280px) {
-  .tabs__content {
+  /*.tabs__content {
     width: 100%;
     display: flex;
-    padding: 16px;
-  }
+  }*/
 }
 </style>
