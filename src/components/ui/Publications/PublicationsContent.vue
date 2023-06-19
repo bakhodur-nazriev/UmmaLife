@@ -172,7 +172,7 @@ export default {
   },
   data () {
     return {
-      isFormOpen: true,
+      isFormOpen: false,
       isReactionWindowOpen: false
     }
   },
@@ -219,13 +219,6 @@ export default {
   width: 100%;
 }
 
-.reactions__block {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  max-width: 560px;
-}
-
 .reaction {
   height: 32px;
   background: var(--color-divider);
@@ -237,6 +230,12 @@ export default {
   gap: 6px;
   align-items: center;
   font-size: 14px;
+}
+
+.reactions__block {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
 }
 
 .post__block {
@@ -333,5 +332,17 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+@media (min-width: 1280px) {
+  .reactions__block {
+    max-width: 560px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .reactions__block {
+    max-width: 100%;
+  }
 }
 </style>

@@ -123,7 +123,12 @@
     "follow": "I follow",
     "like": "Masha Allah!",
     "comment": "Comment",
-    "share": "Share"
+    "share": "Share",
+    "copy_link": "Copy link",
+    "save": "Save",
+    "open_in_new_tab": "Open in new tab",
+    "complain": "Complain",
+    "hide": "Hide"
   },
   "languages": {
     "title": "English",

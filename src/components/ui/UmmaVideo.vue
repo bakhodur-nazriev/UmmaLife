@@ -9,24 +9,18 @@
     </div>
     <div class="title__section">
       <h3 class="title">Вообще любое название для видео, которое влазит на 2 строки</h3>
-      <sample-menu-details-button @click="openMenu"></sample-menu-details-button>
+      <sample-menu-details-button
+        :is-menu-open="isMenuOpen"
+        @toggle-menu="toggleMenu"
+      ></sample-menu-details-button>
     </div>
+
     <div class="subtitle__section">
       <div>
         <time class="video__time" datetime="2022.08.20">20.08.2022</time><small>-</small> <small>1 тыс. {{ $t('video.views') }}</small>
       </div>
       <div>
         <small>255 {{ $t('video.reactions') }}</small>
-      </div>
-    </div>
-
-    <!-- Код для отображения меню -->
-    <div v-if="isMenuOpen" class="menu__overlay">
-      <div class="menu__options">
-        <button @click="sharePublication">Поделиться</button>
-        <button @click="copyLink">Копировать ссылку</button>
-        <button @click="savePublication">Сохранить публикацию</button>
-        <button @click="openInNewTab">Открыть в новой вкладке</button>
       </div>
     </div>
   </div>
@@ -36,14 +30,16 @@
 import SampleMenuDetailsButton from '@/components/ui/SampleMenuDetailsButton.vue'
 
 export default {
-  components: { SampleMenuDetailsButton },
+  components: {
+    SampleMenuDetailsButton
+  },
   data () {
     return {
       isMenuOpen: false
     }
   },
   methods: {
-    openMenu () {
+    toggleMenu () {
       this.isMenuOpen = !this.isMenuOpen
     }
   }
