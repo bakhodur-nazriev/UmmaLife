@@ -242,7 +242,7 @@ export default {
   .locales__list {
     display: none;
     position: absolute;
-    left: 42px;
+    left: 52px;
     bottom: 125px;
     width: 155px;
     border: 2px solid #F1F1F1;

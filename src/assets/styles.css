@@ -89,13 +89,15 @@
 }
 
 
-.active-link {
+.link {
     color: #00819D;
+    text-decoration: none;
 }
 
-.active-link:hover {
+.link:hover {
     color: #49A399;
-    transition: 0.2s;
+    transition: 0.3s;
+    text-decoration: none;
 }
 
 *,

@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
 import i18n from '@/i18n'
 import { supportedLanguages } from '@/constants'
 import HomeView from '../views/HomeView.vue'
@@ -22,7 +22,6 @@ import NewsView from '@/views/NewsView.vue'
 import SavedView from '@/views/SavedView.vue'
 import VideoView from '@/views/VideoView.vue'
 import SettingsView from '@/views/SettingsView.vue'
-import store from '@/store/store'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const baseDomain = isProduction ? 'front1.ummalife.dev' : 'localhost'
@@ -207,6 +206,16 @@ const routes = [
       title: i18n.global.t('meta_title.settings'),
       requiresAuth: true
     }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: (to) => {
+      // Перенаправляем пользователя на текущую страницу
+      return {
+        name: router.currentRoute.value.name,
+        params: { lang: router.currentRoute.value.params.lang }
+      };
+    }
   }
 ]
 
@@ -222,10 +231,10 @@ const router = createRouter({
   routes
 })
 
-// function isUserAuthenticated() {
-//   // Здесь проверяйте, аутентифицирован ли пользователь
-//   // Возвращайте true, если пользователь аутентифицирован, иначе false
-// }
+function isUserAuthenticated() {
+  // Здесь проверяйте, аутентифицирован ли пользователь
+  // Возвращайте true, если пользователь аутентифицирован, иначе false
+}
 router.beforeEach((to, from, next) => {
   const lang = to.params.lang || i18n.global.locale.value
   const requiresAuth = to.matched.some(route => route.meta.requiresAuth)
@@ -252,7 +261,6 @@ router.beforeEach((to, from, next) => {
   //   return next({ name: 'login' })
   // }
 
-
   // Проверка статуса авторизации
   /*const isAuthenticated = store.getters.getAuthenticated
 
@@ -271,6 +279,11 @@ router.beforeEach((to, from, next) => {
 
   // Если пользователь не авторизован и находится на других роутах, перенаправляем на страницу входа
   return next('/login')*/
+
+
+  if (to.name === 'home') {
+    return next({ name: 'news' });
+  }
   return next()
 })
 

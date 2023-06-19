@@ -63,7 +63,9 @@
     "articles": "Статьи",
     "video": "Видео",
     "library": "Библиотека",
-    "marriage_agency": "Брачное агенство"
+    "marriage_agency": "Брачное агенство",
+    "all_groups": "Все группы",
+    "all_people": "Все люди"
   },
   "register": {
     "title": "Регистрация",
@@ -116,7 +118,19 @@
     "toggle_theme": {
       "dark": "Темный",
       "light": "Светлый"
-    }
+    },
+    "join": "+ Вступить",
+    "in_group": "В группе",
+    "subscribe": "Подписаться",
+    "follow": "Слежу",
+    "like": "Ма ша Аллах!",
+    "comment": "Комментировать",
+    "share": "Поделиться",
+    "copy_link": "Копировать ссылку",
+    "save": "Сохранить",
+    "open_in_new_tab": "Открыть в новой вкладке",
+    "complain": "Пожаловаться",
+    "hide": "Скрыть"
   },
   "languages": {
     "title": "Русский",
@@ -131,15 +145,48 @@
     }
   },
   "placeholders": {
-    "search_input": "Поиск"
+    "search_input": "Поиск",
+    "publications_input": "Напиши благое или молчи..."
   },
   "tabs": {
-    "publications": "Публикации",
-    "umma_shorts": "UmmaShorts",
-    "umma_video": "UmmaVideo"
+    "news_page": {
+      "publications": "Публикации",
+      "umma_shorts": "UmmaShorts",
+      "umma_video": "UmmaVideo"
+    },
+    "publications_inside": {
+      "publications": "Публикации",
+      "articles": "Статьи",
+      "photo": "Фото",
+      "video": "Видео",
+      "audio": "Аудио"
+    }
   },
   "video": {
     "reactions": "реакций",
     "views": "просмотров"
+  },
+  "sections_title": {
+    "last_actions": "Последние действия",
+    "recommended_groups": "Рекомендуемые группы",
+    "recommended_people": "Рекомендуемые люди"
+  },
+  "labels": {
+    "subscribers" : {
+      "plural": "подписчиков",
+      "singular4": "подписчик"
+    },
+    "members": {
+      "plural": "участников",
+      "singular": "участник"
+    },
+    "comments": {
+      "plural": "комментарии",
+      "singular": "комментария"
+    },
+    "reposts": {
+      "plural": "репостов",
+      "singular": "репост"
+    }
   }
 }

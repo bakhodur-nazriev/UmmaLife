@@ -63,7 +63,9 @@
     "articles": "Articles",
     "video": "Video",
     "library": "Library",
-    "marriage_agency": "Marriage agency"
+    "marriage_agency": "Marriage agency",
+    "all_groups": "All groups",
+    "all_people": "All people"
   },
   "register": {
     "title": "Registration",
@@ -114,7 +116,19 @@
     "toggle_theme": {
       "dark": "Dark",
       "light": "Light"
-    }
+    },
+    "join": "+ Join",
+    "in_group": "In group",
+    "subscribe": "Subscribe",
+    "follow": "I follow",
+    "like": "Masha Allah!",
+    "comment": "Comment",
+    "share": "Share",
+    "copy_link": "Copy link",
+    "save": "Save",
+    "open_in_new_tab": "Open in new tab",
+    "complain": "Complain",
+    "hide": "Hide"
   },
   "languages": {
     "title": "English",
@@ -129,15 +143,48 @@
     }
   },
   "placeholders": {
-    "search_input": "Search"
+    "search_input": "Search",
+    "publications_input": "Write good or be silent..."
   },
   "tabs": {
-    "publications": "Publications",
-    "umma_shorts": "UmmaShorts",
-    "umma_video": "UmmaVideo"
+    "news_page": {
+      "publications": "Publications",
+      "umma_shorts": "UmmaShorts",
+      "umma_video": "UmmaVideo"
+    },
+    "publications_inside": {
+      "publications": "Publications",
+      "articles": "Articles",
+      "photo": "Photo",
+      "video": "Video",
+      "audio": "Audio"
+    }
   },
   "video":{
     "reactions": "reactions",
     "views": "views"
+  },
+  "sections_title": {
+    "last_actions": "Last actions",
+    "recommended_groups": "Recommended groups",
+    "recommended_people": "Recommended people"
+  },
+  "labels": {
+    "subscribers" : {
+      "plural": "subscribers",
+      "singular": "subscribe"
+    },
+    "members": {
+      "plural": "members",
+      "singular": "member"
+    },
+    "comments": {
+      "plural": "comments",
+      "singular": "comment"
+    },
+    "reposts": {
+      "plural": "reposts",
+      "singular": "repost"
+    }
   }
 }

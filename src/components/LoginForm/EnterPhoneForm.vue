@@ -38,7 +38,7 @@
       <sample-button @click="handleSubmit">{{ $t('buttons.login') }}</sample-button>
     </div>
     <router-link
-      class="active-link create-account-link"
+      class="link create-account-link"
       :to="`/${$i18n.locale}/register`"
     >
       {{ $t('login.create_account') }}

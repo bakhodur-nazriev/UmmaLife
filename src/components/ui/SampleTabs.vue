@@ -70,8 +70,6 @@ export default {
 </script>
 
 <style scoped>
-.tabs {}
-
 .tabs__header {
   display: flex;
   justify-content: center;
@@ -127,14 +125,14 @@ export default {
 
 @media (min-width: 768px) {
   .tabs__content {
-    padding: 16px 24px;
+    padding: 24px;
   }
 }
 
 @media (min-width: 1280px) {
   .tabs__content {
     display: flex;
-    padding: 16px 88px;
+    padding: 24px
   }
 }
 </style>
