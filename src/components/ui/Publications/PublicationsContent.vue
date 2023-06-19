@@ -9,7 +9,10 @@
         </div>
       </router-link>
       <div class="menu__button">
-        <menu-details-icon></menu-details-icon>
+        <sample-menu-details-button
+          :is-menu-open="isMenuOpen"
+          @toggle-menu="toggleMenu"
+        ></sample-menu-details-button>
       </div>
     </header>
 
@@ -57,7 +60,6 @@
             <scared-icon></scared-icon>
             <span>9685</span>
           </div>
-
         </div>
 
         <div class="stats__reposts">
@@ -76,15 +78,17 @@
           <div class="reactions__buttons">
             <transition name="slide">
               <div v-if="isReactionWindowOpen" class="reaction__window">
-                <big-like-icon></big-like-icon>
-                <big-dislike-icon></big-dislike-icon>
-                <big-love-icon></big-love-icon>
-                <big-laugh-icon></big-laugh-icon>
-                <big-fire-icon></big-fire-icon>
-                <big-think-icon></big-think-icon>
-                <big-angry-icon></big-angry-icon>
-                <big-sad-icon></big-sad-icon>
-                <big-scared-icon></big-scared-icon>
+                <ul class="reaction__menu">
+                  <li><big-like-icon></big-like-icon></li>
+                  <li><big-dislike-icon></big-dislike-icon></li>
+                  <li><big-love-icon></big-love-icon></li>
+                  <li><big-laugh-icon></big-laugh-icon></li>
+                  <li><big-fire-icon></big-fire-icon></li>
+                  <li><big-think-icon></big-think-icon></li>
+                  <li><big-angry-icon></big-angry-icon></li>
+                  <li><big-sad-icon></big-sad-icon></li>
+                  <li><big-scared-icon></big-scared-icon></li>
+                </ul>
               </div>
             </transition>
           </div>
@@ -93,13 +97,39 @@
             {{ $t('buttons.like') }}
           </div>
         </div>
+
         <div class="comment__button" @click="toggleForm">
           <comment-icon></comment-icon>
           {{ $t('buttons.comment') }}
         </div>
-        <div class="share__button">
-          <share-icon></share-icon>
-          <div>{{ $t('buttons.share') }}</div>
+
+        <div class="share__buttons--block">
+          <div class="share__buttons">
+            <transition name="">
+              <div v-if="isShareWindowOpen" class="share__window">
+                <ul class="share__menu">
+                  <li class="share__item">
+                    <send-menu-icon />
+                    <span>{{ $t('buttons.open_like_message') }}</span>
+                  </li>
+                  <sample-divider></sample-divider>
+                  <li class="share__item">
+                    <share-menu-icon />
+                    <span>{{ $t('buttons.share_on_my_page') }}</span>
+                  </li>
+                  <sample-divider></sample-divider>
+                  <li class="share__item">
+                    <my-group-icon />
+                    <span>{{ $t('buttons.share_in_group') }}</span>
+                  </li>
+                </ul>
+              </div>
+            </transition>
+          </div>
+          <div class="share__button" @click="openShareWindow">
+            <share-icon></share-icon>
+            <div>{{ $t('buttons.share') }}</div>
+          </div>
         </div>
       </div>
 
@@ -123,7 +153,6 @@
 import HeartIcon from '@/components/icons/HeartIcon.vue'
 import CommentIcon from '@/components/icons/CommentIcon.vue'
 import ShareIcon from '@/components/icons/ShareIcon.vue'
-import MenuDetailsIcon from '@/components/icons/MenuDetailsIcon.vue'
 import LikeIcon from '@/components/icons/reactions/men/small/LikeIcon.vue'
 import LoveIcon from '@/components/icons/reactions/men/small/LoveIcon.vue'
 import LaughIcon from '@/components/icons/reactions/men/small/LaughIcon.vue'
@@ -143,9 +172,19 @@ import BigLoveIcon from '@/components/icons/reactions/men/big/LoveIcon.vue'
 import BigSadIcon from '@/components/icons/reactions/men/big/SadIcon.vue'
 import BigScaredIcon from '@/components/icons/reactions/men/big/ScaredIcon.vue'
 import BigThinkIcon from '@/components/icons/reactions/men/big/ThinkIcon.vue'
+import MyGroupIcon from '@/components/icons/MyGroupIcon.vue'
+import SampleMenuDetailsButton from '@/components/ui/SampleMenuDetailsButton.vue'
+import SendMenuIcon from '@/components/icons/MenuDetails/SendMenuIcon.vue'
+import ShareMenuIcon from '@/components/icons/MenuDetails/ShareMenuIcon.vue'
+import SampleDivider from '@/components/ui/SampleDivider.vue'
 
 export default {
   components: {
+    SampleDivider,
+    ShareMenuIcon,
+    SendMenuIcon,
+    SampleMenuDetailsButton,
+    MyGroupIcon,
     ScaredIcon,
     SadIcon,
     AngryIcon,
@@ -155,7 +194,6 @@ export default {
     LaughIcon,
     LoveIcon,
     LikeIcon,
-    MenuDetailsIcon,
     ShareIcon,
     CommentIcon,
     HeartIcon,
@@ -173,7 +211,9 @@ export default {
   data () {
     return {
       isFormOpen: false,
-      isReactionWindowOpen: false
+      isReactionWindowOpen: false,
+      isShareWindowOpen: true,
+      isMenuOpen: false
     }
   },
   methods: {
@@ -183,17 +223,65 @@ export default {
 
     openReactionWindow () {
       this.isReactionWindowOpen = !this.isReactionWindowOpen
+    },
+
+    openShareWindow () {
+      this.isShareWindowOpen = !this.isShareWindowOpen
+    },
+    toggleMenu () {
+      this.isMenuOpen = !this.isMenuOpen
     }
   }
 }
 </script>
 
 <style scoped>
-.reaction__buttons--block {
+.sample__divider {
+  margin: 0;
+}
+
+.share__item span {
+  font-size: 14px;
+}
+
+.share__item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 8px;
+  padding: 5px 10px;
+}
+
+.share__item:hover {
+  background-color: var(--color-divider);
+  border-radius: 10px;
+}
+
+.share__menu {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.share__menu,
+.reaction__menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.reaction__menu {
+  display: flex;
+  gap: 18px;
+}
+
+.reaction__buttons--block,
+.share__buttons--block {
   position: relative;
 }
 
-.reactions__buttons {
+.reactions__buttons,
+.share__buttons {
   position: absolute;
   bottom: 42px;
   box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
@@ -201,7 +289,8 @@ export default {
   background-color: var(--color-background);
 }
 
-.reaction__window {
+.reaction__window,
+.share__window {
   display: flex;
   gap: 18px;
   padding: 12px;
@@ -242,7 +331,7 @@ export default {
   background-color: var(--color-background);
   margin-bottom: 20px;
   border-radius: 15px;
-  padding: 20px 24px;
+  padding: 20px 24px 8px 24px;
 }
 
 .stats__separator {
@@ -288,8 +377,16 @@ export default {
 .share__button {
   display: flex;
   align-items: center;
+  justify-content: center;
   color: var(--color-gray-4);
   cursor: pointer;
+}
+
+.like__button:hover,
+.comment__button:hover,
+.share__button:hover {
+  background-color: var(--color-divider);
+  border-radius: 15px;
 }
 
 .like__button svg,
@@ -302,7 +399,6 @@ export default {
   height: 1px;
   background-color: var(--color-surface);
   border: none;
-  margin-bottom: 18px;
 }
 
 .post__author {
@@ -337,6 +433,16 @@ export default {
 @media (min-width: 1280px) {
   .reactions__block {
     max-width: 560px;
+  }
+  .comment__button,
+  .share__button,
+  .like__button {
+    width: 210px;
+    height: 43px;
+  }
+
+  .share__item {
+    width: 220px;
   }
 }
 

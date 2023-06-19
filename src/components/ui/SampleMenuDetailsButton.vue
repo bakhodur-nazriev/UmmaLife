@@ -45,7 +45,7 @@
 </template>
 <script>
 import MenuDetailsIcon from '@/components/icons/MenuDetailsIcon.vue'
-import ShareIcon from '@/components/icons/MenuDetails/ShareIcon.vue'
+import ShareIcon from '@/components/icons/MenuDetails/SendMenuIcon.vue'
 import CopyLinkIcon from '@/components/icons/MenuDetails/CopyLinkIcon.vue'
 import SaveIcon from '@/components/icons/MenuDetails/SaveIcon.vue'
 import BlankIcon from '@/components/icons/MenuDetails/BlankIcon.vue'

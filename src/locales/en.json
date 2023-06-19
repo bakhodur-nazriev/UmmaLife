@@ -128,7 +128,10 @@
     "save": "Save",
     "open_in_new_tab": "Open in new tab",
     "complain": "Complain",
-    "hide": "Hide"
+    "hide": "Hide",
+    "open_like_message": "Send as message",
+    "share_on_my_page": "Share on my page",
+    "share_in_group": "Share in a group"
   },
   "languages": {
     "title": "English",
