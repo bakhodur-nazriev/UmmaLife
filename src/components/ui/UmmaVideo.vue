@@ -9,7 +9,7 @@
     </div>
     <div class="title__section">
       <h3 class="title">Вообще любое название для видео, которое влазит на 2 строки</h3>
-      <sample-menu-details-button></sample-menu-details-button>
+      <sample-menu-details-button @click="openMenu"></sample-menu-details-button>
     </div>
     <div class="subtitle__section">
       <div>
@@ -19,6 +19,16 @@
         <small>255 {{ $t('video.reactions') }}</small>
       </div>
     </div>
+
+    <!-- Код для отображения меню -->
+    <div v-if="isMenuOpen" class="menu__overlay">
+      <div class="menu__options">
+        <button @click="sharePublication">Поделиться</button>
+        <button @click="copyLink">Копировать ссылку</button>
+        <button @click="savePublication">Сохранить публикацию</button>
+        <button @click="openInNewTab">Открыть в новой вкладке</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -26,7 +36,17 @@
 import SampleMenuDetailsButton from '@/components/ui/SampleMenuDetailsButton.vue'
 
 export default {
-  components: { SampleMenuDetailsButton }
+  components: { SampleMenuDetailsButton },
+  data () {
+    return {
+      isMenuOpen: false
+    }
+  },
+  methods: {
+    openMenu () {
+      this.isMenuOpen = !this.isMenuOpen
+    }
+  }
 }
 </script>
 

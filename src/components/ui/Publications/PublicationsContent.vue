@@ -72,9 +72,26 @@
 
     <footer class="post__footer">
       <div class="footer__buttons">
-        <div class="like__button" @click="openReactionWindow">
-          <heart-icon></heart-icon>
-          {{ $t('buttons.like') }}
+        <div class="reaction__buttons--block">
+          <div class="reactions__buttons">
+            <transition name="slide">
+              <div v-if="isReactionWindowOpen" class="reaction__window">
+                <big-like-icon></big-like-icon>
+                <big-dislike-icon></big-dislike-icon>
+                <big-love-icon></big-love-icon>
+                <big-laugh-icon></big-laugh-icon>
+                <big-fire-icon></big-fire-icon>
+                <big-think-icon></big-think-icon>
+                <big-angry-icon></big-angry-icon>
+                <big-sad-icon></big-sad-icon>
+                <big-scared-icon></big-scared-icon>
+              </div>
+            </transition>
+          </div>
+          <div class="like__button" @click="openReactionWindow">
+            <heart-icon></heart-icon>
+            {{ $t('buttons.like') }}
+          </div>
         </div>
         <div class="comment__button" @click="toggleForm">
           <comment-icon></comment-icon>
@@ -85,19 +102,6 @@
           <div>{{ $t('buttons.share') }}</div>
         </div>
       </div>
-      <transition name="slide">
-        <div v-if="isReactionWindowOpen" class="reaction__window">
-          <big-like-icon></big-like-icon>
-          <big-dislike-icon></big-dislike-icon>
-          <big-love-icon></big-love-icon>
-          <big-laugh-icon></big-laugh-icon>
-          <big-fire-icon></big-fire-icon>
-          <big-think-icon></big-think-icon>
-          <big-angry-icon></big-angry-icon>
-          <big-sad-icon></big-sad-icon>
-          <big-scared-icon></big-scared-icon>
-        </div>
-      </transition>
 
       <form
         action=""
@@ -105,7 +109,11 @@
         v-if="isFormOpen"
         class="comment__form"
       >
-        <textarea id="comment-input"></textarea>
+        <img src="" alt="">
+        <textarea></textarea>
+        <button type="submit">
+          Send
+        </button>
       </form>
     </footer>
   </article>
@@ -164,7 +172,7 @@ export default {
   },
   data () {
     return {
-      isFormOpen: false,
+      isFormOpen: true,
       isReactionWindowOpen: false
     }
   },
@@ -174,18 +182,28 @@ export default {
     },
 
     openReactionWindow () {
-      this.isReactionWindowOpen = true
+      this.isReactionWindowOpen = !this.isReactionWindowOpen
     }
   }
 }
 </script>
 
 <style scoped>
+.reaction__buttons--block {
+  position: relative;
+}
+
+.reactions__buttons {
+  position: absolute;
+  bottom: 42px;
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: var(--color-background);
+}
+
 .reaction__window {
   display: flex;
   gap: 18px;
-  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
   padding: 12px;
 }
 
@@ -202,12 +220,14 @@ export default {
 }
 
 .reactions__block {
-  height: 32px;
   display: flex;
+  flex-wrap: wrap;
   gap: 4px;
+  max-width: 560px;
 }
 
 .reaction {
+  height: 32px;
   background: var(--color-divider);
   border-radius: 50px;
   padding: 8px 12px;
@@ -240,7 +260,6 @@ export default {
 .stats__reposts {
   color: var(--color-text);
   display: flex;
-  justify-content: flex-end;
   font-size: 14px;
 }
 

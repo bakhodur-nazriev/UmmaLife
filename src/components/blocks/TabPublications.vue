@@ -172,16 +172,6 @@ export default {
   align-items: center;
 }
 
-.person__right--side button,
-.group__right--side button
-{
-  height: 34px;
-  padding: 8px 32px;
-  font-size: 14px;
-  min-width: 153px;
-  max-width: 153px;
-}
-
 .person__link,
 .group__link,
 .actions__link {
@@ -331,6 +321,16 @@ svg {
   .aside__publications {
     width: 350px;
   }
+
+  .person__right--side button,
+  .group__right--side button
+  {
+    height: 34px;
+    padding: 8px 10px;
+    font-size: 14px;
+    min-width: 110px;
+    max-width: 110px;
+  }
 }
 
 @media (min-width: 1920px) {
@@ -340,6 +340,16 @@ svg {
 
   .aside__publications {
     width: 411px;
+  }
+
+  .person__right--side button,
+  .group__right--side button
+  {
+    height: 34px;
+    padding: 8px 32px;
+    font-size: 14px;
+    min-width: 153px;
+    max-width: 153px;
   }
 }
 </style>
