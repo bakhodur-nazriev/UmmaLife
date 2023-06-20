@@ -149,7 +149,8 @@
   },
   "placeholders": {
     "search_input": "Поиск",
-    "publications_input": "Напиши благое или молчи..."
+    "publications_input": "Напиши благое или молчи...",
+    "comment_input": "Ваш комментарий..."
   },
   "tabs": {
     "news_page": {

@@ -3,7 +3,11 @@
     <div class="menu__toggle--button" @click="toggleMenu">
       <menu-details-icon class="dropdown__toggle"></menu-details-icon>
     </div>
-    <div class="menu__overlay" v-show="isMenuOpen" @click="handleOverlayClick">
+    <div
+      class="menu__overlay"
+      v-show="isMenuOpen"
+      @click="handleOverlayClick"
+    >
       <ul class="dropdown__menu">
         <li class="dropdown__item">
           <share-icon />

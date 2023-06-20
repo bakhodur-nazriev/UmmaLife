@@ -147,7 +147,8 @@
   },
   "placeholders": {
     "search_input": "Search",
-    "publications_input": "Write good or be silent..."
+    "publications_input": "Write good or be silent...",
+    "comment_input": "Your comment..."
   },
   "tabs": {
     "news_page": {
