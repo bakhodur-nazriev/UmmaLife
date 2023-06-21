@@ -133,7 +133,9 @@
     "hide": "Скрыть",
     "open_like_message": "Отправить как сообщение",
     "share_on_my_page": "Поделиться на моей странице",
-    "share_in_group": "Поделиться в группе"
+    "share_in_group": "Поделиться в группе",
+    "answer": "Ответить",
+    "favourite": "Нравится"
   },
   "languages": {
     "title": "Русский",

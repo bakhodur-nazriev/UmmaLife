@@ -33,15 +33,15 @@
           <div v-if="isShareWindowOpen" class="share__window">
             <ul class="share__menu">
               <li class="share__item">
-                <send-menu-icon />
+                <send-menu-icon class="share__item--divider"/>
                 <span>{{ $t('buttons.open_like_message') }}</span>
               </li>
-              <sample-divider></sample-divider>
+              <sample-divider class="share__item--divider"/>
               <li class="share__item">
                 <share-menu-icon />
                 <span>{{ $t('buttons.share_on_my_page') }}</span>
               </li>
-              <sample-divider></sample-divider>
+              <sample-divider class="share__item--divider"/>
               <li class="share__item">
                 <my-group-icon />
                 <span>{{ $t('buttons.share_in_group') }}</span>
@@ -56,7 +56,10 @@
       </div>
     </div>
 
-    <comment-form v-if="isFormOpen"/>
+    <ReplyCommentForm />
+    <Transition name="fade">
+      <comment-form v-if="isFormOpen"/>
+    </Transition>
   </footer>
 </template>
 <script>
@@ -73,13 +76,15 @@ import ShareIcon from '@/components/icons/ShareIcon.vue'
 import BigFireIcon from '@/components/icons/reactions/men/big/FireIcon.vue'
 import CommentIcon from '@/components/icons/CommentIcon.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
-import CommentForm from '@/components/ui/CommentForm.vue'
+import CommentForm from '@/components/ui/Comment/CommentForm.vue'
 import ShareMenuIcon from '@/components/icons/MenuDetails/ShareMenuIcon.vue'
 import BigScaredIcon from '@/components/icons/reactions/men/big/ScaredIcon.vue'
 import BigLaughIcon from '@/components/icons/reactions/men/big/LaughIcon.vue'
+import ReplyCommentForm from '@/components/ui/Comment/ReplyCommentForm.vue'
 
 export default {
   components: {
+    ReplyCommentForm,
     BigSadIcon,
     BigLikeIcon,
     SendMenuIcon,
@@ -102,7 +107,7 @@ export default {
     return {
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
-      isFormOpen: false
+      isFormOpen: true
     }
   },
   mounted () {
@@ -144,14 +149,24 @@ export default {
 </script>
 
 <style scoped>
-.like__button svg,
-.comment__button svg,
-.share__button svg {
-  margin-right: 12px;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 .sample__divider {
   margin: 0;
+}
+
+.like__button svg,
+.comment__button svg,
+.share__button svg {
+  margin-right: 12px;
 }
 
 .share__item span {

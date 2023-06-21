@@ -4,7 +4,7 @@
 
 <style scoped>
 .sample__divider {
-  border: 1px solid #F2F4F9;
   width: 100%;
+  border: 1px solid var(--color-divider);
 }
 </style>

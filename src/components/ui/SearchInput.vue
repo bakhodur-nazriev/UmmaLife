@@ -20,7 +20,8 @@ export default {
 </script>
 
 <style scoped>
-.base__search--input{
+.base__search--input {
+  border-radius: 10px;
   background-color: #F1F1F1;
   color: #1F1F1F;
   border: none;
@@ -47,7 +48,6 @@ export default {
   }
 
   .base__search--input {
-    border-radius: 50px;
     width: 280px;
     font-size: 16px;
     padding: 12px 12px 12px 48px;
@@ -70,7 +70,6 @@ export default {
   }
 
   .base__search--input {
-    border-radius: 50px;
     width: 604px;
     font-size: 16px;
     padding: 12px 12px 12px 48px;

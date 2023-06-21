@@ -3,48 +3,51 @@
     <div class="menu__toggle--button" @click="toggleMenu">
       <menu-details-icon class="dropdown__toggle"></menu-details-icon>
     </div>
-    <div
-      class="menu__overlay"
-      v-show="isMenuOpen"
-      @click="handleOverlayClick"
-    >
-      <ul class="dropdown__menu">
-        <li class="dropdown__item">
-          <share-icon />
-          <span>{{ $t('buttons.share') }}</span>
-        </li>
-        <sample-divider></sample-divider>
 
-        <li class="dropdown__item">
-          <copy-link-icon />
-          <span>{{ $t('buttons.copy_link') }}</span>
-        </li>
+    <Transition name="bounce">
+      <div
+        class="menu__overlay"
+        v-show="isMenuOpen"
+        @click="handleOverlayClick"
+      >
+        <ul class="dropdown__menu">
+          <li class="dropdown__item">
+            <share-icon />
+            <span>{{ $t('buttons.share') }}</span>
+          </li>
+          <sample-divider class="dropdown__item--divider"/>
 
-        <sample-divider></sample-divider>
-        <li class="dropdown__item">
-          <save-icon />
-          <span>{{ $t('buttons.save') }}</span>
-        </li>
+          <li class="dropdown__item">
+            <copy-link-icon />
+            <span>{{ $t('buttons.copy_link') }}</span>
+          </li>
 
-        <sample-divider></sample-divider>
-        <li class="dropdown__item">
-          <blank-icon />
-          <span>{{ $t('buttons.open_in_new_tab') }}</span>
-        </li>
+          <sample-divider class="dropdown__item--divider"/>
+          <li class="dropdown__item">
+            <save-icon />
+            <span>{{ $t('buttons.save') }}</span>
+          </li>
 
-        <sample-divider></sample-divider>
-        <li class="dropdown__item">
-          <complain-icon />
-          <span>{{ $t('buttons.complain') }}</span>
-        </li>
+          <sample-divider class="dropdown__item--divider"/>
+          <li class="dropdown__item">
+            <blank-icon />
+            <span>{{ $t('buttons.open_in_new_tab') }}</span>
+          </li>
 
-        <sample-divider></sample-divider>
-        <li class="dropdown__item">
-          <hide-icon />
-          <span>{{ $t('buttons.hide') }}</span>
-        </li>
-      </ul>
-    </div>
+          <sample-divider class="dropdown__item--divider"/>
+          <li class="dropdown__item">
+            <complain-icon />
+            <span>{{ $t('buttons.complain') }}</span>
+          </li>
+
+          <sample-divider class="dropdown__item--divider"/>
+          <li class="dropdown__item">
+            <hide-icon />
+            <span>{{ $t('buttons.hide') }}</span>
+          </li>
+        </ul>
+      </div>
+    </Transition>
   </div>
 </template>
 <script>
@@ -86,6 +89,28 @@ export default {
 </script>
 
 <style scoped>
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.dropdown__item--divider {
+  border: 1px solid var(--color-divider);
+}
+
 .menu__details {
   position: relative;
 }
@@ -102,6 +127,7 @@ export default {
   padding: 10px;
   margin: 0;
 }
+
 .menu__overlay {
   position: absolute;
   right: 0;

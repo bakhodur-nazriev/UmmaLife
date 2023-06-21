@@ -4,18 +4,27 @@
     method="post"
     class="comment__form"
   >
-    <img class="comment__author--avatar" src="../../assets/images/Ellipse.png" width="48" height="48" alt="">
+    <div class="comment__avatar">
+      <img
+        class="comment__author--avatar"
+        src="../../../assets/images/Ellipse.png"
+        width="48"
+        height="48"
+        alt=""
+      >
+    </div>
 
     <sample-textarea
-        class="form__textarea"
-        :placeholder="`${ $t('placeholders.comment_input') }`"
-        @input="adjustTextareaHeight"
-      ></sample-textarea>
+      class="form__textarea"
+      :placeholder="`${ $t('placeholders.comment_input') }`"
+      @input="adjustTextareaHeight"
+    />
 
     <div class="textarea__right--buttons">
       <file-upload class="attach__file" label="file">
         <textarea-clip-icon />
       </file-upload>
+      <sample-divider class="textarea__right--buttons--divider" />
       <button class="send__button" type="button">
         <send-icon/>
       </button>
@@ -28,9 +37,11 @@ import SampleTextarea from '@/components/ui/SampleTextarea.vue'
 import SendIcon from '@/components/icons/SendIcon.vue'
 import FileUpload from '@/components/ui/FileUpload.vue'
 import TextareaClipIcon from '@/components/icons/TextareaClipIcon.vue'
+import SampleDivider from '@/components/ui/SampleDivider.vue'
 
 export default {
   components: {
+    SampleDivider,
     TextareaClipIcon,
     FileUpload,
     SendIcon,
@@ -50,6 +61,11 @@ export default {
 </script>
 
 <style scoped>
+.textarea__right--buttons--divider {
+  height: 14px;
+  border: 1px solid var(--color-gray-2);
+}
+
 .comment__author--avatar {
   margin-right: 12px;
 }
@@ -78,6 +94,7 @@ export default {
   border: none;
   cursor: pointer;
   background: none;
+  display: flex;;
   padding: 0;
 }
 
@@ -85,6 +102,7 @@ export default {
   position: absolute;
   right: 20px;
   display: flex;
+  align-items: center;
   gap: 24px;
 }
 
@@ -92,7 +110,7 @@ export default {
   height: 48px;
   width: 100%;
   font-size: 16px;
-  padding: 15px 100px 15px 15px;
+  padding: 15px 110px 15px 15px;
   resize: none;
   overflow: hidden;
 }
