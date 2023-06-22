@@ -55,12 +55,20 @@ export default {
       const textarea = this.$el.querySelector('.form__textarea')
       textarea.style.height = 'auto'
       textarea.style.height = `${textarea.scrollHeight}px`
+
+      if (textarea.value === '') {
+        textarea.style.height = '48px'
+      }
     }
   }
 }
 </script>
 
 <style scoped>
+.comment__avatar {
+  display: flex;
+}
+
 .textarea__right--buttons--divider {
   height: 14px;
   border: 1px solid var(--color-gray-2);
@@ -73,7 +81,6 @@ export default {
 .comment__form {
   display: flex;
   position: relative;
-  align-items: center;
   height: auto;
   padding-top: 20px;
   padding-bottom: 8px;
@@ -101,8 +108,9 @@ export default {
 .textarea__right--buttons {
   position: absolute;
   right: 20px;
+  bottom: 20px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 24px;
 }
 

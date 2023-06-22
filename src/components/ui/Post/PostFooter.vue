@@ -5,15 +5,15 @@
         <div class="reactions__buttons">
           <div v-if="isReactionWindowOpen" class="reaction__window" >
             <ul class="reaction__menu">
-              <li><big-like-icon></big-like-icon></li>
-              <li><big-dislike-icon></big-dislike-icon></li>
-              <li><big-love-icon></big-love-icon></li>
-              <li><big-laugh-icon></big-laugh-icon></li>
-              <li><big-fire-icon></big-fire-icon></li>
-              <li><big-think-icon></big-think-icon></li>
-              <li><big-angry-icon></big-angry-icon></li>
-              <li><big-sad-icon></big-sad-icon></li>
-              <li><big-scared-icon></big-scared-icon></li>
+              <li class="reaction__item"><big-like-icon></big-like-icon></li>
+              <li class="reaction__item"><big-dislike-icon></big-dislike-icon></li>
+              <li class="reaction__item"><big-love-icon></big-love-icon></li>
+              <li class="reaction__item"><big-laugh-icon></big-laugh-icon></li>
+              <li class="reaction__item"><big-fire-icon></big-fire-icon></li>
+              <li class="reaction__item"><big-think-icon></big-think-icon></li>
+              <li class="reaction__item"><big-angry-icon></big-angry-icon></li>
+              <li class="reaction__item"><big-sad-icon></big-sad-icon></li>
+              <li class="reaction__item"><big-scared-icon></big-scared-icon></li>
             </ul>
           </div>
         </div>
@@ -163,6 +163,12 @@ export default {
   margin: 0;
 }
 
+.reaction__item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
 .like__button svg,
 .comment__button svg,
 .share__button svg {
@@ -212,7 +218,7 @@ export default {
 .reactions__buttons,
 .share__buttons {
   position: absolute;
-  bottom: 42px;
+  bottom: 45px;
   box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   background-color: var(--color-background);

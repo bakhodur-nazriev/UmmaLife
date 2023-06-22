@@ -11,7 +11,8 @@
       </div>
     </div>
 
-    <div class="tabs__content">
+    <transition name="fade">
+      <div class="tabs__content">
       <div
         v-for="(tab, index) in tabs"
         :key="index"
@@ -23,6 +24,7 @@
         <tab-umma-video v-if="index === 2"></tab-umma-video>
       </div>
     </div>
+    </transition>
   </div>
 </template>
 
