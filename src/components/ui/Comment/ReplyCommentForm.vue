@@ -33,7 +33,7 @@
       <div class="reply__buttons--section">
         <div class="reply__buttons">
           <button type="button">{{ $t('buttons.favourite') }}</button>
-          <button type="button">{{ $t('buttons.answer') }}</button>
+          <button type="button" @click="answerComment">{{ $t('buttons.answer') }}</button>
         </div>
 
         <div class="reply__reactions">
@@ -51,12 +51,17 @@
           </div>
         </div>
       </div>
+
+      <div v-if="isActiveAnswer" class="activeReplyField">
+        <img src="../../../assets/images/comment_avatar.png" width="48" height="48" alt="">
+        <textarea-field :reply-author-name="replyAuthorName + ', '"/>
+      </div>
     </div>
 
     <div class="reply__detail--menu--section">
       <reply-menu-details
         :is-reply-menu-open="isReplyMenuOpen"
-        @toggle-reply-menu="$emit('toggle-reply-menu')"
+        @toggle-reply-menu="toggleReplyMenu"
       />
     </div>
   </form>
@@ -64,7 +69,6 @@
 
 <script>
 import SampleTextarea from '@/components/ui/fields/SampleTextarea.vue'
-import SampleMenuDetailsButton from '@/components/ui/MenuDetails/SampleMenuDetailsButton.vue'
 import LikeIcon from '@/components/icons/reactions/men/reply-reactions/LikeIcon.vue'
 import LoveIcon from '@/components/icons/reactions/men/reply-reactions/LoveIcon.vue'
 import FireIcon from '@/components/icons/reactions/men/reply-reactions/FireIcon.vue'
@@ -79,9 +83,11 @@ import SampleDivider from '@/components/ui/SampleDivider.vue'
 import TextareaClipIcon from '@/components/icons/TextareaClipIcon.vue'
 import SendIcon from '@/components/icons/SendIcon.vue'
 import ReplyMenuDetails from '@/components/ui/MenuDetails/ReplyMenuDetails.vue'
+import TextareaField from '@/components/ui/fields/TextareaField.vue'
 
 export default {
   components: {
+    TextareaField,
     ReplyMenuDetails,
     SendIcon,
     TextareaClipIcon,
@@ -96,36 +102,35 @@ export default {
     FireIcon,
     LoveIcon,
     LikeIcon,
-    SampleMenuDetailsButton,
     SampleTextarea
-  },
-  props: {
-    isReplyMenuOpen: {
-      type: Boolean,
-      required: true
-    }
   },
   data () {
     return {
-      textareaValue: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur assumenda blanditiis corporis deserunt doloribus ea eaque eos esse eveniet exercitationem, fuga iure laudantium libero maiores maxime natus nemo nostrum optio perferendis porro quas, qui, quia quod rerum saepe soluta sunt tenetur? Ab aut, dignissimos dolores esse excepturi expedita facilis fuga iusto modi nesciunt possimus quasi quos reiciendis.'
+      textareaValue: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur assumenda blanditiis corporis deserunt doloribus ea eaque eos esse eveniet exercitationem, fuga iure laudantium libero maiores maxime natus nemo nostrum optio perferendis porro quas, qui, quia quod rerum saepe soluta sunt tenetur? Ab aut, dignissimos dolores esse excepturi expedita facilis fuga iusto modi nesciunt possimus quasi quos reiciendis.',
+      isReplyMenuOpen: false,
+      isActiveAnswer: false,
+      replyAuthorName: 'Courtney Henry'
     }
   },
   methods: {
-    adjustTextareaHeight() {
-      const textarea = this.$el.querySelector('.reply__textarea');
+    adjustTextareaHeight () {
+      const textarea = this.$el.querySelector('.reply__textarea')
 
       if (textarea.value.trim() !== '') {
-        this.textareaValue = textarea.value;
-        textarea.style.height = 'auto';
-        textarea.style.height = `${textarea.scrollHeight}px`;
+        this.textareaValue = textarea.value
+        textarea.style.height = 'auto'
+        textarea.style.height = `${textarea.scrollHeight}px`
       } else {
-        this.textareaValue = '';
-        textarea.style.height = '48px';
+        this.textareaValue = ''
+        textarea.style.height = '48px'
       }
     },
     toggleReplyMenu () {
-      this.$emit('toggle-reply-menu')
+      this.isReplyMenuOpen = !this.isReplyMenuOpen
     },
+    answerComment () {
+      this.isActiveAnswer = !this.isActiveAnswer
+    }
   },
   mounted () {
     this.adjustTextareaHeight()
@@ -134,6 +139,12 @@ export default {
 </script>
 
 <style scoped>
+.activeReplyField {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .send__button,
 .attach__file {
   border: none;

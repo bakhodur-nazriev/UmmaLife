@@ -8,7 +8,6 @@
       <div
         class="menu__overlay"
         v-show="isReplyMenuOpen"
-        @click="handleOverlayReplyClick"
       >
         <ul class="dropdown__menu">
           <li class="dropdown__item">
@@ -44,7 +43,7 @@ export default {
     DeleteIcon,
     EditIcon,
     SampleDivider,
-    MenuDetailsIcon,
+    MenuDetailsIcon
   },
   props: {
     isReplyMenuOpen: {
@@ -52,13 +51,14 @@ export default {
       required: true
     }
   },
-  data () {},
+  data () {
+    return {
+
+    }
+  },
   methods: {
     toggleReplyMenu () {
       this.$emit('toggle-reply-menu')
-    },
-    handleOverlayReplyClick () {
-      this.$emit('toggle-menu')
     }
   }
 }

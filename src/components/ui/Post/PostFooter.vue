@@ -18,13 +18,13 @@
           </div>
         </div>
         <div class="like__button open-reaction-button" @click="openReactionWindow">
-          <heart-icon></heart-icon>
+          <heart-icon />
           {{ $t('buttons.like') }}
         </div>
       </div>
 
       <div class="comment__button" @click="toggleForm">
-        <comment-icon></comment-icon>
+        <comment-icon />
         {{ $t('buttons.comment') }}
       </div>
 
@@ -56,14 +56,15 @@
       </div>
     </div>
 
-    <ReplyCommentForm
-      @click="toggleReplyMenu"
-      :is-reply-menu-open="isReplyMenuOpen"
-    />
+    <div class="main__comment--form" v-if="isFormOpen">
+      <Transition name="fade">
+        <ReplyCommentForm />
+      </Transition>
 
-    <Transition name="fade">
-      <comment-form v-if="isFormOpen"/>
-    </Transition>
+      <Transition name="fade">
+        <comment-form />
+      </Transition>
+    </div>
 
   </footer>
 </template>
@@ -112,8 +113,7 @@ export default {
     return {
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
-      isFormOpen: false,
-      isReplyMenuOpen: false
+      isFormOpen: false
     }
   },
   mounted () {
@@ -127,11 +127,7 @@ export default {
   methods: {
     toggleForm () {
       this.isFormOpen = !this.isFormOpen
-      this.$emit('toggle-menu');
-    },
-    toggleReplyMenu () {
-      this.isReplyMenuOpen = !this.isReplyMenuOpen
-      this.$emit('toggle-reply-menu');
+      this.$emit('toggle-menu')
     },
     openReactionWindow () {
       this.isReactionWindowOpen = !this.isReactionWindowOpen
@@ -160,6 +156,10 @@ export default {
 </script>
 
 <style scoped>
+.main__comment--form {
+  width: 100%;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: all 0.3s;
