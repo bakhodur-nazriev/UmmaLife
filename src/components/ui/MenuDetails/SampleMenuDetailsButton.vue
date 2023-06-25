@@ -108,7 +108,7 @@ export default {
 }
 
 .dropdown__item--divider {
-  border: 1px solid var(--color-divider);
+  border: 1px solid var(--color-seashell);
 }
 
 .menu__details {
@@ -131,14 +131,14 @@ export default {
 .menu__overlay {
   position: absolute;
   right: 0;
-  background-color: var(--color-background);
+  background-color: var(--color-white);
   z-index: 500;
   border-radius: 10px;
   box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
 }
 
 .menu__overlay svg {
-  color: var(--color-text);
+  color: var(--color-silver-chalice);
 }
 
 .dropdown__item {
@@ -151,7 +151,7 @@ export default {
 }
 
 .dropdown__item:hover {
-  background-color: var(--color-divider);
+  background-color: var(--color-seashell);
   border-radius: 10px;
 }
 

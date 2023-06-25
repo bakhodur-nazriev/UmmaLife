@@ -44,7 +44,7 @@ export default {
 
 <style scoped>
 .post__block {
-  background-color: var(--color-background);
+  background-color: var(--color-white);
   margin-bottom: 20px;
   border-radius: 15px;
   padding: 20px 24px 8px 24px;
@@ -52,7 +52,7 @@ export default {
 
 .post__footer--divider {
   height: 1px;
-  background-color: var(--color-surface);
+  background-color: var(--color-gallery-first);
   border: none;
 }
 </style>

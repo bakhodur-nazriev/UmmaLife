@@ -82,10 +82,10 @@ export default {
 <style scoped>
 .reaction {
   height: 32px;
-  background: var(--color-divider);
+  background: var(--color-seashell);
   border-radius: 50px;
   padding: 8px 12px;
-  color: var(--color-text);
+  color: var(--color-silver-chalice);
   width: auto;
   display: flex;
   gap: 6px;
@@ -111,7 +111,7 @@ export default {
 }
 
 .stats__reposts {
-  color: var(--color-text);
+  color: var(--color-silver-chalice);
   display: flex;
   font-size: 14px;
 }

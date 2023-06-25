@@ -66,7 +66,7 @@ export default {
 <style scoped>
 .toggle__block {
   display: flex;
-  background-color: var(--color-divider);
+  background-color: var(--color-seashell);
   padding: 2px;
   height: 44px;
   border-radius: 8px;

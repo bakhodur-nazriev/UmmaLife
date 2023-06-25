@@ -7,7 +7,7 @@
     <div class="comment__avatar">
       <img
         class="comment__author--avatar"
-        src="../../../assets/images/Ellipse.png"
+        src="../../../assets/images/comment_avatar.png"
         width="48"
         height="48"
         alt=""
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import SampleTextarea from '@/components/ui/SampleTextarea.vue'
+import SampleTextarea from '@/components/ui/fields/SampleTextarea.vue'
 import SendIcon from '@/components/icons/SendIcon.vue'
 import FileUpload from '@/components/ui/FileUpload.vue'
 import TextareaClipIcon from '@/components/icons/TextareaClipIcon.vue'
@@ -71,7 +71,7 @@ export default {
 
 .textarea__right--buttons--divider {
   height: 14px;
-  border: 1px solid var(--color-gray-2);
+  border: 1px solid var(--color-alto-second);
 }
 
 .comment__author--avatar {
@@ -93,7 +93,7 @@ export default {
   top: 8px;
   width: 100%;
   height: 1px;
-  background-color: var(--color-divider);
+  background-color: var(--color-seashell);
 }
 
 .send__button,
@@ -101,16 +101,16 @@ export default {
   border: none;
   cursor: pointer;
   background: none;
-  display: flex;;
+  display: flex;
   padding: 0;
 }
 
 .textarea__right--buttons {
   position: absolute;
   right: 20px;
-  bottom: 20px;
+  bottom: 17px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: 24px;
 }
 
@@ -118,7 +118,7 @@ export default {
   height: 48px;
   width: 100%;
   font-size: 16px;
-  padding: 15px 110px 15px 15px;
+  padding: 15px 125px 15px 15px;
   resize: none;
   overflow: hidden;
 }

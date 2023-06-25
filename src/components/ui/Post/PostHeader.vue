@@ -16,7 +16,7 @@
   </header>
 </template>
 <script>
-import SampleMenuDetailsButton from '@/components/ui/SampleMenuDetailsButton.vue'
+import SampleMenuDetailsButton from '@/components/ui/MenuDetails/SampleMenuDetailsButton.vue'
 
 export default {
   components: {
@@ -28,13 +28,12 @@ export default {
       required: true
     }
   }
-
 }
 </script>
 
 <style scoped>
 .menu__button svg {
-  color: var(--color-text);
+  color: var(--color-silver-chalice);
 }
 
 .post__author img {
@@ -58,12 +57,12 @@ export default {
 }
 
 .time {
-  color: var(--color-text);
+  color: var(--color-silver-chalice);
   font-size: 14px;
 }
 
 .name {
-  color: var(--color-primary);
+  color: var(--color-mine-shaft);
   font-size: 18px;
 }
 

@@ -14,12 +14,12 @@ export default {
   resize: none;
   outline: none;
   font-size: 16px;
-  background-color: var(--color-divider);
+  background-color: var(--color-seashell);
   border-radius: 15px;
   padding: 12px;
 }
 
 .sample__textarea::placeholder {
-  color: var(--color-text);
+  color: var(--color-silver-chalice);
 }
 </style>

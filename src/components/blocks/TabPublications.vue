@@ -190,7 +190,7 @@ export default {
 }
 
 .actions__section span {
-  color: var(--color-primary);
+  color: var(--color-mine-shaft);
 }
 
 .person__info,
@@ -202,12 +202,12 @@ export default {
 
 .person__info span,
 .group__info span {
-  color: var(--color-primary);
+  color: var(--color-mine-shaft);
 }
 
 .person__info small,
 .group__info small {
-  color: var(--color-text);
+  color: var(--color-silver-chalice);
 }
 
 .form__left--side {
@@ -231,7 +231,7 @@ export default {
 }
 
 .form__left--side textarea::placeholder {
-  color: var(--color-text);
+  color: var(--color-silver-chalice);
 }
 
 .aside__title--section {
@@ -243,7 +243,7 @@ export default {
   height: 1px;
   margin: 16px 0;
   border: 0;
-  background-color: var(--color-gray-2);
+  background-color: var(--color-alto-second);
 }
 
 .publication__main--block {
@@ -254,8 +254,8 @@ export default {
 .section__last--actions,
 .section__recommended--groups,
 .section__recommended--people {
-  background-color: var(--color-background);
-  color: var(--color-text);
+  background-color: var(--color-white);
+  color: var(--color-silver-chalice);
   border-radius: 15px;
   padding: 24px 16px;
   display: flex;
@@ -269,13 +269,13 @@ export default {
 }
 
 svg {
-  color: var(--color-text)
+  color: var(--color-silver-chalice)
 }
 
 .publications__form--section {
   border-radius: 15px;
   padding: 16px 24px;
-  background-color: var(--color-background);
+  background-color: var(--color-white);
 }
 
 .form__section {
@@ -288,7 +288,7 @@ svg {
 .vertical__divider {
   width: 2px;
   height: 14px;
-  background-color: var(--color-gray-2);
+  background-color: var(--color-alto-second);
 }
 
 .aside__publications {

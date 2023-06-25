@@ -56,10 +56,15 @@
       </div>
     </div>
 
-    <ReplyCommentForm />
+    <ReplyCommentForm
+      @click="toggleReplyMenu"
+      :is-reply-menu-open="isReplyMenuOpen"
+    />
+
     <Transition name="fade">
       <comment-form v-if="isFormOpen"/>
     </Transition>
+
   </footer>
 </template>
 <script>
@@ -107,7 +112,8 @@ export default {
     return {
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
-      isFormOpen: true
+      isFormOpen: false,
+      isReplyMenuOpen: false
     }
   },
   mounted () {
@@ -121,6 +127,11 @@ export default {
   methods: {
     toggleForm () {
       this.isFormOpen = !this.isFormOpen
+      this.$emit('toggle-menu');
+    },
+    toggleReplyMenu () {
+      this.isReplyMenuOpen = !this.isReplyMenuOpen
+      this.$emit('toggle-reply-menu');
     },
     openReactionWindow () {
       this.isReactionWindowOpen = !this.isReactionWindowOpen
@@ -151,11 +162,13 @@ export default {
 <style scoped>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s ease;
+  transition: all 0.3s;
+  opacity: 1;
 }
 
 .fade-enter-from,
 .fade-leave-to {
+  transition: all 0.3s;
   opacity: 0;
 }
 
@@ -188,7 +201,7 @@ export default {
 }
 
 .share__item:hover {
-  background-color: var(--color-divider);
+  background-color: var(--color-seashell);
   border-radius: 10px;
 }
 
@@ -221,7 +234,7 @@ export default {
   bottom: 45px;
   box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  background-color: var(--color-background);
+  background-color: var(--color-white);
 }
 
 .reaction__window,
@@ -249,14 +262,14 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-gray-4);
+  color: var(--color-gray);
   cursor: pointer;
 }
 
 .like__button:hover,
 .comment__button:hover,
 .share__button:hover {
-  background-color: var(--color-divider);
+  background-color: var(--color-seashell);
   border-radius: 15px;
 }
 

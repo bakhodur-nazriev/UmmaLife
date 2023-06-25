@@ -12,32 +12,32 @@
 /* White Theme */
 :root {
     /* White theme */
-    --color-primary: #1F1F1F;
-    --color-secondary: #D94B4B;
-    --color-background: #FFFFFF;
-    --color-surface: #F0F0F0;
-    --color-accent: #49A399;
-    --color-link: #00819D;
-    --color-text: #B0B0B0;
-    --color-divider: #F1F1F1;
-    --color-gray-1: #DADADA;
-    --color-gray-2: #D9D9D9;
-    --color-gray-3: #EAEAEA;
-    --color-gray-4: #818181;
+    --color-mine-shaft: #1F1F1F;
+    --color-valencia: #D94B4B;
+    --color-white: #FFFFFF;
+    --color-gallery-first: #F0F0F0;
+    --color-hippie-blue: #49A399;
+    --color-deep-cerulean: #00819D;
+    --color-silver-chalice: #B0B0B0;
+    --color-seashell: #F1F1F1;
+    --color-alto-first: #DADADA;
+    --color-alto-second: #D9D9D9;
+    --color-gallery-second: #EAEAEA;
+    --color-gray: #818181;
 
     /* Black theme */
-    --color-primary-dark: #FFFFFF;
-    --color-secondary-dark: #D94B4B;
-    --color-background-dark: #1F1F1F;
-    --color-surface-dark: #434953;
-    --color-accent-dark: #49A399;
-    --color-link-dark: #00819D;
-    --color-text-dark: #8F99A8;
-    --color-divider-dark: #0E0E0F;
-    --color-gray-1-dark: #27292D;
-    --color-gray-2-dark: #2D2F34;
-    --color-gray-3-dark: #434953;
-    --color-gray-4-dark: #434953;
+    --color-white-dark: #FFFFFF;
+    --color-valencia-dark: #D94B4B;
+    --color-mine-shaft-dark: #1F1F1F;
+    --color-mako-first-dark: #434953;
+    --color-hippie-blue-dark: #49A399;
+    --color-deep-cerulean-dark: #00819D;
+    --color-regent-gray: #8F99A8;
+    --color-woodsmoke: #0E0E0F;
+    --color-shark-first: #27292D;
+    --color-shark-second: #2D2F34;
+    --color-mako-second: #434953;
+    --color-shuttle-gray: #2D2F34;
 
     --tablet-width: 768px;
     --desktop-width: 1200px;

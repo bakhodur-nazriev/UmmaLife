@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import SampleMenuDetailsButton from '@/components/ui/SampleMenuDetailsButton.vue'
+import SampleMenuDetailsButton from '@/components/ui/MenuDetails/SampleMenuDetailsButton.vue'
 
 export default {
   components: {
@@ -62,7 +62,7 @@ img {
 }
 
 .subtitle__section small {
-  color: var(--color-gray-4);
+  color: var(--color-gray);
   font-size: 12px;
 }
 
@@ -76,7 +76,7 @@ img {
   z-index: 5;
   margin: 12px;
   padding: 1px;
-  background-color: var(--color-background);
+  background-color: var(--color-white);
 }
 
 .video__section .time__section {
@@ -87,8 +87,8 @@ img {
 }
 
 .time__section span {
-  color: var(--color-background);
-  background-color: var(--color-primary);
+  color: var(--color-white);
+  background-color: var(--color-mine-shaft);
   border-radius: 7px;
   padding: 6px;
   font-size: 12px;
@@ -97,7 +97,7 @@ img {
 
 .video__time {
   font-size: 12px;
-  color: var(--color-gray-4);
+  color: var(--color-gray);
 }
 /*.umma__video--block {
   min-width: 364px;

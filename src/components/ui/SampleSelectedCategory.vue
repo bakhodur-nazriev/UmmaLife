@@ -25,8 +25,8 @@ export default {
 }
 
 .category__button {
-  background-color: var(--color-background);
-  color: var(--color-text);
+  background-color: var(--color-white);
+  color: var(--color-silver-chalice);
   font-size: 16px;
   border: none;
   border-radius: 50px;
@@ -36,8 +36,8 @@ export default {
 }
 
 .category__button:hover {
-  background-color: var(--color-link);
-  color: var(--color-background);
+  background-color: var(--color-deep-cerulean);
+  color: var(--color-white);
 }
 
 @media (min-width: 768px) {  }
