@@ -62,7 +62,7 @@
       </Transition>
 
       <Transition name="fade">
-        <comment-form />
+        <CommentForm />
       </Transition>
     </div>
 
@@ -113,7 +113,7 @@ export default {
     return {
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
-      isFormOpen: false
+      isFormOpen: true
     }
   },
   mounted () {

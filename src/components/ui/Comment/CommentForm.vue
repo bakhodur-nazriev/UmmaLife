@@ -4,30 +4,35 @@
     method="post"
     class="comment__form"
   >
-    <div class="comment__avatar">
-      <img
-        class="comment__author--avatar"
-        src="../../../assets/images/comment_avatar.png"
-        width="48"
-        height="48"
-        alt=""
-      >
+    <div class="load__more-section">
+      <sample-drop-down class="load__more-button" :drop-down-title="`${ $t('dropdown.download_comment') }`"/>
     </div>
+    <div class="text__field-section">
+      <div class="comment__avatar">
+        <img
+          class="comment__author--avatar"
+          src="../../../assets/images/comment_avatar.png"
+          width="48"
+          height="48"
+          alt=""
+        >
+      </div>
 
-    <sample-textarea
-      class="form__textarea"
-      :placeholder="`${ $t('placeholders.comment_input') }`"
-      @input="adjustTextareaHeight"
-    />
+      <sample-textarea
+        class="form__textarea"
+        :placeholder="`${ $t('placeholders.comment_input') }`"
+        @input="adjustTextareaHeight"
+      />
 
-    <div class="textarea__right--buttons">
-      <file-upload class="attach__file" label="file">
-        <textarea-clip-icon />
-      </file-upload>
-      <sample-divider class="textarea__right--buttons--divider" />
-      <button class="send__button" type="button">
-        <send-icon/>
-      </button>
+      <div class="textarea__right--buttons">
+        <file-upload class="attach__file" label="file">
+          <textarea-clip-icon />
+        </file-upload>
+        <sample-divider class="textarea__right--buttons--divider" />
+        <button class="send__button" type="button">
+          <send-icon/>
+        </button>
+      </div>
     </div>
   </form>
 </template>
@@ -38,9 +43,11 @@ import SendIcon from '@/components/icons/SendIcon.vue'
 import FileUpload from '@/components/ui/FileUpload.vue'
 import TextareaClipIcon from '@/components/icons/TextareaClipIcon.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
+import SampleDropDown from '@/components/ui/SampleDropDown.vue'
 
 export default {
   components: {
+    SampleDropDown,
     SampleDivider,
     TextareaClipIcon,
     FileUpload,
@@ -65,6 +72,18 @@ export default {
 </script>
 
 <style scoped>
+.dropdown__button> span {
+  color: var(--color-hippie-blue);
+}
+
+.load__more-section {
+  margin-bottom: 20px;
+}
+
+.text__field-section {
+  display: flex;
+}
+
 .comment__avatar {
   display: flex;
 }
@@ -85,6 +104,7 @@ export default {
   padding-top: 20px;
   padding-bottom: 8px;
   width: 100%;
+  flex-direction: column;
 }
 
 .comment__form::before {

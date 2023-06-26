@@ -194,5 +194,9 @@
       "plural": "reposts",
       "singular": "repost"
     }
+  },
+  "dropdown": {
+    "reply_answer": "View answers",
+    "download_comment": "Load more"
   }
 }

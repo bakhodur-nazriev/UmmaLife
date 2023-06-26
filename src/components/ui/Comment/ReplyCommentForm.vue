@@ -56,6 +56,10 @@
         <img src="../../../assets/images/comment_avatar.png" width="48" height="48" alt="">
         <textarea-field :reply-author-name="replyAuthorName + ', '"/>
       </div>
+
+      <div v-if="false">
+        <sample-drop-down :drop-down-title="`${ $t('dropdown.reply_answer') }`"/>
+      </div>
     </div>
 
     <div class="reply__detail--menu--section">
@@ -84,9 +88,11 @@ import TextareaClipIcon from '@/components/icons/TextareaClipIcon.vue'
 import SendIcon from '@/components/icons/SendIcon.vue'
 import ReplyMenuDetails from '@/components/ui/MenuDetails/ReplyMenuDetails.vue'
 import TextareaField from '@/components/ui/fields/TextareaField.vue'
+import SampleDropDown from '@/components/ui/SampleDropDown.vue'
 
 export default {
   components: {
+    SampleDropDown,
     TextareaField,
     ReplyMenuDetails,
     SendIcon,

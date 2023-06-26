@@ -196,5 +196,9 @@
       "plural": "репостов",
       "singular": "репост"
     }
+  },
+  "dropdown": {
+    "reply_answer": "Посмотреть ответы",
+    "download_comment": "Загрузить комментарии"
   }
 }
