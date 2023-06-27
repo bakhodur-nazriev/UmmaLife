@@ -43,6 +43,19 @@
     --desktop-width: 1200px;
 }
 
+@media screen and (max-width: 768px) {
+    :root {
+        --screen-width: 768px;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    :root {
+        --screen-width: 1024px;
+        --screen-height: 768px;
+    }
+}
+
 /* Font sizes */
 .main-heading {
     font-size: 24px;

@@ -56,6 +56,8 @@
       </div>
     </div>
 
+    <sample-divider v-if="isFormOpen" />
+
     <div class="main__comment--form" v-if="isFormOpen">
       <Transition name="fade">
         <ReplyCommentForm />
@@ -156,6 +158,10 @@ export default {
 </script>
 
 <style scoped>
+.share__item--divider {
+  margin: 8px 0;
+}
+
 .main__comment--form {
   width: 100%;
 }
@@ -170,10 +176,6 @@ export default {
 .fade-leave-to {
   transition: all 0.3s;
   opacity: 0;
-}
-
-.sample__divider {
-  margin: 0;
 }
 
 .reaction__item {
@@ -208,7 +210,6 @@ export default {
 .share__menu {
   display: flex;
   flex-direction: column;
-  row-gap: 8px;
 }
 
 .share__menu,
@@ -220,7 +221,6 @@ export default {
 
 .reaction__menu {
   display: flex;
-  gap: 18px;
 }
 
 .reaction__buttons--block,

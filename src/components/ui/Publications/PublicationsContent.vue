@@ -7,7 +7,7 @@
 
     <post-content />
 
-    <hr class="post__footer--divider">
+    <sample-divider />
 
     <post-footer
       :is-reaction-window-open="isReactionWindowOpen"
@@ -20,9 +20,11 @@
 import PostHeader from '@/components/ui/Post/PostHeader.vue'
 import PostContent from '@/components/ui/Post/PostContent.vue'
 import PostFooter from '@/components/ui/Post/PostFooter.vue'
+import SampleDivider from '@/components/ui/SampleDivider.vue'
 
 export default {
   components: {
+    SampleDivider,
     PostFooter,
     PostContent,
     PostHeader
@@ -48,11 +50,5 @@ export default {
   margin-bottom: 20px;
   border-radius: 15px;
   padding: 20px 24px 8px 24px;
-}
-
-.post__footer--divider {
-  height: 1px;
-  background-color: var(--color-gallery-first);
-  border: none;
 }
 </style>

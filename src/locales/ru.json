@@ -195,6 +195,15 @@
     "reposts": {
       "plural": "репостов",
       "singular": "репост"
+    },
+    "time": {
+      "year": "год",
+      "month": "месяц",
+      "week": "неделя",
+      "day": "день",
+      "hour": "час",
+      "minute": "минут",
+      "second": "секунд"
     }
   },
   "dropdown": {

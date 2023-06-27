@@ -6,27 +6,36 @@
 
     <div class="reply__field--section">
       <div class="reply__author--section">
-        <span class="author__name">Courtney Henry</span>
-        <span class="author__time">2 ч назад</span>
+        <span class="author__name">{{ replyAuthorName }}</span>
+        <span class="author__time">2 часа назад</span>
       </div>
 
-      <div class="reply__textarea--section">
-        <sample-textarea
-          :placeholder="`${ $t('placeholders.comment_input') }`"
-          @input="adjustTextareaHeight"
-          v-model="textareaValue"
-          :value="textareaValue"
-          class="reply__textarea"
-        ></sample-textarea>
+      <div class="reply__textarea--and--button--section">
+        <div class="reply__textarea--block">
+          <sample-textarea
+            :placeholder="`${ $t('placeholders.comment_input') }`"
+            @input="adjustTextareaHeight"
+            v-model="textareaValue"
+            :value="textareaValue"
+            class="reply__textarea"
+          ></sample-textarea>
 
-        <div class="textarea__right--buttons">
-          <file-upload class="attach__file" label="file">
-            <textarea-clip-icon />
-          </file-upload>
-          <sample-divider class="textarea__right--buttons--divider" />
-          <button class="send__button" type="button">
-            <send-icon/>
-          </button>
+          <div class="textarea__right--buttons">
+            <file-upload class="attach__file" label="file">
+              <textarea-clip-icon />
+            </file-upload>
+            <sample-divider class="textarea__right--buttons--divider" />
+            <button class="send__button" type="button">
+              <send-icon/>
+            </button>
+          </div>
+        </div>
+
+        <div class="reply__detail--menu--section">
+          <reply-menu-details
+            :is-reply-menu-open="isReplyMenuOpen"
+            @toggle-reply-menu="toggleReplyMenu"
+          />
         </div>
       </div>
 
@@ -54,6 +63,7 @@
 
       <div v-if="isActiveAnswer" class="active__reply--field">
         <img src="../../../assets/images/comment_avatar.png" width="48" height="48" alt="">
+
         <textarea-field :reply-author-name="replyAuthorName + ', '"/>
       </div>
 
@@ -63,13 +73,83 @@
           :drop-down-title="`${ $t('dropdown.reply_answer') }`"
         />
       </div>
-    </div>
 
-    <div class="reply__detail--menu--section">
-      <reply-menu-details
-        :is-reply-menu-open="isReplyMenuOpen"
-        @toggle-reply-menu="toggleReplyMenu"
-      />
+      <!--      <div class="reply__deep&#45;&#45;answers">
+        <div class="author__avatar&#45;&#45;section">
+          <img src="../../../assets/images/reply_avatar.png" alt="">
+        </div>
+
+        <div class="reply__field&#45;&#45;section">
+          <div class="reply__author&#45;&#45;section">
+            <span class="author__name">{{ replyAuthorName }}</span>
+            <span class="author__time">2 часа назад</span>
+          </div>
+
+          <div class="reply__textarea&#45;&#45;and&#45;&#45;button&#45;&#45;section">
+            <div class="reply__textarea&#45;&#45;block">
+              <sample-textarea
+                :placeholder="`${ $t('placeholders.comment_input') }`"
+                @input="adjustTextareaHeight"
+                v-model="textareaInsideValue"
+                :value="textareaInsideValue"
+                class="reply__textarea"
+              ></sample-textarea>
+
+              <div class="textarea__right&#45;&#45;buttons">
+                <file-upload class="attach__file" label="file">
+                  <textarea-clip-icon />
+                </file-upload>
+                <sample-divider class="textarea__right&#45;&#45;buttons&#45;&#45;divider" />
+                <button class="send__button" type="button">
+                  <send-icon/>
+                </button>
+              </div>
+            </div>
+
+            <div class="reply__detail&#45;&#45;menu&#45;&#45;section">
+              <reply-menu-details
+                :is-reply-menu-open="isReplyMenuOpen"
+                @toggle-reply-menu="toggleReplyMenu"
+              />
+            </div>
+          </div>
+
+          <div class="reply__buttons&#45;&#45;section">
+            <div class="reply__buttons">
+              <button type="button">{{ $t('buttons.favourite') }}</button>
+              <button type="button" @click="answerComment">{{ $t('buttons.answer') }}</button>
+            </div>
+
+            <div class="reply__reactions">
+              <div class="reply__icon"><like-icon></like-icon></div>
+              <div class="reply__icon"><dislike-icon></dislike-icon></div>
+              <div class="reply__icon"><love-icon></love-icon></div>
+              <div class="reply__icon"><laugh-icon></laugh-icon></div>
+              <div class="reply__icon"><fire-icon></fire-icon></div>
+              <div class="reply__icon"><think-icon></think-icon></div>
+              <div class="reply__icon"><angry-icon></angry-icon></div>
+              <div class="reply__icon"><sad-icon></sad-icon></div>
+              <div class="reply__icon"><scared-icon></scared-icon></div>
+              <div class="reply__reactions&#45;&#45;count&#45;&#45;block">
+                <span class="reply__reactions&#45;&#45;count">999К</span>
+              </div>
+            </div>
+          </div>
+
+          <div v-if="answerInsideComment" class="active__reply&#45;&#45;field">
+            <img src="../../../assets/images/comment_avatar.png" width="48" height="48" alt="">
+
+            <textarea-field :reply-author-name="replyAuthorName + ', '"/>
+          </div>
+
+          <div v-if="true" class="load__more&#45;&#45;reply-answers">
+            <sample-drop-down
+              :color="parentColor"
+              :drop-down-title="`${ $t('dropdown.reply_answer') }`"
+            />
+          </div>
+        </div>
+      </div>-->
     </div>
   </form>
 </template>
@@ -116,8 +196,10 @@ export default {
   data () {
     return {
       textareaValue: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur assumenda blanditiis corporis deserunt doloribus ea eaque eos esse eveniet exercitationem, fuga iure laudantium libero maiores maxime natus nemo nostrum optio perferendis porro quas, qui, quia quod rerum saepe soluta sunt tenetur? Ab aut, dignissimos dolores esse excepturi expedita facilis fuga iusto modi nesciunt possimus quasi quos reiciendis.',
+      textareaInsideValue: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, possimus!',
       isReplyMenuOpen: false,
       isActiveAnswer: false,
+      isActiveInsideAnswer: false,
       replyAuthorName: 'Courtney Henry',
       parentColor: '#818181'
     }
@@ -140,6 +222,9 @@ export default {
     },
     answerComment () {
       this.isActiveAnswer = !this.isActiveAnswer
+    },
+    answerInsideComment () {
+      this.isActiveInsideAnswer = !this.isActiveInsideAnswer
     }
   },
   mounted () {
@@ -149,6 +234,17 @@ export default {
 </script>
 
 <style scoped>
+.reply__deep--answers {
+  display: flex;
+  gap: 16px;
+}
+
+.reply__textarea--block {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
 .load__more--reply-answers {
   margin: 12px 0;
 }
@@ -157,6 +253,7 @@ export default {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin: 14px 0;
 }
 
 .send__button,
@@ -180,7 +277,7 @@ export default {
 
 .textarea__right--buttons {
   position: absolute;
-  right: 20px;
+  right: 62px;
   bottom: 9px;
   display: flex;
   align-items: center;
@@ -238,11 +335,11 @@ export default {
   overflow: hidden;
 }
 
-.reply__textarea--section {
+.reply__textarea--and--button--section {
   position: relative;
   display: flex;
   align-items: center;
-  flex-direction: column;
+  gap: 16px;
   width: 100%;
 }
 
@@ -257,6 +354,7 @@ export default {
 .reply__buttons--section {
   display: flex;
   justify-content: space-between;
+  width: 93%;
 }
 
 .reply__buttons {
@@ -276,5 +374,10 @@ export default {
 .reply__reactions {
   display: flex;
   gap: 4px;
+}
+
+.reply__content--section {
+  display: flex;
+  justify-content: center;
 }
 </style>
