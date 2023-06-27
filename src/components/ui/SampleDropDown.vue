@@ -1,6 +1,11 @@
 <template>
   <div>
-    <button class="dropdown__button" type="button" @click="toggleDropDown">
+    <button
+      :style="{ color: dropdownColor }"
+      class="dropdown__button"
+      type="button"
+      @click="toggleDropDown"
+    >
       <span>{{ `${ $t(dropDownTitle) }` }} (255)</span>
       <div>
         <Transition name="rotate">
@@ -34,6 +39,15 @@ export default {
     dropDownTitle: {
       type: String,
       required: true
+    },
+    color: {
+      type: String,
+      required: true
+    }
+  },
+  computed: {
+    dropdownColor () {
+      return this.color
     }
   },
   components: {

@@ -52,13 +52,16 @@
         </div>
       </div>
 
-      <div v-if="isActiveAnswer" class="activeReplyField">
+      <div v-if="isActiveAnswer" class="active__reply--field">
         <img src="../../../assets/images/comment_avatar.png" width="48" height="48" alt="">
         <textarea-field :reply-author-name="replyAuthorName + ', '"/>
       </div>
 
-      <div v-if="false">
-        <sample-drop-down :drop-down-title="`${ $t('dropdown.reply_answer') }`"/>
+      <div v-if="true" class="load__more--reply-answers">
+        <sample-drop-down
+          :color="parentColor"
+          :drop-down-title="`${ $t('dropdown.reply_answer') }`"
+        />
       </div>
     </div>
 
@@ -115,7 +118,8 @@ export default {
       textareaValue: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur assumenda blanditiis corporis deserunt doloribus ea eaque eos esse eveniet exercitationem, fuga iure laudantium libero maiores maxime natus nemo nostrum optio perferendis porro quas, qui, quia quod rerum saepe soluta sunt tenetur? Ab aut, dignissimos dolores esse excepturi expedita facilis fuga iusto modi nesciunt possimus quasi quos reiciendis.',
       isReplyMenuOpen: false,
       isActiveAnswer: false,
-      replyAuthorName: 'Courtney Henry'
+      replyAuthorName: 'Courtney Henry',
+      parentColor: '#818181'
     }
   },
   methods: {
@@ -145,7 +149,11 @@ export default {
 </script>
 
 <style scoped>
-.activeReplyField {
+.load__more--reply-answers {
+  margin: 12px 0;
+}
+
+.active__reply--field {
   display: flex;
   align-items: center;
   gap: 8px;

@@ -5,7 +5,11 @@
     class="comment__form"
   >
     <div class="load__more-section">
-      <sample-drop-down class="load__more-button" :drop-down-title="`${ $t('dropdown.download_comment') }`"/>
+      <sample-drop-down
+        :color="parentColor"
+        class="load__more-button"
+        :drop-down-title="`${ $t('dropdown.download_comment') }`"
+      />
     </div>
     <div class="text__field-section">
       <div class="comment__avatar">
@@ -55,7 +59,9 @@ export default {
     SampleTextarea
   },
   data () {
-    return {}
+    return {
+      color: '#49A399'
+    }
   },
   methods: {
     adjustTextareaHeight () {
@@ -66,6 +72,11 @@ export default {
       if (textarea.value === '') {
         textarea.style.height = '48px'
       }
+    }
+  },
+  computed: {
+    parentColor () {
+      return this.color
     }
   }
 }
