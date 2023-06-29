@@ -5,11 +5,13 @@
         <form action="" class="form__section">
           <div class="form__left--side">
             <img width="48" height="48" src="../../assets/images/Ellipse.png" alt="">
-
-            <textarea rows="1" :placeholder="$t('placeholders.publications_input')"></textarea>
+            <textarea
+              rows="1"
+              :placeholder="$t('placeholders.publications_input')"
+              @input="handleTextareaInput"
+            ></textarea>
           </div>
-
-          <div class="form__inputs--block">
+          <div v-if="false" class="form__inputs--block">
             <file-upload label="image" accept="image/*">
               <image-icon></image-icon>
             </file-upload>
@@ -25,6 +27,10 @@
             <file-upload label="file">
               <clip-icon></clip-icon>
             </file-upload>
+          </div>
+          <div v-if="isTextAreaActive" class="textarea__active--buttons">
+            <access-drop-down />
+            <sample-button class="publish__button">{{ $t('buttons.publish') }}</sample-button>
           </div>
         </form>
       </section>
@@ -102,6 +108,7 @@ import VideoPublicationsIcon from '@/components/icons/VideoPublicationsIcon.vue'
 import MainPublicationsTab from '@/components/ui/Publications/MainPublicationsTab.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import FileUpload from '@/components/ui/FileUpload.vue'
+import AccessDropDown from '@/components/ui/Post/AccessDropDown.vue'
 
 export default {
   components: {
@@ -111,14 +118,22 @@ export default {
     ClipIcon,
     AudioPublicationIcon,
     ImageIcon,
-    SampleButton
+    SampleButton,
+    AccessDropDown
   },
   data () {
     return {
-      subscribeButtonStatus: false
+      subscribeButtonStatus: false,
+      isTextareaExpanded: false,
+      isTextAreaActive: true
     }
   },
   methods: {
+    handleTextareaInput (event) {
+      const textarea = event.target
+      textarea.style.height = 'auto'
+      textarea.style.height = `${textarea.scrollHeight}px`
+    },
     toggleSubscribeButton () {
       this.subscribeButtonStatus = !this.subscribeButtonStatus
     }
@@ -156,6 +171,17 @@ export default {
 </script>
 
 <style scoped>
+.publish__button {
+  padding: 12px 38px;
+  border-radius: 50px;
+}
+
+.textarea__active--buttons {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
 .person__section,
 .group__section,
 .actions__section {
@@ -216,6 +242,10 @@ export default {
   width: 100%;
 }
 
+.form__left--side > :first-child {
+  align-self: flex-start;
+}
+
 .form__left--side img {
   margin-right: 16px;
 }
@@ -226,7 +256,6 @@ export default {
   outline: none;
   font-size: 16px;
   min-height: 22px;
-  max-height: 100px;
   width: 89%;
 }
 

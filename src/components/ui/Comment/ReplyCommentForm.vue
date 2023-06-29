@@ -73,89 +73,12 @@
           :drop-down-title="`${ $t('dropdown.reply_answer') }`"
         />
       </div>
-
-      <!--      <div class="reply__deep&#45;&#45;answers">
-        <div class="author__avatar&#45;&#45;section">
-          <img src="../../../assets/images/reply_avatar.png" alt="">
-        </div>
-
-        <div class="reply__field&#45;&#45;section">
-          <div class="reply__author&#45;&#45;section">
-            <span class="author__name">{{ replyAuthorName }}</span>
-            <span class="author__time">2 часа назад</span>
-          </div>
-
-          <div class="reply__textarea&#45;&#45;and&#45;&#45;button&#45;&#45;section">
-            <div class="reply__textarea&#45;&#45;block">
-              <sample-textarea
-                :placeholder="`${ $t('placeholders.comment_input') }`"
-                @input="adjustTextareaHeight"
-                v-model="textareaInsideValue"
-                :value="textareaInsideValue"
-                class="reply__textarea"
-              ></sample-textarea>
-
-              <div class="textarea__right&#45;&#45;buttons">
-                <file-upload class="attach__file" label="file">
-                  <textarea-clip-icon />
-                </file-upload>
-                <sample-divider class="textarea__right&#45;&#45;buttons&#45;&#45;divider" />
-                <button class="send__button" type="button">
-                  <send-icon/>
-                </button>
-              </div>
-            </div>
-
-            <div class="reply__detail&#45;&#45;menu&#45;&#45;section">
-              <reply-menu-details
-                :is-reply-menu-open="isReplyMenuOpen"
-                @toggle-reply-menu="toggleReplyMenu"
-              />
-            </div>
-          </div>
-
-          <div class="reply__buttons&#45;&#45;section">
-            <div class="reply__buttons">
-              <button type="button">{{ $t('buttons.favourite') }}</button>
-              <button type="button" @click="answerComment">{{ $t('buttons.answer') }}</button>
-            </div>
-
-            <div class="reply__reactions">
-              <div class="reply__icon"><like-icon></like-icon></div>
-              <div class="reply__icon"><dislike-icon></dislike-icon></div>
-              <div class="reply__icon"><love-icon></love-icon></div>
-              <div class="reply__icon"><laugh-icon></laugh-icon></div>
-              <div class="reply__icon"><fire-icon></fire-icon></div>
-              <div class="reply__icon"><think-icon></think-icon></div>
-              <div class="reply__icon"><angry-icon></angry-icon></div>
-              <div class="reply__icon"><sad-icon></sad-icon></div>
-              <div class="reply__icon"><scared-icon></scared-icon></div>
-              <div class="reply__reactions&#45;&#45;count&#45;&#45;block">
-                <span class="reply__reactions&#45;&#45;count">999К</span>
-              </div>
-            </div>
-          </div>
-
-          <div v-if="answerInsideComment" class="active__reply&#45;&#45;field">
-            <img src="../../../assets/images/comment_avatar.png" width="48" height="48" alt="">
-
-            <textarea-field :reply-author-name="replyAuthorName + ', '"/>
-          </div>
-
-          <div v-if="true" class="load__more&#45;&#45;reply-answers">
-            <sample-drop-down
-              :color="parentColor"
-              :drop-down-title="`${ $t('dropdown.reply_answer') }`"
-            />
-          </div>
-        </div>
-      </div>-->
     </div>
   </form>
 </template>
 
 <script>
-import SampleTextarea from '@/components/ui/fields/SampleTextarea.vue'
+import SampleTextarea from '@/components/ui/Fields/SampleTextarea.vue'
 import LikeIcon from '@/components/icons/reactions/men/reply-reactions/LikeIcon.vue'
 import LoveIcon from '@/components/icons/reactions/men/reply-reactions/LoveIcon.vue'
 import FireIcon from '@/components/icons/reactions/men/reply-reactions/FireIcon.vue'
@@ -170,7 +93,7 @@ import SampleDivider from '@/components/ui/SampleDivider.vue'
 import TextareaClipIcon from '@/components/icons/TextareaClipIcon.vue'
 import SendIcon from '@/components/icons/SendIcon.vue'
 import ReplyMenuDetails from '@/components/ui/MenuDetails/ReplyMenuDetails.vue'
-import TextareaField from '@/components/ui/fields/TextareaField.vue'
+import TextareaField from '@/components/ui/Fields/TextareaField.vue'
 import SampleDropDown from '@/components/ui/SampleDropDown.vue'
 
 export default {

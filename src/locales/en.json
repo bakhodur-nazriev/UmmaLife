@@ -135,7 +135,11 @@
     "answer": "Answer",
     "favourite": "Favorite",
     "delete": "Delete",
-    "edit": "Edit"
+    "edit": "Edit",
+    "available_everyone": "Available to everyone",
+    "who_am_i_following": "Who am I following",
+    "who_is_following_me": "Who is following me",
+    "anonymously": "Anonymously"
   },
   "languages": {
     "title": "English",

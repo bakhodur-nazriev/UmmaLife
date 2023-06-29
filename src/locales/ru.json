@@ -137,7 +137,12 @@
     "answer": "Ответить",
     "favourite": "Нравится",
     "delete": "Удалить",
-    "edit": "Редактировать"
+    "edit": "Редактировать",
+    "publish": "Опубликовать",
+    "available_everyone": "Доступно всем",
+    "who_am_i_following": "На кого я подписан",
+    "who_is_following_me": "Кто подписан на меня",
+    "anonymously": "Анонимно"
   },
   "languages": {
     "title": "Русский",

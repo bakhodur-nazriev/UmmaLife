@@ -115,7 +115,7 @@ export default {
     return {
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
-      isFormOpen: true
+      isFormOpen: false
     }
   },
   mounted () {
@@ -221,6 +221,7 @@ export default {
 
 .reaction__menu {
   display: flex;
+  gap: 16px;
 }
 
 .reaction__buttons--block,

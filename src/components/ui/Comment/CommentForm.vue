@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import SampleTextarea from '@/components/ui/fields/SampleTextarea.vue'
+import SampleTextarea from '@/components/ui/Fields/SampleTextarea.vue'
 import SendIcon from '@/components/icons/SendIcon.vue'
 import FileUpload from '@/components/ui/FileUpload.vue'
 import TextareaClipIcon from '@/components/icons/TextareaClipIcon.vue'
