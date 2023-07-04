@@ -9,9 +9,13 @@
               rows="1"
               :placeholder="$t('placeholders.publications_input')"
               @input="handleTextareaInput"
+              class="enter__post--textarea"
+              :class="{ 'active': isTextAreaActive }"
+              @click="isTextAreaActive = true"
+              @blur="isTextAreaActive = true"
             ></textarea>
           </div>
-          <div v-if="false" class="form__inputs--block">
+          <div v-if="!isTextAreaActive" class="form__inputs--block">
             <file-upload label="image" accept="image/*">
               <image-icon></image-icon>
             </file-upload>
@@ -29,8 +33,31 @@
             </file-upload>
           </div>
           <div v-if="isTextAreaActive" class="textarea__active--buttons">
-            <access-drop-down />
-            <sample-button class="publish__button">{{ $t('buttons.publish') }}</sample-button>
+            <div class="textarea__active--left--side">
+              <button class="poll__button" type="button" @click="openPollModal">
+                <PollIcon />
+              </button>
+
+              <PollModal
+                v-if="showPollModal"
+                @close="closePollModal"
+              />
+              <button class="smile__button" type="button">
+                <SmileIcon />
+              </button>
+
+              <button class="audio__button" type="button">
+                <AudioPublicationIcon />
+              </button>
+              <div class="vertical__divider"></div>
+              <file-upload label="file">
+                <clip-icon></clip-icon>
+              </file-upload>
+            </div>
+            <div class="textarea__active--right--side">
+              <access-drop-down />
+              <sample-button class="publish__button">{{ $t('buttons.publish') }}</sample-button>
+            </div>
           </div>
         </form>
       </section>
@@ -109,9 +136,15 @@ import MainPublicationsTab from '@/components/ui/Publications/MainPublicationsTa
 import SampleButton from '@/components/ui/SampleButton.vue'
 import FileUpload from '@/components/ui/FileUpload.vue'
 import AccessDropDown from '@/components/ui/Post/AccessDropDown.vue'
+import PollIcon from '@/components/icons/news/PollIcon.vue'
+import SmileIcon from '@/components/icons/news/SmileIcon.vue'
+import PollModal from '@/components/modals/PollModal.vue'
 
 export default {
   components: {
+    PollModal,
+    SmileIcon,
+    PollIcon,
     FileUpload,
     MainPublicationsTab,
     VideoPublicationsIcon,
@@ -125,10 +158,25 @@ export default {
     return {
       subscribeButtonStatus: false,
       isTextareaExpanded: false,
-      isTextAreaActive: true
+      isTextAreaActive: false,
+      showPollModal: false
     }
   },
   methods: {
+    openPollModal () {
+      this.showPollModal = true
+      document.body.classList.add('modal-open')
+    },
+    closePollModal () {
+      this.showPollModal = false
+      document.body.classList.remove('modal-open')
+    },
+    handleWindowClick (event) {
+      const textarea = this.$refs.textarea
+      if (textarea && !textarea.contains(event.target)) {
+        this.isTextAreaActive = false
+      }
+    },
     handleTextareaInput (event) {
       const textarea = event.target
       textarea.style.height = 'auto'
@@ -166,11 +214,49 @@ export default {
         this.$t('tabs.publications_inside.audio')
       ]
     }
+  },
+  mounted () {
+    window.addEventListener('click', this.handleWindowClick)
+  },
+  beforeUnmount () {
+    window.removeEventListener('click', this.handleWindowClick)
+  },
+  watch: {
+    isTextAreaActive (newValue) {
+      const formSection = document.querySelector('.form__section')
+      const formInputBlocks = document.querySelector('.form__inputs--block')
+      if (newValue) {
+        formSection.style.flexDirection = 'column'
+        formInputBlocks.style.width = '100%'
+      } else {
+        formSection.style.flexDirection = 'row'
+        formInputBlocks.style.width = ''
+      }
+    }
   }
 }
 </script>
 
 <style scoped>
+.modal-open {
+  overflow: hidden;
+}
+
+.poll__button,
+.smile__button,
+.audio__button {
+  all: unset;
+  cursor: pointer;
+  max-height: 24px;
+}
+
+.textarea__active--left--side,
+.textarea__active--right--side {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
 .publish__button {
   padding: 12px 38px;
   border-radius: 50px;
@@ -179,7 +265,9 @@ export default {
 .textarea__active--buttons {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   position: relative;
+  width: 100%;
 }
 
 .person__section,
@@ -191,8 +279,7 @@ export default {
 }
 
 .person__right--side,
-.group__right--side
-{
+.group__right--side {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -312,6 +399,7 @@ svg {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  row-gap: 24px;
 }
 
 .vertical__divider {

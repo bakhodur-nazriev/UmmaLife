@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown">
     <button type="button" class="dropdown__toggle" @click="toggleDropdown">
-      <access-icon />
+      <access-icon class="access__icon"/>
       <span>{{ selectedTitle }}</span>
       <dropdown-icon />
     </button>
@@ -109,6 +109,10 @@ export default {
 </script>
 
 <style scoped>
+.access__icon {
+ color: var(--color-silver-chalice)
+}
+
 .left__side--item {
   display: flex;
   align-items: center;
@@ -117,11 +121,7 @@ export default {
 }
 
 .dropdown {
-  width: 220px;
-  position: absolute;
-  padding: 10px;
-  top: -100px;
-  left: 0;
+  /*position: relative;*/
   border-radius: 10px;
   background-color: var(--color-white);
   z-index: 10;
@@ -140,11 +140,17 @@ export default {
   font-size: 16px;
   display: flex;
   gap: 8px;
+  color: var(--color-silver-chalice);
   justify-content: center;
   align-items: center;
   background-color: var(--color-white);
   width: max-content;
   cursor: pointer;
+  margin: 0;
+}
+
+.dropdown__toggle svg {
+  fill: var(--color-silver-chalice);
 }
 
 .dropdown__item {

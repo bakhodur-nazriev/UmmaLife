@@ -1,13 +1,16 @@
 <template>
   <div class="menu__details">
-    <div class="menu__toggle--button" @click="toggleMenu">
+    <div
+      class="menu__toggle--button open__menu--details--button"
+      @click="toggleMenu"
+    >
       <menu-details-icon class="dropdown__toggle"></menu-details-icon>
     </div>
 
     <Transition name="bounce">
       <div
         class="menu__overlay"
-        v-show="isMenuOpen"
+        v-if="isMenuOpen"
         @click="handleOverlayClick"
       >
         <ul class="dropdown__menu">
@@ -59,6 +62,7 @@ import BlankIcon from '@/components/icons/MenuDetails/BlankIcon.vue'
 import HideIcon from '@/components/icons/MenuDetails/HideIcon.vue'
 import ComplainIcon from '@/components/icons/MenuDetails/ComplainIcon.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
+
 export default {
   components: {
     SampleDivider,
@@ -76,14 +80,32 @@ export default {
       required: true
     }
   },
-  data () {},
+  data () {
+    return {
+      test: this.isMenuOpen
+    }
+  },
   methods: {
     toggleMenu () {
       this.$emit('toggle-menu')
     },
     handleOverlayClick () {
       this.$emit('toggle-menu')
+    },
+    closeMenuDetailsWindow (event) {
+      const menuDetailsWWindow = this.$refs.menuDetailsWindow
+      const openMenuDetailsButton = document.querySelector('.open__menu--details--button')
+
+      if (menuDetailsWWindow && !menuDetailsWWindow.contains(event.target) && event.target !== openMenuDetailsButton) {
+        this.test = false
+      }
     }
+  },
+  mounted () {
+    document.addEventListener('click', this.closeMenuDetailsWindow)
+  },
+  beforeUnmount () {
+    document.removeEventListener('click', this.closeMenuDetailsWindow)
   }
 }
 </script>

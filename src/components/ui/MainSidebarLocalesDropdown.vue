@@ -143,8 +143,8 @@ export default {
 .locales__button {
   display: flex;
   align-items: center;
-  background-color: white;
-  border: 2px solid #F1F1F1;
+  background-color: var(--color-white);
+  border: 2px solid var(--color-seashell);
   border-radius: 20px;
   min-height: 40px;
   padding: 8px 16px;
@@ -174,7 +174,7 @@ export default {
 .locales__icon {
   display: inline-block;
   min-width: max-content;
-  color: #b0b0b0;
+  color: var(--color-silver-chalice);
   transform: rotate(180deg);
 }
 
@@ -210,7 +210,7 @@ export default {
   display: flex;
   align-items: center;
   border-radius: 5px;
-  background-color: white;
+  background-color: var(--color-white);
   min-height: 48px;
   padding: 8px 16px;
 }
@@ -245,8 +245,8 @@ export default {
     left: 52px;
     bottom: 125px;
     width: 155px;
-    border: 2px solid #F1F1F1;
-    background-color: white;
+    border: 2px solid var(--color-seashell);
+    background-color: var(--color-white);
     padding: 0 8px;
     border-radius: 20px;
     z-index: 3;
@@ -258,8 +258,8 @@ export default {
     left: 0;
     bottom: 125px;
     width: 100%;
-    border: 2px solid #F1F1F1;
-    background-color: white;
+    border: 2px solid var(--color-seashell);
+    background-color: var(--color-white);
     padding: 2px 8px;
     border-radius: 20px;
     z-index: 3;
@@ -280,7 +280,7 @@ export default {
   }
 
   .locales__item:not(:last-child) {
-    border-bottom: 1px solid #D9D9D9;
+    border-bottom: 1px solid var(--color-alto-second);
     border-radius: 0;
   }
 

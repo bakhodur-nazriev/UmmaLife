@@ -136,10 +136,14 @@
     "favourite": "Favorite",
     "delete": "Delete",
     "edit": "Edit",
+    "publish": "Publish",
     "available_everyone": "Available to everyone",
     "who_am_i_following": "Who am I following",
     "who_is_following_me": "Who is following me",
-    "anonymously": "Anonymously"
+    "anonymously": "Anonymously",
+    "create_poll": "Create poll",
+    "cancel": "Cancel",
+    "add_answer": "+ Add answer"
   },
   "languages": {
     "title": "English",
@@ -156,7 +160,8 @@
   "placeholders": {
     "search_input": "Search",
     "publications_input": "Write good or be silent...",
-    "comment_input": "Your comment..."
+    "comment_input": "Your comment...",
+    "question_for_poll": "Poll question or topic... "
   },
   "tabs": {
     "news_page": {
@@ -179,7 +184,8 @@
   "sections_title": {
     "last_actions": "Last actions",
     "recommended_groups": "Recommended groups",
-    "recommended_people": "Recommended people"
+    "recommended_people": "Recommended people",
+    "create_poll": "Create a poll"
   },
   "labels": {
     "subscribers" : {
@@ -207,6 +213,12 @@
       "minute": "minute",
       "second": "second",
       "ago": "назад"
+    },
+    "poll": {
+      "question": "Question",
+      "answer_options": "Answer options",
+      "answer": "Answer №",
+      "only_eight_symbol": "You can add up to 8 answer options"
     }
   },
   "dropdown": {
