@@ -25,14 +25,17 @@
 
           <div class="answer__options--block">
             <small class="answer__options--title text-1">{{ $t('labels.poll.answer_options') }}</small>
+
             <div class="answer__options--content" v-if="answerFields.length">
-              <poll-answer-input
-                v-for="(index, fieldIndex) in answerFieldIndices"
-                :key="index"
-                :placeholder="`${$t('labels.poll.answer')} ${fieldIndex + 1}`"
-                :index="fieldIndex"
-                @remove="removeAnswerField"
-              />
+<!--              <Draggable v-model="answerFields" :animation="300">-->
+                <poll-answer-input
+                  v-for="(field, index) in answerFields"
+                  :key="field.id"
+                  :placeholder="`${$t('labels.poll.answer')} ${index + 1}`"
+                  :index="index"
+                  @remove="removeAnswerField(index)"
+                />
+<!--              </Draggable>-->
             </div>
 
             <div class="add__answer--block">
@@ -62,6 +65,7 @@ import CloseIcon from '@/components/icons/CloseIcon.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
 import SampleInput from '@/components/ui/Fields/SampleInput.vue'
 import PollAnswerInput from '@/components/ui/Fields/PollAnswerInput.vue'
+// import Draggable from 'vuedraggable'
 
 export default {
   components: {
@@ -69,36 +73,45 @@ export default {
     SampleInput,
     SampleDivider,
     CloseIcon
+    // Draggable
   },
   data () {
     return {
       showModal: false,
-      answerFields: [],
-      newIndex: 1
+      newIndex: 1,
+      answerFields: []
     }
   },
   methods: {
-    openModal () {
-      this.showModal = true
-      document.body.classList.add('modal-open')
-    },
     closeModal () {
-      this.showModal = false
-      document.body.classList.remove('modal-open')
+      this.$emit('close')
     },
     addAnswerField () {
       if (this.answerFields.length < 8) {
-        this.answerFields.push(this.newIndex)
+        this.answerFields.push({ id: this.newIndex })
         this.newIndex++
       }
     },
     removeAnswerField (index) {
       this.answerFields.splice(index, 1)
+    },
+    moveAnswerField (event) {
+      const { newIndex, oldIndex } = event
+      const movedField = this.answerFields[oldIndex]
+      this.answerFields.splice(oldIndex, 1)
+      this.answerFields.splice(newIndex, 0, movedField)
     }
   },
   computed: {
     answerFieldIndices () {
       return Array.from({ length: this.answerFields.length }, (_, index) => index + 1)
+    },
+    dragOptions () {
+      return {
+        animation: 300,
+        handle: '.move__item--button',
+        onEnd: this.moveAnswerField
+      }
     }
   }
 }
@@ -199,10 +212,6 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
-}
-
-.modal-header h2 {
-  margin: 0;
 }
 
 .modal__close {
