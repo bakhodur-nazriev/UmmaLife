@@ -47,29 +47,29 @@ export default {
 }
 
 .input-wrapper.error .base-input {
-  border: 1.4px solid red;
+  border: 1.4px solid var(--color-valencia);
 }
 
 .input-wrapper .error-message {
-  color: red;
+  color: var(--color-valencia);
   font-size: 12px;
   margin-top: 4px;
 }
 
 .base-input {
-  background-color: #f1f1f1;
+  background-color: var(--color-seashell);
   border: none;
   outline: none;
   border-radius: 10px;
-  font-size: 14px;
+  font-size: 16px;
   padding: 16px;
-  color: #1F1F1F;
+  color: var(--color-mine-shaft);
   width: 100%;
 }
 
 .base-input::placeholder {
-  color: #B0B0B0;
-  font-size: 14px;
+  color: var(--color-silver-chalice);
+  font-size: 16px;
 }
 
 .base__label {

@@ -12,6 +12,7 @@
     "animate.css": "^4.1.1",
     "axios": "^1.4.0",
     "core-js": "^3.8.3",
+    "sass-loader": "^13.3.2",
     "uuid": "^9.0.0",
     "vue": "^3.2.13",
     "vue-i18n": "^9.1.0",
@@ -19,7 +20,7 @@
     "vue-recaptcha": "^3.0.0-alpha.2",
     "vue-router": "^4.0.3",
     "vue-tel-input": "^8.1.1",
-    "vuedraggable": "^2.24.3",
+    "vuedraggable": "^4.1.0",
     "vuex": "^4.1.0"
   },
   "devDependencies": {

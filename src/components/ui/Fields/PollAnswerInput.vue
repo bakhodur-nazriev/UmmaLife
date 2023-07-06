@@ -1,5 +1,12 @@
 <template>
-  <div class="input__wrapper--block" :class="['input-wrapper', { error: isError }]">
+  <div
+    class="input__wrapper--block"
+    :class="['input-wrapper', { error: isError }]"
+    draggable
+    @dragstart="onDragStart"
+    @dragover="onDragOver"
+    @dragend="onDragEnd"
+  >
     <label class="base__label" :for="inputId">{{ label }}</label>
     <sample-textarea
       class="base__textarea"

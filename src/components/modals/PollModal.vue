@@ -19,6 +19,7 @@
 
         <div class="modal__body">
           <sample-input
+            class="input__for--poll--theme"
             :label="`${ $t('labels.poll.question') }`"
             :placeholder="`${ $t('placeholders.question_for_poll') }`"
           />
@@ -26,16 +27,24 @@
           <div class="answer__options--block">
             <small class="answer__options--title text-1">{{ $t('labels.poll.answer_options') }}</small>
 
-            <div class="answer__options--content" v-if="answerFields.length">
-<!--              <Draggable v-model="answerFields" :animation="300">-->
-                <poll-answer-input
-                  v-for="(field, index) in answerFields"
-                  :key="field.id"
-                  :placeholder="`${$t('labels.poll.answer')} ${index + 1}`"
-                  :index="index"
-                  @remove="removeAnswerField(index)"
-                />
-<!--              </Draggable>-->
+            <div v-if="answerFields.length">
+              <draggable
+                :list="answerFields"
+                :animation="300"
+                tag="div"
+                @end="onDragEnd"
+                class="answer__options--content"
+              >
+                <template #item="{ element, index }">
+                  <poll-answer-input
+                    :index="index"
+                    :key="element.id"
+                    :placeholder="`${$t('labels.poll.answer')} ${index + 1}`"
+                    @remove="removeAnswerField(index)"
+                  >
+                  </poll-answer-input>
+                </template>
+              </draggable>
             </div>
 
             <div class="add__answer--block">
@@ -65,21 +74,22 @@ import CloseIcon from '@/components/icons/CloseIcon.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
 import SampleInput from '@/components/ui/Fields/SampleInput.vue'
 import PollAnswerInput from '@/components/ui/Fields/PollAnswerInput.vue'
-// import Draggable from 'vuedraggable'
+import draggable from 'vuedraggable'
 
 export default {
   components: {
     PollAnswerInput,
     SampleInput,
     SampleDivider,
-    CloseIcon
-    // Draggable
+    CloseIcon,
+    draggable
   },
   data () {
     return {
       showModal: false,
       newIndex: 1,
-      answerFields: []
+      answerFields: [],
+      drag: false
     }
   },
   methods: {
@@ -88,29 +98,19 @@ export default {
     },
     addAnswerField () {
       if (this.answerFields.length < 8) {
-        this.answerFields.push({ id: this.newIndex })
+        this.answerFields.push({ id: this.newIndex, content: '' })
         this.newIndex++
       }
     },
     removeAnswerField (index) {
       this.answerFields.splice(index, 1)
     },
-    moveAnswerField (event) {
+    onDragEnd (event) {
       const { newIndex, oldIndex } = event
-      const movedField = this.answerFields[oldIndex]
-      this.answerFields.splice(oldIndex, 1)
-      this.answerFields.splice(newIndex, 0, movedField)
-    }
-  },
-  computed: {
-    answerFieldIndices () {
-      return Array.from({ length: this.answerFields.length }, (_, index) => index + 1)
-    },
-    dragOptions () {
-      return {
-        animation: 300,
-        handle: '.move__item--button',
-        onEnd: this.moveAnswerField
+      const movedField = this.answerFields.splice(oldIndex, 1)[0]
+
+      if (newIndex !== oldIndex) {
+        this.answerFields.splice(newIndex, 0, movedField)
       }
     }
   }
@@ -118,6 +118,10 @@ export default {
 </script>
 
 <style scoped>
+.dragged {
+  opacity: 0.5;
+}
+
 .answer__notification--eight--item {
   color: var(--color-silver-chalice);
   font-size: 12px;
