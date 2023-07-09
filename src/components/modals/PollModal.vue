@@ -59,6 +59,23 @@
             </div>
             <small class="answer__notification--eight--item">{{ $t('labels.poll.only_eight_symbol') }}</small>
           </div>
+
+          <div class="option__poll--type">
+            <CheckBox name="poll_type-anonymous" color="primary" text-size="medium">
+              {{ $t('labels.poll.anonymous_poll') }}
+            </CheckBox>
+
+            <SampleDivider class="option__poll--divider"/>
+
+            <CheckBox name="poll__type--multiple" color="primary" text-size="medium">
+              {{ $t('labels.poll.multiple_choice') }}
+            </CheckBox>
+            <SampleDivider class="option__poll--divider"/>
+
+            <CheckBox name="poll__type--quiz" color="primary" text-size="medium">
+              {{ $t('labels.poll.quiz') }}
+            </CheckBox>
+          </div>
         </div>
         <footer class="modal__footer">
           <button class="cancel__button" type="button" @click="closeModal">{{ $t('buttons.cancel') }}</button>
@@ -75,9 +92,11 @@ import SampleDivider from '@/components/ui/SampleDivider.vue'
 import SampleInput from '@/components/ui/Fields/SampleInput.vue'
 import PollAnswerInput from '@/components/ui/Fields/PollAnswerInput.vue'
 import draggable from 'vuedraggable'
+import CheckBox from '@/components/ui/CheckBox.vue'
 
 export default {
   components: {
+    CheckBox,
     PollAnswerInput,
     SampleInput,
     SampleDivider,
@@ -117,7 +136,17 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.option__poll--divider {
+  border: 1px solid #e0e0e0;
+}
+
+.option__poll--type {
+  background-color: var(--color-seashell);
+  padding: 12px 16px;
+  border-radius: 10px;
+}
+
 .dragged {
   opacity: 0.5;
 }

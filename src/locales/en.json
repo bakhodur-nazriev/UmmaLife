@@ -82,12 +82,12 @@
       }
     },
     "label": "Have an account?",
-    "messages" : {
+    "messages": {
       "agreement_to_creating_account": "By creating an account, you agree to our",
-      "verify_with_email":  "A message with a code has been sent to your email address.",
+      "verify_with_email": "A message with a code has been sent to your email address.",
       "create_password": "Create a password to log in to the system",
       "fill_your_information": "Fill out your information to log in to UmmaLife",
-      "required_fields" : "(Required fields to fill in)",
+      "required_fields": "(Required fields to fill in)",
       "enter_your_phone": "Enter your phone number",
       "can_login_with_phone_number": "You will be able to access the network using your phone number"
     },
@@ -177,7 +177,7 @@
       "audio": "Audio"
     }
   },
-  "video":{
+  "video": {
     "reactions": "reactions",
     "views": "views"
   },
@@ -188,7 +188,7 @@
     "create_poll": "Create a poll"
   },
   "labels": {
-    "subscribers" : {
+    "subscribers": {
       "plural": "subscribers",
       "singular": "subscribe"
     },
@@ -218,7 +218,11 @@
       "question": "Question",
       "answer_options": "Answer options",
       "answer": "Answer №",
-      "only_eight_symbol": "You can add up to 8 answer options"
+      "only_eight_symbol": "You can add up to 8 answer options",
+      "quiz_options_valid_answer": "The options in the Quiz can only have one correct answer.",
+      "anonymous_poll": "Anonymous Poll",
+      "multiple_choice": "Multiple choice",
+      "quiz": "Quiz"
     }
   },
   "dropdown": {

@@ -14,7 +14,12 @@
       </small>
     </div>
 
-    <check-box class="register-checkbox" name="agreement">
+    <CheckBox
+      class="register-checkbox"
+      name="agreement"
+      color="secondary"
+      text-size="small"
+    >
       {{ $t('register.messages.agreement_to_creating_account') }} <br>
       <router-link
         class="link"
@@ -29,7 +34,7 @@
       >
         {{ $t('links.privacy_policy') }}
       </router-link>
-    </check-box>
+    </CheckBox>
 
     <div class="login-button-section">
       <sample-button @click="handleSubmit">{{ $t('buttons.get_code_by_email') }}</sample-button>

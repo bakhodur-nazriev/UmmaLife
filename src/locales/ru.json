@@ -219,7 +219,11 @@
       "question": "Вопрос",
       "answer_options": "Варианты ответов",
       "answer": "Ответ №",
-      "only_eight_symbol": "Вы можете добавить до 8 вариантов ответа"
+      "only_eight_symbol": "Вы можете добавить до 8 вариантов ответа",
+      "quiz_options_valid_answer": "Варианты в Викторине могут иметь только один верный ответ.",
+      "anonymous_poll": "Анонимный опрос",
+      "multiple_choice": "Выбор несколько",
+      "quiz": "Викторина"
     }
   },
   "dropdown": {

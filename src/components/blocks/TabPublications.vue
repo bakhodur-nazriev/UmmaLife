@@ -16,21 +16,21 @@
             ></textarea>
           </div>
           <div v-if="!isTextAreaActive" class="form__inputs--block">
-            <file-upload label="image" accept="image/*">
-              <image-icon></image-icon>
-            </file-upload>
+            <FileUpload label="image" accept="image/*">
+              <ImageIcon></ImageIcon>
+            </FileUpload>
 
-            <file-upload label="video" accept="video/*">
-              <video-publications-icon></video-publications-icon>
-            </file-upload>
+            <FileUpload label="video" accept="video/*">
+              <VideoPublicationsIcon></VideoPublicationsIcon>
+            </FileUpload>
 
-            <file-upload label="audio" accept="audio/*">
-              <audio-publication-icon></audio-publication-icon>
-            </file-upload>
+            <FileUpload label="audio" accept="audio/*">
+              <AudioPublicationIcon></AudioPublicationIcon>
+            </FileUpload>
             <div class="vertical__divider"></div>
-            <file-upload label="file">
-              <clip-icon></clip-icon>
-            </file-upload>
+            <FileUpload label="file">
+              <ClipIcon></ClipIcon>
+            </FileUpload>
           </div>
           <div v-if="isTextAreaActive" class="textarea__active--buttons">
             <div class="textarea__active--left--side">
@@ -50,13 +50,13 @@
                 <AudioPublicationIcon />
               </button>
               <div class="vertical__divider"></div>
-              <file-upload label="file">
-                <clip-icon></clip-icon>
-              </file-upload>
+              <FileUpload label="file">
+                <ClipIcon></ClipIcon>
+              </FileUpload>
             </div>
             <div class="textarea__active--right--side">
-              <access-drop-down />
-              <sample-button class="publish__button">{{ $t('buttons.publish') }}</sample-button>
+              <AccessDropDown />
+              <SampleButton class="publish__button">{{ $t('buttons.publish') }}</SampleButton>
             </div>
           </div>
         </form>
@@ -157,7 +157,6 @@ export default {
   data () {
     return {
       subscribeButtonStatus: false,
-      isTextareaExpanded: false,
       isTextAreaActive: false,
       showPollModal: false
     }
@@ -237,8 +236,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .modal-open {
+  transition: .2s;
   overflow: hidden;
 }
 

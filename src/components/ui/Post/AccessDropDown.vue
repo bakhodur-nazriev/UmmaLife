@@ -1,14 +1,14 @@
 <template>
   <div class="dropdown">
     <button type="button" class="dropdown__toggle" @click="toggleDropdown">
-      <access-icon class="access__icon"/>
+      <AccessIcon class="access__icon"/>
       <span>{{ selectedTitle }}</span>
-      <dropdown-icon />
+      <DropdownIcon />
     </button>
 
     <ul v-if="isOpen" class="dropdown__list">
       <li
-        v-for="item in dropdownItems"
+        v-for="(item, index) in dropdownItems"
         class="dropdown__item"
         :key="item.id"
         @click="selectItem(item)"
@@ -19,7 +19,7 @@
           </span>
           <span class="dropdown__item--title">{{ item.title }}</span>
         </div>
-        <sample-divider />
+        <SampleDivider v-if="index < dropdownItems.length - 1"/>
       </li>
     </ul>
   </div>
@@ -31,11 +31,11 @@ import DropdownIcon from '@/components/icons/DropdownIcon.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
 import ToWhomImSubscribeIcon from '@/components/icons/news/ToWhomImSubscribeIcon.vue'
 import WhoIsFollowMeIcon from '@/components/icons/news/WhoIsFollowMeIcon.vue'
-import AnonymIcon from '@/components/icons/news/AnonymIcon.vue'
+import AnonymousIcon from '@/components/icons/news/AnonymousIcon.vue'
 
 export default {
   components: {
-    AnonymIcon,
+    AnonymousIcon,
     WhoIsFollowMeIcon,
     ToWhomImSubscribeIcon,
     SampleDivider,
@@ -65,14 +65,14 @@ export default {
         {
           id: 4,
           title: this.$t('buttons.anonymously'),
-          icon: 'AnonymIcon'
+          icon: 'AnonymousIcon'
         }
       ],
       icons: {
         AccessIcon,
         ToWhomImSubscribeIcon,
         WhoIsFollowMeIcon,
-        AnonymIcon
+        AnonymousIcon
       }
     }
   },
@@ -108,7 +108,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .access__icon {
  color: var(--color-silver-chalice)
 }
@@ -121,17 +121,24 @@ export default {
 }
 
 .dropdown {
-  /*position: relative;*/
-  border-radius: 10px;
+  position: relative;
   background-color: var(--color-white);
   z-index: 10;
-}
 
-.dropdown__list {
-  list-style: none;
-  margin: 0;
-  font-size: 16px;
-  padding: 0;
+  &__list {
+    list-style: none;
+    margin: 0;
+    font-size: 16px;
+    box-shadow: 3px 3px 15px 0 rgba(0, 0, 0, 0.10);
+    background-color: var(--color-white);
+    padding: 12px;
+    border-radius: 10px;
+    position: absolute;
+    top: 32px;
+    left: -32px;
+    z-index: 10;
+    width: 230px;
+  }
 }
 
 .dropdown__toggle {
