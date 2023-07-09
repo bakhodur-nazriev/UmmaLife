@@ -95,7 +95,7 @@ export default {
   justify-content: center;
   align-items: center;
   position: relative;
-  background-color: var(--color-background);
+  background-color: var(--color-white);
   border-radius: 15px;
   overflow: hidden;
 }
@@ -105,7 +105,7 @@ export default {
   justify-content: center;
   cursor: pointer;
   padding: 16px 0;
-  color: var(--color-text);
+  color: var(--color-silver-chalice);
   font-weight: 500;
   font-size: 16px;
   width: 185px;
@@ -113,7 +113,7 @@ export default {
 
 .tabs__header-item.active {
   position: relative;
-  color: var(--color-primary);
+  color: var(--color-mine-shaft);
   padding-bottom: 16px;
   font-weight: 600;
   z-index: 100;
@@ -126,7 +126,7 @@ export default {
   height: 2px;
   bottom: 0;
   left: 0;
-  background-color: var(--color-link);
+  background-color: var(--color-deep-cerulean);
   border-radius: 1px 1px 0 0;
 }
 

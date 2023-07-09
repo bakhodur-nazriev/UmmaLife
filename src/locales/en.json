@@ -82,12 +82,12 @@
       }
     },
     "label": "Have an account?",
-    "messages" : {
+    "messages": {
       "agreement_to_creating_account": "By creating an account, you agree to our",
-      "verify_with_email":  "A message with a code has been sent to your email address.",
+      "verify_with_email": "A message with a code has been sent to your email address.",
       "create_password": "Create a password to log in to the system",
       "fill_your_information": "Fill out your information to log in to UmmaLife",
-      "required_fields" : "(Required fields to fill in)",
+      "required_fields": "(Required fields to fill in)",
       "enter_your_phone": "Enter your phone number",
       "can_login_with_phone_number": "You will be able to access the network using your phone number"
     },
@@ -128,7 +128,22 @@
     "save": "Save",
     "open_in_new_tab": "Open in new tab",
     "complain": "Complain",
-    "hide": "Hide"
+    "hide": "Hide",
+    "open_like_message": "Send as message",
+    "share_on_my_page": "Share on my page",
+    "share_in_group": "Share in a group",
+    "answer": "Answer",
+    "favourite": "Favorite",
+    "delete": "Delete",
+    "edit": "Edit",
+    "publish": "Publish",
+    "available_everyone": "Available to everyone",
+    "who_am_i_following": "Who am I following",
+    "who_is_following_me": "Who is following me",
+    "anonymously": "Anonymously",
+    "create_poll": "Create poll",
+    "cancel": "Cancel",
+    "add_answer": "+ Add answer"
   },
   "languages": {
     "title": "English",
@@ -144,7 +159,9 @@
   },
   "placeholders": {
     "search_input": "Search",
-    "publications_input": "Write good or be silent..."
+    "publications_input": "Write good or be silent...",
+    "comment_input": "Your comment...",
+    "question_for_poll": "Poll question or topic... "
   },
   "tabs": {
     "news_page": {
@@ -160,17 +177,18 @@
       "audio": "Audio"
     }
   },
-  "video":{
+  "video": {
     "reactions": "reactions",
     "views": "views"
   },
   "sections_title": {
     "last_actions": "Last actions",
     "recommended_groups": "Recommended groups",
-    "recommended_people": "Recommended people"
+    "recommended_people": "Recommended people",
+    "create_poll": "Create a poll"
   },
   "labels": {
-    "subscribers" : {
+    "subscribers": {
       "plural": "subscribers",
       "singular": "subscribe"
     },
@@ -185,6 +203,30 @@
     "reposts": {
       "plural": "reposts",
       "singular": "repost"
+    },
+    "time": {
+      "year": "year",
+      "month": "month",
+      "week": "week",
+      "day": "day",
+      "hour": "hour",
+      "minute": "minute",
+      "second": "second",
+      "ago": "назад"
+    },
+    "poll": {
+      "question": "Question",
+      "answer_options": "Answer options",
+      "answer": "Answer №",
+      "only_eight_symbol": "You can add up to 8 answer options",
+      "quiz_options_valid_answer": "The options in the Quiz can only have one correct answer.",
+      "anonymous_poll": "Anonymous Poll",
+      "multiple_choice": "Multiple choice",
+      "quiz": "Quiz"
     }
+  },
+  "dropdown": {
+    "reply_answer": "View answers",
+    "download_comment": "Load more"
   }
 }

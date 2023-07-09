@@ -5,26 +5,59 @@
         <form action="" class="form__section">
           <div class="form__left--side">
             <img width="48" height="48" src="../../assets/images/Ellipse.png" alt="">
-
-            <textarea rows="1" :placeholder="$t('placeholders.publications_input')"></textarea>
+            <textarea
+              rows="1"
+              :placeholder="$t('placeholders.publications_input')"
+              @input="handleTextareaInput"
+              class="enter__post--textarea"
+              :class="{ 'active': isTextAreaActive }"
+              @click="isTextAreaActive = true"
+              @blur="isTextAreaActive = true"
+            ></textarea>
           </div>
+          <div v-if="!isTextAreaActive" class="form__inputs--block">
+            <FileUpload label="image" accept="image/*">
+              <ImageIcon></ImageIcon>
+            </FileUpload>
 
-          <div class="form__inputs--block">
-            <file-upload label="image" accept="image/*">
-              <image-icon></image-icon>
-            </file-upload>
+            <FileUpload label="video" accept="video/*">
+              <VideoPublicationsIcon></VideoPublicationsIcon>
+            </FileUpload>
 
-            <file-upload label="video" accept="video/*">
-              <video-publications-icon></video-publications-icon>
-            </file-upload>
-
-            <file-upload label="audio" accept="audio/*">
-              <audio-publication-icon></audio-publication-icon>
-            </file-upload>
+            <FileUpload label="audio" accept="audio/*">
+              <AudioPublicationIcon></AudioPublicationIcon>
+            </FileUpload>
             <div class="vertical__divider"></div>
-            <file-upload label="file">
-              <clip-icon></clip-icon>
-            </file-upload>
+            <FileUpload label="file">
+              <ClipIcon></ClipIcon>
+            </FileUpload>
+          </div>
+          <div v-if="isTextAreaActive" class="textarea__active--buttons">
+            <div class="textarea__active--left--side">
+              <button class="poll__button" type="button" @click="openPollModal">
+                <PollIcon />
+              </button>
+
+              <PollModal
+                v-if="showPollModal"
+                @close="closePollModal"
+              />
+              <button class="smile__button" type="button">
+                <SmileIcon />
+              </button>
+
+              <button class="audio__button" type="button">
+                <AudioPublicationIcon />
+              </button>
+              <div class="vertical__divider"></div>
+              <FileUpload label="file">
+                <ClipIcon></ClipIcon>
+              </FileUpload>
+            </div>
+            <div class="textarea__active--right--side">
+              <AccessDropDown />
+              <SampleButton class="publish__button">{{ $t('buttons.publish') }}</SampleButton>
+            </div>
           </div>
         </form>
       </section>
@@ -102,23 +135,52 @@ import VideoPublicationsIcon from '@/components/icons/VideoPublicationsIcon.vue'
 import MainPublicationsTab from '@/components/ui/Publications/MainPublicationsTab.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import FileUpload from '@/components/ui/FileUpload.vue'
+import AccessDropDown from '@/components/ui/Post/AccessDropDown.vue'
+import PollIcon from '@/components/icons/news/PollIcon.vue'
+import SmileIcon from '@/components/icons/news/SmileIcon.vue'
+import PollModal from '@/components/modals/PollModal.vue'
 
 export default {
   components: {
+    PollModal,
+    SmileIcon,
+    PollIcon,
     FileUpload,
     MainPublicationsTab,
     VideoPublicationsIcon,
     ClipIcon,
     AudioPublicationIcon,
     ImageIcon,
-    SampleButton
+    SampleButton,
+    AccessDropDown
   },
   data () {
     return {
-      subscribeButtonStatus: false
+      subscribeButtonStatus: false,
+      isTextAreaActive: false,
+      showPollModal: false
     }
   },
   methods: {
+    openPollModal () {
+      this.showPollModal = true
+      document.body.classList.add('modal-open')
+    },
+    closePollModal () {
+      this.showPollModal = false
+      document.body.classList.remove('modal-open')
+    },
+    handleWindowClick (event) {
+      const textarea = this.$refs.textarea
+      if (textarea && !textarea.contains(event.target)) {
+        this.isTextAreaActive = false
+      }
+    },
+    handleTextareaInput (event) {
+      const textarea = event.target
+      textarea.style.height = 'auto'
+      textarea.style.height = `${textarea.scrollHeight}px`
+    },
     toggleSubscribeButton () {
       this.subscribeButtonStatus = !this.subscribeButtonStatus
     }
@@ -151,11 +213,63 @@ export default {
         this.$t('tabs.publications_inside.audio')
       ]
     }
+  },
+  mounted () {
+    window.addEventListener('click', this.handleWindowClick)
+  },
+  beforeUnmount () {
+    window.removeEventListener('click', this.handleWindowClick)
+  },
+  watch: {
+    isTextAreaActive (newValue) {
+      const formSection = document.querySelector('.form__section')
+      const formInputBlocks = document.querySelector('.form__inputs--block')
+      if (newValue) {
+        formSection.style.flexDirection = 'column'
+        formInputBlocks.style.width = '100%'
+      } else {
+        formSection.style.flexDirection = 'row'
+        formInputBlocks.style.width = ''
+      }
+    }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.modal-open {
+  transition: .2s;
+  overflow: hidden;
+}
+
+.poll__button,
+.smile__button,
+.audio__button {
+  all: unset;
+  cursor: pointer;
+  max-height: 24px;
+}
+
+.textarea__active--left--side,
+.textarea__active--right--side {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.publish__button {
+  padding: 12px 38px;
+  border-radius: 50px;
+}
+
+.textarea__active--buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+}
+
 .person__section,
 .group__section,
 .actions__section {
@@ -165,8 +279,7 @@ export default {
 }
 
 .person__right--side,
-.group__right--side
-{
+.group__right--side {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -190,7 +303,7 @@ export default {
 }
 
 .actions__section span {
-  color: var(--color-primary);
+  color: var(--color-mine-shaft);
 }
 
 .person__info,
@@ -202,18 +315,22 @@ export default {
 
 .person__info span,
 .group__info span {
-  color: var(--color-primary);
+  color: var(--color-mine-shaft);
 }
 
 .person__info small,
 .group__info small {
-  color: var(--color-text);
+  color: var(--color-silver-chalice);
 }
 
 .form__left--side {
   display: flex;
   align-items: center;
   width: 100%;
+}
+
+.form__left--side > :first-child {
+  align-self: flex-start;
 }
 
 .form__left--side img {
@@ -226,12 +343,11 @@ export default {
   outline: none;
   font-size: 16px;
   min-height: 22px;
-  max-height: 100px;
   width: 89%;
 }
 
 .form__left--side textarea::placeholder {
-  color: var(--color-text);
+  color: var(--color-silver-chalice);
 }
 
 .aside__title--section {
@@ -243,7 +359,7 @@ export default {
   height: 1px;
   margin: 16px 0;
   border: 0;
-  background-color: var(--color-gray-2);
+  background-color: var(--color-alto-second);
 }
 
 .publication__main--block {
@@ -254,8 +370,8 @@ export default {
 .section__last--actions,
 .section__recommended--groups,
 .section__recommended--people {
-  background-color: var(--color-background);
-  color: var(--color-text);
+  background-color: var(--color-white);
+  color: var(--color-silver-chalice);
   border-radius: 15px;
   padding: 24px 16px;
   display: flex;
@@ -269,13 +385,13 @@ export default {
 }
 
 svg {
-  color: var(--color-text)
+  color: var(--color-silver-chalice)
 }
 
 .publications__form--section {
   border-radius: 15px;
   padding: 16px 24px;
-  background-color: var(--color-background);
+  background-color: var(--color-white);
 }
 
 .form__section {
@@ -283,12 +399,13 @@ svg {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  row-gap: 24px;
 }
 
 .vertical__divider {
   width: 2px;
   height: 14px;
-  background-color: var(--color-gray-2);
+  background-color: var(--color-alto-second);
 }
 
 .aside__publications {

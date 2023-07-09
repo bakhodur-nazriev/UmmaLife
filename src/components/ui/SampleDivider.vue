@@ -2,8 +2,15 @@
   <hr class="sample__divider">
 </template>
 
+<script>
+export default {}
+</script>
+
 <style scoped>
 .sample__divider {
-  border: 1px solid #F2F4F9;
+  height: 1px;
+  width: 100%;
+  background-color: var(--color-seashell);
+  border: none;
 }
 </style>

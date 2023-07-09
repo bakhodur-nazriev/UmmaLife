@@ -130,7 +130,22 @@
     "save": "Сохранить",
     "open_in_new_tab": "Открыть в новой вкладке",
     "complain": "Пожаловаться",
-    "hide": "Скрыть"
+    "hide": "Скрыть",
+    "open_like_message": "Отправить как сообщение",
+    "share_on_my_page": "Поделиться на моей странице",
+    "share_in_group": "Поделиться в группе",
+    "answer": "Ответить",
+    "favourite": "Нравится",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "publish": "Опубликовать",
+    "available_everyone": "Доступно всем",
+    "who_am_i_following": "На кого я подписан",
+    "who_is_following_me": "Кто подписан на меня",
+    "anonymously": "Анонимно",
+    "create_poll": "Создать опрос",
+    "cancel": "Отменить",
+    "add_answer": "+ Добавить ответ"
   },
   "languages": {
     "title": "Русский",
@@ -146,7 +161,9 @@
   },
   "placeholders": {
     "search_input": "Поиск",
-    "publications_input": "Напиши благое или молчи..."
+    "publications_input": "Напиши благое или молчи...",
+    "comment_input": "Ваш комментарий...",
+    "question_for_poll": "Вопрос или тема для опроса..."
   },
   "tabs": {
     "news_page": {
@@ -169,7 +186,8 @@
   "sections_title": {
     "last_actions": "Последние действия",
     "recommended_groups": "Рекомендуемые группы",
-    "recommended_people": "Рекомендуемые люди"
+    "recommended_people": "Рекомендуемые люди",
+    "create_poll": "Создайте опрос"
   },
   "labels": {
     "subscribers" : {
@@ -187,6 +205,29 @@
     "reposts": {
       "plural": "репостов",
       "singular": "репост"
+    },
+    "time": {
+      "year": "год",
+      "month": "месяц",
+      "week": "неделя",
+      "day": "день",
+      "hour": "час",
+      "minute": "минут",
+      "second": "секунд"
+    },
+    "poll": {
+      "question": "Вопрос",
+      "answer_options": "Варианты ответов",
+      "answer": "Ответ №",
+      "only_eight_symbol": "Вы можете добавить до 8 вариантов ответа",
+      "quiz_options_valid_answer": "Варианты в Викторине могут иметь только один верный ответ.",
+      "anonymous_poll": "Анонимный опрос",
+      "multiple_choice": "Выбор несколько",
+      "quiz": "Викторина"
     }
+  },
+  "dropdown": {
+    "reply_answer": "Посмотреть ответы",
+    "download_comment": "Загрузить комментарии"
   }
 }

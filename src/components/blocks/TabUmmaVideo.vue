@@ -114,17 +114,17 @@ export default {
 
 .transparent__left--right--block::after {
   left: 0;
-  background: linear-gradient(to left, transparent, var(--color-divider) 50%);
+  background: linear-gradient(to left, transparent, var(--color-seashell) 50%);
 }
 
 .transparent__left--right--block::before {
   right: 0;
-  background: linear-gradient(to right, transparent, var(--color-divider) 50%);
+  background: linear-gradient(to right, transparent, var(--color-seashell) 50%);
 }
 
 .left__button:hover, .right__button:hover {
-  background-color: var(--color-text);
-  color: var(--color-divider);
+  background-color: var(--color-silver-chalice);
+  color: var(--color-seashell);
   transition: 0.3s ease;
 }
 

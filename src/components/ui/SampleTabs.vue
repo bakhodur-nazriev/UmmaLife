@@ -11,7 +11,8 @@
       </div>
     </div>
 
-    <div class="tabs__content">
+    <transition name="fade">
+      <div class="tabs__content">
       <div
         v-for="(tab, index) in tabs"
         :key="index"
@@ -23,6 +24,7 @@
         <tab-umma-video v-if="index === 2"></tab-umma-video>
       </div>
     </div>
+    </transition>
   </div>
 </template>
 
@@ -83,7 +85,7 @@ export default {
   height: 1px;
   bottom: 0;
   left: 0;
-  background-color: var(--color-gray-2);
+  background-color: var(--color-alto-second);
   position: absolute;
 }
 
@@ -92,7 +94,7 @@ export default {
   justify-content: center;
   cursor: pointer;
   padding: 16px 0;
-  color: var(--color-text);
+  color: var(--color-silver-chalice);
   font-weight: 500;
   font-size: 18px;
   margin: 0 50px;
@@ -101,7 +103,7 @@ export default {
 
 .tabs__header-item.active {
   position: relative;
-  color: var(--color-primary);
+  color: var(--color-mine-shaft);
   padding-bottom: 16px;
   font-weight: 600;
   z-index: 100;
@@ -114,7 +116,7 @@ export default {
   height: 2px;
   bottom: 0;
   left: 0;
-  background-color: var(--color-link);
+  background-color: var(--color-deep-cerulean);
   border-radius: 1px 1px 0 0;
 }
 

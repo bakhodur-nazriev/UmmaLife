@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import SampleMenuDetailsButton from '@/components/ui/SampleMenuDetailsButton.vue'
+import SampleMenuDetailsButton from '@/components/ui/MenuDetails/SampleMenuDetailsButton.vue'
 
 export default {
   components: {
@@ -58,11 +58,11 @@ export default {
 }
 
 .subtitle small {
-  color: var(--color-gray-4);
+  color: var(--color-gray);
 }
 
 .shorts__time {
   font-size: 12px;
-  color: var(--color-gray-4);
+  color: var(--color-gray);
 }
 </style>

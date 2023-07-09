@@ -8,7 +8,7 @@
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .title {
     margin: 0 0 40px 0;
     font-weight: 500;

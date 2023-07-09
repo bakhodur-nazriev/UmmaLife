@@ -93,7 +93,7 @@ export default {
   width: 100%;
   transform: translateY(0);
   transition: transform 0.3s ease;
-  background-color: #fff;
+  background-color: var(--color-white);
 }
 
 .right__nav--side {
@@ -117,7 +117,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #F1F1F1;
+  background-color: var(--color-seashell);
   border-radius: 50px;
   width: 40px;
   height: 40px;
@@ -136,7 +136,7 @@ export default {
 }
 
 .menu__button {
-  background-color: #fff;
+  background-color: var(--color-white);
   margin: 24px;
 }
 
@@ -145,6 +145,9 @@ export default {
 }
 
 .create__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 11px;
   width: 159px;
   max-height: 40px;

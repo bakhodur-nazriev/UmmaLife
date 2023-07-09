@@ -29,5 +29,5 @@ export default {
 </script>
 
 <style scoped>
-
+@import "assets/styles.scss";
 </style>
