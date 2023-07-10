@@ -117,7 +117,7 @@
       "dark": "Dark",
       "light": "Light"
     },
-    "join": "+ Join",
+    "join": "Join",
     "in_group": "In group",
     "subscribe": "Subscribe",
     "follow": "I follow",
@@ -143,7 +143,12 @@
     "anonymously": "Anonymously",
     "create_poll": "Create poll",
     "cancel": "Cancel",
-    "add_answer": "+ Add answer"
+    "add_answer": "+ Add answer",
+    "mood": "Настроение",
+    "traveling": "Путешествую",
+    "watching": "Смотрю",
+    "playing": "Играю",
+    "listening": "Слушаю"
   },
   "languages": {
     "title": "English",

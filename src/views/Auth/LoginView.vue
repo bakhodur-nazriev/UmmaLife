@@ -5,9 +5,12 @@
     <login-with-phone v-if="selectedForm === 'phone'"></login-with-phone>
 
     <div class="login-with-phone-section">
-      <button class="link-with-phone-number" @click="toggleForm">
-        {{ selectedForm === 'email' ? $t('login.with_phone_number') : $t('login.with_email') }}
-      </button>
+      <SampleButton
+        color="none"
+        class="link-with-phone-number"
+        @click="toggleForm"
+        :title="`${ selectedForm === 'email' ? $t('login.with_phone_number') : $t('login.with_email') }`"
+      />
     </div>
 
   </LayoutAuth>
@@ -17,9 +20,11 @@
 import LayoutAuth from '@/components/layouts/LayoutAuth.vue'
 import LoginWithPhone from '@/components/LoginForm/LoginWithPhone.vue'
 import LoginWithEmail from '@/components/LoginForm/LoginWithEmail.vue'
+import SampleButton from '@/components/ui/SampleButton.vue'
 
 export default {
   components: {
+    SampleButton,
     LoginWithEmail,
     LayoutAuth,
     LoginWithPhone

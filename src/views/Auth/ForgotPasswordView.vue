@@ -18,7 +18,10 @@
       </div>
 
       <div class="login-button-section">
-        <sample-button @click="handleSubmit">{{ $t('buttons.submit') }}</sample-button>
+        <SampleButton
+          @click="handleSubmit"
+          :title="`${ $t('buttons.submit') }`"
+        />
       </div>
     </form-auth>
   </LayoutAuth>
