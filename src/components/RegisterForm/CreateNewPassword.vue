@@ -26,7 +26,10 @@
     </div>
 
     <div class="login__button-section">
-      <sample-button @click="handleSubmit">{{ $t('buttons.next') }}</sample-button>
+      <SampleButton
+        @click="handleSubmit"
+        :title="`${ $t('buttons.next') }`"
+      />
     </div>
   </form-auth>
 </template>

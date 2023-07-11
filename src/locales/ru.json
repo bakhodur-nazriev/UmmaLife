@@ -119,7 +119,7 @@
       "dark": "Темный",
       "light": "Светлый"
     },
-    "join": "+ Вступить",
+    "join": "Вступить",
     "in_group": "В группе",
     "subscribe": "Подписаться",
     "follow": "Слежу",
@@ -145,7 +145,12 @@
     "anonymously": "Анонимно",
     "create_poll": "Создать опрос",
     "cancel": "Отменить",
-    "add_answer": "+ Добавить ответ"
+    "add_answer": "+ Добавить ответ",
+    "mood": "Mood",
+    "traveling": "Traveling",
+    "watching": "I'm watching",
+    "playing": "I'm playing",
+    "listening": "I'm listening"
   },
   "languages": {
     "title": "Русский",

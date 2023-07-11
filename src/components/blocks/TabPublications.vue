@@ -33,30 +33,61 @@
             </FileUpload>
           </div>
           <div v-if="isTextAreaActive" class="textarea__active--buttons">
-            <div class="textarea__active--left--side">
-              <button class="poll__button" type="button" @click="openPollModal">
-                <PollIcon />
-              </button>
-
-              <PollModal
-                v-if="showPollModal"
-                @close="closePollModal"
-              />
-              <button class="smile__button" type="button">
-                <SmileIcon />
-              </button>
-
-              <button class="audio__button" type="button">
-                <AudioPublicationIcon />
-              </button>
-              <div class="vertical__divider"></div>
-              <FileUpload label="file">
-                <ClipIcon></ClipIcon>
-              </FileUpload>
+            <div class="textarea__active--smile mood__section" v-if="showSmileSection">
+              <div class="buttons">
+                <SampleButton icon="mood" color="tertiary" :title="`${ $t('buttons.mood') }`">
+                  <SmallSmileIcon />
+                </SampleButton>
+                <SampleButton icon="traveling" color="tertiary" :title="`${ $t('buttons.traveling') }`">
+                  <MapIcon />
+                </SampleButton>
+                <SampleButton icon="watching" color="tertiary" :title="`${ $t('buttons.watching') }`">
+                  <CinemaIcon />
+                </SampleButton>
+                <SampleButton icon="playing" color="tertiary" :title="`${ $t('buttons.playing') }`">
+                  <GamingIcon />
+                </SampleButton>
+                <SampleButton icon="listening" color="tertiary" :title="`${ $t('buttons.listening') }`">
+                  <ListeningIcon />
+                </SampleButton>
+              </div>
             </div>
-            <div class="textarea__active--right--side">
-              <AccessDropDown />
-              <SampleButton class="publish__button">{{ $t('buttons.publish') }}</SampleButton>
+
+            <div class="textarea__active">
+              <div class="textarea__active--left--side">
+                <button class="poll__button" type="button" @click="openPollModal">
+                  <PollIcon />
+                </button>
+
+                <PollModal
+                  v-if="showPollModal"
+                  @close="closePollModal"
+                />
+
+                <button
+                  class="smile__button"
+                  type="button"
+                  @click="activeSmileSection"
+                >
+                  <SmileIcon />
+                </button>
+
+                <button class="audio__button" type="button">
+                  <AudioPublicationIcon />
+                </button>
+                <div class="vertical__divider"></div>
+                <FileUpload label="file">
+                  <ClipIcon></ClipIcon>
+                </FileUpload>
+              </div>
+              <div class="textarea__active--right--side">
+                <AccessDropDown />
+                <SampleButton
+                  :title="`${ $t('buttons.publish') }`"
+                  class="publish__button"
+                  rounded="rounded"
+                />
+              </div>
             </div>
           </div>
         </form>
@@ -95,7 +126,11 @@
                 <small>{{ group.members }}</small>
               </div>
             </router-link>
-            <sample-button>{{ $t('buttons.join') }}</sample-button>
+            <SampleButton
+              icon="plus"
+              color="primary"
+              :title="`${ $t('buttons.join') }`"
+            />
           </div>
         </div>
       </section>
@@ -114,12 +149,11 @@
                 <small>{{ person.followers }}</small>
               </div>
             </router-link>
-            <sample-button
+            <SampleButton
+              :title="`${ subscribeButtonStatus ? $t('buttons.follow') : $t('buttons.subscribe') }`"
               @click="toggleSubscribeButton"
               :class="{ 'active' :subscribeButtonStatus }"
-            >
-              {{ subscribeButtonStatus ? $t('buttons.follow') : $t('buttons.subscribe') }}
-            </sample-button>
+            />
           </div>
         </div>
       </section>
@@ -139,9 +173,21 @@ import AccessDropDown from '@/components/ui/Post/AccessDropDown.vue'
 import PollIcon from '@/components/icons/news/PollIcon.vue'
 import SmileIcon from '@/components/icons/news/SmileIcon.vue'
 import PollModal from '@/components/modals/PollModal.vue'
+import MapIcon from '@/components/icons/MapIcon.vue'
+import CinemaIcon from '@/components/icons/CinemaIcon.vue'
+import GamingIcon from '@/components/icons/GamingIcon.vue'
+import ListeningIcon from '@/components/icons/ListeningIcon.vue'
+import SmallSmileIcon from '@/components/icons/SmallSmileIcon.vue'
+import PlusIcon from '@/components/icons/PlusIcon.vue'
 
 export default {
   components: {
+    PlusIcon,
+    SmallSmileIcon,
+    ListeningIcon,
+    GamingIcon,
+    CinemaIcon,
+    MapIcon,
     PollModal,
     SmileIcon,
     PollIcon,
@@ -158,10 +204,15 @@ export default {
     return {
       subscribeButtonStatus: false,
       isTextAreaActive: false,
-      showPollModal: false
+      showPollModal: false,
+      showSmileSection: true
     }
   },
   methods: {
+    activeSmileSection () {
+      this.showSmileSection = !this.showSmileSection
+    },
+
     openPollModal () {
       this.showPollModal = true
       document.body.classList.add('modal-open')
@@ -237,6 +288,27 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.mood__section {
+  display: flex;
+
+  .buttons {
+    padding: 12px;
+    display: flex;
+    gap: 12px;
+    background-color: var(--color-seashell);
+    border-radius: 10px;
+
+    .btn {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      svg {
+        color: var(--color-hippie-blue);
+      }
+    }
+  }
+}
+
 .modal-open {
   transition: .2s;
   overflow: hidden;
@@ -250,24 +322,29 @@ export default {
   max-height: 24px;
 }
 
-.textarea__active--left--side,
-.textarea__active--right--side {
+.textarea__active {
   display: flex;
-  align-items: center;
-  gap: 24px;
+  justify-content: space-between;
+
+  &--left--side,
+  &--right--side {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &--buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+    row-gap: 24px;
+  }
 }
 
 .publish__button {
   padding: 12px 38px;
-  border-radius: 50px;
-}
-
-.textarea__active--buttons {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  width: 100%;
 }
 
 .person__section,

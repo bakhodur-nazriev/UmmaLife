@@ -37,7 +37,10 @@
     </CheckBox>
 
     <div class="login-button-section">
-      <sample-button @click="handleSubmit">{{ $t('buttons.get_code_by_email') }}</sample-button>
+      <SampleButton
+        @click="handleSubmit"
+        :title="`${ $t('buttons.get_code_by_email') }`"
+      />
     </div>
 
     <div class="login-section">

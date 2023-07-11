@@ -23,11 +23,12 @@
     </div>
 
     <div class="login__button-section">
-      <sample-button
+      <SampleButton
+        :title="`${ $t('buttons.login') }`"
         @click="handleSubmit"
         :disabled="!isCodeFilled"
         :class="{ 'inActive-button': !isCodeFilled }"
-      >{{ $t('buttons.login') }}</sample-button>
+      />
     </div>
 
     <div class="resend__code">
@@ -123,14 +124,6 @@ export default {
 .input-wrapper .error-message {
   color: red;
   font-size: 12px;
-}
-
-.inActive-button {
- background-color: #B0B0B0;
-}
-
-.inActive-button:hover {
-  background-color: #B0B0B0;
 }
 
 .link {

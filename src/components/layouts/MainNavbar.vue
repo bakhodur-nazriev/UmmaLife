@@ -8,7 +8,10 @@
         <main-page-logo class="main__logo"></main-page-logo>
       </div>
       <div>
-        <sample-button class="create__button">{{ $t('buttons.create') }}</sample-button>
+        <SampleButton
+          class="create__button"
+          :title="`${ $t('buttons.create') }`"
+        />
       </div>
       <div>
         <search-input :placeholder="$t('placeholders.search_input')"></search-input>

@@ -14,7 +14,10 @@
       </div>
     </div>
     <div>
-      <sample-button class="create__umma--video--button">{{ $t('buttons.create_umma_video') }}</sample-button>
+      <SampleButton
+        class="create__umma--video--button"
+        :title="`${ $t('buttons.create_umma_video') }`"
+      />
     </div>
   </section>
   <section class="umma__videos--section">

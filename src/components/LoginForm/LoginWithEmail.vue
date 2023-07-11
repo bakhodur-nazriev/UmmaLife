@@ -45,7 +45,10 @@
     </router-link>
 
     <div class="login-button-section">
-      <sample-button @click="handleSubmit">{{ $t('buttons.login') }}</sample-button>
+      <SampleButton
+        @click="handleSubmit"
+        :title="$t('buttons.login')"
+      />
     </div>
 
     <router-link
