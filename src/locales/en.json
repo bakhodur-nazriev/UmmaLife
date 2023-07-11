@@ -144,11 +144,31 @@
     "create_poll": "Create poll",
     "cancel": "Cancel",
     "add_answer": "+ Add answer",
-    "mood": "Настроение",
-    "traveling": "Путешествую",
-    "watching": "Смотрю",
-    "playing": "Играю",
-    "listening": "Слушаю"
+    "mood": "Mood",
+    "traveling": "Traveling",
+    "watching": "I'm watching",
+    "playing": "I'm playing",
+    "listening": "I'm listening",
+    "emotions": {
+      "happy": "Happy",
+      "in_love": "In love",
+      "outraged": "Outraged",
+      "celebrate": "I celebrate",
+      "giggle": "I giggle",
+      "crazy": "Crazy",
+      "falling_asleep": "falling asleep",
+      "shocked": "I'm shocked",
+      "excited": "Excited",
+      "angry": "Angry",
+      "masked": "Masked",
+      "think": "Think",
+      "laughing_out_loud": "Laughing Out Loud",
+      "wonder": "Wonder",
+      "sick": "I'm sick",
+      "embarrassed": "Embarrassed",
+      "ignore": "Ignore",
+      "frozen": "Frozen"
+    }
   },
   "languages": {
     "title": "English",
@@ -228,6 +248,28 @@
       "anonymous_poll": "Anonymous Poll",
       "multiple_choice": "Multiple choice",
       "quiz": "Quiz"
+    },
+    "feeling": {
+      "mood": {
+        "title": "Mood",
+        "placeholder": "What are you feeling or what are you doing?"
+      },
+      "traveling": {
+        "title": "Traveling",
+        "placeholder": "Where are you going?"
+      },
+      "watching": {
+        "title": "Watching",
+        "placeholder": "What are you watching?"
+      },
+      "playing": {
+        "title": "Playing",
+        "placeholder": "What are you playing?"
+      },
+      "listening": {
+        "title": "Listening",
+        "placeholder": "What are you listening"
+      }
     }
   },
   "dropdown": {

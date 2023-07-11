@@ -60,22 +60,27 @@
             <small class="answer__notification--eight--item">{{ $t('labels.poll.only_eight_symbol') }}</small>
           </div>
 
-          <div class="option__poll--type">
-            <CheckBox name="poll_type-anonymous" color="primary" text-size="medium">
-              {{ $t('labels.poll.anonymous_poll') }}
-            </CheckBox>
+          <div class="option__poll--type--section">
+            <div class="option__poll--type">
+              <CheckBox name="poll_type-anonymous" color="primary" text-size="medium">
+                {{ $t('labels.poll.anonymous_poll') }}
+              </CheckBox>
 
-            <SampleDivider class="option__poll--divider"/>
+              <SampleDivider class="option__poll--divider"/>
 
-            <CheckBox name="poll__type--multiple" color="primary" text-size="medium">
-              {{ $t('labels.poll.multiple_choice') }}
-            </CheckBox>
-            <SampleDivider class="option__poll--divider"/>
+              <CheckBox name="poll__type--multiple" color="primary" text-size="medium">
+                {{ $t('labels.poll.multiple_choice') }}
+              </CheckBox>
+              <SampleDivider class="option__poll--divider"/>
 
-            <CheckBox name="poll__type--quiz" color="primary" text-size="medium">
-              {{ $t('labels.poll.quiz') }}
-            </CheckBox>
+              <CheckBox name="poll__type--quiz" color="primary" text-size="medium">
+                {{ $t('labels.poll.quiz') }}
+              </CheckBox>
+            </div>
+
+            <small class="option__poll--warning--notification">{{ $t('labels.poll.quiz_options_valid_answer') }}</small>
           </div>
+
         </div>
         <footer class="modal__footer">
           <button class="cancel__button" type="button" @click="closeModal">{{ $t('buttons.cancel') }}</button>
@@ -137,6 +142,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.option__poll--warning--notification {
+  color: var(--color-silver-chalice);
+}
+
 .option__poll--divider {
   border: 1px solid #e0e0e0;
 }

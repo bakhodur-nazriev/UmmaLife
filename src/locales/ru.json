@@ -51,7 +51,7 @@
     "privacy_policy": "Политика",
     "contacts": "Контакты",
     "about_us": "О нас",
-    "resend" : "Отправить повторно",
+    "resend": "Отправить повторно",
     "skip": "Пропустить",
     "news": "Новости",
     "my_page": "Моя страница",
@@ -84,12 +84,12 @@
     "label": "Есть аккаунт?",
     "messages": {
       "agreement_to_creating_account": "Создавая аккаунт, вы соглашаетесь с нашими ",
-      "verify_with_email" : "Сообщение с кодом выслали вам на указанный почтовый адрес",
+      "verify_with_email": "Сообщение с кодом выслали вам на указанный почтовый адрес",
       "create_password": "Создайте пароль для входа в систему",
-      "fill_your_information" : "Заполните информацию о себе для входа в UmmaLife",
-      "required_fields" : "(Обязательные поля для заполнения)",
-      "enter_your_phone" : "Введите свой номер телефона",
-      "can_login_with_phone_number" : "Вы сможете заходить в сеть при помощи вашего номера телефона"
+      "fill_your_information": "Заполните информацию о себе для входа в UmmaLife",
+      "required_fields": "(Обязательные поля для заполнения)",
+      "enter_your_phone": "Введите свой номер телефона",
+      "can_login_with_phone_number": "Вы сможете заходить в сеть при помощи вашего номера телефона"
     },
     "validation": {
       "empty_email": "Поле не должно быть пустым",
@@ -146,11 +146,31 @@
     "create_poll": "Создать опрос",
     "cancel": "Отменить",
     "add_answer": "+ Добавить ответ",
-    "mood": "Mood",
-    "traveling": "Traveling",
-    "watching": "I'm watching",
-    "playing": "I'm playing",
-    "listening": "I'm listening"
+    "mood": "Настроение",
+    "traveling": "Путешествую",
+    "watching": "Смотрю",
+    "playing": "Играю",
+    "listening": "Слушаю",
+    "emotions": {
+      "happy": "Счастливый",
+      "in_love": "Влюблен",
+      "outraged": "Возмущен",
+      "celebrate": "Праздную",
+      "giggle": "Хихикаю",
+      "crazy": "С ума сошел",
+      "falling_asleep": "Засыпаю",
+      "shocked": "В шоке",
+      "excited": "В восторге",
+      "angry": "Злой",
+      "masked": "В маске",
+      "think": "Думаю",
+      "laughing_out_loud": "Ржунимагу",
+      "wonder": "Удивляюсь",
+      "sick": "Болею",
+      "embarrassed": "Смущаюсь",
+      "ignore": "Игнорирую",
+      "frozen": "Замерз"
+    }
   },
   "languages": {
     "title": "Русский",
@@ -195,7 +215,7 @@
     "create_poll": "Создайте опрос"
   },
   "labels": {
-    "subscribers" : {
+    "subscribers": {
       "plural": "подписчиков",
       "singular4": "подписчик"
     },
@@ -229,6 +249,29 @@
       "anonymous_poll": "Анонимный опрос",
       "multiple_choice": "Выбор несколько",
       "quiz": "Викторина"
+    },
+    "feeling": {
+      "label": "Что вы чувствуете или чем вы заняты?",
+      "mood": {
+        "title": "Настроение",
+        "placeholder": "Что чувствуйте?"
+      },
+      "traveling": {
+        "title": "Путешествие",
+        "placeholder": "Куда едете?"
+      },
+      "watching": {
+        "title": "Смотрю",
+        "placeholder": "Что смотрите?"
+      },
+      "playing": {
+        "title": "Играю",
+        "placeholder": "Во что играете?"
+      },
+      "listening": {
+        "title": "Слушаю",
+        "placeholder": "Что слушаете?"
+      }
     }
   },
   "dropdown": {

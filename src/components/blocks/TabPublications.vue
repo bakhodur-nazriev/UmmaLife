@@ -34,23 +34,134 @@
           </div>
           <div v-if="isTextAreaActive" class="textarea__active--buttons">
             <div class="textarea__active--smile mood__section" v-if="showSmileSection">
+
+              <span class="emotions__label">{{ $t('labels.feeling.label') }}</span>
+
               <div class="buttons">
-                <SampleButton icon="mood" color="tertiary" :title="`${ $t('buttons.mood') }`">
+                <SampleButton
+                  icon="mood"
+                  color="tertiary"
+                  :title="`${ $t('buttons.mood') }`"
+                  @click="isMoodActive"
+                >
                   <SmallSmileIcon />
                 </SampleButton>
-                <SampleButton icon="traveling" color="tertiary" :title="`${ $t('buttons.traveling') }`">
+                <SampleButton
+                  icon="traveling"
+                  color="tertiary"
+                  :title="`${ $t('buttons.traveling') }`"
+                  @click="isTravelingActive"
+                >
                   <MapIcon />
                 </SampleButton>
-                <SampleButton icon="watching" color="tertiary" :title="`${ $t('buttons.watching') }`">
+                <SampleButton
+                  icon="watching"
+                  color="tertiary"
+                  :title="`${ $t('buttons.watching') }`"
+                  @click="isWatchingActive"
+                >
                   <CinemaIcon />
                 </SampleButton>
-                <SampleButton icon="playing" color="tertiary" :title="`${ $t('buttons.playing') }`">
+                <SampleButton
+                  icon="playing"
+                  color="tertiary"
+                  :title="`${ $t('buttons.playing') }`"
+                  @click="isPlayingActive"
+                >
                   <GamingIcon />
                 </SampleButton>
-                <SampleButton icon="listening" color="tertiary" :title="`${ $t('buttons.listening') }`">
+                <SampleButton
+                  icon="listening"
+                  color="tertiary"
+                  :title="`${ $t('buttons.listening') }`"
+                  @click="isListeningActive"
+                >
                   <ListeningIcon />
                 </SampleButton>
               </div>
+            </div>
+            <div class="emotions__buttons--main--section" v-if="showMoodSection">
+              <div class="emotions__input--section">
+                <span @click="backToMoodSection" class="emotion__label">{{ $t('labels.feeling.mood.title') }}</span>
+                <span class="emotion__input">{{ $t('labels.feeling.mood.placeholder') }}</span>
+              </div>
+
+              <div class="emotions__section--buttons">
+                <SampleButton color="tertiary" icon="happy" :title="`${ $t('buttons.emotions.happy') }`">
+                  <HappyIcon />
+                </SampleButton>
+                <SampleButton color="tertiary" icon="in_love" :title="`${ $t('buttons.emotions.in_love') }`">
+                  <InLoveIcon />
+                </SampleButton>
+                <SampleButton color="tertiary" icon="outraged" :title="`${ $t('buttons.emotions.outraged') }`">
+                  <OutragedIcon />
+                </SampleButton>
+                <SampleButton color="tertiary" icon="celebrate" :title="`${ $t('buttons.emotions.celebrate') }`">
+                  <CelebrateIcon />
+                </SampleButton>
+                <SampleButton color="tertiary" icon="giggle" :title="`${ $t('buttons.emotions.giggle') }`">
+                  <GiggleIcon />
+                </SampleButton>
+                <SampleButton color="tertiary" icon="crazy" :title="`${ $t('buttons.emotions.crazy') }`">
+                  <CrazyIcon />
+                </SampleButton>
+                <SampleButton color="tertiary" icon="falling_asleep" :title="`${ $t('buttons.emotions.falling_asleep') }`">
+                  <FallingAsleepIcon />
+                </SampleButton>
+                <SampleButton color="tertiary" icon="shocked" :title="`${ $t('buttons.emotions.shocked') }`">
+                  <ShockedIcon />
+                </SampleButton>
+                <SampleButton color="tertiary" icon="excited" :title="`${ $t('buttons.emotions.excited') }`">
+                  <ExcitedIcon />
+                </SampleButton>
+                <SampleButton color="tertiary" icon="angry" :title="`${ $t('buttons.emotions.angry') }`">
+                  <AngryIcon />
+                </SampleButton>
+                <SampleButton color="tertiary" icon="masked" :title="`${ $t('buttons.emotions.masked') }`">
+                  <MaskedIcon />
+                </SampleButton>
+                <SampleButton color="tertiary" icon="think" :title="`${ $t('buttons.emotions.think') }`">
+                  <ThinkIcon />
+                </SampleButton>
+                <SampleButton color="tertiary" icon="laughing_out_loud" :title="`${ $t('buttons.emotions.laughing_out_loud') }`">
+                  <LaughingOutLoudIcon />
+                </SampleButton>
+                <SampleButton color="tertiary" icon="wonder" :title="`${ $t('buttons.emotions.wonder') }`">
+                  <WonderIcon />
+                </SampleButton>
+                <SampleButton color="tertiary" icon="sick" :title="`${ $t('buttons.emotions.sick') }`">
+                  <SickIcon />
+                </SampleButton>
+                <SampleButton color="tertiary" icon="embarrassed" :title="`${ $t('buttons.emotions.embarrassed') }`">
+                  <EmbarrassedIcon />
+                </SampleButton>
+                <SampleButton color="tertiary" icon="ignore" :title="`${ $t('buttons.emotions.ignore') }`">
+                  <IgnoreIcon />
+                </SampleButton>
+                <SampleButton color="tertiary" icon="frozen" :title="`${ $t('buttons.emotions.frozen') }`">
+                  <FrozenIcon />
+                </SampleButton>
+              </div>
+            </div>
+
+            <div class="emotions__input--section" v-if="showTravelingSection">
+              <span @click="backToMoodSection" class="emotion__label">{{ $t('labels.feeling.traveling.title') }}</span>
+              <input class="emotion__input" :placeholder="`${ $t('labels.feeling.traveling.placeholder') }`"/>
+            </div>
+
+            <div class="emotions__input--section" v-if="showWatchingSection">
+              <span @click="backToMoodSection" class="emotion__label">{{ $t('labels.feeling.watching.title') }}</span>
+              <input class="emotion__input" :placeholder="`${ $t('labels.feeling.watching.placeholder') }`"/>
+            </div>
+
+            <div class="emotions__input--section" v-if="showPlayingSection">
+              <span @click="backToMoodSection" class="emotion__label">{{ $t('labels.feeling.playing.title') }}</span>
+              <input class="emotion__input" :placeholder="`${ $t('labels.feeling.playing.placeholder') }`"/>
+            </div>
+
+            <div class="emotions__input--section" v-if="showListeningSection">
+              <span @click="backToMoodSection" class="emotion__label">{{ $t('labels.feeling.listening.title') }}</span>
+              <input class="emotion__input" :placeholder="`${ $t('labels.feeling.listening.placeholder') }`"/>
             </div>
 
             <div class="textarea__active">
@@ -178,11 +289,45 @@ import CinemaIcon from '@/components/icons/CinemaIcon.vue'
 import GamingIcon from '@/components/icons/GamingIcon.vue'
 import ListeningIcon from '@/components/icons/ListeningIcon.vue'
 import SmallSmileIcon from '@/components/icons/SmallSmileIcon.vue'
-import PlusIcon from '@/components/icons/PlusIcon.vue'
+import HappyIcon from '@/components/icons/emotions/HappyIcon.vue'
+import InLoveIcon from '@/components/icons/emotions/InLoveIcon.vue'
+import OutragedIcon from '@/components/icons/emotions/OutragedIcon.vue'
+import CelebrateIcon from '@/components/icons/emotions/CelebrateIcon.vue'
+import GiggleIcon from '@/components/icons/emotions/GiggleIcon.vue'
+import CrazyIcon from '@/components/icons/emotions/CrazyIcon.vue'
+import FallingAsleepIcon from '@/components/icons/emotions/FallingAsleepIcon.vue'
+import ShockedIcon from '@/components/icons/emotions/ShockedIcon.vue'
+import ExcitedIcon from '@/components/icons/emotions/ExcitedIcon.vue'
+import AngryIcon from '@/components/icons/emotions/AngryIcon.vue'
+import MaskedIcon from '@/components/icons/emotions/MaskedIcon.vue'
+import ThinkIcon from '@/components/icons/emotions/ThinkIcon.vue'
+import LaughingOutLoudIcon from '@/components/icons/emotions/LaughingOutLoudIcon.vue'
+import WonderIcon from '@/components/icons/emotions/WonderIcon.vue'
+import SickIcon from '@/components/icons/emotions/SickIcon.vue'
+import EmbarrassedIcon from '@/components/icons/emotions/EmbarrassedIcon.vue'
+import IgnoreIcon from '@/components/icons/emotions/IgnoreIcon.vue'
+import FrozenIcon from '@/components/icons/emotions/FrozenIcon.vue'
 
 export default {
   components: {
-    PlusIcon,
+    FrozenIcon,
+    IgnoreIcon,
+    EmbarrassedIcon,
+    SickIcon,
+    WonderIcon,
+    LaughingOutLoudIcon,
+    ThinkIcon,
+    MaskedIcon,
+    AngryIcon,
+    ExcitedIcon,
+    ShockedIcon,
+    FallingAsleepIcon,
+    CrazyIcon,
+    GiggleIcon,
+    CelebrateIcon,
+    OutragedIcon,
+    InLoveIcon,
+    HappyIcon,
     SmallSmileIcon,
     ListeningIcon,
     GamingIcon,
@@ -205,14 +350,64 @@ export default {
       subscribeButtonStatus: false,
       isTextAreaActive: false,
       showPollModal: false,
-      showSmileSection: true
+      showSmileSection: false,
+      showMoodSection: false,
+      showTravelingSection: false,
+      showWatchingSection: false,
+      showPlayingSection: false,
+      showListeningSection: false
     }
   },
   methods: {
+    backToMoodSection () {
+      if (this.showMoodSection) {
+        this.showMoodSection = false
+        this.showSmileSection = true
+      }
+
+      if (this.showTravelingSection) {
+        this.showTravelingSection = false
+        this.showSmileSection = true
+      }
+
+      if (this.showWatchingSection) {
+        this.showWatchingSection = false
+        this.showSmileSection = true
+      }
+
+      if (this.showPlayingSection) {
+        this.showPlayingSection = false
+        this.showSmileSection = true
+      }
+
+      if (this.showListeningSection) {
+        this.showListeningSection = false
+        this.showSmileSection = true
+      }
+    },
+    isMoodActive () {
+      this.showMoodSection = !this.showMoodSection
+      this.showSmileSection = false
+    },
+    isTravelingActive () {
+      this.showTravelingSection = !this.showTravelingSection
+      this.showSmileSection = false
+    },
+    isWatchingActive () {
+      this.showWatchingSection = !this.showWatchingSection
+      this.showSmileSection = false
+    },
+    isPlayingActive () {
+      this.showPlayingSection = !this.showPlayingSection
+      this.showSmileSection = false
+    },
+    isListeningActive () {
+      this.showListeningSection = !this.showListeningSection
+      this.showSmileSection = false
+    },
     activeSmileSection () {
       this.showSmileSection = !this.showSmileSection
     },
-
     openPollModal () {
       this.showPollModal = true
       document.body.classList.add('modal-open')
@@ -263,6 +458,21 @@ export default {
         this.$t('tabs.publications_inside.video'),
         this.$t('tabs.publications_inside.audio')
       ]
+    },
+    emotionLabelTitle () {
+      if (this.showMoodSection) {
+        return this.$t('labels.feeling.mood.placeholder')
+      } else if (this.showTravelingSection) {
+        return this.$t('labels.feeling.traveling.title')
+      } else if (this.showWatchingSection) {
+        return this.$t('labels.feeling.watching.placeholder')
+      } else if (this.showPlayingSection) {
+        return this.$t('labels.feeling.playing.placeholder')
+      } else if (this.showListeningSection) {
+        return this.$t('labels.feeling.listening.placeholder')
+      } else {
+        return ''
+      }
     }
   },
   mounted () {
@@ -288,8 +498,38 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.emotions__buttons--main--section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.emotions__input--section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  .emotion__label {
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .emotion__input {
+    border: none;
+    font-size: 16px;
+    width: 100%;
+    outline: none;
+  }
+}
+
 .mood__section {
   display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+
+  .emotions__label {
+    color: var(--color-silver-chalice);
+  }
 
   .buttons {
     padding: 12px;
@@ -297,6 +537,7 @@ export default {
     gap: 12px;
     background-color: var(--color-seashell);
     border-radius: 10px;
+    width: max-content;
 
     .btn {
       display: flex;
@@ -306,6 +547,23 @@ export default {
         color: var(--color-hippie-blue);
       }
     }
+  }
+}
+
+.emotions__section--buttons {
+  background-color: var(--color-seashell);
+  padding: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 12px;
+  gap: 12px;
+  border-radius: 10px;
+
+  .btn {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    padding: 10px 15px 10px 20px;
   }
 }
 
