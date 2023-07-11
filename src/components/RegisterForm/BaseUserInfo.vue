@@ -113,7 +113,7 @@ export default {
       // Выполнить остальную логику отправки формы
       // ...
 
-      this.$emit('nextStep')
+      this.$emit('next-step')
     },
     submit (event) {
       event.preventDefault()

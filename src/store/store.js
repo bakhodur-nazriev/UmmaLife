@@ -22,6 +22,9 @@ const store = createStore({
     },
     isAuthenticated (state) {
       return state.isAuthenticated
+    },
+    getAuthenticated (state) {
+      return state.isAuthenticated
     }
   },
   mutations: {
@@ -31,11 +34,11 @@ const store = createStore({
     setPhoneNumber (state, phoneNumber) {
       state.phoneNumber = phoneNumber
     },
-    setSelectedTheme (state, selectedTheme) {
-      state.selectedTheme = selectedTheme
-    },
     setAuthenticated (state, isAuthenticated) {
       state.isAuthenticated = isAuthenticated
+    },
+    setSelectedTheme (state, selectedTheme) {
+      state.selectedTheme = selectedTheme
     }
   },
   actions: {

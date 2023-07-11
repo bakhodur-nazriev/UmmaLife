@@ -90,7 +90,7 @@ export default {
         // Perform form submission logic here
         // ...
 
-        this.$emit('nextStep')
+        this.$emit('next-step')
       }
     },
 
