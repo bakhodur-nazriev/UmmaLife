@@ -250,9 +250,10 @@
       "quiz": "Quiz"
     },
     "feeling": {
+      "label": "What are you feeling or what are you doing?",
       "mood": {
         "title": "Mood",
-        "placeholder": "What are you feeling or what are you doing?"
+        "placeholder": "What are you feeling?"
       },
       "traveling": {
         "title": "Traveling",
@@ -270,7 +271,8 @@
         "title": "Listening",
         "placeholder": "What are you listening"
       }
-    }
+    },
+    "audio": "My audios"
   },
   "dropdown": {
     "reply_answer": "View answers",

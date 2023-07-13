@@ -27,6 +27,10 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  type: {
+    type: String,
+    default: 'button'
+  }
 })
 
 const clickButton = () => {
@@ -37,7 +41,7 @@ const clickButton = () => {
 
 <template>
   <button
-    type="button"
+    :type="type"
     :class="['btn', `btn_${ color }`, {'btn_rounded': rounded}, {'btn_icon': icon}]"
     @click="clickButton"
     :style="{ fontSize: `${size}px` }"

@@ -34,7 +34,6 @@
           </div>
           <div v-if="isTextAreaActive" class="textarea__active--buttons">
             <div class="textarea__active--smile mood__section" v-if="showSmileSection">
-
               <span class="emotions__label">{{ $t('labels.feeling.label') }}</span>
 
               <div class="buttons">
@@ -80,6 +79,7 @@
                 </SampleButton>
               </div>
             </div>
+
             <div class="emotions__buttons--main--section" v-if="showMoodSection">
               <div class="emotions__input--section">
                 <span @click="backToMoodSection" class="emotion__label">{{ $t('labels.feeling.mood.title') }}</span>
@@ -164,6 +164,46 @@
               <input class="emotion__input" :placeholder="`${ $t('labels.feeling.listening.placeholder') }`"/>
             </div>
 
+            <div class="audio__input--section" v-if="showAudioSection && addedAudioItems.length">
+              <div
+                class="audio__input--section--content"
+                v-for="(item, index) in addedAudioItems"
+                :key="index"
+              >
+                <AudioPublicationIcon />
+                <input
+                  readonly
+                  type="text"
+                  class="audio__title"
+                  :value="item.title"
+                >
+                <button type="button" class="remove__audio--button" @click="removeAudioItem(index)">
+                  <RemoveAudioIcon />
+                </button>
+              </div>
+            </div>
+
+            <div class="audio__input--section" v-if="showAudioSection">
+              <p class="audio__input--section--title">{{ $t('labels.audio') }}</p>
+
+              <div
+                class="audio__input--section--content"
+                v-for="(item, index) in audioItems"
+                :key="index"
+              >
+                <AudioPublicationIcon />
+                <input
+                  readonly
+                  type="text"
+                  class="audio__title"
+                  :value="item.title"
+                >
+                <button type="button" class="add__audio--button" @click="addAudioItem">
+                  <AddAudioIcon />
+                </button>
+              </div>
+              </div>
+
             <div class="textarea__active">
               <div class="textarea__active--left--side">
                 <button class="poll__button" type="button" @click="openPollModal">
@@ -183,10 +223,16 @@
                   <SmileIcon />
                 </button>
 
-                <button class="audio__button" type="button">
-                  <AudioPublicationIcon />
+                <button
+                  class="audio__button"
+                  type="button"
+                  @click="activeAudioSection"
+                >
+                    <AudioPublicationIcon />
                 </button>
+
                 <div class="vertical__divider"></div>
+
                 <FileUpload label="file">
                   <ClipIcon></ClipIcon>
                 </FileUpload>
@@ -307,9 +353,13 @@ import SickIcon from '@/components/icons/emotions/SickIcon.vue'
 import EmbarrassedIcon from '@/components/icons/emotions/EmbarrassedIcon.vue'
 import IgnoreIcon from '@/components/icons/emotions/IgnoreIcon.vue'
 import FrozenIcon from '@/components/icons/emotions/FrozenIcon.vue'
+import AddAudioIcon from '@/components/icons/AddAudioIcon.vue'
+import RemoveAudioIcon from '@/components/icons/RemoveAudioIcon.vue'
 
 export default {
   components: {
+    RemoveAudioIcon,
+    AddAudioIcon,
     FrozenIcon,
     IgnoreIcon,
     EmbarrassedIcon,
@@ -355,10 +405,57 @@ export default {
       showTravelingSection: false,
       showWatchingSection: false,
       showPlayingSection: false,
-      showListeningSection: false
+      showListeningSection: false,
+      showAudioSection: true,
+      addedAudioItems: [],
+      audioItems: [
+        {
+          id: 1,
+          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
+        },
+        {
+          id: 2,
+          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
+        },
+        {
+          id: 3,
+          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
+        },
+        {
+          id: 4,
+          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
+        },
+        {
+          id: 5,
+          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
+        },
+        {
+          id: 6,
+          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
+        },
+        {
+          id: 7,
+          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
+        }
+      ]
     }
   },
   methods: {
+    addAudioItem () {
+      if (this.audioItems.length > 0) {
+        const item = this.audioItems.shift() // Удаляем первый элемент из audioItems
+        this.addedAudioItems.push(item) // Добавляем его в addedAudioItems
+      }
+    },
+    removeAudioItem (index) {
+      const item = this.addedAudioItems.splice(index, 1)[0] // Удаляем элемент из addedAudioItems по индексу
+      if (item) {
+        this.audioItems.push(item) // Добавляем его в audioItems
+      }
+    },
+    activeAudioSection () {
+      this.showAudioSection = !this.showAudioSection
+    },
     backToMoodSection () {
       if (this.showMoodSection) {
         this.showMoodSection = false
@@ -458,21 +555,6 @@ export default {
         this.$t('tabs.publications_inside.video'),
         this.$t('tabs.publications_inside.audio')
       ]
-    },
-    emotionLabelTitle () {
-      if (this.showMoodSection) {
-        return this.$t('labels.feeling.mood.placeholder')
-      } else if (this.showTravelingSection) {
-        return this.$t('labels.feeling.traveling.title')
-      } else if (this.showWatchingSection) {
-        return this.$t('labels.feeling.watching.placeholder')
-      } else if (this.showPlayingSection) {
-        return this.$t('labels.feeling.playing.placeholder')
-      } else if (this.showListeningSection) {
-        return this.$t('labels.feeling.listening.placeholder')
-      } else {
-        return ''
-      }
     }
   },
   mounted () {
@@ -498,6 +580,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
+svg {
+  color: var(--color-silver-chalice);
+}
+
+.add__audio--button,
+.remove__audio--button {
+  cursor: pointer;
+  display: flex;
+  border: none;
+  outline: none;
+}
+
 .emotions__buttons--main--section {
   display: flex;
   flex-direction: column;
@@ -564,6 +658,42 @@ export default {
     align-items: center;
     width: 200px;
     padding: 10px 15px 10px 20px;
+  }
+}
+
+.audio__input--section {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  background-color: var(--color-seashell);
+  padding: 12px;
+  border-radius: 10px;
+  max-height: 300px;
+  overflow: auto;
+
+  .audio__title {
+    color: var(--color-mine-shaft);
+    border: none;
+    background: none;
+    font-size: 16px;
+    outline: none;
+    width: 90%;
+  }
+
+  &--title {
+    color: var(--color-silver-chalice);
+    margin: 0;
+  }
+
+  &--content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    svg {
+      color: var(--color-hippie-blue);
+    }
   }
 }
 
@@ -717,10 +847,6 @@ export default {
   display: flex;
   align-items: center;
   gap: 24px;
-}
-
-svg {
-  color: var(--color-silver-chalice)
 }
 
 .publications__form--section {

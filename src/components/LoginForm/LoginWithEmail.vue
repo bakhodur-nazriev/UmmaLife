@@ -1,10 +1,11 @@
 <template>
-  <form-auth @submit="submit">
+  <form-auth @submit="handleSubmit">
     <title-sample>{{ $t('login.title') }}</title-sample>
 
     <div class="main__input-email-block">
       <div :class="['input-wrapper', { error: hasError.email || isInvalidEmail }]">
         <input
+          name="username"
           type="email"
           v-model="email"
           class="base-input"
@@ -20,8 +21,8 @@
       <div class="input-with-eye" :class="['input-wrapper', { error: hasError.password }]">
         <input
           name="password"
-          v-model="password"
           :type="isPasswordVisible ? 'text' : 'password'"
+          v-model="password"
           class="base-input"
           :class="{'input-field': true, 'error': passwordError}"
           :placeholder="$t('login.placeholders.password')"
@@ -46,7 +47,7 @@
 
     <div class="login-button-section">
       <SampleButton
-        @click="handleSubmit"
+        type="submit"
         :title="$t('buttons.login')"
       />
     </div>
@@ -66,6 +67,7 @@ import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import EyeIcon from '@/components/icons/EyeIcon.vue'
 import EyeSlashIcon from '@/components/icons/EyeSlashIcon.vue'
+import axios from 'axios'
 
 export default {
   components: {
@@ -106,21 +108,31 @@ export default {
     }
   },
   methods: {
-    handleSubmit () {
+    handleSubmit (event) {
+      event.preventDefault()
+
       this.hasError.email = this.email.trim() === ''
       this.hasError.password = this.password.trim() === ''
 
       if (this.hasError.email || this.hasError.password) {
         return
       }
-      // Выполнить остальную логику отправки формы
-      // ...
 
-      console.log('You\'\'re logged in!')
-    },
-    submit (event) {
-      console.log('submit button called')
-      event.preventDefault()
+      const loginData = {
+        server_key: '7c5940661c603657d973782cfdff94c2',
+        username: this.email,
+        password: this.password
+      }
+
+      axios
+        .post('https://ummalife.com/api/auth', loginData)
+        .then(res => {
+          console.log('You\'\'re logged in!')
+          console.log(res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     togglePasswordVisibility () {
       this.isPasswordVisible = !this.isPasswordVisible
@@ -129,7 +141,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .create-account-link {
   text-decoration: none;
   text-align: center;
@@ -145,14 +157,10 @@ export default {
 .login-button-section {
   display: flex;
   justify-content: center;
-}
 
-.login-button-section button {
-  width: 100%;
-}
-
-.input-wrapper {
-  position: relative;
+  button {
+    width: 100%;
+  }
 }
 
 .main__input-email-block {
@@ -163,24 +171,28 @@ export default {
   margin-bottom: 8px;
 }
 
+.input-wrapper {
+  position: relative;
+}
+
 .input-wrapper.error .base-input {
-  border: 1.4px solid red;
+  border: 1.4px solid var(--color-valencia);
 }
 
 .input-wrapper .error-message {
-  color: red;
+  color: var(--color-valencia);
   font-size: 12px;
   margin-top: 4px;
 }
 
 .error-message {
-  color: red;
+  color: var(--color-valencia);
   font-size: 12px;
   margin-top: 4px;
 }
 
 .base-input {
-  background-color: #f1f1f1;
+  background-color: var(--color-seashell);
   border: none;
   outline: none;
   border-radius: 10px;
@@ -191,7 +203,7 @@ export default {
 }
 
 .base-input::placeholder {
-  color: #B0B0B0;
+  color: var(--color-silver-chalice);
 }
 
 .input-with-eye {
@@ -219,7 +231,7 @@ export default {
 }
 
 .eye-button svg {
-  color: #B0B0B0;
+  color: var(--color-silver-chalice);
 }
 
 @media (min-width: 768px) {

@@ -43,6 +43,20 @@
     --desktop-width: 1200px;
 }
 
+/* WebKit (Chrome, Safari, Opera) */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--color-seashell);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--color-gray);
+    border-radius: 20px;
+}
+
 @media screen and (max-width: 768px) {
     :root {
         --screen-width: 768px;
