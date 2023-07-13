@@ -7,16 +7,14 @@
         </button>
         <main-page-logo class="main__logo"></main-page-logo>
       </div>
-      <div>
+      <div class="main__nav--side">
         <SampleButton
           class="create__button"
           :title="`${ $t('buttons.create') }`"
         />
-      </div>
-      <div>
         <search-input :placeholder="$t('placeholders.search_input')"></search-input>
       </div>
-      <div class="right__nav--side">
+      <div class="left__nav--side">
         <ul class="navbar__right--buttons">
           <li class="music__button">
             <music-icon></music-icon>
@@ -46,6 +44,38 @@
         </div>
       </div>
     </nav>
+    <nav class="small-nav">
+      <div class="top__nav">
+        <ul class="top__nav--list">
+          <li>
+            <LoupeIcon/>
+          </li>
+          <li>
+            <SunnyIcon/>
+          </li>
+          <li>
+
+          </li>
+          <li>
+            <SmallMenuIcon/>
+          </li>
+        </ul>
+      </div>
+      <div class="bottom__nav">
+        <ul class="bottom__nav--list">
+          <li>
+            <NewsIcon/>
+          </li>
+          <li>
+            <MessagesIcon/>
+          </li>
+          <li></li>
+          <li>
+            <MyPageIcon/>
+          </li>
+        </ul>
+      </div>
+    </nav>
   </header>
 </template>
 
@@ -59,15 +89,27 @@ import EmailIcon from '@/components/icons/EmailIcon.vue'
 import NotificationIcon from '@/components/icons/NotificationIcon.vue'
 import SettingIcon from '@/components/icons/SettingIcon.vue'
 import ArrowIcon from '@/components/icons/ArrowIcon.vue'
+import LoupeIcon from '@/components/icons/navbar/small-display/LoupeIcon.vue'
+import SunnyIcon from '@/components/icons/navbar/small-display/SunnyIcon.vue'
+import NewsIcon from '@/components/icons/navbar/small-display/NewsIcon.vue'
+import MessagesIcon from '@/components/icons/navbar/small-display/MessagesIcon.vue'
+import SmallMenuIcon from '@/components/icons/navbar/small-display/MenuIcon.vue'
+import MyPageIcon from '@/components/icons/navbar/small-display/MyPageIcon.vue'
 
 export default {
   components: {
+    MenuIcon,
+    MyPageIcon,
+    MessagesIcon,
+    NewsIcon,
+    SunnyIcon,
+    LoupeIcon,
     ArrowIcon,
     SettingIcon,
     NotificationIcon,
     EmailIcon,
     MusicIcon,
-    MenuIcon,
+    SmallMenuIcon,
     SearchInput,
     SampleButton,
     MainPageLogo
@@ -78,14 +120,14 @@ export default {
     }
   },
   methods: {
-    toggleSidebar () {
+    toggleSidebar() {
       this.$emit('toggle-sidebar')
     }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .navbar {
   display: flex;
   align-items: center;
@@ -99,13 +141,15 @@ export default {
   background-color: var(--color-white);
 }
 
-.right__nav--side {
-  display: flex;
-}
-
-.right__nav--side {
+.right__nav--side,
+.left__nav--side {
   display: flex;
   align-items: center;
+}
+
+.main__nav--side {
+  display: flex;
+  gap: 100px;
 }
 
 .navbar__right--buttons {
@@ -175,15 +219,42 @@ export default {
   right: 0;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 767px) {
+  .top__nav--list {
+    position: fixed;
+    top: 0;
+  }
+
+  .bottom__nav--list {
+    position: fixed;
+    bottom: 0;
+  }
+
+  .small-nav {
+    display: flex;
+  }
+
+  .navbar {
+    display: none;
+  }
+
   .user__menu--block {
     margin-right: 24px;
   }
 }
 
 @media (min-width: 1200px) {
+  .small-nav {
+    display: none;
+  }
+
+  .navbar {
+    display: flex;
+  }
+
   .user__menu--block {
     margin-right: 45px;
+    margin-left: 64px;
   }
 }
 </style>
