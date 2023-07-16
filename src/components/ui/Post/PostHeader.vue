@@ -41,6 +41,11 @@ export default {
   color: var(--color-silver-chalice);
 }
 
+.post__author {
+  display: flex;
+  text-decoration: none;
+}
+
 .post__author img {
   margin-right: 8px;
 }
@@ -54,11 +59,6 @@ export default {
 .menu__button {
   cursor: pointer;
   height: 27px;
-}
-
-.post__author {
-  display: flex;
-  text-decoration: none;
 }
 
 .time {

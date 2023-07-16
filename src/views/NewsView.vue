@@ -15,8 +15,7 @@ export default {
     SampleTabs
   },
   data () {
-    return {
-    }
+    return {}
   }
 }
 </script>
