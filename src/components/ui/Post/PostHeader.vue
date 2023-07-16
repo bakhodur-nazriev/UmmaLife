@@ -1,7 +1,12 @@
 <template>
   <header class="post__header">
     <router-link class="post__author" to="#">
-      <img width="56" height="56" src="../../../assets/images/Ellipse.png" alt="">
+      <img
+        width="56"
+        height="56"
+        src="../../../assets/images/Article_Author.png"
+        alt=""
+      >
       <div class="author__info">
         <span class="name">Абрахам Арахамович</span>
         <span class="time">15 минут назад</span>

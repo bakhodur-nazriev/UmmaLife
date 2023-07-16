@@ -81,6 +81,9 @@ export default {
 
 <style scoped>
 .tabs__content--inside--section {
+  display: flex;
+  row-gap: 10px;
+  flex-direction: column;
   width: 100%;
 }
 

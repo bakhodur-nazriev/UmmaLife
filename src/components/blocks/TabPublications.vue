@@ -165,44 +165,48 @@
             </div>
 
             <div class="audio__input--section" v-if="showAudioSection && addedAudioItems.length">
-              <div
-                class="audio__input--section--content"
-                v-for="(item, index) in addedAudioItems"
-                :key="index"
-              >
-                <AudioPublicationIcon />
-                <input
-                  readonly
-                  type="text"
-                  class="audio__title"
-                  :value="item.title"
+              <div class="audio__input--section--content">
+                <div
+                  class="audio__input--section--item"
+                  v-for="(item, index) in addedAudioItems"
+                  :key="index"
                 >
-                <button type="button" class="remove__audio--button" @click="removeAudioItem(index)">
-                  <RemoveAudioIcon />
-                </button>
+                  <AudioPublicationIcon />
+                  <input
+                    readonly
+                    type="text"
+                    class="audio__title"
+                    :value="item.title"
+                  >
+                  <button type="button" class="remove__audio--button" @click="removeAudioItem(index)">
+                    <RemoveAudioIcon />
+                  </button>
+                </div>
               </div>
             </div>
 
             <div class="audio__input--section" v-if="showAudioSection">
               <p class="audio__input--section--title">{{ $t('labels.audio') }}</p>
 
-              <div
-                class="audio__input--section--content"
-                v-for="(item, index) in audioItems"
-                :key="index"
-              >
-                <AudioPublicationIcon />
-                <input
-                  readonly
-                  type="text"
-                  class="audio__title"
-                  :value="item.title"
+              <div class="audio__input--section--content">
+                <div
+                  class="audio__input--section--item"
+                  v-for="(item, index) in audioItems"
+                  :key="index"
                 >
-                <button type="button" class="add__audio--button" @click="addAudioItem">
-                  <AddAudioIcon />
-                </button>
+                  <AudioPublicationIcon />
+                  <input
+                    readonly
+                    type="text"
+                    class="audio__title"
+                    :value="item.title"
+                  >
+                  <button type="button" class="add__audio--button" @click="addAudioItem">
+                    <AddAudioIcon />
+                  </button>
+                </div>
               </div>
-              </div>
+            </div>
 
             <div class="textarea__active">
               <div class="textarea__active--left--side">
@@ -427,6 +431,14 @@ export default {
         },
         {
           id: 5,
+          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
+        },
+        {
+          id: 6,
+          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
+        },
+        {
+          id: 7,
           title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
         },
         {
@@ -664,12 +676,9 @@ svg {
 .audio__input--section {
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
   background-color: var(--color-seashell);
   padding: 12px;
   border-radius: 10px;
-  max-height: 300px;
-  overflow: auto;
 
   .audio__title {
     color: var(--color-mine-shaft);
@@ -682,10 +691,18 @@ svg {
 
   &--title {
     color: var(--color-silver-chalice);
-    margin: 0;
+    margin: 0 0 12px;
   }
 
   &--content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    max-height: 300px;
+    overflow: auto;
+  }
+
+  &--item {
     display: flex;
     align-items: center;
     justify-content: space-between;

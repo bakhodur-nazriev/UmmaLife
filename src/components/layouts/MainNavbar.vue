@@ -47,32 +47,18 @@
     <nav class="small-nav">
       <div class="top__nav">
         <ul class="top__nav--list">
-          <li>
-            <LoupeIcon/>
-          </li>
-          <li>
-            <SunnyIcon/>
-          </li>
-          <li>
-
-          </li>
-          <li>
-            <SmallMenuIcon/>
-          </li>
+          <li class="top__nav--item"><LoupeIcon/></li>
+          <li class="top__nav--item"><SunnyIcon/></li>
+          <li class="top__nav--item"><SunnyIcon/></li>
+          <li class="top__nav--item"><SmallMenuIcon/></li>
         </ul>
       </div>
       <div class="bottom__nav">
         <ul class="bottom__nav--list">
-          <li>
-            <NewsIcon/>
-          </li>
-          <li>
-            <MessagesIcon/>
-          </li>
-          <li></li>
-          <li>
-            <MyPageIcon/>
-          </li>
+          <li class="bottom__nav--item"><NewsIcon/></li>
+          <li class="bottom__nav--item"><MessagesIcon/></li>
+          <li class="bottom__nav--item"><MessagesIcon/></li>
+          <li class="bottom__nav--item"><MyPageIcon/></li>
         </ul>
       </div>
     </nav>
@@ -120,7 +106,7 @@ export default {
     }
   },
   methods: {
-    toggleSidebar() {
+    toggleSidebar () {
       this.$emit('toggle-sidebar')
     }
   }
@@ -220,14 +206,42 @@ export default {
 }
 
 @media (max-width: 767px) {
+  .bottom__nav,
+  .top__nav {}
+
   .top__nav--list {
+    box-shadow: 0 2px 3px rgba(141, 152, 180, 0.30);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     position: fixed;
     top: 0;
+    height: 64px;
+    width: 100%;
+    list-style: none;
+    padding: 0 32px;
+    background-color: var(--color-white);
+    margin: 0;
   }
 
   .bottom__nav--list {
+    box-shadow: 0 -2px 3px rgba(141, 152, 180, 0.30);
     position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     bottom: 0;
+    height: 64px;
+    width: 100%;
+    list-style: none;
+    padding: 0 32px;
+    background-color: var(--color-white);
+    margin: 0;
+  }
+
+  .top__nav--item,
+  .bottom__nav--item {
+    display: flex;
   }
 
   .small-nav {

@@ -47,7 +47,6 @@ export default {
 <style scoped>
 .post__block {
   background-color: var(--color-white);
-  margin-bottom: 20px;
   border-radius: 15px;
   padding: 20px 24px 8px 24px;
 }

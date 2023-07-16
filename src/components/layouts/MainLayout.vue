@@ -2,7 +2,7 @@
   <main-navbar @toggle-sidebar="toggleSidebar"></main-navbar>
 
   <div class="main__container">
-    <main-sidebar :is-sidebar-collapsed="isSidebarCollapsed"></main-sidebar>
+    <main-sidebar class="main__sidebar" :is-sidebar-collapsed="isSidebarCollapsed"></main-sidebar>
 
     <main class="main__content">
       <slot></slot>
@@ -44,5 +44,17 @@ export default {
 .main__content {
   flex-grow: 1;
   overflow-y: auto;
+}
+
+@media (max-width: 767px) {
+  .main__sidebar {
+    display: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  .main__sidebar {
+    display: flex;
+  }
 }
 </style>
