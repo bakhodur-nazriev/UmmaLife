@@ -114,6 +114,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.small-nav {
+  display: none;
+}
+
 .navbar {
   display: flex;
   align-items: center;
@@ -257,7 +261,7 @@ export default {
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 768px) and (max-width: 1200px) {
   .small-nav {
     display: none;
   }

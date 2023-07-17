@@ -5,52 +5,58 @@
         <div class="reactions__buttons">
           <div v-if="isReactionWindowOpen" class="reaction__window" >
             <ul class="reaction__menu">
-              <li class="reaction__item"><big-like-icon></big-like-icon></li>
-              <li class="reaction__item"><big-dislike-icon></big-dislike-icon></li>
-              <li class="reaction__item"><big-love-icon></big-love-icon></li>
-              <li class="reaction__item"><big-laugh-icon></big-laugh-icon></li>
-              <li class="reaction__item"><big-fire-icon></big-fire-icon></li>
-              <li class="reaction__item"><big-think-icon></big-think-icon></li>
-              <li class="reaction__item"><big-angry-icon></big-angry-icon></li>
-              <li class="reaction__item"><big-sad-icon></big-sad-icon></li>
-              <li class="reaction__item"><big-scared-icon></big-scared-icon></li>
+              <li class="reaction__item"><BigLikeIcon /></li>
+              <li class="reaction__item"><BigDislikeIcon /></li>
+              <li class="reaction__item"><BigLoveIcon /></li>
+              <li class="reaction__item"><BigLaughIcon /></li>
+              <li class="reaction__item"><BigFireIcon /></li>
+              <li class="reaction__item"><big-think-icon /></li>
+              <li class="reaction__item"><BigAngryIcon /></li>
+              <li class="reaction__item"><BigSadIcon /></li>
+              <li class="reaction__item"><BigScaredIcon /></li>
             </ul>
           </div>
         </div>
-        <div class="like__button open-reaction-button" @click="openReactionWindow">
-          <heart-icon />
+        <div
+          class="like__button open-reaction-button"
+          @click="openReactionWindow"
+        >
+          <HeartIcon />
           {{ $t('buttons.like') }}
         </div>
       </div>
 
-      <div class="comment__button" @click="toggleForm">
-        <comment-icon />
+      <div
+        class="comment__button"
+        @click="toggleForm"
+      >
+        <CommentIcon />
         {{ $t('buttons.comment') }}
       </div>
 
-      <div class="share__buttons--block" ref="shareWindow">
+      <div class="share__buttons--block" ref="shareWixndow">
         <div class="share__buttons">
           <div v-if="isShareWindowOpen" class="share__window">
             <ul class="share__menu">
               <li class="share__item">
-                <send-menu-icon class="share__item--divider"/>
+                <SendMenuIcon class="share__item--divider"/>
                 <span>{{ $t('buttons.open_like_message') }}</span>
               </li>
               <sample-divider class="share__item--divider"/>
               <li class="share__item">
-                <share-menu-icon />
+                <ShareMenuIcon />
                 <span>{{ $t('buttons.share_on_my_page') }}</span>
               </li>
               <sample-divider class="share__item--divider"/>
               <li class="share__item">
-                <my-group-icon />
+                <MyGroupIcon />
                 <span>{{ $t('buttons.share_in_group') }}</span>
               </li>
             </ul>
           </div>
         </div>
         <div class="share__button open-share-button" @click="openShareWindow">
-          <share-icon></share-icon>
+          <ShareIcon />
           {{ $t('buttons.share') }}
         </div>
       </div>

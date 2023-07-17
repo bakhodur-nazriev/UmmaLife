@@ -33,7 +33,7 @@ const reactions = [
 </script>
 
 <template>
-  <article class="article__block">
+  <article v-for="i in 4" :key="i" class="article__block">
     <section class="article__header--section">
       <div class="author__avatar--name--time">
         <img
@@ -56,29 +56,30 @@ const reactions = [
     </section>
 
     <section class="article__content--section">
-      <div class="article__content--block">
-        <div class="article__left--side" v-if="false">
-          <img
-            src="../../../assets/images/article_image.png"
-            alt=""
-            width="420"
-            height="225"
-          >
-        </div>
-        <div class="article__right--side">
-          <h3 class="article__title">Название статьи</h3>
-          <p class="article__body">The 29-year-old took more than a tenth of a second off a record that had stood for 16
-            years, clocking 52.20
-            seconds to beat Russian Yuliya Pechonkina's previous mark of 52.34.
-            "I'm just shocked," said Muhammad.
-            "I've been kind of hitting that time in practice and my coach was like 'there's no way you can't do it'."
-            "I've been kind of hitting that time in practice and my coach was like 'there's no way you can't do
-            it'.""I've
-            been kind of hitting that time inat time in...
-          </p>
-          <span>
-            <a type="button" href="#" class="link read__more--link">{{ $t('buttons.read_more') }}</a>
-          </span>
+      <div class="article__content--item">
+        <img
+          src="../../../assets/images/post_image.png"
+          alt=""
+          class="article__content--image"
+        >
+        <div class="article__content--details">
+          <div class="article__title--block">
+            <h3 class="article__title">Название статьи</h3>
+          </div>
+          <div class="article__detail--block">
+            <router-link
+              to="#"
+              class="read__more--link"
+            >
+              {{ $t('buttons.read_more') }}
+            </router-link>
+            <div class="stats__reposts">
+              <span>155 {{ $t('labels.comments.plural') }}</span>
+              <span class="stats__separator"> / </span>
+              <span>35 {{ $t('labels.reposts.plural') }}</span>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -93,35 +94,34 @@ const reactions = [
             <span>{{ reaction.count }}</span>
           </div>
         </div>
-
-        <div class="stats__reposts">
-          <span>155 {{ $t('labels.comments.plural') }}</span>
-          <span class="stats__separator"> / </span>
-          <span>35 {{ $t('labels.reposts.plural') }}</span>
-        </div>
       </div>
     </section>
 
     <sample-divider />
 
-    <section>
+    <section class="article__footer--section">
 
     </section>
   </article>
 </template>
 
 <style scoped lang="scss">
-.article__content--block {
-  display: flex;
-  gap: 16px;
+.article__footer--section {}
+
+.read__more--link {
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--color-white);
+  background-color: var(--color-hippie-blue);
+  padding: 12px 80px;
 }
 
 .article__title {
   margin: 0;
-}
-
-.article__body {
-  margin: 0;
+  color: var(--color-white);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
 }
 
 .article__content--reactions {
@@ -155,9 +155,13 @@ const reactions = [
 }
 
 .stats__reposts {
-  color: var(--color-silver-chalice);
+  color: var(--color-white);
   display: flex;
-  font-size: 14px;
+  font-size: 16px;
+
+  * {
+    line-height: 1;
+  }
 }
 
 .article__content--section {
@@ -167,14 +171,16 @@ const reactions = [
 }
 
 .article__block {
+  max-width: 560px;
   background-color: var(--color-white);
-  border-radius: 20px;
+  border-radius: 15px;
   padding: 24px;
 }
 
 .article__header--section {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 8px;
 }
 
 .author__avatar--name--time {
@@ -198,26 +204,52 @@ const reactions = [
   }
 }
 
-.article__right--side {
+.article__content--item {
+  position: relative;
   display: flex;
+}
+
+.article__content--item::after {
+  display: flex;
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 35%;
+  backdrop-filter: blur(8px);
+  z-index: 1;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.article__content--image {
+  width: 100%;
+  border-radius: 15px;
+  height: 80%;
+}
+
+.article__content--details {
+  display: flex;
+  justify-content: space-between;
   flex-direction: column;
-
-  span {
-    text-align: right;
-  }
+  gap: 20px;
+  position: absolute;
+  bottom: 24px;
+  padding: 0 18px;
+  width: 100%;
+  z-index: 200;
 }
 
-@media (max-width: 767px) {
-  .article__left--side {
-    width: 50%;
-  }
+.article__detail--block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
+
+@media (max-width: 767px) {}
 
 @media (min-width: 1200px) {
-  .article__left--side {
-    min-width: 420px;
-  }
-
   .reactions__block {
     max-width: 560px;
   }

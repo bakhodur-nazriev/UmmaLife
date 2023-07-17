@@ -17,19 +17,19 @@
           </div>
           <div v-if="!isTextAreaActive" class="form__inputs--block">
             <FileUpload label="image" accept="image/*">
-              <ImageIcon></ImageIcon>
+              <ImageIcon />
             </FileUpload>
 
             <FileUpload label="video" accept="video/*">
-              <VideoPublicationsIcon></VideoPublicationsIcon>
+              <VideoPublicationsIcon />
             </FileUpload>
 
             <FileUpload label="audio" accept="audio/*">
-              <AudioPublicationIcon></AudioPublicationIcon>
+              <AudioPublicationIcon />
             </FileUpload>
             <div class="vertical__divider"></div>
             <FileUpload label="file">
-              <ClipIcon></ClipIcon>
+              <ClipIcon />
             </FileUpload>
           </div>
           <div v-if="isTextAreaActive" class="textarea__active--buttons">

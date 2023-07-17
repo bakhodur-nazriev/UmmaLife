@@ -4,7 +4,7 @@
       <div
         v-for="(tab, index) in tabs"
         :key="index"
-        :class="['tabs__header-item', { 'active': activeTab === index }]"
+        :class="['tabs__header--item', { 'active': activeTab === index }]"
         @click="changeTab(index)"
       >
         {{ tab.title }}
@@ -16,15 +16,18 @@
         v-for="(tab, index) in tabs"
         :key="index"
         v-show="activeTab === index"
-        class="tabs__content--inside--section"
       >
-        <div v-for="repeatIndex in 5" :key="repeatIndex">
-          <publications-content v-if="index === 0"></publications-content>
-          <article-content v-if="index === 1"></article-content>
-          <photo-content v-if="index === 2"></photo-content>
-          <video-content v-if="index === 3"></video-content>
-          <audio-content v-if="index === 4"></audio-content>
-        </div>
+        <publications-content
+          class="tab__publication"
+          v-if="index === 0"
+        />
+        <article-content
+          v-if="index === 1"
+          class="tab__article"
+        />
+        <photo-content v-if="index === 2" />
+        <video-content v-if="index === 3" />
+        <audio-content v-if="index === 4" />
       </div>
     </div>
   </div>
@@ -80,9 +83,8 @@ export default {
 </script>
 
 <style scoped>
-.tabs__content--inside--section {
+.tab__publication {
   display: flex;
-  row-gap: 10px;
   flex-direction: column;
   width: 100%;
 }
@@ -103,7 +105,7 @@ export default {
   overflow: hidden;
 }
 
-.tabs__header-item {
+.tabs__header--item {
   display: flex;
   justify-content: center;
   cursor: pointer;
@@ -114,7 +116,7 @@ export default {
   width: 185px;
 }
 
-.tabs__header-item.active {
+.tabs__header--item.active {
   position: relative;
   color: var(--color-mine-shaft);
   padding-bottom: 16px;
@@ -122,7 +124,7 @@ export default {
   z-index: 100;
 }
 
-.tabs__header-item.active::after {
+.tabs__header--item.active::after {
   content: "";
   position: absolute;
   width: 100%;
@@ -131,6 +133,10 @@ export default {
   left: 0;
   background-color: var(--color-deep-cerulean);
   border-radius: 1px 1px 0 0;
+}
+
+.tab__article {
+  //display: flex;
 }
 
 @media (min-width: 768px) {
