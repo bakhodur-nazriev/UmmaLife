@@ -10,7 +10,7 @@
               <li class="reaction__item"><BigLoveIcon /></li>
               <li class="reaction__item"><BigLaughIcon /></li>
               <li class="reaction__item"><BigFireIcon /></li>
-              <li class="reaction__item"><big-think-icon /></li>
+              <li class="reaction__item"><BigThinkIcon /></li>
               <li class="reaction__item"><BigAngryIcon /></li>
               <li class="reaction__item"><BigSadIcon /></li>
               <li class="reaction__item"><BigScaredIcon /></li>

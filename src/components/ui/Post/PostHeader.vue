@@ -4,7 +4,7 @@
       <img
         width="56"
         height="56"
-        src="../../../assets/images/Article_Author.png"
+        src="@/assets/images/Article_Author.png"
         alt=""
       >
       <div class="author__info">
@@ -13,10 +13,10 @@
       </div>
     </router-link>
     <div class="menu__button">
-      <sample-menu-details-button
+      <SampleMenuDetailsButton
         :is-menu-open="isMenuOpen"
         @toggle-menu="$emit('toggle-menu')"
-      ></sample-menu-details-button>
+      />
     </div>
   </header>
 </template>

@@ -83,7 +83,7 @@ export default {
 </script>
 
 <style scoped>
-.tab__publication {
+.tab__publication{
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -133,10 +133,6 @@ export default {
   left: 0;
   background-color: var(--color-deep-cerulean);
   border-radius: 1px 1px 0 0;
-}
-
-.tab__article {
-  //display: flex;
 }
 
 @media (min-width: 768px) {
