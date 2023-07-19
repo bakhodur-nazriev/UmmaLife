@@ -22,11 +22,15 @@
           v-if="index === 0"
         />
         <article-content
+          :is-menu-open="isMenuOpen"
           v-if="index === 1"
           class="tab__article"
         />
-        <photo-content v-if="index === 2" />
-        <video-content v-if="index === 3" />
+        <photo-content v-if="index === 2"/>
+        <video-content
+          v-if="index === 3"
+          class="tab__video"
+        />
         <audio-content v-if="index === 4" />
       </div>
     </div>
@@ -35,11 +39,11 @@
 
 <script>
 
-import PublicationsContent from '@/components/ui/Publications/PublicationsContent.vue'
-import ArticleContent from '@/components/ui/Publications/ArticleContent.vue'
-import PhotoContent from '@/components/ui/Publications/PhotoContent.vue'
-import VideoContent from '@/components/ui/Publications/VideoContent.vue'
-import AudioContent from '@/components/ui/Publications/AudioContent.vue'
+import PublicationsContent from '@/components/ui/Publications/PublicationsTabContent.vue'
+import ArticleContent from '@/components/ui/Publications/ArticleTabContent.vue'
+import PhotoContent from '@/components/ui/Publications/PhotoTabContent.vue'
+import VideoContent from '@/components/ui/Publications/VideoTabContent.vue'
+import AudioContent from '@/components/ui/Publications/AudioTabContent.vue'
 
 export default {
   components: {
@@ -59,7 +63,8 @@ export default {
     return {
       activeTab: 0,
       tabs: [],
-      tabIndex: 0
+      tabIndex: 0,
+      isMenuOpen: false
     }
   },
   methods: {
@@ -83,7 +88,7 @@ export default {
 </script>
 
 <style scoped>
-.tab__publication{
+.tab__publication {
   display: flex;
   flex-direction: column;
   width: 100%;

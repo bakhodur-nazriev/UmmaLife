@@ -1,16 +1,16 @@
 <template>
-  <footer class="post__footer">
+  <footer class="article__footer">
     <div class="footer__buttons">
       <div class="reaction__buttons--block" ref="reactionWindow">
         <div class="reactions__buttons">
           <div v-if="isReactionWindowOpen" class="reaction__window" >
             <ul class="reaction__menu">
               <li
-                v-for="(icon, index) in iconReactions"
+                v-for="(reaction, index) in footerReactsIcons"
                 :key="index"
                 class="reaction__item"
               >
-                <component :is="icon.name" />
+                <component :is="reaction.icon"/>
               </li>
             </ul>
           </div>
@@ -24,15 +24,12 @@
         </div>
       </div>
 
-      <div
-        class="comment__button"
-        @click="toggleForm"
-      >
-        <CommentIcon />
+      <div class="comment__button" @click="toggleForm">
+        <CommentIcon/>
         {{ $t('buttons.comment') }}
       </div>
 
-      <div class="share__buttons--block" ref="shareWixndow">
+      <div class="share__buttons--block" ref="shareWindow">
         <div class="share__buttons">
           <div v-if="isShareWindowOpen" class="share__window">
             <ul class="share__menu">
@@ -40,27 +37,30 @@
                 <SendMenuIcon class="share__item--divider"/>
                 <span>{{ $t('buttons.open_like_message') }}</span>
               </li>
-              <sample-divider class="share__item--divider"/>
+              <SampleDivider class="share__item--divider"/>
               <li class="share__item">
                 <ShareMenuIcon />
                 <span>{{ $t('buttons.share_on_my_page') }}</span>
               </li>
-              <sample-divider class="share__item--divider"/>
+              <SampleDivider class="share__item--divider"/>
               <li class="share__item">
-                <MyGroupIcon/>
+                <MyGroupIcon />
                 <span>{{ $t('buttons.share_in_group') }}</span>
               </li>
             </ul>
           </div>
         </div>
-        <div class="share__button open-share-button" @click="openShareWindow">
+        <div
+          class="share__button open-share-button"
+          @click="openShareWindow"
+        >
           <ShareIcon />
           {{ $t('buttons.share') }}
         </div>
       </div>
     </div>
 
-    <sample-divider v-if="isFormOpen" />
+    <SampleDivider v-if="isFormOpen"/>
 
     <div class="main__comment--form" v-if="isFormOpen">
       <Transition name="fade">
@@ -71,68 +71,57 @@
         <CommentForm />
       </Transition>
     </div>
-
   </footer>
 </template>
-<script>
-import BigSadIcon from '@/components/icons/reactions/men/big/SadIcon.vue'
-import BigLikeIcon from '@/components/icons/reactions/men/big/LikeIcon.vue'
-import SendMenuIcon from '@/components/icons/MenuDetails/SendMenuIcon.vue'
-import BigAngryIcon from '@/components/icons/reactions/men/big/AngryIcon.vue'
-import MyGroupIcon from '@/components/icons/MyGroupIcon.vue'
-import BigLoveIcon from '@/components/icons/reactions/men/big/LoveIcon.vue'
-import BigDislikeIcon from '@/components/icons/reactions/men/big/DislikeIcon.vue'
-import HeartIcon from '@/components/icons/HeartIcon.vue'
-import BigThinkIcon from '@/components/icons/reactions/men/big/ThinkIcon.vue'
-import ShareIcon from '@/components/icons/ShareIcon.vue'
-import BigFireIcon from '@/components/icons/reactions/men/big/FireIcon.vue'
-import CommentIcon from '@/components/icons/CommentIcon.vue'
-import SampleDivider from '@/components/ui/SampleDivider.vue'
-import CommentForm from '@/components/ui/Comment/CommentForm.vue'
-import ShareMenuIcon from '@/components/icons/MenuDetails/ShareMenuIcon.vue'
-import BigScaredIcon from '@/components/icons/reactions/men/big/ScaredIcon.vue'
-import BigLaughIcon from '@/components/icons/reactions/men/big/LaughIcon.vue'
-import ReplyCommentForm from '@/components/ui/Comment/ReplyCommentForm.vue'
 
+<script>
+import BigLikeIcon from '@/components/icons/reactions/men/big/LikeIcon.vue'
+import BigDislikeIcon from '@/components/icons/reactions/men/big/DislikeIcon.vue'
+import BigLoveIcon from '@/components/icons/reactions/men/big/LoveIcon.vue'
+import BigLaughIcon from '@/components/icons/reactions/men/big/LaughIcon.vue'
+import BigFireIcon from '@/components/icons/reactions/men/big/FireIcon.vue'
+import BigThinkIcon from '@/components/icons/reactions/men/big/ThinkIcon.vue'
+import BigAngryIcon from '@/components/icons/reactions/men/big/AngryIcon.vue'
+import BigSadIcon from '@/components/icons/reactions/men/big/SadIcon.vue'
+import BigScaredIcon from '@/components/icons/reactions/men/big/ScaredIcon.vue'
+import HeartIcon from '@/components/icons/HeartIcon.vue'
+import SampleDivider from '@/components/ui/SampleDivider.vue'
+import SendMenuIcon from '@/components/icons/MenuDetails/SendMenuIcon.vue'
+import CommentIcon from '@/components/icons/CommentIcon.vue'
+import ShareIcon from '@/components/icons/ShareIcon.vue'
+import CommentForm from '@/components/ui/Comment/CommentForm.vue'
+import MyGroupIcon from '@/components/icons/MyGroupIcon.vue'
+import ShareMenuIcon from '@/components/icons/MenuDetails/ShareMenuIcon.vue'
+import ReplyCommentForm from '@/components/ui/Comment/ReplyCommentForm.vue'
 export default {
   components: {
     SendMenuIcon,
-    MyGroupIcon,
-    ReplyCommentForm,
     HeartIcon,
-    ShareIcon,
     CommentIcon,
+    ShareMenuIcon,
+    MyGroupIcon,
+    ShareIcon,
     SampleDivider,
-    CommentForm,
-    ShareMenuIcon
+    ReplyCommentForm,
+    CommentForm
   },
   data () {
     return {
+      footerReactsIcons: [
+        { icon: BigLikeIcon },
+        { icon: BigDislikeIcon },
+        { icon: BigLoveIcon },
+        { icon: BigFireIcon },
+        { icon: BigAngryIcon },
+        { icon: BigScaredIcon },
+        { icon: BigLaughIcon },
+        { icon: BigThinkIcon },
+        { icon: BigSadIcon }
+      ],
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
-      isFormOpen: false,
-      iconReactions: [
-        { name: BigSadIcon },
-        { name: BigLikeIcon },
-        { name: SendMenuIcon },
-        { name: BigAngryIcon },
-        { name: MyGroupIcon },
-        { name: BigLoveIcon },
-        { name: BigDislikeIcon },
-        { name: BigThinkIcon },
-        { name: BigFireIcon },
-        { name: BigScaredIcon },
-        { name: BigLaughIcon }
-      ]
+      isFormOpen: false
     }
-  },
-  mounted () {
-    document.addEventListener('click', this.closeReactionWindow)
-    document.addEventListener('click', this.closeShareWindow)
-  },
-  beforeUnmount () {
-    document.removeEventListener('click', this.closeReactionWindow)
-    document.removeEventListener('click', this.closeShareWindow)
   },
   methods: {
     toggleForm () {
@@ -161,19 +150,19 @@ export default {
         this.isShareWindowOpen = false
       }
     }
+  },
+  mounted () {
+    document.addEventListener('click', this.closeReactionWindow)
+    document.addEventListener('click', this.closeShareWindow)
+  },
+  beforeUnmount () {
+    document.removeEventListener('click', this.closeReactionWindow)
+    document.removeEventListener('click', this.closeShareWindow)
   }
 }
 </script>
 
-<style scoped>
-.share__item--divider {
-  margin: 8px 0;
-}
-
-.main__comment--form {
-  width: 100%;
-}
-
+<style scoped lang="scss">
 .fade-enter-active,
 .fade-leave-active {
   transition: all 0.3s;
@@ -186,6 +175,74 @@ export default {
   opacity: 0;
 }
 
+.article__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer__buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.reaction__buttons--block,
+.share__buttons--block {
+  position: relative;
+
+  .reactions__buttons,
+  .share__buttons {
+    position: absolute;
+    bottom: 45px;
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background-color: var(--color-white);
+    z-index: 100;
+
+    .reaction__window,
+    .share__window {
+      display: flex;
+      gap: 18px;
+      padding: 12px;
+
+      .share__menu,
+      .reaction__menu {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+}
+
+.share__menu {
+  flex-direction: column;
+}
+
+.reaction__menu {
+  gap: 16px;
+}
+
+.like__button,
+.comment__button,
+.share__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray);
+  cursor: pointer;
+  padding: 0 20px;
+}
+
+.like__button:hover,
+.comment__button:hover,
+.share__button:hover {
+  background-color: var(--color-seashell);
+  border-radius: 10px;
+}
+
 .reaction__item {
   display: flex;
   align-items: center;
@@ -196,6 +253,22 @@ export default {
 .comment__button svg,
 .share__button svg {
   margin-right: 12px;
+}
+
+@media (min-width: 1280px) {
+  .comment__button,
+  .share__button,
+  .like__button {
+    height: 43px;
+  }
+
+  .share__item {
+    min-width: 220px;
+  }
+}
+
+.share__item--divider {
+  margin: 8px 0;
 }
 
 .share__item span {
@@ -215,83 +288,7 @@ export default {
   border-radius: 10px;
 }
 
-.share__menu {
-  display: flex;
-  flex-direction: column;
-}
-
-.share__menu,
-.reaction__menu {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.reaction__menu {
-  display: flex;
-  gap: 16px;
-}
-
-.reaction__buttons--block,
-.share__buttons--block {
-  position: relative;
-}
-
-.reactions__buttons,
-.share__buttons {
-  position: absolute;
-  bottom: 45px;
-  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  background-color: var(--color-white);
-}
-
-.reaction__window,
-.share__window {
-  display: flex;
-  gap: 18px;
-  padding: 12px;
-}
-
-.footer__buttons {
-  display: flex;
-  justify-content: space-around;
+.main__comment--form {
   width: 100%;
-}
-
-.post__footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.like__button,
-.comment__button,
-.share__button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-gray);
-  cursor: pointer;
-}
-
-.like__button:hover,
-.comment__button:hover,
-.share__button:hover {
-  background-color: var(--color-seashell);
-  border-radius: 15px;
-}
-
-@media (min-width: 1280px) {
-  .comment__button,
-  .share__button,
-  .like__button {
-    width: 210px;
-    height: 43px;
-  }
-
-  .share__item {
-    width: 220px;
-  }
 }
 </style>
