@@ -14,33 +14,36 @@ const photos = ref([
 </script>
 
 <template>
-  <article class="photo__block">
-    <div class="image__block" v-for="photo in photos" :key="photo.id">
+  <div class="photo-block">
+    <article class="photo-block__article" v-for="photo in photos" :key="photo.id">
       <img class="image__item" :src="photo.image" :alt="photo.desc" />
-    </div>
-  </article>
+    </article>
+  </div>
 </template>
 
 <style scoped lang="scss">
-.photo__block {
+.photo-block {
+  background-color: var(--color-white);
+  border-radius: 15px;
+  padding: 24px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-gap: 10px;
   grid-auto-flow: dense;
 
-  background-color: var(--color-white);
-  border-radius: 15px;
-  padding: 24px;
-}
-
-.image {
-  &__block {
+  &__article {
     display: flex;
-    cursor: pointer;
   }
 
-  &__item {
-    border-radius: 12px;
+  &__image {
+    &__block {
+      cursor: pointer;
+    }
+
+    &__item {
+      border-radius: 12px;
+    }
   }
 }
+
 </style>

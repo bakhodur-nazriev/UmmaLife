@@ -440,14 +440,6 @@ export default {
         {
           id: 7,
           title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
-        },
-        {
-          id: 6,
-          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
-        },
-        {
-          id: 7,
-          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
         }
       ]
     }
@@ -455,14 +447,14 @@ export default {
   methods: {
     addAudioItem () {
       if (this.audioItems.length > 0) {
-        const item = this.audioItems.shift() // Удаляем первый элемент из audioItems
-        this.addedAudioItems.push(item) // Добавляем его в addedAudioItems
+        const item = this.audioItems.shift()
+        this.addedAudioItems.push(item)
       }
     },
     removeAudioItem (index) {
-      const item = this.addedAudioItems.splice(index, 1)[0] // Удаляем элемент из addedAudioItems по индексу
+      const item = this.addedAudioItems.splice(index, 1)[0]
       if (item) {
-        this.audioItems.push(item) // Добавляем его в audioItems
+        this.audioItems.push(item)
       }
     },
     activeAudioSection () {

@@ -67,7 +67,7 @@ import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import EyeIcon from '@/components/icons/EyeIcon.vue'
 import EyeSlashIcon from '@/components/icons/EyeSlashIcon.vue'
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
   components: {
@@ -111,28 +111,59 @@ export default {
     handleSubmit (event) {
       event.preventDefault()
 
-      this.hasError.email = this.email.trim() === ''
-      this.hasError.password = this.password.trim() === ''
-
-      if (this.hasError.email || this.hasError.password) {
-        return
-      }
+      const url = 'https://ummalife.com/api/auth'
+      const serverKey = '7c5940661c603657d973782cfdff94c2'
+      const username = 'nazriev1996@mail.ru'
+      const password = 'KingSton1996'
 
       const loginData = {
-        server_key: '7c5940661c603657d973782cfdff94c2',
-        username: this.email,
-        password: this.password
+        server_key: serverKey,
+        username: username,
+        password: password
       }
 
-      axios
-        .post('https://ummalife.com/api/auth', loginData)
-        .then(res => {
-          console.log('You\'\'re logged in!')
-          console.log(res.data)
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(loginData)
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok')
+          }
+          return response.json()
         })
-        .catch(err => {
-          console.log(err)
+        .then(data => {
+          // Process the response data here
+          console.log(data)
         })
+        .catch(error => {
+          // Handle errors
+          console.error('Error fetching data:', error)
+        })
+      // this.hasError.email = this.email.trim() === ''
+      // this.hasError.password = this.password.trim() === ''
+      //
+      // if (this.hasError.email || this.hasError.password) {
+      //   return
+      // }
+      //
+      // const loginData = {
+      //   server_key: '7c5940661c603657d973782cfdff94c2',
+      //   username: this.email,
+      //   password: this.password
+      // }
+      //
+      // axios
+      //   .post('https://ummalife.com/api/auth', loginData)
+      //   .then(res => {
+      //     console.log(res.data)
+      //   })
+      //   .catch(err => {
+      //     console.log(err)
+      //   })
     },
     togglePasswordVisibility () {
       this.isPasswordVisible = !this.isPasswordVisible

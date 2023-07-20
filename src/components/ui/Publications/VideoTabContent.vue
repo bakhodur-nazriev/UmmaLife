@@ -1,13 +1,13 @@
 <template>
-  <article class="main__video--block">
-    <div v-for="i in 10" :key="i">
+  <div class="video-block">
+    <article class="video-block__article" v-for="i in 10" :key="i">
       <div class="video__main--section">
         <button
           class="menu__detail--button"
           type="button"
           @click="clickMenuDetail"
         >
-          <MenuDetailsIcon />
+          <ThreeDotIcon />
         </button>
         <img class="video__image" src="@/assets/images/video_image_1.png" alt="video">
         <div class="video__time">
@@ -17,24 +17,24 @@
 
       <div class="description__video--section">
         <h3 class="text-1 video__title">Вообще любое название для видео, которое влазит на 2 стр...</h3>
-        <div>
-        <span class="author__video--section">
-          <img src="@/assets/images/video_author.png" alt="video author">
-          <small>Шамиль Ибн Абубакр</small>
-        </span>
+        <div class="video-author__section">
+          <span class="author__video--section">
+            <img src="@/assets/images/video_author.png" alt="video author">
+            <small>Шамиль Ибн Абубакр</small>
+          </span>
           <small class="video__date--section">20.08.2022 - 1 тыс. {{ $t('video.views') }}</small>
         </div>
       </div>
-    </div>
-  </article>
+    </article>
+  </div>
 </template>
 
 <script>
-import MenuDetailsIcon from '@/components/icons/MenuDetailsIcon.vue'
+import ThreeDotIcon from '@/components/icons/ThreeDotIcon.vue'
 
 export default {
   components: {
-    MenuDetailsIcon
+    ThreeDotIcon
   },
   data () {
     return {}
@@ -47,39 +47,66 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.video-author__section {
+  display: flex;
+  flex-direction: column;
+}
+
+.video-block {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 15px;
+  background-color: var(--color-white);
+  padding: 24px;
+  border-radius: 15px;
+
+  &__article {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+  }
+}
+
 .description__video--section {
   display: flex;
   flex-direction: column;
   row-gap: 6px;
-}
 
-.main__video--block {
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 15px;
+  .video__title {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.2;
+  }
 }
 
 .video__main--section {
   position: relative;
+  display: flex;
 
   .video__image {
     width: 100%;
   }
   .menu__detail--button {
+    display: flex;
     position: absolute;
-    right: 30px;
-    top: 20px;
+    right: 10px;
+    top: 10px;
     border-radius: 5px;
     backdrop-filter: blur(10px);
-    max-width: 24px;
-    max-height: 24px;
+    cursor: pointer;
+    padding: 2px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.2)
   }
 
   .video__time {
     position: absolute;
-    right: 15px;
-    bottom: 20px;
+    right: 10px;
+    bottom: 10px;
     color: var(--color-white);
     padding: 4px 6px;
     background-color: var(--color-mine-shaft);
@@ -87,11 +114,6 @@ export default {
     border-radius: 5px;
     font-size: 12px;
   }
-}
-
-.menu__detail--button {
-  border: none;
-  background: none;
 }
 
 .video__date--section {
@@ -103,9 +125,5 @@ export default {
   gap: 8px;
   align-items: center;
   color: var(--color-gray);
-}
-
-.video__title {
-  line-height: 1.2;
 }
 </style>

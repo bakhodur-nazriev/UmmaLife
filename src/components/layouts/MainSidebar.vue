@@ -4,12 +4,11 @@
     :class="{ 'sidebar--collapsed': isSidebarCollapsed, 'dark-theme': isDarkTheme }"
   >
     <div class="sidebar__main--links">
-      <div>
+      <div class="sidebar-theme__toggle-button">
         <toggle-theme :is-sidebar-collapsed="isSidebarCollapsed"></toggle-theme>
       </div>
+      <SampleDivider class="main-divider"/>
       <ul class="sidebar__links--list">
-        <hr>
-
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/news`) }">
           <router-link :to="`/${$i18n.locale}/news`">
             <news-icon class="sidebar__item--icon"></news-icon>
@@ -47,7 +46,7 @@
           </router-link>
         </li>
 
-        <hr>
+        <SampleDivider class="main-divider"/>
 
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/saved`) }">
           <router-link :to="`/${$i18n.locale}/saved`">
@@ -68,7 +67,7 @@
           </router-link>
         </li>
 
-        <hr>
+        <SampleDivider class="main-divider"/>
 
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/library`) }">
           <router-link :to="`/${$i18n.locale}/library`">
@@ -104,9 +103,11 @@ import LibraryIcon from '@/components/icons/LibraryIcon.vue'
 import MarriageAgencyIcon from '@/components/icons/MarriageAgencyIcon.vue'
 import ToggleTheme from '@/components/ui/ToggleTheme.vue'
 import MainSidebarLocalesDropdown from '@/components/ui/MainSidebarLocalesDropdown.vue'
+import SampleDivider from '@/components/ui/SampleDivider.vue'
 
 export default {
   components: {
+    SampleDivider,
     MainSidebarLocalesDropdown,
     ToggleTheme,
     MarriageAgencyIcon,
@@ -141,7 +142,15 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.sidebar-theme__toggle-button {
+  margin-bottom: 20px;
+}
+
+.main-divider {
+  height: 2px;
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -179,6 +188,7 @@ hr.dark-theme {
 }
 
 .sidebar__links--list {
+  margin-top: 0;
   list-style: none;
   padding: 0;
 }
