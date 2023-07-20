@@ -1,0 +1,36 @@
+name: dev-deployment
+
+on:
+  push:
+    branches: [dev]
+
+jobs:
+  Deployment-development:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out Repo
+        uses: actions/checkout@v2
+
+      - name: updated files
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.DEV_SSH_PRIVATE_KEY }}
+          host: ${{ secrets.DEV_SSH_HOST }}
+          username: ${{ secrets.DEV_SSH_USER }}
+          command_timeout: 60m
+          script: |
+            cd ${{ env.REMOTE_PROJECT_DIR }}
+            git reset --hard origin/dev
+            git pull origin dev }}
+
+      - name: Rebuild project
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.DEV_SSH_PRIVATE_KEY }}
+          host: ${{ secrets.DEV_SSH_HOST }}
+          username: ${{ secrets.DEV_SSH_USER }}
+          command_timeout: 60m
+          script: |
+            cd ${{ env.DEV_REMOTE_PROJECT_DIR }}
+            npm install
+            pm2 restart front1
