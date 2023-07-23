@@ -265,6 +265,20 @@ export default {
   color: var(--color-silver-chalice);
 }
 
+.rtl {
+  direction: rtl;
+
+  .input-field {
+    padding-right: 16px;
+    padding-left: 45px;
+  }
+
+  .eye-button {
+    right: auto;
+    left: 10px;
+  }
+}
+
 @media (min-width: 768px) {
   .login-button-section button {
     max-width: 320px;

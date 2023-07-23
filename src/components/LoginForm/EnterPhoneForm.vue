@@ -121,24 +121,29 @@ export default {
   },
   mounted () {
     this.getCountries()
+  },
+  computed: {
+    isRTL () {
+      return this.$i18n.locale === 'ar'
+    }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .input-wrapper {
   position: relative;
-}
 
-.input-wrapper.error .phone__field-section {
-  border: 1.4px solid red;
-  border-radius: 10px;
-}
+  &.error .phone__field-section {
+    border: 1.4px solid red;
+    border-radius: 10px;
+  }
 
-.input-wrapper .error-message {
-  color: red;
-  font-size: 12px;
-  margin-top: 4px;
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+  }
 }
 
 .create-account-link {
@@ -160,16 +165,10 @@ export default {
   width: 100%;
 }
 
-@media (min-width: 768px) {
-  .login-button-section button {
-    max-width: 320px;
-  }
-}
-
 .locales__icon {
   display: inline-block;
   min-width: max-content;
-  color: #b0b0b0
+  color: var(--color-silver-chalice);
 }
 
 .locales__icon--dropdown {
@@ -181,42 +180,24 @@ export default {
   transform: scaleY(-1);
 }
 
-.base-input {
-  background-color: #f1f1f1;
-  border: none;
-  outline: none;
-  border-radius: 10px;
-  font-size: 14px;
-  padding: 16px;
-  color: #1F1F1F;
-  width: 100%;
-}
-
-.base-input::placeholder {
-  color: #B0B0B0;
-}
-
 .phone__field-section {
   display: flex;
   justify-content: center;
-}
 
-.phone__field-section input {
-  width: 100%;
-  border-radius: 0 10px 10px 0;
-}
-.country-select {
-  position: relative;
-  display: inline-block;
-}
+  .base-input {
+    width: 100%;
+    border-radius: 0 10px 10px 0;
+    background-color: var(--color-seashell);
+    border: none;
+    outline: none;
+    font-size: 14px;
+    padding: 16px;
+    color: var(--color-mine-shaft);
 
-.country-select-button {
-  display: flex;
-  align-items: center;
-  background-color: #f1f1f1;
-  border-radius: 10px 0 0 10px;
-  padding: 15px;
-  cursor: pointer;
+    &::placeholder {
+      color: var(--color-silver-chalice);
+    }
+  }
 }
 
 .flag-icon {
@@ -224,21 +205,37 @@ export default {
   height: 15px;
 }
 
-.country-code {
-  font-size: 16px;
-  margin: 0 8px;
-}
+.country {
+  &-code {
+    font-size: 16px;
+    margin: 0 8px;
+  }
 
-.country-dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #f1f1f1;
-  border-radius: 0 0 10px 10px;
-  padding: 10px;
-  max-height: 210px;
-  overflow-y: auto;
-  width: 470px;
+  &-select {
+    position: relative;
+    display: inline-block;
+
+    &-button {
+      display: flex;
+      align-items: center;
+      background-color: var(--color-seashell);
+      border-radius: 10px 0 0 10px;
+      padding: 15px;
+      cursor: pointer;
+    }
+  }
+
+  &-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--color-seashell);
+    border-radius: 0 0 10px 10px;
+    padding: 10px;
+    max-height: 210px;
+    overflow-y: auto;
+    width: 470px;
+  }
 }
 
 .country-dropdown ul {
@@ -261,15 +258,25 @@ export default {
 .locales__icon {
   display: inline-block;
   min-width: max-content;
-  color: #1F1F1F;
-}
+  color: var(--color-mine-shaft);
 
-.locales__icon--dropdown {
-  margin-left: auto;
-  transition: 0.3s;
+  &--dropdown {
+    margin-left: auto;
+    transition: 0.3s;
+  }
 }
 
 .locales--shown .locales__icon--dropdown {
   transform: scaleY(-1);
+}
+
+.rtl {
+  direction: rtl;
+}
+
+@media (min-width: 768px) {
+  .login-button-section button {
+    max-width: 320px;
+  }
 }
 </style>

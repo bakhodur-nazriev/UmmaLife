@@ -10,7 +10,7 @@
       <dropdown-icon class="locales__icon locales__icon--dropdown"/>
     </button>
 
-    <ul class="locales__list" :data-locale="$t('languages.title')">
+    <ul :class="isRTL ? 'rtl' : 'ltr'" class="locales__list" :data-locale="$t('languages.title')">
       <li class="locales__item">
         <a class="locales__link" :href="getLocalizedLink('en')">{{ $t('languages.names.english') }}</a>
       </li>
@@ -48,6 +48,9 @@ export default {
   computed: {
     currentLanguageName () {
       return this.$i18n.t('languages.title')
+    },
+    isRTL () {
+      return this.$i18n.locale === 'ar'
     }
   },
   methods: {
@@ -97,6 +100,14 @@ export default {
 </script>
 
 <style scoped>
+.rtl {
+  direction: rtl;
+
+  .locales__item {
+    direction: rtl;
+  }
+}
+
 .locales {
   z-index: 1;
 }
