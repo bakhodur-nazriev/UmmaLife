@@ -7,7 +7,7 @@
 <script>
 export default {
   props: ['link'],
-  data() {
+  data () {
     return {
       isDark: {
         type: Boolean,

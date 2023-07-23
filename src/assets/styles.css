@@ -1,13 +1,5 @@
-@font-face {
-    font-family: 'Helvetica Neue Black Condensed';
-    src: url('@/assets/fonts/HelveticaNeueBlackCondensed.eot');
-    src: url('@/assets/fonts/HelveticaNeueBlackCondensed.eot?#iefix') format('embedded-opentype');
-    src: url('@/assets/fonts/HelveticaNeueBlackCondensed.woff2') format('woff2');
-    src: url('@/assets/fonts/HelveticaNeueBlackCondensed.woff') format('woff');
-    src: url('@/assets/fonts/HelveticaNeueBlackCondensed.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
+@import url('@/assets/fonts/stylesheet.css');
+
 
 /* White Theme */
 :root {
@@ -161,10 +153,21 @@ img {
 .page {
     font-size: 16px;
     line-height: 1.5;
-    font-family: 'Helvetica Neue Black Condensed', Arial, sans-serif;
+    font-family: 'HelveticaNeueCyr', sans-serif;
 }
 
 .page__body {
     margin: 0;
     background-color: #F1F1F1;
 }
+
+.page__container{
+    padding: 16px 45px 16px 16px;
+    width: 100%;
+ }
+
+ .page__wrapper{
+    display: grid;
+    grid-template-columns: 480px 1fr;
+    gap: 16px;
+ }

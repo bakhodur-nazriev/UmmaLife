@@ -191,6 +191,20 @@
     "question_for_poll": "Вопрос или тема для опроса..."
   },
   "tabs": {
+    "profile_tabs": {
+      "news": "Новости",
+      "articles": "Статьи",
+      "photo": "Фото",
+      "video": "Видео",
+      "audio": "Аудио"
+    },
+    "my_page": {
+      "publications": "Публикации",
+      "umma_shorts": "UmmaShorts",
+      "umma_video": "UmmaVideo",
+      "alboms": "Альбомы",
+      "saved": "Сохраненное"
+    },
     "news_page": {
       "publications": "Публикации",
       "umma_shorts": "UmmaShorts",
@@ -278,5 +292,20 @@
   "dropdown": {
     "reply_answer": "Посмотреть ответы",
     "download_comment": "Загрузить комментарии"
+  },
+  "profile": {
+    "edit": "Редактировать профиль",
+    "gender": "Пол",
+    "dob": "День рождения",
+    "country": "Страна проживания",
+    "study": "Учебное заведение",
+    "site": "Рабочий сайт",
+    "about": "Обо мне",
+    "following": "Подписки",
+    "subscribes": "Подписчики",
+    "umma_video": "Umma Video",
+    "umma_shorts": "Umma Shorts",
+    "audio": "Подписчики",
+    "posts": "Посты"
   }
 }

@@ -189,6 +189,20 @@
     "question_for_poll": "Poll question or topic... "
   },
   "tabs": {
+    "profile_tabs": {
+      "news": "News",
+      "articles": "Articles",
+      "photo": "Photo",
+      "video": "Video",
+      "audio": "Audio"
+    },
+    "my_page": {
+      "publications": "Publications",
+      "umma_shorts": "UmmaShorts",
+      "umma_video": "UmmaVideo",
+      "alboms": "Albums",
+      "saved": "Saved"
+    },
     "news_page": {
       "publications": "Publications",
       "umma_shorts": "UmmaShorts",
@@ -277,5 +291,20 @@
   "dropdown": {
     "reply_answer": "View answers",
     "download_comment": "Load more"
+  },
+  "profile": {
+    "edit": "Edit profile",
+    "gender": "Gender",
+    "dob": "Birthday",
+    "country": "Country of residence",
+    "study": "University",
+    "site": "Web site",
+    "about": "About me",
+    "following": "Subscriptions",
+    "subscribes": "Subscribers",
+    "umma_video": "Umma Video",
+    "umma_shorts": "Umma Shorts",
+    "audio": "Audio",
+    "posts": "Posts"
   }
 }
