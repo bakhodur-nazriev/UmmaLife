@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import SampleTabs from '@/components/ui/SampleTabs.vue'
+import SampleTabs from '@/components/ui/NewsMainTabs.vue'
 import MainLayout from '@/components/layouts/MainLayout.vue'
 export default {
   components: {

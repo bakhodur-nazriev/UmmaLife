@@ -1,324 +1,266 @@
 <template>
   <div class="publication__main--block">
-    <div class="main__publications--section">
-      <section class="publications__form--section">
-        <form action="" class="form__section">
-          <div class="form__left--side">
-            <img width="48" height="48" src="../../assets/images/Ellipse.png" alt="">
-            <textarea
-              rows="1"
-              :placeholder="$t('placeholders.publications_input')"
-              @input="handleTextareaInput"
-              class="enter__post--textarea"
-              :class="{ 'active': isTextAreaActive }"
-              @click="isTextAreaActive = true"
-              @blur="isTextAreaActive = true"
-            ></textarea>
-          </div>
-          <div v-if="!isTextAreaActive" class="form__inputs--block">
-            <FileUpload label="image" accept="image/*">
-              <ImageIcon />
-            </FileUpload>
-
-            <FileUpload label="video" accept="video/*">
-              <VideoPublicationsIcon />
-            </FileUpload>
-
-            <FileUpload label="audio" accept="audio/*">
-              <AudioPublicationIcon />
-            </FileUpload>
-            <div class="vertical__divider"></div>
-            <FileUpload label="file">
-              <ClipIcon />
-            </FileUpload>
-          </div>
-          <div v-if="isTextAreaActive" class="textarea__active--buttons">
-            <div class="textarea__active--smile mood__section" v-if="showSmileSection">
-              <span class="emotions__label">{{ $t('labels.feeling.label') }}</span>
-
-              <div class="buttons">
-                <SampleButton
-                  icon="mood"
-                  color="tertiary"
-                  :title="`${ $t('buttons.mood') }`"
-                  @click="isMoodActive"
-                >
-                  <SmallSmileIcon />
-                </SampleButton>
-                <SampleButton
-                  icon="traveling"
-                  color="tertiary"
-                  :title="`${ $t('buttons.traveling') }`"
-                  @click="isTravelingActive"
-                >
-                  <MapIcon />
-                </SampleButton>
-                <SampleButton
-                  icon="watching"
-                  color="tertiary"
-                  :title="`${ $t('buttons.watching') }`"
-                  @click="isWatchingActive"
-                >
-                  <CinemaIcon />
-                </SampleButton>
-                <SampleButton
-                  icon="playing"
-                  color="tertiary"
-                  :title="`${ $t('buttons.playing') }`"
-                  @click="isPlayingActive"
-                >
-                  <GamingIcon />
-                </SampleButton>
-                <SampleButton
-                  icon="listening"
-                  color="tertiary"
-                  :title="`${ $t('buttons.listening') }`"
-                  @click="isListeningActive"
-                >
-                  <ListeningIcon />
-                </SampleButton>
-              </div>
+    <div class="publication-top__layer">
+      <div class="main__publications--section">
+        <section class="publications__form--section">
+          <form action="" class="form__section">
+            <div class="form__left--side">
+              <img width="48" height="48" src="../../assets/images/Ellipse.png" alt="">
+              <textarea
+                rows="1"
+                :placeholder="$t('placeholders.publications_input')"
+                @input="handleTextareaInput"
+                class="enter__post--textarea"
+                :class="{ 'active': isTextAreaActive }"
+                @click="isTextAreaActive = true"
+                @blur="isTextAreaActive = true"
+              ></textarea>
             </div>
+            <div v-if="!isTextAreaActive" class="form__inputs--block">
+              <FileUpload label="image" accept="image/*">
+                <ImageIcon />
+              </FileUpload>
 
-            <div class="emotions__buttons--main--section" v-if="showMoodSection">
-              <div class="emotions__input--section">
-                <span @click="backToMoodSection" class="emotion__label">{{ $t('labels.feeling.mood.title') }}</span>
-                <span class="emotion__input">{{ $t('labels.feeling.mood.placeholder') }}</span>
-              </div>
+              <FileUpload label="video" accept="video/*">
+                <VideoPublicationsIcon />
+              </FileUpload>
 
-              <div class="emotions__section--buttons">
-                <SampleButton color="tertiary" icon="happy" :title="`${ $t('buttons.emotions.happy') }`">
-                  <HappyIcon />
-                </SampleButton>
-                <SampleButton color="tertiary" icon="in_love" :title="`${ $t('buttons.emotions.in_love') }`">
-                  <InLoveIcon />
-                </SampleButton>
-                <SampleButton color="tertiary" icon="outraged" :title="`${ $t('buttons.emotions.outraged') }`">
-                  <OutragedIcon />
-                </SampleButton>
-                <SampleButton color="tertiary" icon="celebrate" :title="`${ $t('buttons.emotions.celebrate') }`">
-                  <CelebrateIcon />
-                </SampleButton>
-                <SampleButton color="tertiary" icon="giggle" :title="`${ $t('buttons.emotions.giggle') }`">
-                  <GiggleIcon />
-                </SampleButton>
-                <SampleButton color="tertiary" icon="crazy" :title="`${ $t('buttons.emotions.crazy') }`">
-                  <CrazyIcon />
-                </SampleButton>
-                <SampleButton color="tertiary" icon="falling_asleep" :title="`${ $t('buttons.emotions.falling_asleep') }`">
-                  <FallingAsleepIcon />
-                </SampleButton>
-                <SampleButton color="tertiary" icon="shocked" :title="`${ $t('buttons.emotions.shocked') }`">
-                  <ShockedIcon />
-                </SampleButton>
-                <SampleButton color="tertiary" icon="excited" :title="`${ $t('buttons.emotions.excited') }`">
-                  <ExcitedIcon />
-                </SampleButton>
-                <SampleButton color="tertiary" icon="angry" :title="`${ $t('buttons.emotions.angry') }`">
-                  <AngryIcon />
-                </SampleButton>
-                <SampleButton color="tertiary" icon="masked" :title="`${ $t('buttons.emotions.masked') }`">
-                  <MaskedIcon />
-                </SampleButton>
-                <SampleButton color="tertiary" icon="think" :title="`${ $t('buttons.emotions.think') }`">
-                  <ThinkIcon />
-                </SampleButton>
-                <SampleButton color="tertiary" icon="laughing_out_loud" :title="`${ $t('buttons.emotions.laughing_out_loud') }`">
-                  <LaughingOutLoudIcon />
-                </SampleButton>
-                <SampleButton color="tertiary" icon="wonder" :title="`${ $t('buttons.emotions.wonder') }`">
-                  <WonderIcon />
-                </SampleButton>
-                <SampleButton color="tertiary" icon="sick" :title="`${ $t('buttons.emotions.sick') }`">
-                  <SickIcon />
-                </SampleButton>
-                <SampleButton color="tertiary" icon="embarrassed" :title="`${ $t('buttons.emotions.embarrassed') }`">
-                  <EmbarrassedIcon />
-                </SampleButton>
-                <SampleButton color="tertiary" icon="ignore" :title="`${ $t('buttons.emotions.ignore') }`">
-                  <IgnoreIcon />
-                </SampleButton>
-                <SampleButton color="tertiary" icon="frozen" :title="`${ $t('buttons.emotions.frozen') }`">
-                  <FrozenIcon />
-                </SampleButton>
-              </div>
+              <FileUpload label="audio" accept="audio/*">
+                <AudioPublicationIcon />
+              </FileUpload>
+              <div class="vertical__divider"></div>
+              <FileUpload label="file">
+                <ClipIcon />
+              </FileUpload>
             </div>
+            <div v-if="isTextAreaActive" class="textarea__active--buttons">
+              <div class="textarea__active--smile mood__section" v-if="showSmileSection">
+                <span class="emotions__label">{{ $t('labels.feeling.label') }}</span>
 
-            <div class="emotions__input--section" v-if="showTravelingSection">
-              <span @click="backToMoodSection" class="emotion__label">{{ $t('labels.feeling.traveling.title') }}</span>
-              <input class="emotion__input" :placeholder="`${ $t('labels.feeling.traveling.placeholder') }`"/>
-            </div>
-
-            <div class="emotions__input--section" v-if="showWatchingSection">
-              <span @click="backToMoodSection" class="emotion__label">{{ $t('labels.feeling.watching.title') }}</span>
-              <input class="emotion__input" :placeholder="`${ $t('labels.feeling.watching.placeholder') }`"/>
-            </div>
-
-            <div class="emotions__input--section" v-if="showPlayingSection">
-              <span @click="backToMoodSection" class="emotion__label">{{ $t('labels.feeling.playing.title') }}</span>
-              <input class="emotion__input" :placeholder="`${ $t('labels.feeling.playing.placeholder') }`"/>
-            </div>
-
-            <div class="emotions__input--section" v-if="showListeningSection">
-              <span @click="backToMoodSection" class="emotion__label">{{ $t('labels.feeling.listening.title') }}</span>
-              <input class="emotion__input" :placeholder="`${ $t('labels.feeling.listening.placeholder') }`"/>
-            </div>
-
-            <div class="audio__input--section" v-if="showAudioSection && addedAudioItems.length">
-              <div class="audio__input--section--content">
-                <div
-                  class="audio__input--section--item"
-                  v-for="(item, index) in addedAudioItems"
-                  :key="index"
-                >
-                  <AudioPublicationIcon />
-                  <input
-                    readonly
-                    type="text"
-                    class="audio__title"
-                    :value="item.title"
+                <div class="buttons">
+                  <SampleButton
+                    icon="mood"
+                    color="tertiary"
+                    :title="`${ $t('buttons.mood') }`"
+                    @click="isMoodActive"
                   >
-                  <button type="button" class="remove__audio--button" @click="removeAudioItem(index)">
-                    <RemoveAudioIcon />
-                  </button>
+                    <SmallSmileIcon />
+                  </SampleButton>
+                  <SampleButton
+                    icon="traveling"
+                    color="tertiary"
+                    :title="`${ $t('buttons.traveling') }`"
+                    @click="isTravelingActive"
+                  >
+                    <MapIcon />
+                  </SampleButton>
+                  <SampleButton
+                    icon="watching"
+                    color="tertiary"
+                    :title="`${ $t('buttons.watching') }`"
+                    @click="isWatchingActive"
+                  >
+                    <CinemaIcon />
+                  </SampleButton>
+                  <SampleButton
+                    icon="playing"
+                    color="tertiary"
+                    :title="`${ $t('buttons.playing') }`"
+                    @click="isPlayingActive"
+                  >
+                    <GamingIcon />
+                  </SampleButton>
+                  <SampleButton
+                    icon="listening"
+                    color="tertiary"
+                    :title="`${ $t('buttons.listening') }`"
+                    @click="isListeningActive"
+                  >
+                    <ListeningIcon />
+                  </SampleButton>
                 </div>
               </div>
-            </div>
 
-            <div class="audio__input--section" v-if="showAudioSection">
-              <p class="audio__input--section--title">{{ $t('labels.audio') }}</p>
+              <div class="emotions__buttons--main--section" v-if="showMoodSection">
+                <div class="emotions__input--section">
+                  <span @click="backToMoodSection" class="emotion__label">{{ $t('labels.feeling.mood.title') }}</span>
+                  <span class="emotion__input">{{ $t('labels.feeling.mood.placeholder') }}</span>
+                </div>
 
-              <div class="audio__input--section--content">
-                <div
-                  class="audio__input--section--item"
-                  v-for="(item, index) in audioItems"
-                  :key="index"
-                >
-                  <AudioPublicationIcon />
-                  <input
-                    readonly
-                    type="text"
-                    class="audio__title"
-                    :value="item.title"
-                  >
-                  <button type="button" class="add__audio--button" @click="addAudioItem">
-                    <AddAudioIcon />
-                  </button>
+                <div class="emotions__section--buttons">
+                  <SampleButton color="tertiary" icon="happy" :title="`${ $t('buttons.emotions.happy') }`">
+                    <HappyIcon />
+                  </SampleButton>
+                  <SampleButton color="tertiary" icon="in_love" :title="`${ $t('buttons.emotions.in_love') }`">
+                    <InLoveIcon />
+                  </SampleButton>
+                  <SampleButton color="tertiary" icon="outraged" :title="`${ $t('buttons.emotions.outraged') }`">
+                    <OutragedIcon />
+                  </SampleButton>
+                  <SampleButton color="tertiary" icon="celebrate" :title="`${ $t('buttons.emotions.celebrate') }`">
+                    <CelebrateIcon />
+                  </SampleButton>
+                  <SampleButton color="tertiary" icon="giggle" :title="`${ $t('buttons.emotions.giggle') }`">
+                    <GiggleIcon />
+                  </SampleButton>
+                  <SampleButton color="tertiary" icon="crazy" :title="`${ $t('buttons.emotions.crazy') }`">
+                    <CrazyIcon />
+                  </SampleButton>
+                  <SampleButton color="tertiary" icon="falling_asleep" :title="`${ $t('buttons.emotions.falling_asleep') }`">
+                    <FallingAsleepIcon />
+                  </SampleButton>
+                  <SampleButton color="tertiary" icon="shocked" :title="`${ $t('buttons.emotions.shocked') }`">
+                    <ShockedIcon />
+                  </SampleButton>
+                  <SampleButton color="tertiary" icon="excited" :title="`${ $t('buttons.emotions.excited') }`">
+                    <ExcitedIcon />
+                  </SampleButton>
+                  <SampleButton color="tertiary" icon="angry" :title="`${ $t('buttons.emotions.angry') }`">
+                    <AngryIcon />
+                  </SampleButton>
+                  <SampleButton color="tertiary" icon="masked" :title="`${ $t('buttons.emotions.masked') }`">
+                    <MaskedIcon />
+                  </SampleButton>
+                  <SampleButton color="tertiary" icon="think" :title="`${ $t('buttons.emotions.think') }`">
+                    <ThinkIcon />
+                  </SampleButton>
+                  <SampleButton color="tertiary" icon="laughing_out_loud" :title="`${ $t('buttons.emotions.laughing_out_loud') }`">
+                    <LaughingOutLoudIcon />
+                  </SampleButton>
+                  <SampleButton color="tertiary" icon="wonder" :title="`${ $t('buttons.emotions.wonder') }`">
+                    <WonderIcon />
+                  </SampleButton>
+                  <SampleButton color="tertiary" icon="sick" :title="`${ $t('buttons.emotions.sick') }`">
+                    <SickIcon />
+                  </SampleButton>
+                  <SampleButton color="tertiary" icon="embarrassed" :title="`${ $t('buttons.emotions.embarrassed') }`">
+                    <EmbarrassedIcon />
+                  </SampleButton>
+                  <SampleButton color="tertiary" icon="ignore" :title="`${ $t('buttons.emotions.ignore') }`">
+                    <IgnoreIcon />
+                  </SampleButton>
+                  <SampleButton color="tertiary" icon="frozen" :title="`${ $t('buttons.emotions.frozen') }`">
+                    <FrozenIcon />
+                  </SampleButton>
                 </div>
               </div>
-            </div>
 
-            <div class="textarea__active">
-              <div class="textarea__active--left--side">
-                <button class="poll__button" type="button" @click="openPollModal">
-                  <PollIcon />
-                </button>
+              <div class="emotions__input--section" v-if="showTravelingSection">
+                <span @click="backToMoodSection" class="emotion__label">{{ $t('labels.feeling.traveling.title') }}</span>
+                <input class="emotion__input" :placeholder="`${ $t('labels.feeling.traveling.placeholder') }`"/>
+              </div>
 
-                <PollModal
-                  v-if="showPollModal"
-                  @close="closePollModal"
-                />
+              <div class="emotions__input--section" v-if="showWatchingSection">
+                <span @click="backToMoodSection" class="emotion__label">{{ $t('labels.feeling.watching.title') }}</span>
+                <input class="emotion__input" :placeholder="`${ $t('labels.feeling.watching.placeholder') }`"/>
+              </div>
 
-                <button
-                  class="smile__button"
-                  type="button"
-                  @click="activeSmileSection"
-                >
-                  <SmileIcon />
-                </button>
+              <div class="emotions__input--section" v-if="showPlayingSection">
+                <span @click="backToMoodSection" class="emotion__label">{{ $t('labels.feeling.playing.title') }}</span>
+                <input class="emotion__input" :placeholder="`${ $t('labels.feeling.playing.placeholder') }`"/>
+              </div>
 
-                <button
-                  class="audio__button"
-                  type="button"
-                  @click="activeAudioSection"
-                >
+              <div class="emotions__input--section" v-if="showListeningSection">
+                <span @click="backToMoodSection" class="emotion__label">{{ $t('labels.feeling.listening.title') }}</span>
+                <input class="emotion__input" :placeholder="`${ $t('labels.feeling.listening.placeholder') }`"/>
+              </div>
+
+              <div class="audio__input--section" v-if="showAudioSection && addedAudioItems.length">
+                <div class="audio__input--section--content">
+                  <div
+                    class="audio__input--section--item"
+                    v-for="(item, index) in addedAudioItems"
+                    :key="index"
+                  >
                     <AudioPublicationIcon />
-                </button>
-
-                <div class="vertical__divider"></div>
-
-                <FileUpload label="file">
-                  <ClipIcon></ClipIcon>
-                </FileUpload>
+                    <input
+                      readonly
+                      type="text"
+                      class="audio__title"
+                      :value="item.title"
+                    >
+                    <button type="button" class="remove__audio--button" @click="removeAudioItem(index)">
+                      <RemoveAudioIcon />
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div class="textarea__active--right--side">
-                <AccessDropDown />
-                <SampleButton
-                  :title="`${ $t('buttons.publish') }`"
-                  class="publish__button"
-                  rounded="rounded"
-                />
+
+              <div class="audio__input--section" v-if="showAudioSection">
+                <p class="audio__input--section--title">{{ $t('labels.audio') }}</p>
+
+                <div class="audio__input--section--content">
+                  <div
+                    class="audio__input--section--item"
+                    v-for="(item, index) in audioItems"
+                    :key="index"
+                  >
+                    <AudioPublicationIcon />
+                    <input
+                      readonly
+                      type="text"
+                      class="audio__title"
+                      :value="item.title"
+                    >
+                    <button type="button" class="add__audio--button" @click="addAudioItem">
+                      <AddAudioIcon />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="textarea__active">
+                <div class="textarea__active--left--side">
+                  <button class="poll__button" type="button" @click="openPollModal">
+                    <PollIcon />
+                  </button>
+
+                  <PollModal
+                    v-if="showPollModal"
+                    @close="closePollModal"
+                  />
+
+                  <button
+                    class="smile__button"
+                    type="button"
+                    @click="activeSmileSection"
+                  >
+                    <SmileIcon />
+                  </button>
+
+                  <button
+                    class="audio__button"
+                    type="button"
+                    @click="activeAudioSection"
+                  >
+                    <AudioPublicationIcon />
+                  </button>
+
+                  <div class="vertical__divider"></div>
+
+                  <FileUpload label="file">
+                    <ClipIcon></ClipIcon>
+                  </FileUpload>
+                </div>
+                <div class="textarea__active--right--side">
+                  <AccessDropDown />
+                  <SampleButton
+                    :title="`${ $t('buttons.publish') }`"
+                    class="publish__button"
+                    rounded="rounded"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        </form>
-      </section>
-      <section class="tab__publications--section">
-        <main-publications-tab :tabs-array="tabLabels"></main-publications-tab>
-      </section>
+          </form>
+        </section>
+        <section class="tab__publications--section">
+          <main-publications-tab :tabs-array="tabLabels"></main-publications-tab>
+        </section>
+      </div>
     </div>
-    <aside class="aside__publications">
-      <section class="section__last--actions">
-        <div>
-          <h3 class="text-1 medium">{{ $t('sections_title.last_actions') }}</h3>
-        </div>
-        <hr class="divider__line">
-        <div class="actions__section">
-          <div v-for="i in 5" :key="i">
-            <router-link class="actions__link" to="#">
-              <img src="../../assets/images/Ellipse.png" alt="">
-              <span>Lorem ipsum dolor sit amet, consectetur adipiscing e tempor incididunt</span>
-            </router-link>
-          </div>
-        </div>
-      </section>
-      <section class="section__recommended--groups">
-        <div class="aside__title--section">
-          <h3 class="text-1 medium">{{ $t('sections_title.recommended_groups') }}</h3>
-          <router-link class="link" to="#">{{ $t('links.all_groups') }}</router-link>
-        </div>
-        <hr class="divider__line">
-        <div class="group__section">
-          <div class="group__right--side" v-for="(group, index) in recommendedGroups" :key="index">
-            <router-link class="group__link" to="#">
-              <img src="../../assets/images/Ellipse.png" alt="">
-              <div class="group__info">
-                <span>{{ group.name }}</span>
-                <small>{{ group.members }}</small>
-              </div>
-            </router-link>
-            <SampleButton
-              icon="plus"
-              color="primary"
-              :title="`${ $t('buttons.join') }`"
-            />
-          </div>
-        </div>
-      </section>
-      <section class="section__recommended--people">
-        <div class="aside__title--section">
-          <h3 class="text-1 medium">{{ $t('sections_title.recommended_people') }}</h3>
-          <router-link class="link" to="#">{{ $t('links.all_people') }}</router-link>
-        </div>
-        <hr class="divider__line">
-        <div class="person__section">
-          <div class="person__right--side" v-for="(person, index) in recommendedPeople" :key="index">
-            <router-link class="person__link" to="#">
-              <img src="../../assets/images/Ellipse.png" alt="">
-              <div class="person__info">
-                <span>{{ person.name }}</span>
-                <small>{{ person.followers }}</small>
-              </div>
-            </router-link>
-            <SampleButton
-              :title="`${ subscribeButtonStatus ? $t('buttons.follow') : $t('buttons.subscribe') }`"
-              @click="toggleSubscribeButton"
-              :class="{ 'active' :subscribeButtonStatus }"
-            />
-          </div>
-        </div>
-      </section>
-    </aside>
+
+    <PublicationTabSide />
   </div>
 </template>
 
@@ -359,9 +301,11 @@ import IgnoreIcon from '@/components/icons/emotions/IgnoreIcon.vue'
 import FrozenIcon from '@/components/icons/emotions/FrozenIcon.vue'
 import AddAudioIcon from '@/components/icons/AddAudioIcon.vue'
 import RemoveAudioIcon from '@/components/icons/RemoveAudioIcon.vue'
+import PublicationTabSide from '@/components/blocks/PublicationTabSide.vue'
 
 export default {
   components: {
+    PublicationTabSide,
     RemoveAudioIcon,
     AddAudioIcon,
     FrozenIcon,
@@ -401,7 +345,6 @@ export default {
   },
   data () {
     return {
-      subscribeButtonStatus: false,
       isTextAreaActive: false,
       showPollModal: false,
       showSmileSection: false,
@@ -527,33 +470,11 @@ export default {
       const textarea = event.target
       textarea.style.height = 'auto'
       textarea.style.height = `${textarea.scrollHeight}px`
-    },
-    toggleSubscribeButton () {
-      this.subscribeButtonStatus = !this.subscribeButtonStatus
     }
   },
   computed: {
-    recommendedGroups () {
-      return [
-        { name: 'Мы Мусульмане', members: 4560 + ' ' + this.$t('labels.members.plural') },
-        { name: 'Big Kahuna BuLtd.', members: 21260 + ' ' + this.$t('labels.members.plural') },
-        { name: 'Binford Ltd.', members: 33241 + ' ' + this.$t('labels.members.plural') },
-        { name: 'Biffco EnterpriLtd.', members: 445100 + ' ' + this.$t('labels.members.plural') },
-        { name: 'Acme Co.', members: 987654 + ' ' + this.$t('labels.members.plural') }
-      ]
-    },
-    recommendedPeople () {
-      return [
-        { name: 'Courtney Henry', followers: 4560 + ' ' + this.$t('labels.subscribers.plural') },
-        { name: 'Eleanor Pena', followers: 21260 + ' ' + this.$t('labels.subscribers.plural') },
-        { name: 'Theresa Webb', followers: 33241 + ' ' + this.$t('labels.subscribers.plural') },
-        { name: 'Ronald Richards', followers: 445100 + ' ' + this.$t('labels.subscribers.plural') },
-        { name: 'Arlene McCoy', followers: 987654 + ' ' + this.$t('labels.subscribers.plural') }
-      ]
-    },
     tabLabels () {
       return [
-        this.$t('tabs.publications_inside.publications'),
         this.$t('tabs.publications_inside.articles'),
         this.$t('tabs.publications_inside.photo'),
         this.$t('tabs.publications_inside.video'),
@@ -584,6 +505,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.publication-top__layer {
+  width: 1200px;
+  display: flex;
+  justify-content: center;
+}
+
 svg {
   color: var(--color-silver-chalice);
 }
@@ -744,59 +671,6 @@ svg {
   padding: 12px 38px;
 }
 
-.person__section,
-.group__section,
-.actions__section {
-  display: flex;
-  flex-direction: column;
-  row-gap: 16px;
-}
-
-.person__right--side,
-.group__right--side {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.person__link,
-.group__link,
-.actions__link {
-  display: flex;
-  width: 100%;
-  text-decoration: none;
-  align-items: center;
-}
-
-.person__link img,
-.group__link img,
-.actions__link img {
-  margin-right: 8px;
-  width: 56px;
-  height: 56px;
-}
-
-.actions__section span {
-  color: var(--color-mine-shaft);
-}
-
-.person__info,
-.group__info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.person__info span,
-.group__info span {
-  color: var(--color-mine-shaft);
-}
-
-.person__info small,
-.group__info small {
-  color: var(--color-silver-chalice);
-}
-
 .form__left--side {
   display: flex;
   align-items: center;
@@ -822,34 +696,6 @@ svg {
 
 .form__left--side textarea::placeholder {
   color: var(--color-silver-chalice);
-}
-
-.aside__title--section {
-  display: flex;
-  justify-content: space-between;
-}
-
-.divider__line {
-  height: 1px;
-  margin: 16px 0;
-  border: 0;
-  background-color: var(--color-alto-second);
-}
-
-.publication__main--block {
-  display: flex;
-  gap: 13px;
-}
-
-.section__last--actions,
-.section__recommended--groups,
-.section__recommended--people {
-  background-color: var(--color-white);
-  color: var(--color-silver-chalice);
-  border-radius: 15px;
-  padding: 24px 16px;
-  display: flex;
-  flex-direction: column;
 }
 
 .form__inputs--block {
@@ -878,10 +724,10 @@ svg {
   background-color: var(--color-alto-second);
 }
 
-.aside__publications {
+.publication__main--block {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  row-gap: 8px;
+  gap: 13px;
 }
 
 .main__publications--section {
@@ -894,49 +740,17 @@ svg {
   .main__publications--section {
     width: 100%
   }
-
-  .aside__publications {
-    width: 100%;
-  }
 }
 
 @media (min-width: 1280px) {
   .main__publications--section {
-    width: 850px;
-  }
-
-  .aside__publications {
-    width: 350px;
-  }
-
-  .person__right--side button,
-  .group__right--side button
-  {
-    height: 34px;
-    padding: 8px 10px;
-    font-size: 14px;
-    min-width: 110px;
-    max-width: 110px;
+    width: 700px;
   }
 }
 
 @media (min-width: 1920px) {
   .main__publications--section {
-    width: 1123px;
-  }
-
-  .aside__publications {
-    width: 411px;
-  }
-
-  .person__right--side button,
-  .group__right--side button
-  {
-    height: 34px;
-    padding: 8px 32px;
-    font-size: 14px;
-    min-width: 153px;
-    max-width: 153px;
+    width: 700px;
   }
 }
 </style>
