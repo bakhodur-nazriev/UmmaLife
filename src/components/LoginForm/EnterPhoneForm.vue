@@ -1,39 +1,11 @@
 <template>
-  <form-auth @submit="submit">
-    <title-sample>{{ $t('login.title') }}</title-sample>
+  <FormAuth @submit="submit">
+    <TitleSample>{{ $t('login.title') }}</TitleSample>
     <div class="sample__phone-input">
 
       <div :class="['input-wrapper', { error: hasError }]">
         <div class="phone__field-section">
-          <div class="country-select">
-            <div class="country-select-button" @click="toggleDropdown">
-              <img
-                :src="selectedCountry.flag"
-                :alt="selectedCountry.name"
-                class="country-dropdown__flag-icon"
-              />
-              <span class="country-code">{{ selectedCountry.code }}</span>
-              <dropdown-icon class="locales__icon locales__icon--dropdown"/>
-            </div>
-            <div v-if="isDropdownOpen" class="country-dropdown">
-              <ul class="country-dropdown__list">
-                <li
-                  v-for="country in countries"
-                  :key="country.code"
-                  @click="selectCountry(country)"
-                  class="country-dropdown__list-item"
-                >
-                  <img
-                    :src="country.flag"
-                    :alt="country.name"
-                    class="country-dropdown__flag-icon"
-                  />
-                  <span class="country-code">{{ country.name }}</span>
-                  <span class="country-code">{{ country.code }}</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <SampleSelectedCountry @country-selected="handleCountrySelected"/>
           <input
             type="tel"
             class="base-input"
@@ -47,8 +19,9 @@
       </div>
 
     </div>
-    <div class="login-button-section">
+    <div class="login-button__section">
       <SampleButton
+        class="login-button__section-button"
         @click="handleSubmit"
         :title="`${ $t('buttons.login') }`"
       />
@@ -59,19 +32,18 @@
     >
       {{ $t('login.create_account') }}
     </router-link>
-  </form-auth>
+  </FormAuth>
 </template>
 
 <script>
 import SampleButton from '@/components/ui/SampleButton.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import FormAuth from '@/components/ui/FormAuth.vue'
-import axios from 'axios'
-import DropdownIcon from '@/components/icons/DropdownIcon.vue'
+import SampleSelectedCountry from '@/components/ui/SampleSelectedCountry.vue'
 
 export default {
   components: {
-    DropdownIcon,
+    SampleSelectedCountry,
     FormAuth,
     TitleSample,
     SampleButton
@@ -79,9 +51,7 @@ export default {
   data () {
     return {
       phoneNumber: '',
-      countries: [],
-      selectedCountry: { name: '', code: '', flag: '' },
-      isDropdownOpen: false,
+      selectedCountryCode: '',
       hasError: false
     }
   },
@@ -95,28 +65,6 @@ export default {
     }
   },
   methods: {
-    getCountries () {
-      axios
-        .get('https://restcountries.com/v2/all')
-        .then((response) => {
-          this.countries = response.data.map((country) => ({
-            name: country.name,
-            code: '+' + country.callingCodes[0],
-            flag: country.flags.png
-          }))
-          this.selectedCountry = this.countries[1] // Set the initial selected country
-        })
-        .catch((error) => {
-          console.error('Error fetching countries:', error)
-        })
-    },
-    toggleDropdown () {
-      this.isDropdownOpen = !this.isDropdownOpen
-    },
-    selectCountry (country) {
-      this.selectedCountry = country
-      this.isDropdownOpen = false
-    },
     handleSubmit () {
       this.hasError = this.phoneNumber.trim() === ''
 
@@ -130,15 +78,18 @@ export default {
     submit (event) {
       console.log('submit button called')
       event.preventDefault()
+    },
+    handleCountrySelected (countryCode) {
+      this.selectedCountryCode = countryCode
     }
-  },
-  mounted () {
-    this.getCountries()
   },
   computed: {
     isRTL () {
       return this.$i18n.locale === 'ar'
     }
+  },
+  mounted () {
+    this.handleCountrySelected()
   }
 }
 </script>
@@ -169,28 +120,13 @@ export default {
   margin-bottom: 64px;
 }
 
-.login-button-section {
+.login-button__section {
   display: flex;
   justify-content: center;
-}
 
-.login-button-section button {
-  width: 100%;
-}
-
-.locales__icon {
-  display: inline-block;
-  min-width: max-content;
-  color: var(--color-silver-chalice);
-
-  &--dropdown {
-    margin-left: auto;
-    transition: 0.3s;
+  &-button {
+    width: 100%;
   }
-}
-
-.locales--shown .locales__icon--dropdown {
-  transform: scaleY(-1);
 }
 
 .phone__field-section {
@@ -213,83 +149,16 @@ export default {
   }
 }
 
-.country {
-  &-code {
-    font-size: 16px;
-    margin: 0 8px;
-  }
-
-  &-select {
-    position: relative;
-    display: inline-block;
-
-    &-button {
-      display: flex;
-      align-items: center;
-      background-color: var(--color-seashell);
-      border-radius: 10px 0 0 10px;
-      padding: 15px;
-      cursor: pointer;
-    }
-  }
-
-  &-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: var(--color-seashell);
-    border-radius: 0 0 10px 10px;
-    padding: 10px;
-    max-height: 210px;
-    overflow-y: auto;
-    width: 470px;
-
-    &__list {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-
-      &-item {
-        display: flex;
-        align-items: center;
-        padding: 5px;
-        cursor: pointer;
-      }
-      &-item:hover {
-        background-color: #ddd;
-      }
-    }
-  }
-}
-
-.country-dropdown__flag-icon {
-  width: 20px;
-  height: 15px;
-}
-
-.locales--shown .locales__icon--dropdown {
-  transform: scaleY(-1);
-}
-
 .rtl {
   direction: rtl;
 
   .base-input {
     border-radius: 10px 0 0 10px;
   }
-
-  .country-select-button {
-    border-radius: 0 10px 10px 0;
-  }
-
-  .country-dropdown {
-    left: auto;
-   right: 0;
-  }
 }
 
 @media (min-width: 768px) {
-  .login-button-section button {
+  .login-button__section button {
     max-width: 320px;
   }
 }
