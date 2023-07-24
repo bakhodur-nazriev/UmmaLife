@@ -3,11 +3,12 @@
     <button
       type="button"
       class="locales__button"
+      :class="isRTL ? 'rtl' : 'ltr'"
       @click="handleButtonClick"
     >
       <global-icon class="locales__icon"/>
-      <span class="dropdown__locale-title">{{ currentLanguageName }}</span>
-      <dropdown-icon class="locales__icon locales__icon--dropdown"/>
+      <span class="locales__title">{{ currentLanguageName }}</span>
+      <dropdown-icon :class="isRTL ? 'rtl' : 'ltr'" class="locales__icon locales__icon--dropdown"/>
     </button>
 
     <ul :class="isRTL ? 'rtl' : 'ltr'" class="locales__list" :data-locale="$t('languages.title')">
@@ -99,96 +100,111 @@ export default {
 }
 </script>
 
-<style scoped>
-.rtl {
-  direction: rtl;
-
-  .locales__item {
-    direction: rtl;
-  }
-}
-
+<style scoped lang="scss">
 .locales {
   z-index: 1;
-}
 
-.locales::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(31, 31, 31, 0.3);
-  backdrop-filter: blur(3px);
-  transition: 0.3s;
-  opacity: 0;
-  pointer-events: none;
-}
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(31, 31, 31, 0.3);
+    backdrop-filter: blur(3px);
+    transition: 0.3s;
+    opacity: 0;
+    pointer-events: none;
+  }
 
-.locales--shown::before {
-  opacity: 1;
-  z-index: 2;
-}
+  &--shown::before {
+    opacity: 1;
+    z-index: 2;
+  }
 
-.locales__button {
-  display: flex;
-  align-items: center;
-  background-color: white;
-  border: 1px solid #F1F1F1;
-  border-radius: 20px;
-  min-height: 40px;
-  padding: 8px 16px;
-  gap: 8px;
-  font-size: 14px;
-  line-height: 1;
-  color: #1f1f1f;
-  width: 155px;
-  cursor: pointer;
-  z-index: 3;
-}
+  &__button {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-white);
+    border: 4px solid var(--color-seashell);
+    border-radius: 20px;
+    min-height: 40px;
+    padding: 8px 16px;
+    gap: 8px;
+    font-size: 14px;
+    line-height: 1;
+    color: var(--color-mine-shaft);
+    width: 155px;
+    cursor: pointer;
+    z-index: 3;
 
-.locales__button span {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
-  -webkit-box-orient: vertical;
-}
+    &__title {
+      line-height: 1.2;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+  }
 
-.locales__icon {
-  display: inline-block;
-  min-width: max-content;
-  color: #b0b0b0
-}
+  &__icon {
+    display: inline-block;
+    min-width: max-content;
+    color: var(--color-silver-chalice);
 
-.locales__icon--dropdown {
-  margin-left: auto;
-  transition: 0.3s;
+    &--dropdown {
+      margin-left: auto;
+      transition: 0.3s;
+    }
+  }
+
+  &__list {
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 100%;
+    background: var(--color-seashell);
+    box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 20px 20px 0 0;
+    width: 100%;
+    margin: 0;
+    list-style: none;
+    padding: 16px;
+    gap: 4px;
+    z-index: 3;
+
+    &::before {
+      content: attr(data-locale);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    background-color: var(--color-white);
+    min-height: 48px;
+    padding: 8px 16px;
+  }
+
+  &__link {
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 1.5;
+    color: inherit;
+  }
 }
 
 .locales--shown .locales__icon--dropdown {
   transform: scaleY(-1);
-}
-
-.locales__list {
-  display: flex;
-  visibility: hidden;
-  opacity: 0;
-  transition: 0.3s;
-  flex-direction: column;
-  position: fixed;
-  left: 0;
-  top: 100%;
-  background: #F1F1F1;
-  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.15);
-  border-radius: 20px 20px 0 0;
-  width: 100%;
-  margin: 0;
-  list-style: none;
-  padding: 16px;
-  gap: 4px;
-  z-index: 3;
 }
 
 .locales--shown .locales__list {
@@ -197,29 +213,9 @@ export default {
   opacity: 1;
 }
 
-.locales__list::before {
-  content: attr(data-locale);
-  font-weight: 500;
-  margin-bottom: 12px;
-}
-
-.locales__item {
-  display: flex;
-  align-items: center;
-  border-radius: 5px;
-  background-color: white;
-  min-height: 48px;
-  padding: 8px 16px;
-}
-
-.locales__link {
-  text-decoration: none;
-  font-size: 16px;
-  line-height: 1.5;
-  color: inherit;
-}
-.dropdown__locale-title {
-  line-height: 1.2;
+.rtl {
+  direction: rtl;
+  margin: 0 auto 0 0;
 }
 
 @media (min-width: 768px) {
@@ -244,7 +240,7 @@ export default {
     top: 0;
     width: 100%;
     gap: 0;
-    background-color: white;
+    background-color: var(--color-white);
     padding: 40px 8px 0 8px;
     border-radius: 20px;
   }
@@ -253,7 +249,7 @@ export default {
     transform: none;
   }
 
-  .locales__list::before  {
+  .locales__list::before {
     display: none;
   }
 
@@ -264,7 +260,7 @@ export default {
   }
 
   .locales__item:not(:last-child) {
-    border-bottom: 1px solid #D9D9D9;
+    border-bottom: 1px solid var(--color-alto-second);
     border-radius: 0;
   }
 

@@ -85,35 +85,38 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .input-wrapper {
   position: relative;
+
+  &.error {
+    .phone__field-section {
+      border: 1.4px solid red;
+      border-radius: 10px;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+  }
 }
 
-.input-wrapper.error .phone__field-section {
-  border: 1.4px solid red;
-  border-radius: 10px;
-}
-
-.input-wrapper .error-message {
-  color: red;
-  font-size: 12px;
-  margin-top: 4px;
-}
 
 .base-input {
-  background-color: #f1f1f1;
+  background-color: var(--color-seashell);
   border: none;
   outline: none;
   border-radius: 10px;
   font-size: 14px;
   padding: 16px;
-  color: #1F1F1F;
+  color: var(--color-mine-shaft);
   width: 100%;
-}
 
-.base-input::placeholder {
-  color: #B0B0B0;
+  &::placeholder {
+    color: var(--color-silver-chalice);
+  }
 }
 
 .skip__link-section {
@@ -122,7 +125,7 @@ export default {
 }
 
 .skip__link-section a {
-  color: #1F1F1F;
+  color: var(--color-mine-shaft);
   text-decoration: none;
   font-weight: 500;
 }

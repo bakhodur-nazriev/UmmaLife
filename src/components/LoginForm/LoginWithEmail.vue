@@ -204,22 +204,17 @@ export default {
 
 .input-wrapper {
   position: relative;
-}
 
-.input-wrapper.error .base-input {
-  border: 1.4px solid var(--color-valencia);
-}
+  &.error .phone__field-section {
+    border: 1.4px solid red;
+    border-radius: 10px;
+  }
 
-.input-wrapper .error-message {
-  color: var(--color-valencia);
-  font-size: 12px;
-  margin-top: 4px;
-}
-
-.error-message {
-  color: var(--color-valencia);
-  font-size: 12px;
-  margin-top: 4px;
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+  }
 }
 
 .base-input {
@@ -229,12 +224,12 @@ export default {
   border-radius: 10px;
   font-size: 14px;
   padding: 16px;
-  color: #1F1F1F;
+  color: var(--color-mine-shaft);
   width: 100%;
-}
 
-.base-input::placeholder {
-  color: var(--color-silver-chalice);
+  &::placeholder {
+    color: var(--color-silver-chalice);
+  }
 }
 
 .input-with-eye {

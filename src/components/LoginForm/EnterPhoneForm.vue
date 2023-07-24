@@ -7,14 +7,27 @@
         <div class="phone__field-section">
           <div class="country-select">
             <div class="country-select-button" @click="toggleDropdown">
-              <img :src="selectedCountry.flag" :alt="selectedCountry.name" class="flag-icon"/>
+              <img
+                :src="selectedCountry.flag"
+                :alt="selectedCountry.name"
+                class="country-dropdown__flag-icon"
+              />
               <span class="country-code">{{ selectedCountry.code }}</span>
               <dropdown-icon class="locales__icon locales__icon--dropdown"/>
             </div>
             <div v-if="isDropdownOpen" class="country-dropdown">
-              <ul>
-                <li v-for="country in countries" :key="country.code" @click="selectCountry(country)">
-                  <img :src="country.flag" :alt="country.name" class="flag-icon"/>
+              <ul class="country-dropdown__list">
+                <li
+                  v-for="country in countries"
+                  :key="country.code"
+                  @click="selectCountry(country)"
+                  class="country-dropdown__list-item"
+                >
+                  <img
+                    :src="country.flag"
+                    :alt="country.name"
+                    class="country-dropdown__flag-icon"
+                  />
                   <span class="country-code">{{ country.name }}</span>
                   <span class="country-code">{{ country.code }}</span>
                 </li>
@@ -169,11 +182,11 @@ export default {
   display: inline-block;
   min-width: max-content;
   color: var(--color-silver-chalice);
-}
 
-.locales__icon--dropdown {
-  margin-left: auto;
-  transition: 0.3s;
+  &--dropdown {
+    margin-left: auto;
+    transition: 0.3s;
+  }
 }
 
 .locales--shown .locales__icon--dropdown {
@@ -198,11 +211,6 @@ export default {
       color: var(--color-silver-chalice);
     }
   }
-}
-
-.flag-icon {
-  width: 20px;
-  height: 15px;
 }
 
 .country {
@@ -235,35 +243,28 @@ export default {
     max-height: 210px;
     overflow-y: auto;
     width: 470px;
+
+    &__list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+
+      &-item {
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        cursor: pointer;
+      }
+      &-item:hover {
+        background-color: #ddd;
+      }
+    }
   }
 }
 
-.country-dropdown ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.country-dropdown li {
-  display: flex;
-  align-items: center;
-  padding: 5px;
-  cursor: pointer;
-}
-
-.country-dropdown li:hover {
-  background-color: #ddd;
-}
-
-.locales__icon {
-  display: inline-block;
-  min-width: max-content;
-  color: var(--color-mine-shaft);
-
-  &--dropdown {
-    margin-left: auto;
-    transition: 0.3s;
-  }
+.country-dropdown__flag-icon {
+  width: 20px;
+  height: 15px;
 }
 
 .locales--shown .locales__icon--dropdown {
@@ -272,6 +273,19 @@ export default {
 
 .rtl {
   direction: rtl;
+
+  .base-input {
+    border-radius: 10px 0 0 10px;
+  }
+
+  .country-select-button {
+    border-radius: 0 10px 10px 0;
+  }
+
+  .country-dropdown {
+    left: auto;
+   right: 0;
+  }
 }
 
 @media (min-width: 768px) {

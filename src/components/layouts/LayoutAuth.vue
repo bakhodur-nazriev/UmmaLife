@@ -7,7 +7,7 @@
       <slot></slot>
     </div>
 
-    <footer-auth class="layout__footer"/>
+    <footer-auth :class="isTRL ? 'rtl' : ''" class="layout__footer"/>
   </div>
 </template>
 
@@ -21,49 +21,59 @@ export default {
     LocalesDropdown,
     MainLogo,
     FooterAuth
+  },
+
+  computed: {
+    isTRL () {
+      return this.$i18n.locale === 'ar'
+    }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .layout {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
 
-.layout__locales {
-  order: 3;
-  margin: 24px auto;
-}
+  &__locales {
+    order: 3;
+    margin: 24px auto;
+  }
 
-.layout__logo {
-  order: 1;
-  display: flex;
-  justify-content: center;
-  margin-top: 64px;
-  margin-bottom: 20px;
-}
+  &__logo {
+    order: 1;
+    display: flex;
+    justify-content: center;
+    margin-top: 64px;
+    margin-bottom: 20px;
+  }
 
-.layout__inner {
-  order: 2;
-  display: flex;
-  align-items: center;
-  flex-grow: 1;
-  flex-direction: column;
-  justify-content: center;
-  z-index: 0;
-}
+  &__inner {
+    order: 2;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 0;
+  }
 
-.layout__footer {
-  order: 4;
+  &__footer {
+    order: 4;
+
+    .rtl {
+      direction: rtl;
+    }
+  }
 }
 
 @media (min-width: 768px) {
   .layout__locales,
   .layout__logo,
   .layout__inner,
-  .layout__footer{
+  .layout__footer {
     order: 0;
   }
 
@@ -71,15 +81,15 @@ export default {
     max-width: var(--desktop-width);
     width: 90vw;
     margin: 0 auto;
-  }
 
-  .layout__locales {
-    margin-right: 0;
-    margin-bottom: 54px;
-  }
+    &__locales {
+      margin-right: 0;
+      margin-bottom: 54px;
+    }
 
-  .layout__logo {
-    margin-top: 0;
+    &__logo {
+      margin-top: 0;
+    }
   }
 }
 </style>

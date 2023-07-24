@@ -22,14 +22,14 @@
     >
       {{ $t('register.messages.agreement_to_creating_account') }} <br>
       <router-link
-        class="link"
+        class="link register-checkbox__link"
         :to="`/${$i18n.locale}/terms`"
       >
         {{ $t('links.terms') }}
       </router-link>
       <span class="symbol__ampersand">&</span>
       <router-link
-        class="link"
+        class="link register-checkbox__link"
         :to="`/${$i18n.locale}/privacy-policy`"
       >
         {{ $t('links.privacy_policy') }}
@@ -44,8 +44,8 @@
     </div>
 
     <div class="login-section">
-      <label>{{ $t('register.label') }}</label>
-      <router-link :to="`/${$i18n.locale}/login`">{{ $t('login.title') }}</router-link>
+      <label class="login-section__label">{{ $t('register.label') }}</label>
+      <router-link class="login-section__link" :to="`/${$i18n.locale}/login`">{{ $t('login.title') }}</router-link>
     </div>
   </form-auth>
 </template>
@@ -115,34 +115,36 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .input-wrapper {
   position: relative;
-}
 
-.input-wrapper.error .base-input {
-  border: 1.4px solid red;
-}
+  &.error {
+    .base-input {
+      border: 1.4px solid red;
+    }
 
-.input-wrapper .error-message {
-  color: red;
-  font-size: 12px;
-  margin-top: 4px;
+    .error-message {
+      color: red;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+  }
 }
 
 .base-input {
-  background-color: #f1f1f1;
+  background-color: var(--color-seashell);
   border: none;
   outline: none;
   border-radius: 10px;
   font-size: 14px;
   padding: 16px;
-  color: #1F1F1F;
+  color: var(--color-mine-shaft);
   width: 100%;
-}
 
-.base-input::placeholder {
-  color: #B0B0B0;
+  &::placeholder {
+    color: var(--color-silver-chalice);
+  }
 }
 
 .symbol__ampersand {
@@ -152,31 +154,28 @@ export default {
 .login-section {
   margin-top: 40px;
   display: flex;
+  gap: 4px;
   justify-content: center;
   align-items: center;
-}
 
-.login-section label {
-  margin-right: 4px;
-}
+  &__label {
+    color: var(--color-silver-chalice);
+  }
 
-.login-section a {
-  margin-left: 4px;
-  color: #1F1F1F;
-}
-
-.login-section > label {
-  color: #B0B0B0;
+  &__link {
+    margin-left: 4px;
+    color: var(--color-mine-shaft);
+  }
 }
 
 .register-checkbox {
   margin-top: 24px;
   margin-bottom: 64px;
   text-decoration: none;
-}
 
-.register-checkbox a {
-  text-decoration: underline;
+  &__link {
+    text-decoration: underline;
+  }
 }
 
 .login-button-section {

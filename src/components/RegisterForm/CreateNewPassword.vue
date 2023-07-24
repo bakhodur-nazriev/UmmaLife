@@ -4,8 +4,8 @@
 
     <h5 class="title medium reminder-message">{{ $t('register.messages.create_password') }}</h5>
 
-    <div class="main__input-block">
-      <div class="input-with-eye" :class="['input-wrapper', { error: hasError }]">
+    <div class="main-input__block">
+      <div class="main-input__block-with-eye" :class="['input-wrapper', { error: hasError }]">
         <input
           name="password"
           :type="isPasswordVisible ? 'text' : 'password'"
@@ -16,8 +16,8 @@
         />
 
         <button type="button" class="eye-button" @click="togglePasswordVisibility">
-          <eye-slash-icon v-if="isPasswordVisible"></eye-slash-icon>
-          <eye-icon v-else></eye-icon>
+          <eye-slash-icon class="eye-button__icon" v-if="isPasswordVisible"></eye-slash-icon>
+          <eye-icon class="eye-button__icon" v-else></eye-icon>
         </button>
       </div>
       <small v-if="hasError" class="error-message">
@@ -25,9 +25,10 @@
       </small>
     </div>
 
-    <div class="login__button-section">
+    <div class="login-button__section">
       <SampleButton
         @click="handleSubmit"
+        class="login-button__section-next"
         :title="`${ $t('buttons.next') }`"
       />
     </div>
@@ -64,6 +65,11 @@ export default {
       }
     }
   },
+  computed: {
+    isRTL () {
+      return this.$i18n.locale === 'ar'
+    }
+  },
   methods: {
     handleSubmit () {
       // Выполните обработку данных формы
@@ -88,23 +94,21 @@ export default {
 }
 </script>
 
-<style scoped>
-.main__input-block{
-  margin-bottom: 64px;
-}
-
+<style scoped lang="scss">
 .input-wrapper {
   position: relative;
-}
 
-.input-wrapper.error .base-input {
-  border: 1.4px solid red;
-}
+  &.error {
+    .base-input {
+      border: 1.4px solid red;
+    }
 
-.input-wrapper .error-message {
-  color: red;
-  font-size: 12px;
-  display: block;
+    .error-message {
+      color: red;
+      font-size: 12px;
+      display: block;
+    }
+  }
 }
 
 .reminder-message {
@@ -112,46 +116,44 @@ export default {
   margin-bottom: 40px;
 }
 
-.login__button-section {
+.login-button__section {
   display: flex;
   justify-content: center;
-}
 
-.login__button-section button {
-  width: 100%;
-}
-
-@media (min-width: 768px) {
-  .login__button-section button {
-    max-width: 320px;
+  &-next {
+    width: 100%;
   }
 }
 
 .base-input {
-  background-color: #f1f1f1;
+  background-color: var(--color-seashell);
   border: none;
   outline: none;
   border-radius: 10px;
   font-size: 14px;
   padding: 16px;
-  color: #1F1F1F;
+  color: var(--color-mine-shaft);
   width: 100%;
-}
 
-.base-input::placeholder {
-  color: #B0B0B0;
-}
-
-.input-with-eye {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  z-index: 1;
+  &::placeholder {
+    color: var(--color-silver-chalice);
+  }
 }
 
 .input-field {
   padding-right: 45px;
   width: 100%;
+}
+
+.main-input__block {
+  margin-bottom: 64px;
+
+  &-with-eye {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+  }
 }
 
 .eye-button {
@@ -164,19 +166,24 @@ export default {
   cursor: pointer;
   display: flex;
   align-items: center;
+  color: var(--color-silver-chalice);
 }
 
-.eye-button svg {
-  color: #B0B0B0;
+.rtl {
+  .input-field {
+    padding-right: 16px;
+    padding-left: 45px;
+  }
+
+  .eye-button {
+    right: auto;
+    left: 10px;
+  }
 }
 
-.input-wrapper.error .base-input {
-  border: 1.4px solid red;
-}
-
-.error-message {
-  color: red;
-  font-size: 12px;
-  margin-top: 4px;
+@media (min-width: 768px) {
+  .login-button__section button {
+    max-width: 320px;
+  }
 }
 </style>
