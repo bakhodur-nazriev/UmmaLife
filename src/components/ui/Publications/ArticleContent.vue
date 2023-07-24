@@ -50,7 +50,7 @@ const props = defineProps({
           "I'm just shocked," said Muhammad.
           "I've been kind of hitting that time in practice and my coach was like 'there's no way you can't do it'."
           "I've been kind of hitting that time in practice and my coach was like 'there's no way you can't do it'.""I've
-          been kind of hitting that time inat time in...</p>
+          been kind of hitting that time inat time in... <a href="#">{{$t('links.read_more')}}...</a></p>
       </div>
     </section>
 
@@ -66,6 +66,14 @@ const props = defineProps({
   .content__right--side {
     h3 {
       margin: 0;
+    }
+    a {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 550;
+      line-height: 150%; /* 24px */
+      color: var(--color-deep-cerulean);
+      text-decoration: none;
     }
   }
 }

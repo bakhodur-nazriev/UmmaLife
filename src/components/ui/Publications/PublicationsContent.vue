@@ -45,6 +45,9 @@ export default {
 </script>
 
 <style scoped>
+.profile__news.post__block{
+  border: 1px solid var(--color-seashell);
+}
 .post__block {
   background-color: var(--color-white);
   border-radius: 15px;

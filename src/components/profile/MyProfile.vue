@@ -16,27 +16,27 @@
     <div class="profile__block profile__info">
       <ul class="profile__top-list">
         <li class="profile__top-list--item">
-          <img src="@/assets/images/profile/profile.svg" alt="profile">
+          <ProfileIcon />
           <span>{{ $t('profile.gender') }}:</span>
           <p>Male</p>
         </li>
         <li class="profile__top-list--item">
-          <img src="@/assets/images/profile/calendar.svg" alt="calendar">
+          <CalendarIcon />
           <span>{{ $t('profile.dob') }}:</span>
           <p>22.01.86</p>
         </li>
         <li class="profile__top-list--item">
-          <img src="@/assets/images/profile/global.svg" alt="global">
+          <GlobalSilverIcon />
           <span>{{ $t('profile.country') }}:</span>
           <p>Canada</p>
         </li>
         <li class="profile__top-list--item">
-          <img src="@/assets/images/profile/study.svg" alt="study">
+          <StudyIcon />
           <span>{{ $t('profile.study') }}:</span>
           <p>Harvard University</p>
         </li>
         <li class="profile__top-list--item">
-          <img src="@/assets/images/profile/link.svg" alt="study">
+          <LinkIcon />
           <span>{{ $t('profile.site') }}:</span>
           <a href="https://ummalife.com/" target="_blank">https://ummalife.com/</a>
         </li>
@@ -76,6 +76,14 @@
     </ul>
   </div>
 </template>
+
+<script setup>
+import ProfileIcon from '@/components/icons/profile/ProfileIcon.vue'
+import CalendarIcon from '@/components/icons/profile/CalendarIcon.vue'
+import GlobalSilverIcon from '@/components/icons/profile/GlobalSilverIcon.vue'
+import StudyIcon from '@/components/icons/profile/StudyIcon.vue'
+import LinkIcon from '@/components/icons/profile/LinkIcon.vue'
+</script>
 
 <style lang="scss" scoped>
 .profile{
@@ -153,7 +161,7 @@
         &:not(:last-child){
           margin-bottom: 16px;
         }
-        img {
+        svg {
           width: 13px;
           height: 13px;
           display: block;
