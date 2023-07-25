@@ -308,5 +308,9 @@
     "umma_shorts": "Umma Shorts",
     "audio": "Подписчики",
     "posts": "Посты"
+  },
+  "chat": {
+    "placeholder": "Напишите ваше сообщение",
+    "send": "Отправить"
   }
 }

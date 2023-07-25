@@ -74,6 +74,12 @@ export default {
     font-size: 16px;
     padding: 12px 12px 12px 48px;
   }
+
+  .navigation__search .base__search--input{
+    width: 384px;
+    background: transparent;
+    border: 1px solid var(--color-gallery-first);
+  }
 }
 
 </style>
