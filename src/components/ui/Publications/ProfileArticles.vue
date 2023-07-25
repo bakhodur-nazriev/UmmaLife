@@ -1,6 +1,6 @@
 <template>
   <div class="profile__article">
-    <article-content :isMenuOpen="isMenuOpen" @toggleMenu="isMenuOpen = !isMenuOpen" />
+    <ArticleTab :isMenuOpen="isMenuOpen" @toggleMenu="isMenuOpen = !isMenuOpen" />
       <div class="profile__article--bottom">
         <post-reactions class="profile-reactions" />
         <sample-divider class="profile-divider"   />
@@ -13,14 +13,14 @@
 </template>
 
 <script>
-import ArticleContent from '@/components/ui/Publications/ArticleContent.vue'
+import ArticleTab from '@/components/ui/Publications/ArticleTab.vue'
 import PostFooter from '@/components/ui/Post/PostFooter.vue'
 import PostReactions from '@/components/ui/Post/PostReactions.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
 
 export default {
   components: {
-    ArticleContent,
+    ArticleTab,
     PostFooter,
     SampleDivider,
     PostReactions
