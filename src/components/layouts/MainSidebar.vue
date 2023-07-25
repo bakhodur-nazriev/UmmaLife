@@ -152,7 +152,8 @@ export default {
   padding: 4px;
   height: 100vh;
   overflow-y: auto;
-  width: 260px;
+  max-width: 260px;
+  width: 100%;
   transition: 0.3s;
 }
 

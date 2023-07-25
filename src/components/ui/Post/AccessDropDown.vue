@@ -162,7 +162,7 @@ export default {
 
 .dropdown__item {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   flex-direction: column;
 }
 </style>

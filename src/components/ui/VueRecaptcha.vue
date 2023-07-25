@@ -6,12 +6,12 @@
 import { VueRecaptchaPlugin } from 'vue-recaptcha'
 export default {
   components: { VueRecaptchaPlugin },
-  data() {},
+  data () {},
   methods: {
     onRecaptchaVerify (token) {
       // Handle the reCAPTCHA token verification
-      console.log('Recaptcha token:', token);
-    },
+      console.log('Recaptcha token:', token)
+    }
   }
 }
 </script>

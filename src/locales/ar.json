@@ -42,5 +42,36 @@
       "indonesia": "Bahasa Indonesia",
       "malay": "Melayu"
     }
+  },
+  "profile": {
+    "edit": "تعديل الملف الشخصي",
+    "gender": "أرضية",
+    "dob": "عيد ميلاد",
+    "country": "بلد الإقامة",
+    "study": "مؤسسة تعليمية",
+    "site": "موقع العمل",
+    "about": "ْعَنِّي",
+    "following": "الاشتراكات",
+    "subscribes": "مشتركين",
+    "umma_video": "فيديو الأمة",
+    "umma_shorts": "شورت الأمة",
+    "audio": "مشتركين",
+    "posts": "دعامات"
+  },
+  "tabs": {
+    "profile_tabs": {
+      "news": "أخبار",
+      "articles": "مقالات",
+      "photo": "صورة",
+      "video": "فيديو",
+      "audio": "صوتي"
+    },
+    "my_page": {
+      "publications": "المنشورات",
+      "umma_shorts": "شورت الأمة",
+      "umma_video": "فيديو الأمة",
+      "alboms": "ألبومات",
+      "saved": "أنقذ"
+    }
   }
 }

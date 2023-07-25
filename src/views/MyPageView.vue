@@ -1,17 +1,21 @@
 <template>
   <main-layout>
-    <h1>My Page Page!</h1>
+    <div class="page__container">
+      <div class="page__wrapper">
+        <MyProfile />
+        <MyPosts />
+      </div>
+    </div>
   </main-layout>
 </template>
 
 <script>
 import MainLayout from '@/components/layouts/MainLayout.vue'
+import MyProfile from '@/components/profile/MyProfile.vue'
+import MyPosts from '@/components/profile/MyPosts.vue'
 export default {
-  components: { MainLayout }
-
+  components: { MainLayout, MyProfile, MyPosts }
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
