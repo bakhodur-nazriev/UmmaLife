@@ -506,7 +506,6 @@ export default {
 
 <style scoped lang="scss">
 .publication-top__layer {
-  width: 1200px;
   display: flex;
   justify-content: center;
 }

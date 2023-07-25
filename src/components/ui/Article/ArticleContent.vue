@@ -1,33 +1,19 @@
 <template>
-  <section class="article__content--section">
-    <div class="article__content--item">
+  <section class="article-content__section">
+    <div class="article-content__section-item">
       <img
-        src="@/assets/images/post_image.png"
+        src="@/assets/images/Post_1.png"
         alt=""
-        class="article__content--image"
+        class="article-content__image"
       >
-      <div class="article__content--details">
-        <div class="article__title--block">
-          <h3 class="article__title">Название статьи, которое не поместилось на одну строку и переместилось на вторую</h3>
-        </div>
-        <div class="article__detail--block">
-          <router-link
-            to="#"
-            class="read__more--link"
-          >
-            {{ $t('buttons.read_more') }}
-          </router-link>
-          <div class="stats__reposts">
-            <span>155 {{ $t('labels.comments.plural') }}</span>
-            <span class="stats__separator"> / </span>
-            <span>35 {{ $t('labels.reposts.plural') }}</span>
-          </div>
-        </div>
+      <div class="article-content__detail__block">
+        <h3 class="article-content__detail__block-title">Название статьи, которое не поместилось на одну строку и переместилось на вторую строчку</h3>
+        <p class="article-content__detail__block-paragraph">Аль-Ула - город, полный археологических чудес. Расположенный на северо-западе Саудовской Аравии в провинции Медина, это популярное туристическое направление. Аль-Ула является первым объектом Всемирного наследия ЮНЕСКО в стране. Это место, изве...</p>
       </div>
     </div>
 
-    <div class="article__content--reactions">
-      <div class="reactions__block">
+    <div class="article-content__reactions">
+      <div class="article-content__reactions-block">
         <div
           v-for="(reaction, index) in reactions"
           :key="index"
@@ -71,29 +57,42 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.article__content--item {
-  position: relative;
+.article-content__detail__block {
   display: flex;
+  flex-direction: column;
+  padding: 20px;
 
-  &:before {
-    display: flex;
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 35%;
-    backdrop-filter: blur(8px);
-    z-index: 1;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
+  &-title {
+    font-size: 16px;
+    margin-top: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  &-paragraph {
+    margin: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3 ;
+    -webkit-box-orient: vertical;
   }
 }
 
-.article__content--section {
+.article-content__section {
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  &-item {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-seashell);
+    border-radius: 15px;
+  }
 }
 
 .article__content--image {
@@ -102,66 +101,14 @@ export default {
   height: 80%;
 }
 
-.article__content--details {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  gap: 14px;
-  position: absolute;
-  bottom: 20px;
-  padding: 0 18px;
-  width: 100%;
-  z-index: 10;
-}
-
-.article__title {
-  margin: 0;
-  color: var(--color-white);
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.2;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-}
-
-.article__detail--block {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.read__more--link {
-  border-radius: 10px;
-  text-decoration: none;
-  color: var(--color-white);
-  background-color: var(--color-hippie-blue);
-  padding: 12px 80px;
-}
-
-.stats__reposts {
-  color: var(--color-white);
-  display: flex;
-  font-size: 16px;
-
-  * {
-    line-height: 1;
-  }
-
-  &__separator {
-    margin: 0 8px;
-  }
-}
-
-.article__content--reactions {
+.article-content__reactions {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 12px 0;
 }
 
-.reactions__block {
+.article-content__reactions-block {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
