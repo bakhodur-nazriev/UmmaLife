@@ -109,12 +109,12 @@
 
 
 .link {
-    color: #00819D;
+    color: var(--color-hippie-blue);
     text-decoration: none;
 }
 
 .link:hover {
-    color: #49A399;
+    color: var(--color-deep-cerulean);
     transition: 0.3s;
     text-decoration: none;
 }

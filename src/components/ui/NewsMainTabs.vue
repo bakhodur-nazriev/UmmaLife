@@ -13,17 +13,16 @@
 
     <transition name="fade">
       <div class="tabs__content">
-      <div
-        v-for="(tab, index) in tabs"
-        :key="index"
-        v-show="activeTab === index"
-        class="tabs__content--inside--section"
-      >
-        <tab-publications v-if="index === 0"></tab-publications>
-        <tab-umma-shorts v-if="index === 1"></tab-umma-shorts>
-        <tab-umma-video v-if="index === 2"></tab-umma-video>
+        <div
+          v-for="(tab, index) in tabs"
+          :key="index"
+          v-show="activeTab === index"
+        >
+          <TabPublications v-if="index === 0" />
+          <TabUmmaShorts v-if="index === 1" />
+          <TabUmmaVideo v-if="index === 2" />
+        </div>
       </div>
-    </div>
     </transition>
   </div>
 </template>
@@ -71,70 +70,61 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .tabs__header {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-}
 
-.tabs__header::after {
-  content: "";
-  width: 100%;
-  height: 1px;
-  bottom: 0;
-  left: 0;
-  background-color: var(--color-alto-second);
-  position: absolute;
-}
+  &::after {
+    content: "";
+    width: 100%;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-alto-second);
+    position: absolute;
+  }
 
-.tabs__header-item {
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
-  padding: 16px 0;
-  color: var(--color-silver-chalice);
-  font-weight: 500;
-  font-size: 18px;
-  margin: 0 50px;
-  width: 200px;
-}
+  &-item {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    padding: 16px 0;
+    color: var(--color-silver-chalice);
+    font-weight: 500;
+    font-size: 18px;
+    margin: 0 50px;
+    width: 200px;
 
-.tabs__header-item.active {
-  position: relative;
-  color: var(--color-mine-shaft);
-  padding-bottom: 16px;
-  font-weight: 600;
-  z-index: 100;
-}
+    &.active {
+      position: relative;
+      color: var(--color-mine-shaft);
+      padding-bottom: 16px;
+      font-weight: 600;
+      z-index: 100;
 
-.tabs__header-item.active::after {
-  content: "";
-  position: absolute;
-  width: 200px;
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background-color: var(--color-deep-cerulean);
-  border-radius: 1px 1px 0 0;
+      &::after {
+        content: "";
+        position: absolute;
+        width: 200px;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: var(--color-deep-cerulean);
+        border-radius: 1px 1px 0 0;
+      }
+    }
+  }
 }
 
 .tabs__content {
-  display: flex;
-  justify-content: center;
+  width: 100%;
+  padding: 24px;
 }
 
-@media (min-width: 768px) {
-  .tabs__content {
-    padding: 24px;
-  }
-}
+@media (min-width: 768px) {}
 
-@media (min-width: 1280px) {
-  .tabs__content {
-    display: flex;
-    padding: 24px
-  }
-}
+@media (min-width: 1280px) {}
 </style>

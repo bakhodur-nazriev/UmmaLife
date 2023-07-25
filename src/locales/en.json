@@ -122,7 +122,7 @@
     "in_group": "In group",
     "subscribe": "Subscribe",
     "follow": "I follow",
-    "like": "Masha Allah!",
+    "like": "Like",
     "comment": "Comment",
     "share": "Share",
     "copy_link": "Copy link",
@@ -169,7 +169,8 @@
       "embarrassed": "Embarrassed",
       "ignore": "Ignore",
       "frozen": "Frozen"
-    }
+    },
+    "read_more": "Read"
   },
   "languages": {
     "title": "English",

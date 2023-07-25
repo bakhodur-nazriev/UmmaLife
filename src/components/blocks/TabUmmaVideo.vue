@@ -1,28 +1,30 @@
 <template>
-  <section class="category__section">
-    <div class="category__left--section">
-      <div class="transparent__left--right--block">
-        <div class="left__button" @click="scrollLeft" ref="leftButton"><dropdown-icon /></div>
-        <div class="selected__country--button" ref="scrollContainer">
-          <sample-selected-category
-            v-for="(item, index) in categories"
-            :key="index"
-            :title="item"
-          ></sample-selected-category>
+  <div class="main-tab-umma-video__block">
+    <section class="category__section">
+      <div class="category__left--section">
+        <div class="transparent__left--right--block">
+          <div class="left__button" @click="scrollLeft" ref="leftButton"><dropdown-icon /></div>
+          <div class="selected__country--button" ref="scrollContainer">
+            <sample-selected-category
+              v-for="(item, index) in categories"
+              :key="index"
+              :title="item"
+            ></sample-selected-category>
+          </div>
+          <div class="right__button" @click="scrollRight" ref="rightButton"><dropdown-icon /></div>
         </div>
-        <div class="right__button" @click="scrollRight" ref="rightButton"><dropdown-icon /></div>
       </div>
-    </div>
-    <div>
-      <SampleButton
-        class="create__umma--video--button"
-        :title="`${ $t('buttons.create_umma_video') }`"
-      />
-    </div>
-  </section>
-  <section class="umma__videos--section">
-    <umma-video v-for="(item, index) in 12" :key="index"></umma-video>
-  </section>
+      <div>
+        <SampleButton
+          class="create__umma--video--button"
+          :title="`${ $t('buttons.create_umma_video') }`"
+        />
+      </div>
+    </section>
+    <section class="umma__videos--section">
+      <umma-video v-for="(item, index) in 12" :key="index"></umma-video>
+    </section>
+  </div>
 </template>
 
 <script>
