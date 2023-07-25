@@ -1,14 +1,23 @@
 <template>
   <section class="article-content__section">
     <div class="article-content__section-item">
-      <img
-        src="@/assets/images/Post_1.png"
-        alt=""
-        class="article-content__image"
-      >
+      <div class="custom-video__container">
+        <div class="play-icon__button">
+          <VideoPlayIcon class="play-icon__button-icon"/>
+        </div>
+        <video
+          controls
+          class="custom-video-player"
+          poster="@/assets/images/Post_1.png"
+        >
+          <source
+            src="path/to/video.mp4"
+            type="video/mp4"
+          >
+        </video>
+      </div>
       <div class="article-content__detail__block">
-        <h3 class="article-content__detail__block-title">Название статьи, которое не поместилось на одну строку и переместилось на вторую строчку</h3>
-        <p class="article-content__detail__block-paragraph">Аль-Ула - город, полный археологических чудес. Расположенный на северо-западе Саудовской Аравии в провинции Медина, это популярное туристическое направление. Аль-Ула является первым объектом Всемирного наследия ЮНЕСКО в стране. Это место, изве...</p>
+        <span class="article-content__detail__block-views">20.08.2022 - 1 тыс.{{ $t('video.views') }}</span>
       </div>
     </div>
 
@@ -37,7 +46,11 @@ import SadIcon from '@/components/icons/reactions/men/small/SadIcon.vue'
 import ThinkIcon from '@/components/icons/reactions/men/small/ThinkIcon.vue'
 import FireIcon from '@/components/icons/reactions/men/small/FireIcon.vue'
 import ScaredIcon from '@/components/icons/reactions/men/small/ScaredIcon.vue'
+import VideoPlayIcon from '@/components/icons/VideoPlayIcon.vue'
 export default {
+  components: {
+    VideoPlayIcon
+  },
   data () {
     return {
       reactions: [
@@ -57,41 +70,51 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.article-content__detail__block {
+.custom-video__container {
+  position: relative;
+}
+
+.play-icon__button {
+  cursor: pointer;
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--color-hippie-blue);
   display: flex;
-  flex-direction: column;
-  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
 
-  &-title {
-    font-size: 16px;
-    margin-top: 0;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
+video::-webkit-media-controls {
+  display: none !important;
+}
 
-  &-paragraph {
-    margin: 0;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3 ;
-    -webkit-box-orient: vertical;
+video::-webkit-media-controls-enclosure {
+  display: none !important;
+}
+
+.article-content__detail__block {
+  line-height: 1;
+
+  &-views {
+    color: var(--color-silver-chalice);
+    font-size: 20px;
   }
 }
 
 .article-content__section {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 
   &-item {
     display: flex;
     flex-direction: column;
-    background-color: var(--color-seashell);
-    border-radius: 15px;
+    row-gap: 14px;
   }
 }
 
@@ -105,7 +128,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 12px 0;
+  margin: 0;
 }
 
 .article-content__reactions-block {
@@ -115,15 +138,15 @@ export default {
 
   .reaction {
     height: 32px;
-    background: var(--color-seashell);
     border-radius: 50px;
     padding: 8px 12px;
-    color: var(--color-silver-chalice);
     width: auto;
     display: flex;
     gap: 6px;
     align-items: center;
     font-size: 14px;
+    color: var(--color-silver-chalice);
+    background-color: var(--color-gallery-second);
   }
 }
 </style>

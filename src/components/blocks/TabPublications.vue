@@ -272,7 +272,7 @@ import VideoPublicationsIcon from '@/components/icons/VideoPublicationsIcon.vue'
 import MainPublicationsTab from '@/components/ui/Publications/MainPublicationsTab.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import FileUpload from '@/components/ui/FileUpload.vue'
-import AccessDropDown from '@/components/ui/Post/AccessDropDown.vue'
+import AccessDropDown from '@/components/ui/Publications/Post/AccessDropDown.vue'
 import PollIcon from '@/components/icons/news/PollIcon.vue'
 import SmileIcon from '@/components/icons/news/SmileIcon.vue'
 import PollModal from '@/components/modals/PollModal.vue'
@@ -508,6 +508,7 @@ export default {
 .publication-top__layer {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 svg {
@@ -724,9 +725,7 @@ svg {
 }
 
 .publication__main--block {
-  width: 100%;
   display: flex;
-  gap: 13px;
 }
 
 .main__publications--section {

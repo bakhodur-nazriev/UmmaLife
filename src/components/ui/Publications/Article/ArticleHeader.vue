@@ -2,7 +2,7 @@
   <section class="article__header--section">
     <div class="author__avatar--name--time">
       <img
-        src="@/assets/images/Article_Author.png"
+        src="../../../../assets/images/Article_Author.png"
         alt="author"
         width="56"
         height="56"

@@ -13,16 +13,16 @@
 
     <transition name="fade">
       <div class="tabs__content">
-      <div
-        v-for="(tab, index) in tabs"
-        :key="index"
-        v-show="activeTab === index"
-      >
-        <TabPublications v-if="index === 0" />
-        <TabUmmaShorts v-if="index === 1" />
-        <TabUmmaVideo v-if="index === 2" />
+        <div
+          v-for="(tab, index) in tabs"
+          :key="index"
+          v-show="activeTab === index"
+        >
+          <TabPublications v-if="index === 0" />
+          <TabUmmaShorts v-if="index === 1" />
+          <TabUmmaVideo v-if="index === 2" />
+        </div>
       </div>
-    </div>
     </transition>
   </div>
 </template>
@@ -120,20 +120,11 @@ export default {
 }
 
 .tabs__content {
-  display: flex;
-  justify-content: center;
+  width: 100%;
+  padding: 24px;
 }
 
-@media (min-width: 768px) {
-  .tabs__content {
-    padding: 24px;
-  }
-}
+@media (min-width: 768px) {}
 
-@media (min-width: 1280px) {
-  .tabs__content {
-    display: flex;
-    padding: 24px
-  }
-}
+@media (min-width: 1280px) {}
 </style>

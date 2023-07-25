@@ -4,7 +4,7 @@
       class="menu__toggle--button open__menu--details--button"
       @click="toggleMenu"
     >
-      <menu-details-icon class="dropdown__toggle"></menu-details-icon>
+      <MenuDetailsIcon class="dropdown__toggle" />
     </div>
 
     <Transition name="bounce">

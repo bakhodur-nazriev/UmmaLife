@@ -21,11 +21,8 @@
         v-show="activeTab === index"
       >
         <ArticleContent v-if="index === 0"/>
-
         <PhotoContent v-if="index === 1"/>
-
         <VideoContent v-if="index === 2"/>
-
         <AudioContent v-if="index === 3" />
       </div>
     </div>
@@ -33,10 +30,10 @@
 </template>
 
 <script>
-import ArticleContent from '@/components/ui/Publications/ArticleTabContent.vue'
-import PhotoContent from '@/components/ui/Publications/PhotoTabContent.vue'
-import VideoContent from '@/components/ui/Publications/VideoTabContent.vue'
-import AudioContent from '@/components/ui/Publications/AudioTabContent.vue'
+import ArticleContent from '@/components/ui/Publications/ArticleTab.vue'
+import PhotoContent from '@/components/ui/Publications/PhotoTab.vue'
+import VideoContent from '@/components/ui/Publications/VideoTab.vue'
+import AudioContent from '@/components/ui/Publications/AudioTab.vue'
 
 export default {
   components: {

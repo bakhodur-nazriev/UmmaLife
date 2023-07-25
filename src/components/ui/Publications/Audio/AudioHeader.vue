@@ -4,7 +4,7 @@
       <img
         width="56"
         height="56"
-        src="@/assets/images/Article_Author.png"
+        src="../../../../assets/images/Article_Author.png"
         alt=""
       >
       <div class="author__info">

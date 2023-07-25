@@ -1,47 +1,46 @@
 <template>
   <div class="video-block">
     <article class="video-block__article" v-for="i in 10" :key="i">
-      <div class="video__main--section">
-        <button
-          class="menu__detail--button"
-          type="button"
-          @click="clickMenuDetail"
-        >
-          <ThreeDotIcon />
-        </button>
-        <img class="video__image" src="@/assets/images/video_image_1.png" alt="video">
-        <div class="video__time">
-          <span>15:30</span>
-        </div>
-      </div>
+      <VideoHeader
+        :is-menu-open="isMenuOpen"
+        @toggle-menu="toggleMenu"
+      />
 
-      <div class="description__video--section">
-        <h3 class="text-1 video__title">Вообще любое название для видео, которое влазит на 2 стр...</h3>
-        <div class="video-author__section">
-          <span class="author__video--section">
-            <img src="@/assets/images/video_author.png" alt="video author">
-            <small>Шамиль Ибн Абубакр</small>
-          </span>
-          <small class="video__date--section">20.08.2022 - 1 тыс. {{ $t('video.views') }}</small>
-        </div>
-      </div>
+      <VideoContent />
+
+      <SampleDivider />
+
+      <VideoFooter
+        :is-reaction-window-open="isReactionWindowOpen"
+        :is-share-window-open="isShareWindowOpen"
+      />
     </article>
   </div>
 </template>
 
 <script>
-import ThreeDotIcon from '@/components/icons/ThreeDotIcon.vue'
+import SampleDivider from '@/components/ui/SampleDivider.vue'
+import VideoHeader from '@/components/ui/Publications/Video/VideoHeader.vue'
+import VideoContent from '@/components/ui/Publications/Video/VideoContent.vue'
+import VideoFooter from '@/components/ui/Publications/Video/VideoFooter.vue'
 
 export default {
   components: {
-    ThreeDotIcon
+    VideoFooter,
+    VideoContent,
+    VideoHeader,
+    SampleDivider
   },
   data () {
-    return {}
+    return {
+      isMenuOpen: false,
+      isReactionWindowOpen: false,
+      isShareWindowOpen: false
+    }
   },
   methods: {
-    clickMenuDetail () {
-      console.log('test')
+    toggleMenu () {
+      this.isMenuOpen = !this.isMenuOpen
     }
   }
 }
@@ -54,17 +53,17 @@ export default {
 }
 
 .video-block {
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
+  display: flex;
+  flex-direction: column;
   gap: 15px;
-  background-color: var(--color-white);
-  padding: 24px;
-  border-radius: 15px;
 
   &__article {
     display: flex;
     flex-direction: column;
+    padding: 24px;
+    border-radius: 15px;
     row-gap: 8px;
+    background-color: var(--color-white);
   }
 }
 
