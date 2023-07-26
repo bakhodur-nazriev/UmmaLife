@@ -3,44 +3,44 @@
     <nav class="navbar">
       <div class="right__nav--side">
         <button type="button" class="menu__button" @click="toggleSidebar">
-          <menu-icon></menu-icon>
+          <MenuIcon />
         </button>
-        <main-page-logo class="main__logo"></main-page-logo>
+        <MainPageLogo class="main__logo" />
       </div>
       <div class="main__nav--side">
         <SampleButton
           class="create__button"
           :title="`${ $t('buttons.create') }`"
         />
-        <search-input :placeholder="$t('placeholders.search_input')"></search-input>
+        <SearchInput :placeholder="$t('placeholders.search_input')" />
       </div>
       <div class="left__nav--side">
         <ul class="navbar__right--buttons">
           <li class="music__button">
-            <music-icon></music-icon>
+            <MusicIcon />
           </li>
           <li class="email__button">
-            <email-icon></email-icon>
+            <EmailIcon />
           </li>
           <li class="notification__button">
-            <notification-icon></notification-icon>
+            <NotificationIcon />
           </li>
           <router-link :to="`/${$i18n.locale}/settings`">
             <li class="settings__button">
-              <setting-icon></setting-icon>
+              <SettingIcon />
             </li>
           </router-link>
         </ul>
         <div class="user__menu--block">
           <div class="profile__image">
             <img
-              src="@/assets/images/woman.svg"
+              src="@/assets/images/Article_Author.png"
               alt="avatar-logo"
               width="48"
               height="48"
             >
           </div>
-          <arrow-icon class="dropdown__icon"></arrow-icon>
+          <ArrowIcon class="dropdown__icon" />
         </div>
       </div>
     </nav>
@@ -114,6 +114,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.small-nav {
+  display: none;
+}
+
 .navbar {
   display: flex;
   align-items: center;
@@ -141,6 +145,7 @@ export default {
 .navbar__right--buttons {
   display: flex;
   align-items: center;
+  padding: 0;
 }
 
 .music__button,
@@ -190,6 +195,8 @@ export default {
   position: relative;
   display: inline-block;
   cursor: pointer;
+  margin-left: 65px;
+  margin-right: 45px;
 }
 
 .profile__image {
@@ -257,7 +264,7 @@ export default {
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 768px) and (max-width: 1200px) {
   .small-nav {
     display: none;
   }

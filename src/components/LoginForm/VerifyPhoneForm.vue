@@ -111,7 +111,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .input-wrapper {
   position: relative;
   margin-bottom: 48px;

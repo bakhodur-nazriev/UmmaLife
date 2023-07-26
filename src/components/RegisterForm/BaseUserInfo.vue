@@ -37,7 +37,7 @@
             class="genders__button"
             @click="handleButtonClick"
           >
-            <span :class="{'gender-title': !selectedGender, 'selected-gender': selectedGender}">{{ selectedGender || $t('register.placeholders.gender.title') }}</span>
+            <span :class="{'genders-title': !selectedGender, 'selected-gender': selectedGender}">{{ selectedGender || $t('register.placeholders.gender.title') }}</span>
             <dropdown-icon class="genders__icon genders__icon--dropdown"/>
           </button>
 
@@ -52,8 +52,9 @@
       </div>
     </div>
 
-    <div class="login__button-section">
+    <div class="login-button__section">
       <SampleButton
+        class="login-button__section-next"
         @click="handleSubmit"
         :title="`${ $t('buttons.next') }`"
       />
@@ -164,38 +165,37 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .input-wrapper {
   position: relative;
-}
 
-.input-wrapper.error .base-input {
-  border: 1.4px solid red;
-}
+  &.error {
+    .base-input,
+    .genders__button {
+      border: 1.4px solid red;
+    }
 
-.input-wrapper.error .genders__button {
-  border: 1.4px solid red;
-}
-
-.input-wrapper .error-message {
-  color: red;
-  font-size: 12px;
-  margin-top: 4px;
+    .error-message {
+      color: red;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+  }
 }
 
 .base-input {
-  background-color: #f1f1f1;
+  background-color: var(--color-seashell);
   border: none;
   outline: none;
   border-radius: 10px;
   font-size: 14px;
   padding: 16px;
-  color: #1F1F1F;
+  color: var(--color-mine-shaft);
   width: 100%;
-}
 
-.base-input::placeholder {
-  color: #B0B0B0;
+  &::placeholder {
+    color: var(--color-silver-chalice);
+  }
 }
 
 .sample__inputs-section {
@@ -209,67 +209,103 @@ export default {
 }
 
 .required-fields-label {
-  color: #B0B0B0;
+  color: var(--color-silver-chalice);
   font-size: 14px;
 }
 
-.login__button-section {
+.login-button__section {
   display: flex;
   justify-content: center;
-}
 
-.login__button-section button {
-  width: 100%;
-  margin-top: 64px;
+  &-next {
+    width: 100%;
+    margin-top: 64px;
+  }
 }
 
 .genders {
   z-index: 1;
   position: relative;
-}
 
-.genders__button {
-  position: relative;
-  display: flex;
-  align-items: center;
-  background-color: #F1F1F1;
-  border: 1px solid #F1F1F1;
-  border-radius: 10px;
-  min-height: 40px;
-  padding: 14px 16px;
-  font-size: 14px;
-  line-height: 1.34;
-  color: #1f1f1f;
-  width: 100%;
-  cursor: pointer;
-  z-index: 5;
-}
+  &__button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--color-seashell);
+    border: 1px solid var(--color-seashell);
+    border-radius: 10px;
+    min-height: 40px;
+    padding: 14px 16px;
+    font-size: 14px;
+    line-height: 1.34;
+    color: var(--color-mine-shaft);
+    width: 100%;
+    cursor: pointer;
+    z-index: 5;
 
-.genders__button span {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
-  -webkit-box-orient: vertical;
-}
+    span {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+  }
 
-.gender-title {
-  color: #B0B0B0;
+  &-title {
+    color: var(--color-silver-chalice);
+  }
+
+  &__icon {
+    display: inline-block;
+    min-width: max-content;
+    color: var(--color-silver-chalice);
+
+    &--dropdown {
+      margin-left: auto;
+      transition: 0.3s;
+    }
+  }
+
+  &__list {
+    position: absolute;
+    display: none;
+    opacity: 0;
+    transition: 0.3s;
+    flex-direction: column;
+    left: 0;
+    top: 0;
+    background: var(--color-seashell);
+    border-radius: 10px;
+    width: 100%;
+    margin: 0;
+    list-style: none;
+    padding: 50px 0 0 0;
+    z-index: 1;
+
+    &::before {
+      content: attr(data-locale);
+      font-weight: 500;
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    background-color: var(--color-seashell);
+    padding: 8px 16px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--color-silver-chalice);
+      color: var(--color-white);
+    }
+  }
 }
 
 .selected-gender {
-  color: #1F1F1F;
-}
-
-.genders__icon {
-  display: inline-block;
-  min-width: max-content;
-  color: #b0b0b0
-}
-
-.genders__icon--dropdown {
-  margin-left: auto;
-  transition: 0.3s;
+  color: var(--color-mine-shaft);
 }
 
 .genders--shown .genders__icon--dropdown {
@@ -281,44 +317,15 @@ export default {
   opacity: 1;
 }
 
-.genders__list {
-  position: absolute;
-  display: none;
-  opacity: 0;
-  transition: 0.3s;
-  flex-direction: column;
-  left: 0;
-  top: 0;
-  background: #F1F1F1;
-  border-radius: 10px;
-  width: 100%;
-  margin: 0;
-  list-style: none;
-  padding: 50px 0 0 0;
-  z-index: 1;
-}
-
-.genders__list::before {
-  content: attr(data-locale);
-  font-weight: 500;
-}
-
-.genders__item {
-  display: flex;
-  align-items: center;
-  border-radius: 10px;
-  background-color: #F1F1F1;
-  padding: 8px 16px;
-  cursor: pointer;
-}
-
-.genders__item:hover {
-  background-color: #bdbdbd;
-  color: #fff;
+.rtl {
+  .genders__icon--dropdown {
+    margin-right: auto;
+    margin-left: 0;
+  }
 }
 
 @media (min-width: 768px) {
-  .login__button-section button {
+  .login-button__section button {
     max-width: 320px;
   }
 }

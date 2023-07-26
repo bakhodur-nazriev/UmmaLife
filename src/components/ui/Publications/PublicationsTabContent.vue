@@ -1,15 +1,15 @@
 <template>
   <article class="post__block">
-    <post-header
+    <PostHeader
       :is-menu-open="isMenuOpen"
       @toggle-menu="toggleMenu"
     />
 
-    <post-content />
+    <PostContent />
 
-    <sample-divider />
+    <SampleDivider />
 
-    <post-footer
+    <PostFooter
       :is-reaction-window-open="isReactionWindowOpen"
       :is-share-window-open="isShareWindowOpen"
     />
@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import PostHeader from '@/components/ui/Post/PostHeader.vue'
-import PostContent from '@/components/ui/Post/PostContent.vue'
-import PostFooter from '@/components/ui/Post/PostFooter.vue'
+import PostHeader from '@/components/ui/Publications/Post/PostHeader.vue'
+import PostContent from '@/components/ui/Publications/Post/PostContent.vue'
+import PostFooter from '@/components/ui/Publications/Post/PostFooter.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
 
 export default {

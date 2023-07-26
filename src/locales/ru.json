@@ -114,7 +114,7 @@
     "get_code_by_email": "Получить код на почту",
     "next": "Далее",
     "submit": "Отправить",
-    "create": "+ Создать",
+    "create": "Создать",
     "create_umma_video": "+ Создать Umma Video",
     "toggle_theme": {
       "dark": "Темный",
@@ -124,7 +124,7 @@
     "in_group": "В группе",
     "subscribe": "Подписаться",
     "follow": "Слежу",
-    "like": "Ма ша Аллах!",
+    "like": "Нравится",
     "comment": "Комментировать",
     "share": "Поделиться",
     "copy_link": "Копировать ссылку",
@@ -171,7 +171,8 @@
       "embarrassed": "Смущаюсь",
       "ignore": "Игнорирую",
       "frozen": "Замерз"
-    }
+    },
+    "read_more": "Читать"
   },
   "languages": {
     "title": "Русский",

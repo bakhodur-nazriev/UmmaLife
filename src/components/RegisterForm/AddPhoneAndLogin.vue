@@ -1,16 +1,17 @@
 <template>
-  <form-auth @submit="submit">
-    <title-sample>{{ $t('register.title') }}</title-sample>
+  <FormAuth @submit="submit">
+    <TitleSample>{{ $t('register.title') }}</TitleSample>
 
     <h5 class="subhead medium">{{ $t('register.messages.enter_your_phone') }}</h5>
     <label class="login__with-phone-label">{{ $t('register.messages.can_login_with_phone_number') }}</label>
 
     <div :class="['input-wrapper', { error: hasError }]">
-      <div class="phone__field-section">
-        <sample-selected-country @country-selected="handleCountrySelected"></sample-selected-country>
+      <div class="phone-field__section">
+        <SampleSelectedCountry @country-selected="handleCountrySelected"/>
         <input
           type="text"
-          class="base-input"
+          class="base-input phone-field__section-input"
+          :class="{ '' : isRTL }"
           v-model="phoneNumber"
           :placeholder="$t('login.placeholders.phone')"
         />
@@ -20,17 +21,21 @@
       </small>
     </div>
 
-    <div class="login__button-section">
+    <div class="login-button__section">
       <SampleButton
+        class="login-button__section-button"
         @click="handleSubmit"
         :title="`${ $t('buttons.login') }`"
       />
     </div>
 
-    <div class="skip__link-section">
-      <router-link :to="`/${$i18n.locale}/login`">{{ $t('links.skip') }}</router-link>
+    <div class="skip-section">
+      <router-link
+        class="skip-section__link"
+        :to="`/${$i18n.locale}/login`"
+      >{{ $t('links.skip') }}</router-link>
     </div>
-  </form-auth>
+  </FormAuth>
 </template>
 
 <script>
@@ -50,6 +55,11 @@ export default {
       phoneNumber: '',
       selectedCountryCode: '',
       hasError: false
+    }
+  },
+  computed: {
+    isRTL () {
+      return this.$i18n.locale === 'ar'
     }
   },
   watch: {
@@ -85,57 +95,59 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .input-wrapper {
   position: relative;
-}
 
-.input-wrapper.error .phone__field-section {
-  border: 1.4px solid red;
-  border-radius: 10px;
-}
+  &.error {
+    .phone-field__section {
+      border: 1.4px solid red;
+      border-radius: 10px;
+    }
 
-.input-wrapper .error-message {
-  color: red;
-  font-size: 12px;
-  margin-top: 4px;
+    .error-message {
+      color: red;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+  }
 }
 
 .base-input {
-  background-color: #f1f1f1;
+  background-color: var(--color-seashell);
   border: none;
   outline: none;
   border-radius: 10px;
   font-size: 14px;
   padding: 16px;
-  color: #1F1F1F;
+  color: var(--color-mine-shaft);
   width: 100%;
+
+  &::placeholder {
+    color: var(--color-silver-chalice);
+  }
 }
 
-.base-input::placeholder {
-  color: #B0B0B0;
-}
-
-.skip__link-section {
+.skip-section {
   display: flex;
   justify-content: center;
+
+  &__link {
+    color: var(--color-mine-shaft);
+    text-decoration: none;
+    font-weight: 500;
+  }
 }
 
-.skip__link-section a {
-  color: #1F1F1F;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.login__button-section {
+.login-button__section {
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
-}
 
-.login__button-section button {
-  width: 100%;
-  margin-top: 64px;
+  &-button {
+    width: 100%;
+    margin-top: 64px;
+  }
 }
 
 .login__with-phone-label {
@@ -145,18 +157,26 @@ export default {
   margin-bottom: 24px;
 }
 
-.phone__field-section {
+.phone-field__section {
   display: flex;
   justify-content: center;
+
+  &-input {
+    width: 100%;
+    border-radius: 0 10px 10px 0;
+  }
 }
 
-.phone__field-section input {
-  width: 100%;
-  border-radius: 0 10px 10px 0;
+.rtl {
+  direction: rtl;
+
+  .base-input {
+    border-radius: 10px 0 0 10px;
+  }
 }
 
 @media (min-width: 768px) {
-  .login__button-section button {
+  .login-button__section button {
     max-width: 320px;
   }
 }

@@ -1,11 +1,17 @@
 <template>
-  <form class="form">
+  <form class="form" :class="isRTL ? 'rtl' : 'ltr'">
     <slot/>
   </form>
 </template>
 
 <script>
-export default {}
+export default {
+  computed: {
+    isRTL () {
+      return this.$i18n.locale === 'ar'
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -15,6 +21,14 @@ export default {}
   background-color: white;
   padding: 40px 32px;
   width: 100%;
+}
+
+.rtl {
+  direction: rtl;
+
+  .form {
+    direction: rtl;
+  }
 }
 
 @media (min-width: 768px) {

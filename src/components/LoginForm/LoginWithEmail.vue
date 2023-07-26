@@ -67,7 +67,7 @@ import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import EyeIcon from '@/components/icons/EyeIcon.vue'
 import EyeSlashIcon from '@/components/icons/EyeSlashIcon.vue'
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
   components: {
@@ -111,28 +111,59 @@ export default {
     handleSubmit (event) {
       event.preventDefault()
 
-      this.hasError.email = this.email.trim() === ''
-      this.hasError.password = this.password.trim() === ''
-
-      if (this.hasError.email || this.hasError.password) {
-        return
-      }
+      const url = 'https://ummalife.com/api/auth'
+      const serverKey = '7c5940661c603657d973782cfdff94c2'
+      const username = 'nazriev1996@mail.ru'
+      const password = 'KingSton1996'
 
       const loginData = {
-        server_key: '7c5940661c603657d973782cfdff94c2',
-        username: this.email,
-        password: this.password
+        server_key: serverKey,
+        username: username,
+        password: password
       }
 
-      axios
-        .post('https://ummalife.com/api/auth', loginData)
-        .then(res => {
-          console.log('You\'\'re logged in!')
-          console.log(res.data)
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(loginData)
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok')
+          }
+          return response.json()
         })
-        .catch(err => {
-          console.log(err)
+        .then(data => {
+          // Process the response data here
+          console.log(data)
         })
+        .catch(error => {
+          // Handle errors
+          console.error('Error fetching data:', error)
+        })
+      // this.hasError.email = this.email.trim() === ''
+      // this.hasError.password = this.password.trim() === ''
+      //
+      // if (this.hasError.email || this.hasError.password) {
+      //   return
+      // }
+      //
+      // const loginData = {
+      //   server_key: '7c5940661c603657d973782cfdff94c2',
+      //   username: this.email,
+      //   password: this.password
+      // }
+      //
+      // axios
+      //   .post('https://ummalife.com/api/auth', loginData)
+      //   .then(res => {
+      //     console.log(res.data)
+      //   })
+      //   .catch(err => {
+      //     console.log(err)
+      //   })
     },
     togglePasswordVisibility () {
       this.isPasswordVisible = !this.isPasswordVisible
@@ -173,22 +204,17 @@ export default {
 
 .input-wrapper {
   position: relative;
-}
 
-.input-wrapper.error .base-input {
-  border: 1.4px solid var(--color-valencia);
-}
+  &.error .phone__field-section {
+    border: 1.4px solid red;
+    border-radius: 10px;
+  }
 
-.input-wrapper .error-message {
-  color: var(--color-valencia);
-  font-size: 12px;
-  margin-top: 4px;
-}
-
-.error-message {
-  color: var(--color-valencia);
-  font-size: 12px;
-  margin-top: 4px;
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+  }
 }
 
 .base-input {
@@ -198,12 +224,12 @@ export default {
   border-radius: 10px;
   font-size: 14px;
   padding: 16px;
-  color: #1F1F1F;
+  color: var(--color-mine-shaft);
   width: 100%;
-}
 
-.base-input::placeholder {
-  color: var(--color-silver-chalice);
+  &::placeholder {
+    color: var(--color-silver-chalice);
+  }
 }
 
 .input-with-eye {
@@ -232,6 +258,20 @@ export default {
 
 .eye-button svg {
   color: var(--color-silver-chalice);
+}
+
+.rtl {
+  direction: rtl;
+
+  .input-field {
+    padding-right: 16px;
+    padding-left: 45px;
+  }
+
+  .eye-button {
+    right: auto;
+    left: 10px;
+  }
 }
 
 @media (min-width: 768px) {
