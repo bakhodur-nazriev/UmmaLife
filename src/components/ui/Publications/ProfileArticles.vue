@@ -2,9 +2,9 @@
   <div class="profile__article">
     <ArticleTab :isMenuOpen="isMenuOpen" @toggleMenu="isMenuOpen = !isMenuOpen" />
       <div class="profile__article--bottom">
-        <post-reactions class="profile-reactions" />
-        <sample-divider class="profile-divider"   />
-        <post-footer
+        <PostReactions class="profile-reactions" />
+        <SampleDivider class="profile-divider" />
+        <PostFooter
           :is-reaction-window-open="isReactionWindowOpen"
           :is-share-window-open="isShareWindowOpen"
         />
@@ -14,7 +14,7 @@
 
 <script>
 import ArticleTab from '@/components/ui/Publications/ArticleTab.vue'
-import PostFooter from '@/components/ui/Post/PostFooter.vue'
+import PostFooter from '@/components/ui/Publications/Post/PostFooter.vue'
 import PostReactions from '@/components/ui/Post/PostReactions.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
 

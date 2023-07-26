@@ -1,19 +1,19 @@
 <template>
   <div class="layout">
-    <locales-dropdown class="layout__locales"/>
-    <main-logo class="layout__logo"/>
+    <LocalesDropdown class="layout__locales"/>
+    <MainLogo class="layout__logo"/>
 
     <div class="layout__inner">
       <slot></slot>
     </div>
 
-    <footer-auth :class="isTRL ? 'rtl' : ''" class="layout__footer"/>
+    <FooterAuth :class="isTRL ? 'rtl' : ''" class="layout__footer"/>
   </div>
 </template>
 
 <script>
 import LocalesDropdown from '@/components/ui/LocalesDropdown.vue'
-import MainLogo from '@/components/ui/MainLogo.vue'
+import MainLogo from '@/components/ui/Logo/AuthPagesMainLogo.vue'
 import FooterAuth from '@/components/layouts/FooterAuth.vue'
 
 export default {

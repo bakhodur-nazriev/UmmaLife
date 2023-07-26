@@ -44,21 +44,36 @@
         </div>
       </div>
     </nav>
+
     <nav class="small-nav">
       <div class="top__nav">
         <ul class="top__nav--list">
-          <li class="top__nav--item"><LoupeIcon/></li>
-          <li class="top__nav--item"><SunnyIcon/></li>
-          <li class="top__nav--item"><SunnyIcon/></li>
-          <li class="top__nav--item"><SmallMenuIcon/></li>
+          <li class="top__nav--left-item">
+            <router-link to=""><SmallLogo /></router-link>
+          </li>
+
+          <li class="top__nav--right-item">
+            <LoupeIcon/>
+          </li>
+          <li class="top__nav--right-item">
+            <SmallMenuIcon/>
+          </li>
         </ul>
       </div>
       <div class="bottom__nav">
         <ul class="bottom__nav--list">
-          <li class="bottom__nav--item"><NewsIcon/></li>
-          <li class="bottom__nav--item"><MessagesIcon/></li>
-          <li class="bottom__nav--item"><MessagesIcon/></li>
-          <li class="bottom__nav--item"><MyPageIcon/></li>
+          <li class="bottom__nav--item">
+            <router-link to="to"><NewsIcon/></router-link>
+          </li>
+          <li class="bottom__nav--item">
+            <router-link to=""><MessagesIcon/></router-link>
+          </li>
+          <li class="bottom__nav--item">
+            <router-link to=""><BellIcon/></router-link>
+          </li>
+          <li class="bottom__nav--item">
+            <router-link to=""><MyPageIcon/></router-link>
+          </li>
         </ul>
       </div>
     </nav>
@@ -68,7 +83,7 @@
 <script>
 import SearchInput from '@/components/ui/SearchInput.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
-import MainPageLogo from '@/components/ui/MainPageLogo.vue'
+import MainPageLogo from '@/components/ui/Logo/MainPageLogo.vue'
 import MenuIcon from '@/components/icons/MenuIcon.vue'
 import MusicIcon from '@/components/icons/MusicIcon.vue'
 import EmailIcon from '@/components/icons/EmailIcon.vue'
@@ -76,19 +91,21 @@ import NotificationIcon from '@/components/icons/NotificationIcon.vue'
 import SettingIcon from '@/components/icons/SettingIcon.vue'
 import ArrowIcon from '@/components/icons/ArrowIcon.vue'
 import LoupeIcon from '@/components/icons/navbar/small-display/LoupeIcon.vue'
-import SunnyIcon from '@/components/icons/navbar/small-display/SunnyIcon.vue'
 import NewsIcon from '@/components/icons/navbar/small-display/NewsIcon.vue'
 import MessagesIcon from '@/components/icons/navbar/small-display/MessagesIcon.vue'
 import SmallMenuIcon from '@/components/icons/navbar/small-display/MenuIcon.vue'
 import MyPageIcon from '@/components/icons/navbar/small-display/MyPageIcon.vue'
+import SmallLogo from '@/components/ui/Logo/SmallPageLogo.vue'
+import BellIcon from '@/components/icons/navbar/small-display/BellIcon.vue'
 
 export default {
   components: {
+    BellIcon,
+    SmallLogo,
     MenuIcon,
     MyPageIcon,
     MessagesIcon,
     NewsIcon,
-    SunnyIcon,
     LoupeIcon,
     ArrowIcon,
     SettingIcon,
@@ -114,6 +131,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.bottom__nav--item {
+  a {
+    display: flex;
+    align-items: center;
+  }
+}
+
 .small-nav {
   display: none;
 }
@@ -212,15 +236,16 @@ export default {
   right: 0;
 }
 
-@media (max-width: 767px) {
-  .bottom__nav,
-  .top__nav {}
+.top__nav--right-item {
+  display: flex;
+}
 
+@media (max-width: 767px) {
   .top__nav--list {
-    box-shadow: 0 2px 3px rgba(141, 152, 180, 0.30);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
     position: fixed;
     top: 0;
     height: 64px;
@@ -228,7 +253,12 @@ export default {
     list-style: none;
     padding: 0 32px;
     background-color: var(--color-white);
+    box-shadow: 0 2px 3px rgba(141, 152, 180, 0.30);
     margin: 0;
+  }
+
+  .top__nav--left-item {
+    margin-right: auto;
   }
 
   .bottom__nav--list {
@@ -246,7 +276,6 @@ export default {
     margin: 0;
   }
 
-  .top__nav--item,
   .bottom__nav--item {
     display: flex;
   }

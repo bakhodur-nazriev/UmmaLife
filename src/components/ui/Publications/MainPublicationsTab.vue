@@ -1,9 +1,6 @@
 <template>
   <div class="tabs">
     <div class="tabs-header">
-      <div class="tabs-header__label">
-        <span class="tabs-header__label-title">{{ $t('tabs.publications_inside.publications') }}</span>
-      </div>
       <div
         v-for="(tab, index) in tabs"
         :key="index"
@@ -20,27 +17,30 @@
         :key="index"
         v-show="activeTab === index"
       >
-        <ArticleContent v-if="index === 0"/>
-        <PhotoContent v-if="index === 1"/>
-        <VideoContent v-if="index === 2"/>
-        <AudioContent v-if="index === 3" />
+        <PublicationTab v-if="index === 0" />
+        <ArticleTab v-if="index === 1"/>
+        <PhotoTab v-if="index === 2"/>
+        <VideoTab v-if="index === 3"/>
+        <AudioTab v-if="index === 4" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ArticleContent from '@/components/ui/Publications/ArticleTab.vue'
-import PhotoContent from '@/components/ui/Publications/PhotoTab.vue'
-import VideoContent from '@/components/ui/Publications/VideoTab.vue'
-import AudioContent from '@/components/ui/Publications/AudioTab.vue'
+import PublicationTab from '@/components/ui/Publications/PublicationTab.vue'
+import ArticleTab from '@/components/ui/Publications/ArticleTab.vue'
+import PhotoTab from '@/components/ui/Publications/PhotoTab.vue'
+import VideoTab from '@/components/ui/Publications/VideoTab.vue'
+import AudioTab from '@/components/ui/Publications/AudioTab.vue'
 
 export default {
   components: {
-    AudioContent,
-    VideoContent,
-    PhotoContent,
-    ArticleContent
+    PublicationTab,
+    AudioTab,
+    VideoTab,
+    PhotoTab,
+    ArticleTab
   },
   props: {
     tabsArray: {

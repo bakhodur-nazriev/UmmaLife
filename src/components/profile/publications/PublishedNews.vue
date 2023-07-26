@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import PublicationsContent from '@/components/ui/Publications/PublicationsContent.vue'
+import PublicationsContent from '@/components/ui/Publications/Publication/PublicationContent.vue'
 
 export default {
   components: { PublicationsContent }
