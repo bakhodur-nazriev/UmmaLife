@@ -310,6 +310,7 @@
   },
   "chat": {
     "placeholder": "Write your message",
-    "send": "Send"
+    "send": "Send",
+    "empty_room": "Choose who you'd like to write to"
   }
 }

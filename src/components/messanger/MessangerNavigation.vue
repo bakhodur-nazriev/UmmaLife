@@ -7,7 +7,7 @@
       </button>
     </div>
     <ul class="navigation__menu">
-      <ChatUser v-for="i in 12" :key="i" />
+      <ChatUser v-for="user in users" :user="user" :key="user.id" @clickUserHandler="clickUserHandler" />
     </ul>
   </div>
 </template>
@@ -17,7 +17,16 @@ import SearchInput from '@/components/ui/SearchInput.vue'
 import AddUserIcon from '@/components/icons/AddUserIcon.vue'
 import ChatUser from '@/components/messanger/ChatUser.vue'
 export default {
-  components: { SearchInput, AddUserIcon, ChatUser }
+  components: { SearchInput, AddUserIcon, ChatUser },
+  props: {
+    users: Array
+  },
+  emits: ['clickUserHandler'],
+  methods: {
+    clickUserHandler (user) {
+      this.$emit('clickUserHandler', user)
+    }
+  }
 }
 </script>
 
@@ -25,7 +34,7 @@ export default {
 .navigation{
   border-radius: 20px;
   background: var(--color-white);
-  overflow-y: auto;
+  overflow-y: scroll;
   &::-webkit-scrollbar {
     width: 0;
   }

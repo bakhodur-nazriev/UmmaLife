@@ -2,8 +2,8 @@
   <main-layout>
     <div class="messanger">
       <div class="messanger__wrapper">
-        <MessangerNavigation />
-        <ChatRooms />
+        <MessangerNavigation :users="users" @clickUserHandler="clickUserHandler" />
+        <ChatRooms :user="user" @openMenu="openMenu" />
       </div>
     </div>
   </main-layout>
@@ -13,10 +13,21 @@
 import MainLayout from '@/components/layouts/MainLayout.vue'
 import MessangerNavigation from '@/components/messanger/MessangerNavigation.vue'
 import ChatRooms from '@/components/messanger/ChatRooms.vue'
+import { users } from '@/dummy.js'
 
 export default {
-  components: { MainLayout, MessangerNavigation, ChatRooms }
-
+  components: { MainLayout, MessangerNavigation, ChatRooms },
+  data () {
+    return {
+      users,
+      user: null
+    }
+  },
+  methods: {
+    clickUserHandler (user) {
+      this.user = user
+    }
+  }
 }
 </script>
 

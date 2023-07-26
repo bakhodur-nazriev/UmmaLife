@@ -1,19 +1,47 @@
 <template>
-  <li class="list">
+  <li class="list" :class="{active: isActive}" @click="clickOutsideHandler(user)">
     <div class="list__img">
-      <img src="@/assets/images/Article_Author.png" alt="author">
+      <img :src="user.image" :alt="user.name">
     </div>
     <div class="list__info">
       <div class="list__info--top">
-        <div class="list__info--name">Josef Kostenko</div>
-        <div class="list__info--date">15 минут назад</div>
+        <div class="list__info--name">{{ user.name }}</div>
+        <div class="list__info--date">{{ user.last_seen }}</div>
       </div>
       <div class="list__info--text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dconsectetur adipiscing elit
+        {{ user.messages[user.messages.length - 1].message }}
       </div>
     </div>
   </li>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      isActive: false
+    }
+  },
+  props: {
+    user: Object
+  },
+  emits: ['clickUserHandler'],
+  methods: {
+    clickOutsideHandler (user) {
+      this.removeActiveClasses()
+      this.$emit('clickUserHandler', user)
+      setTimeout(() => {
+        this.isActive = true
+      }, 0)
+    },
+    removeActiveClasses () {
+      this.isActive = false
+      const links = document.querySelectorAll('.navigation__menu .list')
+      links.forEach(link => link.classList.remove('active'))
+    }
+  }
+}
+</script>
 
 <style scoped lang="scss">
 .list{
@@ -50,6 +78,7 @@
       display: flex;
       gap: 10px;
       margin-bottom: 8px;
+      justify-content: space-between;
     }
     &--name{
       width: calc(100% - 112px);

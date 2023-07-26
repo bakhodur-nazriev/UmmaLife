@@ -1,24 +1,44 @@
 <template>
-  <div class="message" :class="state">
+  <div class="message" :class="state" @contextmenu.prevent="openMenu">
     <div class="message__text">
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum dicta temporibus tenetur perspiciatis cum, inventore officia unde assumenda explicabo. Corporis iste deserunt quibusdam autem dolore non sint aliquid adipisci dicta?
+      {{ message }}
     </div>
     <div class="message__bottom">
       <span>15:52</span>
       <double-check-icon v-if="state === 'send'" />
     </div>
+    <MessageDropdown class="messanger-dropdown" :class="state" v-show="isMenuOpen" @handleClickOutside="isMenuOpen = false" />
   </div>
 </template>
 
 <script>
 import DoubleCheckIcon from '@/components/icons/DoubleCheckIcon.vue'
+import MessageDropdown from '@/components/messanger/dropdowns/MessageDropdown.vue'
 export default {
-  components: { DoubleCheckIcon },
+  components: { DoubleCheckIcon, MessageDropdown },
   props: {
     state: {
       type: String,
       validator: (value) => ['send', 'recieve'].includes(value),
       default: () => 'send'
+    },
+    message: String
+  },
+  data () {
+    return {
+      isMenuOpen: false
+    }
+  },
+  methods: {
+    openMenu () {
+      this.closeOtherMenus()
+      this.isMenuOpen = true
+    },
+    closeOtherMenus () {
+      const dropdowns = document.querySelectorAll('.messanger-dropdown')
+      dropdowns.forEach(element => {
+        element.style.display = 'none'
+      })
     }
   }
 }

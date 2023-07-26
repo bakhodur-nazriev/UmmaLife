@@ -9,6 +9,8 @@
     "i18n:report": "vue-cli-service i18n:report --src \"./src/**/*.?(js|vue)\" --locales \"./src/locales/**/*.json\""
   },
   "dependencies": {
+    "@vueuse/components": "^10.2.1",
+    "@vueuse/core": "^10.2.1",
     "animate.css": "^4.1.1",
     "axios": "^1.4.0",
     "core-js": "^3.8.3",
