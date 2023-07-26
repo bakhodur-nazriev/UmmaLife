@@ -21,7 +21,7 @@ jobs:
           script: |
             cd ${{ env.DEV_REMOTE_PROJECT_DIR }}
             git reset --hard origin/dev
-            git pull origin dev }}
+            git pull origin dev
 
       - name: Rebuild project
         uses: appleboy/ssh-action@master
