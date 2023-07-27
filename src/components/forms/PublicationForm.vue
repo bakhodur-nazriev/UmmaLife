@@ -434,7 +434,7 @@ export default {
     addedAudioItems: [],
     showPlayingSection: false,
     showListeningSection: false,
-    showAudioSection: true,
+    showAudioSection: false,
     showPollModal: false,
     showMoodSection: false,
     showTravelingSection: false,

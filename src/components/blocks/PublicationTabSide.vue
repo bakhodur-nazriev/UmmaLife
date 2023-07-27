@@ -23,7 +23,7 @@
       <div class="group__section">
         <div class="group__right--side" v-for="(group, index) in recommendedGroups" :key="index">
           <router-link class="group__link" to="#">
-            <img src="../../assets/images/Ellipse.png" alt="">
+            <img src="@/assets/images/Ellipse.png" alt="">
             <div class="group__info">
               <span>{{ group.name }}</span>
               <small>{{ group.members }}</small>

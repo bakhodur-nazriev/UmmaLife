@@ -46,6 +46,12 @@ export default {
   overflow-y: auto;
 }
 
+@media (max-width: 576px) {
+  .main__container {
+    margin-top: 67px;
+  }
+}
+
 @media (max-width: 767px) {
   .main__sidebar {
     display: none;
@@ -55,6 +61,10 @@ export default {
 @media (min-width: 1200px) {
   .main__sidebar {
     display: flex;
+  }
+
+  .main__container {
+    margin-top: 80px;
   }
 }
 </style>
