@@ -186,14 +186,12 @@ export default {
 }
 
 @media (min-width: 768px) {
-  .aside__publications {
-    width: 100%;
-  }
+  .aside__publications {}
 }
 
 @media (min-width: 1280px) {
   .aside__publications {
-    width: 350px;
+    min-width: 350px;
   }
 
   .person__right--side button,

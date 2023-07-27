@@ -88,12 +88,8 @@
 
         <div class="emotions__buttons--main--section" v-if="showMoodSection">
           <div class="emotions__input--section">
-            <span @click="backToMoodSection" class="emotion__label">{{
-              $t("labels.feeling.mood.title")
-            }}</span>
-            <span class="emotion__input">{{
-              $t("labels.feeling.mood.placeholder")
-            }}</span>
+            <span @click="backToMoodSection" class="emotion__label">{{ $t("labels.feeling.mood.title") }}</span>
+            <span class="emotion__input">{{ $t("labels.feeling.mood.placeholder") }}</span>
           </div>
 
           <div class="emotions__section--buttons">
@@ -227,9 +223,7 @@
         </div>
 
         <div class="emotions__input--section" v-if="showTravelingSection">
-          <span @click="backToMoodSection" class="emotion__label">{{
-            $t("labels.feeling.traveling.title")
-          }}</span>
+          <span @click="backToMoodSection" class="emotion__label">{{ $t("labels.feeling.traveling.title") }}</span>
           <input
             class="emotion__input"
             :placeholder="`${$t('labels.feeling.traveling.placeholder')}`"
@@ -237,9 +231,7 @@
         </div>
 
         <div class="emotions__input--section" v-if="showWatchingSection">
-          <span @click="backToMoodSection" class="emotion__label">{{
-            $t("labels.feeling.watching.title")
-          }}</span>
+          <span @click="backToMoodSection" class="emotion__label">{{ $t("labels.feeling.watching.title") }}</span>
           <input
             class="emotion__input"
             :placeholder="`${$t('labels.feeling.watching.placeholder')}`"
@@ -247,9 +239,7 @@
         </div>
 
         <div class="emotions__input--section" v-if="showPlayingSection">
-          <span @click="backToMoodSection" class="emotion__label">{{
-            $t("labels.feeling.playing.title")
-          }}</span>
+          <span @click="backToMoodSection" class="emotion__label">{{ $t("labels.feeling.playing.title") }}</span>
           <input
             class="emotion__input"
             :placeholder="`${$t('labels.feeling.playing.placeholder')}`"
@@ -257,9 +247,7 @@
         </div>
 
         <div class="emotions__input--section" v-if="showListeningSection">
-          <span @click="backToMoodSection" class="emotion__label">{{
-            $t("labels.feeling.listening.title")
-          }}</span>
+          <span @click="backToMoodSection" class="emotion__label">{{ $t("labels.feeling.listening.title") }}</span>
           <input
             class="emotion__input"
             :placeholder="`${$t('labels.feeling.listening.placeholder')}`"
@@ -393,13 +381,14 @@ import HappyIcon from '@/components/icons/emotions/HappyIcon.vue'
 import InLoveIcon from '@/components/icons/emotions/InLoveIcon.vue'
 import OutragedIcon from '@/components/icons/emotions/OutragedIcon.vue'
 import CelebrateIcon from '@/components/icons/emotions/CelebrateIcon.vue'
-import AccessDropDown from '@/components/ui/Post/AccessDropDown.vue'
+import AccessDropDown from '@/components/ui/Publications/Post/AccessDropDown.vue'
 import PollIcon from '@/components/icons/news/PollIcon.vue'
 import SmileIcon from '@/components/icons/news/SmileIcon.vue'
 import PollModal from '@/components/modals/PollModal.vue'
 import MapIcon from '@/components/icons/MapIcon.vue'
 import CinemaIcon from '@/components/icons/CinemaIcon.vue'
 import GamingIcon from '@/components/icons/GamingIcon.vue'
+import SampleButton from '@/components/ui/SampleButton.vue'
 
 export default {
   components: {
@@ -436,7 +425,8 @@ export default {
     InLoveIcon,
     OutragedIcon,
     CelebrateIcon,
-    AccessDropDown
+    AccessDropDown,
+    SampleButton
   },
   data: () => ({
     isTextAreaActive: false,

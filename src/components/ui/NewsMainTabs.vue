@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <transition name="fade">
+    <Transition name="fade">
       <div class="tabs__content">
         <div
           v-for="(tab, index) in tabs"
@@ -23,7 +23,7 @@
           <TabUmmaVideo v-if="index === 2" />
         </div>
       </div>
-    </transition>
+    </Transition>
   </div>
 </template>
 
@@ -120,8 +120,14 @@ export default {
 }
 
 .tabs__content {
+  display: flex;
+  justify-content: center;
   width: 100%;
   padding: 24px;
+
+  :last-child {
+
+  }
 }
 
 @media (min-width: 768px) {}

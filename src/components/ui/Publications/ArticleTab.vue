@@ -58,7 +58,7 @@ export default {
   &__article {
     display: flex;
     flex-direction: column;
-    padding: 24px;
+    padding: 24px 24px 10px;
     border-radius: 15px;
     row-gap: 8px;
     background-color: var(--color-white);
