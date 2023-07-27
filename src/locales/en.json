@@ -308,5 +308,10 @@
     "umma_shorts": "Umma Shorts",
     "audio": "Audio",
     "posts": "Posts"
+  },
+  "chat": {
+    "placeholder": "Write your message",
+    "send": "Send",
+    "empty_room": "Choose who you'd like to write to"
   }
 }
