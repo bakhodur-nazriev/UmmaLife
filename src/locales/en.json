@@ -292,7 +292,12 @@
   },
   "dropdown": {
     "reply_answer": "View answers",
-    "download_comment": "Load more"
+    "download_comment": "Load more",
+    "delete_dialog": "Delete dialog",
+    "answer": "Reply",
+    "change": "Edit",
+    "copy_text": "Copy Text",
+    "select": "Select"
   },
   "profile": {
     "edit": "Edit profile",
@@ -313,5 +318,11 @@
     "placeholder": "Write your message",
     "send": "Send",
     "empty_room": "Choose who you'd like to write to"
+  },
+  "modal": {
+    "delete_message": "Delete message",
+    "sure_delete_message": "Are you sure you want to delete the message?",
+    "also_delete_from": "Also remove from",
+    "cancel_delete": "Cancel"
   }
 }

@@ -3,7 +3,7 @@
     <div class="messanger">
       <div class="messanger__wrapper">
         <MessangerNavigation :users="users" @clickUserHandler="clickUserHandler" />
-        <ChatRooms :user="user" @openMenu="openMenu" />
+        <ChatRooms :user="user" @submitHandler="submitHandler" />
       </div>
     </div>
   </main-layout>
@@ -17,27 +17,32 @@ import { users } from '@/dummy.js'
 
 export default {
   components: { MainLayout, MessangerNavigation, ChatRooms },
-  data () {
+  data() {
     return {
       users,
       user: null
     }
   },
   methods: {
-    clickUserHandler (user) {
+    clickUserHandler(user) {
       this.user = user
+    },
+    submitHandler({ value, user }) {
+      const index = this.users.findIndex((u) => u.id === user.id)
+
+      this.users[index].messages.push({ id: Date.now(), message: value, state: 'send' })
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-.messanger{
+.messanger {
   max-width: 1651px;
   width: 100%;
   padding: 16px;
   height: 100%;
-  &__wrapper{
+  &__wrapper {
     display: grid;
     gap: 16px;
     grid-template-columns: 480px 1fr;

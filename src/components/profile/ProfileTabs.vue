@@ -4,7 +4,7 @@
       <div
         v-for="(tab, index) in tabs"
         :key="index"
-        :class="['tabs__header-item', { 'active': activeTab === index }]"
+        :class="['tabs__header-item', { active: activeTab === index }]"
         @click="changeTab(index)"
       >
         {{ tab }}
@@ -39,7 +39,7 @@ export default {
     activeTab: 0
   }),
   methods: {
-    changeTab (index) {
+    changeTab(index) {
       this.activeTab = index
       this.$emit('changeTab', this.activeTab)
     }
@@ -91,7 +91,7 @@ export default {
 }
 
 .tabs__header-item.active::after {
-  content: "";
+  content: '';
   position: absolute;
   width: 100%;
   height: 2px;

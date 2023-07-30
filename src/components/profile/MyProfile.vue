@@ -2,9 +2,9 @@
   <div class="profile">
     <div class="profile__top">
       <div class="profile__top--img">
-        <img src="@/assets/images/ProfilePic.png" alt="Article_Author">
+        <img src="@/assets/images/ProfilePic.png" alt="Article_Author" />
         <button class="profile__top--camera">
-          <img src="@/assets/images/camera.svg" alt="camera">
+          <img src="@/assets/images/camera.svg" alt="camera" />
         </button>
       </div>
       <div class="profile__top--info">
@@ -45,7 +45,11 @@
     <div class="profile__block profile__about">
       <div class="profile__about--title">{{ $t('profile.about') }}</div>
       <div class="profile__about--text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </div>
     </div>
     <ul class="profile__stats">
@@ -86,17 +90,17 @@ import LinkIcon from '@/components/icons/profile/LinkIcon.vue'
 </script>
 
 <style lang="scss" scoped>
-.profile{
+.profile {
   padding: 16px;
   border-radius: 20px;
   background-color: var(--color-white);
   height: fit-content;
-  &__top{
+  &__top {
     display: flex;
     align-items: center;
     gap: 15px;
     margin-bottom: 16px;
-    &--img{
+    &--img {
       width: 100px;
       height: 100px;
       position: relative;
@@ -110,7 +114,7 @@ import LinkIcon from '@/components/icons/profile/LinkIcon.vue'
         object-position: center;
       }
     }
-    &--camera{
+    &--camera {
       position: absolute;
       bottom: 0;
       right: 0;
@@ -130,19 +134,19 @@ import LinkIcon from '@/components/icons/profile/LinkIcon.vue'
         height: 18px;
       }
     }
-    &--info{
+    &--info {
       display: flex;
       flex-direction: column;
       gap: 8px;
     }
-    &--name{
+    &--name {
       color: var(--color-mine-shaft);
       font-size: 24px;
       font-style: normal;
       font-weight: 550;
       line-height: normal;
     }
-    &--account{
+    &--account {
       color: var(--color-deep-cerulean);
       font-size: 14px;
       font-style: normal;
@@ -150,7 +154,7 @@ import LinkIcon from '@/components/icons/profile/LinkIcon.vue'
       line-height: normal;
     }
 
-    &-list{
+    &-list {
       list-style: none;
       margin: 0;
       padding: 0;
@@ -158,7 +162,7 @@ import LinkIcon from '@/components/icons/profile/LinkIcon.vue'
         display: flex;
         align-items: center;
         gap: 8px;
-        &:not(:last-child){
+        &:not(:last-child) {
           margin-bottom: 16px;
         }
         svg {
@@ -183,7 +187,7 @@ import LinkIcon from '@/components/icons/profile/LinkIcon.vue'
       }
     }
   }
-  &__edit{
+  &__edit {
     width: 100%;
     color: var(--color-silver-chalice);
     padding: 14px 14px 12px;
@@ -197,13 +201,13 @@ import LinkIcon from '@/components/icons/profile/LinkIcon.vue'
     line-height: normal;
     margin-bottom: 24px;
   }
-  &__block{
-    border-top: 1px solid var( --color-seashell);
+  &__block {
+    border-top: 1px solid var(--color-seashell);
     padding: 24px 0 24px;
   }
-  &__about{
-    border-bottom: 1px solid var( --color-seashell);
-    &--title{
+  &__about {
+    border-bottom: 1px solid var(--color-seashell);
+    &--title {
       font-size: 16px;
       font-style: normal;
       font-weight: 400;
@@ -211,7 +215,7 @@ import LinkIcon from '@/components/icons/profile/LinkIcon.vue'
       color: var(--color-silver-chalice);
       margin-bottom: 16px;
     }
-    &--text{
+    &--text {
       font-size: 16px;
       font-style: normal;
       font-weight: 400;
@@ -219,7 +223,7 @@ import LinkIcon from '@/components/icons/profile/LinkIcon.vue'
       color: var(--color-mine-shaft);
     }
   }
-  &__stats{
+  &__stats {
     list-style: none;
     padding: 24px 0 12px;
     margin: 0;
@@ -227,7 +231,7 @@ import LinkIcon from '@/components/icons/profile/LinkIcon.vue'
       display: flex;
       align-items: center;
       gap: 16px;
-      &:not(:last-child){
+      &:not(:last-child) {
         margin-bottom: 24px;
       }
       span {
@@ -238,7 +242,7 @@ import LinkIcon from '@/components/icons/profile/LinkIcon.vue'
         line-height: normal;
         color: var(--color-silver-chalice);
       }
-      p{
+      p {
         margin: 0;
         padding: 0;
         font-size: 16px;
@@ -247,7 +251,6 @@ import LinkIcon from '@/components/icons/profile/LinkIcon.vue'
         line-height: normal;
         color: var(--color-mine-shaft);
       }
-
     }
   }
 }

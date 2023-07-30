@@ -1,7 +1,7 @@
 <template>
   <div class="posts">
     <PublicationForm />
-    <ProfileTabs :tabs="tabLabels" @changeTab="(index) => selectedIndex = index">
+    <ProfileTabs :tabs="tabLabels" @changeTab="(index) => (selectedIndex = index)">
       <ProfilePublications v-if="selectedIndex === 0" />
       <ProfileUmmaShorts v-else-if="selectedIndex === 1" />
       <ProfileUmmaVideo v-else-if="selectedIndex === 2" />
@@ -34,7 +34,7 @@ export default {
     selectedIndex: 0
   }),
   computed: {
-    tabLabels () {
+    tabLabels() {
       return [
         this.$t('tabs.my_page.publications'),
         this.$t('tabs.my_page.umma_shorts'),
@@ -48,7 +48,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.posts{
+.posts {
   display: flex;
   flex-direction: column;
   gap: 7px;

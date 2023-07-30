@@ -7,7 +7,12 @@
       </button>
     </div>
     <ul class="navigation__menu">
-      <ChatUser v-for="user in users" :user="user" :key="user.id" @clickUserHandler="clickUserHandler" />
+      <ChatUser
+        v-for="user in users"
+        :user="user"
+        :key="user.id"
+        @clickUserHandler="clickUserHandler"
+      />
     </ul>
   </div>
 </template>
@@ -23,7 +28,7 @@ export default {
   },
   emits: ['clickUserHandler'],
   methods: {
-    clickUserHandler (user) {
+    clickUserHandler(user) {
       this.$emit('clickUserHandler', user)
     }
   }
@@ -31,25 +36,25 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.navigation{
+.navigation {
   border-radius: 20px;
   background: var(--color-white);
   overflow-y: scroll;
   &::-webkit-scrollbar {
     width: 0;
   }
-  &__top{
+  &__top {
     width: 100%;
     padding: 16px;
     display: flex;
     gap: 16px;
     position: sticky;
-    top: 0 ;
+    top: 0;
     left: 0;
     background-color: var(--color-white);
     border-radius: 20px 20px 0 0;
   }
-  &__add{
+  &__add {
     width: 48px;
     height: 48px;
     border-radius: 50%;

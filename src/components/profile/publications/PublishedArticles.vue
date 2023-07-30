@@ -14,7 +14,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.articles{
+.articles {
   display: flex;
   flex-direction: column;
   gap: 8px;

@@ -8,65 +8,100 @@
           <div class="room__profile--account">{{ user.account }}</div>
         </div>
       </div>
-      <div class="room__details" @click="showText = true">
+      <div class="room__details" @click="showDeleteDropdown = true">
         <menu-details-icon />
         <delete-dropdown
-          @handleClickOutside="showText = false"
-          v-if="showText"
+          @handleClickOutside="showDeleteDropdown = false"
+          @handleDeleteChat="isDeleteModalOpen = true"
+          v-if="showDeleteDropdown"
         />
       </div>
     </div>
-    <div class="room__messages">
+    <div class="room__messages" @contextmenu.prevent="openContextMenu">
       <div class="room__messages--inner" ref="room">
         <ChatMessage
           v-for="message in user.messages"
           :state="message.state"
           :key="message.id"
           :message="message.message"
+          :data-id="message.id"
         />
       </div>
+      <ContextMenu
+        v-show="isContextMenuOpen"
+        @open="isContextMenuOpen = true"
+        @close="isContextMenuOpen = false"
+        ref="menu"
+      />
     </div>
-    <ChatRoomForm />
+    <ChatRoomForm @submitHandler="submitHandler" :value="value" @setValue="setValue" />
   </div>
   <div v-else class="room__empty">
-    <span>{{ $t("chat.empty_room") }}</span>
+    <span>{{ $t('chat.empty_room') }}</span>
   </div>
+  <teleport to="body">
+    <delete-confirm v-if="isDeleteModalOpen" :user="user" @close="isDeleteModalOpen = false" />
+  </teleport>
 </template>
 
 <script>
 import DeleteDropdown from '@/components/messanger/dropdowns/DeleteDropdown.vue'
-
 import MenuDetailsIcon from '@/components/icons/MenuDetailsIcon.vue'
 import ChatRoomForm from '@/components/messanger/ChatRoomForm.vue'
 import ChatMessage from '@/components/messanger/ChatMessage.vue'
+import ContextMenu from '@/components/messanger/dropdowns/ContextMenu.vue'
+import DeleteConfirm from '@/components/messanger/modal/DeleteConfirm.vue'
 
 export default {
   components: {
     MenuDetailsIcon,
     ChatRoomForm,
     ChatMessage,
-    DeleteDropdown
+    DeleteDropdown,
+    ContextMenu,
+    DeleteConfirm
   },
   props: {
     user: {
-      type: Object
+      type: Object,
+      default: () => ({})
     }
   },
-  data () {
+  emits: ['submitHandler'],
+  data() {
     return {
-      showText: false
+      showDeleteDropdown: false,
+      isContextMenuOpen: false,
+      isDeleteModalOpen: false,
+      value: ''
     }
   },
   watch: {
-    user () {
-      this.scrollToBottom()
+    user: {
+      handler() {
+        this.scrollToBottom()
+      },
+      deep: true
     }
   },
   methods: {
-    scrollToBottom () {
+    scrollToBottom() {
       setTimeout(() => {
         this.$refs.room.scrollIntoView({ block: 'end', inline: 'nearest' })
       }, 0)
+    },
+    openContextMenu(e) {
+      const target = e.target
+      if (target.closest('.message')) {
+        console.log('message id', Number(target.getAttribute('data-id')))
+        this.$refs.menu.open(e)
+      }
+    },
+    submitHandler(value) {
+      this.$emit('submitHandler', { value, user: this.user })
+    },
+    setValue(value) {
+      this.value = value
     }
   }
 }
@@ -142,13 +177,6 @@ export default {
     flex-grow: 1;
     overflow-y: auto;
     position: relative;
-  }
-  .message-dropdown {
-    position: absolute;
-    outline: none;
-    z-index: 10;
-    top: 0;
-    left: 0;
   }
 }
 </style>

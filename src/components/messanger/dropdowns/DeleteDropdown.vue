@@ -1,8 +1,8 @@
 <template>
   <dropdown-parent v-on-click-outside="closeDropdown" class="delete-dropdown">
-    <div class="drop__list">
+    <div class="drop__list" @click="handleDeleteChat">
       <delete-icon />
-      <span>Удалить диалог</span>
+      <span>{{ $t('dropdown.delete_dialog') }}</span>
     </div>
   </dropdown-parent>
 </template>
@@ -12,19 +12,23 @@ import DropdownParent from '@/components/messanger/dropdowns/DropdownParent.vue'
 import DeleteIcon from '@/components/icons/message/DeleteIcon.vue'
 import { vOnClickOutside } from '@vueuse/components'
 /* eslint-disable */
-const emit = defineEmits(['handleClickOutside'])
+const emit = defineEmits(['handleClickOutside', 'handleDeleteChat'])
 
 const closeDropdown = () => {
   emit('handleClickOutside')
 }
+
+const handleDeleteChat = () => {
+  emit('handleDeleteChat')
+}
 </script>
 
 <style scoped lang="scss">
-.delete-dropdown{
+.delete-dropdown {
   position: absolute;
   top: 51px;
-    right: 69px;
-  .drop__list{
+  right: 69px;
+  .drop__list {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -37,11 +41,10 @@ const closeDropdown = () => {
       line-height: normal;
     }
     svg {
-        width: 20px;
-        height: 20px;
-        display: block;
-      }
+      width: 20px;
+      height: 20px;
+      display: block;
     }
+  }
 }
-
 </style>
