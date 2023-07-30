@@ -44,11 +44,13 @@ export default {
 .main__content {
   flex-grow: 1;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 @media (max-width: 576px) {
   .main__container {
-    margin-top: 67px;
+    margin-top: 65px;
+    height: calc(100vh - 65px);
   }
 }
 

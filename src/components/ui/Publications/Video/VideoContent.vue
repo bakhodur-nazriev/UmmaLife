@@ -74,6 +74,10 @@ export default {
   position: relative;
 }
 
+.custom-video-player {
+  width: 100%;
+}
+
 .play-icon__button {
   cursor: pointer;
   position: absolute;

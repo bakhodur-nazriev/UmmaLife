@@ -141,7 +141,7 @@ svg {
 }
 
 .publication__main--block {
-  display: flex;
+  display: none;
 }
 
 .main__publications--section {

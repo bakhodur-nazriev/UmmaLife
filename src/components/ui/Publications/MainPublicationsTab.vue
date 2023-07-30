@@ -111,11 +111,11 @@ export default {
           content: "";
           position: absolute;
           width: 100%;
-          height: 2px;
+          height: 3px;
           bottom: 0;
           left: 0;
           background-color: var(--color-deep-cerulean);
-          border-radius: 1px 1px 0 0;
+          border-radius: 2px 2px 0 0;
         }
       }
     }

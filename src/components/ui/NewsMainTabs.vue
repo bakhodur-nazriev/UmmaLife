@@ -3,19 +3,20 @@
     <div class="tabs__header">
       <div
         v-for="(tab, index) in tabs"
-        :key="index"
+        :key="tab.index"
         :class="['tabs__header-item', { 'active': activeTab === index }]"
         @click="changeTab(index)"
       >
-        <span
-          class="dropdown-tab"
-          v-if="index === 0"
-          @click="openDropdown"
-        >
-          {{ tab.title }}
-          <ArrowDownIcon/>
-        </span>
-        <span v-else>{{ tab.title }}</span>
+        <div v-if="tab.index === 0">
+          <span
+            @click="openDropdown()"
+            class="dropdown-tab"
+          >
+            {{ tab.title }}
+            <ArrowDownIcon class="dropdown-tab__icon" />
+          </span>
+        </div>
+        <span v-if="tab.index !== 0">{{ tab.title }}</span>
       </div>
     </div>
 
@@ -24,9 +25,13 @@
         v-for="(tab, index) in tabs"
         :key="index"
         v-show="activeTab === index"
+        class="tabs__content--item"
       >
         <div v-if="index === 0">
-          <div class="publication-dropdown" v-if="isMobileView">
+          <div
+            class="publication-dropdown"
+            v-show="isDropdownOpen && activeTab === index"
+          >
             <TabPublicationsWithDropdown />
           </div>
           <TabPublications />
@@ -74,11 +79,23 @@ export default {
     return {
       activeTab: 0,
       tabs: [],
-      categories: []
+      categories: [],
+      isDropdownOpen: false,
+      firstTabClicked: false
     }
   },
   methods: {
+    openDropdown () {
+      if (this.activeTab === 0) {
+        if (!this.firstTabClicked) {
+          this.isDropdownOpen = !this.isDropdownOpen
+        } else {
+          this.firstTabClicked = true
+        }
+      }
+    },
     changeTab (index) {
+      this.firstTabClicked = false
       this.activeTab = index
       sessionStorage.setItem('activeTab', index.toString())
     }
@@ -95,9 +112,22 @@ export default {
       this.activeTab = parseInt(savedTab)
     }
 
-    this.tabs = this.tabsArray.map((title, index) => ({
-      title
-    }))
+    const types = ['publications', 'article', 'photo', 'video', 'audio']
+
+    this.tabs = this.tabsArray.map((title, index) => {
+      if (index === 0) {
+        const selectedType = types[this.activeTab]
+        return {
+          index,
+          title: selectedType.charAt(0).toUpperCase() + selectedType.slice(1)
+        }
+      } else {
+        return {
+          index,
+          title
+        }
+      }
+    })
   }
 }
 </script>
@@ -131,6 +161,13 @@ export default {
       margin: 0 50px;
       width: 200px;
 
+      .dropdown-tab {
+
+        &__icon {
+          display: none;
+        }
+      }
+
       &.active {
         position: relative;
         color: var(--color-mine-shaft);
@@ -142,11 +179,11 @@ export default {
           content: "";
           position: absolute;
           width: 200px;
-          height: 2px;
+          height: 3px;
           bottom: 0;
           left: 0;
           background-color: var(--color-deep-cerulean);
-          border-radius: 1px 1px 0 0;
+          border-radius: 2px 2px 0 0;
         }
       }
     }
@@ -156,7 +193,10 @@ export default {
     display: flex;
     justify-content: center;
     width: 100%;
-    padding: 24px;
+
+    &--item {
+      padding: 24px 0;
+    }
 
     .create-button__block {
       display: none;
@@ -166,28 +206,37 @@ export default {
 
 @media (max-width: 576px) {
   .tabs {
-
     &__header {
 
       &-item {
         font-size: 16px;
         font-weight: 400;
         margin: 0;
-        padding: 10px 0;
+        padding: 18px 0;
 
-        &.active::after {
-          width: 100%;
+        &.active {
+          &::after {
+            width: 100%;
+            bottom: -1px;
+          }
         }
 
         .dropdown-tab {
           display: flex;
           align-items: center;
           gap: 4px;
+          &__icon {
+            display: block;
+          }
         }
       }
     }
 
     &__content {
+      &--item {
+        padding: 0;
+      }
+
       .create-button__block {
         display: block;
         position: absolute;
@@ -197,6 +246,9 @@ export default {
         right: 20px;
 
         .create-button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
           border: none;
           outline: none;
           color: var(--color-white);
