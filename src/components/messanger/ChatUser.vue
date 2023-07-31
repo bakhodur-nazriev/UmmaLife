@@ -1,7 +1,7 @@
 <template>
-  <li class="list" :class="{active: isActive}" @click="clickOutsideHandler(user)">
+  <li class="list" :class="{ active: isActive }" @click="clickOutsideHandler(user)">
     <div class="list__img">
-      <img :src="user.image" :alt="user.name">
+      <img :src="user.image" :alt="user.name" />
     </div>
     <div class="list__info">
       <div class="list__info--top">
@@ -9,7 +9,11 @@
         <div class="list__info--date">{{ user.last_seen }}</div>
       </div>
       <div class="list__info--text">
-        {{ user.messages[user.messages.length - 1].message }}
+        {{
+          typeof user.messages[user.messages.length - 1].message === 'string'
+            ? user.messages[user.messages.length - 1].message
+            : user.messages[user.messages.length - 1].message.text
+        }}
       </div>
     </div>
   </li>
@@ -17,7 +21,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       isActive: false
     }
@@ -27,40 +31,41 @@ export default {
   },
   emits: ['clickUserHandler'],
   methods: {
-    clickOutsideHandler (user) {
+    clickOutsideHandler(user) {
       this.removeActiveClasses()
       this.$emit('clickUserHandler', user)
       setTimeout(() => {
         this.isActive = true
       }, 0)
     },
-    removeActiveClasses () {
+    removeActiveClasses() {
       this.isActive = false
       const links = document.querySelectorAll('.navigation__menu .list')
-      links.forEach(link => link.classList.remove('active'))
+      links.forEach((link) => link.classList.remove('active'))
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-.list{
+.list {
   display: flex;
   align-items: center;
   gap: 16px;
   padding: 16px;
   min-height: 104px;
   transition: all 0.3s;
+  user-select: none;
   cursor: pointer;
   &:hover,
   &.active {
     background-color: var(--color-gallery-first);
   }
-  &:first-child{
+  &:first-child {
     border-top: 1px solid var(--color-gallery-first);
   }
   border-bottom: 1px solid var(--color-gallery-first);
-  &__img{
+  &__img {
     width: 72px;
     height: 72px;
     overflow: hidden;
@@ -72,15 +77,15 @@ export default {
       object-position: center;
     }
   }
-  &__info{
+  &__info {
     width: calc(100% - 88px);
-    &--top{
+    &--top {
       display: flex;
       gap: 10px;
       margin-bottom: 8px;
       justify-content: space-between;
     }
-    &--name{
+    &--name {
       width: calc(100% - 112px);
       font-size: 16px;
       font-style: normal;
@@ -88,7 +93,7 @@ export default {
       line-height: normal;
       color: var(--color-mine-shaft);
     }
-    &--date{
+    &--date {
       font-size: 14px;
       font-style: normal;
       font-weight: 400;
@@ -96,7 +101,7 @@ export default {
       text-align: right;
       color: var(--color-silver-chalice);
     }
-    &--text{
+    &--text {
       font-size: 14px;
       font-style: normal;
       font-weight: 400;
@@ -108,6 +113,7 @@ export default {
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
+      overflow-wrap: break-word;
     }
   }
 }

@@ -24,9 +24,13 @@ export const users = [
       },
       {
         id: 4,
-        state: 'recieve',
-        message:
-          'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor, voluptas!'
+        state: 'send',
+        message: {
+          user_name: 'Jeff Bezos',
+          user_message:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse id fuga soluta suscipit, numquam dolorem optio ipsum dignissimos aliquid excepturi, iusto non maiores neque veritatis, itaque eius asperiores quam vitae?',
+          text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor, voluptas!'
+        }
       }
     ]
   },
@@ -57,8 +61,7 @@ export const users = [
       {
         id: 4,
         state: 'recieve',
-        message:
-          'Далеко-далеко за словесными горами в стране гласных и согласных'
+        message: 'Далеко-далеко за словесными горами в стране гласных и согласных'
       },
       {
         id: 5,
@@ -145,8 +148,7 @@ export const users = [
       {
         id: 4,
         state: 'recieve',
-        message:
-          'Далеко-далеко за словесными горами в стране гласных и согласных'
+        message: 'Далеко-далеко за словесными горами в стране гласных и согласных'
       },
       {
         id: 5,
@@ -278,8 +280,7 @@ export const users = [
       {
         id: 4,
         state: 'recieve',
-        message:
-          'Далеко-далеко за словесными горами в стране гласных и согласных'
+        message: 'Далеко-далеко за словесными горами в стране гласных и согласных'
       },
       {
         id: 5,

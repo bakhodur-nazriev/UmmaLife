@@ -1,7 +1,7 @@
 <script setup>
 /* eslint-disable */
 
-import CheckMarkIcon from "@/components/icons/CheckMarkIcon.vue";
+import CheckMarkIcon from '@/components/icons/CheckMarkIcon.vue'
 
 const props = defineProps({
   name: {
@@ -13,23 +13,19 @@ const props = defineProps({
     default: ''
   },
   textSize: {
-    type: String,
+    type: String
   }
 })
 </script>
 
 <template>
   <label :class="['checkbox', `checkbox__${textSize}`]">
-    <input
-      class="checkbox__input visually-hidden"
-      type="checkbox"
-      :name="name"
-    >
+    <input class="checkbox__input visually-hidden" type="checkbox" :name="name" />
     <span :class="['checkbox__icon', `checkbox__${color}`]">
-      <CheckMarkIcon/>
+      <CheckMarkIcon />
     </span>
     <span>
-      <slot/>
+      <slot />
     </span>
   </label>
 </template>
@@ -69,10 +65,13 @@ const props = defineProps({
   &__secondary {
     background: var(--color-seashell);
   }
+  &__gray {
+    background: var(--color-alto-first);
+  }
 }
 
 .checkbox__input:checked + .checkbox__icon {
-  background: #49A399;
+  background: #49a399;
   color: white;
 }
 </style>
