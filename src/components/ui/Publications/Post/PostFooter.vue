@@ -29,7 +29,7 @@
         @click="toggleForm"
       >
         <CommentIcon />
-        {{ $t('buttons.comment') }}
+        <span>{{ $t('buttons.comment') }}</span>
       </div>
 
       <div class="share__buttons--block" ref="shareWixndow">
@@ -55,7 +55,7 @@
         </div>
         <div class="share__button open-share-button" @click="openShareWindow">
           <ShareIcon />
-          {{ $t('buttons.share') }}
+          <span>{{ $t('buttons.share') }}</span>
         </div>
       </div>
     </div>
@@ -280,6 +280,23 @@ export default {
 .share__button:hover {
   background-color: var(--color-seashell);
   border-radius: 15px;
+}
+
+@media (max-width: 576px) {
+  .comment__button span,
+  .share__button span {
+    display: none;
+  }
+
+  .footer__buttons {
+    justify-content: flex-start;
+  }
+
+  .like__button,
+  .comment__button,
+  .share__button {
+    padding: 0 15px;
+  }
 }
 
 @media (min-width: 1280px) {

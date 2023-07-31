@@ -14,74 +14,26 @@
         </li>
       </ul>
     </div>
-
-    <div class="tabs__content">
-      <div
-        v-for="(tab, index) in tabLabels"
-        :key="index"
-        v-show="activeTab === index"
-      >
-        <PublicationTab v-if="index === 0" />
-        <ArticleTab v-if="index === 1"/>
-        <PhotoTab v-if="index === 2"/>
-        <VideoTab v-if="index === 3"/>
-        <AudioTab v-if="index === 4" />
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
-import CheckMarkSmallIcon from '@/components/icons/CheckMarkSmallIcon.vue'
-import VideoTab from '@/components/ui/Publications/VideoTab.vue'
-import ArticleTab from '@/components/ui/Publications/ArticleTab.vue'
-import AudioTab from '@/components/ui/Publications/AudioTab.vue'
-import PhotoTab from '@/components/ui/Publications/PhotoTab.vue'
-import PublicationTab from '@/components/ui/Publications/PublicationTab.vue'
-
 export default {
-  components: {
-    PublicationTab,
-    PhotoTab,
-    AudioTab,
-    ArticleTab,
-    VideoTab,
-    CheckMarkSmallIcon
-  },
+  components: {},
   data () {
-    return { activeTab: 0 }
+    return {
+      activeTab: 0
+    }
   },
   methods: {
     setActiveTab (index) {
       this.activeTab = index
-    }
-  },
-  computed: {
-    tabLabels () {
-      return [
-        this.$t('tabs.publications_inside.publications'),
-        this.$t('tabs.publications_inside.articles'),
-        this.$t('tabs.publications_inside.photo'),
-        this.$t('tabs.publications_inside.video'),
-        this.$t('tabs.publications_inside.audio')
-      ]
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-/*.publication__main--block > .publication-tabs__section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  -webkit-backdrop-filter: blur(3px);
-  opacity: 0.4;
-  pointer-events: none;
-}*/
 @media (max-width: 576px) {
   .publication__main--block {
     display: flex;

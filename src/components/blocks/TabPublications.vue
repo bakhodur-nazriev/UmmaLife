@@ -2,14 +2,18 @@
   <div class="publication__main--block">
     <div class="publication-top__layer">
       <div class="main__publications--section">
-        <PublicationForm />
+        <div class="main-publication__form">
+          <PublicationForm />
+        </div>
         <section class="tab__publications--section">
           <MainPublicationsTab :tabs-array="tabLabels" />
         </section>
       </div>
     </div>
 
-    <PublicationTabSide />
+    <div class="main-publication__sidebar">
+      <PublicationTabSide />
+    </div>
   </div>
 </template>
 
@@ -84,70 +88,24 @@ svg {
   color: var(--color-silver-chalice);
 }
 
-.modal-open {
-  transition: .2s;
-  overflow: hidden;
-}
-
-.publish__button {
-  padding: 12px 38px;
-}
-
-.form__left--side {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
-.form__left--side > :first-child {
-  align-self: flex-start;
-}
-
-.form__left--side img {
-  margin-right: 16px;
-}
-
-.form__left--side textarea {
-  border: none;
-  resize: none;
-  outline: none;
-  font-size: 16px;
-  min-height: 22px;
-  width: 89%;
-}
-
-.form__left--side textarea::placeholder {
-  color: var(--color-silver-chalice);
-}
-
-.form__inputs--block {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-.publications__form--section {
-  border-radius: 15px;
-  padding: 16px 24px;
-  background-color: var(--color-white);
-}
-
-.form__section {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  row-gap: 24px;
-}
-
-.publication__main--block {
-  display: none;
-}
-
 .main__publications--section {
   display: flex;
   flex-direction: column;
   row-gap: 8px;
+}
+
+.publication__main--block {
+  display: flex;
+}
+
+@media (max-width: 576px) {
+  .main-publication__sidebar {
+    display: none;
+  }
+
+  .main-publication__form {
+    display: none;
+  }
 }
 
 @media (min-width: 768px) {

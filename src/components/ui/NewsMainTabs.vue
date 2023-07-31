@@ -9,7 +9,7 @@
       >
         <div v-if="tab.index === 0">
           <span
-            @click="openDropdown()"
+            @click="toggleDropdown()"
             class="dropdown-tab"
           >
             {{ tab.title }}
@@ -28,12 +28,6 @@
         class="tabs__content--item"
       >
         <div v-if="index === 0">
-          <div
-            class="publication-dropdown"
-            v-show="isDropdownOpen && activeTab === index"
-          >
-            <TabPublicationsWithDropdown />
-          </div>
           <TabPublications />
         </div>
         <div v-if="index === 1">
@@ -42,7 +36,6 @@
         <div v-if="index === 2">
           <TabUmmaVideo  />
         </div>
-
         <div class="create-button__block">
           <button type="button" class="create-button">
             <PlusIcon/>
@@ -58,12 +51,10 @@ import TabUmmaVideo from '@/components/blocks/TabUmmaVideo.vue'
 import TabPublications from '@/components/blocks/TabPublications.vue'
 import TabUmmaShorts from '@/components/blocks/TabUmmaShorts.vue'
 import PlusIcon from '@/components/icons/PlusIcon.vue'
-import TabPublicationsWithDropdown from '@/components/blocks/TabPublicationsWithDropdown.vue'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon.vue'
 export default {
   components: {
     ArrowDownIcon,
-    TabPublicationsWithDropdown,
     PlusIcon,
     TabUmmaShorts,
     TabPublications,
@@ -85,7 +76,7 @@ export default {
     }
   },
   methods: {
-    openDropdown () {
+    toggleDropdown () {
       if (this.activeTab === 0) {
         if (!this.firstTabClicked) {
           this.isDropdownOpen = !this.isDropdownOpen
@@ -98,11 +89,6 @@ export default {
       this.firstTabClicked = false
       this.activeTab = index
       sessionStorage.setItem('activeTab', index.toString())
-    }
-  },
-  computed: {
-    isMobileView () {
-      return window.innerWidth < 576
     }
   },
   mounted () {
