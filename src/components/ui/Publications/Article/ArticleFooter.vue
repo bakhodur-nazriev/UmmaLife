@@ -26,7 +26,7 @@
 
       <div class="comment__button" @click="toggleForm">
         <CommentIcon/>
-        {{ $t('buttons.comment') }}
+        <span>{{ $t('buttons.comment') }}</span>
       </div>
 
       <div class="share__buttons--block" ref="shareWindow">
@@ -55,7 +55,7 @@
           @click="openShareWindow"
         >
           <ShareIcon />
-          {{ $t('buttons.share') }}
+          <span>{{ $t('buttons.share') }}</span>
         </div>
       </div>
     </div>
@@ -253,6 +253,22 @@ export default {
 .comment__button svg,
 .share__button svg {
   margin-right: 12px;
+}
+@media (max-width: 567px) {
+  .comment__button span,
+  .share__button span {
+    display: none;
+  }
+
+  .footer__buttons {
+    justify-content: flex-start;
+  }
+
+  .like__button,
+  .comment__button,
+  .share__button {
+    padding: 0 15px;
+  }
 }
 
 @media (min-width: 1280px) {

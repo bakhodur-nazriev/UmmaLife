@@ -1,19 +1,19 @@
 <template>
-  <section class="video-content__section">
-    <div class="video-content__section-item">
+  <section class="article-content__section">
+    <div class="article-content__section-item">
       <img
         src="@/assets/images/Post_1.png"
         alt=""
-        class="video-content__image"
+        class="article-content__image"
       >
-      <div class="video-content__detail__block">
-        <h3 class="video-content__detail__block-title">Название статьи, которое не поместилось на одну строку и переместилось на вторую строчку</h3>
-        <p class="video-content__detail__block-paragraph">Аль-Ула - город, полный археологических чудес. Расположенный на северо-западе Саудовской Аравии в провинции Медина, это популярное туристическое направление. Аль-Ула является первым объектом Всемирного наследия ЮНЕСКО в стране. Это место, изве...</p>
+      <div class="article-content__detail__block">
+        <h3 class="article-content__detail__block-title">Название статьи, которое не поместилось на одну строку и переместилось на вторую строчку</h3>
+        <p class="article-content__detail__block-paragraph">Аль-Ула - город, полный археологических чудес. Расположенный на северо-западе Саудовской Аравии в провинции Медина, это популярное туристическое направление. Аль-Ула является первым объектом Всемирного наследия ЮНЕСКО в стране. Это место, изве...</p>
       </div>
     </div>
 
-    <div class="video-content__reactions">
-      <div class="video-content__reactions-block">
+    <div class="article-content__reactions">
+      <div class="article-content__reactions-block">
         <div
           v-for="(reaction, index) in reactions"
           :key="index"
@@ -57,7 +57,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.video-content__detail__block {
+.article-content__detail__block {
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -85,7 +85,7 @@ export default {
   }
 }
 
-.video-content__section {
+.article-content__section {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -98,13 +98,13 @@ export default {
   }
 }
 
-.video__content--image {
+.article__content--image {
   width: 100%;
   border-radius: 15px;
   height: 80%;
 }
 
-.video-content__reactions {
+.article-content__reactions {
   display: flex;
   justify-content: space-between;
   align-items: center;

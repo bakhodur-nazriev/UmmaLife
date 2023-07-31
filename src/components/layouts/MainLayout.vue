@@ -44,6 +44,14 @@ export default {
 .main__content {
   flex-grow: 1;
   overflow-y: auto;
+  overflow-x: hidden;
+}
+
+@media (max-width: 576px) {
+  .main__container {
+    margin-top: 65px;
+    height: calc(100vh - 65px);
+  }
 }
 
 @media (max-width: 767px) {
@@ -55,6 +63,10 @@ export default {
 @media (min-width: 1200px) {
   .main__sidebar {
     display: flex;
+  }
+
+  .main__container {
+    margin-top: 80px;
   }
 }
 </style>

@@ -112,7 +112,7 @@ export default {
         justify-content: center;
         border-radius: 50%;
         background-color: var(--color-hippie-blue);
-        width: 40px;
+        min-width: 40px;
         height: 40px;
       }
     }

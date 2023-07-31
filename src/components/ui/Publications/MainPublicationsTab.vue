@@ -7,7 +7,8 @@
         :class="['tabs-header__item', { 'active': activeTab === index }]"
         @click="changeTab(index)"
       >
-        {{ tab.title }}
+        <span class="tabs-header__title">{{ tab.title }}</span>
+        <CheckMarkSmallIcon v-if="index === activeTab"/>
       </div>
     </div>
 
@@ -20,7 +21,7 @@
         <PublicationTab v-if="index === 0" />
         <ArticleTab v-if="index === 1"/>
         <PhotoTab v-if="index === 2"/>
-        <VideoTab v-if="index === 3"/>
+        <!--<VideoTab v-if="index === 3"/>-->
         <AudioTab v-if="index === 4" />
       </div>
     </div>
@@ -31,14 +32,16 @@
 import PublicationTab from '@/components/ui/Publications/PublicationTab.vue'
 import ArticleTab from '@/components/ui/Publications/ArticleTab.vue'
 import PhotoTab from '@/components/ui/Publications/PhotoTab.vue'
-import VideoTab from '@/components/ui/Publications/VideoTab.vue'
+// import VideoTab from '@/components/ui/Publications/VideoTab.vue'
 import AudioTab from '@/components/ui/Publications/AudioTab.vue'
+import CheckMarkSmallIcon from '@/components/icons/CheckMarkSmallIcon.vue'
 
 export default {
   components: {
+    CheckMarkSmallIcon,
     PublicationTab,
     AudioTab,
-    VideoTab,
+    // VideoTab,
     PhotoTab,
     ArticleTab
   },
@@ -107,15 +110,19 @@ export default {
         font-weight: 600;
         z-index: 100;
 
+        svg {
+          display: none;
+        }
+
         &::after {
           content: "";
           position: absolute;
           width: 100%;
-          height: 2px;
+          height: 3px;
           bottom: 0;
           left: 0;
           background-color: var(--color-deep-cerulean);
-          border-radius: 1px 1px 0 0;
+          border-radius: 2px 2px 0 0;
         }
       }
     }
@@ -123,6 +130,41 @@ export default {
     &__label-title {
      color: var(--color-silver-chalice);
       font-weight: 500;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .tabs {
+    &-header {
+      flex-direction: column;
+      width: 100%;
+      border-radius: 0;
+      gap: 10px;
+      padding: 20px 32px;
+
+      &__item {
+        width: 100%;
+        padding: 0;
+        font-weight: 400;
+        color: var(--color-mine-shaft);
+
+        &.active {
+          padding: 0;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          color: var(--color-hippie-blue);
+
+          svg {
+            display: block;
+          }
+
+          &::after {
+            display: none;
+          }
+        }
+      }
     }
   }
 }

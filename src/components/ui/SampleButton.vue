@@ -56,8 +56,8 @@ const clickButton = () => {
 
 <style scoped lang="scss">
 .btn {
-  background-color: #49A399;
-  color: #fff;
+  background-color: var(--color-hippie-blue);
+  color: var(--color-white);
   border: none;
   border-radius: 10px;
   padding: 15px;
