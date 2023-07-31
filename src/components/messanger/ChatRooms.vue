@@ -31,10 +31,22 @@
         v-show="isContextMenuOpen"
         @open="isContextMenuOpen = true"
         @close="isContextMenuOpen = false"
+        @shareMessage="shareMessage"
+        @editMessage="editMessage"
+        @deleteMessage="deleteMessage"
         ref="menu"
       />
     </div>
-    <ChatRoomForm @submitHandler="submitHandler" :value="value" @setValue="setValue" />
+    <ChatRoomForm
+      :value="value"
+      :share="share"
+      :edit="edit"
+      :selectedMessage="selectedMessage"
+      :user="user"
+      @submitHandler="submitHandler"
+      @setValue="setValue"
+      @clearValues="clearValues"
+    />
   </div>
   <div v-else class="room__empty">
     <span>{{ $t('chat.empty_room') }}</span>
@@ -73,7 +85,15 @@ export default {
       showDeleteDropdown: false,
       isContextMenuOpen: false,
       isDeleteModalOpen: false,
-      value: ''
+      value: '',
+      messageId: null,
+      edit: false,
+      share: false
+    }
+  },
+  computed: {
+    selectedMessage() {
+      return this.user.messages.find((message) => message.id === this.messageId)
     }
   },
   watch: {
@@ -94,14 +114,40 @@ export default {
       const target = e.target
       if (target.closest('.message')) {
         console.log('message id', Number(target.getAttribute('data-id')))
+        this.messageId = Number(target.getAttribute('data-id'))
         this.$refs.menu.open(e)
       }
     },
-    submitHandler(value) {
-      this.$emit('submitHandler', { value, user: this.user })
+    submitHandler(value, type) {
+      this.$emit('submitHandler', { value, user: this.user }, type)
     },
     setValue(value) {
       this.value = value
+    },
+    shareMessage() {
+      this.clearValues()
+      console.log('share', this.messageId)
+      this.isContextMenuOpen = false
+      this.share = true
+    },
+    editMessage() {
+      this.clearValues()
+      if (this.selectedMessage.state === 'send') {
+        this.isContextMenuOpen = false
+        this.value =
+          typeof this.selectedMessage.message === 'string'
+            ? this.selectedMessage.message
+            : this.selectedMessage.text
+        this.edit = true
+      }
+    },
+    deleteMessage() {
+      this.isDeleteModalOpen = true
+      this.isContextMenuOpen = false
+    },
+    clearValues() {
+      this.share = false
+      this.edit = false
     }
   }
 }

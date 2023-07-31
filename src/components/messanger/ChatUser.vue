@@ -9,7 +9,11 @@
         <div class="list__info--date">{{ user.last_seen }}</div>
       </div>
       <div class="list__info--text">
-        {{ user.messages[user.messages.length - 1].message }}
+        {{
+          typeof user.messages[user.messages.length - 1].message === 'string'
+            ? user.messages[user.messages.length - 1].message
+            : user.messages[user.messages.length - 1].message.text
+        }}
       </div>
     </div>
   </li>

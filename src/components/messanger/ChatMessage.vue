@@ -1,8 +1,15 @@
 <template>
   <div class="message" :class="state">
     <div class="message__inner">
-      <div class="message__text">
+      <div class="message__text" v-if="typeof message === 'string'">
         {{ message }}
+      </div>
+      <div class="message__text" v-if="typeof message === 'object'">
+        <div class="message__text--top">
+          <span>{{ message.user_name }}</span>
+          {{ message.user_message }}
+        </div>
+        {{ message.text }}
       </div>
       <div class="message__bottom">
         <span>15:52</span>
@@ -23,7 +30,7 @@ export default {
       validator: (value) => ['send', 'recieve'].includes(value),
       default: () => 'send'
     },
-    message: String
+    message: [String, Object]
   }
 }
 </script>
@@ -60,6 +67,23 @@ export default {
     font-weight: 400;
     line-height: 150%; /* 24px */
     letter-spacing: 0.4px;
+    &--top {
+      border-left: 2px solid var(--color-white);
+      padding-left: 8px;
+      margin-bottom: 10px;
+      span {
+        display: block;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 550;
+        line-height: normal;
+        margin-bottom: 2px;
+      }
+      overflow: hidden;
+      text-overflow: ellipsis;
+      overflow-wrap: break-word;
+      white-space: nowrap;
+    }
   }
   &__bottom {
     position: absolute;

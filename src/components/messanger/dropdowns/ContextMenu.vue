@@ -1,10 +1,10 @@
 <template>
   <dropdown-parent class="context-menu" :style="style" tabindex="0" @blur="close">
-    <div class="drop__list">
+    <div class="drop__list" @click="$emit('shareMessage')">
       <ForwardIcon />
       <span>{{ $t('dropdown.answer') }}</span>
     </div>
-    <div class="drop__list">
+    <div class="drop__list" @click="$emit('editMessage')">
       <EditIcon class="edit" />
       <span>{{ $t('dropdown.change') }}</span>
     </div>
@@ -16,7 +16,7 @@
       <ChooseIcon />
       <span>{{ $t('dropdown.select') }}</span>
     </div>
-    <div class="drop__list delete">
+    <div class="drop__list delete" @click="$emit('deleteMessage')">
       <DeleteIcon />
       <span>{{ $t('dropdown.delete_dialog') }}</span>
     </div>
@@ -33,7 +33,7 @@ import ForwardIcon from '@/components/icons/message/ForwardIcon.vue'
 
 export default {
   components: { DropdownParent, DeleteIcon, ChooseIcon, CopyTextIcon, EditIcon, ForwardIcon },
-  emits: ['close', 'open'],
+  emits: ['close', 'open', 'shareMessage', 'editMessage', 'deleteMessage'],
   data() {
     return {
       left: 0,

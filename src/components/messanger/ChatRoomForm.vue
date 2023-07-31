@@ -1,17 +1,35 @@
 <template>
   <div class="parent">
-    <div class="parent__edit" v-if="edit || share">
+    <div class="parent__edit" v-if="edit">
       <div class="parent__edit--icon">
         <edit-gray-icon />
       </div>
       <div class="parent__edit--text">
-        <div class="parent__edit--close">
-          <close-edit-icon v-if="edit" />
-          <share-big-icon v-if="share" />
+        <div class="parent__edit--close" @click="$emit('clearValues')">
+          <close-edit-icon />
         </div>
         <span>Edit Message</span>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-        vvsdvsdvdssvv...
+        {{
+          typeof selectedMessage.message === 'string'
+            ? selectedMessage.message
+            : selectedMessage.message.text
+        }}
+      </div>
+    </div>
+    <div class="parent__edit" v-if="share">
+      <div class="parent__edit--icon">
+        <share-big-icon />
+      </div>
+      <div class="parent__edit--text">
+        <div class="parent__edit--close" @click="$emit('clearValues')">
+          <close-edit-icon />
+        </div>
+        <span class="user">{{ user.name }}</span>
+        {{
+          typeof selectedMessage.message === 'string'
+            ? selectedMessage.message
+            : selectedMessage.message.text
+        }}
       </div>
     </div>
     <form class="form" @submit.prevent="submitHandler">
@@ -51,9 +69,11 @@ export default {
   props: {
     value: String,
     edit: Boolean,
-    share: Boolean
+    share: Boolean,
+    selectedMessage: Object,
+    user: Object
   },
-  emits: ['submitHandler', 'setValue'],
+  emits: ['submitHandler', 'setValue', 'clearValues'],
   methods: {
     resize(e) {
       const { textarea } = this.$refs
@@ -67,7 +87,7 @@ export default {
         if (this.value.length === 0) {
           textarea.style.height = 56 + 'px'
         }
-      }, 1)
+      }, 0)
     },
     inputHandler(e) {
       this.resize()
@@ -75,8 +95,24 @@ export default {
       this.$emit('setValue', e.target.value)
     },
     submitHandler() {
-      this.$emit('submitHandler', this.value.replace('\n', ''))
+      this.$emit(
+        'submitHandler',
+        this.value.replace('\n', ''),
+        this.edit
+          ? { state: 'edit', data: this.selectedMessage }
+          : this.share
+            ? {
+                state: 'share',
+                data: {
+                  user_name: this.user.name,
+                  user_message: this.selectedMessage.message,
+                  text: ''
+                }
+              }
+            : { state: 'noedit' }
+      )
       this.$emit('setValue', '')
+      this.$emit('clearValues')
     }
   },
   mounted() {

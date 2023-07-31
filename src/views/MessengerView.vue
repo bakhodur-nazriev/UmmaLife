@@ -27,10 +27,32 @@ export default {
     clickUserHandler(user) {
       this.user = user
     },
-    submitHandler({ value, user }) {
+    submitHandler({ value, user }, type) {
       const index = this.users.findIndex((u) => u.id === user.id)
+      if (type.state === 'noedit') {
+        this.users[index].messages.push({ id: Date.now(), message: value, state: 'send' })
+      }
+      if (type.state === 'edit') {
+        const messageIndex = this.users[index].messages.findIndex(
+          (message) => message.id === type.data.id
+        )
 
-      this.users[index].messages.push({ id: Date.now(), message: value, state: 'send' })
+        this.users[index].messages[messageIndex].message = value
+      }
+      if (type.state === 'share') {
+        this.users[index].messages.push({
+          id: Date.now(),
+          message: {
+            user_name: type.data.user_name,
+            user_message:
+              typeof type.data.user_message === 'string'
+                ? type.data.user_message
+                : type.data.user_message.text,
+            text: value
+          },
+          state: 'send'
+        })
+      }
     }
   }
 }
