@@ -66,4 +66,10 @@ export default {
     background-color: var(--color-white);
   }
 }
+
+@media (max-width: 576px) {
+  .photo-block__article {
+    border-radius: 0;
+  }
+}
 </style>

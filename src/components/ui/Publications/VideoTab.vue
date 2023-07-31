@@ -125,4 +125,10 @@ export default {
   align-items: center;
   color: var(--color-gray);
 }
+
+@media (max-width: 576px) {
+  .video-block__article {
+    border-radius: 0;
+  }
+}
 </style>

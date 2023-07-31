@@ -7,7 +7,8 @@ const store = createStore({
       email: '',
       phoneNumber: '',
       selectedTheme: 'light',
-      isAuthenticated: false
+      isAuthenticated: false,
+      publicationTab: ''
     }
   },
   getters: {
@@ -25,6 +26,9 @@ const store = createStore({
     },
     getAuthenticated (state) {
       return state.isAuthenticated
+    },
+    getPublicationTab (state) {
+      return state.publicationTab
     }
   },
   mutations: {
@@ -39,6 +43,9 @@ const store = createStore({
     },
     setSelectedTheme (state, selectedTheme) {
       state.selectedTheme = selectedTheme
+    },
+    setPublicationTabs (state, selectedTab) {
+      state.publicationTab = selectedTab
     }
   },
   actions: {

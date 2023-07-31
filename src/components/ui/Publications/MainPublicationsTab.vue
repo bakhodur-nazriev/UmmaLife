@@ -61,18 +61,17 @@ export default {
   },
   methods: {
     changeTab (index) {
+      this.$store.commit('setPublicationTabs', this.tabs[index].title)
       this.activeTab = index
       sessionStorage.setItem('activePublicationTab', index.toString())
     }
   },
   mounted () {
     const savedTab = sessionStorage.getItem('activePublicationTab')
-
     if (savedTab) {
       this.activeTab = parseInt(savedTab)
     }
-
-    this.tabs = this.tabsArray.map((title, index) => ({
+    this.tabs = this.tabsArray.map((title) => ({
       title
     }))
   }
@@ -108,7 +107,7 @@ export default {
         color: var(--color-mine-shaft);
         padding-bottom: 16px;
         font-weight: 600;
-        z-index: 100;
+        z-index: 5;
 
         svg {
           display: none;

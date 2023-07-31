@@ -8,15 +8,12 @@
         @click="changeTab(index)"
       >
         <div v-if="tab.index === 0">
-          <span
-            @click="toggleDropdown()"
-            class="dropdown-tab"
-          >
-            {{ tab.title }}
+          <span class="dropdown-tab">
+            {{ tapTitleForSmallDisplay }}
             <ArrowDownIcon class="dropdown-tab__icon" />
           </span>
         </div>
-        <span v-if="tab.index !== 0">{{ tab.title }}</span>
+        <span v-if="tab.index > 0">{{ tab.title }}</span>
       </div>
     </div>
 
@@ -72,21 +69,10 @@ export default {
       tabs: [],
       categories: [],
       isDropdownOpen: false,
-      firstTabClicked: false
     }
   },
   methods: {
-    toggleDropdown () {
-      if (this.activeTab === 0) {
-        if (!this.firstTabClicked) {
-          this.isDropdownOpen = !this.isDropdownOpen
-        } else {
-          this.firstTabClicked = true
-        }
-      }
-    },
     changeTab (index) {
-      this.firstTabClicked = false
       this.activeTab = index
       sessionStorage.setItem('activeTab', index.toString())
     }
@@ -98,22 +84,19 @@ export default {
       this.activeTab = parseInt(savedTab)
     }
 
-    const types = ['publications', 'article', 'photo', 'video', 'audio']
-
-    this.tabs = this.tabsArray.map((title, index) => {
-      if (index === 0) {
-        const selectedType = types[this.activeTab]
-        return {
-          index,
-          title: selectedType.charAt(0).toUpperCase() + selectedType.slice(1)
-        }
+    this.tabs = this.tabsArray.map((title, index) => ({
+      title,
+      index
+    }))
+  },
+  computed: {
+    tapTitleForSmallDisplay () {
+      if (this.$store.getters.getPublicationTab === '') {
+        return this.$t('tabs.publications_inside.publications')
       } else {
-        return {
-          index,
-          title
-        }
+        return this.$store.getters.getPublicationTab
       }
-    })
+    }
   }
 }
 </script>
@@ -148,7 +131,6 @@ export default {
       width: 200px;
 
       .dropdown-tab {
-
         &__icon {
           display: none;
         }

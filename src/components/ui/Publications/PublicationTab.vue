@@ -53,4 +53,10 @@ export default {
   border-radius: 15px;
   padding: 20px 24px 8px 24px;
 }
+
+@media (max-width: 576px) {
+  .post__block {
+    border-radius: 0;
+  }
+}
 </style>
