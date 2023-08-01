@@ -17,17 +17,17 @@ import { users } from '@/dummy.js'
 
 export default {
   components: { MainLayout, MessangerNavigation, ChatRooms },
-  data() {
+  data () {
     return {
       users,
       user: null
     }
   },
   methods: {
-    clickUserHandler(user) {
+    clickUserHandler (user) {
       this.user = user
     },
-    submitHandler({ value, user }, type) {
+    submitHandler ({ value, user }, type) {
       const index = this.users.findIndex((u) => u.id === user.id)
       if (type.state === 'noedit') {
         this.users[index].messages.push({ id: Date.now(), message: value, state: 'send' })

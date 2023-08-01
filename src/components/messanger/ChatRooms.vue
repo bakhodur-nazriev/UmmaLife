@@ -80,7 +80,7 @@ export default {
     }
   },
   emits: ['submitHandler'],
-  data() {
+  data () {
     return {
       showDeleteDropdown: false,
       isContextMenuOpen: false,
@@ -92,25 +92,25 @@ export default {
     }
   },
   computed: {
-    selectedMessage() {
+    selectedMessage () {
       return this.user.messages.find((message) => message.id === this.messageId)
     }
   },
   watch: {
     user: {
-      handler() {
+      handler () {
         this.scrollToBottom()
       },
       deep: true
     }
   },
   methods: {
-    scrollToBottom() {
+    scrollToBottom () {
       setTimeout(() => {
         this.$refs.room.scrollIntoView({ block: 'end', inline: 'nearest' })
       }, 0)
     },
-    openContextMenu(e) {
+    openContextMenu (e) {
       const target = e.target
       if (target.closest('.message')) {
         console.log('message id', Number(target.getAttribute('data-id')))
@@ -118,19 +118,19 @@ export default {
         this.$refs.menu.open(e)
       }
     },
-    submitHandler(value, type) {
+    submitHandler (value, type) {
       this.$emit('submitHandler', { value, user: this.user }, type)
     },
-    setValue(value) {
+    setValue (value) {
       this.value = value
     },
-    shareMessage() {
+    shareMessage () {
       this.clearValues()
       console.log('share', this.messageId)
       this.isContextMenuOpen = false
       this.share = true
     },
-    editMessage() {
+    editMessage () {
       this.clearValues()
       if (this.selectedMessage.state === 'send') {
         this.isContextMenuOpen = false
@@ -141,11 +141,11 @@ export default {
         this.edit = true
       }
     },
-    deleteMessage() {
+    deleteMessage () {
       this.isDeleteModalOpen = true
       this.isContextMenuOpen = false
     },
-    clearValues() {
+    clearValues () {
       this.share = false
       this.edit = false
     }

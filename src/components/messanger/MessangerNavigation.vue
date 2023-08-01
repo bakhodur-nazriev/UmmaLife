@@ -28,7 +28,7 @@ export default {
   },
   emits: ['clickUserHandler'],
   methods: {
-    clickUserHandler(user) {
+    clickUserHandler (user) {
       this.$emit('clickUserHandler', user)
     }
   }
