@@ -19,14 +19,14 @@ export default {
 <style scoped>
 .base__search--input {
   border-radius: 10px;
-  background-color: #f1f1f1;
+  background-color: var(--color-seashell);
   color: #1f1f1f;
   border: none;
   outline: none;
 }
 
 .base__search--input::placeholder {
-  color: #b0b0b0;
+  color: var(--color-mine-shaft);
 }
 
 @media (min-width: 768px) {
