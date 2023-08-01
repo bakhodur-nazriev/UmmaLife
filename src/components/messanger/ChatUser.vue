@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       isActive: false
     }
@@ -31,14 +31,14 @@ export default {
   },
   emits: ['clickUserHandler'],
   methods: {
-    clickOutsideHandler(user) {
+    clickOutsideHandler (user) {
       this.removeActiveClasses()
       this.$emit('clickUserHandler', user)
       setTimeout(() => {
         this.isActive = true
       }, 0)
     },
-    removeActiveClasses() {
+    removeActiveClasses () {
       this.isActive = false
       const links = document.querySelectorAll('.navigation__menu .list')
       links.forEach((link) => link.classList.remove('active'))

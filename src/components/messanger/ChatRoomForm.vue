@@ -75,7 +75,7 @@ export default {
   },
   emits: ['submitHandler', 'setValue', 'clearValues'],
   methods: {
-    resize(e) {
+    resize (e) {
       const { textarea } = this.$refs
       textarea.style.height = textarea.scrollHeight - 4 + 'px'
       if (e?.key && e?.key === 'Enter') {
@@ -89,12 +89,12 @@ export default {
         }
       }, 0)
     },
-    inputHandler(e) {
+    inputHandler (e) {
       this.resize()
       if (this.value.length > 420) return
       this.$emit('setValue', e.target.value)
     },
-    submitHandler() {
+    submitHandler () {
       this.$emit(
         'submitHandler',
         this.value.replace('\n', ''),
@@ -115,7 +115,7 @@ export default {
       this.$emit('clearValues')
     }
   },
-  mounted() {
+  mounted () {
     this.resize()
   }
 }
