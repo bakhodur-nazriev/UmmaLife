@@ -1,68 +1,14 @@
 /* eslint-disable */
 import { createStore } from 'vuex'
+import state from "@/store/state";
+import getters from "@/store/getters";
+import mutations from "@/store/mutations";
+import actions from "@/store/actions";
 
 const store = createStore({
-  state () {
-    return {
-      email: '',
-      phoneNumber: '',
-      selectedTheme: 'light',
-      isAuthenticated: false,
-      publicationTab: ''
-    }
-  },
-  getters: {
-    getEmail (state) {
-      return state.email
-    },
-    getPhoneNumber (state) {
-      return state.phoneNumber
-    },
-    getSelectedTheme (state) {
-      return state.selectedTheme
-    },
-    isAuthenticated (state) {
-      return state.isAuthenticated
-    },
-    getAuthenticated (state) {
-      return state.isAuthenticated
-    },
-    getPublicationTab (state) {
-      return state.publicationTab
-    }
-  },
-  mutations: {
-    setEmail (state, email) {
-      state.email = email
-    },
-    setPhoneNumber (state, phoneNumber) {
-      state.phoneNumber = phoneNumber
-    },
-    setAuthenticated (state, isAuthenticated) {
-      state.isAuthenticated = isAuthenticated
-    },
-    setSelectedTheme (state, selectedTheme) {
-      state.selectedTheme = selectedTheme
-    },
-    setPublicationTabs (state, selectedTab) {
-      state.publicationTab = selectedTab
-    }
-  },
-  actions: {
-    toggleTheme ({ commit, state }) {
-      const newTheme = state.selectedTheme === 'light' ? 'dark' : 'light'
-      commit('setSelectedTheme', newTheme)
-    },
-    login({ commit }) {
-      // Логика для аутентификации пользователя
-      // Установка isAuthenticated в true при успешной аутентификации
-      commit('setAuthenticated', true)
-    },
-    logout({ commit }) {
-      // Логика для выхода пользователя
-      // Установка isAuthenticated в false при выходе
-      commit('setAuthenticated', false)
-    }
-  }
+  state,
+  getters,
+  mutations,
+  actions
 })
 export default store

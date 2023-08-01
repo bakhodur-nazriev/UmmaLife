@@ -1,6 +1,6 @@
 <template>
-  <div class="tabs">
-    <div class="tabs-header">
+  <div class="tabs" ref="publicationTabs">
+    <div class="tabs-header" ref="publicationTabsHeader">
       <div
         v-for="(tab, index) in tabs"
         :key="index"

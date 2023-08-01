@@ -68,16 +68,24 @@ export default {
       activeTab: 0,
       tabs: [],
       categories: [],
-      isDropdownOpen: false
+      isDropdownOpen: false,
+      isSmallTab: false
     }
   },
   methods: {
-    changeTab (index) {
-      this.activeTab = index
-      sessionStorage.setItem('activeTab', index.toString())
+    changeTab(index) {
+      const screenWidth = window.innerWidth;
+      const isSmallScreen = screenWidth < 576;
+
+      if (isSmallScreen && screenWidth === 0) {
+        this.isSmallTab = true
+      } else {
+        this.activeTab = index
+        sessionStorage.setItem('activeTab', index.toString())
+      }
     }
   },
-  mounted () {
+  mounted() {
     const savedTab = sessionStorage.getItem('activeTab')
 
     if (savedTab) {
