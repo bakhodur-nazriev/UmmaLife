@@ -73,7 +73,7 @@ export default {
   }
 
   .navigation__search .base__search--input {
-    width: 344px;
+    width: 384px;
     background: transparent;
     border: 1px solid var(--color-gallery-first);
   }

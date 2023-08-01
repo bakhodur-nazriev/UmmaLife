@@ -42,12 +42,11 @@
           :placeholder="`${$t('chat.placeholder')}...`"
           class="form__input--text"
           ref="textarea"
-          rows="1"
+          rows="5"
           :value="value"
           @input="inputHandler"
           @focus="resize"
           @keydown="resize"
-          maxlength="600"
         />
       </div>
       <button type="submit" class="form__btn">
@@ -77,7 +76,7 @@ export default {
   methods: {
     resize (e) {
       const { textarea } = this.$refs
-      textarea.style.height = textarea.scrollHeight - 4 + 'px'
+
       if (e?.key && e?.key === 'Enter') {
         setTimeout(() => {
           this.submitHandler()
@@ -88,10 +87,19 @@ export default {
           textarea.style.height = 56 + 'px'
         }
       }, 1)
+      const taLineHeight = 56
+      const taHeight = textarea.scrollHeight
+      textarea.style.height = taHeight
+      const numberOfLines = Math.floor(taHeight / taLineHeight)
+      if (numberOfLines >= 2) {
+        textarea.style.overflowY = 'scroll'
+      } else {
+        textarea.style.height = textarea.scrollHeight - 4 + 'px'
+        textarea.style.overflowY = 'hidden'
+      }
     },
     inputHandler (e) {
       this.resize()
-      if (typeof this.value === 'string' && this.value.length > 600) return
       this.$emit('setValue', e.target.value)
     },
     submitHandler () {
