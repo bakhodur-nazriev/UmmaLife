@@ -73,7 +73,7 @@ export default {
     ContextMenu,
     DeleteConfirm
   },
-  data() {
+  data () {
     return {
       showDeleteDropdown: false,
       isContextMenuOpen: false,
@@ -87,36 +87,36 @@ export default {
     }
   },
   computed: {
-    selectedMessage() {
+    selectedMessage () {
       return this.user.messages.find((message) => message.id === this.messageId)
     }
   },
   watch: {
     user: {
-      handler() {
+      handler () {
         this.scrollToBottom()
       },
       deep: true
     },
-    '$route.params'() {
+    '$route.params' () {
       this.renderPage()
       this.scrollToBottom()
     }
   },
   methods: {
-    scrollToBottom() {
+    scrollToBottom () {
       this.$nextTick(() => {
         this.$refs.room.scrollIntoView({ block: 'end', inline: 'nearest' })
       })
     },
-    openContextMenu(e, id) {
+    openContextMenu (e, id) {
       const target = e.target
       if (target.closest('.message__inner')) {
         this.$refs.menu.open(e)
         this.messageId = id
       }
     },
-    submitHandler(value, type) {
+    submitHandler (value, type) {
       const index = this.users.findIndex((u) => u.id === this.user.id)
       if (type.state === 'noedit') {
         this.users[index].messages.push({ id: Date.now(), message: value, state: 'send' })
@@ -143,15 +143,15 @@ export default {
         })
       }
     },
-    setValue(value) {
+    setValue (value) {
       this.value = value
     },
-    shareMessage() {
+    shareMessage () {
       this.clearValues()
       this.isContextMenuOpen = false
       this.share = true
     },
-    editMessage() {
+    editMessage () {
       this.clearValues()
       if (this.selectedMessage.state === 'send') {
         this.isContextMenuOpen = false
@@ -162,24 +162,24 @@ export default {
         this.edit = true
       }
     },
-    deleteMessage() {
+    deleteMessage () {
       this.isDeleteModalOpen = true
       this.isContextMenuOpen = false
     },
-    clearValues() {
+    clearValues () {
       this.share = false
       this.edit = false
     },
-    renderPage() {
+    renderPage () {
       if (this.$route.params.id) {
         this.user = this.users.find((user) => user.id === +this.$route.params.id)
       }
     }
   },
-  mounted() {
+  mounted () {
     this.renderPage()
   },
-  updated() {
+  updated () {
     this.renderPage()
   }
 }

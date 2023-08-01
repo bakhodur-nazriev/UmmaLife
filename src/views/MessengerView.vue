@@ -16,7 +16,7 @@ import { users } from '@/dummy.js'
 
 export default {
   components: { MainLayout, MessangerNavigation },
-  data() {
+  data () {
     return {
       users
     }

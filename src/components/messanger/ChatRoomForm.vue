@@ -75,7 +75,7 @@ export default {
   },
   emits: ['submitHandler', 'setValue', 'clearValues'],
   methods: {
-    resize(e) {
+    resize (e) {
       const { textarea } = this.$refs
       textarea.style.height = textarea.scrollHeight - 4 + 'px'
       if (e?.key && e?.key === 'Enter') {
@@ -89,12 +89,12 @@ export default {
         }
       }, 1)
     },
-    inputHandler(e) {
+    inputHandler (e) {
       this.resize()
       if (typeof this.value === 'string' && this.value.length > 600) return
       this.$emit('setValue', e.target.value)
     },
-    submitHandler() {
+    submitHandler () {
       /* eslint-disable */
       this.$emit(
         'submitHandler',
