@@ -42,10 +42,10 @@ export default {
   &__inner {
     padding: 14px 14px 26px;
     border-radius: 20px;
-    max-width: 718px;
+    max-width: 440px;
     width: fit-content;
     position: relative;
-    min-width: 100px;
+    min-width: 110px;
     overflow-wrap: break-word;
   }
   &.send {

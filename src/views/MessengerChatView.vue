@@ -100,7 +100,6 @@ export default {
     },
     '$route.params' () {
       this.renderPage()
-      this.scrollToBottom()
     }
   },
   methods: {
@@ -181,6 +180,7 @@ export default {
   },
   updated () {
     this.renderPage()
+    this.scrollToBottom()
   }
 }
 </script>
