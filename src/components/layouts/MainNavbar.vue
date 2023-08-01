@@ -274,6 +274,7 @@ export default {
     padding: 0 32px;
     background-color: var(--color-white);
     margin: 0;
+    z-index: 10;
   }
 
   .bottom__nav--item {

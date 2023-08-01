@@ -49,14 +49,14 @@ export default {
     SampleDivider
   },
   emits: ['close', 'open', 'shareMessage', 'editMessage', 'deleteMessage'],
-  data() {
+  data () {
     return {
       left: 0,
       top: 0
     }
   },
   computed: {
-    style() {
+    style () {
       return {
         top: this.top + 'px',
         left: this.left + 'px'
@@ -64,12 +64,12 @@ export default {
     }
   },
   methods: {
-    close() {
+    close () {
       this.$emit('close')
       this.left = 0
       this.top = 0
     },
-    open(evt) {
+    open (evt) {
       this.left = evt.pageX || evt.clientX
       this.top = evt.pageY || evt.clientY
       this.$nextTick(() => this.$el.focus())

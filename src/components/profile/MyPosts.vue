@@ -34,7 +34,7 @@ export default {
     selectedIndex: 0
   }),
   computed: {
-    tabLabels() {
+    tabLabels () {
       return [
         this.$t('tabs.my_page.publications'),
         this.$t('tabs.my_page.umma_shorts'),
