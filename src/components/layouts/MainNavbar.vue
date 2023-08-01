@@ -255,6 +255,7 @@ export default {
     background-color: var(--color-white);
     box-shadow: 0 2px 3px rgba(141, 152, 180, 0.30);
     margin: 0;
+    z-index: 50;
   }
 
   .top__nav--left-item {
@@ -274,7 +275,7 @@ export default {
     padding: 0 32px;
     background-color: var(--color-white);
     margin: 0;
-    z-index: 10;
+    z-index: 5;
   }
 
   .bottom__nav--item {

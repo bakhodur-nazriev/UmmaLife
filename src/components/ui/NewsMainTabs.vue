@@ -68,7 +68,7 @@ export default {
       activeTab: 0,
       tabs: [],
       categories: [],
-      isDropdownOpen: false,
+      isDropdownOpen: false
     }
   },
   methods: {
@@ -175,6 +175,11 @@ export default {
 @media (max-width: 576px) {
   .tabs {
     &__header {
+      position: fixed;
+      top: 64px;
+      z-index: 15;
+      background-color: var(--color-white);
+      width: 100%;
 
       &-item {
         font-size: 16px;

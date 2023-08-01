@@ -12,7 +12,7 @@
       </div>
     </div>
 
-   <div class="tabs__content">
+   <div class="tabs-content">
       <div
         v-for="(tab, index) in tabs"
         :key="index"
@@ -135,7 +135,24 @@ export default {
 
 @media (max-width: 576px) {
   .tabs {
+    position: relative;
+
+    &::after {
+      display: none;
+      content: "";
+      background: rgba(0,0,0,.4);
+      position: fixed;
+      height: 100vh;
+      width: 100%;
+      pointer-events: none;
+      z-index: 9;
+    }
+
     &-header {
+      display: none;
+      z-index: 10;
+      position: fixed;
+      top: 124px;
       flex-direction: column;
       width: 100%;
       border-radius: 0;
@@ -164,6 +181,11 @@ export default {
           }
         }
       }
+    }
+
+    &-content {
+      position: relative;
+      top: 59px;
     }
   }
 }
