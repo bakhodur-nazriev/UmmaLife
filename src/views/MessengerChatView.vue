@@ -3,21 +3,21 @@
     <div class="room__top">
       <div class="room__profile">
         <img :src="user.image" :alt="user.name" class="room__profile--img" />
-        <div class="room__profile--info">
+        <router-link to="#" class="room__profile--info">
           <div class="room__profile--name">{{ user.name }}</div>
           <div class="room__profile--account">{{ user.account }}</div>
-        </div>
+        </router-link>
       </div>
       <div class="room__details" @click="showDeleteDropdown = true">
-        <menu-details-icon />
-        <delete-dropdown
-          @handleClickOutside="showDeleteDropdown = false"
-          @handleDeleteChat="isDeleteModalOpen = true"
-          v-if="showDeleteDropdown"
-        />
+        <menu-details-icon class="room__details--icon" />
       </div>
+      <delete-dropdown
+        @handleClickOutside="showDeleteDropdown = false"
+        @handleDeleteChat="isDeleteModalOpen = true"
+        v-if="showDeleteDropdown"
+      />
     </div>
-    <div class="room__messages" @contextmenu.prevent="openContextMenu">
+    <div class="room__messages">
       <div class="room__messages--inner" ref="room">
         <ChatMessage
           v-for="message in user.messages"
@@ -25,6 +25,7 @@
           :key="message.id"
           :message="message.message"
           :data-id="message.id"
+          @contextmenu.prevent="($event) => openContextMenu($event, message.id)"
         />
       </div>
       <ContextMenu
@@ -48,9 +49,7 @@
       @clearValues="clearValues"
     />
   </div>
-  <div v-else class="room__empty">
-    <span>{{ $t('chat.empty_room') }}</span>
-  </div>
+
   <teleport to="body">
     <delete-confirm v-if="isDeleteModalOpen" :user="user" @close="isDeleteModalOpen = false" />
   </teleport>
@@ -63,6 +62,7 @@ import ChatRoomForm from '@/components/messanger/ChatRoomForm.vue'
 import ChatMessage from '@/components/messanger/ChatMessage.vue'
 import ContextMenu from '@/components/messanger/dropdowns/ContextMenu.vue'
 import DeleteConfirm from '@/components/messanger/modal/DeleteConfirm.vue'
+import { users } from '@/dummy'
 
 export default {
   components: {
@@ -73,13 +73,6 @@ export default {
     ContextMenu,
     DeleteConfirm
   },
-  props: {
-    user: {
-      type: Object,
-      default: () => ({})
-    }
-  },
-  emits: ['submitHandler'],
   data() {
     return {
       showDeleteDropdown: false,
@@ -88,7 +81,9 @@ export default {
       value: '',
       messageId: null,
       edit: false,
-      share: false
+      share: false,
+      user: null,
+      users
     }
   },
   computed: {
@@ -102,31 +97,57 @@ export default {
         this.scrollToBottom()
       },
       deep: true
+    },
+    '$route.params'() {
+      this.renderPage()
+      this.scrollToBottom()
     }
   },
   methods: {
     scrollToBottom() {
-      setTimeout(() => {
+      this.$nextTick(() => {
         this.$refs.room.scrollIntoView({ block: 'end', inline: 'nearest' })
-      }, 0)
+      })
     },
-    openContextMenu(e) {
+    openContextMenu(e, id) {
       const target = e.target
-      if (target.closest('.message')) {
-        console.log('message id', Number(target.getAttribute('data-id')))
-        this.messageId = Number(target.getAttribute('data-id'))
+      if (target.closest('.message__inner')) {
         this.$refs.menu.open(e)
+        this.messageId = id
       }
     },
     submitHandler(value, type) {
-      this.$emit('submitHandler', { value, user: this.user }, type)
+      const index = this.users.findIndex((u) => u.id === this.user.id)
+      if (type.state === 'noedit') {
+        this.users[index].messages.push({ id: Date.now(), message: value, state: 'send' })
+      }
+      if (type.state === 'edit') {
+        const messageIndex = this.users[index].messages.findIndex(
+          (message) => message.id === type.data.id
+        )
+
+        this.users[index].messages[messageIndex].message = value
+      }
+      if (type.state === 'share') {
+        this.users[index].messages.push({
+          id: Date.now(),
+          message: {
+            user_name: type.data.user_name,
+            user_message:
+              typeof type.data.user_message === 'string'
+                ? type.data.user_message
+                : type.data.user_message.text,
+            text: value
+          },
+          state: 'send'
+        })
+      }
     },
     setValue(value) {
       this.value = value
     },
     shareMessage() {
       this.clearValues()
-      console.log('share', this.messageId)
       this.isContextMenuOpen = false
       this.share = true
     },
@@ -148,7 +169,18 @@ export default {
     clearValues() {
       this.share = false
       this.edit = false
+    },
+    renderPage() {
+      if (this.$route.params.id) {
+        this.user = this.users.find((user) => user.id === +this.$route.params.id)
+      }
     }
+  },
+  mounted() {
+    this.renderPage()
+  },
+  updated() {
+    this.renderPage()
   }
 }
 </script>
@@ -164,14 +196,7 @@ export default {
   &::-webkit-scrollbar {
     width: 0;
   }
-  &__empty {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    span {
-      font-size: 14px;
-    }
-  }
+
   &__top {
     z-index: 10;
     position: sticky;
@@ -197,6 +222,9 @@ export default {
       object-fit: cover;
       object-position: center;
     }
+    &--info {
+      text-decoration: none;
+    }
     &--name {
       font-size: 16px;
       font-style: normal;
@@ -217,6 +245,17 @@ export default {
     cursor: pointer;
     display: grid;
     place-items: center;
+    background-color: transparent;
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    width: 42px;
+    transition: all 0.3s;
+    &:hover {
+      background-color: var(--color-gallery-first);
+    }
   }
   &__messages {
     padding: 16px 16px 0;

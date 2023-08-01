@@ -47,7 +47,7 @@
           @input="inputHandler"
           @focus="resize"
           @keydown="resize"
-          maxlength="420"
+          maxlength="600"
         />
       </div>
       <button type="submit" class="form__btn">
@@ -84,38 +84,42 @@ export default {
         }, 0)
       }
       setTimeout(() => {
-        if (this.value.length === 0) {
+        if (typeof this.value === 'string' && this.value.length === 0) {
           textarea.style.height = 56 + 'px'
         }
-      }, 0)
+      }, 1)
     },
     inputHandler(e) {
       this.resize()
-      if (this.value.length > 420) return
+      if (typeof this.value === 'string' && this.value.length > 600) return
       this.$emit('setValue', e.target.value)
     },
     submitHandler() {
+      /* eslint-disable */
       this.$emit(
         'submitHandler',
         this.value.replace('\n', ''),
         this.edit
           ? { state: 'edit', data: this.selectedMessage }
           : this.share
-            ? {
-                state: 'share',
-                data: {
-                  user_name: this.user.name,
-                  user_message: this.selectedMessage.message,
-                  text: ''
-                }
+          ? {
+              state: 'share',
+              data: {
+                user_name: this.user.name,
+                user_message: this.selectedMessage.message,
+                text: ''
               }
-            : { state: 'noedit' }
+            }
+          : { state: 'noedit' }
       )
       this.$emit('setValue', '')
       this.$emit('clearValues')
     }
   },
   mounted() {
+    this.resize()
+  },
+  updated() {
     this.resize()
   }
 }

@@ -1,24 +1,30 @@
 <template>
   <dropdown-parent class="context-menu" :style="style" tabindex="0" @blur="close">
-    <div class="drop__list" @click="$emit('shareMessage')">
-      <ForwardIcon />
-      <span>{{ $t('dropdown.answer') }}</span>
-    </div>
-    <div class="drop__list" @click="$emit('editMessage')">
-      <EditIcon class="edit" />
-      <span>{{ $t('dropdown.change') }}</span>
-    </div>
-    <div class="drop__list">
-      <CopyTextIcon />
-      <span>{{ $t('dropdown.copy_text') }}</span>
-    </div>
-    <div class="drop__list">
-      <ChooseIcon />
-      <span>{{ $t('dropdown.select') }}</span>
-    </div>
-    <div class="drop__list delete" @click="$emit('deleteMessage')">
-      <DeleteIcon />
-      <span>{{ $t('dropdown.delete_dialog') }}</span>
+    <div class="drop__list--parent">
+      <div class="drop__list" @click="$emit('shareMessage')">
+        <ForwardIcon />
+        <span>{{ $t('dropdown.answer') }}</span>
+      </div>
+      <sample-divider />
+      <div class="drop__list" @click="$emit('editMessage')">
+        <EditIcon class="edit" />
+        <span>{{ $t('dropdown.change') }}</span>
+      </div>
+      <sample-divider />
+      <div class="drop__list">
+        <CopyTextIcon />
+        <span>{{ $t('dropdown.copy_text') }}</span>
+      </div>
+      <sample-divider />
+      <div class="drop__list">
+        <ChooseIcon />
+        <span>{{ $t('dropdown.select') }}</span>
+      </div>
+      <sample-divider />
+      <div class="drop__list delete" @click="$emit('deleteMessage')">
+        <DeleteIcon />
+        <span>{{ $t('dropdown.delete_dialog') }}</span>
+      </div>
     </div>
   </dropdown-parent>
 </template>
@@ -30,9 +36,18 @@ import ChooseIcon from '@/components/icons/message/ChooseIcon.vue'
 import CopyTextIcon from '@/components/icons/message/CopyTextIcon.vue'
 import EditIcon from '@/components/icons/message/EditIcon.vue'
 import ForwardIcon from '@/components/icons/message/ForwardIcon.vue'
+import SampleDivider from '@/components/ui/SampleDivider.vue'
 
 export default {
-  components: { DropdownParent, DeleteIcon, ChooseIcon, CopyTextIcon, EditIcon, ForwardIcon },
+  components: {
+    DropdownParent,
+    DeleteIcon,
+    ChooseIcon,
+    CopyTextIcon,
+    EditIcon,
+    ForwardIcon,
+    SampleDivider
+  },
   emits: ['close', 'open', 'shareMessage', 'editMessage', 'deleteMessage'],
   data() {
     return {
@@ -70,20 +85,30 @@ export default {
   position: fixed;
   z-index: 10;
   outline: none;
+  padding: 5px;
 }
 .drop__list {
   display: flex;
   align-items: center;
   gap: 8px;
-  border-bottom: 1px solid var(--color-alto-second);
-  padding: 11px 0;
+  padding: 5px 5px;
   cursor: pointer;
+  font-weight: 400;
+  position: relative;
+  min-height: 30px;
+  transition: all 0.3s;
+  border-radius: 10px;
+  &--parent {
+    padding: 0 5px;
+  }
+  &:hover {
+    background: var(--color-gallery-first);
+  }
   &:first-child {
-    padding-top: 0;
+    padding-top: 5px;
   }
   &:last-child {
-    padding-bottom: 0;
-    border-bottom: 0;
+    padding-bottom: 5px;
   }
   &.delete {
     color: var(--color-valencia);
