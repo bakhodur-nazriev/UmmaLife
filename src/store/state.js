@@ -1,7 +1,8 @@
 export default {
   email: '',
   phoneNumber: '',
-  selectedTheme: '',
+  selectedTheme: 'light',
   isAuthenticated: false,
-  publicationTab: ''
+  publicationTab: '',
+  shouldChangeTabStyle: false
 }

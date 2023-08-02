@@ -1,17 +1,20 @@
 export default {
-  setEmail (state, email) {
+  setEmail(state, email) {
     state.email = email
   },
-  setPhoneNumber (state, phoneNumber) {
+  setPhoneNumber(state, phoneNumber) {
     state.phoneNumber = phoneNumber
   },
-  setAuthenticated (state, isAuthenticated) {
+  setAuthenticated(state, isAuthenticated) {
     state.isAuthenticated = isAuthenticated
   },
-  setSelectedTheme (state, selectedTheme) {
+  setSelectedTheme(state, selectedTheme) {
     state.selectedTheme = selectedTheme
   },
-  setPublicationTabs (state, selectedTab) {
+  setPublicationTabs(state, selectedTab) {
     state.publicationTab = selectedTab
+  },
+  setChangeTabStyle(state, shouldChangeStyle) {
+    state.shouldChangeTabStyle = shouldChangeStyle
   }
 }

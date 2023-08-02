@@ -74,8 +74,10 @@ export default {
   },
   methods: {
     changeTab(index) {
-      const screenWidth = window.innerWidth;
-      const isSmallScreen = screenWidth < 576;
+      this.$store.dispatch('enableChangeTabStyle')
+
+      const screenWidth = window.innerWidth
+      const isSmallScreen = screenWidth < 576
 
       if (isSmallScreen && screenWidth === 0) {
         this.isSmallTab = true

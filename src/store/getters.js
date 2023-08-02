@@ -4,5 +4,6 @@ export default {
   getSelectedTheme: state => state.selectedTheme,
   isAuthenticated: state => state.isAuthenticated,
   getAuthenticated: state => state.isAuthenticated,
-  getPublicationTab: state => state.publicationTab
+  getPublicationTab: state => state.publicationTab,
+  shouldChangeTabStyle: state => state.shouldChangeTabStyle
 }

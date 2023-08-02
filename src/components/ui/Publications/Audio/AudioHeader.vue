@@ -7,9 +7,9 @@
         src="../../../../assets/images/Article_Author.png"
         alt=""
       >
-      <div class="author__info">
-        <span class="name">Абрахам Арахамович</span>
-        <span class="time">15 минут назад</span>
+      <div class="author-info">
+        <span class="author-info__name">Абрахам Арахамович</span>
+        <span class="author-info__time">15 минут назад</span>
       </div>
     </router-link>
     <div class="menu__button">
@@ -36,7 +36,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .menu__button svg {
   color: var(--color-silver-chalice);
 }
@@ -61,19 +61,42 @@ export default {
   height: 27px;
 }
 
-.time {
-  color: var(--color-silver-chalice);
-  font-size: 14px;
-}
-
-.name {
-  color: var(--color-mine-shaft);
-  font-size: 18px;
-}
-
-.author__info {
+.author-info {
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  &__time {
+    color: var(--color-silver-chalice);
+    font-size: 14px;
+  }
+
+  &__name {
+    color: var(--color-mine-shaft);
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 576px) {
+  .post__author {
+    img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .author-info {
+    row-gap: 4px;
+    &__name {
+      font-size: 16px;
+      line-height: 1;
+      font-weight: 500;
+    }
+
+    &__time {
+      font-size: 12px;
+      line-height: 1;
+    }
+  }
 }
 </style>

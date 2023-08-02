@@ -1,15 +1,15 @@
 <template>
   <article class="post__block">
-    <PostHeader
+    <PublicationHeader
       :is-menu-open="isMenuOpen"
       @toggle-menu="toggleMenu"
     />
 
-    <PostContent />
+    <PublicationContent />
 
     <SampleDivider />
 
-    <PostFooter
+    <PublicationFooter
       :is-reaction-window-open="isReactionWindowOpen"
       :is-share-window-open="isShareWindowOpen"
     />
@@ -17,17 +17,17 @@
 </template>
 
 <script>
-import PostHeader from '@/components/ui/Publications/Post/PostHeader.vue'
-import PostContent from '@/components/ui/Publications/Post/PostContent.vue'
-import PostFooter from '@/components/ui/Publications/Post/PostFooter.vue'
+import PublicationContent from '@/components/ui/Publications/Publication/PublicationContent.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
+import PublicationHeader from '@/components/ui/Publications/Publication/PublicationHeader.vue'
+import PublicationFooter from '@/components/ui/Publications/Publication/PublicationFooter.vue'
 
 export default {
   components: {
-    SampleDivider,
-    PostFooter,
-    PostContent,
-    PostHeader
+    PublicationContent,
+    PublicationFooter,
+    PublicationHeader,
+    SampleDivider
   },
   data () {
     return {
@@ -52,11 +52,5 @@ export default {
   background-color: var(--color-white);
   border-radius: 15px;
   padding: 20px 24px 8px 24px;
-}
-
-@media (max-width: 576px) {
-  .post__block {
-    border-radius: 0;
-  }
 }
 </style>

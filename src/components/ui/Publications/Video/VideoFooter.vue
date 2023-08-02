@@ -1,5 +1,5 @@
 <template>
-  <footer class="article__footer">
+  <footer class="video__footer">
     <div class="footer__buttons">
       <div class="reaction__buttons--block" ref="reactionWindow">
         <div class="reactions__buttons">
@@ -175,7 +175,7 @@ export default {
   opacity: 0;
 }
 
-.article__footer {
+.video__footer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -205,6 +205,7 @@ export default {
       display: flex;
       gap: 18px;
       padding: 12px;
+      width: max-content;
 
       .share__menu,
       .reaction__menu {
@@ -230,29 +231,22 @@ export default {
 .share__button {
   display: flex;
   align-items: center;
+  gap: 12px;
   justify-content: center;
   color: var(--color-gray);
   cursor: pointer;
   padding: 0 20px;
-}
 
-.like__button:hover,
-.comment__button:hover,
-.share__button:hover {
-  background-color: var(--color-seashell);
-  border-radius: 10px;
+  &:hover {
+    background-color: var(--color-seashell);
+    border-radius: 10px;
+  }
 }
 
 .reaction__item {
   display: flex;
   align-items: center;
   cursor: pointer;
-}
-
-.like__button svg,
-.comment__button svg,
-.share__button svg {
-  margin-right: 12px;
 }
 
 @media (max-width: 576px) {
@@ -264,11 +258,20 @@ export default {
   .like__button,
   .comment__button,
   .share__button {
-    padding: 0 15px;
+    padding: 0 10px;
+
+    &:hover {
+      background: none;
+      border-radius: 0;
+    }
   }
 
   .footer__buttons {
     justify-content: flex-start;
+  }
+
+  .video__footer {
+    padding: 8px;
   }
 }
 
@@ -277,10 +280,6 @@ export default {
   .share__button,
   .like__button {
     height: 43px;
-  }
-
-  .share__item {
-    min-width: 220px;
   }
 }
 

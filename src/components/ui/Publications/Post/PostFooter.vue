@@ -20,7 +20,7 @@
           @click="openReactionWindow"
         >
           <HeartIcon />
-          {{ $t('buttons.like') }}
+          <span>{{ $t('buttons.like') }}</span>
         </div>
       </div>
 
@@ -32,7 +32,7 @@
         <span>{{ $t('buttons.comment') }}</span>
       </div>
 
-      <div class="share__buttons--block" ref="shareWixndow">
+      <div class="share__buttons--block" ref="shareWindow">
         <div class="share__buttons">
           <div v-if="isShareWindowOpen" class="share__window">
             <ul class="share__menu">
@@ -192,27 +192,21 @@ export default {
   cursor: pointer;
 }
 
-.like__button svg,
-.comment__button svg,
-.share__button svg {
-  margin-right: 12px;
-}
-
-.share__item span {
-  font-size: 14px;
-}
-
 .share__item {
   display: flex;
   align-items: center;
   cursor: pointer;
   gap: 8px;
   padding: 5px 10px;
-}
 
-.share__item:hover {
-  background-color: var(--color-seashell);
-  border-radius: 10px;
+  &:hover {
+    background-color: var(--color-seashell);
+    border-radius: 10px;
+  }
+
+  span {
+    font-size: 14px;
+  }
 }
 
 .share__menu {
@@ -251,6 +245,7 @@ export default {
   display: flex;
   gap: 18px;
   padding: 12px;
+  width: max-content;
 }
 
 .footer__buttons {
@@ -269,17 +264,16 @@ export default {
 .comment__button,
 .share__button {
   display: flex;
+  gap: 12px;
   align-items: center;
   justify-content: center;
   color: var(--color-gray);
   cursor: pointer;
-}
 
-.like__button:hover,
-.comment__button:hover,
-.share__button:hover {
-  background-color: var(--color-seashell);
-  border-radius: 15px;
+  &:hover {
+    background-color: var(--color-seashell);
+    border-radius: 15px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -295,7 +289,12 @@ export default {
   .like__button,
   .comment__button,
   .share__button {
-    padding: 0 15px;
+    padding: 0 10px;
+
+    &:hover {
+      background: none;
+      border-radius: 0;
+    }
   }
 }
 

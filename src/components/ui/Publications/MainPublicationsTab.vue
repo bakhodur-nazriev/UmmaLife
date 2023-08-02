@@ -12,17 +12,17 @@
       </div>
     </div>
 
-   <div class="tabs-content">
+    <div class="tabs-content">
       <div
         v-for="(tab, index) in tabs"
         :key="index"
         v-show="activeTab === index"
       >
-        <PublicationTab v-if="index === 0" />
+        <PublicationTab v-if="index === 0"/>
         <ArticleTab v-if="index === 1"/>
         <PhotoTab v-if="index === 2"/>
-        <!--<VideoTab v-if="index === 3"/>-->
-        <AudioTab v-if="index === 4" />
+        <VideoTab v-if="index === 3"/>
+        <AudioTab v-if="index === 4"/>
       </div>
     </div>
   </div>
@@ -32,7 +32,7 @@
 import PublicationTab from '@/components/ui/Publications/PublicationTab.vue'
 import ArticleTab from '@/components/ui/Publications/ArticleTab.vue'
 import PhotoTab from '@/components/ui/Publications/PhotoTab.vue'
-// import VideoTab from '@/components/ui/Publications/VideoTab.vue'
+import VideoTab from '@/components/ui/Publications/VideoTab.vue'
 import AudioTab from '@/components/ui/Publications/AudioTab.vue'
 import CheckMarkSmallIcon from '@/components/icons/CheckMarkSmallIcon.vue'
 
@@ -41,7 +41,7 @@ export default {
     CheckMarkSmallIcon,
     PublicationTab,
     AudioTab,
-    // VideoTab,
+    VideoTab,
     PhotoTab,
     ArticleTab
   },
@@ -51,7 +51,7 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
       activeTab: 0,
       tabs: [],
@@ -60,13 +60,34 @@ export default {
     }
   },
   methods: {
-    changeTab (index) {
+    changeTab(index) {
       this.$store.commit('setPublicationTabs', this.tabs[index].title)
       this.activeTab = index
       sessionStorage.setItem('activePublicationTab', index.toString())
+      this.$store.dispatch('enableChangeTabStyle')
     }
   },
-  mounted () {
+  computed: {
+    shouldChangeTabStyle() {
+      return this.$store.getters.shouldChangeTabStyle
+    }
+  },
+  watch: {
+    shouldChangeTabStyle(newValue, oldValue) {
+      console.log(newValue, oldValue)
+      const tabsHeader = this.$refs.publicationTabsHeader
+      const tabsAfter = this.$refs.publicationTabs
+
+      if (newValue) {
+        tabsHeader.style.display = 'flex'
+        tabsAfter.style.display = 'flex'
+      } else {
+        tabsHeader.style.display = 'none'
+        tabsAfter.style.display = 'none'
+      }
+    }
+  },
+  mounted() {
     const savedTab = sessionStorage.getItem('activePublicationTab')
     if (savedTab) {
       this.activeTab = parseInt(savedTab)
@@ -127,7 +148,7 @@ export default {
     }
 
     &__label-title {
-     color: var(--color-silver-chalice);
+      color: var(--color-silver-chalice);
       font-weight: 500;
     }
   }
@@ -140,7 +161,7 @@ export default {
     &::after {
       display: none;
       content: "";
-      background: rgba(0,0,0,.4);
+      background: rgba(0, 0, 0, .4);
       position: fixed;
       height: 100vh;
       width: 100%;
@@ -190,7 +211,9 @@ export default {
   }
 }
 
-@media (min-width: 768px) {}
+@media (min-width: 768px) {
+}
 
-@media (min-width: 1280px) {}
+@media (min-width: 1280px) {
+}
 </style>

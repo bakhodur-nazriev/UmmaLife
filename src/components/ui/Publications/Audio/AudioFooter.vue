@@ -20,7 +20,7 @@
           @click="openReactionWindow"
         >
           <HeartIcon />
-          {{ $t('buttons.like') }}
+          <span>{{ $t('buttons.like') }}</span>
         </div>
       </div>
 
@@ -205,6 +205,7 @@ export default {
       display: flex;
       gap: 18px;
       padding: 12px;
+      width: max-content;
 
       .share__menu,
       .reaction__menu {
@@ -230,29 +231,22 @@ export default {
 .share__button {
   display: flex;
   align-items: center;
+  gap: 12px;
   justify-content: center;
   color: var(--color-gray);
   cursor: pointer;
   padding: 0 20px;
-}
 
-.like__button:hover,
-.comment__button:hover,
-.share__button:hover {
-  background-color: var(--color-seashell);
-  border-radius: 10px;
+  &:hover {
+    background-color: var(--color-seashell);
+    border-radius: 10px;
+  }
 }
 
 .reaction__item {
   display: flex;
   align-items: center;
   cursor: pointer;
-}
-
-.like__button svg,
-.comment__button svg,
-.share__button svg {
-  margin-right: 12px;
 }
 
 @media (max-width: 567px) {
@@ -268,7 +262,12 @@ export default {
   .like__button,
   .comment__button,
   .share__button {
-    padding: 0 15px;
+    padding: 0 10px;
+
+    &:hover {
+      background: none;
+      border-radius: 0;
+    }
   }
 }
 
@@ -277,10 +276,6 @@ export default {
   .share__button,
   .like__button {
     height: 43px;
-  }
-
-  .share__item {
-    min-width: 220px;
   }
 }
 

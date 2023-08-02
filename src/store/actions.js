@@ -1,5 +1,5 @@
 export default {
-  toggleTheme ({ commit, state }) {
+  toggleTheme({ commit, state }) {
     const newTheme = state.selectedTheme === 'light' ? 'dark' : 'light'
     commit('setSelectedTheme', newTheme)
   },
@@ -12,5 +12,11 @@ export default {
     // Логика для выхода пользователя
     // Установка isAuthenticated в false при выходе
     commit('setAuthenticated', false)
+  },
+  enableChangeTabStyle({ commit }) {
+    commit('setChangeTabStyle', true)
+  },
+  disableChangeTabStyle({ commit }) {
+    commit('setChangeTabStyle', false)
   }
 }

@@ -58,6 +58,10 @@
     --screen-width: 1024px;
     --screen-height: 768px;
   }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
 }
 
 /* Font sizes */
