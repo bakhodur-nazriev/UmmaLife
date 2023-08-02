@@ -5,7 +5,9 @@
         <img :src="user.image" :alt="user.name" class="room__profile--img" />
         <router-link to="#" class="room__profile--info">
           <div class="room__profile--name">{{ user.name }}</div>
-          <div class="room__profile--account">{{ user.account }}</div>
+          <div class="room__profile--account" :class="{ online: user.online || user.typing }">
+            {{ user.last_seen }}
+          </div>
         </router-link>
       </div>
       <div class="room__details" @click="showDeleteDropdown = true">
@@ -23,6 +25,7 @@
           v-for="message in user.messages"
           :state="message.state"
           :key="message.id"
+          :status="message.status"
           :message="message.message"
           :data-id="message.id"
           @contextmenu.prevent="($event) => openContextMenu($event, message.id)"
@@ -73,7 +76,7 @@ export default {
     ContextMenu,
     DeleteConfirm
   },
-  data () {
+  data() {
     return {
       showDeleteDropdown: false,
       isContextMenuOpen: false,
@@ -87,38 +90,43 @@ export default {
     }
   },
   computed: {
-    selectedMessage () {
+    selectedMessage() {
       return this.user.messages.find((message) => message.id === this.messageId)
     }
   },
   watch: {
     user: {
-      handler () {
+      handler() {
         this.scrollToBottom()
       },
       deep: true
     },
-    '$route.params' () {
+    '$route.params'() {
       this.renderPage()
     }
   },
   methods: {
-    scrollToBottom () {
+    scrollToBottom() {
       this.$nextTick(() => {
         this.$refs.room.scrollIntoView({ block: 'end', inline: 'nearest' })
       })
     },
-    openContextMenu (e, id) {
+    openContextMenu(e, id) {
       const target = e.target
       if (target.closest('.message__inner')) {
         this.$refs.menu.open(e)
         this.messageId = id
       }
     },
-    submitHandler (value, type) {
+    submitHandler(value, type) {
       const index = this.users.findIndex((u) => u.id === this.user.id)
       if (type.state === 'noedit') {
-        this.users[index].messages.push({ id: Date.now(), message: value, state: 'send' })
+        this.users[index].messages.push({
+          id: Date.now(),
+          message: value,
+          status: 'notread',
+          state: 'send'
+        })
       }
       if (type.state === 'edit') {
         const messageIndex = this.users[index].messages.findIndex(
@@ -138,19 +146,20 @@ export default {
                 : type.data.user_message.text,
             text: value
           },
-          state: 'send'
+          state: 'send',
+          status: 'notread'
         })
       }
     },
-    setValue (value) {
+    setValue(value) {
       this.value = value
     },
-    shareMessage () {
+    shareMessage() {
       this.clearValues()
       this.isContextMenuOpen = false
       this.share = true
     },
-    editMessage () {
+    editMessage() {
       this.clearValues()
       if (this.selectedMessage.state === 'send') {
         this.isContextMenuOpen = false
@@ -161,24 +170,24 @@ export default {
         this.edit = true
       }
     },
-    deleteMessage () {
+    deleteMessage() {
       this.isDeleteModalOpen = true
       this.isContextMenuOpen = false
     },
-    clearValues () {
+    clearValues() {
       this.share = false
       this.edit = false
     },
-    renderPage () {
+    renderPage() {
       if (this.$route.params.id) {
         this.user = this.users.find((user) => user.id === +this.$route.params.id)
       }
     }
   },
-  mounted () {
+  mounted() {
     this.renderPage()
   },
-  updated () {
+  updated() {
     this.renderPage()
     this.scrollToBottom()
   }
@@ -239,6 +248,9 @@ export default {
       font-weight: 400;
       line-height: normal;
       color: var(--color-silver-chalice);
+      &.online {
+        color: var(--color-green);
+      }
     }
   }
   &__details {

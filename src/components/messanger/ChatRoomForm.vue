@@ -51,7 +51,8 @@
       </div>
       <button type="submit" class="form__btn">
         {{ $t('chat.send') }}
-        <send-icon />
+        <spinner-gif v-if="isLoading" />
+        <send-icon v-else />
       </button>
     </form>
   </div>
@@ -63,8 +64,16 @@ import AttachIcon from '@/components/icons/AttachIcon.vue'
 import EditGrayIcon from '@/components/icons/MenuDetails/EditGrayIcon.vue'
 import CloseEditIcon from '@/components/icons/MenuDetails/CloseEditIcon.vue'
 import ShareBigIcon from '@/components/icons/MenuDetails/ShareBigIcon.vue'
+import SpinnerGif from '@/components/icons/SpinnerGif.vue'
+import { sleep } from '@/utils.js'
 export default {
-  components: { SendIcon, AttachIcon, EditGrayIcon, CloseEditIcon, ShareBigIcon },
+  components: { SendIcon, AttachIcon, EditGrayIcon, CloseEditIcon, ShareBigIcon, SpinnerGif },
+  data() {
+    return {
+      isLoading: false,
+      sleep
+    }
+  },
   props: {
     value: String,
     edit: Boolean,
@@ -74,14 +83,15 @@ export default {
   },
   emits: ['submitHandler', 'setValue', 'clearValues'],
   methods: {
-    resize (e) {
+    resize(e) {
       const { textarea } = this.$refs
-
-      if (e?.key && e?.key === 'Enter') {
-        setTimeout(() => {
-          this.submitHandler()
-        }, 0)
+      if (e?.keyCode && e.keyCode === 13 && !e.shiftKey) {
+        this.submitHandler()
       }
+      if (e?.keyCode && e.keyCode === 13 && e.shiftKey) {
+        this.$emit('setValue', this.value)
+      }
+
       setTimeout(() => {
         if (typeof this.value === 'string' && this.value.length === 0) {
           textarea.style.height = 56 + 'px'
@@ -98,15 +108,18 @@ export default {
         textarea.style.overflowY = 'hidden'
       }
     },
-    inputHandler (e) {
+    inputHandler(e) {
       this.resize()
       this.$emit('setValue', e.target.value)
     },
-    submitHandler () {
+    async submitHandler() {
       /* eslint-disable */
+      this.isLoading = true
+      await sleep(300)
+      this.isLoading = false
       this.$emit(
         'submitHandler',
-        this.value.replace('\n', ''),
+        this.value,
         this.edit
           ? { state: 'edit', data: this.selectedMessage }
           : this.share
@@ -120,8 +133,10 @@ export default {
             }
           : { state: 'noedit' }
       )
-      this.$emit('setValue', '')
-      this.$emit('clearValues')
+      setTimeout(() => {
+        this.$emit('setValue', '')
+        this.$emit('clearValues')
+      }, 0)
     }
   },
   mounted() {
@@ -273,6 +288,11 @@ export default {
         width: 18px;
         height: 18px;
         display: block;
+      }
+      img {
+        width: 45px;
+        height: 45px;
+        margin-left: -10px;
       }
     }
   }

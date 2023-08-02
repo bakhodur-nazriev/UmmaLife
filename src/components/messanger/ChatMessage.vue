@@ -13,7 +13,8 @@
       </div>
       <div class="message__bottom">
         <span>15:52</span>
-        <double-check-icon v-if="state === 'send'" />
+        <double-check-icon v-if="state === 'send' && status === 'read'" />
+        <single-check-icon v-if="state === 'send' && status === 'notread'" />
       </div>
     </div>
   </div>
@@ -21,15 +22,17 @@
 
 <script>
 import DoubleCheckIcon from '@/components/icons/DoubleCheckIcon.vue'
+import SingleCheckIcon from '@/components/icons/SingleCheckIcon.vue'
 
 export default {
-  components: { DoubleCheckIcon },
+  components: { DoubleCheckIcon, SingleCheckIcon },
   props: {
     state: {
       type: String,
       validator: (value) => ['send', 'recieve'].includes(value),
       default: () => 'send'
     },
+    status: String,
     message: [String, Object]
   }
 }
@@ -67,6 +70,7 @@ export default {
     font-weight: 400;
     line-height: 150%; /* 24px */
     letter-spacing: 0.4px;
+    white-space: pre-wrap;
     &--top {
       border-left: 2px solid var(--color-white);
       padding-left: 8px;
