@@ -1,5 +1,6 @@
 <template>
-  <div class="tabs" ref="publicationTabs">
+  <div class="tabs">
+    <div class="tabs-bg" ref="publicationBackground"></div>
     <div class="tabs-header" ref="publicationTabsHeader">
       <div
         v-for="(tab, index) in tabs"
@@ -21,7 +22,7 @@
         <PublicationTab v-if="index === 0"/>
         <ArticleTab v-if="index === 1"/>
         <PhotoTab v-if="index === 2"/>
-        <VideoTab v-if="index === 3"/>
+<!--        <VideoTab v-if="index === 3"/>-->
         <AudioTab v-if="index === 4"/>
       </div>
     </div>
@@ -32,7 +33,7 @@
 import PublicationTab from '@/components/ui/Publications/PublicationTab.vue'
 import ArticleTab from '@/components/ui/Publications/ArticleTab.vue'
 import PhotoTab from '@/components/ui/Publications/PhotoTab.vue'
-import VideoTab from '@/components/ui/Publications/VideoTab.vue'
+// import VideoTab from '@/components/ui/Publications/VideoTab.vue'
 import AudioTab from '@/components/ui/Publications/AudioTab.vue'
 import CheckMarkSmallIcon from '@/components/icons/CheckMarkSmallIcon.vue'
 
@@ -41,7 +42,7 @@ export default {
     CheckMarkSmallIcon,
     PublicationTab,
     AudioTab,
-    VideoTab,
+    // VideoTab,
     PhotoTab,
     ArticleTab
   },
@@ -64,7 +65,6 @@ export default {
       this.$store.commit('setPublicationTabs', this.tabs[index].title)
       this.activeTab = index
       sessionStorage.setItem('activePublicationTab', index.toString())
-      this.$store.dispatch('enableChangeTabStyle')
     }
   },
   computed: {
@@ -73,17 +73,16 @@ export default {
     }
   },
   watch: {
-    shouldChangeTabStyle(newValue, oldValue) {
-      console.log(newValue, oldValue)
+    shouldChangeTabStyle(newValue) {
       const tabsHeader = this.$refs.publicationTabsHeader
-      const tabsAfter = this.$refs.publicationTabs
+      const tabBackground = this.$refs.publicationBackground
 
       if (newValue) {
         tabsHeader.style.display = 'flex'
-        tabsAfter.style.display = 'flex'
+        tabBackground.style.display = 'flex'
       } else {
         tabsHeader.style.display = 'none'
-        tabsAfter.style.display = 'none'
+        tabBackground.style.display = 'none'
       }
     }
   },
@@ -114,6 +113,12 @@ export default {
     border-radius: 15px;
     overflow: hidden;
     padding: 0 32px;
+    &__title {
+      &:hover {
+        color: var(--color-mine-shaft);
+        transition: all .15s ease-in-out;
+      }
+    }
 
     &__item {
       display: flex;
@@ -158,7 +163,7 @@ export default {
   .tabs {
     position: relative;
 
-    &::after {
+    &-bg {
       display: none;
       content: "";
       background: rgba(0, 0, 0, .4);
@@ -179,6 +184,10 @@ export default {
       border-radius: 0;
       gap: 10px;
       padding: 20px 32px;
+
+      &__title {
+        font-weight: 400;
+      }
 
       &__item {
         width: 100%;

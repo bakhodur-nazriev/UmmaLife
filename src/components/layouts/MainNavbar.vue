@@ -199,7 +199,14 @@ export default {
 
 .menu__button {
   background-color: var(--color-white);
-  margin: 24px;
+  margin: 14px;
+  border-radius: 50%;
+  padding: 14px;
+
+  &:hover {
+    transition: all .15s ease-in-out;
+    background-color: var(--color-seashell);
+  }
 }
 
 .main__logo {

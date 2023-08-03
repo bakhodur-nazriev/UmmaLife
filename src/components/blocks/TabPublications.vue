@@ -91,7 +91,6 @@ svg {
 .main__publications--section {
   display: flex;
   flex-direction: column;
-  row-gap: 8px;
 }
 
 .publication__main--block {

@@ -13,10 +13,7 @@ export default {
     // Установка isAuthenticated в false при выходе
     commit('setAuthenticated', false)
   },
-  enableChangeTabStyle({ commit }) {
-    commit('setChangeTabStyle', true)
-  },
-  disableChangeTabStyle({ commit }) {
-    commit('setChangeTabStyle', false)
+  toggleChangeTabStyle({ commit, state }) {
+    commit('setChangeTabStyle', !state.shouldChangeTabStyle)
   }
 }

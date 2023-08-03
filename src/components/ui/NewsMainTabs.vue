@@ -5,7 +5,7 @@
         v-for="(tab, index) in tabs"
         :key="tab.index"
         :class="['tabs__header-item', { 'active': activeTab === index }]"
-        @click="changeTab(index)"
+        @click="handleTabClick(index)"
       >
         <div v-if="tab.index === 0">
           <span class="dropdown-tab">
@@ -13,7 +13,7 @@
             <ArrowDownIcon class="dropdown-tab__icon" />
           </span>
         </div>
-        <span v-if="tab.index > 0">{{ tab.title }}</span>
+        <span class="tab-title" v-if="tab.index > 0">{{ tab.title }}</span>
       </div>
     </div>
 
@@ -49,6 +49,7 @@ import TabPublications from '@/components/blocks/TabPublications.vue'
 import TabUmmaShorts from '@/components/blocks/TabUmmaShorts.vue'
 import PlusIcon from '@/components/icons/PlusIcon.vue'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon.vue'
+
 export default {
   components: {
     ArrowDownIcon,
@@ -73,14 +74,23 @@ export default {
     }
   },
   methods: {
-    changeTab(index) {
-      this.$store.dispatch('enableChangeTabStyle')
+    handleTabClick(index) {
+      const isSmallScreen = this.isSmallScreen
 
+      if (isSmallScreen && index === 0) {
+        this.$store.dispatch('toggleChangeTabStyle')
+      } else {
+        this.activeTab = index
+        sessionStorage.setItem('activeTab', index.toString())
+      }
+    },
+    changeTab(index) {
       const screenWidth = window.innerWidth
       const isSmallScreen = screenWidth < 576
 
-      if (isSmallScreen && screenWidth === 0) {
+      if (isSmallScreen) {
         this.isSmallTab = true
+        this.$store.dispatch('toggleChangeTabStyle')
       } else {
         this.activeTab = index
         sessionStorage.setItem('activeTab', index.toString())
@@ -100,6 +110,9 @@ export default {
     }))
   },
   computed: {
+    isSmallScreen() {
+      return window.innerWidth < 576
+    },
     tapTitleForSmallDisplay () {
       if (this.$store.getters.getPublicationTab === '') {
         return this.$t('tabs.publications_inside.publications')
@@ -139,6 +152,14 @@ export default {
       font-size: 18px;
       margin: 0 50px;
       width: 200px;
+
+      .tab-title {
+        font-weight: 500;
+        &:hover {
+          color: var(--color-mine-shaft);
+          transition: all .15s ease-in-out;
+        }
+      }
 
       .dropdown-tab {
         &__icon {

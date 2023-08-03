@@ -5,43 +5,43 @@
   >
     <div class="sidebar__main--links">
       <div class="sidebar-theme__toggle-button">
-        <toggle-theme :is-sidebar-collapsed="isSidebarCollapsed"></toggle-theme>
+        <ToggleTheme :is-sidebar-collapsed="isSidebarCollapsed" />
       </div>
       <SampleDivider class="main-divider"/>
       <ul class="sidebar__links--list">
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/news`) }">
           <router-link :to="`/${$i18n.locale}/news`">
-            <news-icon class="sidebar__item--icon"></news-icon>
+            <NewsIcon class="sidebar__item--icon" />
             {{ isSidebarCollapsed ? '' : $t('links.news') }}
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/my-page`) }">
           <router-link :to="`/${$i18n.locale}/my-page`">
-            <my-page-icon class="sidebar__item--icon"></my-page-icon>
+            <MyPageIcon class="sidebar__item--icon" />
             {{ isSidebarCollapsed ? '' : $t('links.my_page') }}
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/messenger`) }">
           <router-link :to="`/${$i18n.locale}/messenger`">
-            <messenger-icon class="sidebar__item--icon"></messenger-icon>
+            <MessengerIcon class="sidebar__item--icon" />
             {{ isSidebarCollapsed ? '' : $t('links.messenger') }}
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/my-groups`) }">
           <router-link :to="`/${$i18n.locale}/my-groups`">
-            <my-group-icon class="sidebar__item--icon"></my-group-icon>
+            <MyGroupIcon class="sidebar__item--icon" />
             {{ isSidebarCollapsed ? '' : $t('links.my_groups') }}
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/my-albums`) }">
           <router-link :to="`/${$i18n.locale}/my-albums`">
-            <my-albums-icon class="sidebar__item--icon"></my-albums-icon>
+            <MyAlbumsIcon class="sidebar__item--icon" />
             {{ isSidebarCollapsed ? '' : $t('links.my_albums') }}
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/my-audio`) }">
           <router-link :to="`/${$i18n.locale}/my-audio`">
-            <my-audio-icon class="sidebar__item--icon"></my-audio-icon>
+            <MyAudioIcon class="sidebar__item--icon" />
             {{ isSidebarCollapsed ? '' : $t('links.my_audio') }}
           </router-link>
         </li>
@@ -50,19 +50,19 @@
 
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/saved`) }">
           <router-link :to="`/${$i18n.locale}/saved`">
-            <saved-icon class="sidebar__item--icon"></saved-icon>
+            <SavedIcon class="sidebar__item--icon" />
             {{ isSidebarCollapsed ? '' : $t('links.saved') }}
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/articles`) }">
           <router-link :to="`/${$i18n.locale}/articles`">
-            <articles-icon class="sidebar__item--icon"></articles-icon>
+            <ArticlesIcon class="sidebar__item--icon" />
             {{ isSidebarCollapsed ? '' : $t('links.articles') }}
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/video`) }">
           <router-link :to="`/${$i18n.locale}/video`">
-            <video-icon class="sidebar__item--icon"></video-icon>
+            <VideoIcon class="sidebar__item--icon" />
             {{ isSidebarCollapsed ? '' : $t('links.video') }}
           </router-link>
         </li>
@@ -71,20 +71,20 @@
 
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/library`) }">
           <router-link :to="`/${$i18n.locale}/library`">
-            <library-icon class="sidebar__item--icon"></library-icon>
+            <LibraryIcon class="sidebar__item--icon" />
             {{ isSidebarCollapsed ? '' : $t('links.library') }}
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/marriage-agency`) }">
           <router-link :to="`/${$i18n.locale}/marriage-agency`">
-            <marriage-agency-icon class="sidebar__item--icon"></marriage-agency-icon>
+            <MarriageAgencyIcon class="sidebar__item--icon" />
             {{ isSidebarCollapsed ? '' : $t('links.marriage_agency') }}
           </router-link>
         </li>
       </ul>
     </div>
     <div class="sidebar__locales">
-      <main-sidebar-locales-dropdown :is-sidebar-collapsed="isSidebarCollapsed"></main-sidebar-locales-dropdown>
+      <MainSidebarLocalesDropdown :is-sidebar-collapsed="isSidebarCollapsed" />
     </div>
   </aside>
 </template>
@@ -148,7 +148,7 @@ export default {
 }
 
 .main-divider {
-  height: 2px;
+  height: 1px;
 }
 
 .sidebar {
@@ -164,91 +164,74 @@ export default {
   max-width: 260px;
   width: 100%;
   transition: 0.3s;
-}
 
-.sidebar.sidebar--collapsed {
-  width: 68px;
-  transition: width 0.3s ease;
-}
+  &__locales {
+    margin-top: auto;
+    margin-bottom: 95px;
+  }
 
-.sidebar.dark-theme {
-  background-color: var(--color-mine-shaft-dark);
-}
+  &--collapsed {
+    width: 68px;
+    transition: width 0.3s ease;
+  }
 
-hr {
-  border: 1px solid var(--color-seashell);
-}
+  .dark-theme {
+    background-color: var(--color-mine-shaft-dark);
+  }
 
-hr.dark-theme {
-  border: 1px solid var(--color-seashell);
-}
+  &__main--links {
+    display: flex;
+    flex-direction: column;
+  }
 
-.sidebar__main--links {
-  display: flex;
-  flex-direction: column;
-}
+  &__links--list {
+    margin-top: 0;
+    list-style: none;
+    padding: 0;
+  }
 
-.sidebar__links--list {
-  margin-top: 0;
-  list-style: none;
-  padding: 0;
-}
+  &__item {
+    border-radius: 20px;
+    &:hover {
+      background-color: var(--color-seashell);
+      cursor: pointer;
+      transition: all .15s ease-in-out;
 
-.sidebar__item.active {
-  background-color: var(--color-seashell);
-  border-radius: 20px;
-  cursor: pointer;
-}
+      &.dark-theme {
+        background-color: var(--color-woodsmoke);
+      }
+    }
 
-.sidebar__item.active.dark-theme {
-  background-color: var(--color-woodsmoke);
-}
+    &.active {
+      background-color: var(--color-seashell);
+      border-radius: 20px;
+      cursor: pointer;
 
-.sidebar__item:hover {
-  background-color: var(--color-seashell);
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
+      &.dark-theme {
+        background-color: var(--color-woodsmoke);
+      }
 
-.sidebar__item:hover.dark-theme {
-  background-color: var(--color-woodsmoke);
-}
+      .sidebar__item--icon {
+        color: var(--color-deep-cerulean);
+      }
+    }
 
-.sidebar__item .sidebar__item--icon {
-  color: var(--color-silver-chalice);
-}
+    &--icon {
+      margin-right: 16px;
+      color: var(--color-silver-chalice);
+    }
 
-.sidebar__item .sidebar__item--icon {
-  color: var(--color-silver-chalice);
-}
-
-.sidebar__item.active .sidebar__item--icon {
-  color: var(--color-deep-cerulean);
-}
-
-.sidebar__item.active .sidebar__item--icon {
-  color: var(--color-deep-cerulean-dark);
-}
-
-.sidebar__item a {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: inherit;
-  font-size: 16px;
-  cursor: pointer;
-  padding: 15px 0 15px 22px;
-  line-height: 1;
-}
-
-.sidebar__item--icon {
-  margin-right: 16px;
-}
-
-.sidebar__locales {
-  margin-top: auto;
-  margin-bottom: 95px;
+    a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 15px 0 15px 22px;
+      line-height: 1;
+    }
+  }
 }
 
 @media (min-width: 768px) {  }

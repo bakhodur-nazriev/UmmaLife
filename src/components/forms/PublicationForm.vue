@@ -1,6 +1,6 @@
 <template>
   <section class="publications__form--section">
-    <form action="" class="form__section">
+    <form action="" class="form__section" :class="formSectionClasses">
       <div class="form__left--side">
         <img
           width="48"
@@ -12,10 +12,9 @@
           rows="1"
           :placeholder="$t('placeholders.publications_input')"
           @input="handleTextareaInput"
-          class="enter__post--textarea"
-          :class="{ active: isTextAreaActive }"
+          :class="['enter__post--textarea', { active: isTextAreaActive }]"
           @click="isTextAreaActive = true"
-          @blur="isTextAreaActive = true"
+          @blur="isTextAreaActive = false"
         ></textarea>
       </div>
       <div v-if="!isTextAreaActive" class="form__inputs--block">
@@ -309,7 +308,7 @@
           </div>
         </div>
 
-        <div class="textarea__active">
+        <div class="textarea__active" :class="{ active: isTextAreaActive }">
           <div class="textarea__active--left--side">
             <button class="poll__button" type="button" @click="openPollModal">
               <PollIcon />
@@ -344,7 +343,7 @@
             <SampleButton
               :title="`${$t('buttons.publish')}`"
               class="publish__button"
-              rounded="rounded"
+              :class="{ 'rounded': isTextAreaActive }"
             />
           </div>
         </div>
@@ -520,7 +519,6 @@ export default {
       this.showWatchingSection = !this.showWatchingSection
       this.showSmileSection = false
     },
-
     isPlayingActive () {
       this.showPlayingSection = !this.showPlayingSection
       this.showSmileSection = false
@@ -558,16 +556,20 @@ export default {
       }
     }
   },
+  // computed: {
+  //   isTextAreaActive: false
+  // },
   watch: {
     isTextAreaActive (newValue) {
+      console.log(newValue)
       const formSection = document.querySelector('.form__section')
       const formInputBlocks = document.querySelector('.form__inputs--block')
-      if (newValue) {
-        formSection.style.flexDirection = 'column'
-        formInputBlocks.style.width = '100%'
-      } else {
+      if (!newValue) {
         formSection.style.flexDirection = 'row'
         formInputBlocks.style.width = ''
+      } else {
+        formSection.style.flexDirection = 'column'
+        formInputBlocks.style.width = '100%'
       }
     }
   }
@@ -576,7 +578,7 @@ export default {
 
 <style lang="scss" scoped>
 .modal-open {
-  transition: 0.2s;
+  transition: all .15s ease-in-out;
   overflow: hidden;
 }
 .publications__form--section {
@@ -591,31 +593,32 @@ export default {
   width: 100%;
   row-gap: 24px;
 }
+
 .form__left--side {
   display: flex;
   align-items: center;
   width: 100%;
-}
 
-.form__left--side > :first-child {
-  align-self: flex-start;
-}
+  &:first-child {
+    align-self: flex-start;
+  }
 
-.form__left--side img {
-  margin-right: 16px;
-}
+  img {
+    margin-right: 16px;
+  }
 
-.form__left--side textarea {
-  border: none;
-  resize: none;
-  outline: none;
-  font-size: 16px;
-  min-height: 22px;
-  width: 89%;
-}
+  textarea {
+    border: none;
+    resize: none;
+    outline: none;
+    font-size: 16px;
+    min-height: 22px;
+    width: 89%;
 
-.form__left--side textarea::placeholder {
-  color: var(--color-silver-chalice);
+    &::placeholder {
+      color: var(--color-silver-chalice);
+    }
+  }
 }
 
 .form__inputs--block {
@@ -715,6 +718,7 @@ export default {
     }
   }
 }
+
 .emotions__input--section {
   display: flex;
   align-items: center;
