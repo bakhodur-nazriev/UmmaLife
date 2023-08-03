@@ -1,0 +1,39 @@
+<template>
+  <div class="image-component">
+    <img :src="image.src" :alt="image.alt" />
+  </div>
+</template>
+
+<script setup>
+/* eslint-disable */
+defineProps({
+  image: Object
+})
+</script>
+
+<style lang="scss">
+.video-message {
+  .image-component {
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+}
+.image-component {
+  height: 300px;
+  display: block;
+  width: calc(100% + 28px);
+  position: relative;
+  top: -14px;
+  left: -14px;
+  right: -14px;
+  object-fit: cover;
+  object-position: center;
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+</style>

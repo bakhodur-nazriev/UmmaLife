@@ -1,6 +1,12 @@
 <template>
   <div class="message" :class="`${state} ${typeof message === 'object' ? 'forward' : ''}`">
-    <div class="message__inner">
+    <div class="message__inner" :class="{ 'video-message': (video || image) && !message }">
+      <template v-if="video">
+        <video-message :src="video.src" :poster="video.poster" />
+      </template>
+      <template v-if="image">
+        <image-message :image="image" />
+      </template>
       <div class="message__text" v-if="typeof message === 'string'">
         {{ message }}
       </div>
@@ -13,8 +19,9 @@
       </div>
       <div class="message__bottom">
         <span>15:52</span>
-        <double-check-icon v-if="state === 'send' && status === 'read'" />
-        <single-check-icon v-if="state === 'send' && status === 'notread'" />
+        <double-check-icon v-if="state === 'send' && status === 'read' && !isLoading" />
+        <single-check-icon v-if="state === 'send' && status === 'notread' && !isLoading" />
+        <preloader-icon v-if="state === 'send' && isLoading" />
       </div>
     </div>
   </div>
@@ -23,9 +30,13 @@
 <script>
 import DoubleCheckIcon from '@/components/icons/DoubleCheckIcon.vue'
 import SingleCheckIcon from '@/components/icons/SingleCheckIcon.vue'
+import PreloaderIcon from '@/components/icons/PreloaderIcon.vue'
+
+import VideoMessage from '@/components/messanger/VideoMessage.vue'
+import ImageMessage from '@/components/messanger/ImageMessage.vue'
 
 export default {
-  components: { DoubleCheckIcon, SingleCheckIcon },
+  components: { DoubleCheckIcon, SingleCheckIcon, PreloaderIcon, VideoMessage, ImageMessage },
   props: {
     state: {
       type: String,
@@ -33,7 +44,10 @@ export default {
       default: () => 'send'
     },
     status: String,
-    message: [String, Object]
+    message: [String, Object],
+    video: [Object, null],
+    image: [Object, null],
+    isLoading: Boolean
   }
 }
 </script>
@@ -50,7 +64,19 @@ export default {
     position: relative;
     min-width: 110px;
     overflow-wrap: break-word;
+    overflow: hidden;
+    &.video-message {
+      padding: 0;
+      border-radius: 10px;
+      .message__bottom {
+        background: rgba(31, 31, 31, 0.5);
+        backdrop-filter: blur(10px);
+        padding: 4px;
+        border-radius: 4px;
+      }
+    }
   }
+
   &.send {
     .message__inner {
       background-color: var(--color-purple);

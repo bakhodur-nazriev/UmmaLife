@@ -27,7 +27,10 @@
           :key="message.id"
           :status="message.status"
           :message="message.message"
+          :video="message?.video"
+          :image="message?.image"
           :data-id="message.id"
+          :isLoading="isLoading"
           @contextmenu.prevent="($event) => openContextMenu($event, message.id)"
         />
       </div>
@@ -47,6 +50,7 @@
       :edit="edit"
       :selectedMessage="selectedMessage"
       :user="user"
+      :isLoading="isLoading"
       @submitHandler="submitHandler"
       @setValue="setValue"
       @clearValues="clearValues"
@@ -66,6 +70,7 @@ import ChatMessage from '@/components/messanger/ChatMessage.vue'
 import ContextMenu from '@/components/messanger/dropdowns/ContextMenu.vue'
 import DeleteConfirm from '@/components/messanger/modal/DeleteConfirm.vue'
 import { users } from '@/dummy'
+import { sleep } from '@/utils.js'
 
 export default {
   components: {
@@ -86,7 +91,9 @@ export default {
       edit: false,
       share: false,
       user: null,
-      users
+      isLoading: false,
+      users,
+      sleep
     }
   },
   computed: {
@@ -118,7 +125,7 @@ export default {
         this.messageId = id
       }
     },
-    submitHandler(value, type) {
+    async submitHandler(value, type) {
       const index = this.users.findIndex((u) => u.id === this.user.id)
       if (type.state === 'noedit') {
         this.users[index].messages.push({
@@ -150,6 +157,9 @@ export default {
           status: 'notread'
         })
       }
+      this.isLoading = true
+      await sleep(300)
+      this.isLoading = false
     },
     setValue(value) {
       this.value = value

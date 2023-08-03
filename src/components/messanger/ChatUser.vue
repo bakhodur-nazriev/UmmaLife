@@ -17,6 +17,20 @@
               ? user.messages[user.messages.length - 1].message
               : user.messages[user.messages.length - 1].message.text
           }}
+          {{
+            typeof user.messages[user.messages.length - 1].message === 'string' &&
+            typeof user.messages[user.messages.length - 1].message.length === 0 &&
+            user.messages[user.messages.length - 1].video
+              ? ''
+              : user.messages[user.messages.length - 1].video?.alt
+          }}
+          {{
+            typeof user.messages[user.messages.length - 1].message === 'string' &&
+            typeof user.messages[user.messages.length - 1].message.length === 0 &&
+            user.messages[user.messages.length - 1].image
+              ? ''
+              : user.messages[user.messages.length - 1].image?.alt
+          }}
         </div>
         <div
           class="list__info--status"

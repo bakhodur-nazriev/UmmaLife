@@ -65,21 +65,16 @@ import EditGrayIcon from '@/components/icons/MenuDetails/EditGrayIcon.vue'
 import CloseEditIcon from '@/components/icons/MenuDetails/CloseEditIcon.vue'
 import ShareBigIcon from '@/components/icons/MenuDetails/ShareBigIcon.vue'
 import SpinnerGif from '@/components/icons/SpinnerGif.vue'
-import { sleep } from '@/utils.js'
+
 export default {
   components: { SendIcon, AttachIcon, EditGrayIcon, CloseEditIcon, ShareBigIcon, SpinnerGif },
-  data() {
-    return {
-      isLoading: false,
-      sleep
-    }
-  },
   props: {
     value: String,
     edit: Boolean,
     share: Boolean,
     selectedMessage: Object,
-    user: Object
+    user: Object,
+    isLoading: Boolean
   },
   emits: ['submitHandler', 'setValue', 'clearValues'],
   methods: {
@@ -114,9 +109,6 @@ export default {
     },
     async submitHandler() {
       /* eslint-disable */
-      this.isLoading = true
-      await sleep(300)
-      this.isLoading = false
       this.$emit(
         'submitHandler',
         this.value,

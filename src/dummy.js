@@ -40,7 +40,27 @@ export const users = [
       {
         id: 7,
         state: 'recieve',
-        message: 'Lorem ipsum dolor.'
+        message: 'Lorem ipsum dolor.',
+        video: {
+          src: '/video/video.mp4',
+          poster: '/images/message/video-poster.jpg',
+          alt: 'message-video.mp4'
+        }
+      },
+      {
+        id: 4,
+        state: 'send',
+        message: {
+          user_name: 'Jeff Bezos',
+          user_message:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse id fuga soluta suscipit, numquam dolorem optio ipsum dignissimos aliquid excepturi, iusto non maiores neque veritatis, itaque eius asperiores quam vitae?',
+          text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor, voluptas!'
+        },
+        status: 'read',
+        image: {
+          src: '/images/message/message-img.jpg',
+          alt: 'message-img'
+        }
       }
     ]
   },
@@ -142,6 +162,16 @@ export const users = [
         message:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         status: 'read'
+      },
+      {
+        id: 7,
+        state: 'send',
+        message: '',
+        status: 'read',
+        image: {
+          src: '/images/message/message-img.jpg',
+          alt: 'message-img'
+        }
       }
     ]
   },
@@ -240,6 +270,18 @@ export const users = [
         status: 'read'
       },
       {
+        id: 6,
+        state: 'send',
+        message:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        status: 'read',
+        image: {
+          src: '/images/message/message-img.jpg',
+          alt: 'message-img'
+        }
+      },
+
+      {
         id: 7,
         state: 'recieve',
         message:
@@ -292,7 +334,13 @@ export const users = [
         state: 'send',
         message:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        status: 'read'
+        status: 'read',
+        video: {
+          src: '/video/video.mp4',
+          poster: '/images/message/video-poster.jpg',
+          alt: 'message-video.mp4'
+        },
+        img: null
       },
       {
         id: 7,
@@ -338,14 +386,21 @@ export const users = [
       {
         id: 5,
         state: 'recieve',
-        message: 'Далеко-далеко'
+        message: 'Далеко-далеко',
+        img: null,
+        video: null
       },
       {
         id: 15,
         state: 'send',
-        message:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anвмывмывмывы',
-        status: 'read'
+        message: '',
+        status: 'read',
+        video: {
+          src: '/video/video.mp4',
+          poster: '/images/message/video-poster.jpg',
+          alt: 'message-video.mp4'
+        },
+        img: null
       }
     ]
   },
@@ -362,32 +417,42 @@ export const users = [
         id: 1,
         state: 'recieve',
         message:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anвмывмывмывы'
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anвмывмывмывы',
+        img: null,
+        video: null
       },
       {
         id: 2,
         state: 'send',
         message:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        status: 'read'
+        status: 'read',
+        img: null,
+        video: null
       },
       {
         id: 4,
         state: 'recieve',
         message:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        img: null,
+        video: null
       },
       {
         id: 5,
         state: 'recieve',
         message:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        img: null,
+        video: null
       },
       {
         id: 15,
         state: 'recieve',
         message:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anвмывмывмывы'
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anвмывмывмывы',
+        img: null,
+        video: null
       },
       {
         id: 6,
