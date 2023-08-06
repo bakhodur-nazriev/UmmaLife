@@ -10,7 +10,11 @@
   justify-content: center;
   align-items: center;
   span {
-    font-size: 14px;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    color: var(--color-secondary);
   }
 }
 </style>
