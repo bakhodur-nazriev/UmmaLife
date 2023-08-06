@@ -7,78 +7,80 @@
       <div class="sidebar-theme__toggle-button">
         <ToggleTheme :is-sidebar-collapsed="isSidebarCollapsed" />
       </div>
-      <SampleDivider class="main-divider"/>
+
+      <SampleDivider />
+
       <ul class="sidebar__links--list">
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/news`) }">
           <router-link :to="`/${$i18n.locale}/news`">
             <NewsIcon class="sidebar__item--icon" />
-            {{ isSidebarCollapsed ? '' : $t('links.news') }}
+            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.news') }}</span>
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/my-page`) }">
           <router-link :to="`/${$i18n.locale}/my-page`">
             <MyPageIcon class="sidebar__item--icon" />
-            {{ isSidebarCollapsed ? '' : $t('links.my_page') }}
+            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.my_page') }}</span>
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/messenger`) }">
           <router-link :to="`/${$i18n.locale}/messenger`">
             <MessengerIcon class="sidebar__item--icon" />
-            {{ isSidebarCollapsed ? '' : $t('links.messenger') }}
+            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.messenger') }}</span>
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/my-groups`) }">
           <router-link :to="`/${$i18n.locale}/my-groups`">
             <MyGroupIcon class="sidebar__item--icon" />
-            {{ isSidebarCollapsed ? '' : $t('links.my_groups') }}
+            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.my_groups') }}</span>
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/my-albums`) }">
           <router-link :to="`/${$i18n.locale}/my-albums`">
             <MyAlbumsIcon class="sidebar__item--icon" />
-            {{ isSidebarCollapsed ? '' : $t('links.my_albums') }}
+            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.my_albums') }}</span>
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/my-audio`) }">
           <router-link :to="`/${$i18n.locale}/my-audio`">
             <MyAudioIcon class="sidebar__item--icon" />
-            {{ isSidebarCollapsed ? '' : $t('links.my_audio') }}
+            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.my_audio') }}</span>
           </router-link>
         </li>
 
-        <SampleDivider class="main-divider"/>
+        <SampleDivider />
 
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/saved`) }">
           <router-link :to="`/${$i18n.locale}/saved`">
             <SavedIcon class="sidebar__item--icon" />
-            {{ isSidebarCollapsed ? '' : $t('links.saved') }}
+            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.saved') }}</span>
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/articles`) }">
           <router-link :to="`/${$i18n.locale}/articles`">
             <ArticlesIcon class="sidebar__item--icon" />
-            {{ isSidebarCollapsed ? '' : $t('links.articles') }}
+            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.articles') }}</span>
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/video`) }">
           <router-link :to="`/${$i18n.locale}/video`">
             <VideoIcon class="sidebar__item--icon" />
-            {{ isSidebarCollapsed ? '' : $t('links.video') }}
+            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.video') }}</span>
           </router-link>
         </li>
 
-        <SampleDivider class="main-divider"/>
+        <SampleDivider />
 
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/library`) }">
           <router-link :to="`/${$i18n.locale}/library`">
             <LibraryIcon class="sidebar__item--icon" />
-            {{ isSidebarCollapsed ? '' : $t('links.library') }}
+            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.library') }}</span>
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/marriage-agency`) }">
           <router-link :to="`/${$i18n.locale}/marriage-agency`">
             <MarriageAgencyIcon class="sidebar__item--icon" />
-            {{ isSidebarCollapsed ? '' : $t('links.marriage_agency') }}
+            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.marriage_agency') }}</span>
           </router-link>
         </li>
       </ul>
@@ -147,10 +149,6 @@ export default {
   margin-bottom: 20px;
 }
 
-.main-divider {
-  height: 1px;
-}
-
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -160,10 +158,14 @@ export default {
   background-color: var(--color-white);
   padding: 4px;
   height: 100vh;
-  overflow-y: auto;
   max-width: 260px;
   width: 100%;
-  transition: 0.3s;
+  overflow: hidden;
+
+  &:hover {
+    overflow: auto;
+    transition: all .15s ease-in-out;
+  }
 
   &__locales {
     margin-top: auto;
@@ -172,7 +174,6 @@ export default {
 
   &--collapsed {
     width: 68px;
-    transition: width 0.3s ease;
   }
 
   .dark-theme {
@@ -230,6 +231,10 @@ export default {
       cursor: pointer;
       padding: 15px 0 15px 22px;
       line-height: 1;
+    }
+
+    .collapse-active {
+      display: none;
     }
   }
 }

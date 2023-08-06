@@ -8,7 +8,7 @@
         @click="handleTabClick(index)"
       >
         <div v-if="tab.index === 0">
-          <span class="dropdown-tab">
+          <span class="dropdown-tab tab-title">
             {{ tapTitleForSmallDisplay }}
             <ArrowDownIcon class="dropdown-tab__icon" />
           </span>

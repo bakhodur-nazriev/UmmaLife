@@ -14,38 +14,33 @@
         @click="handleOverlayClick"
       >
         <ul class="dropdown__menu">
-          <li class="dropdown__item">
-            <share-icon />
+          <li class="dropdown-item">
+            <ShareIcon />
             <span>{{ $t('buttons.share') }}</span>
           </li>
-          <sample-divider class="dropdown__item--divider"/>
-
-          <li class="dropdown__item">
-            <copy-link-icon />
+          <SampleDivider class="dropdown-item__divider"/>
+          <li class="dropdown-item">
+            <CopyLinkIcon />
             <span>{{ $t('buttons.copy_link') }}</span>
           </li>
-
-          <sample-divider class="dropdown__item--divider"/>
-          <li class="dropdown__item">
-            <save-icon />
+          <SampleDivider class="dropdown-item__divider"/>
+          <li class="dropdown-item">
+            <SaveIcon />
             <span>{{ $t('buttons.save') }}</span>
           </li>
-
-          <sample-divider class="dropdown__item--divider"/>
-          <li class="dropdown__item">
-            <blank-icon />
+          <SampleDivider class="dropdown-item__divider"/>
+          <li class="dropdown-item">
+            <BlankIcon />
             <span>{{ $t('buttons.open_in_new_tab') }}</span>
           </li>
-
-          <sample-divider class="dropdown__item--divider"/>
-          <li class="dropdown__item">
-            <complain-icon />
+          <SampleDivider class="dropdown-item__divider"/>
+          <li class="dropdown-item">
+            <ComplainIcon />
             <span>{{ $t('buttons.complain') }}</span>
           </li>
-
-          <sample-divider class="dropdown__item--divider"/>
-          <li class="dropdown__item">
-            <hide-icon />
+          <SampleDivider class="dropdown-item__divider"/>
+          <li class="dropdown-item">
+            <HideIcon />
             <span>{{ $t('buttons.hide') }}</span>
           </li>
         </ul>
@@ -110,27 +105,24 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .bounce-enter-active {
-  animation: bounce-in 0.5s;
-}
-.bounce-leave-active {
-  animation: bounce-in 0.5s reverse;
-}
-@keyframes bounce-in {
-  0% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1.25);
-  }
-  100% {
-    transform: scale(1);
-  }
+  animation: scale-up-top-right 0.2s;
 }
 
-.dropdown__item--divider {
-  border: 1px solid var(--color-seashell);
+.bounce-leave-active {
+  animation: scale-up-top-right 0.2s reverse;
+}
+
+@keyframes scale-up-top-right {
+  0% {
+    transform:scale(.5);
+    transform-origin:top right
+  }
+  100% {
+    transform:scale(1);
+    transform-origin:top right
+  }
 }
 
 .menu__details {
@@ -142,12 +134,6 @@ export default {
   align-items: center;
   cursor: pointer;
   height: 30px;
-}
-
-.dropdown__menu {
-  list-style: none;
-  padding: 10px;
-  margin: 0;
 }
 
 .menu__overlay {
@@ -163,21 +149,33 @@ export default {
   color: var(--color-silver-chalice);
 }
 
-.dropdown__item {
+.dropdown__menu {
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-item {
   display: flex;
   align-items: center;
-  width: 210px;
+  gap: 9px;
   font-size: 14px;
   padding: 5px 10px;
   cursor: pointer;
-}
-
-.dropdown__item:hover {
-  background-color: var(--color-seashell);
   border-radius: 10px;
-}
+  position: relative;
 
-.dropdown__item svg {
-  margin-right: 9px;
+  &:hover {
+    transition: all .15s ease-in-out;
+    background-color: var(--color-seashell);
+  }
+
+  &__divider {
+    width: 92%;
+    margin: 1px auto;
+  }
 }
 </style>

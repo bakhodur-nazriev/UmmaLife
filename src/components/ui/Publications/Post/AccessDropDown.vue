@@ -3,25 +3,23 @@
     <button type="button" class="dropdown__toggle" @click="toggleDropdown">
       <AccessIcon class="access__icon"/>
       <span>{{ selectedTitle }}</span>
-      <DropdownIcon />
+      <DropdownIcon/>
     </button>
 
-    <ul v-if="isOpen" class="dropdown__list">
-      <li
-        v-for="(item, index) in dropdownItems"
-        class="dropdown__item"
-        :key="item.id"
-        @click="selectItem(item)"
-      >
-        <div class="left__side--item">
-          <span class="dropdown__item-icon">
-            <component :is="item.icon" />
-          </span>
-          <span class="dropdown__item--title">{{ item.title }}</span>
-        </div>
-        <SampleDivider v-if="index < dropdownItems.length - 1"/>
-      </li>
-    </ul>
+    <Transition name="fade">
+      <ul v-if="isOpen" class="dropdown__list">
+        <li
+          v-for="(item, index) in dropdownItems"
+          :key="item.id"
+        >
+          <div @click="selectItem(item)" class="dropdown__item">
+            <component :is="item.icon"/>
+            <span class="dropdown__item--title">{{ item.title }}</span>
+          </div>
+          <SampleDivider class="access-item__divider"/>
+        </li>
+      </ul>
+    </Transition>
   </div>
 </template>
 
@@ -42,7 +40,7 @@ export default {
     DropdownIcon,
     AccessIcon
   },
-  data () {
+  data() {
     return {
       isOpen: false,
       selectedItemId: null,
@@ -76,20 +74,20 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.selectedItemId = this.items.length > 0 ? this.items[0].id : null
   },
   methods: {
-    toggleDropdown () {
+    toggleDropdown() {
       this.isOpen = !this.isOpen
     },
-    selectItem (item) {
+    selectItem(item) {
       this.selectedItemId = item.id
       this.isOpen = false
     }
   },
   computed: {
-    selectedTitle () {
+    selectedTitle() {
       const selectedItem = this.dropdownItems.find(
         item => item.id === this.selectedItemId
       )
@@ -98,7 +96,7 @@ export default {
       }
       return ''
     },
-    dropdownItems () {
+    dropdownItems() {
       return this.items.map(item => ({
         ...item,
         icon: this.icons[item.icon]
@@ -109,8 +107,32 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.fade-enter-active {
+  animation: scale-up-top .2s;
+}
+
+.fade-leave-active {
+  animation: scale-up-top .2s reverse;
+}
+
+@keyframes scale-up-top {
+  0% {
+    transform:scale(.5);
+    transform-origin:center top
+  }
+  100% {
+    transform:scale(1);
+    transform-origin:center top
+  }
+}
+
+.access-item__divider {
+  width: 92%;
+  margin: 2px auto;
+}
+
 .access__icon {
- color: var(--color-silver-chalice)
+  color: var(--color-silver-chalice)
 }
 
 .left__side--item {
@@ -118,6 +140,9 @@ export default {
   align-items: center;
   gap: 8px;
   cursor: pointer;
+
+  .dropdown__item-icon {
+  }
 }
 
 .dropdown {
@@ -131,7 +156,7 @@ export default {
     font-size: 16px;
     box-shadow: 3px 3px 15px 0 rgba(0, 0, 0, 0.10);
     background-color: var(--color-white);
-    padding: 12px;
+    padding: 10px;
     border-radius: 10px;
     position: absolute;
     top: 32px;
@@ -162,7 +187,17 @@ export default {
 
 .dropdown__item {
   display: flex;
-  align-items: flex-start;
-  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  font-size: 14px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  position: relative;
+
+  &:hover {
+    transition: all 0.15s ease-in-out;
+    background-color: var(--color-seashell);
+  }
 }
 </style>

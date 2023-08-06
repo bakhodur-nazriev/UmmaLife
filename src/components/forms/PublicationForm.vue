@@ -1,6 +1,6 @@
 <template>
-  <section class="publications__form--section">
-    <form action="" class="form__section" :class="formSectionClasses">
+  <section class="publications__form--section" ref="formSectionRef">
+    <form action="" class="form__section" :style="{ flexDirection: isTextAreaActive ? 'column' : 'row' }">
       <div class="form__left--side">
         <img
           width="48"
@@ -14,7 +14,6 @@
           @input="handleTextareaInput"
           :class="['enter__post--textarea', { active: isTextAreaActive }]"
           @click="isTextAreaActive = true"
-          @blur="isTextAreaActive = false"
         ></textarea>
       </div>
       <div v-if="!isTextAreaActive" class="form__inputs--block">
@@ -29,7 +28,9 @@
         <FileUpload label="audio" accept="audio/*">
           <AudioPublicationIcon></AudioPublicationIcon>
         </FileUpload>
+
         <div class="vertical__divider"></div>
+
         <FileUpload label="file">
           <ClipIcon></ClipIcon>
         </FileUpload>
@@ -555,23 +556,6 @@ export default {
         this.addedAudioItems.push(item) // Добавляем его в addedAudioItems
       }
     }
-  },
-  // computed: {
-  //   isTextAreaActive: false
-  // },
-  watch: {
-    isTextAreaActive (newValue) {
-      console.log(newValue)
-      const formSection = document.querySelector('.form__section')
-      const formInputBlocks = document.querySelector('.form__inputs--block')
-      if (!newValue) {
-        formSection.style.flexDirection = 'row'
-        formInputBlocks.style.width = ''
-      } else {
-        formSection.style.flexDirection = 'column'
-        formInputBlocks.style.width = '100%'
-      }
-    }
   }
 }
 </script>
@@ -625,6 +609,17 @@ export default {
   display: flex;
   align-items: center;
   gap: 24px;
+
+  label, input {
+    svg {
+      color: var(--color-silver-chalice);
+
+      &:hover {
+        color: var(--color-hippie-blue);
+        transition: all .15s ease-in-out;
+      }
+    }
+  }
 }
 
 .vertical__divider {
@@ -743,10 +738,6 @@ export default {
   gap: 20px;
 }
 
-svg {
-  color: var(--color-silver-chalice);
-}
-
 .add__audio--button,
 .remove__audio--button {
   cursor: pointer;
@@ -761,6 +752,15 @@ svg {
   all: unset;
   cursor: pointer;
   max-height: 24px;
+
+  svg {
+    color: var(--color-silver-chalice);
+
+    &:hover {
+      color: var(--color-hippie-blue);
+      transition: all .15s ease-in-out;
+    }
+  }
 }
 
 .textarea__active {
@@ -772,6 +772,17 @@ svg {
     display: flex;
     align-items: center;
     gap: 24px;
+  }
+
+  &--left--side {
+    svg {
+      color: var(--color-silver-chalice);
+
+      &:hover {
+        color: var(--color-hippie-blue);
+        transition: all .15s ease-in-out;
+      }
+    }
   }
 
   &--buttons {

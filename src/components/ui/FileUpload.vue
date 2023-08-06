@@ -40,18 +40,18 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .file-upload {
   display: flex;
-}
 
-.file-upload__label {
-  cursor: pointer;
-  width: 24px;
-  height: 24px;
-}
+  &__label {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+  }
 
-.file-upload__input {
-  display: none;
+  &__input {
+    display: none;
+  }
 }
 </style>

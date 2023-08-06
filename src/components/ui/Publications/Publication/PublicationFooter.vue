@@ -37,15 +37,19 @@
           <div v-if="isShareWindowOpen" class="share__window">
             <ul class="share__menu">
               <li class="share__item">
-                <SendMenuIcon class="share__item--divider"/>
+                <SendMenuIcon />
                 <span>{{ $t('buttons.open_like_message') }}</span>
               </li>
-              <sample-divider class="share__item--divider"/>
+
+              <SampleDivider class="share__item--divider"/>
+
               <li class="share__item">
                 <ShareMenuIcon />
                 <span>{{ $t('buttons.share_on_my_page') }}</span>
               </li>
-              <sample-divider class="share__item--divider"/>
+
+              <SampleDivider class="share__item--divider"/>
+
               <li class="share__item">
                 <MyGroupIcon/>
                 <span>{{ $t('buttons.share_in_group') }}</span>
@@ -165,25 +169,9 @@ export default {
 }
 </script>
 
-<style scoped>
-.share__item--divider {
-  margin: 8px 0;
-}
-
+<style scoped lang="scss">
 .main__comment--form {
   width: 100%;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.3s;
-  opacity: 1;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  transition: all 0.3s;
-  opacity: 0;
 }
 
 .reaction__item {
@@ -192,16 +180,22 @@ export default {
   cursor: pointer;
 }
 
+.share__item--divider {
+  margin: 2px auto;
+  width: 92%;
+}
+
 .share__item {
   display: flex;
   align-items: center;
   cursor: pointer;
   gap: 8px;
   padding: 5px 10px;
+  border-radius: 10px;
 
   &:hover {
     background-color: var(--color-seashell);
-    border-radius: 10px;
+    transition: all .15s ease-in-out;
   }
 
   span {
@@ -210,6 +204,10 @@ export default {
 }
 
 .share__menu {
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+  width: max-content;
   display: flex;
   flex-direction: column;
 }
@@ -304,10 +302,6 @@ export default {
   .like__button {
     width: 210px;
     height: 43px;
-  }
-
-  .share__item {
-    width: 220px;
   }
 }
 </style>

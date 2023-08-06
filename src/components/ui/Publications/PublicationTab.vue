@@ -49,8 +49,11 @@ export default {
   border: 1px solid var(--color-seashell);
 }
 .post__block {
-  background-color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 24px 10px;
   border-radius: 15px;
-  padding: 20px 24px 8px 24px;
+  row-gap: 8px;
+  background-color: var(--color-white);
 }
 </style>
