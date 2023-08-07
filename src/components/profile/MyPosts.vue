@@ -57,6 +57,12 @@ export default {
   max-width: 700px;
   width: 100%;
   margin-left: 145px;
+  @media (max-width: 1635px) {
+    margin-left: 50px;
+  }
+  @media (max-width: 1535px) {
+    margin-left: 0;
+  }
   &__wrapper {
     display: flex;
     flex-direction: column;

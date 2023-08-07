@@ -18,9 +18,7 @@
         v-show="activeTab === index"
         class="tabs__content--inside--section"
       >
-        <div>
-          <slot />
-        </div>
+        <slot />
       </div>
     </div>
   </div>
