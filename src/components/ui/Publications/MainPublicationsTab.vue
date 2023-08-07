@@ -22,7 +22,7 @@
         <PublicationTab v-if="index === 0"/>
         <ArticleTab v-if="index === 1"/>
         <PhotoTab v-if="index === 2"/>
-<!--        <VideoTab v-if="index === 3"/>-->
+        <VideoTab v-if="index === 3"/>
         <AudioTab v-if="index === 4"/>
       </div>
     </div>
@@ -33,7 +33,7 @@
 import PublicationTab from '@/components/ui/Publications/PublicationTab.vue'
 import ArticleTab from '@/components/ui/Publications/ArticleTab.vue'
 import PhotoTab from '@/components/ui/Publications/PhotoTab.vue'
-// import VideoTab from '@/components/ui/Publications/VideoTab.vue'
+import VideoTab from '@/components/ui/Publications/VideoTab.vue'
 import AudioTab from '@/components/ui/Publications/AudioTab.vue'
 import CheckMarkSmallIcon from '@/components/icons/CheckMarkSmallIcon.vue'
 
@@ -42,7 +42,7 @@ export default {
     CheckMarkSmallIcon,
     PublicationTab,
     AudioTab,
-    // VideoTab,
+    VideoTab,
     PhotoTab,
     ArticleTab
   },
@@ -127,6 +127,7 @@ export default {
       color: var(--color-silver-chalice);
       font-weight: 500;
       font-size: 16px;
+      user-select: none;
 
       &.active {
         position: relative;
@@ -220,9 +221,7 @@ export default {
   }
 }
 
-@media (min-width: 768px) {
-}
+@media (min-width: 768px) {}
 
-@media (min-width: 1280px) {
-}
+@media (min-width: 1280px) {}
 </style>

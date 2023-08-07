@@ -124,6 +124,7 @@ export default {
   max-height: 40px;
   border-radius: 50%;
   z-index: 100;
+  user-select: none;
 }
 
 .transparent__left--right--block {

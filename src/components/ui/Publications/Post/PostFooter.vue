@@ -75,23 +75,23 @@
   </footer>
 </template>
 <script>
-import BigSadIcon from '@/components/icons/reactions/men/big/SadIcon.vue'
-import BigLikeIcon from '@/components/icons/reactions/men/big/LikeIcon.vue'
+import BigSadIcon from '@/components/icons/reactions/men/big/BigSadIcon.vue'
+import BigLikeIcon from '@/components/icons/reactions/men/big/BigLikeIcon.vue'
 import SendMenuIcon from '@/components/icons/MenuDetails/SendMenuIcon.vue'
-import BigAngryIcon from '@/components/icons/reactions/men/big/AngryIcon.vue'
+import BigAngryIcon from '@/components/icons/reactions/men/big/BigAngryIcon.vue'
 import MyGroupIcon from '@/components/icons/MyGroupIcon.vue'
-import BigLoveIcon from '@/components/icons/reactions/men/big/LoveIcon.vue'
-import BigDislikeIcon from '@/components/icons/reactions/men/big/DislikeIcon.vue'
+import BigLoveIcon from '@/components/icons/reactions/men/big/BigLoveIcon.vue'
+import BigDislikeIcon from '@/components/icons/reactions/men/big/BigDislikeIcon.vue'
 import HeartIcon from '@/components/icons/HeartIcon.vue'
-import BigThinkIcon from '@/components/icons/reactions/men/big/ThinkIcon.vue'
+import BigThinkIcon from '@/components/icons/reactions/men/big/BigThinkIcon.vue'
 import ShareIcon from '@/components/icons/ShareIcon.vue'
-import BigFireIcon from '@/components/icons/reactions/men/big/FireIcon.vue'
+import BigFireIcon from '@/components/icons/reactions/men/big/BigFireIcon.vue'
 import CommentIcon from '@/components/icons/CommentIcon.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
 import CommentForm from '@/components/ui/Comment/CommentForm.vue'
 import ShareMenuIcon from '@/components/icons/MenuDetails/ShareMenuIcon.vue'
-import BigScaredIcon from '@/components/icons/reactions/men/big/ScaredIcon.vue'
-import BigLaughIcon from '@/components/icons/reactions/men/big/LaughIcon.vue'
+import BigScaredIcon from '@/components/icons/reactions/men/big/BigScaredIcon.vue'
+import BigLaughIcon from '@/components/icons/reactions/men/big/BigLaughIcon.vue'
 import ReplyCommentForm from '@/components/ui/Comment/ReplyCommentForm.vue'
 
 export default {

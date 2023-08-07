@@ -1,16 +1,16 @@
 <template>
-  <footer class="post__footer">
+  <footer class="publication__footer">
     <div class="footer__buttons">
       <div class="reaction__buttons--block" ref="reactionWindow">
-        <div class="reactions__buttons">
-          <div v-if="isReactionWindowOpen" class="reaction__window" >
+        <div class="reactions__buttons" v-if="isReactionWindowOpen">
+          <div class="reaction__window">
             <ul class="reaction__menu">
               <li
-                v-for="(icon, index) in iconReactions"
+                v-for="(reaction, index) in reactionsIcon"
                 :key="index"
                 class="reaction__item"
               >
-                <component :is="icon.name" />
+                <component :is="reaction.icon"/>
               </li>
             </ul>
           </div>
@@ -24,17 +24,14 @@
         </div>
       </div>
 
-      <div
-        class="comment__button"
-        @click="toggleForm"
-      >
+      <div class="comment__button" @click="toggleForm">
         <CommentIcon />
         <span>{{ $t('buttons.comment') }}</span>
       </div>
 
       <div class="share__buttons--block" ref="shareWindow">
-        <div class="share__buttons">
-          <div v-if="isShareWindowOpen" class="share__window">
+        <div class="share__buttons" v-if="isShareWindowOpen">
+          <div class="share__window">
             <ul class="share__menu">
               <li class="share__item">
                 <SendMenuIcon />
@@ -67,35 +64,30 @@
     <sample-divider v-if="isFormOpen" />
 
     <div class="main__comment--form" v-if="isFormOpen">
-      <Transition name="fade">
-        <ReplyCommentForm />
-      </Transition>
+      <ReplyCommentForm />
 
-      <Transition name="fade">
-        <CommentForm />
-      </Transition>
+      <CommentForm />
     </div>
-
   </footer>
 </template>
 <script>
-import BigSadIcon from '@/components/icons/reactions/men/big/SadIcon.vue'
-import BigLikeIcon from '@/components/icons/reactions/men/big/LikeIcon.vue'
+import BigSadIcon from '@/components/icons/reactions/men/big/BigSadIcon.vue'
+import BigLikeIcon from '@/components/icons/reactions/men/big/BigLikeIcon.vue'
 import SendMenuIcon from '@/components/icons/MenuDetails/SendMenuIcon.vue'
-import BigAngryIcon from '@/components/icons/reactions/men/big/AngryIcon.vue'
+import BigAngryIcon from '@/components/icons/reactions/men/big/BigAngryIcon.vue'
 import MyGroupIcon from '@/components/icons/MyGroupIcon.vue'
-import BigLoveIcon from '@/components/icons/reactions/men/big/LoveIcon.vue'
-import BigDislikeIcon from '@/components/icons/reactions/men/big/DislikeIcon.vue'
+import BigLoveIcon from '@/components/icons/reactions/men/big/BigLoveIcon.vue'
+import BigDislikeIcon from '@/components/icons/reactions/men/big/BigDislikeIcon.vue'
 import HeartIcon from '@/components/icons/HeartIcon.vue'
-import BigThinkIcon from '@/components/icons/reactions/men/big/ThinkIcon.vue'
+import BigThinkIcon from '@/components/icons/reactions/men/big/BigThinkIcon.vue'
 import ShareIcon from '@/components/icons/ShareIcon.vue'
-import BigFireIcon from '@/components/icons/reactions/men/big/FireIcon.vue'
+import BigFireIcon from '@/components/icons/reactions/men/big/BigFireIcon.vue'
 import CommentIcon from '@/components/icons/CommentIcon.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
 import CommentForm from '@/components/ui/Comment/CommentForm.vue'
 import ShareMenuIcon from '@/components/icons/MenuDetails/ShareMenuIcon.vue'
-import BigScaredIcon from '@/components/icons/reactions/men/big/ScaredIcon.vue'
-import BigLaughIcon from '@/components/icons/reactions/men/big/LaughIcon.vue'
+import BigScaredIcon from '@/components/icons/reactions/men/big/BigScaredIcon.vue'
+import BigLaughIcon from '@/components/icons/reactions/men/big/BigLaughIcon.vue'
 import ReplyCommentForm from '@/components/ui/Comment/ReplyCommentForm.vue'
 
 export default {
@@ -112,31 +104,21 @@ export default {
   },
   data () {
     return {
+      reactionsIcon: [
+        { id: 1, icon: BigLikeIcon },
+        { id: 2, icon: BigDislikeIcon },
+        { id: 3, icon: BigLoveIcon },
+        { id: 4, icon: BigFireIcon },
+        { id: 5, icon: BigAngryIcon },
+        { id: 6, icon: BigScaredIcon },
+        { id: 7, icon: BigLaughIcon },
+        { id: 8, icon: BigThinkIcon },
+        { id: 9, icon: BigSadIcon }
+      ],
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
-      isFormOpen: false,
-      iconReactions: [
-        { name: BigSadIcon },
-        { name: BigLikeIcon },
-        { name: SendMenuIcon },
-        { name: BigAngryIcon },
-        { name: MyGroupIcon },
-        { name: BigLoveIcon },
-        { name: BigDislikeIcon },
-        { name: BigThinkIcon },
-        { name: BigFireIcon },
-        { name: BigScaredIcon },
-        { name: BigLaughIcon }
-      ]
+      isFormOpen: false
     }
-  },
-  mounted () {
-    document.addEventListener('click', this.closeReactionWindow)
-    document.addEventListener('click', this.closeShareWindow)
-  },
-  beforeUnmount () {
-    document.removeEventListener('click', this.closeReactionWindow)
-    document.removeEventListener('click', this.closeShareWindow)
   },
   methods: {
     toggleForm () {
@@ -165,11 +147,49 @@ export default {
         this.isShareWindowOpen = false
       }
     }
+  },
+  mounted () {
+    document.addEventListener('click', this.closeReactionWindow)
+    document.addEventListener('click', this.closeShareWindow)
+  },
+  beforeUnmount () {
+    document.removeEventListener('click', this.closeReactionWindow)
+    document.removeEventListener('click', this.closeShareWindow)
   }
 }
 </script>
 
 <style scoped lang="scss">
+.share__buttons {
+  animation: share__buttons 0.2s;
+}
+
+@keyframes share__buttons {
+  0% {
+    transform:scale(.5);
+    transform-origin:center bottom;
+  }
+  100% {
+    transform:scale(1);
+    transform-origin:center bottom
+  }
+}
+
+.reactions__buttons {
+  animation: reactions__buttons 0.2s;
+}
+
+@keyframes reactions__buttons {
+  0% {
+    transform:scale(.5);
+    transform-origin:left bottom;
+  }
+  100% {
+    transform:scale(1);
+    transform-origin:left bottom;
+  }
+}
+
 .main__comment--form {
   width: 100%;
 }
@@ -242,17 +262,17 @@ export default {
 .share__window {
   display: flex;
   gap: 18px;
-  padding: 12px;
+  padding: 8px;
   width: max-content;
 }
 
 .footer__buttons {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 100%;
 }
 
-.post__footer {
+.publication__footer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -267,10 +287,13 @@ export default {
   justify-content: center;
   color: var(--color-gray);
   cursor: pointer;
+  user-select: none;
+  border-radius: 10px;
+  padding: 0 20px;
 
   &:hover {
     background-color: var(--color-seashell);
-    border-radius: 15px;
+    transition: all .15s ease-in-out;
   }
 }
 
@@ -300,7 +323,6 @@ export default {
   .comment__button,
   .share__button,
   .like__button {
-    width: 210px;
     height: 43px;
   }
 }

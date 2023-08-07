@@ -24,7 +24,8 @@ import PostReactions from '@/components/ui/Post/PostReactions.vue'
 export default {
   components: {
     PostReactions
-  }
+  },
+  data: () => ({})
 }
 </script>
 

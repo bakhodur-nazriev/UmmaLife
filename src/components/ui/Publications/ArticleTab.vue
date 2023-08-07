@@ -11,7 +11,7 @@
         @toggle-menu="toggleMenu"
       />
 
-      <SampleDivider />
+      <SampleDivider class="divider"/>
 
       <ArticleFooter
         :is-reaction-window-open="isReactionWindowOpen"
@@ -63,6 +63,10 @@ export default {
     row-gap: 8px;
     background-color: var(--color-white);
   }
+}
+
+.divider {
+  margin: 2px;
 }
 
 @media (max-width: 576px) {

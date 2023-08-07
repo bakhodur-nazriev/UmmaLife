@@ -7,7 +7,7 @@
 
     <PublicationContent />
 
-    <SampleDivider />
+    <SampleDivider class="divider"/>
 
     <PublicationFooter
       :is-reaction-window-open="isReactionWindowOpen"
@@ -44,7 +44,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .profile__news.post__block{
   border: 1px solid var(--color-seashell);
 }
@@ -55,5 +55,9 @@ export default {
   border-radius: 15px;
   row-gap: 8px;
   background-color: var(--color-white);
+}
+
+.divider {
+  margin: 2px;
 }
 </style>

@@ -8,12 +8,6 @@
     </p>
     <div class="publication-content__reactions">
       <PostReactions />
-
-      <div class="stats__reposts">
-        <span>155 {{ $t('labels.comments.plural') }}</span>
-        <span class="stats__separator"> / </span>
-        <span>35 {{ $t('labels.reposts.plural') }}</span>
-      </div>
     </div>
   </div>
 </template>
@@ -23,7 +17,8 @@ import PostReactions from '@/components/ui/Post/PostReactions.vue'
 export default {
   components: {
     PostReactions
-  }
+  },
+  data: () => ({})
 }
 </script>
 
@@ -36,7 +31,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 12px 0 14px 0;
+  margin: 12px 0 0 0;
 }
 
 .stats__reposts {

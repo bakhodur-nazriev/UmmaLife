@@ -10,7 +10,7 @@
       <ul v-if="isOpen" class="dropdown__list">
         <li
           v-for="(item, index) in dropdownItems"
-          :key="item.id"
+          :key="index"
         >
           <div @click="selectItem(item)" class="dropdown__item">
             <component :is="item.icon"/>

@@ -12,40 +12,29 @@
 </template>
 
 <script>
-import LikeIcon from '@/components/icons/reactions/men/small/LikeIcon.vue'
-import DislikeIcon from '@/components/icons/reactions/men/small/DislikeIcon.vue'
-import AngryIcon from '@/components/icons/reactions/men/small/AngryIcon.vue'
-import LoveIcon from '@/components/icons/reactions/men/small/LoveIcon.vue'
-import FireIcon from '@/components/icons/reactions/men/small/FireIcon.vue'
-import ScaredIcon from '@/components/icons/reactions/men/small/ScaredIcon.vue'
-import LaughIcon from '@/components/icons/reactions/men/small/LaughIcon.vue'
-import ThinkIcon from '@/components/icons/reactions/men/small/ThinkIcon.vue'
-import SadIcon from '@/components/icons/reactions/men/small/SadIcon.vue'
+import LikeIcon from '@/components/icons/reactions/men/small/SmallLikeIcon.vue'
+import DislikeIcon from '@/components/icons/reactions/men/small/SmallDislikeIcon.vue'
+import LoveIcon from '@/components/icons/reactions/men/small/SmallLoveIcon.vue'
+import FireIcon from '@/components/icons/reactions/men/small/SmallFireIcon.vue'
+import AngryIcon from '@/components/icons/reactions/men/small/SmallAngryIcon.vue'
+import ScaredIcon from '@/components/icons/reactions/men/small/SmallScaredIcon.vue'
+import LaughIcon from '@/components/icons/reactions/men/small/SmallLaughIcon.vue'
+import ThinkIcon from '@/components/icons/reactions/men/small/SmallThinkIcon.vue'
+import SadIcon from '@/components/icons/reactions/men/small/SmallSadIcon.vue'
 
 export default {
-  components: {
-    LoveIcon,
-    LikeIcon,
-    FireIcon,
-    AngryIcon,
-    ScaredIcon,
-    LaughIcon,
-    ThinkIcon,
-    SadIcon,
-    DislikeIcon
-  },
   data() {
     return {
       reactions: [
-        { icon: LikeIcon, count: 4321 },
-        { icon: DislikeIcon, count: 5467 },
-        { icon: LoveIcon, count: 1234 },
-        { icon: FireIcon, count: 3214 },
-        { icon: AngryIcon, count: 5463 },
-        { icon: ScaredIcon, count: 6412 },
-        { icon: LaughIcon, count: 8521 },
-        { icon: ThinkIcon, count: 1472 },
-        { icon: SadIcon, count: 3698 }
+        { id: 1, icon: LikeIcon, count: 4321 },
+        { id: 2, icon: DislikeIcon, count: 5467 },
+        { id: 3, icon: LoveIcon, count: 1234 },
+        { id: 4, icon: FireIcon, count: 3214 },
+        { id: 5, icon: AngryIcon, count: 5463 },
+        { id: 6, icon: ScaredIcon, count: 6412 },
+        { id: 7, icon: LaughIcon, count: 8521 },
+        { id: 8, icon: ThinkIcon, count: 1472 },
+        { id: 9, icon: SadIcon, count: 3698 }
       ]
     }
   }
@@ -57,6 +46,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
+  cursor: pointer;
 
   .reaction {
     height: 32px;
@@ -69,6 +59,10 @@ export default {
     gap: 6px;
     align-items: center;
     font-size: 14px;
+
+    svg {
+
+    }
   }
 }
 
