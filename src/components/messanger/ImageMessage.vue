@@ -1,13 +1,21 @@
 <template>
-  <div class="image-component">
+  <a :href="image.src" data-fancybox class="image-component">
     <img :src="image.src" :alt="image.alt" />
-  </div>
+  </a>
 </template>
 
 <script setup>
 /* eslint-disable */
+import { Fancybox } from '@fancyapps/ui'
+import { onMounted } from 'vue'
 defineProps({
   image: Object
+})
+
+onMounted(() => {
+  Fancybox.bind('[data-fancybox]', {
+    wheel: 'zoom'
+  })
 })
 </script>
 

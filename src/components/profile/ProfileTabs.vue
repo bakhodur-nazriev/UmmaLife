@@ -39,7 +39,7 @@ export default {
     activeTab: 0
   }),
   methods: {
-    changeTab (index) {
+    changeTab(index) {
       this.activeTab = index
       this.$emit('changeTab', this.activeTab)
     }
@@ -69,6 +69,8 @@ export default {
   border-radius: 15px 15px 0 0;
   overflow: hidden;
   border-bottom: 1px solid var(--color-seashell);
+  padding: 0 40px;
+  gap: 40px;
 }
 
 .tabs__header-item {
@@ -79,7 +81,6 @@ export default {
   color: var(--color-silver-chalice);
   font-weight: 500;
   font-size: 16px;
-  width: 185px;
 }
 
 .tabs__header-item.active {

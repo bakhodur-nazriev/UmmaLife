@@ -9,6 +9,7 @@
     "i18n:report": "vue-cli-service i18n:report --src \"./src/**/*.?(js|vue)\" --locales \"./src/locales/**/*.json\""
   },
   "dependencies": {
+    "@fancyapps/ui": "^5.0.20",
     "@videojs-player/vue": "^1.0.0",
     "@vueuse/components": "^10.2.1",
     "@vueuse/core": "^10.2.1",

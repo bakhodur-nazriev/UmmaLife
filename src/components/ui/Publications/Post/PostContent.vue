@@ -24,19 +24,17 @@ const reactions = [
 
 <template>
   <div class="post__content">
-    <p class="post__content--paragraph">The 29-year-old took more than a tenth of a second off a record that had stood
-      for 16 years, clocking 52.20 seconds to beat Russian Yuliya<br>
-      Pechonkina's previous mark of 52.34.<br>
-      "I'm just shocked," said Muhammad.<br>
-      "I've been kind of hitting that time in practice and my coach was like 'there's no way you can't do it'."
+    <p class="post__content--paragraph">
+      The 29-year-old took more than a tenth of a second off a record that had stood for 16 years,
+      clocking 52.20 seconds to beat Russian Yuliya<br />
+      Pechonkina's previous mark of 52.34.<br />
+      "I'm just shocked," said Muhammad.<br />
+      "I've been kind of hitting that time in practice and my coach was like 'there's no way you
+      can't do it'."
     </p>
     <div class="post__content--reactions">
       <div class="reactions__block">
-        <div
-          v-for="(reaction, index) in reactions"
-          :key="index"
-          class="reaction"
-        >
+        <div v-for="(reaction, index) in reactions" :key="index" class="reaction">
           <component :is="reaction.icon" />
           <span>{{ reaction.count }}</span>
         </div>
@@ -52,6 +50,10 @@ const reactions = [
 </template>
 
 <style scoped>
+.profile__news .reaction {
+  border-radius: 8px;
+  background: var(--color-gallery-second);
+}
 .reaction {
   height: 32px;
   background: var(--color-seashell);

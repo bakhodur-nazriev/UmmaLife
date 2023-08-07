@@ -1,13 +1,15 @@
 <template>
-  <div class="posts">
-    <PublicationForm />
-    <ProfileTabs :tabs="tabLabels" @changeTab="(index) => (selectedIndex = index)">
-      <ProfilePublications v-if="selectedIndex === 0" />
-      <ProfileUmmaShorts v-else-if="selectedIndex === 1" />
-      <ProfileUmmaVideo v-else-if="selectedIndex === 2" />
-      <ProfileAlboms v-else-if="selectedIndex === 3" />
-      <ProfileSavings v-else-if="selectedIndex === 4" />
-    </ProfileTabs>
+  <div class="posts__wrapper">
+    <div class="posts">
+      <PublicationForm />
+      <ProfileTabs :tabs="tabLabels" @changeTab="(index) => (selectedIndex = index)">
+        <ProfilePublications v-if="selectedIndex === 0" />
+        <ProfileUmmaShorts v-else-if="selectedIndex === 1" />
+        <ProfileUmmaVideo v-else-if="selectedIndex === 2" />
+        <ProfileAlboms v-else-if="selectedIndex === 3" />
+        <ProfileSavings v-else-if="selectedIndex === 4" />
+      </ProfileTabs>
+    </div>
   </div>
 </template>
 
@@ -34,7 +36,7 @@ export default {
     selectedIndex: 0
   }),
   computed: {
-    tabLabels () {
+    tabLabels() {
       return [
         this.$t('tabs.my_page.publications'),
         this.$t('tabs.my_page.umma_shorts'),
@@ -52,5 +54,13 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 7px;
+  max-width: 700px;
+  width: 100%;
+  margin-left: 145px;
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 </style>

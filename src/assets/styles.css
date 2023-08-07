@@ -162,14 +162,3 @@ img {
   margin: 0;
   background-color: var(--color-seashell);
 }
-
-.page__container {
-  padding: 16px 45px 16px 16px;
-  width: 100%;
-}
-
-.page__wrapper {
-  display: grid;
-  grid-template-columns: 480px 1fr;
-  gap: 16px;
-}

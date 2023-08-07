@@ -2,33 +2,36 @@
   <section class="article-content__section">
     <div class="article-content__section-item">
       <div class="custom-video__container">
-        <div class="play-icon__button">
-          <VideoPlayIcon class="play-icon__button-icon"/>
-        </div>
-        <video
+        <video-player
+          src="/video/video.mp4"
+          poster="/images/message/video-poster.jpg"
           controls
-          class="custom-video-player"
-          poster="@/assets/images/Post_1.png"
+          :volume="1"
         >
-          <source
-            src="path/to/video.mp4"
-            type="video/mp4"
-          >
-        </video>
+          <template v-slot="{ player, state }">
+            <div class="custom-player-controls">
+              <div
+                v-if="!state.playing"
+                @click="state.playing ? player.pause() : player.play()"
+                class="play-button"
+              >
+                <VideoPlayIcon />
+              </div>
+            </div>
+          </template>
+        </video-player>
       </div>
       <div class="article-content__detail__block">
-        <span class="article-content__detail__block-views">20.08.2022 - 1 тыс.{{ $t('video.views') }}</span>
+        <span class="article-content__detail__block-views"
+          >20.08.2022 - 1 тыс.{{ $t('video.views') }}</span
+        >
       </div>
     </div>
 
     <div class="article-content__reactions">
       <div class="article-content__reactions-block">
-        <div
-          v-for="(reaction, index) in reactions"
-          :key="index"
-          class="reaction"
-        >
-          <component :is="reaction.icon"/>
+        <div v-for="(reaction, index) in reactions" :key="index" class="reaction">
+          <component :is="reaction.icon" />
           <span>{{ reaction.count }}</span>
         </div>
       </div>
@@ -47,11 +50,13 @@ import ThinkIcon from '@/components/icons/reactions/men/small/ThinkIcon.vue'
 import FireIcon from '@/components/icons/reactions/men/small/FireIcon.vue'
 import ScaredIcon from '@/components/icons/reactions/men/small/ScaredIcon.vue'
 import VideoPlayIcon from '@/components/icons/VideoPlayIcon.vue'
+import { VideoPlayer } from '@videojs-player/vue'
 export default {
   components: {
-    VideoPlayIcon
+    VideoPlayIcon,
+    VideoPlayer
   },
-  data () {
+  data() {
     return {
       reactions: [
         { icon: LikeIcon, count: 1550 },
@@ -69,9 +74,67 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .custom-video__container {
   position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 100%;
+  width: 100%;
+  height: 400px;
+  .video-js {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+    background: transparent;
+    .vjs-poster img {
+      object-fit: cover;
+    }
+    .vjs-tech {
+      object-fit: cover !important;
+      object-position: center !important;
+      overflow: hidden;
+    }
+    .vjs-big-play-button {
+      display: none !important;
+    }
+  }
+}
+.custom-player-controls {
+  .remaining-time {
+    position: absolute;
+    top: 16px;
+    left: 18px;
+    z-index: 10;
+    padding: 4px 6px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    color: var(--color-white);
+    border-radius: 6px;
+    background: rgba(31, 31, 31, 0.5);
+    backdrop-filter: blur(10px);
+    min-width: 50px;
+    text-align: center;
+  }
+  .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    // background-color: rgba($color: var(--color-hippie-blue), $alpha: 0.6);
+    background: rgba(73, 163, 153, 0.6);
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    cursor: pointer;
+  }
 }
 
 .custom-video-player {
