@@ -213,13 +213,8 @@ export default {
 }
 
 @media (min-width: 1920px) {
-  .aside__publications {
-    width: 411px;
-  }
-
   .person__right--side button,
-  .group__right--side button
-  {
+  .group__right--side button {
     height: 34px;
     padding: 8px 32px;
     font-size: 14px;

@@ -324,5 +324,16 @@
     "sure_delete_message": "Are you sure you want to delete the message?",
     "also_delete_from": "Also remove from",
     "cancel_delete": "Cancel"
+  },
+  "reaction_tooltip": {
+    "like": "Ma sha Allah",
+    "dislike": "Outraged",
+    "love": "Love",
+    "fire": "Fire",
+    "angry": "Angry",
+    "scared": "Surprised",
+    "laugh": "HaHa",
+    "think": "Thought",
+    "sad": "Sad"
   }
 }

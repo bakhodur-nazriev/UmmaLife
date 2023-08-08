@@ -134,6 +134,7 @@ export default {
   align-items: center;
   cursor: pointer;
   height: 30px;
+  user-select: none;
 }
 
 .menu__overlay {
@@ -151,7 +152,7 @@ export default {
 
 .dropdown__menu {
   list-style: none;
-  padding: 10px;
+  padding: 8px;
   margin: 0;
   width: max-content;
   display: flex;

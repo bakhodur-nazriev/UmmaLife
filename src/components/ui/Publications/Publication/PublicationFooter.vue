@@ -10,6 +10,7 @@
                 :key="index"
                 class="reaction__item"
               >
+                <span class="reaction__item--tooltip">{{ reaction.tooltip }}</span>
                 <component :is="reaction.icon"/>
               </li>
             </ul>
@@ -61,7 +62,7 @@
       </div>
     </div>
 
-    <sample-divider v-if="isFormOpen" />
+    <SampleDivider v-if="isFormOpen" />
 
     <div class="main__comment--form" v-if="isFormOpen">
       <ReplyCommentForm />
@@ -105,15 +106,15 @@ export default {
   data () {
     return {
       reactionsIcon: [
-        { id: 1, icon: BigLikeIcon },
-        { id: 2, icon: BigDislikeIcon },
-        { id: 3, icon: BigLoveIcon },
-        { id: 4, icon: BigFireIcon },
-        { id: 5, icon: BigAngryIcon },
-        { id: 6, icon: BigScaredIcon },
-        { id: 7, icon: BigLaughIcon },
-        { id: 8, icon: BigThinkIcon },
-        { id: 9, icon: BigSadIcon }
+        { id: 1, icon: BigLikeIcon, tooltip: this.$t('reaction_tooltip.like') },
+        { id: 2, icon: BigDislikeIcon, tooltip: this.$t('reaction_tooltip.dislike') },
+        { id: 3, icon: BigLoveIcon, tooltip: this.$t('reaction_tooltip.love') },
+        { id: 4, icon: BigFireIcon, tooltip: this.$t('reaction_tooltip.fire') },
+        { id: 5, icon: BigAngryIcon, tooltip: this.$t('reaction_tooltip.angry') },
+        { id: 6, icon: BigScaredIcon, tooltip: this.$t('reaction_tooltip.scared') },
+        { id: 7, icon: BigLaughIcon, tooltip: this.$t('reaction_tooltip.laugh') },
+        { id: 8, icon: BigThinkIcon, tooltip: this.$t('reaction_tooltip.think') },
+        { id: 9, icon: BigSadIcon, tooltip: this.$t('reaction_tooltip.sad') }
       ],
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
@@ -197,7 +198,25 @@ export default {
 .reaction__item {
   display: flex;
   align-items: center;
+  flex-direction: column;
   cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+
+  &--tooltip {
+    position: absolute;
+    bottom: 28px;
+    width: max-content;
+    background-color: var(--color-mine-shaft);
+    padding: 2px 8px;
+    color: var(--color-white);
+    border-radius: 15px;
+    font-size: 12px;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+  }
 }
 
 .share__item--divider {
