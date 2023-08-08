@@ -2,7 +2,8 @@
   <div class="main-tab-umma-video__block">
     <section class="category__section">
       <div class="category__left--section">
-        <div class="transparent__left--right--block">
+        <div class="transparent__left--right--block" ref="transparentBlock">
+          <div class="transparent__left" ref="leftTransparent"></div>
           <div class="left__button" @click="scrollLeft" ref="leftButton">
             <DropdownIcon />
           </div>
@@ -13,6 +14,7 @@
               :title="item"
             />
           </div>
+          <div class="transparent__right" ref="rightTransparent"></div>
           <div class="right__button" @click="scrollRight" ref="rightButton">
             <DropdownIcon />
           </div>
@@ -92,14 +94,25 @@ export default {
     handleScroll() {
       const scrollContainer = this.$refs.scrollContainer
       const leftButton = this.$refs.leftButton
-      // const transparentBlock = this.$refs.transparentBlock
+      const leftTransparent = this.$refs.leftTransparent
+      const rightButton = this.$refs.rightButton
+      const rightTransparent = this.$refs.rightTransparent
 
       if (scrollContainer.scrollLeft <= 0) {
         leftButton.style.display = 'none'
-        // transparentBlock.style.display = 'none'
+        leftTransparent.style.display = 'none'
+        rightButton.style.display = 'flex'
+        rightTransparent.style.display = 'flex'
+      } else if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth) {
+        leftButton.style.display = 'flex'
+        leftTransparent.style.display = 'flex'
+        rightButton.style.display = 'none'
+        rightTransparent.style.display = 'none'
       } else {
         leftButton.style.display = 'flex'
-        // transparentBlock.style.display = 'block'
+        leftTransparent.style.display = 'flex'
+        rightButton.style.display = 'flex'
+        rightTransparent.style.display = 'flex'
       }
     }
   }
@@ -124,6 +137,18 @@ export default {
   max-height: 40px;
   border-radius: 50%;
   z-index: 100;
+}
+
+.left__button {
+  display: none;
+  position: absolute;
+  left: -15px;
+  user-select: none;
+}
+
+.right__button {
+  position: absolute;
+  right: -15px;
   user-select: none;
 }
 
@@ -131,29 +156,50 @@ export default {
   position: relative;
   display: flex;
   align-items: center;
+
+  //&::after,
+  //&::before {
+  //  content: "";
+  //  position: absolute;
+  //  top: 0;
+  //  width: 100px;
+  //  height: 100%;
+  //}
 }
 
-.transparent__left--right--block::after,
-.transparent__left--right--block::before {
-  content: "";
+//.transparent__left--right--block {
+//  &::after {
+//    left: 0;
+//    background: linear-gradient(to left, transparent, var(--color-seashell) 50%);
+//  }
+//}
+//
+//.transparent__left--right--block {
+//  &::before {
+//    right: 0;
+//    background: linear-gradient(to right, transparent, var(--color-seashell) 50%);
+//  }
+//}
+
+.transparent__left {
+  display: none;
   position: absolute;
+  content: '';
   top: 0;
-  width: 100px;
+  left: 0;
+  width: 70px;
   height: 100%;
+  background: linear-gradient(to left, transparent, var(--color-seashell) 50%);
 }
 
-.transparent__left--right--block {
-  &::after {
-    left: 0;
-    background: linear-gradient(to left, transparent, var(--color-seashell) 50%);
-  }
-}
-
-.transparent__left--right--block {
-  &::before {
-    right: 0;
-    background: linear-gradient(to right, transparent, var(--color-seashell) 50%);
-  }
+.transparent__right {
+  position: absolute;
+  content: '';
+  top: 0;
+  right: 0;
+  width: 70px;
+  height: 100%;
+  background: linear-gradient(to right, transparent, var(--color-seashell) 50%);
 }
 
 .left__button,
@@ -216,7 +262,7 @@ export default {
     margin-bottom: 24px;
   }
   .selected__country--button {
-    max-width: 550px;
+    max-width: 600px;
   }
   .umma__videos--section {
     grid-template-columns: repeat(3,1fr);
