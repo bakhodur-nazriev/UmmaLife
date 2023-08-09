@@ -34,7 +34,7 @@ export default {
   &__details-block {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 0 20px 20px;
 
     &-title {
       color: var(--color-mine-shaft);
@@ -50,7 +50,7 @@ export default {
     &-paragraph {
       color: var(--color-gray);
       font-size: 14px;
-      margin: 0;
+      margin: 0 0 5px;
       overflow: hidden;
       display: -webkit-box;
       -webkit-line-clamp: 3;
