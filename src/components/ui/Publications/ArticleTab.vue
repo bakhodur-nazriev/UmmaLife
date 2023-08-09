@@ -31,7 +31,7 @@ export default {
     ArticleContent,
     SampleDivider
   },
-  data () {
+  data() {
     return {
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
@@ -39,7 +39,7 @@ export default {
     }
   },
   methods: {
-    toggleMenu () {
+    toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen
     }
   }

@@ -33,7 +33,7 @@ export default {
   &__wrapper {
     display: grid;
     gap: 16px;
-    grid-template-columns: 440px 1fr;
+    grid-template-columns: 480px 1fr;
     height: 100%;
   }
 }

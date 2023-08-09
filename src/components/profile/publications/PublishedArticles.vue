@@ -1,6 +1,6 @@
 <template>
   <div class="articles">
-    <ProfileArticles v-for="i in 5" :key="i" />
+    <ProfileArticles />
   </div>
 </template>
 <script>

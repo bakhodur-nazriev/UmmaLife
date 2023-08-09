@@ -60,9 +60,7 @@ export default {
     align-items: center;
     font-size: 14px;
 
-    svg {
-
-    }
+    svg {}
   }
 }
 

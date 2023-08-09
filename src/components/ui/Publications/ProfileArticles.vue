@@ -1,31 +1,17 @@
 <template>
   <div class="profile__article">
     <ArticleTab :isMenuOpen="isMenuOpen" @toggleMenu="isMenuOpen = !isMenuOpen" />
-      <div class="profile__article--bottom">
-        <PostReactions class="profile-reactions" />
-        <SampleDivider class="profile-divider" />
-        <PostFooter
-          :is-reaction-window-open="isReactionWindowOpen"
-          :is-share-window-open="isShareWindowOpen"
-        />
-      </div>
   </div>
 </template>
 
 <script>
 import ArticleTab from '@/components/ui/Publications/ArticleTab.vue'
-import PostFooter from '@/components/ui/Publications/Post/PostFooter.vue'
-import PostReactions from '@/components/ui/Post/PostReactions.vue'
-import SampleDivider from '@/components/ui/SampleDivider.vue'
 
 export default {
   components: {
-    ArticleTab,
-    PostFooter,
-    SampleDivider,
-    PostReactions
+    ArticleTab
   },
-  data () {
+  data() {
     return {
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
@@ -36,14 +22,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.profile__article{
+.profile__article {
   background-color: var(--color-seashell);
   border-radius: 20px;
-  .article__block{
-    background-color: transparent;
-  }
-  &--bottom{
-    padding: 0 16px 8px;
-  }
 }
 </style>
