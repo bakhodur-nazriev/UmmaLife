@@ -3,21 +3,7 @@
     <section class="category__section">
       <div class="category__left--section">
         <div class="transparent__left--right--block" ref="transparentBlock">
-          <div class="transparent__left" ref="leftTransparent"></div>
-          <div class="left__button" @click="scrollLeft" ref="leftButton">
-            <DropdownIcon />
-          </div>
-          <div class="selected__country--button" ref="scrollContainer">
-            <SampleSelectedCategory
-              v-for="(item, index) in categories"
-              :key="index"
-              :title="item"
-            />
-          </div>
-          <div class="transparent__right" ref="rightTransparent"></div>
-          <div class="right__button" @click="scrollRight" ref="rightButton">
-            <DropdownIcon />
-          </div>
+          <ScrollableCategory />
         </div>
       </div>
       <div>
@@ -34,94 +20,18 @@
 </template>
 
 <script>
-import SampleSelectedCategory from '@/components/ui/SampleSelectedCategory.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import UmmaVideo from '@/components/ui/UmmaVideo.vue'
-import DropdownIcon from '@/components/icons/DropdownIcon.vue'
+import ScrollableCategory from '@/components/ui/Fields/ScrollableCategory.vue'
 
 export default {
   components: {
-    DropdownIcon,
+    ScrollableCategory,
     UmmaVideo,
-    SampleButton,
-    SampleSelectedCategory
+    SampleButton
   },
   data () {
-    return {
-      categories: []
-    }
-  },
-  mounted () {
-    this.categories = [
-      'Категория 1',
-      'Категория 2',
-      'Категория 3'
-    ]
-
-    this.$refs.scrollContainer.addEventListener('scroll', this.handleScroll)
-
-    this.handleScroll()
-  },
-  beforeUnmount() {
-    this.$refs.scrollContainer.removeEventListener('scroll', this.handleScroll)
-  },
-  methods: {
-    scrollLeft() {
-      const scrollContainer = this.$refs.scrollContainer
-      const leftButton = this.$refs.leftButton
-
-      scrollContainer.scrollLeft -= 150
-      scrollContainer.scrollBy({
-        left: -150,
-        behavior: 'smooth'
-      })
-
-      leftButton.style.display = 'flex'
-    },
-    scrollRight() {
-      const scrollContainer = this.$refs.scrollContainer
-      const rightButton = this.$refs.rightButton
-
-      scrollContainer.scrollLeft += 150
-      scrollContainer.scrollBy({
-        left: 150,
-        behavior: 'smooth'
-      })
-
-      rightButton.style.display = 'flex'
-    },
-    handleScroll() {
-      const scrollContainer = this.$refs.scrollContainer
-      const leftButton = this.$refs.leftButton
-      const leftTransparent = this.$refs.leftTransparent
-      const rightButton = this.$refs.rightButton
-      const rightTransparent = this.$refs.rightTransparent
-
-      if (scrollContainer.scrollLeft <= 0) {
-        leftButton.style.display = 'none'
-        leftTransparent.style.display = 'none'
-        rightButton.style.display = 'flex'
-        rightTransparent.style.display = 'flex'
-      } else if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth) {
-        leftButton.style.display = 'flex'
-        leftTransparent.style.display = 'flex'
-        rightButton.style.display = 'none'
-        rightTransparent.style.display = 'none'
-      } else {
-        leftButton.style.display = 'flex'
-        leftTransparent.style.display = 'flex'
-        rightButton.style.display = 'flex'
-        rightTransparent.style.display = 'flex'
-      }
-
-      const selectedButton = this.$refs.scrollContainer
-      const items = selectedButton.querySelectorAll('.sample-selected-category')
-      const totalWidth = Array.from(items).reduce((width, item) => width + item.offsetWidth, 0)
-      if (totalWidth > 960) {
-        leftButton.style.display = 'none'
-        rightButton.style.display = 'none'
-      }
-    }
+    return {}
   }
 }
 </script>
