@@ -43,9 +43,9 @@
 <script setup>
 import VerticalMenuIcon from '@/components/icons/shorts/VerticalMenuIcon.vue'
 import ReplyIcon from '@/components/icons/shorts/ReplyIcon.vue'
-import LoveIcon from '@/components/icons/reactions/men/small/LoveIcon.vue'
-import LikeIcon from '@/components/icons/reactions/men/small/LikeIcon.vue'
-import DislikeIcon from '@/components/icons/reactions/men/small/DislikeIcon.vue'
+import LoveIcon from '@/components/icons/reactions/men/small/SmallLoveIcon.vue'
+import LikeIcon from '@/components/icons/reactions/men/small/SmallLikeIcon.vue'
+import DislikeIcon from '@/components/icons/reactions/men/small/SmallDislikeIcon.vue'
 </script>
 
 <style lang="scss" scoped>
