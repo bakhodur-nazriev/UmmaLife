@@ -6,126 +6,104 @@
         alt=""
         class="article-content__image"
       >
-      <div class="article-content__detail__block">
-        <h3 class="article-content__detail__block-title">Название статьи, которое не поместилось на одну строку и переместилось на вторую строчку</h3>
-        <p class="article-content__detail__block-paragraph">Аль-Ула - город, полный археологических чудес. Расположенный на северо-западе Саудовской Аравии в провинции Медина, это популярное туристическое направление. Аль-Ула является первым объектом Всемирного наследия ЮНЕСКО в стране. Это место, изве...</p>
+      <div class="article-content__details-block">
+        <h3 class="article-content__details-block-title">Название статьи, которое не поместилось на одну строку и переместилось на вторую строчку</h3>
+        <p class="article-content__details-block-paragraph">Аль-Ула - город, полный археологических чудес. Расположенный на северо-западе Саудовской Аравии в провинции Медина, это популярное туристическое направление. Аль-Ула является первым объектом Всемирного наследия ЮНЕСКО в стране. Это место, изве...</p>
+        <span class="article-content__details-block-date">20.08.2022</span>
       </div>
     </div>
 
     <div class="article-content__reactions">
-      <div class="article-content__reactions-block">
-        <div
-          v-for="(reaction, index) in reactions"
-          :key="index"
-          class="reaction"
-        >
-          <component :is="reaction.icon"/>
-          <span>{{ reaction.count }}</span>
-        </div>
-      </div>
+      <PostReactions />
     </div>
   </section>
 </template>
 
 <script>
-import LikeIcon from '@/components/icons/reactions/men/small/LikeIcon.vue'
-import DislikeIcon from '@/components/icons/reactions/men/small/DislikeIcon.vue'
-import LoveIcon from '@/components/icons/reactions/men/small/LoveIcon.vue'
-import AngryIcon from '@/components/icons/reactions/men/small/AngryIcon.vue'
-import LaughIcon from '@/components/icons/reactions/men/small/LaughIcon.vue'
-import SadIcon from '@/components/icons/reactions/men/small/SadIcon.vue'
-import ThinkIcon from '@/components/icons/reactions/men/small/ThinkIcon.vue'
-import FireIcon from '@/components/icons/reactions/men/small/FireIcon.vue'
-import ScaredIcon from '@/components/icons/reactions/men/small/ScaredIcon.vue'
+import PostReactions from '@/components/ui/Post/PostReactions.vue'
 export default {
-  data () {
-    return {
-      reactions: [
-        { icon: LikeIcon, count: 1550 },
-        { icon: DislikeIcon, count: 2351 },
-        { icon: LoveIcon, count: 1987 },
-        { icon: FireIcon, count: 2358 },
-        { icon: AngryIcon, count: 7462 },
-        { icon: ScaredIcon, count: 7894 },
-        { icon: LaughIcon, count: 5671 },
-        { icon: ThinkIcon, count: 9874 },
-        { icon: SadIcon, count: 9876 }
-      ]
-    }
-  }
+  components: {
+    PostReactions
+  },
+  data: () => ({})
 }
 </script>
 
 <style scoped lang="scss">
-.article-content__detail__block {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-
-  &-title {
-    color: var(--color-mine-shaft);
-    font-size: 16px;
-    margin-top: 0;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-
-  &-paragraph {
-    color: var(--color-gray);
-    font-size: 14px;
-    margin: 0;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3 ;
-    -webkit-box-orient: vertical;
-  }
-}
-
-.article-content__section {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  &-item {
+.article-content {
+  &__details-block {
     display: flex;
     flex-direction: column;
-    background-color: var(--color-seashell);
+    padding: 0 20px 20px;
+
+    &-title {
+      color: var(--color-mine-shaft);
+      font-size: 16px;
+      margin-top: 0;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    &-paragraph {
+      color: var(--color-gray);
+      font-size: 14px;
+      margin: 0 0 5px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3 ;
+      -webkit-box-orient: vertical;
+    }
+  }
+
+ &__section {
+   display: flex;
+   flex-direction: column;
+   gap: 12px;
+
+   &-item {
+     display: flex;
+     flex-direction: column;
+     background-color: var(--color-seashell);
+     border-radius: 15px;
+   }
+ }
+
+  &__image {
+    width: 100%;
     border-radius: 15px;
+    height: 80%;
+  }
+
+  &__reactions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
   }
 }
 
-.article__content--image {
-  width: 100%;
-  border-radius: 15px;
-  height: 80%;
-}
+@media (max-width: 576px) {
+  .article-content {
+    &__details-block {
+      &-title {
+        margin-bottom: 8px;
+        font-size: 14px;
+        line-height: 1.2;
+      }
 
-.article-content__reactions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0;
+      &-paragraph {
+        margin-bottom: 6px;
+        font-size: 14px;
+      }
 
-  &-block {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-
-    .reaction {
-      height: 32px;
-      border-radius: 50px;
-      padding: 8px 12px;
-      width: auto;
-      display: flex;
-      gap: 6px;
-      align-items: center;
-      font-size: 14px;
-      color: var(--color-silver-chalice);
-      background-color: var(--color-gallery-second);
+      &-date {
+        font-size: 12px;
+        color: var(--color-mine-shaft);
+      }
     }
   }
 }

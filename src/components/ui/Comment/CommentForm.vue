@@ -5,7 +5,7 @@
     class="comment__form"
   >
     <div class="load__more-section">
-      <sample-drop-down
+      <SampleDropDown
         :color="parentColor"
         class="load__more-button"
         :drop-down-title="`${ $t('dropdown.download_comment') }`"
@@ -22,7 +22,7 @@
         >
       </div>
 
-      <sample-textarea
+      <SampleTextarea
         class="form__textarea"
         :placeholder="`${ $t('placeholders.comment_input') }`"
         @input="adjustTextareaHeight"
@@ -30,11 +30,13 @@
 
       <div class="textarea__right--buttons">
         <file-upload class="attach__file" label="file">
-          <textarea-clip-icon />
+          <TextareaClipIcon />
         </file-upload>
-        <sample-divider class="textarea__right--buttons--divider" />
+
+        <SampleDivider class="textarea__right--buttons--divider" />
+
         <button class="send__button" type="button">
-          <send-icon/>
+          <SendIcon />
         </button>
       </div>
     </div>
@@ -82,9 +84,11 @@ export default {
 }
 </script>
 
-<style scoped>
-.dropdown__button> span {
-  color: var(--color-hippie-blue);
+<style scoped lang="scss">
+.dropdown__button {
+  span  {
+    color: var(--color-hippie-blue);
+  }
 }
 
 .load__more-section {
@@ -97,11 +101,6 @@ export default {
 
 .comment__avatar {
   display: flex;
-}
-
-.textarea__right--buttons--divider {
-  height: 14px;
-  border: 1px solid var(--color-alto-second);
 }
 
 .comment__author--avatar {

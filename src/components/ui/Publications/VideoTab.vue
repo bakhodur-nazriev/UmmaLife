@@ -1,16 +1,16 @@
 <template>
   <div class="video-block">
     <article class="video-block__article" v-for="i in 10" :key="i">
-      <VideoHeader
+      <PostHeader
         :is-menu-open="isMenuOpen"
         @toggle-menu="toggleMenu"
       />
 
       <VideoContent />
 
-      <SampleDivider />
+      <SampleDivider class="divider" />
 
-      <VideoFooter
+      <PostFooter
         :is-reaction-window-open="isReactionWindowOpen"
         :is-share-window-open="isShareWindowOpen"
       />
@@ -20,15 +20,15 @@
 
 <script>
 import SampleDivider from '@/components/ui/SampleDivider.vue'
-import VideoHeader from '@/components/ui/Publications/Video/VideoHeader.vue'
 import VideoContent from '@/components/ui/Publications/Video/VideoContent.vue'
-import VideoFooter from '@/components/ui/Publications/Video/VideoFooter.vue'
+import PostHeader from '@/components/ui/Post/PostHeader.vue'
+import PostFooter from '@/components/ui/Post/PostFooter.vue'
 
 export default {
   components: {
-    VideoFooter,
+    PostFooter,
+    PostHeader,
     VideoContent,
-    VideoHeader,
     SampleDivider
   },
   data () {
@@ -60,7 +60,7 @@ export default {
   &__article {
     display: flex;
     flex-direction: column;
-    padding: 24px;
+    padding: 24px 24px 10px;
     border-radius: 15px;
     row-gap: 8px;
     background-color: var(--color-white);
@@ -124,5 +124,16 @@ export default {
   gap: 8px;
   align-items: center;
   color: var(--color-gray);
+}
+
+.divider {
+  margin: 2px;
+}
+
+@media (max-width: 576px) {
+  .video-block__article {
+    padding: 24px 0;
+    border-radius: 0;
+  }
 }
 </style>

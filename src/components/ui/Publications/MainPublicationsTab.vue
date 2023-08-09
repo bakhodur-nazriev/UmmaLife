@@ -1,6 +1,7 @@
 <template>
   <div class="tabs">
-    <div class="tabs-header">
+    <div class="tabs-bg" ref="publicationBackground"></div>
+    <div class="tabs-header" ref="publicationTabsHeader">
       <div
         v-for="(tab, index) in tabs"
         :key="index"
@@ -12,17 +13,17 @@
       </div>
     </div>
 
-   <div class="tabs__content">
+    <div class="tabs-content">
       <div
         v-for="(tab, index) in tabs"
         :key="index"
         v-show="activeTab === index"
       >
-        <PublicationTab v-if="index === 0" />
+        <PublicationTab v-if="index === 0"/>
         <ArticleTab v-if="index === 1"/>
         <PhotoTab v-if="index === 2"/>
-        <!--<VideoTab v-if="index === 3"/>-->
-        <AudioTab v-if="index === 4" />
+        <VideoTab v-if="index === 3"/>
+        <AudioTab v-if="index === 4"/>
       </div>
     </div>
   </div>
@@ -32,7 +33,7 @@
 import PublicationTab from '@/components/ui/Publications/PublicationTab.vue'
 import ArticleTab from '@/components/ui/Publications/ArticleTab.vue'
 import PhotoTab from '@/components/ui/Publications/PhotoTab.vue'
-// import VideoTab from '@/components/ui/Publications/VideoTab.vue'
+import VideoTab from '@/components/ui/Publications/VideoTab.vue'
 import AudioTab from '@/components/ui/Publications/AudioTab.vue'
 import CheckMarkSmallIcon from '@/components/icons/CheckMarkSmallIcon.vue'
 
@@ -41,7 +42,7 @@ export default {
     CheckMarkSmallIcon,
     PublicationTab,
     AudioTab,
-    // VideoTab,
+    VideoTab,
     PhotoTab,
     ArticleTab
   },
@@ -51,7 +52,7 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
       activeTab: 0,
       tabs: [],
@@ -60,19 +61,37 @@ export default {
     }
   },
   methods: {
-    changeTab (index) {
+    changeTab(index) {
+      this.$store.commit('setPublicationTabs', this.tabs[index].title)
       this.activeTab = index
       sessionStorage.setItem('activePublicationTab', index.toString())
     }
   },
-  mounted () {
-    const savedTab = sessionStorage.getItem('activePublicationTab')
+  computed: {
+    shouldChangeTabStyle() {
+      return this.$store.getters.shouldChangeTabStyle
+    }
+  },
+  watch: {
+    shouldChangeTabStyle(newValue) {
+      const tabsHeader = this.$refs.publicationTabsHeader
+      const tabBackground = this.$refs.publicationBackground
 
+      if (newValue) {
+        tabsHeader.style.display = 'flex'
+        tabBackground.style.display = 'flex'
+      } else {
+        tabsHeader.style.display = 'none'
+        tabBackground.style.display = 'none'
+      }
+    }
+  },
+  mounted() {
+    const savedTab = sessionStorage.getItem('activePublicationTab')
     if (savedTab) {
       this.activeTab = parseInt(savedTab)
     }
-
-    this.tabs = this.tabsArray.map((title, index) => ({
+    this.tabs = this.tabsArray.map((title) => ({
       title
     }))
   }
@@ -94,6 +113,12 @@ export default {
     border-radius: 15px;
     overflow: hidden;
     padding: 0 32px;
+    &__title {
+      &:hover {
+        color: var(--color-mine-shaft);
+        transition: all .15s ease-in-out;
+      }
+    }
 
     &__item {
       display: flex;
@@ -102,13 +127,14 @@ export default {
       color: var(--color-silver-chalice);
       font-weight: 500;
       font-size: 16px;
+      user-select: none;
 
       &.active {
         position: relative;
         color: var(--color-mine-shaft);
         padding-bottom: 16px;
         font-weight: 600;
-        z-index: 100;
+        z-index: 5;
 
         svg {
           display: none;
@@ -128,7 +154,7 @@ export default {
     }
 
     &__label-title {
-     color: var(--color-silver-chalice);
+      color: var(--color-silver-chalice);
       font-weight: 500;
     }
   }
@@ -136,12 +162,33 @@ export default {
 
 @media (max-width: 576px) {
   .tabs {
+    position: relative;
+
+    &-bg {
+      display: none;
+      content: "";
+      background: rgba(0, 0, 0, .4);
+      position: fixed;
+      height: 100vh;
+      width: 100%;
+      pointer-events: none;
+      z-index: 9;
+    }
+
     &-header {
+      display: none;
+      z-index: 10;
+      position: fixed;
+      top: 124px;
       flex-direction: column;
       width: 100%;
       border-radius: 0;
       gap: 10px;
       padding: 20px 32px;
+
+      &__title {
+        font-weight: 400;
+      }
 
       &__item {
         width: 100%;
@@ -165,6 +212,11 @@ export default {
           }
         }
       }
+    }
+
+    &-content {
+      position: relative;
+      top: 59px;
     }
   }
 }

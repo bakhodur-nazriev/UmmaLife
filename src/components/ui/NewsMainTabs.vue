@@ -5,18 +5,15 @@
         v-for="(tab, index) in tabs"
         :key="tab.index"
         :class="['tabs__header-item', { 'active': activeTab === index }]"
-        @click="changeTab(index)"
+        @click="handleTabClick(index)"
       >
         <div v-if="tab.index === 0">
-          <span
-            @click="toggleDropdown()"
-            class="dropdown-tab"
-          >
-            {{ tab.title }}
+          <span class="dropdown-tab tab-title">
+            {{ tapTitleForSmallDisplay }}
             <ArrowDownIcon class="dropdown-tab__icon" />
           </span>
         </div>
-        <span v-if="tab.index !== 0">{{ tab.title }}</span>
+        <span class="tab-title" v-if="tab.index > 0">{{ tab.title }}</span>
       </div>
     </div>
 
@@ -52,6 +49,7 @@ import TabPublications from '@/components/blocks/TabPublications.vue'
 import TabUmmaShorts from '@/components/blocks/TabUmmaShorts.vue'
 import PlusIcon from '@/components/icons/PlusIcon.vue'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon.vue'
+
 export default {
   components: {
     ArrowDownIcon,
@@ -72,48 +70,56 @@ export default {
       tabs: [],
       categories: [],
       isDropdownOpen: false,
-      firstTabClicked: false
+      isSmallTab: false
     }
   },
   methods: {
-    toggleDropdown () {
-      if (this.activeTab === 0) {
-        if (!this.firstTabClicked) {
-          this.isDropdownOpen = !this.isDropdownOpen
-        } else {
-          this.firstTabClicked = true
-        }
+    handleTabClick(index) {
+      const isSmallScreen = this.isSmallScreen
+
+      if (isSmallScreen && index === 0) {
+        this.$store.dispatch('toggleChangeTabStyle')
+      } else {
+        this.activeTab = index
+        sessionStorage.setItem('activeTab', index.toString())
       }
     },
-    changeTab (index) {
-      this.firstTabClicked = false
-      this.activeTab = index
-      sessionStorage.setItem('activeTab', index.toString())
+    changeTab(index) {
+      const screenWidth = window.innerWidth
+      const isSmallScreen = screenWidth < 576
+
+      if (isSmallScreen) {
+        this.isSmallTab = true
+        this.$store.dispatch('toggleChangeTabStyle')
+      } else {
+        this.activeTab = index
+        sessionStorage.setItem('activeTab', index.toString())
+      }
     }
   },
-  mounted () {
+  mounted() {
     const savedTab = sessionStorage.getItem('activeTab')
 
     if (savedTab) {
       this.activeTab = parseInt(savedTab)
     }
 
-    const types = ['publications', 'article', 'photo', 'video', 'audio']
-
-    this.tabs = this.tabsArray.map((title, index) => {
-      if (index === 0) {
-        const selectedType = types[this.activeTab]
-        return {
-          index,
-          title: selectedType.charAt(0).toUpperCase() + selectedType.slice(1)
-        }
+    this.tabs = this.tabsArray.map((title, index) => ({
+      title,
+      index
+    }))
+  },
+  computed: {
+    isSmallScreen() {
+      return window.innerWidth < 576
+    },
+    tapTitleForSmallDisplay () {
+      if (this.$store.getters.getPublicationTab === '') {
+        return this.$t('tabs.publications_inside.publications')
       } else {
-        return {
-          index,
-          title
-        }
+        return this.$store.getters.getPublicationTab
       }
-    })
+    }
   }
 }
 </script>
@@ -147,8 +153,15 @@ export default {
       margin: 0 50px;
       width: 200px;
 
-      .dropdown-tab {
+      .tab-title {
+        font-weight: 500;
+        &:hover {
+          color: var(--color-mine-shaft);
+          transition: all .15s ease-in-out;
+        }
+      }
 
+      .dropdown-tab {
         &__icon {
           display: none;
         }
@@ -193,6 +206,11 @@ export default {
 @media (max-width: 576px) {
   .tabs {
     &__header {
+      position: fixed;
+      top: 64px;
+      z-index: 15;
+      background-color: var(--color-white);
+      width: 100%;
 
       &-item {
         font-size: 16px;

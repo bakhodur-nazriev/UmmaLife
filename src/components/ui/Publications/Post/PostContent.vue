@@ -1,27 +1,3 @@
-<script setup>
-import LikeIcon from '@/components/icons/reactions/men/small/LikeIcon.vue'
-import DislikeIcon from '@/components/icons/reactions/men/small/DislikeIcon.vue'
-import AngryIcon from '@/components/icons/reactions/men/small/AngryIcon.vue'
-import LoveIcon from '@/components/icons/reactions/men/small/LoveIcon.vue'
-import FireIcon from '@/components/icons/reactions/men/small/FireIcon.vue'
-import ScaredIcon from '@/components/icons/reactions/men/small/ScaredIcon.vue'
-import LaughIcon from '@/components/icons/reactions/men/small/LaughIcon.vue'
-import ThinkIcon from '@/components/icons/reactions/men/small/ThinkIcon.vue'
-import SadIcon from '@/components/icons/reactions/men/small/SadIcon.vue'
-
-const reactions = [
-  { icon: LikeIcon, count: 4321 },
-  { icon: DislikeIcon, count: 5467 },
-  { icon: LoveIcon, count: 1234 },
-  { icon: FireIcon, count: 3214 },
-  { icon: AngryIcon, count: 5463 },
-  { icon: ScaredIcon, count: 6412 },
-  { icon: LaughIcon, count: 8521 },
-  { icon: ThinkIcon, count: 1472 },
-  { icon: SadIcon, count: 3698 }
-]
-</script>
-
 <template>
   <div class="post__content">
     <p class="post__content--paragraph">
@@ -33,46 +9,21 @@ const reactions = [
       can't do it'."
     </p>
     <div class="post__content--reactions">
-      <div class="reactions__block">
-        <div v-for="(reaction, index) in reactions" :key="index" class="reaction">
-          <component :is="reaction.icon" />
-          <span>{{ reaction.count }}</span>
-        </div>
-      </div>
-
-      <div class="stats__reposts">
-        <span>155 {{ $t('labels.comments.plural') }}</span>
-        <span class="stats__separator"> / </span>
-        <span>35 {{ $t('labels.reposts.plural') }}</span>
-      </div>
+      <PostReactions />
     </div>
   </div>
 </template>
 
-<style scoped>
-.profile__news .reaction {
-  border-radius: 8px;
-  background: var(--color-gallery-second);
+<script>
+import PostReactions from '@/components/ui/Post/PostReactions.vue'
+export default {
+  components: {
+    PostReactions
+  }
 }
-.reaction {
-  height: 32px;
-  background: var(--color-seashell);
-  border-radius: 50px;
-  padding: 8px 12px;
-  color: var(--color-silver-chalice);
-  width: auto;
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  font-size: 14px;
-}
+</script>
 
-.reactions__block {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-}
-
+<style scoped lang="scss">
 .stats__separator {
   margin: 0 8px;
 }
@@ -94,15 +45,7 @@ const reactions = [
   margin: 0;
 }
 
-@media (min-width: 1280px) {
-  .reactions__block {
-    max-width: 560px;
-  }
-}
+@media (min-width: 1280px) {}
 
-@media (min-width: 1920px) {
-  .reactions__block {
-    max-width: 100%;
-  }
-}
+@media (min-width: 1920px) {}
 </style>

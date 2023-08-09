@@ -5,9 +5,9 @@
       @toggle-menu="toggleMenu"
     />
 
-    <PostContent />
+    <PublicationContent />
 
-    <SampleDivider />
+    <SampleDivider class="divider"/>
 
     <PostFooter
       :is-reaction-window-open="isReactionWindowOpen"
@@ -17,17 +17,17 @@
 </template>
 
 <script>
-import PostHeader from '@/components/ui/Publications/Post/PostHeader.vue'
-import PostContent from '@/components/ui/Publications/Post/PostContent.vue'
-import PostFooter from '@/components/ui/Publications/Post/PostFooter.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
+import PublicationContent from '@/components/ui/Publications/Publication/PublicationContent.vue'
+import PostHeader from '@/components/ui/Post/PostHeader.vue'
+import PostFooter from '@/components/ui/Post/PostFooter.vue'
 
 export default {
   components: {
-    SampleDivider,
     PostFooter,
-    PostContent,
-    PostHeader
+    PostHeader,
+    PublicationContent,
+    SampleDivider
   },
   data () {
     return {
@@ -44,13 +44,20 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .profile__news.post__block{
   border: 1px solid var(--color-seashell);
 }
 .post__block {
-  background-color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 24px 10px;
   border-radius: 15px;
-  padding: 20px 24px 8px 24px;
+  row-gap: 8px;
+  background-color: var(--color-white);
+}
+
+.divider {
+  margin: 2px;
 }
 </style>

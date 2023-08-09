@@ -84,9 +84,9 @@ const clickButton = () => {
   }
 
   &_primary:hover {
-    background-color: #00819D;
-    color: #fff;
-    transition: 0.2s;
+    background-color: var(--color-deep-cerulean);
+    color: var(--color-white);
+    transition: all .15s ease-in-out;
   }
 
   &::placeholder {

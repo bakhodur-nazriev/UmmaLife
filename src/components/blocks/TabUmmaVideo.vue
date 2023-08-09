@@ -2,16 +2,22 @@
   <div class="main-tab-umma-video__block">
     <section class="category__section">
       <div class="category__left--section">
-        <div class="transparent__left--right--block">
-          <div class="left__button" @click="scrollLeft" ref="leftButton"><dropdown-icon /></div>
+        <div class="transparent__left--right--block" ref="transparentBlock">
+          <div class="transparent__left" ref="leftTransparent"></div>
+          <div class="left__button" @click="scrollLeft" ref="leftButton">
+            <DropdownIcon />
+          </div>
           <div class="selected__country--button" ref="scrollContainer">
-            <sample-selected-category
+            <SampleSelectedCategory
               v-for="(item, index) in categories"
               :key="index"
               :title="item"
-            ></sample-selected-category>
+            />
           </div>
-          <div class="right__button" @click="scrollRight" ref="rightButton"><dropdown-icon /></div>
+          <div class="transparent__right" ref="rightTransparent"></div>
+          <div class="right__button" @click="scrollRight" ref="rightButton">
+            <DropdownIcon />
+          </div>
         </div>
       </div>
       <div>
@@ -22,7 +28,7 @@
       </div>
     </section>
     <section class="umma__videos--section">
-      <umma-video v-for="(item, index) in 12" :key="index"></umma-video>
+      <UmmaVideo v-for="(item, index) in 12" :key="index" />
     </section>
   </div>
 </template>
@@ -54,9 +60,16 @@ export default {
       'Категория 5',
       'Категория 6'
     ]
+
+    this.$refs.scrollContainer.addEventListener('scroll', this.handleScroll)
+
+    this.handleScroll()
+  },
+  beforeUnmount() {
+    this.$refs.scrollContainer.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
-    scrollLeft () {
+    scrollLeft() {
       const scrollContainer = this.$refs.scrollContainer
       const leftButton = this.$refs.leftButton
 
@@ -68,7 +81,7 @@ export default {
 
       leftButton.style.display = 'flex'
     },
-    scrollRight () {
+    scrollRight() {
       const scrollContainer = this.$refs.scrollContainer
       const rightButton = this.$refs.rightButton
 
@@ -79,18 +92,51 @@ export default {
       })
 
       rightButton.style.display = 'flex'
+    },
+    handleScroll() {
+      const scrollContainer = this.$refs.scrollContainer
+      const leftButton = this.$refs.leftButton
+      const leftTransparent = this.$refs.leftTransparent
+      const rightButton = this.$refs.rightButton
+      const rightTransparent = this.$refs.rightTransparent
+
+      if (scrollContainer.scrollLeft <= 0) {
+        leftButton.style.display = 'none'
+        leftTransparent.style.display = 'none'
+        rightButton.style.display = 'flex'
+        rightTransparent.style.display = 'flex'
+      } else if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth) {
+        leftButton.style.display = 'flex'
+        leftTransparent.style.display = 'flex'
+        rightButton.style.display = 'none'
+        rightTransparent.style.display = 'none'
+      } else {
+        leftButton.style.display = 'flex'
+        leftTransparent.style.display = 'flex'
+        rightButton.style.display = 'flex'
+        rightTransparent.style.display = 'flex'
+      }
+
+      const selectedButton = this.$refs.scrollContainer
+      const items = selectedButton.querySelectorAll('.sample-selected-category')
+      const totalWidth = Array.from(items).reduce((width, item) => width + item.offsetWidth, 0)
+      if (totalWidth > 960) {
+        leftButton.style.display = 'none'
+        rightButton.style.display = 'none'
+      }
     }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .category__left--section {
   display: flex;
   align-items: center;
 }
 
-.left__button, .right__button {
+.left__button,
+.right__button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -103,34 +149,53 @@ export default {
   z-index: 100;
 }
 
+.left__button {
+  display: none;
+  position: absolute;
+  left: -15px;
+  user-select: none;
+}
+
+.right__button {
+  position: absolute;
+  right: -15px;
+  user-select: none;
+}
+
 .transparent__left--right--block {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-.transparent__left--right--block::after, .transparent__left--right--block::before {
-  content: "";
+.transparent__left {
+  display: none;
   position: absolute;
+  content: '';
   top: 0;
-  width: 100px;
-  height: 100%;
-}
-
-.transparent__left--right--block::after {
   left: 0;
+  width: 70px;
+  height: 100%;
   background: linear-gradient(to left, transparent, var(--color-seashell) 50%);
 }
 
-.transparent__left--right--block::before {
+.transparent__right {
+  position: absolute;
+  content: '';
+  top: 0;
   right: 0;
+  width: 70px;
+  height: 100%;
   background: linear-gradient(to right, transparent, var(--color-seashell) 50%);
 }
 
-.left__button:hover, .right__button:hover {
-  background-color: var(--color-silver-chalice);
-  color: var(--color-seashell);
-  transition: 0.3s ease;
+.left__button,
+.right__button {
+  &:hover {
+    background-color: var(--color-silver-chalice);
+    color: var(--color-seashell);
+    transition: all .15s ease-in-out;
+  }
 }
 
 .left__button svg {
@@ -163,12 +228,7 @@ export default {
   display: grid;
   gap: 16px;
   row-gap: 24px;
-}
-
-.umma__videos--section {
-  display: grid;
   grid-template-columns: repeat(3,1fr);
-  gap: 16px;
 }
 
 @media (min-width: 768px) {
@@ -189,7 +249,7 @@ export default {
     margin-bottom: 24px;
   }
   .selected__country--button {
-    max-width: 550px;
+    max-width: 600px;
   }
   .umma__videos--section {
     grid-template-columns: repeat(3,1fr);

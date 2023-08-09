@@ -1,16 +1,16 @@
 <template>
   <div class="audio-block">
     <article class="audio-block__article" v-for="i in 5" :key="i">
-      <AudioHeader
+      <PostHeader
         :is-menu-open="isMenuOpen"
         @toggle-menu="toggleMenu"
       />
 
       <AudioContent />
 
-      <SampleDivider />
+      <SampleDivider class="divider" />
 
-      <AudioFooter
+      <PostFooter
         :is-reaction-window-open="isReactionWindowOpen"
         :is-share-window-open="isShareWindowOpen"
       />
@@ -19,17 +19,17 @@
 </template>
 
 <script>
-import AudioHeader from '@/components/ui/Publications/Audio/AudioHeader.vue'
 import AudioContent from '@/components/ui/Publications/Audio/AudioContent.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
-import AudioFooter from '@/components/ui/Publications/Audio/AudioFooter.vue'
+import PostHeader from '@/components/ui/Post/PostHeader.vue'
+import PostFooter from '@/components/ui/Post/PostFooter.vue'
 
 export default {
   components: {
-    AudioFooter,
+    PostFooter,
+    PostHeader,
     SampleDivider,
-    AudioContent,
-    AudioHeader
+    AudioContent
   },
   data () {
     return {
@@ -55,10 +55,20 @@ export default {
   &__article {
     display: flex;
     flex-direction: column;
-    padding: 24px;
+    padding: 24px 24px 10px;
     border-radius: 15px;
     row-gap: 8px;
     background-color: var(--color-white);
+  }
+}
+
+.divider {
+  margin: 2px;
+}
+
+@media (max-width: 576px) {
+  .audio-block__article {
+    border-radius: 0;
   }
 }
 </style>

@@ -33,12 +33,7 @@
         </ul>
         <div class="user__menu--block">
           <div class="profile__image">
-            <img
-              src="@/assets/images/Article_Author.png"
-              alt="avatar-logo"
-              width="48"
-              height="48"
-            >
+            <img src="@/assets/images/Article_Author.png" alt="avatar-logo">
           </div>
           <ArrowIcon class="dropdown__icon" />
         </div>
@@ -170,20 +165,34 @@ export default {
   display: flex;
   align-items: center;
   padding: 0;
-}
 
-.music__button,
-.email__button,
-.notification__button,
-.settings__button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-seashell);
-  border-radius: 50px;
-  width: 40px;
-  height: 40px;
-  margin: 0 6px;
+  .music__button,
+  .email__button,
+  .notification__button,
+  .settings__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-seashell);
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
+    margin: 0 6px;
+
+    &:hover {
+      background-color: var(--color-hippie-blue);
+      transition: all .15s ease-in-out;
+
+      svg {
+        color: var(--color-white);
+      }
+    }
+
+    svg {
+      color: var(--color-hippie-blue);
+      transition: all .15s ease-in-out;
+    }
+  }
 }
 
 .menu__button,
@@ -199,7 +208,16 @@ export default {
 
 .menu__button {
   background-color: var(--color-white);
-  margin: 24px;
+  margin: 14px;
+  border-radius: 50%;
+  padding: 14px;
+  width: 100%;
+  height: 100%;
+
+  &:hover {
+    transition: all .15s ease-in-out;
+    background-color: var(--color-seashell);
+  }
 }
 
 .main__logo {
@@ -224,10 +242,27 @@ export default {
 }
 
 .profile__image {
-  width: 48px;
-  height: 48px;
   border-radius: 50%;
   overflow: hidden;
+  display: flex;
+  width: 48px;
+  height: 48px;
+
+  img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+  }
+
+  &:hover {
+    img {
+      transition: all .15s ease-in-out;
+      opacity: 0.5;
+    }
+
+    opacity: 1;
+    background-color: #fff;
+  }
 }
 
 .dropdown__icon {
@@ -255,6 +290,7 @@ export default {
     background-color: var(--color-white);
     box-shadow: 0 2px 3px rgba(141, 152, 180, 0.30);
     margin: 0;
+    z-index: 50;
   }
 
   .top__nav--left-item {
@@ -274,7 +310,7 @@ export default {
     padding: 0 32px;
     background-color: var(--color-white);
     margin: 0;
-    z-index: 10;
+    z-index: 5;
   }
 
   .bottom__nav--item {

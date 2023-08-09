@@ -9,10 +9,10 @@
     </div>
     <div class="title__section">
       <h3 class="title">Вообще любое название для видео, которое влазит на 2 строки</h3>
-      <sample-menu-details-button
+      <SampleMenuDetailsButton
         :is-menu-open="isMenuOpen"
         @toggle-menu="toggleMenu"
-      ></sample-menu-details-button>
+      />
     </div>
 
     <div class="subtitle__section">

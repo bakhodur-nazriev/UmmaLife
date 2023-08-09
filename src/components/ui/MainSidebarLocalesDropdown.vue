@@ -133,6 +133,7 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  position: relative;
 }
 
 .locales--shown::before {
@@ -192,6 +193,7 @@ export default {
   opacity: 0;
   transition: 0.3s;
   flex-direction: column;
+  width: max-content;
  }
 
 .locales--shown .locales__list {
@@ -243,7 +245,7 @@ export default {
     display: none;
     position: absolute;
     left: 52px;
-    bottom: 125px;
+    bottom: 25px;
     width: 155px;
     border: 2px solid var(--color-seashell);
     background-color: var(--color-white);
@@ -256,7 +258,7 @@ export default {
     display: none;
     position: absolute;
     left: 0;
-    bottom: 125px;
+    bottom: 25px;
     width: 100%;
     border: 2px solid var(--color-seashell);
     background-color: var(--color-white);

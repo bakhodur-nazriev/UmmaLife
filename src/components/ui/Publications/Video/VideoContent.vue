@@ -2,7 +2,7 @@
   <section class="article-content__section">
     <div class="article-content__section-item">
       <div class="custom-video__container">
-        <video-player
+        <VideoPlayer
           src="/video/video.mp4"
           poster="/images/message/video-poster.jpg"
           controls
@@ -16,70 +16,46 @@
                 class="play-button"
               >
                 <VideoPlayIcon />
+                <SmallVideoPlayIcon class="play-icon__button-icon-small" />
               </div>
             </div>
           </template>
-        </video-player>
+        </VideoPlayer>
       </div>
-      <div class="article-content__detail__block">
-        <span class="article-content__detail__block-views"
-          >20.08.2022 - 1 тыс.{{ $t('video.views') }}</span
-        >
+      <div class="article-content__details-block">
+        <h3 class="article-content__details-block-title">Как я принял ислам. Все от А до Я</h3>
+        <span class="article-content__details-block-views">20.08.2022 - 1 тыс.{{ $t('video.views') }}</span>
       </div>
     </div>
 
     <div class="article-content__reactions">
-      <div class="article-content__reactions-block">
-        <div v-for="(reaction, index) in reactions" :key="index" class="reaction">
-          <component :is="reaction.icon" />
-          <span>{{ reaction.count }}</span>
-        </div>
-      </div>
+      <PostReactions />
     </div>
   </section>
 </template>
 
 <script>
-import LikeIcon from '@/components/icons/reactions/men/small/LikeIcon.vue'
-import DislikeIcon from '@/components/icons/reactions/men/small/DislikeIcon.vue'
-import LoveIcon from '@/components/icons/reactions/men/small/LoveIcon.vue'
-import AngryIcon from '@/components/icons/reactions/men/small/AngryIcon.vue'
-import LaughIcon from '@/components/icons/reactions/men/small/LaughIcon.vue'
-import SadIcon from '@/components/icons/reactions/men/small/SadIcon.vue'
-import ThinkIcon from '@/components/icons/reactions/men/small/ThinkIcon.vue'
-import FireIcon from '@/components/icons/reactions/men/small/FireIcon.vue'
-import ScaredIcon from '@/components/icons/reactions/men/small/ScaredIcon.vue'
 import VideoPlayIcon from '@/components/icons/VideoPlayIcon.vue'
+import SmallVideoPlayIcon from '@/components/icons/SmallVideoPlayIcon.vue'
+import PostReactions from '@/components/ui/Post/PostReactions.vue'
 import { VideoPlayer } from '@videojs-player/vue'
+
 export default {
   components: {
+    PostReactions,
+    SmallVideoPlayIcon,
     VideoPlayIcon,
     VideoPlayer
-  },
-  data() {
-    return {
-      reactions: [
-        { icon: LikeIcon, count: 1550 },
-        { icon: DislikeIcon, count: 2351 },
-        { icon: LoveIcon, count: 1987 },
-        { icon: FireIcon, count: 2358 },
-        { icon: AngryIcon, count: 7462 },
-        { icon: ScaredIcon, count: 7894 },
-        { icon: LaughIcon, count: 5671 },
-        { icon: ThinkIcon, count: 9874 },
-        { icon: SadIcon, count: 9876 }
-      ]
-    }
   }
 }
 </script>
 
 <style lang="scss">
 .custom-video__container {
+  display: flex;
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  width: 100%;
   width: 100%;
   height: 400px;
   .video-js {
@@ -139,6 +115,7 @@ export default {
 
 .custom-video-player {
   width: 100%;
+  border-radius: 12px;
 }
 
 .play-icon__button {
@@ -154,6 +131,10 @@ export default {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+
+  &-icon-small {
+    display: none;
+  }
 }
 
 video::-webkit-media-controls {
@@ -164,56 +145,79 @@ video::-webkit-media-controls-enclosure {
   display: none !important;
 }
 
-.article-content__detail__block {
-  line-height: 1;
+.article-content {
+  &__details-block {
+    line-height: 1;
 
-  &-views {
-    color: var(--color-silver-chalice);
-    font-size: 20px;
+    &-title {
+      font-size: 20px;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    &-views {
+      color: var(--color-silver-chalice);
+      font-size: 20px;
+    }
   }
-}
 
-.article-content__section {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-
-  &-item {
+  &__section {
     display: flex;
     flex-direction: column;
-    row-gap: 14px;
+    gap: 14px;
+
+    &-item {
+      display: flex;
+      flex-direction: column;
+      row-gap: 14px;
+    }
+  }
+
+  &__reactions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
   }
 }
 
-.article__content--image {
-  width: 100%;
-  border-radius: 15px;
-  height: 80%;
-}
+@media (max-width: 576px) {
+  .article-content {
+    &__reactions {
+      padding: 0 16px;
+    }
 
-.article-content__reactions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0;
-}
+    &__details-block {
+      padding: 0 16px;
+      line-height: 1;
 
-.article-content__reactions-block {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
+      &-title {
+        font-size: 14px;
+        margin-top: 0;
+        margin-bottom: 4px;
+      }
 
-  .reaction {
-    height: 32px;
-    border-radius: 50px;
-    padding: 8px 12px;
-    width: auto;
-    display: flex;
-    gap: 6px;
-    align-items: center;
-    font-size: 14px;
-    color: var(--color-silver-chalice);
-    background-color: var(--color-gallery-second);
+      &-views {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .custom-video-player {
+    border-radius: 0;
+  }
+
+  .play-icon__button {
+    width: 40px;
+    height: 40px;
+
+    &-icon {
+      display: none;
+    }
+
+    &-icon-small {
+      display: block;
+    }
   }
 }
 </style>

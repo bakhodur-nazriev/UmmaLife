@@ -1,18 +1,16 @@
 <template>
   <div class="photo-block">
     <article class="photo-block__article" v-for="i in 5" :key="i">
-      <PhotoHeader
+      <PostHeader
         :is-menu-open="isMenuOpen"
         @toggle-menu="toggleMenu"
       />
 
-      <PhotoContent
-        :items="photos"
-      />
+      <PhotoContent :items="photos"/>
 
-      <SampleDivider />
+      <SampleDivider class="divider"/>
 
-      <PhotoFooter
+      <PostFooter
         :is-reaction-window-open="isReactionWindowOpen"
         :is-share-window-open="isShareWindowOpen"
       />
@@ -21,17 +19,17 @@
 </template>
 
 <script>
-import PhotoHeader from '@/components/ui/Publications/Photo/PhotoHeader.vue'
 import PhotoContent from '@/components/ui/Publications/Photo/PhotoContent.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
-import PhotoFooter from '@/components/ui/Publications/Photo/PhotoFooter.vue'
+import PostFooter from '@/components/ui/Post/PostFooter.vue'
+import PostHeader from '@/components/ui/Post/PostHeader.vue'
 
 export default {
   components: {
-    PhotoFooter,
+    PostHeader,
+    PostFooter,
     SampleDivider,
-    PhotoContent,
-    PhotoHeader
+    PhotoContent
   },
   data () {
     return {
@@ -60,10 +58,20 @@ export default {
   &__article {
     display: flex;
     flex-direction: column;
-    padding: 24px;
+    padding: 24px 24px 10px;
     border-radius: 15px;
     row-gap: 8px;
     background-color: var(--color-white);
+  }
+}
+
+.divider {
+  margin: 2px;
+}
+
+@media (max-width: 576px) {
+  .photo-block__article {
+    border-radius: 0;
   }
 }
 </style>
