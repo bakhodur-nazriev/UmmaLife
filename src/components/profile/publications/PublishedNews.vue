@@ -18,5 +18,8 @@ export default {
   flex-direction: column;
   gap: 8px;
   padding: 8px 0;
+  .reactions__block .reaction {
+    border-radius: 8px;
+  }
 }
 </style>

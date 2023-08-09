@@ -1,23 +1,13 @@
 <template>
-  <section
-    class="photo-block__article"
-    v-for="photo in items"
-    :key="photo.id"
-  >
-    <img
-      class="image__item"
-      :src="photo.image"
-      :alt="photo.desc"
-    />
+  <section class="photo-block__article" v-for="photo in items" :key="photo.id">
+    <a :href="photo.image" data-fancybox class="image__item">
+      <img :src="photo.image" :alt="photo.desc" />
+    </a>
   </section>
   <section class="article-content__reactions">
     <div class="article-content__reactions-block">
-      <div
-        v-for="(reaction, index) in reactions"
-        :key="index"
-        class="reaction"
-      >
-        <component :is="reaction.icon"/>
+      <div v-for="(reaction, index) in reactions" :key="index" class="reaction">
+        <component :is="reaction.icon" />
         <span>{{ reaction.count }}</span>
       </div>
     </div>
@@ -34,6 +24,7 @@ import ScaredIcon from '@/components/icons/reactions/men/small/ScaredIcon.vue'
 import LaughIcon from '@/components/icons/reactions/men/small/LaughIcon.vue'
 import ThinkIcon from '@/components/icons/reactions/men/small/ThinkIcon.vue'
 import SadIcon from '@/components/icons/reactions/men/small/SadIcon.vue'
+import { Fancybox } from '@fancyapps/ui'
 
 export default {
   props: {
@@ -42,7 +33,7 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
       reactions: [
         { icon: LikeIcon, count: 1550 },
@@ -57,7 +48,10 @@ export default {
       ]
     }
   },
-  mounted () {
+  mounted() {
+    Fancybox.bind('[data-fancybox]', {
+      wheel: 'zoom'
+    })
     console.log(this.items)
   }
 }

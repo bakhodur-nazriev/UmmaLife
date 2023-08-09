@@ -2,8 +2,8 @@
   <main-layout>
     <div class="page__container">
       <div class="page__wrapper">
-        <MyProfile />
         <MyPosts />
+        <MyProfile />
       </div>
     </div>
   </main-layout>
@@ -18,4 +18,15 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.page__container {
+  padding: 16px 45px 16px 16px;
+  width: 100%;
+}
+
+.page__wrapper {
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  gap: 20px;
+}
+</style>

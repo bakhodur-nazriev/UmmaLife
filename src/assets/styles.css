@@ -19,6 +19,7 @@
   --color-edit-border: #d9d9d9;
   --color-green: #49a399;
   --color-secondary: #9d9d9d;
+  --bg-mute-btn: rgba(31, 31, 31, 0.5);
 
   /* Black theme */
   --color-white-dark: #ffffff;
@@ -161,15 +162,4 @@ img {
 .page__body {
   margin: 0;
   background-color: var(--color-seashell);
-}
-
-.page__container {
-  padding: 16px 45px 16px 16px;
-  width: 100%;
-}
-
-.page__wrapper {
-  display: grid;
-  grid-template-columns: 480px 1fr;
-  gap: 16px;
 }

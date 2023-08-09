@@ -9,6 +9,7 @@
     "i18n:report": "vue-cli-service i18n:report --src \"./src/**/*.?(js|vue)\" --locales \"./src/locales/**/*.json\""
   },
   "dependencies": {
+    "@fancyapps/ui": "^5.0.20",
     "@videojs-player/vue": "^1.0.0",
     "@vueuse/components": "^10.2.1",
     "@vueuse/core": "^10.2.1",
@@ -24,6 +25,7 @@
     "vue-recaptcha": "^3.0.0-alpha.2",
     "vue-router": "^4.0.3",
     "vue-tel-input": "^8.1.1",
+    "vue3-touch-events": "^4.1.3",
     "vuedraggable": "^4.1.0",
     "vuex": "^4.1.0"
   },

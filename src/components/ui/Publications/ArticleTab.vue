@@ -1,15 +1,9 @@
 <template>
   <div class="article-block">
     <article v-for="i in 5" :key="i" class="article-block__article">
-      <ArticleHeader
-        :is-menu-open="isMenuOpen"
-        @toggle-menu="toggleMenu"
-      />
+      <ArticleHeader :is-menu-open="isMenuOpen" @toggle-menu="toggleMenu" />
 
-      <ArticleContent
-        :is-menu-open="isMenuOpen"
-        @toggle-menu="toggleMenu"
-      />
+      <ArticleContent :is-menu-open="isMenuOpen" @toggle-menu="toggleMenu" />
 
       <SampleDivider />
 
@@ -34,7 +28,7 @@ export default {
     ArticleHeader,
     SampleDivider
   },
-  data () {
+  data() {
     return {
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
@@ -42,7 +36,7 @@ export default {
     }
   },
   methods: {
-    toggleMenu () {
+    toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen
     }
   }

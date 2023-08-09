@@ -83,6 +83,7 @@ export default {
 
 .profile-reactions .reaction {
   background: var(--color-gallery-second);
+  border-radius: 8px;
 }
 
 .reaction {
