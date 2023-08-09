@@ -1,7 +1,7 @@
 <template>
   <div class="video-block">
     <article class="video-block__article" v-for="i in 10" :key="i">
-      <VideoHeader
+      <PostHeader
         :is-menu-open="isMenuOpen"
         @toggle-menu="toggleMenu"
       />
@@ -10,7 +10,7 @@
 
       <SampleDivider class="divider" />
 
-      <VideoFooter
+      <PostFooter
         :is-reaction-window-open="isReactionWindowOpen"
         :is-share-window-open="isShareWindowOpen"
       />
@@ -20,15 +20,15 @@
 
 <script>
 import SampleDivider from '@/components/ui/SampleDivider.vue'
-import VideoHeader from '@/components/ui/Publications/Video/VideoHeader.vue'
 import VideoContent from '@/components/ui/Publications/Video/VideoContent.vue'
-import VideoFooter from '@/components/ui/Publications/Video/VideoFooter.vue'
+import PostHeader from '@/components/ui/Post/PostHeader.vue'
+import PostFooter from '@/components/ui/Post/PostFooter.vue'
 
 export default {
   components: {
-    VideoFooter,
+    PostFooter,
+    PostHeader,
     VideoContent,
-    VideoHeader,
     SampleDivider
   },
   data () {

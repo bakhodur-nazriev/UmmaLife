@@ -1,6 +1,6 @@
 <template>
   <article class="post__block">
-    <PublicationHeader
+    <PostHeader
       :is-menu-open="isMenuOpen"
       @toggle-menu="toggleMenu"
     />
@@ -9,7 +9,7 @@
 
     <SampleDivider class="divider"/>
 
-    <PublicationFooter
+    <PostFooter
       :is-reaction-window-open="isReactionWindowOpen"
       :is-share-window-open="isShareWindowOpen"
     />
@@ -17,16 +17,16 @@
 </template>
 
 <script>
-import PublicationContent from '@/components/ui/Publications/Publication/PublicationContent.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
-import PublicationHeader from '@/components/ui/Publications/Publication/PublicationHeader.vue'
-import PublicationFooter from '@/components/ui/Publications/Publication/PublicationFooter.vue'
+import PublicationContent from '@/components/ui/Publications/Publication/PublicationContent.vue'
+import PostHeader from '@/components/ui/Post/PostHeader.vue'
+import PostFooter from '@/components/ui/Post/PostFooter.vue'
 
 export default {
   components: {
+    PostFooter,
+    PostHeader,
     PublicationContent,
-    PublicationFooter,
-    PublicationHeader,
     SampleDivider
   },
   data () {

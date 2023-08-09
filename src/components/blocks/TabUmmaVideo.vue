@@ -55,13 +55,12 @@ export default {
     this.categories = [
       'Категория 1',
       'Категория 2',
-      'Категория 3',
-      'Категория 4',
-      'Категория 5',
-      'Категория 6'
+      'Категория 3'
     ]
 
     this.$refs.scrollContainer.addEventListener('scroll', this.handleScroll)
+
+    this.handleScroll()
   },
   beforeUnmount() {
     this.$refs.scrollContainer.removeEventListener('scroll', this.handleScroll)
@@ -114,6 +113,14 @@ export default {
         rightButton.style.display = 'flex'
         rightTransparent.style.display = 'flex'
       }
+
+      const selectedButton = this.$refs.scrollContainer
+      const items = selectedButton.querySelectorAll('.sample-selected-category')
+      const totalWidth = Array.from(items).reduce((width, item) => width + item.offsetWidth, 0)
+      if (totalWidth > 960) {
+        leftButton.style.display = 'none'
+        rightButton.style.display = 'none'
+      }
     }
   }
 }
@@ -156,30 +163,7 @@ export default {
   position: relative;
   display: flex;
   align-items: center;
-
-  //&::after,
-  //&::before {
-  //  content: "";
-  //  position: absolute;
-  //  top: 0;
-  //  width: 100px;
-  //  height: 100%;
-  //}
 }
-
-//.transparent__left--right--block {
-//  &::after {
-//    left: 0;
-//    background: linear-gradient(to left, transparent, var(--color-seashell) 50%);
-//  }
-//}
-//
-//.transparent__left--right--block {
-//  &::before {
-//    right: 0;
-//    background: linear-gradient(to right, transparent, var(--color-seashell) 50%);
-//  }
-//}
 
 .transparent__left {
   display: none;

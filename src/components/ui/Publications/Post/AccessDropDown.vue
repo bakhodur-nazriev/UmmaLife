@@ -156,7 +156,7 @@ export default {
     font-size: 16px;
     box-shadow: 3px 3px 15px 0 rgba(0, 0, 0, 0.10);
     background-color: var(--color-white);
-    padding: 10px;
+    padding: 8px;
     border-radius: 10px;
     position: absolute;
     top: 32px;
@@ -179,6 +179,7 @@ export default {
   width: max-content;
   cursor: pointer;
   margin: 0;
+  user-select: none;
 }
 
 .dropdown__toggle svg {

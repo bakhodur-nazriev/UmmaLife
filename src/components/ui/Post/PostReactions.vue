@@ -77,11 +77,7 @@ export default {
   }
 }
 
-@media (min-width: 1280px) {
-  .reactions__block {
-    max-width: 560px;
-  }
-}
+@media (min-width: 1280px) {}
 
 @media (min-width: 1920px) {
   .reactions__block {

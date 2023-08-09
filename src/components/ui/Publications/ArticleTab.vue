@@ -1,19 +1,16 @@
 <template>
   <div class="article-block">
     <article v-for="i in 5" :key="i" class="article-block__article">
-      <ArticleHeader
+      <PostHeader
         :is-menu-open="isMenuOpen"
         @toggle-menu="toggleMenu"
       />
 
-      <ArticleContent
-        :is-menu-open="isMenuOpen"
-        @toggle-menu="toggleMenu"
-      />
+      <ArticleContent />
 
       <SampleDivider class="divider"/>
 
-      <ArticleFooter
+      <PostFooter
         :is-reaction-window-open="isReactionWindowOpen"
         :is-share-window-open="isShareWindowOpen"
       />
@@ -23,15 +20,15 @@
 
 <script>
 import SampleDivider from '@/components/ui/SampleDivider.vue'
-import ArticleHeader from '@/components/ui/Publications/Article/ArticleHeader.vue'
 import ArticleContent from '@/components/ui/Publications/Article/ArticleContent.vue'
-import ArticleFooter from '@/components/ui/Publications/Article/ArticleFooter.vue'
+import PostHeader from '@/components/ui/Post/PostHeader.vue'
+import PostFooter from '@/components/ui/Post/PostFooter.vue'
 
 export default {
   components: {
-    ArticleFooter,
+    PostFooter,
+    PostHeader,
     ArticleContent,
-    ArticleHeader,
     SampleDivider
   },
   data () {

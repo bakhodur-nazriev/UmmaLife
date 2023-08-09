@@ -181,15 +181,16 @@ export default {
 
     &:hover {
       background-color: var(--color-hippie-blue);
+      transition: all .15s ease-in-out;
 
       svg {
         color: var(--color-white);
-        transition: all .15s ease-in-out;
       }
     }
 
     svg {
       color: var(--color-hippie-blue);
+      transition: all .15s ease-in-out;
     }
   }
 }

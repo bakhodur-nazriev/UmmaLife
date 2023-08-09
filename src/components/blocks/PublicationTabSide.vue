@@ -1,5 +1,5 @@
 <template>
-  <div class="aside__publications--block">
+  <div class="aside__publications--block" ref="asideBlockRef">
     <aside class="aside__publications">
       <section class="section__last--actions">
         <div>
@@ -105,13 +105,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.aside__publications--block {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  min-height: 100vh;
-}
-
 .person__info,
 .group__info {
   display: flex;

@@ -555,7 +555,19 @@ export default {
         const item = this.audioItems.shift() // Удаляем первый элемент из audioItems
         this.addedAudioItems.push(item) // Добавляем его в addedAudioItems
       }
+    },
+    handleDocumentClick(event) {
+      const formSection = this.$refs.formSectionRef
+      if (formSection && !formSection.contains(event.target)) {
+        this.isTextAreaActive = false
+      }
     }
+  },
+  mounted() {
+    document.addEventListener('click', this.handleDocumentClick)
+  },
+  beforeUnmount () {
+    document.removeEventListener('click', this.handleDocumentClick)
   }
 }
 </script>

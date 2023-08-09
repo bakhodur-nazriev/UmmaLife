@@ -12,7 +12,7 @@
     </div>
 
     <div class="main-publication__sidebar">
-      <PublicationTabSide />
+      <PublicationTabSide ref="tabSide" />
     </div>
   </div>
 </template>
@@ -73,11 +73,33 @@ export default {
         this.$t('tabs.publications_inside.audio')
       ]
     }
+  },
+  methods: {
+    handleScroll() {
+      const tabSide = this.$refs.tabSide.$el
+      const tabSideRect = tabSide.getBoundingClientRect()
+      const tabSideBottom = tabSideRect.bottom
+
+      if (tabSideBottom <= window.innerHeight) {
+        tabSide.classList.add('sticky-tab')
+      } else {
+        tabSide.classList.remove('sticky-tab')
+      }
+    }
   }
 }
 </script>
 
 <style scoped>
+.main-publication__sidebar {
+  position: relative;
+}
+
+.sticky-tab {
+  position: sticky;
+  top: 0;
+}
+
 .publication-top__layer {
   display: flex;
   justify-content: center;
