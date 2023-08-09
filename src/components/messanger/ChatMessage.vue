@@ -1,5 +1,5 @@
 <template>
-  <div class="message" :class="state">
+  <div class="message" :class="`${state} ${typeof message === 'object' ? 'forward' : ''}`">
     <div class="message__inner">
       <div class="message__text" v-if="typeof message === 'string'">
         {{ message }}

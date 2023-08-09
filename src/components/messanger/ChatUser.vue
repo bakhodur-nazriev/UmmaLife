@@ -1,5 +1,5 @@
 <template>
-  <li class="list" :class="{ active: isActive }" @click="clickOutsideHandler(user)">
+  <router-link :to="`/${$i18n.locale}/messenger/${user.id}`" class="list">
     <div class="list__img">
       <img :src="user.image" :alt="user.name" />
     </div>
@@ -16,34 +16,15 @@
         }}
       </div>
     </div>
-  </li>
+  </router-link>
 </template>
 
 <script>
 export default {
-  data () {
-    return {
-      isActive: false
-    }
-  },
   props: {
     user: Object
   },
-  emits: ['clickUserHandler'],
-  methods: {
-    clickOutsideHandler (user) {
-      this.removeActiveClasses()
-      this.$emit('clickUserHandler', user)
-      setTimeout(() => {
-        this.isActive = true
-      }, 0)
-    },
-    removeActiveClasses () {
-      this.isActive = false
-      const links = document.querySelectorAll('.navigation__menu .list')
-      links.forEach((link) => link.classList.remove('active'))
-    }
-  }
+  methods: {}
 }
 </script>
 
@@ -57,8 +38,9 @@ export default {
   transition: all 0.3s;
   user-select: none;
   cursor: pointer;
+  text-decoration: none;
   &:hover,
-  &.active {
+  &.router-link-active {
     background-color: var(--color-gallery-first);
   }
   &:first-child {

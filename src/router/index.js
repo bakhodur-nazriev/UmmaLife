@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory } from 'vue-router'
 import i18n from '@/i18n'
 import { supportedLanguages } from '@/constants'
 import HomeView from '../views/HomeView.vue'
@@ -11,6 +11,8 @@ import PrivacyPolicyView from '../views/PrivacyPolicyView.vue'
 import ContactsView from '../views/ContactsView.vue'
 import AboutUs from '../views/AboutUsView.vue'
 import MessengerView from '@/views/MessengerView.vue'
+import MessengerChatView from '@/views/MessengerChatView.vue'
+import MessengerEmptyView from '@/views/MessengerEmptyView.vue'
 import ArticlesView from '@/views/ArticlesView.vue'
 import LibraryView from '@/views/LibraryView.vue'
 import MarriageAgencyView from '@/views/MarriageAgencyView.vue'
@@ -142,8 +144,29 @@ const routes = [
     meta: {
       title: i18n.global.t('meta_title.messenger'),
       requiresAuth: true
-    }
+    },
+    children: [
+      {
+        path: ':id',
+        name: 'messenger-chat',
+        component: MessengerChatView,
+        meta: {
+          title: i18n.global.t('meta_title.messenger'),
+          requiresAuth: true
+        }
+      },
+      {
+        path: '',
+        name: 'messenger-empty',
+        component: MessengerEmptyView,
+        meta: {
+          title: i18n.global.t('meta_title.messenger'),
+          requiresAuth: true
+        }
+      }
+    ]
   },
+
   {
     path: '/:lang?/my-audio',
     name: 'my-audio',
@@ -214,13 +237,13 @@ const routes = [
       return {
         name: router.currentRoute.value.name,
         params: { lang: router.currentRoute.value.params.lang }
-      };
+      }
     }
   }
 ]
 
 if (isProduction) {
-  routes.forEach(route => {
+  routes.forEach((route) => {
     route.path = `/${baseDomain}${route.path}`
   })
 }
@@ -237,7 +260,7 @@ function isUserAuthenticated() {
 }
 router.beforeEach((to, from, next) => {
   const lang = to.params.lang || i18n.global.locale.value
-  const requiresAuth = to.matched.some(route => route.meta.requiresAuth)
+  const requiresAuth = to.matched.some((route) => route.meta.requiresAuth)
 
   if (supportedLanguages.includes(lang)) {
     // Установка языка для i18n
@@ -280,9 +303,8 @@ router.beforeEach((to, from, next) => {
   // Если пользователь не авторизован и находится на других роутах, перенаправляем на страницу входа
   return next('/login')*/
 
-
   if (to.name === 'home') {
-    return next({ name: 'news' });
+    return next({ name: 'news' })
   }
   return next()
 })

@@ -1,10 +1,7 @@
 <template>
   <div class="main__search--block">
     <loupe-icon class="search__icon"></loupe-icon>
-    <input
-      class="base__search--input"
-      :placeholder="placeholder"
-    />
+    <input class="base__search--input" :placeholder="placeholder" />
   </div>
 </template>
 
@@ -22,14 +19,14 @@ export default {
 <style scoped>
 .base__search--input {
   border-radius: 10px;
-  background-color: #F1F1F1;
-  color: #1F1F1F;
+  background-color: var(--color-seashell);
+  color: #1f1f1f;
   border: none;
   outline: none;
 }
 
 .base__search--input::placeholder {
-  color: #B0B0B0;
+  color: var(--color-mine-shaft);
 }
 
 @media (min-width: 768px) {
@@ -75,11 +72,10 @@ export default {
     padding: 12px 12px 12px 48px;
   }
 
-  .navigation__search .base__search--input{
-    width: 384px;
+  .navigation__search .base__search--input {
+    width: 344px;
     background: transparent;
     border: 1px solid var(--color-gallery-first);
   }
 }
-
 </style>

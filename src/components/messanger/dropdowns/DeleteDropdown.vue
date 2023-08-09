@@ -33,6 +33,12 @@ const handleDeleteChat = () => {
     align-items: center;
     gap: 8px;
     cursor: pointer;
+    padding: 5px;
+    border-radius: 10px;
+    transition: all 0.3s;
+    &:hover {
+      background-color: var(--color-seashell);
+    }
     span {
       color: var(--color-valencia);
       font-size: 12px;

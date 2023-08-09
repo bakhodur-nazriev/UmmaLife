@@ -6,14 +6,9 @@
         <add-user-icon />
       </button>
     </div>
-    <ul class="navigation__menu">
-      <ChatUser
-        v-for="user in users"
-        :user="user"
-        :key="user.id"
-        @clickUserHandler="clickUserHandler"
-      />
-    </ul>
+    <div class="navigation__menu">
+      <ChatUser v-for="user in users" :user="user" :key="user.id" />
+    </div>
   </div>
 </template>
 
@@ -25,12 +20,6 @@ export default {
   components: { SearchInput, AddUserIcon, ChatUser },
   props: {
     users: Array
-  },
-  emits: ['clickUserHandler'],
-  methods: {
-    clickUserHandler (user) {
-      this.$emit('clickUserHandler', user)
-    }
   }
 }
 </script>
