@@ -15,7 +15,7 @@
       <div class="comment__avatar">
         <img
           class="comment__author--avatar"
-          src="../../../assets/images/comment_avatar.png"
+          src="@/assets/images/comment_avatar.png"
           width="48"
           height="48"
           alt=""
@@ -29,9 +29,9 @@
       />
 
       <div class="textarea__right--buttons">
-        <file-upload class="attach__file" label="file">
+        <FileUpload class="attach__file" label="file">
           <TextareaClipIcon />
-        </file-upload>
+        </FileUpload>
 
         <SampleDivider class="textarea__right--buttons--divider" />
 

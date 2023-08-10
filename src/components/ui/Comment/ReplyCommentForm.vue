@@ -1,9 +1,28 @@
 <template>
   <form action="" method="post" class="reply__form">
-    <div class="author__avatar--section">
-      <img src="../../../assets/images/reply_avatar.png" alt="">
+    <div class="comment-header__small">
+      <div class="horizontal-line"></div>
+      <div class="comment-header__section">
+        <div class="comment-header__label">
+          <span class="label">{{ $t('labels.comments.plural') }}</span>
+          <span class="count">417</span>
+        </div>
+        <div class="comment-header__right-buttons">
+          <div class="filter-form__button" @click="toggleFilter">
+            <CommentFilter
+              :is-filter-window-open="isFilterOpen"
+            />
+          </div>
+          <div class="close-form__button" @click="closeCommentWindow">
+            <CloseFormIcon />
+          </div>
+        </div>
+      </div>
     </div>
-
+    <SampleDivider />
+    <div class="author__avatar--section">
+      <img src="@/assets/images/reply_avatar.png" alt="">
+    </div>
     <div class="reply__field--section">
       <div class="reply__author--section">
         <span class="author__name">{{ replyAuthorName }}</span>
@@ -12,27 +31,27 @@
 
       <div class="reply__textarea--and--button--section">
         <div class="reply__textarea--block">
-          <sample-textarea
+          <SampleTextarea
             :placeholder="`${ $t('placeholders.comment_input') }`"
             @input="adjustTextareaHeight"
             v-model="textareaValue"
             :value="textareaValue"
             class="reply__textarea"
-          ></sample-textarea>
+          />
 
           <div class="textarea__right--buttons">
-            <file-upload class="attach__file" label="file">
-              <textarea-clip-icon />
-            </file-upload>
-            <sample-divider class="textarea__right--buttons--divider" />
+            <FileUpload class="attach__file" label="file">
+              <TextareaClipIcon />
+            </FileUpload>
+            <SampleDivider class="textarea__right--buttons--divider" />
             <button class="send__button" type="button">
-              <send-icon/>
+              <SendIcon />
             </button>
           </div>
         </div>
 
         <div class="reply__detail--menu--section">
-          <reply-menu-details
+          <ReplyMenuDetails
             :is-reply-menu-open="isReplyMenuOpen"
             @toggle-reply-menu="toggleReplyMenu"
           />
@@ -46,15 +65,33 @@
         </div>
 
         <div class="reply__reactions">
-          <div class="reply__icon"><like-icon></like-icon></div>
-          <div class="reply__icon"><dislike-icon></dislike-icon></div>
-          <div class="reply__icon"><love-icon></love-icon></div>
-          <div class="reply__icon"><laugh-icon></laugh-icon></div>
-          <div class="reply__icon"><fire-icon></fire-icon></div>
-          <div class="reply__icon"><think-icon></think-icon></div>
-          <div class="reply__icon"><angry-icon></angry-icon></div>
-          <div class="reply__icon"><sad-icon></sad-icon></div>
-          <div class="reply__icon"><scared-icon></scared-icon></div>
+          <div class="reply__icon">
+            <LikeIcon />
+          </div>
+          <div class="reply__icon">
+            <DislikeIcon />
+          </div>
+          <div class="reply__icon">
+            <LoveIcon />
+          </div>
+          <div class="reply__icon">
+            <LaughIcon />
+          </div>
+          <div class="reply__icon">
+            <FireIcon />
+          </div>
+          <div class="reply__icon">
+            <ThinkIcon />
+          </div>
+          <div class="reply__icon">
+            <AngryIcon />
+          </div>
+          <div class="reply__icon">
+            <SadIcon />
+          </div>
+          <div class="reply__icon">
+            <ScaredIcon />
+          </div>
           <div class="reply__reactions--count--block">
             <span class="reply__reactions--count">999К</span>
           </div>
@@ -62,13 +99,13 @@
       </div>
 
       <div v-if="isActiveAnswer" class="active__reply--field">
-        <img src="../../../assets/images/comment_avatar.png" width="48" height="48" alt="">
+        <img src="@/assets/images/comment_avatar.png" width="48" height="48" alt="">
 
-        <textarea-field :reply-author-name="replyAuthorName + ', '"/>
+        <TextareaField :reply-author-name="replyAuthorName + ', '"/>
       </div>
 
       <div v-if="true" class="load__more--reply-answers">
-        <sample-drop-down
+        <SampleDropDown
           :color="parentColor"
           :drop-down-title="`${ $t('dropdown.reply_answer') }`"
         />
@@ -95,9 +132,13 @@ import SendIcon from '@/components/icons/SendIcon.vue'
 import ReplyMenuDetails from '@/components/ui/MenuDetails/ReplyMenuDetails.vue'
 import TextareaField from '@/components/ui/Fields/TextareaField.vue'
 import SampleDropDown from '@/components/ui/SampleDropDown.vue'
+import CloseFormIcon from '@/components/icons/comment/CloseFormIcon.vue'
+import CommentFilter from '@/components/ui/MenuDetails/CommentFilter.vue'
 
 export default {
   components: {
+    CommentFilter,
+    CloseFormIcon,
     SampleDropDown,
     TextareaField,
     ReplyMenuDetails,
@@ -124,7 +165,8 @@ export default {
       isActiveAnswer: false,
       isActiveInsideAnswer: false,
       replyAuthorName: 'Courtney Henry',
-      parentColor: '#818181'
+      parentColor: '#818181',
+      isFilterOpen: false
     }
   },
   methods: {
@@ -143,11 +185,14 @@ export default {
     toggleReplyMenu () {
       this.isReplyMenuOpen = !this.isReplyMenuOpen
     },
+    toggleFilter() {
+      this.isFilterOpen = !this.isFilterOpen
+    },
     answerComment () {
       this.isActiveAnswer = !this.isActiveAnswer
     },
-    answerInsideComment () {
-      this.isActiveInsideAnswer = !this.isActiveInsideAnswer
+    closeCommentWindow() {
+      console.log('closed')
     }
   },
   mounted () {
@@ -156,10 +201,12 @@ export default {
 }
 </script>
 
-<style scoped>
-.reply__deep--answers {
-  display: flex;
-  gap: 16px;
+<style scoped lang="scss">
+.horizontal-line {
+  background-color: #9D9D9D;
+  height: 2px;
+  border-radius: 50px;
+  width: 28px;
 }
 
 .reply__textarea--block {
@@ -187,17 +234,14 @@ export default {
   display: flex;
   padding: 0;
 }
-
 .textarea__right--buttons--divider {
   height: 14px;
   border: 1px solid var(--color-alto-second);
 }
-
 .author__avatar--section img {
   width: 40px;
   max-height: 40px;
 }
-
 .textarea__right--buttons {
   position: absolute;
   right: 62px;
@@ -206,37 +250,30 @@ export default {
   align-items: center;
   gap: 24px;
 }
-
 .reply__author--section .author__name {
   margin-right: 8px;
 }
-
 .reply__form {
   display: flex;
   align-items: center;
   gap: 16px;
   width: 100%;
 }
-
 .reply__form > :first-child {
   align-self: flex-start;
 }
-
 .reply__field--section {
   display: flex;
   flex-direction: column;
   width: 100%;
   row-gap: 4px;
 }
-
 .reply__reactions--count--block {
   margin-left: 2px;
 }
-
 .reply__reactions--count {
   color: var(--color-silver-chalice);
 }
-
 .reply__icon {
   display: flex;
   align-items: center;
@@ -248,7 +285,6 @@ export default {
   width: 24px;
   height: 24px;
 }
-
 .reply__textarea {
   height: 48px;
   width: 100%;
@@ -257,7 +293,6 @@ export default {
   resize: none;
   overflow: hidden;
 }
-
 .reply__textarea--and--button--section {
   position: relative;
   display: flex;
@@ -299,8 +334,78 @@ export default {
   gap: 4px;
 }
 
-.reply__content--section {
-  display: flex;
-  justify-content: center;
+.close-form__button {
+  svg {
+    transform: scale(1.2);
+    color: var(--color-mine-shaft);
+  }
+}
+
+@media (max-width: 576px) {
+  .comment-header {
+    &__small {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 0 8px;
+      row-gap: 16px;
+    }
+
+    &__label {
+      display: flex;
+      gap: 8px;
+
+      .label {
+        color: var(--color-mine-shaft);
+        font-weight: 500;
+      }
+
+      .count {
+        color: #9d9d9d;
+      }
+    }
+
+    &__section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    &__right-buttons {
+      display: flex;
+      height: 100%;
+      gap: 20px;
+
+      .close-form__button,
+      .filter-form__button {
+        display: flex;
+      }
+    }
+  }
+
+  .reply__form {
+    flex-direction: column;
+  }
+
+  .reply__textarea--and--button--section {
+    flex-direction: column-reverse;
+  }
+
+  .reply__field--section {
+    display: block;
+  }
+
+  .author__avatar--section {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .comment-header__small {
+    display: none;
+  }
 }
 </style>

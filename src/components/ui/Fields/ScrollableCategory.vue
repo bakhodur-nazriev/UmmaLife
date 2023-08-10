@@ -89,7 +89,7 @@ export default {
 <style scoped lang="scss">
 .scrollable-tabs-container {
   border-radius: 5px;
-  max-width: 900px;
+  max-width: 700px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -101,7 +101,7 @@ export default {
     margin: 0;
     padding: 13px 0;
     display: flex;
-    gap: 16px;
+    gap: 10px;
     align-items: center;
     overflow-x: scroll;
     -ms-overflow-style: none;
