@@ -1,5 +1,5 @@
 <template>
-  <div class="publication__main--block">
+  <div class="publication__main--block" id="container">
     <div class="publication-top__layer">
       <div class="main__publications--section">
         <div class="main-publication__form">
@@ -11,8 +11,10 @@
       </div>
     </div>
 
-    <div class="main-publication__sidebar">
-      <PublicationTabSide ref="tabSide" />
+    <div class="main-publication__sidebar" id="sidebar">
+      <div class="sidebar__inner" id="inner">
+        <PublicationTabSide ref="tabSide" />
+      </div>
     </div>
   </div>
 </template>
@@ -21,6 +23,7 @@
 import MainPublicationsTab from '@/components/ui/Publications/MainPublicationsTab.vue'
 import PublicationTabSide from '@/components/blocks/PublicationTabSide.vue'
 import PublicationForm from '@/components/forms/PublicationForm.vue'
+import StickySidebar from 'sticky-sidebar-v2'
 
 export default {
   components: {
@@ -28,7 +31,7 @@ export default {
     PublicationTabSide,
     MainPublicationsTab
   },
-  data () {
+  data() {
     return {
       addedAudioItems: [],
       audioItems: [
@@ -64,7 +67,7 @@ export default {
     }
   },
   computed: {
-    tabLabels () {
+    tabLabels() {
       return [
         this.$t('tabs.publications_inside.publications'),
         this.$t('tabs.publications_inside.articles'),
@@ -86,20 +89,21 @@ export default {
         tabSide.classList.remove('sticky-tab')
       }
     }
+  },
+  mounted() {
+    /* eslint-disable */
+    new StickySidebar('#sidebar', {
+      topSpacing: 20,
+      bottomSpacing: 20,
+      containerSelector: '#container',
+      innerWrapperSelector: '#inner',
+      scrollContainer: '.main__content'
+    })
   }
 }
 </script>
 
 <style scoped>
-.main-publication__sidebar {
-  position: relative;
-}
-
-.sticky-tab {
-  position: sticky;
-  top: 0;
-}
-
 .publication-top__layer {
   display: flex;
   justify-content: center;
@@ -116,7 +120,9 @@ svg {
 }
 
 .publication__main--block {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 405px;
+  gap: 20px;
 }
 
 @media (max-width: 576px) {
@@ -131,7 +137,7 @@ svg {
 
 @media (min-width: 768px) {
   .main__publications--section {
-    width: 100%
+    width: 100%;
   }
 }
 

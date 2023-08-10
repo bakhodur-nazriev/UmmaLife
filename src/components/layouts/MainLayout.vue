@@ -1,7 +1,7 @@
 <template>
   <main-navbar @toggle-sidebar="toggleSidebar"></main-navbar>
 
-  <div class="main__container">
+  <div class="main__container" id="page-container">
     <main-sidebar class="main__sidebar" :is-sidebar-collapsed="isSidebarCollapsed"></main-sidebar>
 
     <main class="main__content">
@@ -19,13 +19,13 @@ export default {
     MainSidebar,
     MainNavbar
   },
-  data () {
+  data() {
     return {
       isSidebarCollapsed: false
     }
   },
   methods: {
-    toggleSidebar () {
+    toggleSidebar() {
       this.isSidebarCollapsed = !this.isSidebarCollapsed
     }
   }
