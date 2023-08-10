@@ -12,6 +12,7 @@ import 'vue-tel-input/vue-tel-input.css'
 import VueVideoPlayer from '@videojs-player/vue'
 import draggable from 'vuedraggable'
 import Vue3TouchEvents from 'vue3-touch-events'
+import VueStickyDirective from '@renatodeleao/vue-sticky-directive'
 
 import 'video.js/dist/video-js.css'
 import '@fancyapps/ui/dist/fancybox/fancybox.css'
@@ -27,5 +28,6 @@ app.use(store)
 app.use(VueTelInput)
 app.use(VueVideoPlayer)
 app.use(Vue3TouchEvents)
+app.use(VueStickyDirective)
 // app.use(metaManager)
 app.mount('#app')
