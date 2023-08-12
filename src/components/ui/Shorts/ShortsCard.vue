@@ -85,6 +85,10 @@ watch(
   transition: transform 0.3s ease-in-out;
   transform: translateY(var(--shorts-offset));
   position: relative;
+  @media (max-width: 1850px) {
+    height: 93%;
+    max-width: 350px;
+  }
   &.isModal {
     max-width: 100%;
     height: 100%;

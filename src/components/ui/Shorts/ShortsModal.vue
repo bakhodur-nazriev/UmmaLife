@@ -1,12 +1,12 @@
 <template>
   <div class="shorts__modal--overlay">
-    <div class="shorts__modal" v-on-click-outside="closeDropdown">
-      <div class="shorts__video">
+    <div class="shorts__modal parent" v-on-click-outside="closeDropdown">
+      <div class="shorts__video video">
         <ShortsCard class="isModal" />
       </div>
       <div class="shorts__content">
-        <div class="shorts__info">
-          <div class="shorts__info--top">
+        <div class="shorts__info content">
+          <div class="shorts__info--top top">
             <div class="shorts__user--wrapper">
               <div class="shorts__user">
                 <img src="/images/users/jeff.png" alt="jeff" class="shorts__user--img" />
@@ -34,10 +34,10 @@
               <span>415</span>
             </div>
           </div>
-          <div class="shorts__comments">
+          <div class="shorts__comments comment">
             <ShortsBlockComments v-for="i in 10" :key="i" />
           </div>
-          <div class="shorts__info--bottom">
+          <div class="shorts__info--bottom bottom">
             <div class="shorts__info--reactions">
               <div class="reaction active">
                 <like-icon></like-icon>
@@ -326,6 +326,30 @@ const closeDropdown = () => {
       font-style: normal;
       font-weight: 400;
       line-height: normal;
+    }
+  }
+}
+@media (max-width: 1850px) {
+  .parent {
+    max-height: 95vh;
+    position: relative;
+    .video {
+      max-height: 95vh;
+    }
+    .content {
+    }
+    .top {
+    }
+    .comment {
+      max-height: calc(88vh - 360px);
+    }
+    .bottom {
+      position: static;
+      .form {
+        padding-left: 18px;
+        padding-right: 18px;
+        padding-bottom: 14px;
+      }
     }
   }
 }

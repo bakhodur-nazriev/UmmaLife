@@ -3,11 +3,11 @@
     <div class="posts">
       <PublicationForm />
       <ProfileTabs :tabs="tabLabels" @changeTab="(index) => (selectedIndex = index)">
-        <ProfilePublications v-if="selectedIndex === 0" />
-        <ProfileUmmaShorts v-else-if="selectedIndex === 1" />
-        <ProfileUmmaVideo v-else-if="selectedIndex === 2" />
-        <ProfileAlboms v-else-if="selectedIndex === 3" />
-        <ProfileSavings v-else-if="selectedIndex === 4" />
+        <ProfilePublications v-show="selectedIndex === 0" />
+        <ProfileUmmaShorts v-show="selectedIndex === 1" />
+        <ProfileUmmaVideo v-show="selectedIndex === 2" />
+        <ProfileAlboms v-show="selectedIndex === 3" />
+        <ProfileSavings v-show="selectedIndex === 4" />
       </ProfileTabs>
     </div>
   </div>
@@ -33,7 +33,7 @@ export default {
     ProfileUmmaVideo
   },
   data: () => ({
-    selectedIndex: 0
+    selectedIndex: 3
   }),
   computed: {
     tabLabels() {
