@@ -33,7 +33,7 @@ export default {
     ProfileUmmaVideo
   },
   data: () => ({
-    selectedIndex: 3
+    selectedIndex: 0
   }),
   computed: {
     tabLabels() {

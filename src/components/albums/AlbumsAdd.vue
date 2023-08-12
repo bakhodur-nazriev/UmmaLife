@@ -54,15 +54,12 @@ export default {
   },
   methods: {
     inputHandler(event) {
-      for (const file of event.target.files) {
-        this.files.push({
-          id: this.files.length + 1,
-          src: URL.createObjectURL(file)
-        })
-      }
+      this.uploadFiles(event.target.files)
     },
     drop(event) {
-      const files = event.dataTransfer.files
+      this.uploadFiles(event.dataTransfer.files)
+    },
+    uploadFiles(files) {
       for (const file of files) {
         this.files.push({
           id: this.files.length + 1,
