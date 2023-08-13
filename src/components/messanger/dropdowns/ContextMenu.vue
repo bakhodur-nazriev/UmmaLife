@@ -117,7 +117,7 @@ export default {
     color: var(--color-mine-shaft);
     font-size: 12px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 400;
     line-height: normal;
   }
   svg {

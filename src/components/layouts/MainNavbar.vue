@@ -8,10 +8,7 @@
         <MainPageLogo class="main__logo" />
       </div>
       <div class="main__nav--side">
-        <SampleButton
-          class="create__button"
-          :title="`${ $t('buttons.create') }`"
-        />
+        <SampleButton class="create__button" :title="`${$t('buttons.create')}`" />
         <SearchInput :placeholder="$t('placeholders.search_input')" />
       </div>
       <div class="left__nav--side">
@@ -33,7 +30,7 @@
         </ul>
         <div class="user__menu--block">
           <div class="profile__image">
-            <img src="@/assets/images/Article_Author.png" alt="avatar-logo">
+            <img src="@/assets/images/Article_Author.png" alt="avatar-logo" />
           </div>
           <ArrowIcon class="dropdown__icon" />
         </div>
@@ -48,26 +45,26 @@
           </li>
 
           <li class="top__nav--right-item">
-            <LoupeIcon/>
+            <LoupeIcon />
           </li>
           <li class="top__nav--right-item">
-            <SmallMenuIcon/>
+            <SmallMenuIcon />
           </li>
         </ul>
       </div>
       <div class="bottom__nav">
         <ul class="bottom__nav--list">
           <li class="bottom__nav--item">
-            <router-link to="to"><NewsIcon/></router-link>
+            <router-link to="to"><NewsIcon /></router-link>
           </li>
           <li class="bottom__nav--item">
-            <router-link to=""><MessagesIcon/></router-link>
+            <router-link to=""><MessagesIcon /></router-link>
           </li>
           <li class="bottom__nav--item">
-            <router-link to=""><BellIcon/></router-link>
+            <router-link to=""><BellIcon /></router-link>
           </li>
           <li class="bottom__nav--item">
-            <router-link to=""><MyPageIcon/></router-link>
+            <router-link to=""><MyPageIcon /></router-link>
           </li>
         </ul>
       </div>
@@ -112,13 +109,13 @@ export default {
     SampleButton,
     MainPageLogo
   },
-  data () {
+  data() {
     return {
       isMenuOpen: false
     }
   },
   methods: {
-    toggleSidebar () {
+    toggleSidebar() {
       this.$emit('toggle-sidebar')
     }
   }
@@ -148,6 +145,7 @@ export default {
   transform: translateY(0);
   transition: transform 0.3s ease;
   background-color: var(--color-white);
+  z-index: 10;
 }
 
 .right__nav--side,
@@ -181,7 +179,7 @@ export default {
 
     &:hover {
       background-color: var(--color-hippie-blue);
-      transition: all .15s ease-in-out;
+      transition: all 0.15s ease-in-out;
 
       svg {
         color: var(--color-white);
@@ -190,7 +188,7 @@ export default {
 
     svg {
       color: var(--color-hippie-blue);
-      transition: all .15s ease-in-out;
+      transition: all 0.15s ease-in-out;
     }
   }
 }
@@ -215,7 +213,7 @@ export default {
   height: 100%;
 
   &:hover {
-    transition: all .15s ease-in-out;
+    transition: all 0.15s ease-in-out;
     background-color: var(--color-seashell);
   }
 }
@@ -256,7 +254,7 @@ export default {
 
   &:hover {
     img {
-      transition: all .15s ease-in-out;
+      transition: all 0.15s ease-in-out;
       opacity: 0.5;
     }
 
@@ -288,7 +286,7 @@ export default {
     list-style: none;
     padding: 0 32px;
     background-color: var(--color-white);
-    box-shadow: 0 2px 3px rgba(141, 152, 180, 0.30);
+    box-shadow: 0 2px 3px rgba(141, 152, 180, 0.3);
     margin: 0;
     z-index: 50;
   }
@@ -298,7 +296,7 @@ export default {
   }
 
   .bottom__nav--list {
-    box-shadow: 0 -2px 3px rgba(141, 152, 180, 0.30);
+    box-shadow: 0 -2px 3px rgba(141, 152, 180, 0.3);
     position: fixed;
     display: flex;
     justify-content: space-between;

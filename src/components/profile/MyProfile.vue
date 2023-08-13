@@ -1,83 +1,86 @@
 <template>
   <div class="profile">
-    <div class="profile__top">
-      <div class="profile__top--img">
-        <img src="@/assets/images/ProfilePic.png" alt="Article_Author" />
-        <button class="profile__top--camera">
-          <img src="@/assets/images/camera.svg" alt="camera" />
-        </button>
+    <div class="profile__inner">
+      <div class="profile__top">
+        <div class="profile__top--img">
+          <img src="@/assets/images/ProfilePic.png" alt="Article_Author" />
+          <button class="profile__top--camera">
+            <img src="@/assets/images/camera.svg" alt="camera" />
+          </button>
+        </div>
+        <div class="profile__top--info">
+          <div class="profile__top--name">Абрахам Арахамович</div>
+          <div class="profile__top--account">@abrahamavich</div>
+        </div>
       </div>
-      <div class="profile__top--info">
-        <div class="profile__top--name">Абрахам Арахамович</div>
-        <div class="profile__top--account">@abrahamavich</div>
+      <button class="profile__edit">{{ $t('profile.edit') }}</button>
+      <div class="profile__block profile__info">
+        <ul class="profile__top-list">
+          <li class="profile__top-list--item">
+            <ProfileIcon />
+            <span>{{ $t('profile.gender') }}:</span>
+            <p>Male</p>
+          </li>
+          <li class="profile__top-list--item">
+            <CalendarIcon />
+            <span>{{ $t('profile.dob') }}:</span>
+            <p>22.01.86</p>
+          </li>
+          <li class="profile__top-list--item">
+            <GlobalSilverIcon />
+            <span>{{ $t('profile.country') }}:</span>
+            <p>Canada</p>
+          </li>
+          <li class="profile__top-list--item">
+            <StudyIcon />
+            <span>{{ $t('profile.study') }}:</span>
+            <p>Harvard University</p>
+          </li>
+          <li class="profile__top-list--item">
+            <LinkIcon />
+            <span>{{ $t('profile.site') }}:</span>
+            <a href="https://ummalife.com/" target="_blank">https://ummalife.com/</a>
+          </li>
+        </ul>
       </div>
-    </div>
-    <button class="profile__edit">{{ $t('profile.edit') }}</button>
-    <div class="profile__block profile__info">
-      <ul class="profile__top-list">
-        <li class="profile__top-list--item">
-          <ProfileIcon />
-          <span>{{ $t('profile.gender') }}:</span>
-          <p>Male</p>
+      <div class="profile__block profile__about">
+        <div class="profile__about--title">{{ $t('profile.about') }}</div>
+        <div class="profile__about--text">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+          sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+          est laborum.
+        </div>
+      </div>
+      <ul class="profile__stats">
+        <li class="profile__stats--item">
+          <span>{{ $t('profile.following') }}</span>
+          <p>1032</p>
         </li>
-        <li class="profile__top-list--item">
-          <CalendarIcon />
-          <span>{{ $t('profile.dob') }}:</span>
-          <p>22.01.86</p>
+        <li class="profile__stats--item">
+          <span>{{ $t('profile.subscribes') }}</span>
+          <p>12</p>
         </li>
-        <li class="profile__top-list--item">
-          <GlobalSilverIcon />
-          <span>{{ $t('profile.country') }}:</span>
-          <p>Canada</p>
+        <li class="profile__stats--item">
+          <span>{{ $t('profile.umma_video') }}</span>
+          <p>144</p>
         </li>
-        <li class="profile__top-list--item">
-          <StudyIcon />
-          <span>{{ $t('profile.study') }}:</span>
-          <p>Harvard University</p>
+        <li class="profile__stats--item">
+          <span>{{ $t('profile.umma_shorts') }}</span>
+          <p>1789</p>
         </li>
-        <li class="profile__top-list--item">
-          <LinkIcon />
-          <span>{{ $t('profile.site') }}:</span>
-          <a href="https://ummalife.com/" target="_blank">https://ummalife.com/</a>
+        <li class="profile__stats--item">
+          <span>{{ $t('profile.audio') }}</span>
+          <p>1011</p>
+        </li>
+        <li class="profile__stats--item">
+          <span>{{ $t('profile.posts') }}</span>
+          <p>2064</p>
         </li>
       </ul>
     </div>
-    <div class="profile__block profile__about">
-      <div class="profile__about--title">{{ $t('profile.about') }}</div>
-      <div class="profile__about--text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </div>
-    </div>
-    <ul class="profile__stats">
-      <li class="profile__stats--item">
-        <span>{{ $t('profile.following') }}</span>
-        <p>1032</p>
-      </li>
-      <li class="profile__stats--item">
-        <span>{{ $t('profile.subscribes') }}</span>
-        <p>12</p>
-      </li>
-      <li class="profile__stats--item">
-        <span>{{ $t('profile.umma_video') }}</span>
-        <p>144</p>
-      </li>
-      <li class="profile__stats--item">
-        <span>{{ $t('profile.umma_shorts') }}</span>
-        <p>1789</p>
-      </li>
-      <li class="profile__stats--item">
-        <span>{{ $t('profile.audio') }}</span>
-        <p>1011</p>
-      </li>
-      <li class="profile__stats--item">
-        <span>{{ $t('profile.posts') }}</span>
-        <p>2064</p>
-      </li>
-    </ul>
   </div>
 </template>
 
@@ -91,10 +94,12 @@ import LinkIcon from '@/components/icons/profile/LinkIcon.vue'
 
 <style lang="scss" scoped>
 .profile {
-  padding: 16px;
-  border-radius: 20px;
-  background-color: var(--color-white);
-  height: fit-content;
+  &__inner {
+    padding: 16px;
+    border-radius: 20px;
+    background-color: var(--color-white);
+    height: fit-content;
+  }
   &__top {
     display: flex;
     align-items: center;

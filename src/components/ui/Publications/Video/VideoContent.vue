@@ -2,20 +2,25 @@
   <section class="article-content__section">
     <div class="article-content__section-item">
       <div class="custom-video__container">
-        <div class="play-icon__button">
-          <VideoPlayIcon class="play-icon__button-icon"/>
-          <SmallVideoPlayIcon class="play-icon__button-icon-small"/>
-        </div>
-        <video
+        <VideoPlayer
+          src="/video/video.mp4"
+          poster="/images/message/video-poster.jpg"
           controls
-          class="custom-video-player"
-          poster="@/assets/images/video_example.png"
+          :volume="1"
         >
-          <source
-            src="path/to/video.mp4"
-            type="video/mp4"
-          >
-        </video>
+          <template v-slot="{ player, state }">
+            <div class="custom-player-controls">
+              <div
+                v-if="!state.playing"
+                @click="state.playing ? player.pause() : player.play()"
+                class="play-button"
+              >
+                <VideoPlayIcon />
+                <SmallVideoPlayIcon class="play-icon__button-icon-small" />
+              </div>
+            </div>
+          </template>
+        </VideoPlayer>
       </div>
       <div class="article-content__details-block">
         <h3 class="article-content__details-block-title">Как я принял ислам. Все от А до Я</h3>
@@ -33,19 +38,79 @@
 import VideoPlayIcon from '@/components/icons/VideoPlayIcon.vue'
 import SmallVideoPlayIcon from '@/components/icons/SmallVideoPlayIcon.vue'
 import PostReactions from '@/components/ui/Post/PostReactions.vue'
+import { VideoPlayer } from '@videojs-player/vue'
+
 export default {
   components: {
     PostReactions,
     SmallVideoPlayIcon,
-    VideoPlayIcon
+    VideoPlayIcon,
+    VideoPlayer
   }
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .custom-video__container {
   display: flex;
   position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 100%;
+  height: 400px;
+  .video-js {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+    background: transparent;
+    .vjs-poster img {
+      object-fit: cover;
+    }
+    .vjs-tech {
+      object-fit: cover !important;
+      object-position: center !important;
+      overflow: hidden;
+    }
+    .vjs-big-play-button {
+      display: none !important;
+    }
+  }
+}
+.custom-player-controls {
+  .remaining-time {
+    position: absolute;
+    top: 16px;
+    left: 18px;
+    z-index: 10;
+    padding: 4px 6px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    color: var(--color-white);
+    border-radius: 6px;
+    background: rgba(31, 31, 31, 0.5);
+    backdrop-filter: blur(10px);
+    min-width: 50px;
+    text-align: center;
+  }
+  .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    // background-color: rgba($color: var(--color-hippie-blue), $alpha: 0.6);
+    background: rgba(73, 163, 153, 0.6);
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    cursor: pointer;
+  }
 }
 
 .custom-video-player {

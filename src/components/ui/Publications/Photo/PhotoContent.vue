@@ -1,14 +1,8 @@
 <template>
-  <section
-    class="photo-block__article"
-    v-for="photo in items"
-    :key="photo.id"
-  >
-    <img
-      class="image__item"
-      :src="photo.image"
-      :alt="photo.desc"
-    />
+  <section class="photo-block__article" v-for="photo in items" :key="photo.id">
+    <a :href="photo.image" data-fancybox class="image__item">
+      <img :src="photo.image" :alt="photo.desc" />
+    </a>
   </section>
   <section class="article-content__reactions">
     <PostReactions />
@@ -27,9 +21,6 @@ export default {
       type: String,
       required: true
     }
-  },
-  mounted () {
-    console.log(this.items)
   }
 }
 </script>

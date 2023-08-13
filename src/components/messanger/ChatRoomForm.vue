@@ -42,17 +42,17 @@
           :placeholder="`${$t('chat.placeholder')}...`"
           class="form__input--text"
           ref="textarea"
-          rows="1"
+          rows="5"
           :value="value"
           @input="inputHandler"
           @focus="resize"
           @keydown="resize"
-          maxlength="600"
         />
       </div>
       <button type="submit" class="form__btn">
         {{ $t('chat.send') }}
-        <send-icon />
+        <spinner-gif v-if="isLoading" />
+        <send-icon v-else />
       </button>
     </form>
   </div>
@@ -64,41 +64,54 @@ import AttachIcon from '@/components/icons/AttachIcon.vue'
 import EditGrayIcon from '@/components/icons/MenuDetails/EditGrayIcon.vue'
 import CloseEditIcon from '@/components/icons/MenuDetails/CloseEditIcon.vue'
 import ShareBigIcon from '@/components/icons/MenuDetails/ShareBigIcon.vue'
+import SpinnerGif from '@/components/icons/SpinnerGif.vue'
+
 export default {
-  components: { SendIcon, AttachIcon, EditGrayIcon, CloseEditIcon, ShareBigIcon },
+  components: { SendIcon, AttachIcon, EditGrayIcon, CloseEditIcon, ShareBigIcon, SpinnerGif },
   props: {
     value: String,
     edit: Boolean,
     share: Boolean,
     selectedMessage: Object,
-    user: Object
+    user: Object,
+    isLoading: Boolean
   },
   emits: ['submitHandler', 'setValue', 'clearValues'],
   methods: {
-    resize (e) {
+    resize(e) {
       const { textarea } = this.$refs
-      textarea.style.height = textarea.scrollHeight - 4 + 'px'
-      if (e?.key && e?.key === 'Enter') {
-        setTimeout(() => {
-          this.submitHandler()
-        }, 0)
+      if (e?.keyCode && e.keyCode === 13 && !e.shiftKey) {
+        this.submitHandler()
       }
+      if (e?.keyCode && e.keyCode === 13 && e.shiftKey) {
+        this.$emit('setValue', this.value)
+      }
+
       setTimeout(() => {
         if (typeof this.value === 'string' && this.value.length === 0) {
           textarea.style.height = 56 + 'px'
         }
       }, 1)
+      const taLineHeight = 56
+      const taHeight = textarea.scrollHeight
+      textarea.style.height = taHeight
+      const numberOfLines = Math.floor(taHeight / taLineHeight)
+      if (numberOfLines >= 2) {
+        textarea.style.overflowY = 'scroll'
+      } else {
+        textarea.style.height = textarea.scrollHeight - 4 + 'px'
+        textarea.style.overflowY = 'hidden'
+      }
     },
-    inputHandler (e) {
+    inputHandler(e) {
       this.resize()
-      if (typeof this.value === 'string' && this.value.length > 600) return
       this.$emit('setValue', e.target.value)
     },
-    submitHandler () {
+    async submitHandler() {
       /* eslint-disable */
       this.$emit(
         'submitHandler',
-        this.value.replace('\n', ''),
+        this.value,
         this.edit
           ? { state: 'edit', data: this.selectedMessage }
           : this.share
@@ -112,8 +125,10 @@ export default {
             }
           : { state: 'noedit' }
       )
-      this.$emit('setValue', '')
-      this.$emit('clearValues')
+      setTimeout(() => {
+        this.$emit('setValue', '')
+        this.$emit('clearValues')
+      }, 0)
     }
   },
   mounted() {
@@ -265,6 +280,11 @@ export default {
         width: 18px;
         height: 18px;
         display: block;
+      }
+      img {
+        width: 45px;
+        height: 45px;
+        margin-left: -10px;
       }
     }
   }

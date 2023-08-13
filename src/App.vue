@@ -1,6 +1,6 @@
 <template>
-<!--  <layout-auth v-if="true"></layout-auth>-->
-<!--  <main-layout v-if="false"></main-layout>-->
+  <!--  <layout-auth v-if="true"></layout-auth>-->
+  <!--  <main-layout v-if="false"></main-layout>-->
   <router-view></router-view>
 </template>
 
@@ -14,14 +14,14 @@ export default {
     // MainLayout
   },
   computed: {
-    isAuthPage () {
+    isAuthPage() {
       const authRoutes = ['login', 'register', 'forgot-password']
       return authRoutes.includes(this.$route.name)
     },
-    authLayout () {
+    authLayout() {
       return this.isAuthPage ? 'AuthLayout' : 'MainLayout'
     },
-    mainLayout () {
+    mainLayout() {
       return 'MainLayout'
     }
   }
@@ -29,5 +29,5 @@ export default {
 </script>
 
 <style scoped>
-@import "assets/styles.scss";
+@import 'assets/styles.scss';
 </style>

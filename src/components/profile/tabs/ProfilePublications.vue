@@ -14,11 +14,10 @@
       </div>
       <div class="publications__tabs--content">
         <PublishedNews v-if="activeIndex === 0" />
-        <PublishedArticles v-if="activeIndex === 1" />
-        <!-- TODO -->
-        <p v-if="activeIndex === 2">Photo</p>
-        <p v-if="activeIndex === 3">Video</p>
-        <p v-if="activeIndex === 4">Audio</p>
+        <PublishedArticles v-else-if="activeIndex === 1" />
+        <PublishedPhotos v-else-if="activeIndex === 2" />
+        <PublishedVideos v-else-if="activeIndex === 3" />
+        <PublishedAudios v-else-if="activeIndex === 4" />
       </div>
     </div>
   </div>
@@ -27,8 +26,18 @@
 <script>
 import PublishedNews from '@/components/profile/publications/PublishedNews.vue'
 import PublishedArticles from '@/components/profile/publications/PublishedArticles.vue'
+import PublishedPhotos from '@/components/profile/publications/PublishedPhotos.vue'
+import PublishedVideos from '@/components/profile/publications/PublishedVideos.vue'
+import PublishedAudios from '../publications/PublishedAudios.vue'
+
 export default {
-  components: { PublishedNews, PublishedArticles },
+  components: {
+    PublishedNews,
+    PublishedArticles,
+    PublishedPhotos,
+    PublishedVideos,
+    PublishedAudios
+  },
   data: () => ({
     activeIndex: 0
   }),
@@ -42,7 +51,7 @@ export default {
     ]
   },
   methods: {
-    clickHandler (index) {
+    clickHandler(index) {
       this.activeIndex = index
     }
   }
@@ -51,16 +60,17 @@ export default {
 
 <style lang="scss" scoped>
 .publications {
-  background: var(--color-white);
   &__tabs {
-    padding: 16px 8px 8px;
     &--header {
       display: grid;
       grid-template-columns: repeat(var(--tabs-length), 1fr);
-      gap: 4px;
+      gap: 8px;
+      padding: 16px 24px 24px;
+      background: var(--color-white);
+      border-radius: 0 0 15px 15px;
     }
     &--button {
-      padding: 21px 20px 17px;
+      padding: 16px 10px;
       border-radius: 12px;
       border: 1px solid var(--color-seashell);
       cursor: pointer;
