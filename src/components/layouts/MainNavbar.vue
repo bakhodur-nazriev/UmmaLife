@@ -158,7 +158,7 @@ export default {
 
 .main__nav--side {
   display: flex;
-  gap: 100px;
+  gap: 50px;
 }
 
 .navbar__right--buttons {

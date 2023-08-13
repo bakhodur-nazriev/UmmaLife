@@ -65,7 +65,7 @@
     <SampleDivider v-if="isFormOpen" />
 
     <div class="main__comment--form" ref="commentForm" v-if="isFormOpen">
-      <ReplyCommentForm />
+      <ReplyCommentForm @close-comment-window="toggleForm"/>
 
       <CommentForm />
     </div>
@@ -118,7 +118,7 @@ export default {
       ],
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
-      isFormOpen: true
+      isFormOpen: false
     }
   },
   methods: {

@@ -192,7 +192,10 @@ export default {
       this.isActiveAnswer = !this.isActiveAnswer
     },
     closeCommentWindow() {
-      console.log('closed')
+      this.$emit('close-comment-window', false)
+    },
+    answerInsideComment () {
+      this.isActiveInsideAnswer = !this.isActiveInsideAnswer
     }
   },
   mounted () {
@@ -296,7 +299,7 @@ export default {
 .reply__textarea--and--button--section {
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 16px;
   width: 100%;
 }

@@ -43,6 +43,7 @@ export default {
       const tabsList = this.$refs.tabsList
       const leftArrowButton = this.$refs.leftArrow
       const rightArrowButton = this.$refs.rightArrow
+      const maxScrollValue = tabsList.scrollWidth - tabsList.clientWidth
 
       if (tabsList.scrollLeft <= 0) {
         leftArrowButton.classList.remove('active')
@@ -50,7 +51,6 @@ export default {
         leftArrowButton.classList.add('active')
       }
 
-      const maxScrollValue = tabsList.scrollWidth - tabsList.clientWidth
       if (tabsList.scrollLeft >= maxScrollValue) {
         rightArrowButton.classList.remove('active')
       } else {

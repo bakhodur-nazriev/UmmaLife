@@ -94,7 +94,8 @@ export default {
   font-size: 12px;
   padding: 5px 10px;
   cursor: pointer;
-  gap: 5px;
+  gap: 30px;
+  line-height: 1;
 
   &:hover {
     background-color: var(--color-seashell);
