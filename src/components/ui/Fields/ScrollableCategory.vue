@@ -1,6 +1,6 @@
 <template>
   <div class="scrollable-tabs-container">
-    <div class="left-arrow" ref="leftArrow">
+    <div class="left-arrow" ref="leftArrow" @click="scrollLeft">
       <DropdownIcon/>
     </div>
     <ul ref="tabsList">
@@ -8,7 +8,7 @@
         <a href="#" ref="scrollableTabsItem">{{ category.name }}</a>
       </li>
     </ul>
-    <div class="right-arrow active" ref="rightArrow">
+    <div class="right-arrow active" ref="rightArrow" @click="scrollRight">
       <DropdownIcon/>
     </div>
   </div>
@@ -30,9 +30,20 @@ export default {
       { name: 'Categories 5' },
       { name: 'Categories 6' },
       { name: 'Categories 7' }
-    ]
+    ],
+    tabsListWidth: 0
   }),
   methods: {
+    scrollLeft() {
+      const tabsList = this.$refs.tabsList
+      tabsList.scrollLeft -= 200
+      this.manageArrowButtons()
+    },
+    scrollRight() {
+      const tabsList = this.$refs.tabsList
+      tabsList.scrollLeft += 200
+      this.manageArrowButtons()
+    },
     removeAllActiveClasses() {
       const tabs = this.$refs.scrollableTabsItem
       tabs.forEach((tab) => {
@@ -43,7 +54,12 @@ export default {
       const tabsList = this.$refs.tabsList
       const leftArrowButton = this.$refs.leftArrow
       const rightArrowButton = this.$refs.rightArrow
-      const maxScrollValue = tabsList.scrollWidth - tabsList.clientWidth
+
+      if (this.tabsListWidth <= tabsList.clientWidth) {
+        leftArrowButton.classList.remove('active')
+        rightArrowButton.classList.remove('active')
+        return
+      }
 
       if (tabsList.scrollLeft <= 0) {
         leftArrowButton.classList.remove('active')
@@ -51,7 +67,8 @@ export default {
         leftArrowButton.classList.add('active')
       }
 
-      if (tabsList.scrollLeft >= maxScrollValue) {
+      const maxScrollValue = tabsList.scrollWidth - tabsList.offsetWidth
+      if (tabsList.scrollLeft >= maxScrollValue - 1) {
         rightArrowButton.classList.remove('active')
       } else {
         rightArrowButton.classList.add('active')
@@ -59,26 +76,16 @@ export default {
     }
   },
   mounted() {
+    const tabsList = this.$refs.tabsList
+    this.tabsListWidth = tabsList.scrollWidth
+    this.manageArrowButtons()
+
     const tabs = this.$refs.scrollableTabsItem
     tabs.forEach((tab) => {
       tab.addEventListener('click', () => {
         this.removeAllActiveClasses()
         tab.classList.add('active')
       })
-    })
-
-    const leftArrow = this.$refs.leftArrow
-    const rightArrow = this.$refs.rightArrow
-    const tabsList = this.$refs.tabsList
-
-    leftArrow.addEventListener('click', () => {
-      tabsList.scrollLeft -= 200
-      this.manageArrowButtons()
-    })
-
-    rightArrow.addEventListener('click', () => {
-      tabsList.scrollLeft += 200
-      this.manageArrowButtons()
     })
 
     tabsList.addEventListener('scroll', this.manageArrowButtons)
