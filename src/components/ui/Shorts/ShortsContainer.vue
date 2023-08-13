@@ -66,6 +66,9 @@ export default {
   height: 860px;
   position: relative;
   overflow: hidden;
+  @media (max-width: 1850px) {
+    height: calc(100vh - 260px);
+  }
   &__buttons {
     position: absolute;
     bottom: 45px;
@@ -73,6 +76,9 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    @media (max-width: 1850px) {
+      left: 125px;
+    }
     button {
       cursor: pointer;
       border-radius: 10px;

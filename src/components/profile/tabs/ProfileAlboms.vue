@@ -1,3 +1,7 @@
 <template>
-  <h2>ProfileAlboms</h2>
+  <AlbumsContainer />
 </template>
+
+<script setup>
+import AlbumsContainer from '@/components/albums/AlbumsContainer.vue'
+</script>
