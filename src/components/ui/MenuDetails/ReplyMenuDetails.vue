@@ -1,34 +1,32 @@
 <template>
   <div class="menu__details">
     <div class="menu__toggle--button" @click="toggleReplyMenu">
-      <menu-details-icon class="dropdown__toggle"></menu-details-icon>
+      <MenuDetailsIcon class="dropdown__toggle" />
     </div>
 
-    <Transition name="bounce">
-      <div
-        class="menu__overlay"
-        v-show="isReplyMenuOpen"
-      >
-        <ul class="dropdown__menu">
-          <li class="dropdown__item">
-            <edit-icon />
-            <span>{{ $t('buttons.edit') }}</span>
-          </li>
-          <sample-divider class="dropdown__item--divider"/>
+    <div
+      class="menu__overlay"
+      v-show="isReplyMenuOpen"
+    >
+      <ul class="dropdown__menu">
+        <li class="dropdown__item">
+          <EditIcon />
+          <span>{{ $t('buttons.edit') }}</span>
+        </li>
+        <SampleDivider class="dropdown__item--divider"/>
 
-          <li class="dropdown__item">
-            <copy-link-icon />
-            <span>{{ $t('buttons.copy_link') }}</span>
-          </li>
+        <li class="dropdown__item">
+          <CopyLinkIcon />
+          <span>{{ $t('buttons.copy_link') }}</span>
+        </li>
 
-          <sample-divider class="dropdown__item--divider"/>
-          <li class="dropdown__item">
-            <delete-icon />
-            <span>{{ $t('buttons.delete') }}</span>
-          </li>
-        </ul>
-      </div>
-    </Transition>
+        <SampleDivider class="dropdown__item--divider"/>
+        <li class="dropdown__item">
+          <DeleteIcon />
+          <span>{{ $t('buttons.delete') }}</span>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 <script>
@@ -52,9 +50,7 @@ export default {
     }
   },
   data () {
-    return {
-
-    }
+    return {}
   },
   methods: {
     toggleReplyMenu () {
@@ -64,28 +60,25 @@ export default {
 }
 </script>
 
-<style scoped>
-.bounce-enter-active {
-  animation: bounce-in 0.5s;
-}
-.bounce-leave-active {
-  animation: bounce-in 0.5s reverse;
+<style scoped lang="scss">
+.menu__overlay {
+  animation: menu__overlay 0.2s;
 }
 
-@keyframes bounce-in {
+@keyframes menu__overlay {
   0% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1.25);
+    transform:scale(.5);
+    transform-origin:center top;
   }
   100% {
-    transform: scale(1);
+    transform:scale(1);
+    transform-origin:center top
   }
 }
 
 .dropdown__item--divider {
-  border: 1px solid var(--color-seashell);
+  margin: 2px auto;
+  width: 92%;
 }
 
 .menu__details {
@@ -101,8 +94,9 @@ export default {
 
 .dropdown__menu {
   list-style: none;
-  padding: 10px;
+  padding: 8px;
   margin: 0;
+  width: max-content;
 }
 
 .menu__overlay {
@@ -121,18 +115,23 @@ export default {
 .dropdown__item {
   display: flex;
   align-items: center;
-  width: 210px;
   font-size: 14px;
   padding: 5px 10px;
   cursor: pointer;
+
+  svg {
+    margin-right: 9px;
+  }
+
+  &:hover {
+    background-color: var(--color-seashell);
+    border-radius: 10px;
+  }
 }
 
-.dropdown__item:hover {
-  background-color: var(--color-seashell);
-  border-radius: 10px;
-}
-
-.dropdown__item svg {
-  margin-right: 9px;
+@media (max-width: 576px) {
+  .menu__toggle--button {
+    transform: rotate(90deg);
+  }
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div class="umma__video--block">
     <div class="video__section">
-      <img width="42" height="42" src="../../assets/images/Ellipse.png" alt="">
-      <img width="364" height="200" src="../../assets/images/Rectangle.png" alt="">
+      <img width="42" height="42" src="@/assets/images/Ellipse.png" alt="">
+      <img width="364" height="200" src="@/assets/images/Rectangle.png" alt="">
       <div class="time__section">
         <span>15:52</span>
       </div>

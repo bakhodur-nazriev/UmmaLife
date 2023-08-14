@@ -64,6 +64,8 @@ export default {
 .category__section {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 20px;
 }
 
 .umma__videos--section {

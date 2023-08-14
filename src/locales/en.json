@@ -112,8 +112,8 @@
     "get_code_by_email": "Get code by email",
     "next": "Next",
     "submit": "Submit",
-    "create": "+ Create",
-    "create_umma_video": "+ Create Umma Video",
+    "create": "Create",
+    "create_umma_video": "Create Umma Video",
     "toggle_theme": {
       "dark": "Dark",
       "light": "Light"
@@ -170,7 +170,8 @@
       "ignore": "Ignore",
       "frozen": "Frozen"
     },
-    "read_more": "Read"
+    "read_more": "Read",
+    "pinned_message": "Pinned message"
   },
   "languages": {
     "title": "English",
@@ -238,8 +239,8 @@
       "singular": "member"
     },
     "comments": {
-      "plural": "comments",
-      "singular": "comment"
+      "plural": "Comments",
+      "singular": "Comment"
     },
     "reposts": {
       "plural": "reposts",
@@ -297,7 +298,9 @@
     "answer": "Reply",
     "change": "Edit",
     "copy_text": "Copy Text",
-    "select": "Select"
+    "select": "Select",
+    "first_news": "Newest",
+    "first_oldest": "Oldest"
   },
   "profile": {
     "edit": "Edit profile",

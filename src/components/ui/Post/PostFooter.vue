@@ -1,5 +1,5 @@
 <template>
-  <footer class="publication__footer">
+  <footer class="post__footer">
     <div class="footer__buttons">
       <div class="reaction__buttons--block" ref="reactionWindow">
         <div class="reactions__buttons" v-if="isReactionWindowOpen">
@@ -64,8 +64,8 @@
 
     <SampleDivider v-if="isFormOpen" />
 
-    <div class="main__comment--form" v-if="isFormOpen">
-      <ReplyCommentForm />
+    <div class="main__comment--form" ref="commentForm" v-if="isFormOpen">
+      <ReplyCommentForm @close-comment-window="toggleForm"/>
 
       <CommentForm />
     </div>
@@ -191,10 +191,6 @@ export default {
   }
 }
 
-.main__comment--form {
-  width: 100%;
-}
-
 .reaction__item {
   display: flex;
   align-items: center;
@@ -304,7 +300,7 @@ export default {
   width: 100%;
 }
 
-.publication__footer {
+.post__footer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -347,6 +343,53 @@ export default {
     &:hover {
       background: none;
       border-radius: 0;
+    }
+  }
+
+  .main__comment--form {
+    background-color: var(--color-white);
+    box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 20px 20px 0 0;
+    width: 100%;
+    margin: 0;
+    z-index: 99;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    padding: 12px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(31, 31, 31, 0.3);
+      backdrop-filter: blur(3px);
+      transition: 0.3s;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &--shown {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    &--shown::before {
+      opacity: 1;
+      z-index: 2;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .main__comment--form {
+    width: 100%;
+
+    &::before {
+      display: none;
     }
   }
 }
