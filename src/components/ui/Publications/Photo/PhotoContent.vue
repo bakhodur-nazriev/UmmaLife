@@ -11,6 +11,7 @@
 
 <script>
 import PostReactions from '@/components/ui/Post/PostReactions.vue'
+import { Fancybox } from '@fancyapps/ui'
 
 export default {
   components: {
@@ -21,6 +22,11 @@ export default {
       type: String,
       required: true
     }
+  },
+  mounted() {
+    Fancybox.bind('[data-fancybox]', {
+      wheel: 'zoom'
+    })
   }
 }
 </script>
@@ -46,5 +52,6 @@ export default {
   margin: 8px 0 0 0;
 }
 
-@media (max-width: 576px) {}
+@media (max-width: 576px) {
+}
 </style>
