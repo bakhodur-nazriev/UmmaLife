@@ -131,7 +131,12 @@ export default {
 
 @media (max-width: 576px) {
   .menu__toggle--button {
+    width: 100%;
+    height: 100%;
     transform: rotate(90deg);
+    svg {
+      transform: scale(.8);
+    }
   }
 }
 </style>

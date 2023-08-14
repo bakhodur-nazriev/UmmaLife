@@ -105,6 +105,10 @@ export default {
         color: var(--color-mine-shaft);
       }
     }
+
+    &__reactions {
+      padding: 0;
+    }
   }
 }
 </style>

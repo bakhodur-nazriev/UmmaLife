@@ -248,7 +248,7 @@ export default {
         width: 48px;
         height: 48px;
         right: 20px;
-        z-index: 100;
+        z-index: 90;
 
         .create-button {
           display: flex;

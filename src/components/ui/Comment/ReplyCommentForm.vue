@@ -19,14 +19,28 @@
         </div>
       </div>
     </div>
-    <SampleDivider />
+
+    <SampleDivider class="divider"/>
+
     <div class="author__avatar--section">
       <img src="@/assets/images/reply_avatar.png" alt="">
     </div>
     <div class="reply__field--section">
-      <div class="reply__author--section">
-        <span class="author__name">{{ replyAuthorName }}</span>
-        <span class="author__time">2 часа назад</span>
+      <div class="reply-header">
+        <div class="reply__author--section">
+          <div class="author__avatar--section-small">
+            <img src="@/assets/images/reply_avatar.png" alt="">
+          </div>
+          <span class="author__name">{{ replyAuthorName }}</span>
+          <span class="author__time">2 часа назад</span>
+        </div>
+
+        <div class="reply__detail--menu--section-small">
+          <ReplyMenuDetails
+            :is-reply-menu-open="isReplyMenuOpen"
+            @toggle-reply-menu="toggleReplyMenu"
+          />
+        </div>
       </div>
 
       <div class="reply__textarea--and--button--section">
@@ -37,6 +51,7 @@
             v-model="textareaValue"
             :value="textareaValue"
             class="reply__textarea"
+            ref="replyTextarea"
           />
 
           <div class="textarea__right--buttons">
@@ -64,33 +79,14 @@
           <button type="button" @click="answerComment">{{ $t('buttons.answer') }}</button>
         </div>
 
-        <div class="reply__reactions">
-          <div class="reply__icon">
-            <LikeIcon />
-          </div>
-          <div class="reply__icon">
-            <DislikeIcon />
-          </div>
-          <div class="reply__icon">
-            <LoveIcon />
-          </div>
-          <div class="reply__icon">
-            <LaughIcon />
-          </div>
-          <div class="reply__icon">
-            <FireIcon />
-          </div>
-          <div class="reply__icon">
-            <ThinkIcon />
-          </div>
-          <div class="reply__icon">
-            <AngryIcon />
-          </div>
-          <div class="reply__icon">
-            <SadIcon />
-          </div>
-          <div class="reply__icon">
-            <ScaredIcon />
+        <div class="reply__reactions" ref="replyReactions">
+          <div
+            class="reply__icon"
+            v-for="(reaction, i) in reactions"
+            :key="i"
+          >
+            <component :is="reaction.icon"/>
+            <span>{{ reaction.count }}</span>
           </div>
           <div class="reply__reactions--count--block">
             <span class="reply__reactions--count">999К</span>
@@ -110,6 +106,13 @@
           :drop-down-title="`${ $t('dropdown.reply_answer') }`"
         />
       </div>
+    </div>
+    <div class="load__more-section">
+      <SampleDropDown
+        :color="parentColor"
+        class="load__more-button"
+        :drop-down-title="`${ $t('dropdown.download_comment') }`"
+      />
     </div>
   </form>
 </template>
@@ -166,8 +169,22 @@ export default {
       isActiveInsideAnswer: false,
       replyAuthorName: 'Courtney Henry',
       parentColor: '#818181',
-      isFilterOpen: false
+      isFilterOpen: false,
+      reactions: [
+        { id: 1, icon: LikeIcon, count: 1.7 },
+        { id: 2, icon: DislikeIcon, count: 123 },
+        { id: 3, icon: LoveIcon, count: 354 },
+        { id: 4, icon: LaughIcon, count: 2.5 },
+        { id: 5, icon: FireIcon, count: 867 },
+        { id: 6, icon: ThinkIcon, count: 52 },
+        { id: 7, icon: AngryIcon, count: 96 },
+        { id: 8, icon: SadIcon, count: 78 },
+        { id: 8, icon: ScaredIcon, count: 125 }
+      ]
     }
+  },
+  mounted () {
+    this.adjustTextareaHeight()
   },
   methods: {
     adjustTextareaHeight () {
@@ -198,9 +215,7 @@ export default {
       this.isActiveInsideAnswer = !this.isActiveInsideAnswer
     }
   },
-  mounted () {
-    this.adjustTextareaHeight()
-  }
+  watch: {}
 }
 </script>
 
@@ -220,6 +235,7 @@ export default {
 
 .load__more--reply-answers {
   margin: 12px 0;
+  padding-left: 0;
 }
 
 .active__reply--field {
@@ -237,14 +253,24 @@ export default {
   display: flex;
   padding: 0;
 }
+
 .textarea__right--buttons--divider {
   height: 14px;
   border: 1px solid var(--color-alto-second);
 }
-.author__avatar--section img {
-  width: 40px;
-  max-height: 40px;
+
+.author__avatar--section {
+  display: flex;
+  img {
+    width: 48px;
+    max-height: 48px;
+  }
 }
+
+.author__avatar--section-small {
+  display: none;
+}
+
 .textarea__right--buttons {
   position: absolute;
   right: 62px;
@@ -253,30 +279,33 @@ export default {
   align-items: center;
   gap: 24px;
 }
-.reply__author--section .author__name {
-  margin-right: 8px;
-}
+
 .reply__form {
   display: flex;
   align-items: center;
   gap: 16px;
   width: 100%;
+
+  &:first-child {
+    align-self: flex-start;
+  }
 }
-.reply__form > :first-child {
-  align-self: flex-start;
-}
+
 .reply__field--section {
   display: flex;
   flex-direction: column;
   width: 100%;
   row-gap: 4px;
 }
-.reply__reactions--count--block {
-  margin-left: 2px;
-}
+
 .reply__reactions--count {
   color: var(--color-silver-chalice);
+
+  &--block {
+    margin-left: 2px;
+  }
 }
+
 .reply__icon {
   display: flex;
   align-items: center;
@@ -285,9 +314,8 @@ export default {
   background-color: var(--color-gallery-second);
   padding: 5px;
   cursor: pointer;
-  width: 24px;
-  height: 24px;
 }
+
 .reply__textarea {
   height: 48px;
   width: 100%;
@@ -296,6 +324,7 @@ export default {
   resize: none;
   overflow: hidden;
 }
+
 .reply__textarea--and--button--section {
   position: relative;
   display: flex;
@@ -312,24 +341,24 @@ export default {
   color: var(--color-silver-chalice)
 }
 
-.reply__buttons--section {
-  display: flex;
-  justify-content: space-between;
-  width: 93%;
-}
-
 .reply__buttons {
   display: flex;
   gap: 16px;
-}
 
-.reply__buttons button {
-  border: none;
-  background: none;
-  color: var(--color-gray);
-  font-size: 16px;
-  cursor: pointer;
-  padding: 0;
+  &--section {
+    display: flex;
+    justify-content: space-between;
+    width: 93%;
+  }
+
+  button {
+    border: none;
+    background: none;
+    color: var(--color-gray);
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+  }
 }
 
 .reply__reactions {
@@ -338,13 +367,57 @@ export default {
 }
 
 .close-form__button {
+  cursor: pointer;
   svg {
     transform: scale(1.2);
     color: var(--color-mine-shaft);
   }
 }
 
+.divider {
+  display: none;
+}
+
+.reply__author--section {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.reply__buttons--section {
+  position: relative;
+  padding-left: 0;
+}
+
+.reply__detail--menu--section-small {
+  display: none;
+}
+
+.reply-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 @media (max-width: 576px) {
+  .reply__icon {
+    border-radius: 8px;
+    background-color: var(--color-white);
+    display: flex;
+    gap: 4px;
+    padding: 4px 8px;
+
+    span {
+      font-size: 12px;
+    }
+
+    svg {
+      transform: scale(1.3);
+    }
+  }
+
+  .reply__reactions--count--block {
+    display: none;
+  }
   .comment-header {
     &__small {
       width: 100%;
@@ -391,18 +464,90 @@ export default {
 
   .reply__form {
     flex-direction: column;
+    padding: 0 14px 14px;
   }
 
   .reply__textarea--and--button--section {
     flex-direction: column-reverse;
+    gap: 4px;
+
+    .author__section {
+      order: 1;
+    }
   }
 
   .reply__field--section {
-    display: block;
+    display: flex;
+  }
+
+  .author__avatar--section-small {
+    display: flex;
+    img {
+      width: 40px;
+      max-height: 40px;
+    }
+  }
+
+  .textarea__right--buttons {
+    display: none;
+  }
+
+  .reply__textarea {
+    padding: 15px 15px 50px;
+  }
+
+  .divider {
+    display: flex;
+  }
+
+  .author__section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .author__name--section {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      .author__name {
+        font-size: 16px;
+      }
+
+      .author__time {
+        font-size: 14px;
+      }
+    }
   }
 
   .author__avatar--section {
     display: none;
+  }
+
+  .reply__reactions {
+    position: absolute;
+    bottom: 35px;
+    left: 56px;
+  }
+
+  .reply__detail--menu--section {
+    display: none;
+  }
+
+  .reply__detail--menu--section-small {
+    display: flex;
+  }
+
+  .reply__textarea--block {
+    padding-left: 42px;
+  }
+
+  .reply__buttons--section {
+    padding-left: 42px;
+  }
+
+  .load__more--reply-answers {
+    padding-left: 42px;
   }
 }
 

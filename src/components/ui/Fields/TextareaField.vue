@@ -8,11 +8,11 @@
 
     <div class="textarea__right--buttons">
       <file-upload class="attach__file" label="file">
-        <textarea-clip-icon />
+        <TextareaClipIcon />
       </file-upload>
-      <sample-divider class="textarea__right--buttons--divider" />
+      <SampleDivider class="textarea__right--buttons--divider" />
       <button class="send__button" type="button">
-        <send-icon/>
+        <SendIcon />
       </button>
     </div>
   </div>

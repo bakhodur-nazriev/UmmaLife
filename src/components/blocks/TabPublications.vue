@@ -133,6 +133,10 @@ svg {
   .main-publication__form {
     display: none;
   }
+
+  .publication__main--block {
+    display: flex;
+  }
 }
 
 @media (min-width: 768px) {

@@ -49,7 +49,7 @@
               <SampleDivider class="share__item--divider"/>
 
               <li class="share__item">
-                <MyGroupIcon/>
+                <MyGroupIcon />
                 <span>{{ $t('buttons.share_in_group') }}</span>
               </li>
             </ul>
@@ -64,10 +64,12 @@
 
     <SampleDivider v-if="isFormOpen" />
 
-    <div class="main__comment--form" ref="commentForm" v-if="isFormOpen">
+    <div ref="commentForm" v-if="isFormOpen" :class="['main__comment--form', isFormOpen ? 'main__comment--form--shown' : '']">
       <ReplyCommentForm @close-comment-window="toggleForm"/>
 
-      <CommentForm />
+      <div class="enter-comment__form">
+        <CommentForm />
+      </div>
     </div>
   </footer>
 </template>
@@ -118,7 +120,7 @@ export default {
       ],
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
-      isFormOpen: false
+      isFormOpen: true
     }
   },
   methods: {
@@ -280,7 +282,7 @@ export default {
 .reactions__buttons,
 .share__buttons {
   position: absolute;
-  bottom: 45px;
+  bottom: 35px;
   box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   background-color: var(--color-white);
@@ -292,6 +294,10 @@ export default {
   gap: 18px;
   padding: 8px;
   width: max-content;
+}
+
+.reaction__window {
+  padding: 12px 10px;
 }
 
 .footer__buttons {
@@ -326,6 +332,11 @@ export default {
 }
 
 @media (max-width: 576px) {
+  .enter-comment__form {
+    background-color: var(--color-white);
+    filter: drop-shadow(10px 0px 40px rgba(108, 108, 108, 0.15));
+  }
+
   .comment__button span,
   .share__button span {
     display: none;
@@ -356,30 +367,21 @@ export default {
     position: fixed;
     left: 0;
     bottom: 0;
-    padding: 12px;
+    padding-top: 14px;
 
-    &::before {
-      content: "";
+    &--shown::before {
+      display: none;
       position: absolute;
-      top: 0;
+      content: "";
+      bottom: 0;
       left: 0;
       width: 100%;
-      height: 100%;
+      height: 855px;
       background: rgba(31, 31, 31, 0.3);
       backdrop-filter: blur(3px);
       transition: 0.3s;
-      opacity: 0;
+      opacity: 1;
       pointer-events: none;
-    }
-
-    &--shown {
-      visibility: visible;
-      opacity: 1;
-    }
-
-    &--shown::before {
-      opacity: 1;
-      z-index: 2;
     }
   }
 }
@@ -399,6 +401,11 @@ export default {
   .share__button,
   .like__button {
     height: 43px;
+  }
+
+  .reactions__buttons,
+  .share__buttons {
+    bottom: 45px;
   }
 }
 </style>
