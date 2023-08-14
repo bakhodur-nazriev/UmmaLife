@@ -1,14 +1,14 @@
 <template>
   <div class="news">
-    <PublicationsContent class="profile__news" v-for="i in 5" :key="i" />
+    <PublicationTab class="profile__news" v-for="i in 5" :key="i" />
   </div>
 </template>
 
 <script>
-import PublicationsContent from '@/components/ui/Publications/Publication/PublicationContent.vue'
+import PublicationTab from '@/components/ui/Publications/PublicationTab.vue'
 
 export default {
-  components: { PublicationsContent }
+  components: { PublicationTab }
 }
 </script>
 
