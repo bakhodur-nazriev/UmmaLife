@@ -29,27 +29,44 @@
         <p>Нажмите или перетащите изображение</p>
         <span>Допустимые расширения jpeg, jpg, png</span>
       </div>
-      <AlbumsCarousel v-if="files.length > 0" :files="files" @removeFile="removeFile" />
+      <AlbumsImages
+        v-if="files.length > 0"
+        :files="files"
+        @removeFile="removeFile"
+        :showMore="showMore"
+      />
       <div class="album__form--actions">
-        <button class="album__form--btn submit" type="submit">Сохранить</button>
-        <button class="album__form--btn cancel" type="button" @click="$emit('closeAdd')">
-          Отменить
-        </button>
+        <div class="left">
+          <button class="album__form--btn submit" type="submit">Сохранить</button>
+          <button class="album__form--btn cancel" type="button" @click="$emit('closeAdd')">
+            Отменить
+          </button>
+        </div>
+        <div class="right" @click="showMore = true" v-if="files.length > 6 && !showMore">
+          Посмотреть все ({{ files.length }})
+        </div>
       </div>
     </form>
   </div>
+  <teleport to="body">
+    <AlbumsError v-if="showError" />
+  </teleport>
 </template>
 
 <script>
 import CameraIcon from '@/components/icons/CameraIcon.vue'
 import GalleryAddIcon from '@/components/icons/GalleryAddIcon.vue'
-import AlbumsCarousel from '@/components/albums/AlbumsCarousel.vue'
+import AlbumsImages from '@/components/albums/AlbumsImages.vue'
+import AlbumsError from '@/components/albums/AlbumsError.vue'
+import { sleep } from '@/utils.js'
 export default {
-  components: { CameraIcon, GalleryAddIcon, AlbumsCarousel },
+  components: { CameraIcon, GalleryAddIcon, AlbumsImages, AlbumsError },
   emits: ['closeAdd'],
   data() {
     return {
-      files: []
+      files: [],
+      showMore: false,
+      showError: false
     }
   },
   methods: {
@@ -60,16 +77,27 @@ export default {
       this.uploadFiles(event.dataTransfer.files)
     },
     uploadFiles(files) {
+      this.showError = false
       for (const file of files) {
-        this.files.push({
-          id: this.files.length + 1,
-          src: URL.createObjectURL(file)
-        })
+        if (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png') {
+          this.files.push({
+            id: this.files.length + 1,
+            src: URL.createObjectURL(file)
+          })
+        } else {
+          this.showError = true
+          sleep(2000).then(() => {
+            this.showError = false
+          })
+        }
       }
     },
     removeFile(id) {
       this.files = this.files.filter((file) => file.id !== id)
     }
+  },
+  mounted() {
+    console.clear()
   }
 }
 </script>
@@ -187,7 +215,21 @@ export default {
   }
   &--actions {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 8px;
+    .left {
+      gap: 8px;
+      display: flex;
+    }
+    .right {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 550;
+      line-height: 130%;
+      color: var(--color-hippie-blue);
+      cursor: pointer;
+    }
   }
   &--btn {
     width: 216px;
