@@ -3,7 +3,7 @@
     <div class="albums__carousel--wrapper" :class="{ active: showMore }">
       <div class="albums__carousel--card" v-for="file in files" :key="file.id">
         <img :src="file.src" :alt="file.src" />
-        <div class="remove-file" @click="emit('removeFile', file.id)">
+        <div class="remove-file" @click="$emit('removeFile', file.id)">
           <remove-icon />
         </div>
       </div>
