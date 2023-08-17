@@ -286,6 +286,7 @@ export default {
   box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   background-color: var(--color-white);
+  z-index: 50;
 }
 
 .reaction__window,

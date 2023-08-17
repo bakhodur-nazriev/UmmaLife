@@ -191,7 +191,8 @@
     "search_input": "Поиск",
     "publications_input": "Напиши благое или молчи...",
     "comment_input": "Ваш комментарий...",
-    "question_for_poll": "Вопрос или тема для опроса..."
+    "question_for_poll": "Вопрос или тема для опроса...",
+    "message": "Сообщение..."
   },
   "tabs": {
     "profile_tabs": {

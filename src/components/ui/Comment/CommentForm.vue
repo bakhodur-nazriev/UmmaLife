@@ -27,7 +27,9 @@
           <ClipIcon class="big-clip__icon"/>
         </FileUpload>
 
-        <StickerButtonIcon class="sticker-icon"/>
+        <div class="sticker__button" @click="isOpenStickerWindow">
+          <StickerButtonIcon class="sticker-icon"/>
+        </div>
 
         <SampleDivider class="textarea__right--buttons--divider" />
 
@@ -35,6 +37,24 @@
           <SubmitIcon class="small-submit__icon" />
           <SendIcon class="big-submit__icon"/>
         </button>
+      </div>
+
+      <div class="main-sticker__window" v-if="stickerWindow">
+        <FileUpload class="attach__file" label="file">
+          <SmallClipFileIcon class="small-clip__icon"/>
+        </FileUpload>
+
+        <SampleTextarea
+          :placeholder="`${ $t('placeholders.message')}`"
+        />
+
+        <SampleButton
+          size="12"
+          color="secondary"
+          icon="keyboard"
+        >
+          <KeyboardIcon />
+        </SampleButton>
       </div>
     </div>
   </form>
@@ -49,9 +69,13 @@ import SubmitIcon from '@/components/icons/comment/SubmitIcon.vue'
 import SmallClipFileIcon from '@/components/icons/comment/SmallClipFileIcon.vue'
 import ClipIcon from '@/components/icons/ClipIcon.vue'
 import SendIcon from '@/components/icons/SendIcon.vue'
+import SampleButton from '@/components/ui/SampleButton.vue'
+import KeyboardIcon from '@/components/icons/comment/KeyboardIcon.vue'
 
 export default {
   components: {
+    KeyboardIcon,
+    SampleButton,
     SendIcon,
     ClipIcon,
     SmallClipFileIcon,
@@ -61,11 +85,9 @@ export default {
     FileUpload,
     SampleTextarea
   },
-  data () {
-    return {
-      color: '#49A399'
-    }
-  },
+  data: () => ({
+    stickerWindow: false
+  }),
   methods: {
     adjustTextareaHeight () {
       const textarea = this.$el.querySelector('.form__textarea')
@@ -75,17 +97,33 @@ export default {
       if (textarea.value === '') {
         textarea.style.height = '48px'
       }
-    }
-  },
-  computed: {
-    parentColor () {
-      return this.color
+    },
+    isOpenStickerWindow() {
+      this.stickerWindow = !this.stickerWindow
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
+.main-sticker__window {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background-color: var(--color-gray);
+  width: 100%;
+  height: 100px;
+  z-index: 200;
+  border-radius: 15px 15px 0 0;
+  display: flex;
+  align-items: center;
+}
+
+.sticker__button {
+  cursor: pointer;
+  user-select: none;
+}
+
 .dropdown__button {
   span  {
     color: var(--color-hippie-blue);

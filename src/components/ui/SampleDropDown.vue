@@ -1,18 +1,20 @@
 <template>
-  <div>
-    <button
-      :style="{ color: dropdownColor }"
-      class="dropdown__button"
-      type="button"
-      @click="toggleDropDown"
-    >
-      <span>{{ `${ $t(dropDownTitle) }` }} (255)</span>
-      <div>
-        <Transition name="rotate">
-          <dropdown-icon :class="[ 'rotating-box', { 'rotate': isDropdownOpen }]"/>
-        </Transition>
-      </div>
-    </button>
+  <div class="main__dropdown--section">
+    <div class="dropdown__title-block">
+      <div class="dropdown-line"></div>
+      <button
+        :class="['dropdown__button', `dropdown__button--${ color }`]"
+        type="button"
+        @click="toggleDropDown"
+      >
+        <span>{{ `${ $t(dropDownTitle) }` }} (255)</span>
+        <div>
+          <Transition name="rotate">
+            <dropdown-icon :class="[ 'rotating-box', { 'rotate': isDropdownOpen }]"/>
+          </Transition>
+        </div>
+      </button>
+    </div>
 
     <Transition name="fade">
       <div v-if="isDropdownOpen" class="dropdown">
@@ -42,13 +44,10 @@ export default {
     },
     color: {
       type: String,
-      required: true
+      default: 'primary'
     }
   },
   computed: {
-    dropdownColor () {
-      return this.color
-    }
   },
   components: {
     DropdownIcon
@@ -72,7 +71,20 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.dropdown__title-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.main__dropdown--section {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 12px;
+  flex-direction: column;
+}
+
 .rotating-box {
   transition: transform 0.5s ease;
   transform: rotate(0);
@@ -98,5 +110,16 @@ export default {
   font-size: 16px;
   cursor: pointer;
   padding: 0;
+
+  &--primary {
+    color: var(--color-hippie-blue);
+  }
+}
+
+.dropdown-line {
+  height: 2px;
+  width: 30px;
+  background-color: var(--color-hippie-blue);
+  border-radius: 15px;
 }
 </style>

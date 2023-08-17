@@ -189,7 +189,8 @@
     "search_input": "Search",
     "publications_input": "Write good or be silent...",
     "comment_input": "Your comment...",
-    "question_for_poll": "Poll question or topic... "
+    "question_for_poll": "Poll question or topic... ",
+    "message": "Message..."
   },
   "tabs": {
     "profile_tabs": {

@@ -22,6 +22,17 @@
 
     <SampleDivider class="divider"/>
 
+    <div class="pin-section">
+      <SampleButton
+        color="secondary"
+        :title="`${$t('buttons.pinned_message')}`"
+        size="12"
+        icon="pin"
+      >
+        <PinIcon />
+      </SampleButton>
+    </div>
+
     <div class="author__avatar--section">
       <img src="@/assets/images/reply_avatar.png" alt="">
     </div>
@@ -54,6 +65,17 @@
             ref="replyTextarea"
           />
 
+          <div class="reply__reactions-small" ref="replyReactions">
+            <div
+              class="reply__icon"
+              v-for="(reaction, i) in reactions"
+              :key="i"
+            >
+              <component :is="reaction.icon"/>
+              <span>{{ reaction.count }}</span>
+            </div>
+          </div>
+
           <div class="textarea__right--buttons">
             <FileUpload class="attach__file" label="file">
               <TextareaClipIcon />
@@ -75,8 +97,17 @@
 
       <div class="reply__buttons--section">
         <div class="reply__buttons">
-          <button type="button">{{ $t('buttons.favourite') }}</button>
-          <button type="button" @click="answerComment">{{ $t('buttons.answer') }}</button>
+          <button
+            type="button"
+            class="reply__buttons--favourite">{{ $t('buttons.favourite') }}</button>
+          <button
+            type="button"
+            @click="answerComment"
+            class="reply__buttons--answer"
+          >
+            <SmallCommentIcon/>
+            {{ $t('buttons.answer') }}
+          </button>
         </div>
 
         <div class="reply__reactions" ref="replyReactions">
@@ -86,11 +117,11 @@
             :key="i"
           >
             <component :is="reaction.icon"/>
-            <span>{{ reaction.count }}</span>
+            <span class="reply__icon--count">{{ reaction.count }}</span>
           </div>
-          <div class="reply__reactions--count--block">
-            <span class="reply__reactions--count">999К</span>
-          </div>
+        </div>
+        <div class="reply__reactions--count--block">
+          <span class="reply__reactions--count">999К</span>
         </div>
       </div>
 
@@ -102,17 +133,10 @@
 
       <div v-if="true" class="load__more--reply-answers">
         <SampleDropDown
-          :color="parentColor"
+          color="primary"
           :drop-down-title="`${ $t('dropdown.reply_answer') }`"
         />
       </div>
-    </div>
-    <div class="load__more-section">
-      <SampleDropDown
-        :color="parentColor"
-        class="load__more-button"
-        :drop-down-title="`${ $t('dropdown.download_comment') }`"
-      />
     </div>
   </form>
 </template>
@@ -137,9 +161,15 @@ import TextareaField from '@/components/ui/Fields/TextareaField.vue'
 import SampleDropDown from '@/components/ui/SampleDropDown.vue'
 import CloseFormIcon from '@/components/icons/comment/CloseFormIcon.vue'
 import CommentFilter from '@/components/ui/MenuDetails/CommentFilter.vue'
+import PinIcon from '@/components/icons/comment/PinIcon.vue'
+import SampleButton from '@/components/ui/SampleButton.vue'
+import SmallCommentIcon from '@/components/icons/comment/SmallCommentIcon.vue'
 
 export default {
   components: {
+    SmallCommentIcon,
+    SampleButton,
+    PinIcon,
     CommentFilter,
     CloseFormIcon,
     SampleDropDown,
@@ -168,7 +198,6 @@ export default {
       isActiveAnswer: false,
       isActiveInsideAnswer: false,
       replyAuthorName: 'Courtney Henry',
-      parentColor: '#818181',
       isFilterOpen: false,
       reactions: [
         { id: 1, icon: LikeIcon, count: 1.7 },
@@ -214,8 +243,7 @@ export default {
     answerInsideComment () {
       this.isActiveInsideAnswer = !this.isActiveInsideAnswer
     }
-  },
-  watch: {}
+  }
 }
 </script>
 
@@ -282,7 +310,7 @@ export default {
 
 .reply__form {
   display: flex;
-  align-items: center;
+  align-items: start;
   gap: 16px;
   width: 100%;
 
@@ -314,6 +342,10 @@ export default {
   background-color: var(--color-gallery-second);
   padding: 5px;
   cursor: pointer;
+
+  &--count {
+    display: none;
+  }
 }
 
 .reply__textarea {
@@ -328,7 +360,7 @@ export default {
 .reply__textarea--and--button--section {
   position: relative;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: 16px;
   width: 100%;
 }
@@ -398,7 +430,56 @@ export default {
   justify-content: space-between;
   align-items: center;
 }
+
+.pin-section {
+  display: none;
+}
+
+.reply__reactions-small {
+  display: none;
+}
+
+.reply__buttons--favourite {
+  display: block;
+}
+
+.reply__buttons--answer {
+  display: flex;
+  align-items: center;
+
+  svg {
+    display: none;
+  }
+}
+
 @media (max-width: 576px) {
+  .reply__buttons--answer {
+    gap: 4px;
+
+    svg {
+      display: block;
+    }
+  }
+
+  .pin-section {
+    display: flex;
+    font-size: 12px;
+    width: 100%;
+    cursor: pointer;
+
+    button {
+      all: unset;
+      background-color: var(--color-seashell);
+      padding: 4px 12px 4px 8px;
+      border-radius: 8px;
+      display: flex;
+
+      .btn__icon {
+        margin-right: 4px;
+      }
+    }
+  }
+
   .reply__icon {
     border-radius: 8px;
     background-color: var(--color-white);
@@ -418,6 +499,7 @@ export default {
   .reply__reactions--count--block {
     display: none;
   }
+
   .comment-header {
     &__small {
       width: 100%;
@@ -465,11 +547,14 @@ export default {
   .reply__form {
     flex-direction: column;
     padding: 0 14px 14px;
+    align-items: center;
   }
 
   .reply__textarea--and--button--section {
     flex-direction: column-reverse;
+    align-items: flex-end;
     gap: 4px;
+    padding-left: 42px;
 
     .author__section {
       order: 1;
@@ -493,7 +578,7 @@ export default {
   }
 
   .reply__textarea {
-    padding: 15px 15px 50px;
+    padding: 15px;
   }
 
   .divider {
@@ -525,6 +610,7 @@ export default {
   }
 
   .reply__reactions {
+    display: none;
     position: absolute;
     bottom: 35px;
     left: 56px;
@@ -539,15 +625,30 @@ export default {
   }
 
   .reply__textarea--block {
-    padding-left: 42px;
+    background-color: var(--color-seashell);
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+
+    .reply__reactions-small {
+      padding: 0 15px 15px ;
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
   }
 
   .reply__buttons--section {
     padding-left: 42px;
+    margin-top: 8px;
   }
 
   .load__more--reply-answers {
     padding-left: 42px;
+  }
+
+  .reply__buttons--favourite {
+    display: none;
   }
 }
 
