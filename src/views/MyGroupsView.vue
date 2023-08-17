@@ -1,17 +1,15 @@
 <template>
   <main-layout>
-    <h1>My Groups Page!</h1>
+    <GroupsContainer />
   </main-layout>
 </template>
 
 <script>
 import MainLayout from '@/components/layouts/MainLayout.vue'
+import GroupsContainer from '@/components/groups/GroupsContainer.vue'
 export default {
-  components: { MainLayout }
-
+  components: { MainLayout, GroupsContainer }
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -470,3 +470,34 @@ export const users = [
     ]
   }
 ]
+
+export const groups = [
+  {
+    id: 1,
+    title: 'Web-design, UX/UI design, Graphic design',
+    users_count: 140781,
+    img: '/images/groups/group-1.jpg',
+    isSubs: false
+  },
+  {
+    id: 2,
+    title: 'Web-design, UX/UI design',
+    users_count: 140781,
+    img: '/images/groups/group-2.jpg',
+    isSubs: true
+  },
+  {
+    id: 3,
+    title: 'Web-design',
+    users_count: 140781,
+    img: '/images/groups/group-3.jpg',
+    isSubs: false
+  },
+  {
+    id: 4,
+    title: 'UX/UI design, Graphic design',
+    users_count: 140781,
+    img: '/images/groups/group-4.jpg',
+    isSubs: false
+  }
+]
