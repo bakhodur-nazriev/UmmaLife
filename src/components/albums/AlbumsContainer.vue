@@ -1,8 +1,11 @@
 <template>
   <div class="albums__container">
-    <AlbumsMain v-if="isMainOpen" @openAdd="openAdd('main')" @openCard="openCard" />
+    <AlbumsMain v-if="isMainOpen" @openAdd="openAdd()" @openCard="openCard" />
     <AlbumsAdd v-else-if="isAddOpen" @closeAdd="closeAdd" />
-    <AlbumsCard v-else-if="isCardOpen" @openAdd="openAdd('card')" />
+    <template v-else-if="isCardOpen">
+      <AlbumsTop @closeAdd="closeAdd" backTo="true" />
+      <AlbumsCard @openAdd="openAdd('card')" />
+    </template>
   </div>
 </template>
 
@@ -10,32 +13,26 @@
 import AlbumsCard from '@/components/albums/AlbumsCard.vue'
 import AlbumsAdd from '@/components/albums/AlbumsAdd.vue'
 import AlbumsMain from '@/components/albums/AlbumsMain.vue'
+import AlbumsTop from '@/components/albums/AlbumsTop.vue'
 export default {
-  components: { AlbumsCard, AlbumsAdd, AlbumsMain },
+  components: { AlbumsCard, AlbumsAdd, AlbumsMain, AlbumsTop },
   data() {
     return {
       isAddOpen: false,
       isCardOpen: false,
-      isMainOpen: true,
-      state: 'main'
+      isMainOpen: true
     }
   },
   methods: {
-    openAdd(state) {
+    openAdd() {
       this.isAddOpen = true
       this.isCardOpen = false
       this.isMainOpen = false
-      this.state = state
     },
     closeAdd() {
       this.isAddOpen = false
-      if (this.state === 'main') {
-        this.isCardOpen = false
-        this.isMainOpen = true
-      } else {
-        this.isCardOpen = true
-        this.isMainOpen = false
-      }
+      this.isCardOpen = false
+      this.isMainOpen = true
     },
     openCard() {
       this.isCardOpen = true
@@ -49,5 +46,8 @@ export default {
 <style lang="scss" scoped>
 .albums__container {
   padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 </style>

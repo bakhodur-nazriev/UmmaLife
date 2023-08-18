@@ -36,6 +36,7 @@
         :showMore="showMore"
       />
       <div class="album__form--actions">
+        <AlbumSelect />
         <div class="left">
           <button class="album__form--btn submit" type="submit">Сохранить</button>
           <button class="album__form--btn cancel" type="button" @click="$emit('closeAdd')">
@@ -54,19 +55,27 @@
 </template>
 
 <script>
+/* eslint-disable */
 import CameraIcon from '@/components/icons/CameraIcon.vue'
 import GalleryAddIcon from '@/components/icons/GalleryAddIcon.vue'
 import AlbumsImages from '@/components/albums/AlbumsImages.vue'
 import AlbumsError from '@/components/albums/AlbumsError.vue'
+import AlbumSelect from '@/components/albums/AlbumSelect.vue'
+
 import { sleep } from '@/utils.js'
 export default {
-  components: { CameraIcon, GalleryAddIcon, AlbumsImages, AlbumsError },
+  components: { CameraIcon, GalleryAddIcon, AlbumsImages, AlbumsError, AlbumSelect },
   emits: ['closeAdd'],
   data() {
     return {
       files: [],
       showMore: false,
       showError: false
+    }
+  },
+  computed: {
+    selected() {
+      return this.options[0]
     }
   },
   methods: {
@@ -217,7 +226,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
     .left {
       gap: 8px;
       display: flex;
@@ -232,11 +241,11 @@ export default {
     }
   }
   &--btn {
-    width: 216px;
+    width: 163px;
     border: none;
     outline: none;
-    border-radius: 50px;
-    padding: 15px;
+    border-radius: 10px;
+    padding: 12px;
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
