@@ -35,6 +35,9 @@
         @removeFile="removeFile"
         :showMore="showMore"
       />
+      <div class="right" @click="showMore = true" v-if="files.length > 6 && !showMore">
+        Посмотреть все ({{ files.length }})
+      </div>
       <div class="album__form--actions">
         <AlbumSelect />
         <div class="left">
@@ -42,9 +45,6 @@
           <button class="album__form--btn cancel" type="button" @click="$emit('closeAdd')">
             Отменить
           </button>
-        </div>
-        <div class="right" @click="showMore = true" v-if="files.length > 6 && !showMore">
-          Посмотреть все ({{ files.length }})
         </div>
       </div>
     </form>
@@ -143,6 +143,14 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  .right {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 550;
+    line-height: 130%;
+    color: var(--color-hippie-blue);
+    cursor: pointer;
+  }
   &--wrapper {
     display: grid;
     gap: 20px;
@@ -230,14 +238,6 @@ export default {
     .left {
       gap: 8px;
       display: flex;
-    }
-    .right {
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 550;
-      line-height: 130%;
-      color: var(--color-hippie-blue);
-      cursor: pointer;
     }
   }
   &--btn {
