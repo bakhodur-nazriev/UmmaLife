@@ -24,6 +24,8 @@ import NewsView from '@/views/NewsView.vue'
 import SavedView from '@/views/SavedView.vue'
 import VideoView from '@/views/VideoView.vue'
 import SettingsView from '@/views/SettingsView.vue'
+import MyGroupsDetails from '@/views/MyGroupsDetails.vue'
+import MyGroupsContainer from '@/views/MyGroupsContainer.vue'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const baseDomain = isProduction ? 'front1.ummalife.dev' : 'localhost'
@@ -180,6 +182,26 @@ const routes = [
     path: '/:lang?/my-groups',
     name: 'my-groups',
     component: MyGroupsView,
+    children: [
+      {
+        path: '',
+        name: 'my-groups-container',
+        component: MyGroupsContainer,
+        meta: {
+          title: i18n.global.t('meta_title.my_audio'),
+          requiresAuth: true
+        }
+      },
+      {
+        path: ':id',
+        name: 'my-groups-details',
+        component: MyGroupsDetails,
+        meta: {
+          title: i18n.global.t('meta_title.my_audio'),
+          requiresAuth: true
+        }
+      }
+    ],
     meta: {
       title: i18n.global.t('meta_title.my_groups'),
       requiresAuth: true
