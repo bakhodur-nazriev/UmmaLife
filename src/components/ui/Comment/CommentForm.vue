@@ -40,21 +40,27 @@
       </div>
 
       <div class="main-sticker__window" v-if="stickerWindow">
-        <FileUpload class="attach__file" label="file">
-          <SmallClipFileIcon class="small-clip__icon"/>
-        </FileUpload>
+        <div class="main-sticker__window-header">
+          <FileUpload class="attach__file" label="file">
+            <SmallClipFileIcon class="small-clip__icon"/>
+          </FileUpload>
 
-        <SampleTextarea
-          :placeholder="`${ $t('placeholders.message')}`"
-        />
+          <SampleTextarea
+            class="main-sticker__window-header-textarea"
+            :placeholder="`${ $t('placeholders.message')}`"
+          />
 
-        <SampleButton
-          size="12"
-          color="secondary"
-          icon="keyboard"
-        >
-          <KeyboardIcon />
-        </SampleButton>
+          <SampleButton
+            size="12"
+            color="tertiary"
+            icon="keyboard"
+            class="keyboard-button"
+          >
+            <KeyboardIcon />
+          </SampleButton>
+        </div>
+
+        <SampleDivider />
       </div>
     </div>
   </form>
@@ -114,9 +120,22 @@ export default {
   width: 100%;
   height: 100px;
   z-index: 200;
-  border-radius: 15px 15px 0 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
+
+  &-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+
+    &-textarea {
+      font-size: 14px;
+      height: 40px;
+      width: 100%;
+    }
+  }
 }
 
 .sticker__button {
@@ -218,6 +237,14 @@ export default {
 }
 
 @media (max-width: 576px) {
+    .keyboard-button {
+    padding: 0;
+    display: flex;
+    span {
+      margin-right: 0;
+    }
+  }
+
   .small-clip__icon,
   .small-submit__icon {
     display: flex;

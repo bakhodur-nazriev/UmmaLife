@@ -218,6 +218,9 @@
       "photo": "Photo",
       "video": "Video",
       "audio": "Audio"
+    },
+    "stickers": {
+      "title": "Stickers"
     }
   },
   "video": {
