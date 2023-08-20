@@ -3,7 +3,9 @@
     <div class="group__card--info">
       <img :src="group.img" :alt="group.title" />
       <div class="group__card--wrapper">
-        <div class="group__card--title">{{ group.title }}</div>
+        <router-link :to="`/my-groups/${group.id}`" class="group__card--title">{{
+          group.title
+        }}</router-link>
         <div class="group__card--subs">{{ group.users_count }} подписчиков</div>
       </div>
     </div>
@@ -58,6 +60,7 @@ export default {
     line-height: normal;
     color: var(--color-mine-shaft);
     margin-bottom: 4px;
+    text-decoration: none;
   }
   &--subs {
     font-size: 14px;

@@ -501,3 +501,46 @@ export const groups = [
     isSubs: false
   }
 ]
+
+export const groupsUsers = [
+  {
+    id: 1,
+    name: 'Мухаммад Мухаммадов',
+    img: '/images/users/jeff.png',
+    desc: 'Описание в профиле пользователя, где он рассказывает о себе, своих достижениях и вообще обо всём чем он хотел всём чем он хотел',
+    isSubs: false,
+    hasBadge: false,
+    isPremiuim: false,
+    isVerified: false
+  },
+  {
+    id: 2,
+    name: 'Александр Сидоренко',
+    img: '/images/users/jhon.png',
+    desc: null,
+    isSubs: false,
+    hasBadge: false,
+    isPremiuim: true,
+    isVerified: true
+  },
+  {
+    id: 3,
+    name: 'Тимур Алиев',
+    img: '/images/users/jozef.png',
+    desc: 'Описание в профиле пользователя, где он рассказывает о себе, своих достижениях и вообще обо всём чем он хотел всём чем он хотел',
+    isSubs: false,
+    hasBadge: true,
+    isPremiuim: true,
+    isVerified: true
+  },
+  {
+    id: 3,
+    name: 'muvahhid',
+    img: '/images/users/jozef1.png',
+    desc: null,
+    isSubs: false,
+    hasBadge: true,
+    isPremiuim: false,
+    isVerified: true
+  }
+]

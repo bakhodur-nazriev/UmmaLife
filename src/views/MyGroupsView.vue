@@ -1,14 +1,13 @@
 <template>
   <main-layout>
-    <GroupsContainer />
+    <router-view />
   </main-layout>
 </template>
 
 <script>
 import MainLayout from '@/components/layouts/MainLayout.vue'
-import GroupsContainer from '@/components/groups/GroupsContainer.vue'
 export default {
-  components: { MainLayout, GroupsContainer }
+  components: { MainLayout }
 }
 </script>
 
