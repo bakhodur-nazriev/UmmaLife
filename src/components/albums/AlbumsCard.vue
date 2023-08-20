@@ -18,16 +18,30 @@
       для себя этот альбом и проникнитесь его неповторимым очарованием.
     </div>
     <div class="albums__card--images">
-      <div class="image" :class="`image-${i}`" v-for="i in 10" :key="i">
+      <a
+        data-fancybox
+        :href="`/images/albums/album-${i}.jpg`"
+        class="image"
+        :class="`image-${i}`"
+        v-for="i in 10"
+        :key="i"
+      >
         <img :src="`/images/albums/album-${i}.jpg`" :alt="`album-${i}`" />
-      </div>
+      </a>
     </div>
   </div>
 </template>
 
 <script>
+import { Fancybox } from '@fancyapps/ui'
+
 export default {
-  emits: ['openAdd']
+  emits: ['openAdd'],
+  mounted() {
+    Fancybox.bind('[data-fancybox]', {
+      wheel: 'zoom'
+    })
+  }
 }
 </script>
 
