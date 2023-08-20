@@ -293,7 +293,10 @@
         "placeholder": "What are you listening"
       }
     },
-    "audio": "My audios"
+    "audio": "My audios","stickers": {
+      "popular_stickers": "Popular stickers",
+      "featured_stickers": "Featured stickers"
+    }
   },
   "dropdown": {
     "reply_answer": "View answers",

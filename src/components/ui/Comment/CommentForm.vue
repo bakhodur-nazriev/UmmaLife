@@ -61,6 +61,75 @@
         </div>
 
         <SampleDivider />
+
+        <div class="stickers-block">
+          <div class="stickers-filter">
+            <TimeSmallIcon />
+            <FavouriteSmallIcon />
+          </div>
+
+          <ul class="stickers-pack__item">
+            <li><img src="@/assets/images/stickers/sticker.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker_2.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker_3.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker_4.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker_2.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker_3.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker_4.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker_2.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker_3.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker_4.png" alt=""></li>
+          </ul>
+        </div>
+
+        <SampleDivider />
+
+        <div class="main__search--block">
+          <LoupeIcon class="search__icon" />
+          <input class="base__search--input" :placeholder="$t('placeholders.search_input')" />
+        </div>
+
+        <div class="popular-stickers__section">
+          <p>{{ $t('labels.stickers.popular_stickers') }}</p>
+        </div>
+
+        <div class="">
+          <ul class="popular-stickers__pack">
+            <li><img src="@/assets/images/stickers/sticker.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker_2.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker_3.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker_4.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker_2.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker_3.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker_4.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker_2.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker_3.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/sticker_4.png" alt=""></li>
+          </ul>
+        </div>
+
+        <div class="featured-stickers__section">
+          <p>{{ $t('labels.stickers.featured_stickers') }}</p>
+        </div>
+
+        <div class="">
+          <ul class="featured-stickers__pack">
+            <li><img src="@/assets/images/stickers/popular_1.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/popular_2.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/popular_3.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/popular_4.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/popular_5.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/popular_1.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/popular_2.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/popular_3.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/popular_4.png" alt=""></li>
+            <li><img src="@/assets/images/stickers/popular_5.png" alt=""></li>
+          </ul>
+        </div>
       </div>
     </div>
   </form>
@@ -77,9 +146,15 @@ import ClipIcon from '@/components/icons/ClipIcon.vue'
 import SendIcon from '@/components/icons/SendIcon.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import KeyboardIcon from '@/components/icons/comment/KeyboardIcon.vue'
+import FavouriteSmallIcon from '@/components/icons/comment/FavouriteSmallIcon.vue'
+import TimeSmallIcon from '@/components/icons/comment/TimeSmallIcon.vue'
+import LoupeIcon from '@/components/icons/LoupeIcon.vue'
 
 export default {
   components: {
+    LoupeIcon,
+    TimeSmallIcon,
+    FavouriteSmallIcon,
     KeyboardIcon,
     SampleButton,
     SendIcon,
@@ -92,7 +167,7 @@ export default {
     SampleTextarea
   },
   data: () => ({
-    stickerWindow: false
+    stickerWindow: true
   }),
   methods: {
     adjustTextareaHeight () {
@@ -116,24 +191,29 @@ export default {
   position: absolute;
   left: 0;
   bottom: 0;
-  background-color: var(--color-gray);
+  background-color: var(--color-white);
+  filter: drop-shadow(10px 0px 40px rgba(108, 108, 108, 0.15));
   width: 100%;
-  height: 100px;
+  height: 500px;
   z-index: 200;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 16px 16px 0 16px;
 
   &-header {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 16px;
     width: 100%;
 
     &-textarea {
       font-size: 14px;
       height: 40px;
       width: 100%;
+      border-radius: 0;
+      background: none;
+      padding-left: 0;
     }
   }
 }
@@ -237,11 +317,119 @@ export default {
 }
 
 @media (max-width: 576px) {
-    .keyboard-button {
+  .popular-stickers__pack {
+    list-style: none;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+
+    li {
+      width: 28px;
+      height: 28px;
+      img {
+        border-radius: 2px;
+      }
+    }
+  }
+
+  .featured-stickers__pack {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    li {
+      width: 62px;
+      height: 62px;
+    }
+  }
+
+  .base__search--input {
+    border-radius: 10px;
+    background-color: var(--color-seashell);
+    color: var(--color-mine-shaft);
+    border: none;
+    outline: none;
+    font-size: 14px;
+    padding: 12px 12px 12px 48px;
+    width: 100%;
+
+    &::placeholder {
+      color: var(--color-silver-chalice);
+    }
+  }
+
+  .main__search--block {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .search__icon {
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      transform: translateY(-50%);
+      display: flex;
+    }
+  }
+
+  .popular-stickers__section,
+  .featured-stickers__section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    p {
+      font-size: 14px;
+      color: var(--color-secondary);
+      margin-bottom: 12px;
+      margin-top: 20px;
+    }
+  }
+
+  .keyboard-button {
     padding: 0;
     display: flex;
-    span {
-      margin-right: 0;
+  }
+
+  .stickers-block {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+
+    .stickers-filter {
+      display: flex;
+      gap: 12px;
+    }
+
+    .stickers-pack__item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex-wrap: wrap;
+
+      li {
+        display: flex;
+        width: 28px;
+        height: 28px;
+        cursor: pointer;
+
+        img {
+          border-radius: 2px;
+        }
+      }
+    }
+
+    .main__search--block {
+      width: 100%;
     }
   }
 

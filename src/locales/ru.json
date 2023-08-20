@@ -294,7 +294,11 @@
         "placeholder": "Что слушаете?"
       }
     },
-    "audio": "Мои аудио"
+    "audio": "Мои аудио",
+    "stickers": {
+      "popular_stickers": "Популярные стикерпаки",
+      "featured_stickers": "Избранные стикеры"
+    }
   },
   "dropdown": {
     "reply_answer": "Посмотреть ответы",
