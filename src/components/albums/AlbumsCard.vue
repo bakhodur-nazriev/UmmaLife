@@ -4,7 +4,15 @@
       <div class="albums__card--left">
         <img class="albums__card--preview" src="/images/users/jeff.png" alt="jeff" />
         <div class="albums__card--info">
-          <div class="albums__card--title">My favourite summer</div>
+          <div
+            class="albums__card--title"
+            style="cursor: pointer"
+            v-if="mainCard"
+            @click="$emit('openCard')"
+          >
+            My favourite summer
+          </div>
+          <div class="albums__card--title" v-else>My favourite summer</div>
           <div class="albums__card--date">Создано: 20.08.2022</div>
         </div>
       </div>
@@ -17,13 +25,13 @@
       Погрузитесь в уникальные моменты, запечатленные профессиональным глазом фотографа. Откройте
       для себя этот альбом и проникнитесь его неповторимым очарованием.
     </div>
-    <div class="albums__card--images">
+    <div class="albums__card--images" :class="{ 'main-card': mainCard }">
       <a
         data-fancybox
         :href="`/images/albums/album-${i}.jpg`"
         class="image"
-        :class="`image-${i}`"
-        v-for="i in 10"
+        :class="!mainCard ? `image-${i}` : ''"
+        v-for="i in isMainCard"
         :key="i"
       >
         <img :src="`/images/albums/album-${i}.jpg`" :alt="`album-${i}`" />
@@ -36,7 +44,13 @@
 import { Fancybox } from '@fancyapps/ui'
 
 export default {
-  emits: ['openAdd'],
+  props: ['mainCard'],
+  emits: ['openAdd', 'openCard'],
+  computed: {
+    isMainCard() {
+      return this.mainCard ? 12 : 10
+    }
+  },
   mounted() {
     Fancybox.bind('[data-fancybox]', {
       wheel: 'zoom'
@@ -128,7 +142,11 @@ export default {
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: 151px 111px 161px 161px;
     gap: 8px;
-
+    &.main-card {
+      grid-template-columns: repeat(6, 108px);
+      grid-template-rows: 108px 108px;
+      gap: 4px;
+    }
     .image {
       width: 100%;
       height: 100%;
