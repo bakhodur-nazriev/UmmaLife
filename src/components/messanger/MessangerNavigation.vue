@@ -59,5 +59,8 @@ export default {
     padding: 0;
     margin: 0;
   }
+  &__search {
+    width: calc(100% - 64px);
+  }
 }
 </style>

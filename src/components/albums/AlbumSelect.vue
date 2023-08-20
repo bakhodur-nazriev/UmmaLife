@@ -114,7 +114,10 @@ const closeHandler = () => {
     background: var(--color-white);
     border-radius: 10px;
     box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    @media (max-width: 1600px) {
+      left: unset;
+      right: -100px;
+    }
     ul {
       list-style: none;
       padding: 8px;

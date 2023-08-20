@@ -86,7 +86,7 @@ export default {
   color: var(--color-mine-shaft);
   padding-bottom: 16px;
   font-weight: 600;
-  z-index: 100;
+  z-index: 5;
 }
 
 .tabs__header-item.active::after {
