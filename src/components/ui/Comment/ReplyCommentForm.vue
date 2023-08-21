@@ -9,9 +9,7 @@
         </div>
         <div class="comment-header__right-buttons">
           <div class="filter-form__button" @click="toggleFilter">
-            <CommentFilter
-              :is-filter-window-open="isFilterOpen"
-            />
+            <CommentFilter :is-filter-window-open="isFilterOpen" />
           </div>
           <div class="close-form__button" @click="closeCommentWindow">
             <CloseFormIcon />
@@ -20,7 +18,7 @@
       </div>
     </div>
 
-    <SampleDivider class="divider"/>
+    <SampleDivider class="divider" />
 
     <div class="pin-section">
       <SampleButton
@@ -34,13 +32,13 @@
     </div>
 
     <div class="author__avatar--section">
-      <img src="@/assets/images/reply_avatar.png" alt="">
+      <img src="@/assets/images/reply_avatar.png" alt="" />
     </div>
     <div class="reply__field--section">
       <div class="reply-header">
         <div class="reply__author--section">
           <div class="author__avatar--section-small">
-            <img src="@/assets/images/reply_avatar.png" alt="">
+            <img src="@/assets/images/reply_avatar.png" alt="" />
           </div>
           <span class="author__name">{{ replyAuthorName }}</span>
           <span class="author__time">2 часа назад</span>
@@ -57,7 +55,7 @@
       <div class="reply__textarea--and--button--section">
         <div class="reply__textarea--block">
           <SampleTextarea
-            :placeholder="`${ $t('placeholders.comment_input') }`"
+            :placeholder="`${$t('placeholders.comment_input')}`"
             @input="adjustTextareaHeight"
             v-model="textareaValue"
             :value="textareaValue"
@@ -66,12 +64,8 @@
           />
 
           <div class="reply__reactions-small" ref="replyReactions">
-            <div
-              class="reply__icon"
-              v-for="(reaction, i) in reactions"
-              :key="i"
-            >
-              <component :is="reaction.icon"/>
+            <div class="reply__icon" v-for="(reaction, i) in reactions" :key="i">
+              <component :is="reaction.icon" />
               <span>{{ reaction.count }}</span>
             </div>
           </div>
@@ -97,26 +91,18 @@
 
       <div class="reply__buttons--section">
         <div class="reply__buttons">
-          <button
-            type="button"
-            class="reply__buttons--favourite">{{ $t('buttons.favourite') }}</button>
-          <button
-            type="button"
-            @click="answerComment"
-            class="reply__buttons--answer"
-          >
-            <SmallCommentIcon/>
+          <button type="button" class="reply__buttons--favourite">
+            {{ $t('buttons.favourite') }}
+          </button>
+          <button type="button" @click="answerComment" class="reply__buttons--answer">
+            <SmallCommentIcon />
             {{ $t('buttons.answer') }}
           </button>
         </div>
 
         <div class="reply__reactions" ref="replyReactions">
-          <div
-            class="reply__icon"
-            v-for="(reaction, i) in reactions"
-            :key="i"
-          >
-            <component :is="reaction.icon"/>
+          <div class="reply__icon" v-for="(reaction, i) in reactions" :key="i">
+            <component :is="reaction.icon" />
             <span class="reply__icon--count">{{ reaction.count }}</span>
           </div>
         </div>
@@ -126,16 +112,13 @@
       </div>
 
       <div v-if="isActiveAnswer" class="active__reply--field">
-        <img src="@/assets/images/comment_avatar.png" width="48" height="48" alt="">
+        <img src="@/assets/images/comment_avatar.png" width="48" height="48" alt="" />
 
-        <TextareaField :reply-author-name="replyAuthorName + ', '"/>
+        <TextareaField :reply-author-name="replyAuthorName + ', '" />
       </div>
 
       <div v-if="true" class="load__more--reply-answers">
-        <SampleDropDown
-          color="primary"
-          :drop-down-title="`${ $t('dropdown.reply_answer') }`"
-        />
+        <SampleDropDown color="primary" :drop-down-title="`${$t('dropdown.reply_answer')}`" />
       </div>
     </div>
   </form>
@@ -190,10 +173,12 @@ export default {
     LikeIcon,
     SampleTextarea
   },
-  data () {
+  data() {
     return {
-      textareaValue: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur assumenda blanditiis corporis deserunt doloribus ea eaque eos esse eveniet exercitationem, fuga iure laudantium libero maiores maxime natus nemo nostrum optio perferendis porro quas, qui, quia quod rerum saepe soluta sunt tenetur? Ab aut, dignissimos dolores esse excepturi expedita facilis fuga iusto modi nesciunt possimus quasi quos reiciendis.',
-      textareaInsideValue: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, possimus!',
+      textareaValue:
+        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur assumenda blanditiis corporis deserunt doloribus ea eaque eos esse eveniet exercitationem, fuga iure laudantium libero maiores maxime natus nemo nostrum optio perferendis porro quas, qui, quia quod rerum saepe soluta sunt tenetur? Ab aut, dignissimos dolores esse excepturi expedita facilis fuga iusto modi nesciunt possimus quasi quos reiciendis.',
+      textareaInsideValue:
+        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, possimus!',
       isReplyMenuOpen: false,
       isActiveAnswer: false,
       isActiveInsideAnswer: false,
@@ -212,11 +197,11 @@ export default {
       ]
     }
   },
-  mounted () {
+  mounted() {
     this.adjustTextareaHeight()
   },
   methods: {
-    adjustTextareaHeight () {
+    adjustTextareaHeight() {
       const textarea = this.$el.querySelector('.reply__textarea')
 
       if (textarea.value.trim() !== '') {
@@ -228,19 +213,19 @@ export default {
         textarea.style.height = '48px'
       }
     },
-    toggleReplyMenu () {
+    toggleReplyMenu() {
       this.isReplyMenuOpen = !this.isReplyMenuOpen
     },
     toggleFilter() {
       this.isFilterOpen = !this.isFilterOpen
     },
-    answerComment () {
+    answerComment() {
       this.isActiveAnswer = !this.isActiveAnswer
     },
     closeCommentWindow() {
       this.$emit('close-comment-window', false)
     },
-    answerInsideComment () {
+    answerInsideComment() {
       this.isActiveInsideAnswer = !this.isActiveInsideAnswer
     }
   }
@@ -249,7 +234,7 @@ export default {
 
 <style scoped lang="scss">
 .horizontal-line {
-  background-color: #9D9D9D;
+  background-color: #9d9d9d;
   height: 2px;
   border-radius: 50px;
   width: 28px;
@@ -310,7 +295,7 @@ export default {
 
 .reply__form {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   gap: 16px;
   width: 100%;
 
@@ -370,7 +355,7 @@ export default {
 }
 
 .author__time {
-  color: var(--color-silver-chalice)
+  color: var(--color-silver-chalice);
 }
 
 .reply__buttons {
@@ -631,7 +616,7 @@ export default {
     border-radius: 10px;
 
     .reply__reactions-small {
-      padding: 0 15px 15px ;
+      padding: 0 15px 15px;
       display: flex;
       gap: 4px;
       flex-wrap: wrap;

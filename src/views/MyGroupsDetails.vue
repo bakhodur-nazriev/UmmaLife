@@ -1,15 +1,27 @@
 <template>
   <div class="groups__wrapper">
-    <MyGroupsDetailsContent />
+    <router-view />
     <MyGroupsDetailsInfo />
   </div>
 </template>
 
 <script>
-import MyGroupsDetailsContent from '@/components/groups/details/MyGroupsDetailsContent.vue'
 import MyGroupsDetailsInfo from '@/components/groups/details/MyGroupsDetailsInfo.vue'
+import StickySidebar from 'sticky-sidebar-v2'
 
-export default { components: { MyGroupsDetailsContent, MyGroupsDetailsInfo } }
+export default {
+  components: { MyGroupsDetailsInfo },
+  mounted() {
+    /* eslint-disable */
+    new StickySidebar('.profile', {
+      topSpacing: 100,
+      bottomSpacing: 20,
+      containerSelector: '.groups__wrapper',
+      innerWrapperSelector: '.profile__inner',
+      scrollContainer: '.main__content'
+    })
+  }
+}
 </script>
 
 <style lang="scss" scoped>
