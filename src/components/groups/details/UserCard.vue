@@ -12,19 +12,25 @@
         <div class="card__info--desc" v-if="user.desc">{{ user.desc }}</div>
       </div>
     </div>
-    <button class="card__btn">Подписаться</button>
+    <button class="card__btn" v-if="!controls">Подписаться</button>
+    <div class="card__actions" v-else>
+      <button class="card__btn"><PlusIcon />Админ</button>
+      <button class="card__btn delete">Удалить</button>
+    </div>
   </div>
 </template>
 
 <script>
 import BageIcon from '@/components/icons/BageIcon.vue'
 import PremiumIcon from '@/components/icons/PremiumIcon.vue'
+import PlusIcon from '@/components/icons/PlusIcon.vue'
 
 export default {
   props: {
-    user: Object
+    user: Object,
+    controls: Boolean
   },
-  components: { BageIcon, PremiumIcon }
+  components: { BageIcon, PremiumIcon, PlusIcon }
 }
 </script>
 
@@ -34,6 +40,26 @@ export default {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  &__actions {
+    display: flex;
+    gap: 8px;
+    .card__btn {
+      width: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      svg {
+        width: 20px;
+        height: 20px;
+        margin-left: -10px;
+      }
+      &.delete {
+        background: var(--color-seashell);
+        color: var(--color-valencia);
+      }
+    }
+  }
   &__left {
     display: flex;
     align-items: center;

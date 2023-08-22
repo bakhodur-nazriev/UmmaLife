@@ -28,6 +28,7 @@ import MyGroupsDetails from '@/views/MyGroupsDetails.vue'
 import MyGroupsContainer from '@/views/MyGroupsContainer.vue'
 import MyGroupsUsers from '@/views/MyGroupsUsers.vue'
 import MyGroupsPublications from '@/views/MyGroupsPublications.vue'
+import MyGroupsSettings from '@/views/MyGroupsSettings.vue'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const baseDomain = isProduction ? 'front1.ummalife.dev' : 'localhost'
@@ -184,13 +185,26 @@ const routes = [
     path: '/:lang?/my-groups',
     name: 'my-groups',
     component: MyGroupsView,
+    meta: {
+      title: i18n.global.t('meta_title.my_groups'),
+      requiresAuth: true
+    },
     children: [
       {
         path: '',
         name: 'my-groups-container',
         component: MyGroupsContainer,
         meta: {
-          title: i18n.global.t('meta_title.my_audio'),
+          title: i18n.global.t('meta_title.my_groups'),
+          requiresAuth: true
+        }
+      },
+      {
+        path: 'settings',
+        name: 'my-groups-settings',
+        component: MyGroupsSettings,
+        meta: {
+          title: i18n.global.t('meta_title.my_groups'),
           requiresAuth: true
         }
       },
@@ -199,7 +213,7 @@ const routes = [
         name: 'my-groups-details',
         component: MyGroupsDetails,
         meta: {
-          title: i18n.global.t('meta_title.my_audio'),
+          title: i18n.global.t('meta_title.my_groups'),
           requiresAuth: true
         },
         children: [
@@ -208,7 +222,7 @@ const routes = [
             name: 'my-groups-publications',
             component: MyGroupsPublications,
             meta: {
-              title: i18n.global.t('meta_title.my_audio'),
+              title: i18n.global.t('meta_title.my_groups'),
               requiresAuth: true
             }
           },
@@ -217,17 +231,13 @@ const routes = [
             name: 'my-groups-users',
             component: MyGroupsUsers,
             meta: {
-              title: i18n.global.t('meta_title.my_audio'),
+              title: i18n.global.t('meta_title.my_groups'),
               requiresAuth: true
             }
           }
         ]
       }
-    ],
-    meta: {
-      title: i18n.global.t('meta_title.my_groups'),
-      requiresAuth: true
-    }
+    ]
   },
   {
     path: '/:lang?/my-page',
