@@ -37,24 +37,24 @@
           сервисы и IT-безопасность.
         </div>
       </div>
-      <ul class="profile__stats">
-        <li class="profile__stats--item">
+      <div class="profile__stats">
+        <router-link :to="{ name: 'my-groups-users' }" class="profile__stats--item">
           <span>Участники</span>
           <p>1032</p>
-        </li>
-        <li class="profile__stats--item">
+        </router-link>
+        <a href="#" class="profile__stats--item">
           <span>Аудио</span>
           <p>1011</p>
-        </li>
-        <li class="profile__stats--item">
+        </a>
+        <a href="#" class="profile__stats--item">
           <span>Посты</span>
           <p>2064</p>
-        </li>
-        <li class="profile__stats--item">
+        </a>
+        <a href="#" class="profile__stats--item">
           <span>Фото</span>
           <p>15586</p>
-        </li>
-      </ul>
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -209,6 +209,7 @@ import GlobalSilverIcon from '@/components/icons/profile/GlobalSilverIcon.vue'
       display: flex;
       align-items: center;
       gap: 16px;
+      text-decoration: none;
       &:not(:last-child) {
         margin-bottom: 24px;
       }
