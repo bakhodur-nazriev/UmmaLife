@@ -1,19 +1,48 @@
 <template>
   <div class="profile">
     <div class="profile__inner">
+      <div class="profile__cover">
+        <img
+          :src="coverImage ? coverImage : '/images/message/message-img.jpg'"
+          alt="video_example"
+          class="profile__cover--img"
+        />
+
+        <div class="profile__cover--actions">
+          <button class="profile__cover--btn profile__cover--change">
+            <EditImageIcon />
+            <span>Изменить обложку</span>
+            <input
+              type="file"
+              accept="image/png, image/jpg, image/jpeg"
+              class="profile__cover--input"
+              @change="inputHandler($event, 'cover')"
+            />
+          </button>
+          <button class="profile__cover--btn profile__cover--delete">
+            <DeleteIcon />
+          </button>
+        </div>
+      </div>
       <div class="profile__box">
         <div class="profile__top">
           <div class="profile__top--img">
-            <img src="@/assets/images/ProfilePic.png" alt="Article_Author" />
+            <img
+              :src="profileImage ? profileImage : '/images/users/jeff.png'"
+              alt="Article_Author"
+            />
+            <input
+              type="file"
+              accept="image/png, image/jpg, image/jpeg"
+              @change="inputHandler($event, 'profile')"
+            />
+            <CameraIcon :white="true" />
           </div>
           <div class="profile__top--info">
             <div class="profile__top--name">Первый технологичный</div>
             <div class="profile__top--account">@abrahamavich</div>
           </div>
         </div>
-        <button class="profile__edit" @click="$router.push(`/my-groups/settings`)">
-          Редактировать группу
-        </button>
         <div class="profile__block profile__info no-border">
           <ul class="profile__top-list">
             <li class="profile__top-list--item">
@@ -41,10 +70,10 @@
           </div>
         </div>
         <div class="profile__stats">
-          <router-link :to="{ name: 'my-groups-users' }" class="profile__stats--item">
+          <a href="#" class="profile__stats--item">
             <p>1032</p>
-            <span>Участники</span>
-          </router-link>
+            <span>Подписки</span>
+          </a>
           <a href="#" class="profile__stats--item">
             <p>12</p>
             <span>Подписчики</span>
@@ -55,26 +84,6 @@
           </a>
         </div>
       </div>
-
-      <section class="profile__recommendations">
-        <div class="aside__title--section">
-          <h3 class="text-1 medium">{{ $t('sections_title.recommended_groups') }}</h3>
-          <router-link class="link" to="#">{{ $t('links.all_groups') }}</router-link>
-        </div>
-        <hr class="divider__line" />
-        <div class="group__section">
-          <div class="group__right--side" v-for="(group, index) in recommendedGroups" :key="index">
-            <router-link class="group__link" to="#">
-              <img src="@/assets/images/Ellipse.png" alt="" />
-              <div class="group__info">
-                <span>{{ group.name }}</span>
-                <small>{{ group.members }}</small>
-              </div>
-            </router-link>
-            <SampleButton icon="plus" color="primary" :title="`${$t('buttons.join')}`" />
-          </div>
-        </div>
-      </section>
     </div>
   </div>
 </template>
@@ -83,9 +92,24 @@
 import ProfileIcon from '@/components/icons/profile/ProfileIcon.vue'
 import CalendarIcon from '@/components/icons/profile/CalendarIcon.vue'
 import GlobalSilverIcon from '@/components/icons/profile/GlobalSilverIcon.vue'
-import SampleButton from '@/components/ui/SampleButton.vue'
+import DeleteIcon from '@/components/icons/message/DeleteIcon.vue'
+import EditImageIcon from '@/components/icons/EditImageIcon.vue'
+import CameraIcon from '@/components/icons/CameraIcon.vue'
 export default {
-  components: { ProfileIcon, CalendarIcon, GlobalSilverIcon, SampleButton },
+  components: {
+    ProfileIcon,
+    CalendarIcon,
+    GlobalSilverIcon,
+    DeleteIcon,
+    EditImageIcon,
+    CameraIcon
+  },
+  data() {
+    return {
+      coverImage: '',
+      profileImage: ''
+    }
+  },
   computed: {
     recommendedGroups() {
       return [
@@ -96,6 +120,18 @@ export default {
         { name: 'Acme Co.', members: 987654 + ' ' + this.$t('labels.members.plural') }
       ]
     }
+  },
+  methods: {
+    inputHandler(event, type) {
+      const file = event.target.files[0]
+      if (!file) return
+      const image = URL.createObjectURL(file)
+      if (type === 'cover') {
+        this.coverImage = image
+      } else {
+        this.profileImage = image
+      }
+    }
   }
 }
 </script>
@@ -105,125 +141,74 @@ export default {
   &__box {
     margin-bottom: 8px;
     padding: 16px;
-    border-radius: 20px;
+    border-radius: 0 0 20px 20px;
     background-color: var(--color-white);
     height: fit-content;
   }
-  &__recommendations {
-    background-color: var(--color-white);
-    color: var(--color-silver-chalice);
-    border-radius: 15px;
-    padding: 24px 16px;
-    display: flex;
-    flex-direction: column;
-    .person__info,
-    .group__info {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+  &__cover {
+    width: 100%;
+    height: 120px;
+    border-radius: 20px 20px 0 0;
+    overflow: hidden;
+    position: relative;
+    &:hover {
+      .profile__cover--actions {
+        opacity: 1;
+      }
     }
-
-    .person__info span,
-    .group__info span {
-      color: var(--color-mine-shaft);
-    }
-
-    .person__info small,
-    .group__info small {
-      color: var(--color-silver-chalice);
-    }
-
-    .person__right--side,
-    .group__right--side {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .aside__title--section {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .person__link,
-    .group__link,
-    .actions__link {
-      display: flex;
+    &--img {
       width: 100%;
-      text-decoration: none;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      object-position: center;
+    }
+    &--input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      appearance: none;
+      &::-webkit-file-upload-button {
+        cursor: pointer;
+      }
+    }
+    &--actions {
+      position: absolute;
+      top: 8px;
+      right: 5px;
+      display: flex;
+      gap: 5px;
+      opacity: 0;
+      transition: all 0.3s;
+    }
+    &--btn {
+      border: none;
+      border-radius: 10px;
+      background: rgba(45, 45, 45, 0.5);
+      backdrop-filter: blur(10px);
+      color: var(--color-white);
+      display: flex;
       align-items: center;
-    }
-
-    .person__link img,
-    .group__link img,
-    .actions__link img {
-      margin-right: 8px;
-      width: 56px;
-      height: 56px;
-    }
-
-    .actions__section span {
-      color: var(--color-mine-shaft);
-    }
-
-    .person__section,
-    .group__section,
-    .actions__section {
-      display: flex;
-      flex-direction: column;
-      row-gap: 16px;
-    }
-
-    .divider__line {
-      height: 1px;
-      margin: 16px 0;
-      border: 0;
-      background-color: var(--color-alto-second);
-    }
-
-    .section__last--actions,
-    .section__recommended--groups,
-    .section__recommended--people {
-      background-color: var(--color-white);
-      color: var(--color-silver-chalice);
-      border-radius: 15px;
-      padding: 24px 16px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .aside__publications {
-      display: flex;
-      flex-direction: column;
-      row-gap: 8px;
-    }
-
-    @media (min-width: 768px) {
-    }
-
-    @media (min-width: 1280px) {
-      .aside__publications {
-        min-width: 350px;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px;
+      cursor: pointer;
+      position: relative;
+      svg {
+        width: 20px;
+        height: 20px;
       }
-
-      .person__right--side button,
-      .group__right--side button {
-        height: 34px;
-        padding: 8px 10px;
+      span {
         font-size: 14px;
-        min-width: 110px;
-        max-width: 110px;
-      }
-    }
-
-    @media (min-width: 1920px) {
-      .person__right--side button,
-      .group__right--side button {
-        height: 34px;
-        padding: 8px 32px;
-        font-size: 14px;
-        min-width: 153px;
-        max-width: 153px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
       }
     }
   }
@@ -231,16 +216,44 @@ export default {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-bottom: 16px;
+    margin-top: -32px;
+    margin-bottom: 20px;
     &--img {
-      width: 100px;
-      height: 100px;
+      width: 97px;
+      height: 97px;
       position: relative;
+      border: 3px solid var(--color-white);
+      border-radius: 50%;
+      overflow: hidden;
+      &:hover svg {
+        opacity: 1;
+      }
+      svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: all 0.3s;
+      }
+      input[type='file'] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        opacity: 0;
+        z-index: 10;
+        &::-webkit-file-upload-button {
+          cursor: pointer;
+        }
+      }
       & > img {
         width: 100%;
         height: 100%;
         display: block;
-        border-radius: 50%;
+
         overflow: hidden;
         object-fit: cover;
         object-position: center;
@@ -334,7 +347,7 @@ export default {
   }
   &__block {
     border-top: 1px solid var(--color-seashell);
-    padding: 24px 0 24px;
+    padding: 16px 0;
     .no-border {
       border-top: none;
     }
