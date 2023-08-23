@@ -49,6 +49,18 @@ export default {
     padding-bottom: 12px;
     border-bottom: 1px solid var(--color-gallery-first);
     margin-bottom: 20px;
+    &--title {
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 550;
+      line-height: 150%;
+      color: var(--color-mine-shaft);
+      display: flex;
+      gap: 16px;
+      span {
+        color: var(--color-silver-chalice);
+      }
+    }
     &--select {
       max-width: 173px;
     }
