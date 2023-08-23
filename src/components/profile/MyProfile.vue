@@ -56,28 +56,16 @@
       </div>
       <ul class="profile__stats">
         <li class="profile__stats--item">
-          <span>{{ $t('profile.following') }}</span>
           <p>1032</p>
+          <span>{{ $t('profile.following') }}</span>
         </li>
         <li class="profile__stats--item">
-          <span>{{ $t('profile.subscribes') }}</span>
           <p>12</p>
+          <span>{{ $t('profile.subscribes') }}</span>
         </li>
         <li class="profile__stats--item">
-          <span>{{ $t('profile.umma_video') }}</span>
           <p>144</p>
-        </li>
-        <li class="profile__stats--item">
-          <span>{{ $t('profile.umma_shorts') }}</span>
-          <p>1789</p>
-        </li>
-        <li class="profile__stats--item">
-          <span>{{ $t('profile.audio') }}</span>
-          <p>1011</p>
-        </li>
-        <li class="profile__stats--item">
-          <span>{{ $t('profile.posts') }}</span>
-          <p>2064</p>
+          <span>Публикации</span>
         </li>
       </ul>
     </div>
@@ -194,21 +182,24 @@ import LinkIcon from '@/components/icons/profile/LinkIcon.vue'
   }
   &__edit {
     width: 100%;
-    color: var(--color-silver-chalice);
+    color: var(--color-white);
     padding: 14px 14px 12px;
-    border-radius: 20px;
-    background-color: var(--color-gallery-first);
+    border-radius: 10px;
+    background-color: var(--color-green);
     cursor: pointer;
     border: none;
     font-size: 14px;
     font-style: normal;
     font-weight: 550;
     line-height: normal;
-    margin-bottom: 24px;
+    margin-bottom: 4px;
   }
   &__block {
     border-top: 1px solid var(--color-seashell);
-    padding: 24px 0 24px;
+    padding: 16px 0;
+  }
+  &__info {
+    border-top: none;
   }
   &__about {
     border-bottom: 1px solid var(--color-seashell);
@@ -217,8 +208,8 @@ import LinkIcon from '@/components/icons/profile/LinkIcon.vue'
       font-style: normal;
       font-weight: 400;
       line-height: normal;
-      color: var(--color-silver-chalice);
-      margin-bottom: 16px;
+      color: var(--color-mine-shaft);
+      margin-bottom: 12px;
     }
     &--text {
       font-size: 16px;
@@ -230,17 +221,19 @@ import LinkIcon from '@/components/icons/profile/LinkIcon.vue'
   }
   &__stats {
     list-style: none;
-    padding: 24px 0 12px;
+    padding: 16px 0 0;
     margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     &--item {
       display: flex;
-      align-items: center;
-      gap: 16px;
-      &:not(:last-child) {
-        margin-bottom: 24px;
-      }
+      flex-direction: column;
+      gap: 8px;
+      text-align: center;
+      min-width: 100px;
+      padding: 0 30px;
       span {
-        width: 100px;
         font-size: 16px;
         font-style: normal;
         font-weight: 400;

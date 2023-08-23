@@ -29,6 +29,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.groups__settings--nav {
+  .groups__nav--menu {
+    margin-left: -20px;
+  }
+}
 .groups__nav {
   padding: 24px 0 0;
   border-bottom: 1px solid var(--color-alto-second);
