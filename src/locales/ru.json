@@ -223,6 +223,13 @@
     },
     "stickers": {
       "title": "Стикеры"
+    },
+    "search": {
+      "all": "Все",
+      "people": "Люди",
+      "communities": "Сообщества",
+      "muvi": "MUVI",
+      "article": "Статьи"
     }
   },
   "video": {
@@ -298,6 +305,12 @@
     "stickers": {
       "popular_stickers": "Популярные стикерпаки",
       "featured_stickers": "Избранные стикеры"
+    },
+    "search": {
+      "recent": "Недавнее",
+      "people": "Люди",
+      "communities": "Сообщества",
+      "shorts": "Shorts"
     }
   },
   "dropdown": {

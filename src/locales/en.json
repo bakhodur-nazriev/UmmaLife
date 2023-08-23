@@ -221,6 +221,13 @@
     },
     "stickers": {
       "title": "Stickers"
+    },
+    "search": {
+      "all": "All",
+      "people": "People",
+      "communities": "Communities",
+      "muvi": "MUVI",
+      "article": "Article"
     }
   },
   "video": {
@@ -296,6 +303,12 @@
     "audio": "My audios","stickers": {
       "popular_stickers": "Popular stickers",
       "featured_stickers": "Featured stickers"
+    },
+    "search": {
+      "recent": "Недавнее",
+      "people": "Люди",
+      "communities": "Сообщества",
+      "shorts": "Shorts"
     }
   },
   "dropdown": {
