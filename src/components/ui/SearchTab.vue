@@ -41,6 +41,16 @@ export default {
 .tabs {
   display: flex;
   justify-content: space-around;
+  position: relative;
+
+  &::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    bottom: 0;
+    height: 1px;
+    background-color: var(--color-seashell);
+  }
 }
 
 .tab {
@@ -58,7 +68,7 @@ export default {
     bottom: 0;
     left: 0;
     content: "";
-    height: 2px;
+    height: 3px;
     width: 100%;
     background-color: var(--color-hippie-blue);
     border-radius: 5px 5px 0 0;
@@ -67,7 +77,6 @@ export default {
 }
 
 .tab-content {
-  margin-top: 10px;
   padding: 0 16px;
 }
 
@@ -75,7 +84,7 @@ export default {
   .main-search__tab {
     background-color: var(--color-white);
     position: absolute;
-    top: 70px;
+    top: 65px;
     z-index: 500;
     width: 100%;
   }

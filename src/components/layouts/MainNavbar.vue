@@ -64,107 +64,12 @@
       </div>
 
       <SearchTab :tabs="tabData" v-if="isSearchForm">
-        <template v-for="tab in tabData" v-slot:[tab.label]="" :key="tab.label">
-          <div>
-            <div class="recent-title">
-              <span>{{ $t('labels.search.recent') }}</span>
-              <router-link to="" >{{ $t('labels.search.see_all') }}</router-link>
-            </div>
-
-            <ul class="recent-list">
-              <li class="recent-list-item">
-                <img src="@/assets/images/navbar/recent_1.png" alt="">
-                <div class="recent-list-item-title">
-                  <p>Графический дизайн</p>
-                  <span>Сообщество</span>
-                </div>
-              </li>
-              <li class="recent-list-item">
-                <img src="@/assets/images/navbar/recent_2.png" alt="">
-                <div class="recent-list-item-title">
-                  <p>Алексей Иванов</p>
-                  <span>Пользователь</span>
-                </div>
-              </li>
-              <li class="recent-list-item">
-                <img src="@/assets/images/navbar/recent_3.png" alt="">
-                <div class="recent-list-item-title">
-                  <p>Графический дизайн</p>
-                  <span>Сообщество</span>
-                </div>
-              </li>
-              <li class="recent-list-item">
-                <img src="@/assets/images/navbar/recent_4.png" alt="">
-                <div class="recent-list-item-title">
-                  <p>Графический дизайн</p>
-                  <span>Сообщество</span>
-                </div>
-              </li>
-              <li class="recent-list-item">
-                <img src="@/assets/images/navbar/recent_5.png" alt="">
-                <div class="recent-list-item-title">
-                  <p>Алексей Иванов</p>
-                  <span>Пользователь</span>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          <SampleDivider />
-
-          <div>
-            <div class="recent-title">
-              <span>{{ $t('labels.search.people') }}</span>
-              <router-link to="" >{{ $t('labels.search.see_all') }}</router-link>
-            </div>
-
-            <ul class="recent-list">
-              <li class="recent-list-item">
-                <img src="@/assets/images/navbar/people_1.png" alt="">
-                <div class="recent-list-item-title">
-                  <p>Алексей Иванов</p>
-                  <span>Пользователь</span>
-                </div>
-              </li>
-              <li class="recent-list-item">
-                <img src="@/assets/images/navbar/people_2.png" alt="">
-                <div class="recent-list-item-title">
-                  <p>Андрей Андрей</p>
-                  <span>Пользователь</span>
-                </div>
-              </li>
-              <li class="recent-list-item">
-                <img src="@/assets/images/navbar/people_3.png" alt="">
-                <div class="recent-list-item-title">
-                  <p>Азамат Азаматалиев</p>
-                  <span>Пользователь</span>
-                </div>
-              </li>
-              <li class="recent-list-item">
-                <img src="@/assets/images/navbar/people_4.png" alt="">
-                <div class="recent-list-item-title">
-                  <p>Курбан Гаджимагомедов</p>
-                  <span>Пользователь</span>
-                </div>
-              </li>
-              <li class="recent-list-item">
-                <img src="@/assets/images/navbar/people_5.png" alt="">
-                <div class="recent-list-item-title">
-                  <p>Дмитрий Дмитриев</p>
-                  <span>Пользователь</span>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          <SampleDivider />
-
-          <div>
-            <div class="recent-title">
-              <span>{{ $t('labels.search.communities') }}</span>
-              <router-link to="" >{{ $t('labels.search.see_all') }}</router-link>
-            </div>
-          </div>
+        <template v-for="(tab, i) in tabData" v-slot:[tab.label]="" :key="i">
+          <TabAll v-if="i === 0" />
+          <TabPeople v-if="i === 1" />
+          <TabCommunities v-if="i === 2" />
+          <TabMUVI v-if="i === 3" />
+          <TabArticle v-if="i === 4" />
         </template>
       </SearchTab>
 
@@ -207,11 +112,19 @@ import SmallLogo from '@/components/ui/Logo/SmallPageLogo.vue'
 import BellIcon from '@/components/icons/navbar/small-display/BellIcon.vue'
 import ArrowLeftIcon from '@/components/icons/navbar/small-display/ArrowIcon.vue'
 import SearchTab from '@/components/ui/SearchTab.vue'
-import SampleDivider from '@/components/ui/SampleDivider.vue'
+import TabAll from '@/components/layouts/SearchComponents/TabAll.vue'
+import TabPeople from '@/components/layouts/SearchComponents/TabPeople.vue'
+import TabCommunities from '@/components/layouts/SearchComponents/TabCommunities.vue'
+import TabMUVI from '@/components/layouts/SearchComponents/TabMUVI.vue'
+import TabArticle from '@/components/layouts/SearchComponents/TabArticle.vue'
 
 export default {
   components: {
-    SampleDivider,
+    TabArticle,
+    TabMUVI,
+    TabCommunities,
+    TabPeople,
+    TabAll,
     SearchTab,
     ArrowLeftIcon,
     BellIcon,
@@ -434,54 +347,6 @@ export default {
     all: unset;
     color: transparent;
     display: flex;
-  }
-}
-
-.recent-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  row-gap: 12px;
-
-  &-item {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-
-    &-title {
-      display: flex;
-      flex-direction: column;
-    }
-
-    p {
-      margin-top: 0;
-      line-height: 1;
-      margin-bottom: 4px;
-      font-size: 16px;
-    }
-
-    span {
-      color: var(--color-secondary);
-      font-size: 14px;
-    }
-  }
-}
-
-.recent-title {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px 0;
-
-  span {
-    color: var(--color-mine-shaft);
-    font-weight: 500;
-  }
-
-  a {
-    text-decoration: none;
-    color: var(--color-hippie-blue);
   }
 }
 

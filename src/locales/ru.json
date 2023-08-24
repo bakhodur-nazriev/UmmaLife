@@ -245,7 +245,7 @@
   "labels": {
     "subscribers": {
       "plural": "подписчиков",
-      "singular4": "подписчик"
+      "singular": "подписчик"
     },
     "members": {
       "plural": "участников",
