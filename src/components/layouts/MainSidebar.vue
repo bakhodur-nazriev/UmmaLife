@@ -35,12 +35,6 @@
             <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.my_groups') }}</span>
           </router-link>
         </li>
-        <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/my-albums`) }">
-          <router-link :to="`/${$i18n.locale}/my-albums`">
-            <MyAlbumsIcon class="sidebar__item--icon" />
-            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.my_albums') }}</span>
-          </router-link>
-        </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/my-audio`) }">
           <router-link :to="`/${$i18n.locale}/my-audio`">
             <MyAudioIcon class="sidebar__item--icon" />
@@ -96,7 +90,6 @@ import NewsIcon from '@/components/icons/NewsIcon.vue'
 import MyPageIcon from '@/components/icons/MyPageIcon.vue'
 import MessengerIcon from '@/components/icons/MessengerIcon.vue'
 import MyGroupIcon from '@/components/icons/MyGroupIcon.vue'
-import MyAlbumsIcon from '@/components/icons/MyAlbumsIcon.vue'
 import MyAudioIcon from '@/components/icons/MyAudioIcon.vue'
 import SavedIcon from '@/components/icons/SavedIcon.vue'
 import ArticlesIcon from '@/components/icons/ArticlesIcon.vue'
@@ -118,7 +111,6 @@ export default {
     ArticlesIcon,
     SavedIcon,
     MyAudioIcon,
-    MyAlbumsIcon,
     MyGroupIcon,
     MessengerIcon,
     MyPageIcon,

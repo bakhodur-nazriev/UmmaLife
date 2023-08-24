@@ -41,17 +41,133 @@
       <div class="top__nav">
         <ul class="top__nav--list">
           <li class="top__nav--left-item">
-            <router-link to=""><SmallLogo /></router-link>
+            <router-link v-if="!isSearchForm" to="/news"><SmallLogo /></router-link>
+            <button
+              v-if="isSearchForm"
+              type="button"
+              @click="isSearchFormClose"
+              class="close-search__form"
+            >
+              <ArrowLeftIcon />
+            </button>
           </li>
 
-          <li class="top__nav--right-item">
-            <LoupeIcon />
+          <li class="top__nav--search-item" v-if="isSearchForm">
+            <SearchInput :placeholder="$t('placeholders.search_input')"/>
           </li>
-          <li class="top__nav--right-item">
-            <SmallMenuIcon />
+
+          <li class="top__nav--right-item" v-if="!isSearchForm">
+            <div v-if="!isSearchForm" @click="isSearchFormOpen"><LoupeIcon /></div>
+            <div><SmallMenuIcon /></div>
           </li>
         </ul>
       </div>
+
+      <SearchTab :tabs="tabData" v-if="isSearchForm">
+        <template v-for="tab in tabData" v-slot:[tab.label]="" :key="tab.label">
+          <div>
+            <div class="recent-title">
+              <span>{{ $t('labels.search.recent') }}</span>
+              <router-link to="" >{{ $t('labels.search.see_all') }}</router-link>
+            </div>
+
+            <ul class="recent-list">
+              <li class="recent-list-item">
+                <img src="@/assets/images/navbar/recent_1.png" alt="">
+                <div class="recent-list-item-title">
+                  <p>Графический дизайн</p>
+                  <span>Сообщество</span>
+                </div>
+              </li>
+              <li class="recent-list-item">
+                <img src="@/assets/images/navbar/recent_2.png" alt="">
+                <div class="recent-list-item-title">
+                  <p>Алексей Иванов</p>
+                  <span>Пользователь</span>
+                </div>
+              </li>
+              <li class="recent-list-item">
+                <img src="@/assets/images/navbar/recent_3.png" alt="">
+                <div class="recent-list-item-title">
+                  <p>Графический дизайн</p>
+                  <span>Сообщество</span>
+                </div>
+              </li>
+              <li class="recent-list-item">
+                <img src="@/assets/images/navbar/recent_4.png" alt="">
+                <div class="recent-list-item-title">
+                  <p>Графический дизайн</p>
+                  <span>Сообщество</span>
+                </div>
+              </li>
+              <li class="recent-list-item">
+                <img src="@/assets/images/navbar/recent_5.png" alt="">
+                <div class="recent-list-item-title">
+                  <p>Алексей Иванов</p>
+                  <span>Пользователь</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <SampleDivider />
+
+          <div>
+            <div class="recent-title">
+              <span>{{ $t('labels.search.people') }}</span>
+              <router-link to="" >{{ $t('labels.search.see_all') }}</router-link>
+            </div>
+
+            <ul class="recent-list">
+              <li class="recent-list-item">
+                <img src="@/assets/images/navbar/people_1.png" alt="">
+                <div class="recent-list-item-title">
+                  <p>Алексей Иванов</p>
+                  <span>Пользователь</span>
+                </div>
+              </li>
+              <li class="recent-list-item">
+                <img src="@/assets/images/navbar/people_2.png" alt="">
+                <div class="recent-list-item-title">
+                  <p>Андрей Андрей</p>
+                  <span>Пользователь</span>
+                </div>
+              </li>
+              <li class="recent-list-item">
+                <img src="@/assets/images/navbar/people_3.png" alt="">
+                <div class="recent-list-item-title">
+                  <p>Азамат Азаматалиев</p>
+                  <span>Пользователь</span>
+                </div>
+              </li>
+              <li class="recent-list-item">
+                <img src="@/assets/images/navbar/people_4.png" alt="">
+                <div class="recent-list-item-title">
+                  <p>Курбан Гаджимагомедов</p>
+                  <span>Пользователь</span>
+                </div>
+              </li>
+              <li class="recent-list-item">
+                <img src="@/assets/images/navbar/people_5.png" alt="">
+                <div class="recent-list-item-title">
+                  <p>Дмитрий Дмитриев</p>
+                  <span>Пользователь</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <SampleDivider />
+
+          <div>
+            <div class="recent-title">
+              <span>{{ $t('labels.search.communities') }}</span>
+              <router-link to="" >{{ $t('labels.search.see_all') }}</router-link>
+            </div>
+          </div>
+        </template>
+      </SearchTab>
+
       <div class="bottom__nav">
         <ul class="bottom__nav--list">
           <li class="bottom__nav--item">
@@ -89,9 +205,15 @@ import SmallMenuIcon from '@/components/icons/navbar/small-display/MenuIcon.vue'
 import MyPageIcon from '@/components/icons/navbar/small-display/MyPageIcon.vue'
 import SmallLogo from '@/components/ui/Logo/SmallPageLogo.vue'
 import BellIcon from '@/components/icons/navbar/small-display/BellIcon.vue'
+import ArrowLeftIcon from '@/components/icons/navbar/small-display/ArrowIcon.vue'
+import SearchTab from '@/components/ui/SearchTab.vue'
+import SampleDivider from '@/components/ui/SampleDivider.vue'
 
 export default {
   components: {
+    SampleDivider,
+    SearchTab,
+    ArrowLeftIcon,
     BellIcon,
     SmallLogo,
     MenuIcon,
@@ -111,12 +233,41 @@ export default {
   },
   data() {
     return {
-      isMenuOpen: false
+      isMenuOpen: false,
+      isSearchForm: true,
+      tabData: [
+        {
+          label: this.$t('tabs.search.all'),
+          content: 'Content for Tab 1'
+        },
+        {
+          label: this.$t('tabs.search.people'),
+          content: 'Content for Tab 2'
+        },
+        {
+          label: this.$t('tabs.search.communities'),
+          content: 'Content for Tab 3'
+        },
+        {
+          label: this.$t('tabs.search.muvi'),
+          content: 'Content for Tab 4'
+        },
+        {
+          label: this.$t('tabs.search.article'),
+          content: 'Content for Tab 5'
+        }
+      ]
     }
   },
   methods: {
     toggleSidebar() {
       this.$emit('toggle-sidebar')
+    },
+    isSearchFormOpen() {
+      this.isSearchForm = true
+    },
+    isSearchFormClose() {
+      this.isSearchForm = false
     }
   }
 }
@@ -271,6 +422,77 @@ export default {
 
 .top__nav--right-item {
   display: flex;
+  gap: 20px;
+
+  div {
+    display: flex;
+  }
+}
+
+.top__nav--left-item {
+  .close-search__form {
+    all: unset;
+    color: transparent;
+    display: flex;
+  }
+}
+
+.recent-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+
+  &-item {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+
+    &-title {
+      display: flex;
+      flex-direction: column;
+    }
+
+    p {
+      margin-top: 0;
+      line-height: 1;
+      margin-bottom: 4px;
+      font-size: 16px;
+    }
+
+    span {
+      color: var(--color-secondary);
+      font-size: 14px;
+    }
+  }
+}
+
+.recent-title {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+
+  span {
+    color: var(--color-mine-shaft);
+    font-weight: 500;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--color-hippie-blue);
+  }
+}
+
+@media (max-width: 576px) {
+  .top__nav--search-item {
+    width: 100%;
+  }
+
+  .base__search--input {
+    width: 100%;
+  }
 }
 
 @media (max-width: 767px) {
@@ -284,15 +506,11 @@ export default {
     height: 64px;
     width: 100%;
     list-style: none;
-    padding: 0 32px;
+    padding: 0 16px;
     background-color: var(--color-white);
     box-shadow: 0 2px 3px rgba(141, 152, 180, 0.3);
     margin: 0;
     z-index: 50;
-  }
-
-  .top__nav--left-item {
-    margin-right: auto;
   }
 
   .bottom__nav--list {

@@ -120,7 +120,7 @@ export default {
       ],
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
-      isFormOpen: true
+      isFormOpen: false
     }
   },
   methods: {

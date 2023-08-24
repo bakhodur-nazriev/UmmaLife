@@ -75,6 +75,12 @@ export default {
   grid-template-columns: repeat(3,1fr);
 }
 
+@media (max-width: 576px) {
+  .umma__videos--section {
+    grid-template-columns: repeat(1, 100%);
+  }
+}
+
 @media (min-width: 768px) {
   .category__section {
     margin-bottom: 8px;

@@ -118,7 +118,7 @@ export default {
     SampleTextarea
   },
   data: () => ({
-    stickerWindow: true,
+    stickerWindow: false,
     selectedTab: 'stickers'
   }),
   methods: {

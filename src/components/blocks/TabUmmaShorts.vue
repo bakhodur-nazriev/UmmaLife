@@ -14,11 +14,18 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .umma__shorts--section {
   display: grid;
   grid-template-columns: repeat(3, 237px);
   gap: 16px;
+}
+
+@media (max-width: 576px) {
+  .umma__shorts--section {
+    padding: 20px;
+    grid-template-columns: repeat(1, 100%);
+  }
 }
 
 @media (min-width: 1280px) {
