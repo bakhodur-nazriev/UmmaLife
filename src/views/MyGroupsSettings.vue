@@ -9,10 +9,11 @@
 </template>
 
 <script>
+import StickySidebar from 'sticky-sidebar-v2'
 import MyGroupsSettingsTabs from '@/components/groups/settings/MyGroupsSettingsTabs.vue'
 import MyGroupsSettingsSidebar from '@/components/groups/settings/MyGroupsSettingsSidebar.vue'
 import GroupsNav from '@/components/groups/GroupsNav.vue'
-import StickySidebar from 'sticky-sidebar-v2'
+
 export default {
   components: { MyGroupsSettingsTabs, MyGroupsSettingsSidebar, GroupsNav },
   data() {
