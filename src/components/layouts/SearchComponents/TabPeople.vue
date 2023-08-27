@@ -11,22 +11,22 @@
           <img src="@/assets/images/navbar/people_1.png" alt="">
         </div>
         <div class="recent-list-item-title">
-          <p>юикс/юай</p>
-          <span>1234 {{ $t('labels.subscribers.plural') }}</span>
+          <p>Мухаммад абу Абдуллах</p>
+          <span>Доха, 27 {{ $t('tabs.search.age.plural') }}</span>
         </div>
       </li>
       <li class="recent-list-item">
         <img src="@/assets/images/navbar/people_2.png" alt="">
         <div class="recent-list-item-title">
-          <p>Venom Foundation</p>
-          <span>3214 {{ $t('labels.subscribers.plural') }}</span>
+          <p>Алексей Иванов</p>
+          <span>Астана , 35 {{ $t('tabs.search.age.plural') }}</span>
         </div>
       </li>
       <li class="recent-list-item">
         <img src="@/assets/images/navbar/people_3.png" alt="">
         <div class="recent-list-item-title">
-          <p>Islamic Coin</p>
-          <span>4325 {{ $t('labels.subscribers.plural') }}</span>
+          <p>Андрей Андрей</p>
+          <span>Москва, 52 {{ $t('tabs.search.age.plural') }}</span>
         </div>
       </li>
       <li class="recent-list-item">
@@ -34,50 +34,54 @@
           <img src="@/assets/images/navbar/people_4.png" alt="">
         </div>
         <div class="recent-list-item-title">
-          <p>Кулинария</p>
-          <span>345 {{ $t('labels.subscribers.plural') }}</span>
+          <p>Азамат Азаматалиев</p>
+          <span>Магас, 31 {{ $t('tabs.search.age.plural') }}</span>
         </div>
       </li>
       <li class="recent-list-item">
         <img src="@/assets/images/navbar/people_5.png" alt="">
         <div class="recent-list-item-title">
-          <p>Qatar University <span><VerifyIcon /></span></p>
-          <span>5421 {{ $t('labels.subscribers.plural') }}</span>
+          <p>Курбан Гаджимагомедов <span><VerifyIcon /></span></p>
+          <span>Стамбул, 43 {{ $t('tabs.search.age.plural') }}</span>
         </div>
       </li>
       <li class="recent-list-item">
-        <img src="@/assets/images/navbar/people_1.png" alt="">
+        <div class="recent-list-item-avatar">
+          <img src="@/assets/images/navbar/people_1.png" alt="">
+        </div>
         <div class="recent-list-item-title">
-          <p>юикс/юай</p>
-          <span>1234 {{ $t('labels.subscribers.plural') }}</span>
+          <p>Мухаммад абу Абдуллах</p>
+          <span>Доха, 27 {{ $t('tabs.search.age.plural') }}</span>
         </div>
       </li>
       <li class="recent-list-item">
         <img src="@/assets/images/navbar/people_2.png" alt="">
         <div class="recent-list-item-title">
-          <p>Venom Foundation</p>
-          <span>3214 {{ $t('labels.subscribers.plural') }}</span>
+          <p>Алексей Иванов</p>
+          <span>Астана , 35 {{ $t('tabs.search.age.plural') }}</span>
         </div>
       </li>
       <li class="recent-list-item">
         <img src="@/assets/images/navbar/people_3.png" alt="">
         <div class="recent-list-item-title">
-          <p>Islamic Coin</p>
-          <span>4325 {{ $t('labels.subscribers.plural') }}</span>
+          <p>Андрей Андрей</p>
+          <span>Москва, 52 {{ $t('tabs.search.age.plural') }}</span>
         </div>
       </li>
       <li class="recent-list-item">
-        <img src="@/assets/images/navbar/people_4.png" alt="">
+        <div class="recent-list-item-avatar">
+          <img src="@/assets/images/navbar/people_4.png" alt="">
+        </div>
         <div class="recent-list-item-title">
-          <p>Кулинария</p>
-          <span>345 {{ $t('labels.subscribers.plural') }}</span>
+          <p>Азамат Азаматалиев</p>
+          <span>Магас, 31 {{ $t('tabs.search.age.plural') }}</span>
         </div>
       </li>
       <li class="recent-list-item">
         <img src="@/assets/images/navbar/people_5.png" alt="">
         <div class="recent-list-item-title">
-          <p>Qatar University <span><VerifyIcon /></span></p>
-          <span>5421 {{ $t('labels.subscribers.plural') }}</span>
+          <p>Курбан Гаджимагомедов <span><VerifyIcon /></span></p>
+          <span>Стамбул, 43 {{ $t('tabs.search.age.plural') }}</span>
         </div>
       </li>
     </ul>

@@ -229,7 +229,11 @@
       "people": "Люди",
       "communities": "Сообщества",
       "muvi": "MUVI",
-      "article": "Статьи"
+      "article": "Статьи",
+      "age": {
+        "single": "год",
+        "plural": "лет"
+      }
     }
   },
   "video": {
