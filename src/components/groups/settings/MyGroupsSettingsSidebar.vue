@@ -123,7 +123,8 @@ export default {
       isModalOpen: false,
       className: '',
       previewImage: '',
-      imageTitle: ''
+      imageTitle: '',
+      file: null
     }
   },
   computed: {
@@ -139,10 +140,10 @@ export default {
   },
   methods: {
     inputHandler(event, type) {
-      const file = event.target.files[0]
-      if (!file) return
+      this.file = event.target.files[0]
+      if (!this.file) return
       this.isModalOpen = true
-      const image = URL.createObjectURL(file)
+      const image = URL.createObjectURL(this.file)
       if (type === 'cover') {
         this.previewImage = image
         this.className = ''
@@ -167,6 +168,7 @@ export default {
     },
     closeModal() {
       this.isModalOpen = false
+      URL.revokeObjectURL(this.file)
       this.className = ''
       this.previewImage = ''
       this.imageTitle = ''
