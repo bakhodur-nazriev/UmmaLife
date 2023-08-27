@@ -198,7 +198,9 @@
       "articles": "Articles",
       "photo": "Photo",
       "video": "Video",
-      "audio": "Audio"
+      "audio": "Audio",
+      "muvi": "MUVI",
+      "umma_video": "UmmaVideo"
     },
     "my_page": {
       "publications": "Publications",
@@ -300,7 +302,8 @@
         "placeholder": "What are you listening"
       }
     },
-    "audio": "My audios","stickers": {
+    "audio": "My audios",
+    "stickers": {
       "popular_stickers": "Popular stickers",
       "featured_stickers": "Featured stickers"
     },
