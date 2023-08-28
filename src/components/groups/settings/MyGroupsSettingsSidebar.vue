@@ -86,6 +86,16 @@
       </div>
     </div>
   </div>
+  <teleport to="body">
+    <ProfilePictureModal
+      :img="previewImage"
+      :title="imageTitle"
+      :className="className"
+      v-if="isModalOpen"
+      @closeModal="closeModal"
+      @acceptImage="acceptImage"
+    />
+  </teleport>
 </template>
 
 <script>
@@ -95,6 +105,7 @@ import GlobalSilverIcon from '@/components/icons/profile/GlobalSilverIcon.vue'
 import DeleteIcon from '@/components/icons/message/DeleteIcon.vue'
 import EditImageIcon from '@/components/icons/EditImageIcon.vue'
 import CameraIcon from '@/components/icons/CameraIcon.vue'
+import ProfilePictureModal from '@/components/groups/settings/ProfilePictureModal.vue'
 export default {
   components: {
     ProfileIcon,
@@ -102,12 +113,18 @@ export default {
     GlobalSilverIcon,
     DeleteIcon,
     EditImageIcon,
-    CameraIcon
+    CameraIcon,
+    ProfilePictureModal
   },
   data() {
     return {
       coverImage: '',
-      profileImage: ''
+      profileImage: '',
+      isModalOpen: false,
+      className: '',
+      previewImage: '',
+      imageTitle: '',
+      file: null
     }
   },
   computed: {
@@ -123,14 +140,38 @@ export default {
   },
   methods: {
     inputHandler(event, type) {
-      const file = event.target.files[0]
-      if (!file) return
-      const image = URL.createObjectURL(file)
+      this.file = event.target.files[0]
+      if (!this.file) return
+      this.isModalOpen = true
+      const image = URL.createObjectURL(this.file)
       if (type === 'cover') {
-        this.coverImage = image
+        this.previewImage = image
+        this.className = ''
+        this.imageTitle = 'Обложка группы'
       } else {
-        this.profileImage = image
+        this.previewImage = image
+        this.className = 'long'
+        this.imageTitle = 'Фото группы'
       }
+    },
+    acceptImage(img, className) {
+      if (className === 'long') {
+        this.profileImage = img
+      } else {
+        this.coverImage = img
+      }
+
+      this.isModalOpen = false
+      this.className = ''
+      this.previewImage = ''
+      this.imageTitle = ''
+    },
+    closeModal() {
+      this.isModalOpen = false
+      URL.revokeObjectURL(this.file)
+      this.className = ''
+      this.previewImage = ''
+      this.imageTitle = ''
     }
   }
 }

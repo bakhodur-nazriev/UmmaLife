@@ -193,6 +193,11 @@ import LinkIcon from '@/components/icons/profile/LinkIcon.vue'
     font-weight: 550;
     line-height: normal;
     margin-bottom: 4px;
+    &:hover {
+      background-color: var(--color-deep-cerulean);
+      color: var(--color-white);
+      transition: all 0.15s ease-in-out;
+    }
   }
   &__block {
     border-top: 1px solid var(--color-seashell);
