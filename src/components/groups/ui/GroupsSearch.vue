@@ -2,7 +2,7 @@
   <div class="search__container">
     <div class="search__container--wrapper">
       <LoupeIcon />
-      <input type="text" placeholder="Поиск..." />
+      <input type="text" :placeholder="placeholder" />
     </div>
   </div>
 </template>
@@ -10,7 +10,13 @@
 <script>
 import LoupeIcon from '@/components/icons/LoupeIcon.vue'
 export default {
-  components: { LoupeIcon }
+  components: { LoupeIcon },
+  props: {
+    placeholder: {
+      type: String,
+      default: 'Поиск...'
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
