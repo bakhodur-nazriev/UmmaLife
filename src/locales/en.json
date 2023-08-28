@@ -227,7 +227,14 @@
       "people": "People",
       "communities": "Communities",
       "muvi": "MUVI",
-      "article": "Article"
+      "article": "Article",
+      "video": "Видео",
+      "audio": "Аудио",
+      "hashtags": "Хештеги",
+      "age": {
+        "single": "year",
+        "plural": "year"
+      }
     }
   },
   "video": {

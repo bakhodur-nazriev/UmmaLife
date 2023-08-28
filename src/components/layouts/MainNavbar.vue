@@ -70,6 +70,9 @@
           <TabCommunities v-if="i === 2" />
           <TabMUVI v-if="i === 3" />
           <TabArticle v-if="i === 4" />
+          <TabVideo v-if="i === 5" />
+          <TabAudio v-if="i === 6" />
+          <TabHashtags v-if="i === 7" />
         </template>
       </SearchTab>
 
@@ -117,9 +120,15 @@ import TabPeople from '@/components/layouts/SearchComponents/TabPeople.vue'
 import TabCommunities from '@/components/layouts/SearchComponents/TabCommunities.vue'
 import TabMUVI from '@/components/layouts/SearchComponents/TabMUVI.vue'
 import TabArticle from '@/components/layouts/SearchComponents/TabArticle.vue'
+import TabVideo from '@/components/layouts/SearchComponents/TabVideo.vue'
+import TabAudio from '@/components/layouts/SearchComponents/TabAudio.vue'
+import TabHashtags from '@/components/layouts/SearchComponents/TabHashtags.vue'
 
 export default {
   components: {
+    TabVideo,
+    TabAudio,
+    TabHashtags,
     TabArticle,
     TabMUVI,
     TabCommunities,
@@ -168,6 +177,18 @@ export default {
         {
           label: this.$t('tabs.search.article'),
           content: 'Content for Tab 5'
+        },
+        {
+          label: this.$t('tabs.search.video'),
+          content: 'Content for Tab 6'
+        },
+        {
+          label: this.$t('tabs.search.audio'),
+          content: 'Content for Tab 7'
+        },
+        {
+          label: this.$t('tabs.search.hashtags'),
+          content: 'Content for Tab 8'
         }
       ]
     }

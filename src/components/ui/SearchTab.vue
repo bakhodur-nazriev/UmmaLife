@@ -42,6 +42,7 @@ export default {
   display: flex;
   justify-content: space-around;
   position: relative;
+  overflow: scroll;
 
   &::after {
     position: absolute;
