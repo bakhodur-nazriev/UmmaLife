@@ -70,8 +70,9 @@ export default {
 <style lang="scss" scoped>
 .audio__page {
   &--container {
-    max-width: 1555px;
+    max-width: 1587px;
     width: 100%;
+    padding: 0 16px;
     margin: 24px auto;
   }
 }

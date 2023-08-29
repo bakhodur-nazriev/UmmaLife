@@ -51,8 +51,10 @@ export default {
         display: none;
       }
       .groups__nav--menu {
-        width: 1555px;
+        max-width: 1587px;
+        width: 100%;
         margin-left: 0;
+        padding: 0 16px;
       }
     }
   }
