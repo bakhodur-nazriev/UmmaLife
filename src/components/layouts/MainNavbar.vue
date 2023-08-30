@@ -53,7 +53,10 @@
           </li>
 
           <li class="top__nav--search-item" v-if="isSearchForm">
-            <SearchInput :placeholder="$t('placeholders.search_input')"/>
+            <div class="main__search--block">
+              <LoupeInputIcon class="search__icon" />
+              <input class="base__search--input" :placeholder="$t('placeholders.search_input')" />
+            </div>
           </li>
 
           <li class="top__nav--right-item" v-if="!isSearchForm">
@@ -107,6 +110,7 @@ import NotificationIcon from '@/components/icons/NotificationIcon.vue'
 import SettingIcon from '@/components/icons/SettingIcon.vue'
 import ArrowIcon from '@/components/icons/ArrowIcon.vue'
 import LoupeIcon from '@/components/icons/navbar/small-display/LoupeIcon.vue'
+import LoupeInputIcon from '@/components/icons/LoupeIcon.vue'
 import NewsIcon from '@/components/icons/navbar/small-display/NewsIcon.vue'
 import MessagesIcon from '@/components/icons/navbar/small-display/MessagesIcon.vue'
 import SmallMenuIcon from '@/components/icons/navbar/small-display/MenuIcon.vue'
@@ -143,6 +147,7 @@ export default {
     MessagesIcon,
     NewsIcon,
     LoupeIcon,
+    LoupeInputIcon,
     ArrowIcon,
     SettingIcon,
     NotificationIcon,
@@ -208,6 +213,34 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.base__search--input {
+  border-radius: 10px;
+  background-color: var(--color-seashell);
+  color: var(--color-mine-shaft);
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 12px 12px 12px 48px;
+
+  &::placeholder {
+    color: var(--color-silver-chalice);
+  }
+}
+
+.main__search--block {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .search__icon {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
+    display: flex;
+  }
+}
+
 .bottom__nav--item {
   a {
     display: flex;

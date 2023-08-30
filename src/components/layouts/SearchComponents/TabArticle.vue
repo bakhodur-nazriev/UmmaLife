@@ -1,35 +1,41 @@
 <template>
-  <div>
-    <PostHeader
-      :is-menu-open="isMenuOpen"
-      @toggle-menu="toggleMenu"
-    />
+  <div class="article-block">
+    <article v-for="i in 5" :key="i" class="article-block__article">
+      <PostHeader
+        :is-menu-open="isMenuOpen"
+        @toggle-menu="toggleMenu"
+      />
 
-    <ArticleContent/>
+      <ArticleContent />
 
-    <PostFooter
-      :is-reaction-window-open="isReactionWindowOpen"
-      :is-share-window-open="isShareWindowOpen"
-    />
+      <SampleDivider class="divider"/>
+
+      <PostFooter
+        :is-reaction-window-open="isReactionWindowOpen"
+        :is-share-window-open="isShareWindowOpen"
+      />
+    </article>
   </div>
 </template>
 
 <script>
-import PostHeader from '@/components/ui/Post/PostHeader.vue'
-import PostFooter from '@/components/ui/Publications/Post/PostFooter.vue'
+import PostFooter from '@/components/ui/Post/PostFooter.vue'
+import SampleDivider from '@/components/ui/SampleDivider.vue'
 import ArticleContent from '@/components/ui/Publications/Article/ArticleContent.vue'
+import PostHeader from '@/components/ui/Post/PostHeader.vue'
 
 export default {
   components: {
-    PostFooter,
     PostHeader,
-    ArticleContent
+    ArticleContent,
+    SampleDivider,
+    PostFooter
   },
   data() {
     return {
-      isMenuOpen: false,
       isReactionWindowOpen: false,
-      isShareWindowOpen: false
+      isShareWindowOpen: false,
+      isMenuOpen: false
     }
   },
   methods: {
@@ -40,4 +46,23 @@ export default {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.article-block {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  &__article {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    border-radius: 15px;
+    row-gap: 8px;
+    background-color: var(--color-white);
+  }
+}
+
+.divider {
+  margin: 2px;
+}
+</style>

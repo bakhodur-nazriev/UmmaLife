@@ -345,12 +345,22 @@ export default {
 
   .footer__buttons {
     justify-content: flex-start;
+    gap: 20px;
   }
 
   .like__button,
   .comment__button,
   .share__button {
-    padding: 0 10px;
+    padding: 0;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    span {
+      line-height: normal;
+    }
 
     &:hover {
       background: none;

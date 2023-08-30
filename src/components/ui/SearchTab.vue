@@ -42,7 +42,13 @@ export default {
   display: flex;
   justify-content: space-around;
   position: relative;
-  overflow: scroll;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  padding-left: 200px;
+
+  &::-webkit-scrollbar {
+    height: 0;
+  }
 
   &::after {
     position: absolute;
