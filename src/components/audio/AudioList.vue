@@ -1,13 +1,13 @@
 <template>
   <div class="list">
     <div class="list__left">
-      <button class="list__play">
+      <button class="list__play" @click="$emit('playAudio', audio)">
         <VideoPlayIcon />
       </button>
       <div class="list__name">
-        {{ audioTitle }}
+        {{ audio.title }}
       </div>
-      <div class="list__author">{{ audioArtist }}</div>
+      <div class="list__author">{{ audio.artist }}</div>
     </div>
     <div class="list__right">
       <div class="list__icons">
@@ -33,10 +33,9 @@ import AudioDownloadIcon from '@/components/icons/audio/AudioDownloadIcon.vue'
 import AudioShareIcon from '@/components/icons/audio/AudioShareIcon.vue'
 
 export default {
+  emits: ['playAudio'],
   props: {
-    audioSource: String,
-    audioTitle: String,
-    audioArtist: String
+    audio: Object
   },
   components: {
     VideoPlayIcon,
@@ -56,9 +55,11 @@ export default {
     totalTime() {
       const audio = new Audio()
       audio.preload = 'metadata'
-      audio.src = this.audioSource
+      audio.src = this.audio.source
       audio.onloadedmetadata = () => {
-        this.audioDuration = audio.duration
+        if (audio.duration) {
+          this.audioDuration = audio.duration
+        }
       }
 
       if (this.audioDuration) {

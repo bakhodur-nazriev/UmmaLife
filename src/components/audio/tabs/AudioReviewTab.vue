@@ -1,18 +1,16 @@
 <template>
-  <div class="tabs">
+  <div class="tabs" :style="isPlayerOpen ? `margin-bottom: ${playerHeight + 24}px` : ''">
     <GroupsSearch class="tabs__search" placeholder="Поиск аудио" />
     <h2 class="tabs__title">Плейлисты</h2>
     <AudioAlbumSlider />
     <h2 class="tabs__title">Аудио</h2>
-    <AudioList
-      v-for="audio in audios"
-      :key="audio.id"
-      :audioSource="audio.source"
-      :audioTitle="audio.title"
-      :audioArtist="audio.artist"
-    />
+    <AudioList v-for="audio in audios" :key="audio.id" :audio="audio" @playAudio="playAudio" />
   </div>
-  <AudioPlayerComponent :audios="audios" />
+  <AudioPlayerComponent
+    :audios="chosenAudios"
+    v-if="isPlayerOpen"
+    @playerHeight="setPlayerHeight"
+  />
 </template>
 
 <script>
@@ -26,7 +24,20 @@ export default {
   components: { AudioAlbumSlider, GroupsSearch, AudioList, AudioPlayerComponent },
   data() {
     return {
-      audios
+      audios,
+      isPlayerOpen: false,
+      chosenAudios: [],
+      playerHeight: 0
+    }
+  },
+  methods: {
+    playAudio(audio) {
+      this.chosenAudios.length = 0
+      this.chosenAudios.push(audio)
+      this.isPlayerOpen = true
+    },
+    setPlayerHeight(height) {
+      this.playerHeight = height
     }
   }
 }
