@@ -69,6 +69,7 @@ export default {
 @media (max-width: 576px) {
   .article-block__article {
     border-radius: 0;
+    padding: 10px 16px;
   }
 }
 </style>

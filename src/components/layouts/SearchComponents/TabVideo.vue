@@ -14,6 +14,8 @@
         :is-reaction-window-open="isReactionWindowOpen"
         :is-share-window-open="isShareWindowOpen"
       />
+
+      <SampleDivider  class="search-divider" />
     </article>
   </div>
 </template>
@@ -130,10 +132,26 @@ export default {
   margin: 2px;
 }
 
+.search-divider {
+  display: none;
+}
+
 @media (max-width: 576px) {
-  .video-block__article {
+  .video-block {
     padding: 24px 0;
+  }
+
+  .video-block__article {
+    padding: 0;
     border-radius: 0;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .search-divider {
+    display: flex;
   }
 }
 </style>

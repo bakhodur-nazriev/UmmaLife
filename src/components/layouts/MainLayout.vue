@@ -52,6 +52,12 @@ export default {
     margin-top: 65px;
     height: calc(100vh - 65px);
   }
+
+  .main__content {
+    &::-webkit-scrollbar {
+      width: 2px;
+    }
+  }
 }
 
 @media (max-width: 767px) {

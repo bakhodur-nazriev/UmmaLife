@@ -132,7 +132,7 @@ export default {
 
 @media (max-width: 576px) {
   .video-block__article {
-    padding: 24px 0;
+    padding: 24px 16px;
     border-radius: 0;
   }
 }

@@ -177,7 +177,7 @@ export default {
 
     &-header {
       display: none;
-      z-index: 10;
+      z-index: 20;
       position: fixed;
       top: 124px;
       flex-direction: column;

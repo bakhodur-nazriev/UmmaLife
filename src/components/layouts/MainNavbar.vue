@@ -161,7 +161,7 @@ export default {
   data() {
     return {
       isMenuOpen: false,
-      isSearchForm: true,
+      isSearchForm: false,
       tabData: [
         {
           label: this.$t('tabs.search.all'),
