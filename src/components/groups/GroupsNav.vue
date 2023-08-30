@@ -1,6 +1,6 @@
 <template>
   <div class="groups__nav">
-    <div class="groups__nav--wrapper">
+    <div class="groups__nav--wrapper" :class="className">
       <div class="groups__nav--inner">
         <div class="groups__nav--menu">
           <div
@@ -14,7 +14,7 @@
           </div>
         </div>
       </div>
-      <div></div>
+      <div class="groups__nav--hidden"></div>
     </div>
   </div>
 </template>
@@ -22,7 +22,11 @@
 <script>
 export default {
   props: {
-    links: Array
+    links: Array,
+    className: {
+      type: String,
+      default: ''
+    }
   },
   emits: ['clickNavHandler']
 }
@@ -41,6 +45,18 @@ export default {
     display: grid;
     grid-template-columns: 1fr 411px;
     gap: 20px;
+    &.full {
+      grid-template-columns: 1fr;
+      .groups__nav--hidden {
+        display: none;
+      }
+      .groups__nav--menu {
+        max-width: 1587px;
+        width: 100%;
+        margin-left: 0;
+        padding: 0 16px;
+      }
+    }
   }
   &--inner {
     display: flex;

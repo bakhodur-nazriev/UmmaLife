@@ -200,7 +200,9 @@
       "articles": "Статьи",
       "photo": "Фото",
       "video": "Видео",
-      "audio": "Аудио"
+      "audio": "Аудио",
+      "muvi": "MUVI",
+      "umma_video": "UmmaVideo"
     },
     "my_page": {
       "publications": "Публикации",

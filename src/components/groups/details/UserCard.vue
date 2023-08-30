@@ -49,6 +49,11 @@ export default {
       align-items: center;
       justify-content: center;
       gap: 8px;
+      &:hover {
+        background-color: var(--color-deep-cerulean);
+        color: var(--color-white);
+        transition: all 0.15s ease-in-out;
+      }
       svg {
         width: 20px;
         height: 20px;

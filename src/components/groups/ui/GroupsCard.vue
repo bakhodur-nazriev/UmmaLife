@@ -10,8 +10,12 @@
       </div>
     </div>
     <div class="group__card--actions subs" v-if="!application">
-      <button class="group__card--btn" :class="!group.isSubs ? 'subed' : 'nosub'">
-        {{ !group.isSubs ? 'Подписаться' : 'Отписаться' }}
+      <button
+        class="group__card--btn"
+        :class="!isClicked ? 'subed' : 'nosub'"
+        @click="isClicked = !isClicked"
+      >
+        {{ !isClicked ? 'Подписаться' : 'Отписаться' }}
       </button>
     </div>
     <div class="group__card--actions application" v-else>
@@ -29,6 +33,14 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  data() {
+    return {
+      isClicked: false
+    }
+  },
+  mounted() {
+    this.isClicked = this.group.isSubs
   }
 }
 </script>
@@ -96,6 +108,11 @@ export default {
     &.subed {
       background-color: var(--color-green);
       color: var(--color-white);
+      &:hover {
+        background-color: var(--color-deep-cerulean);
+        color: var(--color-white);
+        transition: all 0.15s ease-in-out;
+      }
     }
     &.nosub {
       background-color: var(--color-seashell);

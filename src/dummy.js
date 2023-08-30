@@ -544,3 +544,9 @@ export const groupsUsers = [
     isVerified: true
   }
 ]
+
+export const audios = [
+  { id: 1, source: '/audio/audio1.mp3', title: 'Marshmallow', artist: 'Lukrembo' },
+  { id: 2, source: '/audio/audio2.mp3', title: 'Travel', artist: 'Lukrembo' },
+  { id: 3, source: '/audio/audio3.mp3', title: 'Donut', artist: 'Lukrembo' }
+]

@@ -258,6 +258,11 @@ export default {
     &.submit {
       color: var(--color-white);
       background: var(--color-green);
+      &:hover {
+        background-color: var(--color-deep-cerulean);
+        color: var(--color-white);
+        transition: all 0.15s ease-in-out;
+      }
     }
   }
 }

@@ -94,6 +94,11 @@ export default {
     align-items: center;
     gap: 8px;
     cursor: pointer;
+    &:hover {
+      background-color: var(--color-deep-cerulean);
+      color: var(--color-white);
+      transition: all 0.15s ease-in-out;
+    }
     svg {
       width: 16px;
       height: 16px;
