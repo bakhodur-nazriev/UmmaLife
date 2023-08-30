@@ -1,7 +1,13 @@
 <template>
-  <swiper :slides-per-view="4" class="albums__swiper" navigation :modules="[Navigation]">
+  <swiper
+    :slides-per-view="4"
+    :space-between="10"
+    class="albums__swiper"
+    navigation
+    :modules="[Navigation]"
+  >
     <swiper-slide v-for="i in 10" :key="i">
-      <AudioPlayList />
+      <AudioAlbumCard />
     </swiper-slide>
   </swiper>
 </template>
@@ -9,13 +15,13 @@
 <script>
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation } from 'swiper/modules'
-import AudioPlayList from '@/components/audio/AudioPlayList.vue'
+import AudioAlbumCard from '@/components/audio/AudioAlbumCard.vue'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
 
 export default {
-  components: { AudioPlayList, Swiper, SwiperSlide },
+  components: { AudioAlbumCard, Swiper, SwiperSlide },
   data() {
     return {
       Navigation

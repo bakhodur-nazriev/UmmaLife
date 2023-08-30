@@ -28,7 +28,8 @@ export default {
 
 <style lang="scss" scoped>
 .playlist {
-  width: 350px;
+  max-width: 350px;
+  width: 100%;
   border-radius: 15px;
   padding: 8px 8px 14px 8px;
   background-color: var(--color-white);
