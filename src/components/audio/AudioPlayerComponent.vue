@@ -33,8 +33,8 @@
             <div class="bar-fill"></div>
           </div>
         </div>
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-volume" />
+        <svg class="icon" aria-hidden="true" @click.prevent="handleVolumeClick">
+          <use :xlink:href="isVolumeClicked ? '#icon-volume' : '#icon-volume-no'" />
         </svg>
       </div>
       <div class="list__icons">
@@ -45,8 +45,16 @@
         <AudioDownloadIcon />
         <AudioShareIcon />
       </div>
-      <button class="audio__player--arrow"><ArrowUpIcon /></button>
+      <button class="audio__player--arrow" @click="isListOpen = !isListOpen">
+        <ArrowUpIcon />
+      </button>
     </div>
+    <AudioPlayList
+      :audios="audios"
+      :currentIndex="$refs.audioPlayer.currentPlayIndex"
+      v-if="isListOpen"
+      :playerHeight="$refs?.player?.clientHeight"
+    />
   </div>
 </template>
 
@@ -61,9 +69,11 @@ import AudioShuffleIcon from '@/components/icons/audio/AudioShuffleIcon.vue'
 import AudioDownloadIcon from '@/components/icons/audio/AudioDownloadIcon.vue'
 import AudioShareIcon from '@/components/icons/audio/AudioShareIcon.vue'
 import ArrowUpIcon from '@/components/icons/audio/ArrowUpIcon.vue'
+import AudioPlayList from '@/components/audio/AudioPlayList.vue'
 
 export default {
   components: {
+    AudioPlayList,
     AudioPlayPrev,
     AudioPlayNext,
     VideoPlayIcon,
@@ -84,7 +94,9 @@ export default {
       currentAudioName: '',
       currentAuthor: '',
       currentAudio: null,
-      value: 100
+      isVolumeClicked: true,
+      value: 100,
+      isListOpen: false
     }
   },
 
@@ -103,6 +115,10 @@ export default {
     playerHeight() {
       this.$emit('playerHeight', this.$refs.player.clientHeight)
     },
+    handleVolumeClick() {
+      this.isVolumeClicked = !this.isVolumeClicked
+      this.currentAudio.muted = !this.isVolumeClicked
+    },
     rangeHandler() {
       const range = document.querySelector('.volume input[type=range]')
 
@@ -110,12 +126,16 @@ export default {
       const fill = document.querySelector('.volume .bar .bar-fill')
 
       const setValue = (value) => {
-        fill.style.width = value + '%'
-        range.setAttribute('value', value)
-        range.dispatchEvent(new Event('change'))
-        if (this.currentAudio) {
-          this.currentAudio.volume = value / 100
+        if (!this.isVolumeClicked) {
+          fill.style.width = '0%'
+        } else {
+          fill.style.width = value + '%'
           this.value = value
+          range.setAttribute('value', value)
+          range.dispatchEvent(new Event('change'))
+          if (this.currentAudio) {
+            this.currentAudio.volume = value / 100
+          }
         }
       }
 
@@ -150,7 +170,8 @@ export default {
         'touchstart',
         (e) => {
           barStillDown = true
-
+          this.isVolumeClicked = true
+          this.currentAudio.muted = !this.isVolumeClicked
           calculateFill(e)
         },
         true
@@ -160,6 +181,8 @@ export default {
         'touchmove',
         (e) => {
           if (barStillDown) {
+            this.isVolumeClicked = true
+            this.currentAudio.muted = !this.isVolumeClicked
             calculateFill(e)
           }
         },
@@ -170,7 +193,8 @@ export default {
         'mousedown',
         (e) => {
           barStillDown = true
-
+          this.isVolumeClicked = true
+          this.currentAudio.muted = !this.isVolumeClicked
           calculateFill(e)
         },
         true
@@ -178,6 +202,7 @@ export default {
 
       barHoverBox.addEventListener('mousemove', (e) => {
         if (barStillDown) {
+          this.isVolumeClicked = true
           calculateFill(e)
         }
       })
@@ -224,7 +249,7 @@ export default {
 .audio__player {
   background: var(--color-white);
   width: 100%;
-  position: fixed;
+  position: absolute;
   transition: all 3s ease-in-out;
   bottom: 0;
   right: 0;
@@ -374,6 +399,7 @@ export default {
       height: 20px;
       margin-left: 20px;
       fill: var(--color-hippie-blue);
+      cursor: pointer;
     }
 
     .bar {

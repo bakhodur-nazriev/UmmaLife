@@ -1,22 +1,28 @@
 <template>
-  <div class="list">
+  <div class="list" :class="className">
     <div class="list__left">
       <button class="list__play" @click="$emit('playAudio', audio)">
         <VideoPlayIcon />
       </button>
-      <div class="list__name">
-        {{ audio.title }}
-      </div>
+      <div class="list__name">{{ audio.title }}</div>
       <div class="list__author">{{ audio.artist }}</div>
     </div>
     <div class="list__right">
-      <div class="list__icons">
+      <div class="list__icons" v-if="!className.includes('track__list') && screenWidth > 1199">
         <AudioAddIcon />
         <AudioBookmarkIcon />
-        <AudioLikeIcon />
+        <div @click="liked = !liked" class="like__icon">
+          <AudioLikeIcon v-if="!liked" />
+          <AudioFilledLikeIcon v-else />
+        </div>
         <AudioShuffleIcon />
-        <AudioDownloadIcon />
+        <a class="download__icon" :href="audio.source" download>
+          <AudioDownloadIcon />
+        </a>
         <AudioShareIcon />
+      </div>
+      <div v-else-if="className.includes('track__list') || screenWidth < 1199" class="list__menu">
+        <MenuDetailsIcon />
       </div>
       <div class="list__time">{{ totalTime }}</div>
     </div>
@@ -28,14 +34,26 @@ import VideoPlayIcon from '@/components/icons/VideoPlayIcon.vue'
 import AudioAddIcon from '@/components/icons/audio/AudioAddIcon.vue'
 import AudioBookmarkIcon from '@/components/icons/audio/AudioBookmarkIcon.vue'
 import AudioLikeIcon from '@/components/icons/audio/AudioLikeIcon.vue'
+import AudioFilledLikeIcon from '@/components/icons/audio/AudioFilledLikeIcon.vue'
 import AudioShuffleIcon from '@/components/icons/audio/AudioShuffleIcon.vue'
 import AudioDownloadIcon from '@/components/icons/audio/AudioDownloadIcon.vue'
 import AudioShareIcon from '@/components/icons/audio/AudioShareIcon.vue'
+import MenuDetailsIcon from '@/components/icons/MenuDetailsIcon.vue'
+import { useWindowSize } from '@vueuse/core'
 
 export default {
   emits: ['playAudio'],
   props: {
-    audio: Object
+    audio: Object,
+    className: {
+      type: String,
+      default: '',
+      isActive: false
+    },
+    isLiked: {
+      type: Boolean,
+      default: false
+    }
   },
   components: {
     VideoPlayIcon,
@@ -44,14 +62,21 @@ export default {
     AudioLikeIcon,
     AudioShuffleIcon,
     AudioDownloadIcon,
-    AudioShareIcon
+    AudioShareIcon,
+    MenuDetailsIcon,
+    AudioFilledLikeIcon
   },
   data() {
     return {
-      audioDuration: 0
+      audioDuration: 0,
+      liked: this.isLiked
     }
   },
   computed: {
+    screenWidth() {
+      const { width } = useWindowSize()
+      return width.value
+    },
     totalTime() {
       const audio = new Audio()
       audio.preload = 'metadata'
@@ -75,7 +100,8 @@ export default {
       const minutes = (seconds % 3600) / 60
       return [minutes, seconds % 60].map(format).join(':')
     }
-  }
+  },
+  setActive() {}
 }
 </script>
 
@@ -90,6 +116,24 @@ export default {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+  &.active__list {
+    background-color: var(--color-seashell);
+  }
+  .download__icon,
+  .like__icon {
+    width: 20px;
+    height: 20px;
+  }
+  &.track__list {
+    padding: 8px;
+    .list__name {
+      width: 150px;
+      margin-right: 8px;
+    }
+  }
+  @media (max-width: 991px) {
+    padding: 8px;
+  }
   &__left,
   &__right {
     display: flex;
@@ -97,6 +141,11 @@ export default {
   }
   &__right {
     gap: 48px;
+  }
+  &__menu {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
   }
   &__play {
     background-color: var(--color-hippie-blue);
@@ -133,6 +182,13 @@ export default {
     text-overflow: ellipsis;
     overflow-wrap: break-word;
     margin-right: 107px;
+    @media (max-width: 1450px) {
+      width: 200px;
+      margin-right: 16px;
+    }
+    @media (max-width: 991px) {
+      width: 150px;
+    }
   }
   &__author {
     font-size: 16px;
