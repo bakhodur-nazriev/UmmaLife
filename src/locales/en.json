@@ -20,7 +20,17 @@
     "news": "News",
     "saved": "Saved",
     "video": "video",
-    "settings": "Settings"
+    "settings": "Settings",
+    "search": {
+      "all-recommendations": "Show all recommendations",
+      "people": "People",
+      "groups": "Groups",
+      "muvi": "MUVI",
+      "article": "Article",
+      "video": "Video",
+      "audio": "Audio",
+      "hashtags": "Hashtags"
+    }
   },
   "login": {
     "title": "Login",
@@ -66,7 +76,17 @@
     "marriage_agency": "Marriage agency",
     "all_groups": "All groups",
     "all_people": "All people",
-    "read_more": "Read more"
+    "read_more": "Read more",
+    "search": {
+      "all": "All",
+      "people": "People",
+      "groups": "Groups",
+      "muvi": "MUVI",
+      "article": "Article",
+      "video": "Video",
+      "audio": "Audio",
+      "hashtags": "Hashtags"
+    }
   },
   "register": {
     "title": "Registration",
@@ -230,9 +250,10 @@
       "communities": "Communities",
       "muvi": "MUVI",
       "article": "Article",
-      "video": "Видео",
-      "audio": "Аудио",
-      "hashtags": "Хештеги",
+      "video": "Video",
+      "audio": "Audio",
+      "hashtags": "Hashtags",
+      "groups": "Groups",
       "age": {
         "single": "year",
         "plural": "year"
@@ -315,9 +336,9 @@
       "featured_stickers": "Featured stickers"
     },
     "search": {
-      "recent": "Недавнее",
-      "people": "Люди",
-      "communities": "Сообщества",
+      "recent": "Recent",
+      "people": "People",
+      "communities": "Communities",
       "muvi": "MUVI",
       "see_all": "See all"
     }
