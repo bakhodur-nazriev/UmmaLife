@@ -37,7 +37,9 @@ export default {
       commit('setIsPlayerOpen', false)
       commit('setAudioPlaying', index)
       commit('setIndex', index)
-      commit('setIsPlayerOpen', true)
+      setTimeout(() => {
+        commit('setIsPlayerOpen', true)
+      }, 0)
     }
   }
 }
