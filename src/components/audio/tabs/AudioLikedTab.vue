@@ -7,23 +7,20 @@
         :key="audio.id"
         :audio="audio"
         @playAudio="playSingleAudio"
-        :isLiked="true"
+        @handleLike="(like) => (audio.isLiked = like)"
       />
       <AudioList
         v-for="audio in audios"
         :key="audio.id"
         :audio="audio"
         @playAudio="playSingleAudio"
-        :isLiked="true"
+        @handleLike="(like) => (audio.isLiked = like)"
       />
     </div>
   </div>
   <teleport to="body">
-    <AudioPlayerComponent
-      :audios="chosenAudios"
-      v-if="isPlayerOpen"
-      @playerHeight="setPlayerHeight"
-    />
+    <AudioPlayList v-if="isListOpen" />
+    <AudioPlayerComponent v-if="isPlayerOpen" />
   </teleport>
 </template>
 
@@ -33,8 +30,9 @@ import AudioList from '@/components/audio/AudioList.vue'
 import AudioPlayerComponent from '@/components/audio/AudioPlayerComponent.vue'
 
 import { mapState, mapMutations } from 'vuex'
+import AudioPlayList from '../AudioPlayList.vue'
 export default {
-  components: { GroupsSearch, AudioList, AudioPlayerComponent },
+  components: { GroupsSearch, AudioList, AudioPlayerComponent, AudioPlayList },
   data() {
     return {
       playerHeight: 0

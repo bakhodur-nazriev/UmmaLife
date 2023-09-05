@@ -4,10 +4,10 @@
       <GroupsNav :links="links" className="full" @clickNavHandler="clickNavHandler" />
       <div class="audio__page--container">
         <AudioReviewTab v-if="links[0].isActive" />
-        <AudioMyAudioTab v-else-if="links[1].isActive" />
+        <!-- <AudioMyAudioTab v-else-if="links[1].isActive" />
         <AudioPlaylistsTab v-else-if="links[2].isActive" />
         <AudioLikedTab v-else-if="links[3].isActive" />
-        <AudioUploadTab v-else-if="links[4].isActive" />
+        <AudioUploadTab v-else-if="links[4].isActive" /> -->
       </div>
     </div>
   </main-layout>
@@ -17,20 +17,20 @@
 import MainLayout from '@/components/layouts/MainLayout.vue'
 import GroupsNav from '@/components/groups/GroupsNav.vue'
 import AudioReviewTab from '@/components/audio/tabs/AudioReviewTab.vue'
-import AudioMyAudioTab from '@/components/audio/tabs/AudioMyAudioTab.vue'
-import AudioPlaylistsTab from '@/components/audio/tabs/AudioPlaylistsTab.vue'
-import AudioLikedTab from '@/components/audio/tabs/AudioLikedTab.vue'
-import AudioUploadTab from '@/components/audio/tabs/AudioUploadTab.vue'
+// import AudioMyAudioTab from '@/components/audio/tabs/AudioMyAudioTab.vue'
+// import AudioPlaylistsTab from '@/components/audio/tabs/AudioPlaylistsTab.vue'
+// import AudioLikedTab from '@/components/audio/tabs/AudioLikedTab.vue'
+// import AudioUploadTab from '@/components/audio/tabs/AudioUploadTab.vue'
 
 export default {
   components: {
     MainLayout,
     GroupsNav,
-    AudioReviewTab,
-    AudioMyAudioTab,
-    AudioPlaylistsTab,
-    AudioLikedTab,
-    AudioUploadTab
+    AudioReviewTab
+    // AudioMyAudioTab,
+    // AudioPlaylistsTab,
+    // AudioLikedTab,
+    // AudioUploadTab
   },
   data() {
     return {

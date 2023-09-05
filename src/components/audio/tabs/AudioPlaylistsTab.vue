@@ -10,6 +10,7 @@
       :audios="chosenAudios"
       v-if="isPlayerOpen"
       @playerHeight="setPlayerHeight"
+      @handleLike="(i, like) => (chosenAudios[i].isLiked = like)"
     />
   </teleport>
 </template>

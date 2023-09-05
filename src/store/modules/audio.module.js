@@ -1,27 +1,43 @@
-import { audios } from '@/dummy.js'
-
 export default {
   namespaced: true,
   state() {
     return {
-      audios: audios,
+      audios: [],
+      index: -1,
       isPlayerOpen: false,
-      chosenAudios: [],
-      index: -1
+      isListOpen: false
     }
   },
   mutations: {
-    playSingleAudio(state, audio) {
-      state.chosenAudios.length = 0
-      state.chosenAudios.push(audio)
-      state.isPlayerOpen = true
+    setAudioPlaying(state, index) {
+      state.audios.forEach((audio) => (audio.isPlaying = false))
+      state.audios[index].isPlaying = true
     },
-    setPlayerClose(state) {
-      state.isPlayerOpen = false
-      state.index = -1
+    setAudioPause(state, index) {
+      state.audios[index].isPlaying = false
     },
-    setActiveIndex(state, index) {
+    setIndex(state, index) {
       state.index = index
+    },
+    setIsPlayerOpen(state, isPlayerOpen) {
+      state.isPlayerOpen = isPlayerOpen
+    },
+    setIsLiked(state, index) {
+      state.audios[index].isLiked = !state.audios[index].isLiked
+    },
+    setListOpen(state, isListOpen) {
+      state.isListOpen = isListOpen
+    },
+    setAudios(state, audios) {
+      state.audios = audios
+    }
+  },
+  actions: {
+    playHandler({ commit }, index) {
+      commit('setIsPlayerOpen', false)
+      commit('setAudioPlaying', index)
+      commit('setIndex', index)
+      commit('setIsPlayerOpen', true)
     }
   }
 }

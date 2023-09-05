@@ -1,7 +1,11 @@
 <template>
-  <div class="list" :class="className">
+  <div class="list" v-for="(audio, index) in dummyAudios" :key="audio.id">
     <div class="list__left">
-      <button class="list__play" @click="playHandler(index)" :class="{ playing: audio.isPlaying }">
+      <button
+        class="list__play"
+        @click="clickPlayHandler(audio, index)"
+        :class="{ playing: audio.isPlaying }"
+      >
         <VideoPlayIcon v-if="!audio.isPlaying" />
         <svg v-else class="audio__play-icon" aria-hidden="true">
           <use xlink:href="#icon-pause"></use>
@@ -11,14 +15,10 @@
       <div class="list__author">{{ audio.artist }}</div>
     </div>
     <div class="list__right">
-      <div class="list__icons" v-if="!className.includes('track__list') && screenWidth > 1199">
+      <div class="list__icons" v-if="screenWidth > 1199">
         <AudioAddIcon />
         <AudioBookmarkIcon />
-        <div v-if="playList" @click="likeHandler(index)" class="like__icon">
-          <AudioLikeIcon v-if="!audio.isLiked" />
-          <AudioFilledLikeIcon v-else />
-        </div>
-        <div v-else @click="setIsLiked(index)" class="like__icon">
+        <div @click="likeHandler(index)" class="like__icon">
           <AudioLikeIcon v-if="!audio.isLiked" />
           <AudioFilledLikeIcon v-else />
         </div>
@@ -28,7 +28,7 @@
         </a>
         <AudioShareIcon />
       </div>
-      <div v-else-if="className.includes('track__list') || screenWidth < 1199" class="list__menu">
+      <div v-else class="list__menu">
         <MenuDetailsIcon />
       </div>
       <AudioDuration :audio="audio" />
@@ -46,43 +46,36 @@ import AudioShuffleIcon from '@/components/icons/audio/AudioShuffleIcon.vue'
 import AudioDownloadIcon from '@/components/icons/audio/AudioDownloadIcon.vue'
 import AudioShareIcon from '@/components/icons/audio/AudioShareIcon.vue'
 import MenuDetailsIcon from '@/components/icons/MenuDetailsIcon.vue'
-import { mapActions, mapMutations } from 'vuex'
+
+import { mapActions, mapMutations, mapState } from 'vuex'
 import { audios } from '@/dummy'
-import { useWindowSize } from '@vueuse/core'
 import AudioDuration from './AudioDuration.vue'
+import { useWindowSize } from '@vueuse/core'
 
 export default {
-  props: {
-    audio: {
-      type: Object
-    },
-    index: {
-      type: Number
-    },
-    playList: {
-      type: Boolean,
-      default: false
-    },
-    className: {
-      type: String,
-      default: ''
-    }
-  },
   data() {
     return {
       dummyAudios: audios
     }
   },
+  computed: {
+    ...mapState('audio', ['audios'])
+  },
   methods: {
-    ...mapMutations('audio', ['setIndex', 'setIsPlayerOpen', 'setAudioPlaying', 'setIsLiked']),
     ...mapActions('audio', ['playHandler']),
+    ...mapMutations('audio', ['setIsLiked', 'setAudios']),
+    clickPlayHandler(audio, index) {
+      this.setAudios([])
+      this.dummyAudios.forEach((a) => (a.isPlaying = false))
+      this.dummyAudios[index].isPlaying = true
+      this.setAudios([{ ...audio, isPlaying: true }])
+      this.playHandler(0)
+    },
     likeHandler(index) {
-      this.dummyAudios.forEach((a) => {
-        if (this.audio.id === a.id) {
-          a.isLiked = !a.isLiked
-        }
-      })
-      this.setIsLiked(index)
+      this.dummyAudios[index].isLiked = !this.dummyAudios[index].isLiked
+      if (this.audios[0]?.id === this.dummyAudios[index]?.id) {
+        this.setIsLiked(0)
+      }
     }
   },
   components: {
