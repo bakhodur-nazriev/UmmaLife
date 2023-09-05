@@ -176,12 +176,18 @@
           <div class="article-header">
             <img src="@/assets/images/navbar/people_1.png" alt="">
             <div class="article-header__details">
-              <p>Ибрагим Алиев</p>
+              <h3>Ибрагим Алиев</h3>
               <small>15 минут назад</small>
             </div>
           </div>
           <div class="article-body">
-            <img src="@/assets/images/search/article_1.png" alt="">
+            <div class="article-body__views-block">
+              <img src="@/assets/images/search/article_1.png" alt="">
+              <div class="article-body__views">
+                <EyeIcon/>
+                <span>413</span>
+              </div>
+            </div>
             <div class="article-body__details">
               <h3>Название статьи, которое не поместилось на одну строку и переодну строку и пере</h3>
               <p>Аль-Ула - город, полный археологических чудес.
@@ -193,12 +199,18 @@
           <div class="article-header">
             <img src="@/assets/images/navbar/people_1.png" alt="">
             <div class="article-header__details">
-              <p>Ибрагим Алиев</p>
+              <h3>Ибрагим Алиев</h3>
               <small>15 минут назад</small>
             </div>
           </div>
           <div class="article-body">
-            <img src="@/assets/images/search/article_1.png" alt="">
+            <div class="article-body__views-block">
+              <img src="@/assets/images/search/article_1.png" alt="">
+              <div class="article-body__views">
+                <EyeIcon/>
+                <span>413</span>
+              </div>
+            </div>
             <div class="article-body__details">
               <h3>Название статьи, которое не поместилось на одну строку и переодну строку и пере</h3>
               <p>Аль-Ула - город, полный археологических чудес. Расположенный на северо-западе Саудовской Аравии в
@@ -216,8 +228,72 @@
         <a href="">{{ $t('labels.search.see_all') }}</a>
       </div>
       <ul class="video-list">
-        <li class="video-list__item"></li>
-        <li class="video-list__item"></li>
+        <li class="video-list__item">
+          <div class="video-list__item-header">
+            <img src="@/assets/images/navbar/people_2.png" alt="">
+            <div class="video-list__item-header__details">
+              <h3>Ибрагим Алиев</h3>
+              <small>15 минут назад</small>
+            </div>
+          </div>
+          <div class="custom-video__container">
+            <VideoPlayer
+              src="/video/video.mp4"
+              poster="/images/message/video-poster.jpg"
+              controls
+              :volume="1"
+            >
+              <template v-slot="{ player, state }">
+                <div class="custom-player-controls">
+                  <div
+                    v-if="!state.playing"
+                    @click="state.playing ? player.pause() : player.play()"
+                    class="play-button"
+                  >
+                    <SmallVideoPlayIcon/>
+                  </div>
+                </div>
+              </template>
+            </VideoPlayer>
+          </div>
+          <div class="video-list__item-details">
+            <h3>Название статьи, которое не поместилось на одну строку и перена одну строку и пере</h3>
+            <span>20.08.2022 - 1 тыс. просмотров</span>
+          </div>
+        </li>
+        <li class="video-list__item">
+          <div class="video-list__item-header">
+            <img src="@/assets/images/navbar/people_2.png" alt="">
+            <div class="video-list__item-header__details">
+              <h3>Ибрагим Алиев</h3>
+              <small>15 минут назад</small>
+            </div>
+          </div>
+          <div class="custom-video__container">
+            <VideoPlayer
+              src="/video/video.mp4"
+              poster="/images/message/video-poster.jpg"
+              controls
+              :volume="1"
+            >
+              <template v-slot="{ player, state }">
+                <div class="custom-player-controls">
+                  <div
+                    v-if="!state.playing"
+                    @click="state.playing ? player.pause() : player.play()"
+                    class="play-button"
+                  >
+                    <SmallVideoPlayIcon/>
+                  </div>
+                </div>
+              </template>
+            </VideoPlayer>
+          </div>
+          <div class="video-list__item-details">
+            <h3>Название статьи, которое не поместилось на одну строку и перепоместилось на одну строку и пере</h3>
+            <span>20.08.2022 - 1 тыс. просмотров</span>
+          </div>
+        </li>
       </ul>
     </section>
     <SampleDivider/>
@@ -278,9 +354,13 @@ import EyeIcon from '@/components/icons/EyeIcon.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
 import HashtagIcon from '@/components/icons/navbar/small-display/HashtagIcon.vue'
+import SmallVideoPlayIcon from '@/components/icons/SmallVideoPlayIcon.vue'
+import { VideoPlayer } from '@videojs-player/vue'
 
 export default {
   components: {
+    VideoPlayer,
+    SmallVideoPlayIcon,
     HashtagIcon,
     EyeIcon,
     SampleButton,
@@ -430,6 +510,38 @@ export default {
       color: var(--color-gray);
     }
   }
+
+  &_main-block {
+    position: relative;
+  }
+
+  &__views-block {
+    position: relative;
+    height: 186px;
+  }
+
+  &__views {
+    position: absolute;
+    right: 10px;
+    bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--color-white);
+    background: rgba(31, 31, 31, 0.50);
+    backdrop-filter: blur(10px);
+    border-radius: 4px;
+    padding: 6px 8px;
+
+    span {
+      line-height: 1;
+      font-size: 12px;
+    }
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
 }
 
 .article-header {
@@ -447,8 +559,10 @@ export default {
     justify-content: center;
     row-gap: 4px;
 
-    p {
+    h3 {
       margin: 0;
+      font-weight: 500;
+      font-size: 16px;
       line-height: 1;
     }
 
@@ -457,6 +571,80 @@ export default {
       line-height: 1;
     }
   }
+}
+
+.video-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+
+  .custom-video__container {
+    width: 320px;
+    height: 186px;
+  }
+
+  .custom-player-controls .play-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 320px;
+
+    &-header {
+      display: flex;
+      gap: 8px;
+
+      &__details {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+
+        h3 {
+          font-size: 16px;
+          font-weight: 500;
+          margin: 0;
+          line-height: 1;
+        }
+
+        small {
+          line-height: 1;
+          color: var(--color-secondary);
+        }
+      }
+
+      img {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    &-details {
+      h3 {
+        margin: 0;
+        line-height: 1;
+        font-size: 16px;
+        font-weight: 500;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+
+      span {
+        color: var(--color-secondary);
+        font-size: 14px;
+      }
+    }
+  }
+
 }
 
 .hashtags-list {

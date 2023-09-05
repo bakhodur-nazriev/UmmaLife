@@ -1,7 +1,9 @@
 <template>
   <MainLayout>
     <div class="all-comment__block">
-      <AllRecommendations />
+<!--      <AllRecommendations />-->
+
+      <PeopleView />
 
       <aside class="all-comment__aside-block">
         <ul class="sidebar__links--list">
@@ -53,11 +55,13 @@
 
 <script>
 import MainLayout from '@/components/layouts/MainLayout.vue'
-import AllRecommendations from '@/components/SearchTabs/AllRecommendations.vue'
+// import AllRecommendations from '@/components/SearchTabs/AllRecommendations.vue'
+import PeopleView from '@/views/SearchViews/PeopleView.vue'
 
 export default {
   components: {
-    AllRecommendations,
+    PeopleView,
+    // AllRecommendations,
     MainLayout
   },
   props: {
