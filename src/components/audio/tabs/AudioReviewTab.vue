@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs">
+  <div class="tabs" :style="isPlayerOpen ? `margin-bottom: ${playerHeight + 24}px` : ''">
     <GroupsSearch class="tabs__search" placeholder="Поиск аудио" />
     <h2 class="tabs__title">Плейлисты</h2>
     <AudioAlbumSlider />
@@ -7,12 +7,17 @@
     <AudioList
       v-for="audio in audios"
       :key="audio.id"
-      :audioSource="audio.source"
-      :audioTitle="audio.title"
-      :audioArtist="audio.artist"
+      :audio="audio"
+      @playAudio="playSingleAudio"
     />
   </div>
-  <AudioPlayerComponent :audios="audios" />
+  <teleport to="body">
+    <AudioPlayerComponent
+      :audios="chosenAudios"
+      v-if="isPlayerOpen"
+      @playerHeight="setPlayerHeight"
+    />
+  </teleport>
 </template>
 
 <script>
@@ -21,13 +26,25 @@ import GroupsSearch from '@/components/groups/ui/GroupsSearch.vue'
 import AudioList from '@/components/audio/AudioList.vue'
 import AudioPlayerComponent from '@/components/audio/AudioPlayerComponent.vue'
 
-import { audios } from '@/dummy.js'
+import { mapState, mapMutations } from 'vuex'
 export default {
   components: { AudioAlbumSlider, GroupsSearch, AudioList, AudioPlayerComponent },
   data() {
     return {
-      audios
+      playerHeight: 0
     }
+  },
+  computed: {
+    ...mapState('audio', ['chosenAudios', 'isPlayerOpen', 'audios'])
+  },
+  methods: {
+    ...mapMutations('audio', ['playSingleAudio', 'setPlayerClose']),
+    setPlayerHeight(height) {
+      this.playerHeight = height
+    }
+  },
+  beforeUnmount() {
+    this.setPlayerClose()
   }
 }
 </script>

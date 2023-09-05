@@ -1,5 +1,5 @@
 <template>
-  <div class="playlist">
+  <div class="playlist" @click="openPlayList">
     <div class="playlist__cover">
       <img src="/images/message/message-img.jpg" alt="message-img" />
       <button class="playlist__cover--bookmark">
@@ -11,22 +11,32 @@
       <p>Создано: 20.08.2022</p>
     </div>
   </div>
+  <teleport to="body">
+    <AudioAlbumDetail v-if="isDetailOpen" @closeDetailHandler="isDetailOpen = false" />
+  </teleport>
 </template>
 
 <script>
 import BookmarkIcon from '@/components/icons/BookmarkIcon.vue'
+import AudioAlbumDetail from '@/components/audio/AudioAlbumDetail.vue'
 
 export default {
-  components: { BookmarkIcon },
+  components: { BookmarkIcon, AudioAlbumDetail },
   data() {
     return {
-      isBookmarkClicked: false
+      isBookmarkClicked: false,
+      isDetailOpen: false
+    }
+  },
+  methods: {
+    openPlayList() {
+      this.isDetailOpen = true
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .playlist {
   max-width: 350px;
   width: 100%;
