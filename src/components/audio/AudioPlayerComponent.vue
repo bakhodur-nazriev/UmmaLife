@@ -96,7 +96,8 @@ export default {
       currentAudioName: '',
       currentAuthor: '',
       isVolumeClicked: true,
-      dummyAudios: audios
+      dummyAudios: audios,
+      currentPlayer: null
     }
   },
   computed: {
@@ -121,11 +122,10 @@ export default {
           fill.style.width = '0%'
         } else {
           fill.style.width = value + '%'
-          this.value = value
           range.setAttribute('value', value)
           range.dispatchEvent(new Event('change'))
-          if (this.currentAudio) {
-            this.currentAudio.volume = value / 100
+          if (this.currentPlayer) {
+            this.currentPlayer.volume = value / 100
           }
         }
       }
@@ -162,7 +162,7 @@ export default {
         (e) => {
           barStillDown = true
           this.isVolumeClicked = true
-          this.currentAudio.muted = !this.isVolumeClicked
+          this.currentPlayer.muted = !this.isVolumeClicked
           calculateFill(e)
         },
         true
@@ -173,7 +173,7 @@ export default {
         (e) => {
           if (barStillDown) {
             this.isVolumeClicked = true
-            this.currentAudio.muted = !this.isVolumeClicked
+            this.currentPlayer.muted = !this.isVolumeClicked
             calculateFill(e)
           }
         },
@@ -185,7 +185,7 @@ export default {
         (e) => {
           barStillDown = true
           this.isVolumeClicked = true
-          this.currentAudio.muted = !this.isVolumeClicked
+          this.currentPlayer.muted = !this.isVolumeClicked
           calculateFill(e)
         },
         true
@@ -225,7 +225,7 @@ export default {
     },
     handleVolumeClick() {
       this.isVolumeClicked = !this.isVolumeClicked
-      this.currentAudio.muted = !this.isVolumeClicked
+      this.currentPlayer.muted = !this.isVolumeClicked
     },
     handleBeforePlay(next) {
       this.$refs.audioPlayer.currentPlayIndex = this.index
@@ -273,11 +273,13 @@ export default {
   mounted() {
     this.autoPlay()
     this.playerHeight()
+    this.currentPlayer = document.querySelector('.audio-player__audio')
     this.rangeHandler()
   },
   updated() {
     this.autoPlay()
     this.playerHeight()
+    this.currentPlayer = document.querySelector('.audio-player__audio')
     this.rangeHandler()
   }
 }
