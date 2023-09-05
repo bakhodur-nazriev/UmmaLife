@@ -274,6 +274,11 @@ export default {
     this.autoPlay()
     this.playerHeight()
     this.rangeHandler()
+  },
+  updated() {
+    this.autoPlay()
+    this.playerHeight()
+    this.rangeHandler()
   }
 }
 </script>
