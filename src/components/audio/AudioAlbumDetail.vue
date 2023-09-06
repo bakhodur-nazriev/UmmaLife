@@ -29,7 +29,7 @@
           :audio="audio"
           :index="i"
           :playList="true"
-          :className="index === i ? 'track__list active__list' : 'track__list'"
+          :className="audioIndex === i ? 'track__list active__list' : 'track__list'"
         />
       </div>
     </div>
@@ -47,7 +47,7 @@ import { mapState } from 'vuex'
 export default {
   components: { PlusIcon, BookmarkIcon, AudioList, ShareIcon },
   computed: {
-    ...mapState('audio', ['audios', 'index'])
+    ...mapState('audio', ['audios', 'audioIndex'])
   }
 }
 </script>

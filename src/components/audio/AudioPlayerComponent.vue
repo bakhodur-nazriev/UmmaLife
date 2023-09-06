@@ -12,6 +12,7 @@
         :show-playback-rate="false"
         :show-volume-button="false"
         theme-color="#49A399"
+        :loop="isLoop"
       >
         <template #play-prev>
           <button class="play-control"><AudioPlayPrev /></button>
@@ -42,14 +43,16 @@
         </svg>
       </div>
       <div class="list__icons">
-        <AudioAddIcon />
+        <div class="list__icons--btn">
+          <AudioAddIcon />
+        </div>
         <AudioBookmarkIcon />
-        <div @click="likeHandler(index)" class="like__icon">
-          <AudioLikeIcon v-if="!audios[index].isLiked" />
+        <div @click="likeHandler(audioIndex)" class="like__icon">
+          <AudioLikeIcon v-if="!audios[audioIndex].isLiked" />
           <AudioFilledLikeIcon v-else />
         </div>
-        <AudioShuffleIcon />
-        <a class="download__icon" :href="audios[index].source" download>
+        <AudioLoop />
+        <a class="download__icon" :href="audios[audioIndex].source" download>
           <AudioDownloadIcon />
         </a>
         <AudioShareIcon />
@@ -68,7 +71,7 @@ import VideoPlayIcon from '@/components/icons/VideoPlayIcon.vue'
 import AudioAddIcon from '@/components/icons/audio/AudioAddIcon.vue'
 import AudioBookmarkIcon from '@/components/icons/audio/AudioBookmarkIcon.vue'
 import AudioLikeIcon from '@/components/icons/audio/AudioLikeIcon.vue'
-import AudioShuffleIcon from '@/components/icons/audio/AudioShuffleIcon.vue'
+import AudioLoop from '@/components/audio/AudioLoop.vue'
 import AudioDownloadIcon from '@/components/icons/audio/AudioDownloadIcon.vue'
 import AudioShareIcon from '@/components/icons/audio/AudioShareIcon.vue'
 import ArrowUpIcon from '@/components/icons/audio/ArrowUpIcon.vue'
@@ -85,7 +88,7 @@ export default {
     AudioAddIcon,
     AudioBookmarkIcon,
     AudioLikeIcon,
-    AudioShuffleIcon,
+    AudioLoop,
     AudioDownloadIcon,
     AudioShareIcon,
     ArrowUpIcon,
@@ -101,7 +104,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('audio', ['audios', 'index', 'isListOpen'])
+    ...mapState('audio', ['audios', 'audioIndex', 'isListOpen', 'isLoop'])
   },
   methods: {
     ...mapMutations('audio', [
@@ -109,7 +112,8 @@ export default {
       'setAudioPause',
       'setIndex',
       'setIsLiked',
-      'setListOpen'
+      'setListOpen',
+      'addAudio'
     ]),
     rangeHandler() {
       const range = document.querySelector('.volume input[type=range]')
@@ -228,7 +232,7 @@ export default {
       this.currentPlayer.muted = !this.isVolumeClicked
     },
     handleBeforePlay(next) {
-      this.$refs.audioPlayer.currentPlayIndex = this.index
+      this.$refs.audioPlayer.currentPlayIndex = this.audioIndex
       const currentIndex = this.$refs.audioPlayer.currentPlayIndex
       this.currentAudioName = this.audios[currentIndex].title
       this.currentAuthor = this.audios[currentIndex].artist
@@ -236,8 +240,8 @@ export default {
       next()
     },
     handleBeforePrev(next) {
-      if (this.index > 0) {
-        this.setIndex(this.index - 1)
+      if (this.audioIndex > 0) {
+        this.setIndex(this.audioIndex - 1)
       } else {
         this.setIndex(this.audios.length - 1)
       }
@@ -245,8 +249,8 @@ export default {
       next()
     },
     handleBeforeNext(next) {
-      if (this.index < this.audios.length - 1) {
-        this.setIndex(this.index + 1)
+      if (this.audioIndex < this.audios.length - 1) {
+        this.setIndex(this.audioIndex + 1)
       } else {
         this.setIndex(0)
       }
@@ -258,7 +262,7 @@ export default {
       this.setAudioPause(currentIndex)
     },
     autoPlay() {
-      this.$refs.audioPlayer.currentPlayIndex = this.index
+      this.$refs.audioPlayer.currentPlayIndex = this.audioIndex
       this.$refs.audioPlayer.play()
     },
     likeHandler(index) {
@@ -429,6 +433,7 @@ export default {
     transform: translateX(-19px);
     width: 42px;
     height: 42px;
+    opacity: 0;
     & span {
       display: none !important;
     }

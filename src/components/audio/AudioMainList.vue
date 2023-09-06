@@ -16,13 +16,15 @@
     </div>
     <div class="list__right">
       <div class="list__icons" v-if="screenWidth > 1199">
-        <AudioAddIcon />
+        <div class="list__icons--btn">
+          <AudioAddIcon @click="addAudio(audio)" />
+        </div>
         <AudioBookmarkIcon />
         <div @click="likeHandler(index)" class="like__icon">
           <AudioLikeIcon v-if="!audio.isLiked" />
           <AudioFilledLikeIcon v-else />
         </div>
-        <AudioShuffleIcon />
+        <AudioLoop />
         <a class="download__icon" :href="audio.source" download>
           <AudioDownloadIcon />
         </a>
@@ -37,12 +39,12 @@
 </template>
 
 <script>
+import AudioLoop from '@/components/audio/AudioLoop.vue'
 import VideoPlayIcon from '@/components/icons/VideoPlayIcon.vue'
 import AudioAddIcon from '@/components/icons/audio/AudioAddIcon.vue'
 import AudioBookmarkIcon from '@/components/icons/audio/AudioBookmarkIcon.vue'
 import AudioLikeIcon from '@/components/icons/audio/AudioLikeIcon.vue'
 import AudioFilledLikeIcon from '@/components/icons/audio/AudioFilledLikeIcon.vue'
-import AudioShuffleIcon from '@/components/icons/audio/AudioShuffleIcon.vue'
 import AudioDownloadIcon from '@/components/icons/audio/AudioDownloadIcon.vue'
 import AudioShareIcon from '@/components/icons/audio/AudioShareIcon.vue'
 import MenuDetailsIcon from '@/components/icons/MenuDetailsIcon.vue'
@@ -63,7 +65,7 @@ export default {
   },
   methods: {
     ...mapActions('audio', ['playHandler']),
-    ...mapMutations('audio', ['setIsLiked', 'setAudios']),
+    ...mapMutations('audio', ['setIsLiked', 'setAudios', 'addAudio']),
     clickPlayHandler(audio, index) {
       this.setAudios([])
       this.dummyAudios.forEach((a) => (a.isPlaying = false))
@@ -83,7 +85,7 @@ export default {
     AudioAddIcon,
     AudioBookmarkIcon,
     AudioLikeIcon,
-    AudioShuffleIcon,
+    AudioLoop,
     AudioDownloadIcon,
     AudioShareIcon,
     MenuDetailsIcon,
@@ -99,7 +101,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .list {
   background-color: var(--color-white);
   margin-bottom: 8px;
@@ -212,6 +214,34 @@ export default {
       width: 20px;
       height: 20px;
       cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      z-index: 10;
+      position: relative;
+    }
+    &--btn {
+      background-color: transparent;
+      width: 20px;
+      height: 20px;
+      scale: 1;
+      cursor: pointer;
+
+      position: relative;
+      &.active::after,
+      &:hover::after {
+        opacity: 1;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        left: -5px;
+        top: -5px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: var(--color-gallery-second);
+        opacity: 0;
+        transition: all 0.3s ease-in-out;
+      }
     }
   }
   &__time {

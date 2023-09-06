@@ -3,9 +3,10 @@ export default {
   state() {
     return {
       audios: [],
-      index: -1,
+      audioIndex: -1,
       isPlayerOpen: false,
-      isListOpen: false
+      isListOpen: false,
+      isLoop: false
     }
   },
   mutations: {
@@ -17,7 +18,7 @@ export default {
       state.audios[index].isPlaying = false
     },
     setIndex(state, index) {
-      state.index = index
+      state.audioIndex = index
     },
     setIsPlayerOpen(state, isPlayerOpen) {
       state.isPlayerOpen = isPlayerOpen
@@ -30,6 +31,15 @@ export default {
     },
     setAudios(state, audios) {
       state.audios = audios
+    },
+    addAudio(state, audio) {
+      const found = state.audios.find((a) => a.id === audio.id)
+      if (!found) {
+        state.audios.push(audio)
+      }
+    },
+    setIsLoop(state, isLoop) {
+      state.isLoop = isLoop
     }
   },
   actions: {
