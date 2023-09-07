@@ -4,5 +4,6 @@ export default {
   selectedTheme: 'light',
   isAuthenticated: false,
   publicationTab: '',
-  shouldChangeTabStyle: false
+  shouldChangeTabStyle: false,
+  playerMargin: 0
 }

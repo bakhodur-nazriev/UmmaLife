@@ -1,44 +1,18 @@
 <template>
-  <div class="tabs" :style="isPlayerOpen ? `margin-bottom: ${playerHeight + 24}px` : ''">
+  <div class="tabs">
     <GroupsSearch class="tabs__search" placeholder="Поиск аудио" />
     <div class="tabs__wrapper">
       <AudioAlbumCard v-for="i in 12" :key="i" />
     </div>
   </div>
-  <teleport to="body">
-    <AudioPlayerComponent
-      :audios="chosenAudios"
-      v-if="isPlayerOpen"
-      @playerHeight="setPlayerHeight"
-    />
-  </teleport>
 </template>
 
 <script>
 import AudioAlbumCard from '@/components/audio/AudioAlbumCard.vue'
 import GroupsSearch from '@/components/groups/ui/GroupsSearch.vue'
-import AudioPlayerComponent from '@/components/audio/AudioPlayerComponent.vue'
 
-import { mapState, mapMutations } from 'vuex'
 export default {
-  components: { AudioAlbumCard, GroupsSearch, AudioPlayerComponent },
-  data() {
-    return {
-      playerHeight: 0
-    }
-  },
-  computed: {
-    ...mapState('audio', ['chosenAudios', 'isPlayerOpen'])
-  },
-  methods: {
-    ...mapMutations('audio', ['playSingleAudio', 'setPlayerClose']),
-    setPlayerHeight(height) {
-      this.playerHeight = height
-    }
-  },
-  beforeUnmount() {
-    this.setPlayerClose()
-  }
+  components: { AudioAlbumCard, GroupsSearch }
 }
 </script>
 

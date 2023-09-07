@@ -147,10 +147,10 @@ export default {
   }
   &--actions {
     display: flex;
-    justify-content: space-between;
+    gap: 10px;
   }
   &--btn {
-    width: 233px;
+    flex-grow: 1;
     padding: 15px;
     border-radius: 10px;
     font-size: 16px;

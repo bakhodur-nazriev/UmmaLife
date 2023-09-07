@@ -3,11 +3,16 @@
     <div class="audio__player--left">
       <audio-player
         ref="audioPlayer"
-        :audio-list="audios.map((elm) => elm.source)"
+        @pause="pauseHandler"
+        :audio-list="audios && audios.map((elm) => elm.source)"
         :before-play="handleBeforePlay"
-        theme-color="#49A399"
+        :before-prev="handleBeforePrev"
+        :before-next="handleBeforeNext"
+        :isLoop="true"
         :show-playback-rate="false"
         :show-volume-button="false"
+        theme-color="#49A399"
+        :loop="isLoop"
       >
         <template #play-prev>
           <button class="play-control"><AudioPlayPrev /></button>
@@ -38,23 +43,24 @@
         </svg>
       </div>
       <div class="list__icons">
-        <AudioAddIcon />
+        <div class="list__icons--btn">
+          <AudioAddIcon />
+        </div>
         <AudioBookmarkIcon />
-        <AudioLikeIcon />
-        <AudioShuffleIcon />
-        <AudioDownloadIcon />
+        <div @click="likeHandler(audioIndex)" class="like__icon">
+          <AudioLikeIcon v-if="!audios[audioIndex].isLiked" />
+          <AudioFilledLikeIcon v-else />
+        </div>
+        <AudioLoop />
+        <a class="download__icon" :href="audios[audioIndex].source" download>
+          <AudioDownloadIcon />
+        </a>
         <AudioShareIcon />
       </div>
-      <button class="audio__player--arrow" @click="isListOpen = !isListOpen">
+      <button class="audio__player--arrow" @click="setListOpen(!this.isListOpen)">
         <ArrowUpIcon />
       </button>
     </div>
-    <AudioPlayList
-      :audios="audios"
-      :currentIndex="$refs.audioPlayer.currentPlayIndex"
-      v-if="isListOpen"
-      :playerHeight="$refs?.player?.clientHeight"
-    />
   </div>
 </template>
 
@@ -65,60 +71,50 @@ import VideoPlayIcon from '@/components/icons/VideoPlayIcon.vue'
 import AudioAddIcon from '@/components/icons/audio/AudioAddIcon.vue'
 import AudioBookmarkIcon from '@/components/icons/audio/AudioBookmarkIcon.vue'
 import AudioLikeIcon from '@/components/icons/audio/AudioLikeIcon.vue'
-import AudioShuffleIcon from '@/components/icons/audio/AudioShuffleIcon.vue'
+import AudioLoop from '@/components/audio/AudioLoop.vue'
 import AudioDownloadIcon from '@/components/icons/audio/AudioDownloadIcon.vue'
 import AudioShareIcon from '@/components/icons/audio/AudioShareIcon.vue'
 import ArrowUpIcon from '@/components/icons/audio/ArrowUpIcon.vue'
-import AudioPlayList from '@/components/audio/AudioPlayList.vue'
+import AudioFilledLikeIcon from '../icons/audio/AudioFilledLikeIcon.vue'
+
+import { mapMutations, mapState } from 'vuex'
+import { audios } from '@/dummy'
 
 export default {
   components: {
-    AudioPlayList,
     AudioPlayPrev,
     AudioPlayNext,
     VideoPlayIcon,
     AudioAddIcon,
     AudioBookmarkIcon,
     AudioLikeIcon,
-    AudioShuffleIcon,
+    AudioLoop,
     AudioDownloadIcon,
     AudioShareIcon,
-    ArrowUpIcon
-  },
-  emits: ['playerHeight'],
-  props: {
-    audios: Array
+    ArrowUpIcon,
+    AudioFilledLikeIcon
   },
   data() {
     return {
       currentAudioName: '',
       currentAuthor: '',
-      currentAudio: null,
       isVolumeClicked: true,
-      value: 100,
-      isListOpen: false
+      dummyAudios: audios,
+      currentPlayer: null
     }
   },
-
+  computed: {
+    ...mapState('audio', ['audios', 'audioIndex', 'isListOpen', 'isLoop'])
+  },
   methods: {
-    handleBeforePlay(next) {
-      this.currentAudioName = this.audios[this.$refs.audioPlayer.currentPlayIndex].title
-      this.currentAuthor = this.audios[this.$refs.audioPlayer.currentPlayIndex].artist
-
-      next()
-    },
-    autoPlay() {
-      this.$nextTick(() => {
-        this.$refs.audioPlayer.play()
-      })
-    },
-    playerHeight() {
-      this.$emit('playerHeight', this.$refs.player.clientHeight)
-    },
-    handleVolumeClick() {
-      this.isVolumeClicked = !this.isVolumeClicked
-      this.currentAudio.muted = !this.isVolumeClicked
-    },
+    ...mapMutations('audio', [
+      'setAudioPlaying',
+      'setAudioPause',
+      'setIndex',
+      'setIsLiked',
+      'setListOpen',
+      'addAudio'
+    ]),
     rangeHandler() {
       const range = document.querySelector('.volume input[type=range]')
 
@@ -130,11 +126,10 @@ export default {
           fill.style.width = '0%'
         } else {
           fill.style.width = value + '%'
-          this.value = value
           range.setAttribute('value', value)
           range.dispatchEvent(new Event('change'))
-          if (this.currentAudio) {
-            this.currentAudio.volume = value / 100
+          if (this.currentPlayer) {
+            this.currentPlayer.volume = value / 100
           }
         }
       }
@@ -171,7 +166,7 @@ export default {
         (e) => {
           barStillDown = true
           this.isVolumeClicked = true
-          this.currentAudio.muted = !this.isVolumeClicked
+          this.currentPlayer.muted = !this.isVolumeClicked
           calculateFill(e)
         },
         true
@@ -182,7 +177,7 @@ export default {
         (e) => {
           if (barStillDown) {
             this.isVolumeClicked = true
-            this.currentAudio.muted = !this.isVolumeClicked
+            this.currentPlayer.muted = !this.isVolumeClicked
             calculateFill(e)
           }
         },
@@ -194,7 +189,7 @@ export default {
         (e) => {
           barStillDown = true
           this.isVolumeClicked = true
-          this.currentAudio.muted = !this.isVolumeClicked
+          this.currentPlayer.muted = !this.isVolumeClicked
           calculateFill(e)
         },
         true
@@ -228,18 +223,67 @@ export default {
         },
         true
       )
+    },
+    playerHeight() {
+      this.$emit('playerHeight', this.$refs.player.clientHeight)
+    },
+    handleVolumeClick() {
+      this.isVolumeClicked = !this.isVolumeClicked
+      this.currentPlayer.muted = !this.isVolumeClicked
+    },
+    handleBeforePlay(next) {
+      this.$refs.audioPlayer.currentPlayIndex = this.audioIndex
+      const currentIndex = this.$refs.audioPlayer.currentPlayIndex
+      this.currentAudioName = this.audios[currentIndex].title
+      this.currentAuthor = this.audios[currentIndex].artist
+      this.setAudioPlaying(currentIndex)
+      next()
+    },
+    handleBeforePrev(next) {
+      if (this.audioIndex > 0) {
+        this.setIndex(this.audioIndex - 1)
+      } else {
+        this.setIndex(this.audios.length - 1)
+      }
+      this.autoPlay()
+      next()
+    },
+    handleBeforeNext(next) {
+      if (this.audioIndex < this.audios.length - 1) {
+        this.setIndex(this.audioIndex + 1)
+      } else {
+        this.setIndex(0)
+      }
+      this.autoPlay()
+      next()
+    },
+    pauseHandler() {
+      const currentIndex = this.$refs.audioPlayer.currentPlayIndex
+      this.setAudioPause(currentIndex)
+    },
+    autoPlay() {
+      this.$refs.audioPlayer.currentPlayIndex = this.audioIndex
+      this.$refs.audioPlayer.play()
+    },
+    likeHandler(index) {
+      this.dummyAudios.forEach((a) => {
+        if (this.audios[index].id === a.id) {
+          a.isLiked = !a.isLiked
+        }
+      })
+      this.setIsLiked(index)
     }
   },
   mounted() {
     this.autoPlay()
     this.playerHeight()
-    this.currentAudio = document.querySelector('.audio-player__audio')
+    this.currentPlayer = document.querySelector('.audio-player__audio')
     this.rangeHandler()
   },
   updated() {
     this.autoPlay()
     this.playerHeight()
-    this.currentAudio = document.querySelector('.audio-player__audio')
+    this.currentPlayer = document.querySelector('.audio-player__audio')
     this.rangeHandler()
   }
 }
@@ -259,6 +303,11 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  .download__icon,
+  .like__icon {
+    width: 20px;
+    height: 20px;
+  }
   &--arrow {
     background: transparent;
     border: none;
@@ -368,10 +417,54 @@ export default {
     width: 24px;
     height: 22px;
   }
+  .audio__notice {
+    display: none !important;
+  }
   .audio__play-start,
   .audio__play-pause {
     margin: 0 !important;
+    position: absolute;
+    transform: translateX(-19px);
+    width: 42px;
+    height: 42px;
   }
+  .audio__play-loading {
+    position: absolute;
+    transform: translateX(-19px);
+    width: 42px;
+    height: 42px;
+    opacity: 0;
+    & span {
+      display: none !important;
+    }
+  }
+  .audio__play-loading:after {
+    content: '';
+    width: 42px;
+    height: 42px;
+    opacity: 1;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .audio__play-prev {
+    display: flex;
+    align-items: center;
+    width: 126px;
+  }
+  .audio__play-next {
+    transform: translateX(-42px);
+  }
+  .audio__play-prev::after {
+    content: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIHZpZXdCb3g9IjAgMCAzNiAzNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTEwLjM3NzYgMC4yMjE0NDhDNy4xMDM1OSAxLjA3NDE1IDQuNDg5NDkgMy43OTk0MSAzLjYzMTI2IDcuMjU0OTdDMi43OTA4MyAxMC42MzgzIDIuNzg5MjEgMjUuNDA5IDMuNjI4NjMgMjguNzg5MkM1LjAwNDIyIDM0LjMyNzQgMTAuMjQwMSAzNy4yOTE2IDE1LjQwNzUgMzUuNDU3NkMxNy45NDU5IDM0LjU1NjYgMjguMjM0MyAyOC4xNjU1IDMwLjc5OTkgMjUuODk1N0MzNS43MzYyIDIxLjUyODcgMzUuNzMzIDE0LjUyMjcgMzAuNzkyNiAxMC4xNTJDMjkuMzA1OSA4LjgzNjkyIDIyLjY2MDYgNC40NzAzOCAxOC41MzI3IDIuMDk2MzFDMTUuMjgxNSAwLjIyNjY1MyAxMi42NjYyIC0wLjM3NDU2NyAxMC4zNzc2IDAuMjIxNDQ4Wk0xNC43Mjc3IDYuNjkwNkMxNy43MzQzIDguMjA1MzEgMjYuMDMwNSAxMy42MzU5IDI3LjUyMDcgMTUuMDY0OEMyOS4wNzQgMTYuNTU0MyAyOS4xODc2IDE5LjIzOTIgMjcuNzYxOSAyMC43NjMxQzI2LjM4MjggMjIuMjM2OCAxNi45MjMxIDI4LjQwNDMgMTQuMDgyOCAyOS42ODEyQzExLjYyNTggMzAuNzg1OCA5LjY3MDE4IDI5LjcyOTMgOS4wNTQ1NiAyNi45NjQ1QzguNjUwNjIgMjUuMTUwNiA4LjY1MDYyIDEwLjkwMzcgOS4wNTQ1NiA5LjA4OTg2QzkuNzMyMDQgNi4wNDY5MSAxMS43NTMyIDUuMTkyMTMgMTQuNzI3NyA2LjY5MDZaIiBmaWxsPSJ3aGl0ZSI+PC9wYXRoPjwvc3ZnPg==);
+    width: 42px;
+    height: 42px;
+    display: block;
+    margin: 0 20px;
+  }
+
   .volume {
     input[type='range'] {
       display: none;

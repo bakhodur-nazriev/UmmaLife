@@ -27,8 +27,9 @@
           v-for="(audio, i) in audios"
           :key="audio.id"
           :audio="audio"
-          @playAudio="(audio) => playAudioHandler(audio, i)"
-          :className="index === i ? 'track__list active__list' : 'track__list'"
+          :index="i"
+          :playList="true"
+          :className="audioIndex === i ? 'track__list active__list' : 'track__list'"
         />
       </div>
     </div>
@@ -41,19 +42,12 @@ import PlusIcon from '@/components/icons/PlusIcon.vue'
 import BookmarkIcon from '@/components/icons/BookmarkIcon.vue'
 import AudioList from '@/components/audio/AudioList.vue'
 import ShareIcon from '@/components/icons/shorts/ShareIcon.vue'
-import { mapMutations, mapState } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   components: { PlusIcon, BookmarkIcon, AudioList, ShareIcon },
   computed: {
-    ...mapState('audio', ['audios', 'index'])
-  },
-  methods: {
-    ...mapMutations('audio', ['playSingleAudio', 'setActiveIndex']),
-    playAudioHandler(audio, index) {
-      this.playSingleAudio(audio)
-      this.setActiveIndex(index)
-    }
+    ...mapState('audio', ['audios', 'audioIndex'])
   }
 }
 </script>
@@ -61,13 +55,10 @@ export default {
 <script setup>
 /* eslint-disable */
 import { vOnClickOutside } from '@vueuse/components'
-import { useStore } from 'vuex'
 
 const emit = defineEmits(['closeDetailHandler'])
-const store = useStore()
 const closeDetailHandler = () => {
   emit('closeDetailHandler')
-  store.commit('audio/setActiveIndex', -1)
 }
 </script>
 
