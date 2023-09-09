@@ -9,35 +9,33 @@
     </div>
   </div>
   <teleport to="body">
-    <AudioAlbumDetail v-if="isAlbumOpen" @closeDetailHandler="isAlbumOpen = false" />
+    <AudioAlbumDetail v-if="isAlbumOpen" @closeDetailHandler="closeHandler" />
   </teleport>
 </template>
 
 <script>
 import AudioAlbumDetail from '@/components/audio/AudioAlbumDetail.vue'
-import { mapMutations } from 'vuex'
-import { audios } from '@/dummy'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
   components: { AudioAlbumDetail },
   data() {
     return {
-      isAlbumOpen: false,
-      audios
+      isAlbumOpen: false
     }
+  },
+  computed: {
+    ...mapState('audio', ['dummyAudios'])
   },
   methods: {
-    ...mapMutations('audio', ['setAudios', 'setIsPlayerOpen']),
+    ...mapMutations('audio', ['setAudios', 'setIsAlbumOpen', 'setIsPlayerOpen']),
     openPlayList() {
+      this.setIsPlayerOpen(false)
       this.isAlbumOpen = true
-    }
-  },
-  watch: {
-    isAlbumOpen() {
-      if (this.isAlbumOpen) {
-        this.setAudios([])
-        this.setAudios(this.audios)
-      }
+      this.setAudios(this.dummyAudios)
+    },
+    closeHandler() {
+      this.isAlbumOpen = false
     }
   }
 }

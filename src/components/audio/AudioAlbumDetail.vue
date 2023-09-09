@@ -5,9 +5,6 @@
         <div class="albums__detail--inner">
           <div class="playlist__cover">
             <img src="/images/message/message-img.jpg" alt="message-img" />
-            <button class="playlist__cover--bookmark">
-              <BookmarkIcon />
-            </button>
           </div>
           <div class="albums__detail--name">Название:</div>
           <div class="albums__detail--text">Какое-то название для альбома с аудио</div>

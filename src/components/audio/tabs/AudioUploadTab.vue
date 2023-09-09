@@ -219,7 +219,5 @@ export default {
       color: var(--color-valencia);
     }
   }
-  &--close {
-  }
 }
 </style>
