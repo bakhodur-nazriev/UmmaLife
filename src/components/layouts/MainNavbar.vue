@@ -224,8 +224,9 @@ export default {
 
       if (!this.isPlayerOpen) {
         this.audios = this.audios.forEach((a) => (a.isPlaying = false))
-        this.setPlayerMargin(0)
         this.setAudios(this.audios)
+      } else {
+        this.setPlayerMargin(0)
       }
 
       this.setIsPlayerOpen(!this.isPlayerOpen)
