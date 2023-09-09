@@ -1,5 +1,3 @@
-import { audios } from '@/dummy'
-
 export default {
   namespaced: true,
   state() {
@@ -9,8 +7,7 @@ export default {
       isPlayerOpen: false,
       isListOpen: false,
       isLoop: false,
-      isPlaying: false,
-      dummyAudios: audios
+      isPlaying: false
     }
   },
   mutations: {
@@ -29,12 +26,8 @@ export default {
     },
     setIsLiked(state, id) {
       const index = state.audios.findIndex((a) => a.id === id)
-      const dummyIndex = state.dummyAudios.findIndex((a) => a.id === id)
       if (index !== -1) {
         state.audios[index].isLiked = !state.audios[index].isLiked
-      }
-      if (dummyIndex !== -1) {
-        state.dummyAudios[dummyIndex].isLiked = !state.dummyAudios[dummyIndex].isLiked
       }
     },
     setListOpen(state, isListOpen) {

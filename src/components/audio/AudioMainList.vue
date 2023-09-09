@@ -1,5 +1,5 @@
 <template>
-  <div class="list" v-for="(audio, index) in dummyAudios" :key="audio.id">
+  <div class="list" v-for="(audio, index) in audios" :key="audio.id">
     <div class="list__left">
       <button
         class="list__play playing"
@@ -49,25 +49,26 @@ import { mapActions, mapMutations, mapState } from 'vuex'
 import AudioDuration from './AudioDuration.vue'
 import { useWindowSize } from '@vueuse/core'
 import AlbumLike from './AlbumLike.vue'
+import { audios } from '@/dummy'
 export default {
+  data() {
+    return {
+      dummyAudios: audios
+    }
+  },
   computed: {
-    ...mapState('audio', ['audios', 'dummyAudios'])
+    ...mapState('audio', ['audios'])
   },
   methods: {
     ...mapActions('audio', ['playHandler']),
     ...mapMutations('audio', ['setAudios', 'addAudio', 'setAudioPause', 'setIsPlaying']),
     clickPlayHandler(audio, index) {
-      this.setAudios([])
-      this.dummyAudios.forEach((a) => (a.isPlaying = false))
-      this.dummyAudios[index].isPlaying = true
-      this.setAudios([{ ...audio, isPlaying: true }])
       this.setIsPlaying(true)
-      this.playHandler(0)
+      this.playHandler(index)
     },
     clickPauseHandler(audio, index) {
-      this.dummyAudios[index].isPlaying = false
       this.setIsPlaying(false)
-      this.setAudioPause(0)
+      this.setAudioPause(index)
     }
   },
   components: {
@@ -85,6 +86,9 @@ export default {
     return {
       screenWidth: width.value
     }
+  },
+  mounted() {
+    this.setAudios(this.dummyAudios)
   }
 }
 </script>

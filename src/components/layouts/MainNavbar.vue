@@ -128,6 +128,7 @@ import TabVideo from '@/components/layouts/SearchComponents/TabVideo.vue'
 import TabAudio from '@/components/layouts/SearchComponents/TabAudio.vue'
 import TabHashtags from '@/components/layouts/SearchComponents/TabHashtags.vue'
 import { mapState, mapMutations } from 'vuex'
+import { audios } from '@/dummy'
 
 export default {
   components: {
@@ -196,11 +197,12 @@ export default {
           label: this.$t('tabs.search.hashtags'),
           content: 'Content for Tab 8'
         }
-      ]
+      ],
+      dummyAudios: audios
     }
   },
   computed: {
-    ...mapState('audio', ['audios', 'isPlayerOpen', 'dummyAudios'])
+    ...mapState('audio', ['audios', 'isPlayerOpen'])
   },
   methods: {
     ...mapMutations('audio', ['setIsPlayerOpen', 'setAudios', 'setIndex']),
@@ -219,11 +221,14 @@ export default {
         this.setIndex(0)
         this.setAudios(this.dummyAudios)
       }
-      this.setIsPlayerOpen(!this.isPlayerOpen)
+
       if (!this.isPlayerOpen) {
-        this.dummyAudios.forEach((a) => (a.isPlaying = false))
+        this.audios = this.audios.forEach((a) => (a.isPlaying = false))
         this.setPlayerMargin(0)
+        this.setAudios(this.audios)
       }
+
+      this.setIsPlayerOpen(!this.isPlayerOpen)
     }
   }
 }

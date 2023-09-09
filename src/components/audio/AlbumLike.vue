@@ -29,14 +29,12 @@ export default {
     AudioLikeIcon
   },
   computed: {
-    ...mapState('audio', ['audios', 'audioIndex', 'dummyAudios'])
+    ...mapState('audio', ['audios', 'audioIndex'])
   },
   methods: {
     ...mapMutations('audio', ['setIsLiked', 'setAudios']),
     likeHandler() {
-      this.$nextTick(() => {
-        this.setIsLiked(this.audio.id)
-      })
+      this.setIsLiked(this.audio.id)
     }
   }
 }

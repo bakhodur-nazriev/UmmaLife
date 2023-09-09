@@ -15,22 +15,21 @@
 
 <script>
 import AudioAlbumDetail from '@/components/audio/AudioAlbumDetail.vue'
-import { mapMutations, mapState } from 'vuex'
+import { mapMutations } from 'vuex'
+import { audios } from '@/dummy'
 
 export default {
   components: { AudioAlbumDetail },
   data() {
     return {
-      isAlbumOpen: false
+      isAlbumOpen: false,
+      dummyAudios: audios
     }
-  },
-  computed: {
-    ...mapState('audio', ['dummyAudios'])
   },
   methods: {
     ...mapMutations('audio', ['setAudios', 'setIsAlbumOpen', 'setIsPlayerOpen']),
     openPlayList() {
-      this.setIsPlayerOpen(false)
+      this.setAudios([])
       this.isAlbumOpen = true
       this.setAudios(this.dummyAudios)
     },

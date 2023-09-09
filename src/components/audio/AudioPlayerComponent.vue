@@ -102,8 +102,7 @@ export default {
       'isLoop',
       'isAlbumOpen',
       'isPlayerOpen',
-      'isPlaying',
-      'dummyAudios'
+      'isPlaying'
     ])
   },
   methods: {
@@ -273,14 +272,11 @@ export default {
   },
   watch: {
     isPlaying(value) {
-      const dummyIndex = this.dummyAudios.findIndex((a) => a.id === this.audios[this.audioIndex].id)
       if (!value) {
         this.$refs.audioPlayer.isPlaying = false
-        this.dummyAudios[dummyIndex].isPlaying = false
         this.$refs.audioPlayer.pause()
       } else {
         this.$refs.audioPlayer.isPlaying = true
-        this.dummyAudios[dummyIndex].isPlaying = true
         this.$refs.audioPlayer.play()
       }
     }

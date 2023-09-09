@@ -20,12 +20,8 @@ export default {
     AudioList
   },
   computed: {
-    ...mapState('audio', ['audios', 'dummyAudios']),
+    ...mapState('audio', ['audios']),
     likedAudios() {
-      if (this.audios.length === 0) {
-        return this.dummyAudios.filter((a) => a.isLiked)
-      }
-
       return this.audios.filter((a) => a.isLiked)
     }
   },
