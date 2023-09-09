@@ -201,11 +201,6 @@ export default {
   transition: all 0.3s ease;
   position: relative;
 
-  svg {
-    width: 18px;
-    height: 18px;
-  }
-
   &:hover {
     transform: translateY(-5px);
     transition: all 0.3s ease;
@@ -338,6 +333,13 @@ export default {
 }
 
 @media (max-width: 576px) {
+  .reaction__item {
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
   .share__item {
     gap: 6px;
   }

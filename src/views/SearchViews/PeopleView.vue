@@ -1,125 +1,128 @@
 <template>
-  <div class="main-people__block">
-    <ul class="people-list">
-      <li class="people-list__item">
-        <div class="people-list__item-details">
-          <img src="@/assets/images/search/people_1.png" alt="">
-          <div class="people-list__item-details__titles">
-            <h3>Мухаммад Мухаммадов</h3>
-            <span>Istanbul, 24 года</span>
+  <MainLayout>
+    <div class="main-people__block">
+      <ul class="people-list">
+        <li class="people-list__item">
+          <div class="people-list__item-details">
+            <img src="@/assets/images/search/people_1.png" alt="">
+            <div class="people-list__item-details__titles">
+              <h3>Мухаммад Мухаммадов</h3>
+              <span>Istanbul, 24 года</span>
+            </div>
           </div>
-        </div>
-        <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
-      </li>
-      <li class="people-list__item">
-        <div class="people-list__item-details">
-          <img src="@/assets/images/search/people_2.png" alt="">
-          <div class="people-list__item-details__titles">
-            <h3>Магомед Оздоев</h3>
-            <span>Грузия, 27 лет</span>
+          <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+        </li>
+        <li class="people-list__item">
+          <div class="people-list__item-details">
+            <img src="@/assets/images/search/people_2.png" alt="">
+            <div class="people-list__item-details__titles">
+              <h3>Магомед Оздоев</h3>
+              <span>Грузия, 27 лет</span>
+            </div>
           </div>
-        </div>
-        <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
-      </li>
-      <li class="people-list__item">
-        <div class="people-list__item-details">
-          <img src="@/assets/images/search/people_3.png" alt="">
-          <div class="people-list__item-details__titles">
-            <h3>Александр Сидоренко</h3>
-            <span>Istanbul, 24 года</span>
+          <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+        </li>
+        <li class="people-list__item">
+          <div class="people-list__item-details">
+            <img src="@/assets/images/search/people_3.png" alt="">
+            <div class="people-list__item-details__titles">
+              <h3>Александр Сидоренко</h3>
+              <span>Istanbul, 24 года</span>
+            </div>
           </div>
-        </div>
-        <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
-      </li>
-      <li class="people-list__item">
-        <div class="people-list__item-details">
-          <img src="@/assets/images/search/people_4.png" alt="">
-          <div class="people-list__item-details__titles">
-            <h3>Айжан Тумухамбетова</h3>
-            <span>Мадрид, 28 лет</span>
+          <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+        </li>
+        <li class="people-list__item">
+          <div class="people-list__item-details">
+            <img src="@/assets/images/search/people_4.png" alt="">
+            <div class="people-list__item-details__titles">
+              <h3>Айжан Тумухамбетова</h3>
+              <span>Мадрид, 28 лет</span>
+            </div>
           </div>
-        </div>
-        <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
-      </li>
-      <li class="people-list__item">
-        <div class="people-list__item-details">
-          <img src="@/assets/images/search/people_5.png" alt="">
-          <div class="people-list__item-details__titles">
-            <h3>Патимат Нурмагомедова</h3>
-            <span>Istanbul, 24 года</span>
+          <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+        </li>
+        <li class="people-list__item">
+          <div class="people-list__item-details">
+            <img src="@/assets/images/search/people_5.png" alt="">
+            <div class="people-list__item-details__titles">
+              <h3>Патимат Нурмагомедова</h3>
+              <span>Istanbul, 24 года</span>
+            </div>
           </div>
-        </div>
-        <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
-      </li>
-      <li class="people-list__item">
-        <div class="people-list__item-details">
-          <img src="@/assets/images/search/people_6.png" alt="">
-          <div class="people-list__item-details__titles">
-            <h3>Патимат Нурмагомедова</h3>
-            <span>Istanbul, 24 года</span>
+          <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+        </li>
+        <li class="people-list__item">
+          <div class="people-list__item-details">
+            <img src="@/assets/images/search/people_6.png" alt="">
+            <div class="people-list__item-details__titles">
+              <h3>Патимат Нурмагомедова</h3>
+              <span>Istanbul, 24 года</span>
+            </div>
           </div>
-        </div>
-        <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
-      </li>
-      <li class="people-list__item">
-        <div class="people-list__item-details">
-          <img src="@/assets/images/search/people_7.png" alt="">
-          <div class="people-list__item-details__titles">
-            <h3>Тимур Алиев</h3>
-            <span>Istanbul, 24 года</span>
+          <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+        </li>
+        <li class="people-list__item">
+          <div class="people-list__item-details">
+            <img src="@/assets/images/search/people_7.png" alt="">
+            <div class="people-list__item-details__titles">
+              <h3>Тимур Алиев</h3>
+              <span>Istanbul, 24 года</span>
+            </div>
           </div>
-        </div>
-        <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
-      </li>
-      <li class="people-list__item">
-        <div class="people-list__item-details">
-          <img src="@/assets/images/search/people_8.png" alt="">
-          <div class="people-list__item-details__titles">
-            <h3>muvahhid</h3>
-            <span>Istanbul, 24 года</span>
+          <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+        </li>
+        <li class="people-list__item">
+          <div class="people-list__item-details">
+            <img src="@/assets/images/search/people_8.png" alt="">
+            <div class="people-list__item-details__titles">
+              <h3>muvahhid</h3>
+              <span>Istanbul, 24 года</span>
+            </div>
           </div>
-        </div>
-        <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
-      </li>
-      <li class="people-list__item">
-        <div class="people-list__item-details">
-          <img src="@/assets/images/search/people_9.png" alt="">
-          <div class="people-list__item-details__titles">
-            <h3>Azmi Omran</h3>
-            <span>Istanbul, 24 года</span>
+          <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+        </li>
+        <li class="people-list__item">
+          <div class="people-list__item-details">
+            <img src="@/assets/images/search/people_9.png" alt="">
+            <div class="people-list__item-details__titles">
+              <h3>Azmi Omran</h3>
+              <span>Istanbul, 24 года</span>
+            </div>
           </div>
-        </div>
-        <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
-      </li>
-      <li class="people-list__item">
-        <div class="people-list__item-details">
-          <img src="@/assets/images/search/people_10.png" alt="">
-          <div class="people-list__item-details__titles">
-            <h3>Юнус Абу Рамазан</h3>
-            <span>Istanbul, 24 года</span>
+          <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+        </li>
+        <li class="people-list__item">
+          <div class="people-list__item-details">
+            <img src="@/assets/images/search/people_10.png" alt="">
+            <div class="people-list__item-details__titles">
+              <h3>Юнус Абу Рамазан</h3>
+              <span>Istanbul, 24 года</span>
+            </div>
           </div>
-        </div>
-        <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
-      </li>
-      <li class="people-list__item">
-        <div class="people-list__item-details">
-          <img src="@/assets/images/search/people_11.png" alt="">
-          <div class="people-list__item-details__titles">
-            <h3>Alina Nikolaeva</h3>
-            <span>Istanbul, 24 года</span>
+          <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+        </li>
+        <li class="people-list__item">
+          <div class="people-list__item-details">
+            <img src="@/assets/images/search/people_11.png" alt="">
+            <div class="people-list__item-details__titles">
+              <h3>Alina Nikolaeva</h3>
+              <span>Istanbul, 24 года</span>
+            </div>
           </div>
-        </div>
-        <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
-      </li>
-    </ul>
-  </div>
+          <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+        </li>
+      </ul>
+    </div>
+  </MainLayout>
 </template>
 
 <script>
 import SampleButton from '@/components/ui/SampleButton.vue'
+import MainLayout from '@/components/layouts/MainLayout.vue'
 
 export default {
-  components: { SampleButton }
+  components: {MainLayout, SampleButton}
 }
 </script>
 
@@ -160,16 +163,19 @@ export default {
         width: 40px;
         height: 40px;
       }
+
       &__titles {
         display: flex;
         flex-direction: column;
         gap: 4px;
+
         h3 {
           margin: 0;
           font-size: 16px;
           font-weight: 500;
           line-height: 1;
         }
+
         span {
           font-size: 14px;
           color: var(--color-secondary);
