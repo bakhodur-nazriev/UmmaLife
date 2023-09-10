@@ -1,27 +1,47 @@
+<!-- eslint-disable -->
 <template>
   <div class="play__list" :style="`bottom: ${playerHeight}px`">
     <div class="play__list--title">Автовоспроизведение / на очереди</div>
     <div class="play__list--wrapper">
-      <AudioList
-        v-for="(audio, i) in audios"
-        :key="audio.id"
-        :audio="audio"
-        :className="`track__list ${i === currentIndex ? 'active__list' : ''}`"
-      />
+      <draggable :list="audios" item-key="id">
+        <template #item="{ element, index }">
+          <AudioList
+            :audio="element"
+            :index="index"
+            :className="`track__list ${index === audioIndex ? 'active__list' : ''}`"
+          />
+        </template>
+      </draggable>
     </div>
   </div>
 </template>
 
 <script>
 import AudioList from '@/components/audio/AudioList.vue'
-
+import { mapMutations, mapState } from 'vuex'
+import draggable from 'vuedraggable'
 export default {
   props: {
-    playerHeight: Number,
-    audios: Array,
-    currentIndex: Number
+    playerHeight: {
+      type: Number,
+      default: 0
+    }
   },
-  components: { AudioList }
+  computed: {
+    ...mapState('audio', ['audios', 'audioIndex'])
+  },
+  methods: {
+    ...mapMutations('audio', ['addAudio', 'setAudios'])
+  },
+  watch: {
+    audios: {
+      handler(value) {
+        this.setAudios(value)
+      },
+      deep: true
+    }
+  },
+  components: { AudioList, draggable }
 }
 </script>
 
@@ -32,7 +52,7 @@ export default {
   max-height: 628px;
   position: absolute;
   right: 45px;
-  z-index: 9999999;
+  z-index: 20;
   background: var(--color-white);
   filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
   border-radius: 8px;

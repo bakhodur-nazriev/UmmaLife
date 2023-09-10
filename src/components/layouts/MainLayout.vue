@@ -4,7 +4,7 @@
   <div class="main__container" id="page-container">
     <main-sidebar class="main__sidebar" :is-sidebar-collapsed="isSidebarCollapsed"></main-sidebar>
 
-    <main class="main__content">
+    <main class="main__content" :style="`margin-bottom: ${playerMargin}px`">
       <slot></slot>
     </main>
   </div>
@@ -13,6 +13,7 @@
 <script>
 import MainNavbar from '@/components/layouts/MainNavbar.vue'
 import MainSidebar from '@/components/layouts/MainSidebar.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -23,6 +24,10 @@ export default {
     return {
       isSidebarCollapsed: false
     }
+  },
+
+  computed: {
+    ...mapState(['playerMargin'])
   },
   methods: {
     toggleSidebar() {
