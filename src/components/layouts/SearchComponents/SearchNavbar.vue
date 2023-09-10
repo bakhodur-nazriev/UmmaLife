@@ -62,8 +62,7 @@ export default {
 
 <style scoped lang="scss">
 .all-comment__aside-block {
-  width: 430px;
-  height: 100%;
+  width: 260px;
   background-color: var(--color-white);
   padding: 10px;
   border-radius: 20px;
@@ -85,13 +84,19 @@ export default {
     display: flex;
     color: var(--color-mine-shaft);
     text-decoration: none;
-    padding: 16px;
+    padding: 10px;
     border-radius: 10px;
 
     &:hover {
       background-color: var(--color-seashell);
       transition: all .15s ease-in-out;
     }
+  }
+}
+
+@media (max-width: 1920px) {
+  .all-comment__aside-block {
+    width: 340px;
   }
 }
 </style>

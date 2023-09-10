@@ -2,7 +2,7 @@
   <div>
     <div class="recent-title">
       <span>{{ $t('labels.search.recent') }}</span>
-      <router-link to="" >{{ $t('labels.search.see_all') }}</router-link>
+      <router-link :to="`/${$i18n.locale}/search-all-recommendations`">{{ $t('labels.search.see_all') }}</router-link>
     </div>
 
     <ul class="recent-list">
@@ -49,7 +49,7 @@
   <div>
     <div class="recent-title">
       <span>{{ $t('labels.search.people') }}</span>
-      <router-link to="" >{{ $t('labels.search.see_all') }}</router-link>
+      <router-link :to="`/${$i18n.locale}/search-people`">{{ $t('labels.search.see_all') }}</router-link>
     </div>
 
     <ul class="recent-list">
@@ -96,7 +96,7 @@
   <div>
     <div class="recent-title">
       <span>{{ $t('labels.search.communities') }}</span>
-      <router-link to="" >{{ $t('labels.search.see_all') }}</router-link>
+      <router-link :to="`/${$i18n.locale}/search-groups`">{{ $t('labels.search.see_all') }}</router-link>
     </div>
 
     <ul class="recent-list">
@@ -143,18 +143,61 @@
   <div>
     <div class="recent-title">
       <span>{{ $t('labels.search.muvi') }}</span>
-      <router-link to="" >{{ $t('labels.search.see_all') }}</router-link>
+      <router-link :to="`/${$i18n.locale}/search-muvi`">{{ $t('labels.search.see_all') }}</router-link>
     </div>
+
+    <ul class="muvi-list">
+      <li class="muvi-list__item">
+        <div class="muvi-list__item-block">
+          <img src="@/assets/images/navbar/muvi_1.png" alt="">
+
+          <div class="muvi-list__item-block__author">
+            <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
+            <span class="muvi-list__item-block__author-name">alexaliev</span>
+            <VerifyIcon />
+          </div>
+
+        </div>
+        <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было Как это было</h3>
+        <div class="muvi-list__item-subtitle">
+          <span>02.03.2023</span>
+          <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
+        </div>
+
+      </li>
+      <li class="muvi-list__item">
+        <div class="muvi-list__item-block">
+          <img src="@/assets/images/navbar/muvi_2.png" alt="">
+
+          <div class="muvi-list__item-block__author">
+            <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
+            <span class="muvi-list__item-block__author-name">alexaliev</span>
+            <VerifyIcon />
+          </div>
+
+        </div>
+        <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
+        <div class="muvi-list__item-subtitle">
+          <span>02.03.2023</span>
+          <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
+        </div>
+
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 import VerifyIcon from '@/components/icons/VerifyIcon.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
+import EyeIcon from '@/components/icons/EyeIcon.vue'
 
 export default {
-  components: { SampleDivider, VerifyIcon }
-
+  components: {
+    EyeIcon,
+    SampleDivider,
+    VerifyIcon
+  }
 }
 </script>
 
@@ -212,6 +255,72 @@ export default {
   a {
     text-decoration: none;
     color: var(--color-hippie-blue);
+  }
+}
+
+.muvi-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  row-gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    row-gap: 6px;
+    max-width: 166px;
+
+    &-title {
+      font-size: 14px;
+      font-weight: 400;
+      margin: 0;
+      line-height: 1.2;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    &-subtitle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      color: var(--color-gray);
+      line-height: 1;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  &__item-block {
+    display: flex;
+    position: relative;
+
+    &__author {
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px;
+      color: var(--color-white);
+
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+
+      &-name {
+        font-size: 12px;
+      }
+    }
   }
 }
 </style>

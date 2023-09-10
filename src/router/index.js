@@ -29,13 +29,14 @@ import MyGroupsContainer from '@/views/MyGroupsContainer.vue'
 import MyGroupsUsers from '@/views/MyGroupsUsers.vue'
 import MyGroupsPublications from '@/views/MyGroupsPublications.vue'
 import MyGroupsSettings from '@/views/MyGroupsSettings.vue'
-import AllRecommendationsView from '@/views/SearchViews/AllRecommendationsView.vue'
-import PeopleView from '@/views/SearchViews/PeopleView.vue'
-import GroupsView from "@/views/SearchViews/GroupsView.vue";
-import MUVIView from "@/views/SearchViews/MUVIView.vue";
-import ArticleView from "@/views/SearchViews/ArticleView.vue";
-import AudioView from "@/views/SearchViews/AudioView.vue";
-import HashtagsView from "@/views/SearchViews/HashtagsView.vue";
+import SearchAllRecommendationsView from '@/views/SearchViews/AllRecommendationsView.vue'
+import SearchPeopleView from '@/views/SearchViews/PeopleView.vue'
+import SearchGroupsView from '@/views/SearchViews/GroupsView.vue'
+import SearchMUVIView from '@/views/SearchViews/MUVIView.vue'
+import SearchArticleView from '@/views/SearchViews/ArticleView.vue'
+import SearchAudioView from '@/views/SearchViews/AudioView.vue'
+import SearchVideoView from '@/views/SearchViews/VideoView.vue'
+import SearchHashtagsView from '@/views/SearchViews/HashtagsView.vue'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const baseDomain = isProduction ? 'front1.ummalife.dev' : 'localhost'
@@ -257,7 +258,7 @@ const routes = [
   {
     path: '/:lang?/search-all-recommendations',
     name: 'all-recommendations',
-    component: AllRecommendationsView,
+    component: SearchAllRecommendationsView,
     meta: {
       title: i18n.global.t('meta_title.search.all-recommendations'),
       requiresAuth: true
@@ -266,7 +267,7 @@ const routes = [
   {
     path: '/:lang?/search-people',
     name: 'people',
-    component: PeopleView,
+    component: SearchPeopleView,
     meta: {
       title: i18n.global.t('meta_title.search.people'),
       requiresAuth: true
@@ -275,7 +276,7 @@ const routes = [
   {
     path: '/:lang?/search-groups',
     name: 'search-groups',
-    component: GroupsView,
+    component: SearchGroupsView,
     meta: {
       title: i18n.global.t('meta_title.search.groups'),
       requiresAuth: true
@@ -284,7 +285,7 @@ const routes = [
   {
     path: '/:lang?/search-muvi',
     name: 'search-muvi',
-    component: MUVIView,
+    component: SearchMUVIView,
     meta: {
       title: i18n.global.t('meta_title.search.muvi'),
       requiresAuth: true
@@ -293,7 +294,7 @@ const routes = [
   {
     path: '/:lang?/search-article',
     name: 'search-article',
-    component: ArticleView,
+    component: SearchArticleView,
     meta: {
       title: i18n.global.t('meta_title.search.article'),
       requiresAuth: true
@@ -302,7 +303,7 @@ const routes = [
   {
     path: '/:lang?/search-video',
     name: 'search-video',
-    component: VideoView,
+    component: SearchVideoView,
     meta: {
       title: i18n.global.t('meta_title.search.video'),
       requiresAuth: true
@@ -311,7 +312,7 @@ const routes = [
   {
     path: '/:lang?/search-audio',
     name: 'search-audio',
-    component: AudioView,
+    component: SearchAudioView,
     meta: {
       title: i18n.global.t('meta_title.search.audio'),
       requiresAuth: true
@@ -320,7 +321,7 @@ const routes = [
   {
     path: '/:lang?/search-hashtags',
     name: 'search-hashtags',
-    component: HashtagsView,
+    component: SearchHashtagsView,
     meta: {
       title: i18n.global.t('meta_title.search.hashtags'),
       requiresAuth: true

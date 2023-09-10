@@ -1,171 +1,173 @@
 <template>
   <MainLayout>
-    <div class="muvi-block">
-      <ul class="muvi-list">
-        <li class="muvi-list__item">
-          <div class="muvi-list__item-block">
-            <img src="@/assets/images/search/muvi_big_1.png" alt="">
+    <SearchMainLayout>
+      <div class="muvi-block">
+        <ul class="muvi-list">
+          <li class="muvi-list__item">
+            <div class="muvi-list__item-block">
+              <img src="@/assets/images/search/muvi_big_1.png" alt="">
 
-            <div class="muvi-list__item-block__author">
-              <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
-              <span class="muvi-list__item-block__author-name">alexaliev</span>
-              <VerifyIcon/>
+              <div class="muvi-list__item-block__author">
+                <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
+                <span class="muvi-list__item-block__author-name">alexaliev</span>
+                <VerifyIcon/>
+              </div>
+
+            </div>
+            <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было Как это было</h3>
+            <div class="muvi-list__item-subtitle">
+              <span>02.03.2023</span>
+              <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
             </div>
 
-          </div>
-          <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было Как это было</h3>
-          <div class="muvi-list__item-subtitle">
-            <span>02.03.2023</span>
-            <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
-          </div>
+          </li>
+          <li class="muvi-list__item">
+            <div class="muvi-list__item-block">
+              <img src="@/assets/images/search/muvi_big_2.png" alt="">
 
-        </li>
-        <li class="muvi-list__item">
-          <div class="muvi-list__item-block">
-            <img src="@/assets/images/search/muvi_big_2.png" alt="">
+              <div class="muvi-list__item-block__author">
+                <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
+                <span class="muvi-list__item-block__author-name">alexaliev</span>
+                <VerifyIcon/>
+              </div>
 
-            <div class="muvi-list__item-block__author">
-              <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
-              <span class="muvi-list__item-block__author-name">alexaliev</span>
-              <VerifyIcon/>
+            </div>
+            <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
+            <div class="muvi-list__item-subtitle">
+              <span>02.03.2023</span>
+              <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
             </div>
 
-          </div>
-          <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
-          <div class="muvi-list__item-subtitle">
-            <span>02.03.2023</span>
-            <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
-          </div>
+          </li>
+          <li class="muvi-list__item">
+            <div class="muvi-list__item-block">
+              <img src="@/assets/images/search/muvi_big_3.png" alt="">
 
-        </li>
-        <li class="muvi-list__item">
-          <div class="muvi-list__item-block">
-            <img src="@/assets/images/search/muvi_big_3.png" alt="">
+              <div class="muvi-list__item-block__author">
+                <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
+                <span class="muvi-list__item-block__author-name">alexaliev</span>
+                <VerifyIcon/>
+              </div>
 
-            <div class="muvi-list__item-block__author">
-              <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
-              <span class="muvi-list__item-block__author-name">alexaliev</span>
-              <VerifyIcon/>
+            </div>
+            <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
+            <div class="muvi-list__item-subtitle">
+              <span>02.03.2023</span>
+              <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
             </div>
 
-          </div>
-          <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
-          <div class="muvi-list__item-subtitle">
-            <span>02.03.2023</span>
-            <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
-          </div>
+          </li>
+          <li class="muvi-list__item">
+            <div class="muvi-list__item-block">
+              <img src="@/assets/images/search/muvi_big_4.png" alt="">
 
-        </li>
-        <li class="muvi-list__item">
-          <div class="muvi-list__item-block">
-            <img src="@/assets/images/search/muvi_big_4.png" alt="">
+              <div class="muvi-list__item-block__author">
+                <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
+                <span class="muvi-list__item-block__author-name">alexaliev</span>
+                <VerifyIcon/>
+              </div>
 
-            <div class="muvi-list__item-block__author">
-              <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
-              <span class="muvi-list__item-block__author-name">alexaliev</span>
-              <VerifyIcon/>
+            </div>
+            <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
+            <div class="muvi-list__item-subtitle">
+              <span>02.03.2023</span>
+              <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
             </div>
 
-          </div>
-          <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
-          <div class="muvi-list__item-subtitle">
-            <span>02.03.2023</span>
-            <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
-          </div>
+          </li>
+          <li class="muvi-list__item">
+            <div class="muvi-list__item-block">
+              <img src="@/assets/images/search/muvi_big_5.png" alt="">
 
-        </li>
-        <li class="muvi-list__item">
-          <div class="muvi-list__item-block">
-            <img src="@/assets/images/search/muvi_big_5.png" alt="">
+              <div class="muvi-list__item-block__author">
+                <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
+                <span class="muvi-list__item-block__author-name">alexaliev</span>
+                <VerifyIcon/>
+              </div>
 
-            <div class="muvi-list__item-block__author">
-              <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
-              <span class="muvi-list__item-block__author-name">alexaliev</span>
-              <VerifyIcon/>
+            </div>
+            <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
+            <div class="muvi-list__item-subtitle">
+              <span>02.03.2023</span>
+              <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
             </div>
 
-          </div>
-          <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
-          <div class="muvi-list__item-subtitle">
-            <span>02.03.2023</span>
-            <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
-          </div>
+          </li>
+          <li class="muvi-list__item">
+            <div class="muvi-list__item-block">
+              <img src="@/assets/images/search/muvi_big_6.png" alt="">
 
-        </li>
-        <li class="muvi-list__item">
-          <div class="muvi-list__item-block">
-            <img src="@/assets/images/search/muvi_big_6.png" alt="">
+              <div class="muvi-list__item-block__author">
+                <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
+                <span class="muvi-list__item-block__author-name">alexaliev</span>
+                <VerifyIcon/>
+              </div>
 
-            <div class="muvi-list__item-block__author">
-              <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
-              <span class="muvi-list__item-block__author-name">alexaliev</span>
-              <VerifyIcon/>
+            </div>
+            <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
+            <div class="muvi-list__item-subtitle">
+              <span>02.03.2023</span>
+              <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
             </div>
 
-          </div>
-          <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
-          <div class="muvi-list__item-subtitle">
-            <span>02.03.2023</span>
-            <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
-          </div>
+          </li>
+          <li class="muvi-list__item">
+            <div class="muvi-list__item-block">
+              <img src="@/assets/images/search/muvi_big_7.png" alt="">
 
-        </li>
-        <li class="muvi-list__item">
-          <div class="muvi-list__item-block">
-            <img src="@/assets/images/search/muvi_big_7.png" alt="">
+              <div class="muvi-list__item-block__author">
+                <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
+                <span class="muvi-list__item-block__author-name">alexaliev</span>
+                <VerifyIcon/>
+              </div>
 
-            <div class="muvi-list__item-block__author">
-              <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
-              <span class="muvi-list__item-block__author-name">alexaliev</span>
-              <VerifyIcon/>
+            </div>
+            <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
+            <div class="muvi-list__item-subtitle">
+              <span>02.03.2023</span>
+              <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
             </div>
 
-          </div>
-          <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
-          <div class="muvi-list__item-subtitle">
-            <span>02.03.2023</span>
-            <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
-          </div>
+          </li>
+          <li class="muvi-list__item">
+            <div class="muvi-list__item-block">
+              <img src="@/assets/images/search/muvi_big_8.png" alt="">
 
-        </li>
-        <li class="muvi-list__item">
-          <div class="muvi-list__item-block">
-            <img src="@/assets/images/search/muvi_big_8.png" alt="">
+              <div class="muvi-list__item-block__author">
+                <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
+                <span class="muvi-list__item-block__author-name">alexaliev</span>
+                <VerifyIcon/>
+              </div>
 
-            <div class="muvi-list__item-block__author">
-              <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
-              <span class="muvi-list__item-block__author-name">alexaliev</span>
-              <VerifyIcon/>
+            </div>
+            <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
+            <div class="muvi-list__item-subtitle">
+              <span>02.03.2023</span>
+              <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
             </div>
 
-          </div>
-          <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
-          <div class="muvi-list__item-subtitle">
-            <span>02.03.2023</span>
-            <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
-          </div>
+          </li>
+          <li class="muvi-list__item">
+            <div class="muvi-list__item-block">
+              <img src="@/assets/images/search/muvi_big_1.png" alt="">
 
-        </li>
-        <li class="muvi-list__item">
-          <div class="muvi-list__item-block">
-            <img src="@/assets/images/search/muvi_big_1.png" alt="">
+              <div class="muvi-list__item-block__author">
+                <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
+                <span class="muvi-list__item-block__author-name">alexaliev</span>
+                <VerifyIcon/>
+              </div>
 
-            <div class="muvi-list__item-block__author">
-              <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
-              <span class="muvi-list__item-block__author-name">alexaliev</span>
-              <VerifyIcon/>
+            </div>
+            <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
+            <div class="muvi-list__item-subtitle">
+              <span>02.03.2023</span>
+              <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
             </div>
 
-          </div>
-          <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
-          <div class="muvi-list__item-subtitle">
-            <span>02.03.2023</span>
-            <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
-          </div>
-
-        </li>
-      </ul>
-    </div>
+          </li>
+        </ul>
+      </div>
+    </SearchMainLayout>
   </MainLayout>
 </template>
 
@@ -173,9 +175,11 @@
 import VerifyIcon from '@/components/icons/VerifyIcon.vue'
 import EyeIcon from '@/components/icons/EyeIcon.vue'
 import MainLayout from '@/components/layouts/MainLayout.vue'
+import SearchMainLayout from '@/components/layouts/SearchMainLayout.vue'
 
 export default {
   components: {
+    SearchMainLayout,
     MainLayout,
     EyeIcon,
     VerifyIcon
