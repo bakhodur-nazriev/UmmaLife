@@ -2,8 +2,10 @@
   <!--  <layout-auth v-if="true"></layout-auth>-->
   <!--  <main-layout v-if="false"></main-layout>-->
   <router-view></router-view>
-  <AudioPlayList v-if="isListOpen" :playerHeight="playerMargin" />
-  <AudioPlayerComponent @playerHeight="setPlayerMargin" v-if="isPlayerOpen" />
+  <div class="player" v-on-click-outside="closeHandler">
+    <AudioPlayList v-if="isListOpen" :playerHeight="playerMargin" />
+    <AudioPlayerComponent @playerHeight="setPlayerMargin" v-if="isPlayerOpen" />
+  </div>
 </template>
 
 <script>
@@ -11,7 +13,7 @@
 // import LayoutAuth from '@/components/layouts/LayoutAuth.vue'
 import AudioPlayerComponent from '@/components/audio/AudioPlayerComponent.vue'
 import AudioPlayList from '@/components/audio/AudioPlayList.vue'
-import { mapMutations, mapState } from 'vuex'
+import { mapMutations, mapState, useStore } from 'vuex'
 
 export default {
   components: {
@@ -37,6 +39,15 @@ export default {
   methods: {
     ...mapMutations(['setPlayerMargin'])
   }
+}
+</script>
+
+<script setup>
+/* eslint-disable */
+import { vOnClickOutside } from '@vueuse/components'
+const store = useStore()
+const closeHandler = () => {
+  store.commit('audio/setListOpen', false)
 }
 </script>
 

@@ -1,15 +1,18 @@
 <template>
-  <div class="list" v-for="(audio, index) in dummyAudios" :key="audio.id">
+  <div class="list" v-for="(audio, index) in audios" :key="audio.id">
     <div class="list__left">
       <button
-        class="list__play"
-        @click="clickPlayHandler(audio, index)"
+        class="list__play playing"
+        @click="clickPauseHandler(audio, index)"
         :class="{ playing: audio.isPlaying }"
+        v-if="audio.isPlaying"
       >
-        <VideoPlayIcon v-if="!audio.isPlaying" />
-        <svg v-else class="audio__play-icon" aria-hidden="true">
+        <svg class="audio__play-icon" aria-hidden="true">
           <use xlink:href="#icon-pause"></use>
         </svg>
+      </button>
+      <button v-else class="list__play" @click="clickPlayHandler(audio, index)">
+        <VideoPlayIcon />
       </button>
       <div class="list__name">{{ audio.title }}</div>
       <div class="list__author">{{ audio.artist }}</div>
@@ -19,11 +22,7 @@
         <div class="list__icons--btn">
           <AudioAddIcon @click="addAudio(audio)" />
         </div>
-        <AudioBookmarkIcon />
-        <div @click="likeHandler(index)" class="like__icon">
-          <AudioLikeIcon v-if="!audio.isLiked" />
-          <AudioFilledLikeIcon v-else />
-        </div>
+        <AlbumLike :audio="audio" :index="index" />
         <AudioLoop />
         <a class="download__icon" :href="audio.source" download>
           <AudioDownloadIcon />
@@ -42,18 +41,15 @@
 import AudioLoop from '@/components/audio/AudioLoop.vue'
 import VideoPlayIcon from '@/components/icons/VideoPlayIcon.vue'
 import AudioAddIcon from '@/components/icons/audio/AudioAddIcon.vue'
-import AudioBookmarkIcon from '@/components/icons/audio/AudioBookmarkIcon.vue'
-import AudioLikeIcon from '@/components/icons/audio/AudioLikeIcon.vue'
-import AudioFilledLikeIcon from '@/components/icons/audio/AudioFilledLikeIcon.vue'
 import AudioDownloadIcon from '@/components/icons/audio/AudioDownloadIcon.vue'
 import AudioShareIcon from '@/components/icons/audio/AudioShareIcon.vue'
 import MenuDetailsIcon from '@/components/icons/MenuDetailsIcon.vue'
 
 import { mapActions, mapMutations, mapState } from 'vuex'
-import { audios } from '@/dummy'
 import AudioDuration from './AudioDuration.vue'
 import { useWindowSize } from '@vueuse/core'
-
+import AlbumLike from './AlbumLike.vue'
+import { audios } from '@/dummy'
 export default {
   data() {
     return {
@@ -65,38 +61,34 @@ export default {
   },
   methods: {
     ...mapActions('audio', ['playHandler']),
-    ...mapMutations('audio', ['setIsLiked', 'setAudios', 'addAudio']),
+    ...mapMutations('audio', ['setAudios', 'addAudio', 'setAudioPause', 'setIsPlaying']),
     clickPlayHandler(audio, index) {
-      this.setAudios([])
-      this.dummyAudios.forEach((a) => (a.isPlaying = false))
-      this.dummyAudios[index].isPlaying = true
-      this.setAudios([{ ...audio, isPlaying: true }])
-      this.playHandler(0)
+      this.setIsPlaying(true)
+      this.playHandler(index)
     },
-    likeHandler(index) {
-      this.dummyAudios[index].isLiked = !this.dummyAudios[index].isLiked
-      if (this.audios[0]?.id === this.dummyAudios[index]?.id) {
-        this.setIsLiked(0)
-      }
+    clickPauseHandler(audio, index) {
+      this.setIsPlaying(false)
+      this.setAudioPause(index)
     }
   },
   components: {
     VideoPlayIcon,
     AudioAddIcon,
-    AudioBookmarkIcon,
-    AudioLikeIcon,
     AudioLoop,
     AudioDownloadIcon,
     AudioShareIcon,
     MenuDetailsIcon,
-    AudioFilledLikeIcon,
-    AudioDuration
+    AudioDuration,
+    AlbumLike
   },
   setup() {
     const { width } = useWindowSize()
     return {
       screenWidth: width.value
     }
+  },
+  mounted() {
+    this.setAudios(this.dummyAudios)
   }
 }
 </script>

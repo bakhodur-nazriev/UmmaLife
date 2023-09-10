@@ -9,7 +9,7 @@
     </div>
   </div>
   <teleport to="body">
-    <AudioAlbumDetail v-if="isAlbumOpen" @closeDetailHandler="isAlbumOpen = false" />
+    <AudioAlbumDetail v-if="isAlbumOpen" @closeDetailHandler="closeHandler" />
   </teleport>
 </template>
 
@@ -23,21 +23,18 @@ export default {
   data() {
     return {
       isAlbumOpen: false,
-      audios
+      dummyAudios: audios
     }
   },
   methods: {
-    ...mapMutations('audio', ['setAudios', 'setIsPlayerOpen']),
+    ...mapMutations('audio', ['setAudios', 'setIsAlbumOpen', 'setIsPlayerOpen']),
     openPlayList() {
+      this.setAudios([])
       this.isAlbumOpen = true
-    }
-  },
-  watch: {
-    isAlbumOpen() {
-      if (this.isAlbumOpen) {
-        this.setAudios([])
-        this.setAudios(this.audios)
-      }
+      this.setAudios(this.dummyAudios)
+    },
+    closeHandler() {
+      this.isAlbumOpen = false
     }
   }
 }

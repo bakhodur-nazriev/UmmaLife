@@ -6,7 +6,8 @@ export default {
       audioIndex: -1,
       isPlayerOpen: false,
       isListOpen: false,
-      isLoop: false
+      isLoop: false,
+      isPlaying: false
     }
   },
   mutations: {
@@ -23,8 +24,11 @@ export default {
     setIsPlayerOpen(state, isPlayerOpen) {
       state.isPlayerOpen = isPlayerOpen
     },
-    setIsLiked(state, index) {
-      state.audios[index].isLiked = !state.audios[index].isLiked
+    setIsLiked(state, id) {
+      const index = state.audios.findIndex((a) => a.id === id)
+      if (index !== -1) {
+        state.audios[index].isLiked = !state.audios[index].isLiked
+      }
     },
     setListOpen(state, isListOpen) {
       state.isListOpen = isListOpen
@@ -40,6 +44,9 @@ export default {
     },
     setIsLoop(state, isLoop) {
       state.isLoop = isLoop
+    },
+    setIsPlaying(state, isPlaying) {
+      state.isPlaying = isPlaying
     }
   },
   actions: {

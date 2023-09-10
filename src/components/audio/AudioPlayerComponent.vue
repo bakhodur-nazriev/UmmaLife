@@ -3,6 +3,7 @@
     <div class="audio__player--left">
       <audio-player
         ref="audioPlayer"
+        @play="playHandler"
         @pause="pauseHandler"
         :audio-list="audios && audios.map((elm) => elm.source)"
         :before-play="handleBeforePlay"
@@ -46,11 +47,7 @@
         <div class="list__icons--btn">
           <AudioAddIcon />
         </div>
-        <AudioBookmarkIcon />
-        <div @click="likeHandler(audioIndex)" class="like__icon">
-          <AudioLikeIcon v-if="!audios[audioIndex].isLiked" />
-          <AudioFilledLikeIcon v-else />
-        </div>
+        <AlbumLike :audio="audios[audioIndex]" :index="audioIndex" />
         <AudioLoop />
         <a class="download__icon" :href="audios[audioIndex].source" download>
           <AudioDownloadIcon />
@@ -69,16 +66,13 @@ import AudioPlayPrev from '@/components/icons/audio/AudioPlayPrev.vue'
 import AudioPlayNext from '@/components/icons/audio/AudioPlayNext.vue'
 import VideoPlayIcon from '@/components/icons/VideoPlayIcon.vue'
 import AudioAddIcon from '@/components/icons/audio/AudioAddIcon.vue'
-import AudioBookmarkIcon from '@/components/icons/audio/AudioBookmarkIcon.vue'
-import AudioLikeIcon from '@/components/icons/audio/AudioLikeIcon.vue'
 import AudioLoop from '@/components/audio/AudioLoop.vue'
 import AudioDownloadIcon from '@/components/icons/audio/AudioDownloadIcon.vue'
 import AudioShareIcon from '@/components/icons/audio/AudioShareIcon.vue'
 import ArrowUpIcon from '@/components/icons/audio/ArrowUpIcon.vue'
-import AudioFilledLikeIcon from '../icons/audio/AudioFilledLikeIcon.vue'
+import AlbumLike from '@/components/audio/AlbumLike.vue'
 
 import { mapMutations, mapState } from 'vuex'
-import { audios } from '@/dummy'
 
 export default {
   components: {
@@ -86,34 +80,39 @@ export default {
     AudioPlayNext,
     VideoPlayIcon,
     AudioAddIcon,
-    AudioBookmarkIcon,
-    AudioLikeIcon,
     AudioLoop,
     AudioDownloadIcon,
     AudioShareIcon,
     ArrowUpIcon,
-    AudioFilledLikeIcon
+    AlbumLike
   },
   data() {
     return {
       currentAudioName: '',
       currentAuthor: '',
       isVolumeClicked: true,
-      dummyAudios: audios,
       currentPlayer: null
     }
   },
   computed: {
-    ...mapState('audio', ['audios', 'audioIndex', 'isListOpen', 'isLoop'])
+    ...mapState('audio', [
+      'audios',
+      'audioIndex',
+      'isListOpen',
+      'isLoop',
+      'isAlbumOpen',
+      'isPlayerOpen',
+      'isPlaying'
+    ])
   },
   methods: {
     ...mapMutations('audio', [
       'setAudioPlaying',
       'setAudioPause',
       'setIndex',
-      'setIsLiked',
       'setListOpen',
-      'addAudio'
+      'addAudio',
+      'setIsPlaying'
     ]),
     rangeHandler() {
       const range = document.querySelector('.volume input[type=range]')
@@ -237,6 +236,7 @@ export default {
       this.currentAudioName = this.audios[currentIndex].title
       this.currentAuthor = this.audios[currentIndex].artist
       this.setAudioPlaying(currentIndex)
+
       next()
     },
     handleBeforePrev(next) {
@@ -257,21 +257,28 @@ export default {
       this.autoPlay()
       next()
     },
+    playHandler() {
+      this.setIsPlaying(true)
+    },
     pauseHandler() {
       const currentIndex = this.$refs.audioPlayer.currentPlayIndex
       this.setAudioPause(currentIndex)
+      this.setIsPlaying(false)
     },
     autoPlay() {
       this.$refs.audioPlayer.currentPlayIndex = this.audioIndex
       this.$refs.audioPlayer.play()
-    },
-    likeHandler(index) {
-      this.dummyAudios.forEach((a) => {
-        if (this.audios[index].id === a.id) {
-          a.isLiked = !a.isLiked
-        }
-      })
-      this.setIsLiked(index)
+    }
+  },
+  watch: {
+    isPlaying(value) {
+      if (!value) {
+        this.$refs.audioPlayer.isPlaying = false
+        this.$refs.audioPlayer.pause()
+      } else {
+        this.$refs.audioPlayer.isPlaying = true
+        this.$refs.audioPlayer.play()
+      }
     }
   },
   mounted() {
@@ -382,7 +389,9 @@ export default {
     gap: 16px;
     margin-right: 204px;
   }
-
+  .audio__progress-point {
+    z-index: 20;
+  }
   .audio__time-wrap {
     position: absolute !important;
     top: 50%;
