@@ -13,7 +13,7 @@
       </div>
       <div class="left__nav--side">
         <ul class="navbar__right--buttons">
-          <li class="music__button">
+          <li class="music__button" :class="{ active: isPlayerOpen }" @click="playerClickHandler">
             <MusicIcon />
           </li>
           <li class="email__button">
@@ -127,6 +127,8 @@ import TabArticle from '@/components/layouts/SearchComponents/TabArticle.vue'
 import TabVideo from '@/components/layouts/SearchComponents/TabVideo.vue'
 import TabAudio from '@/components/layouts/SearchComponents/TabAudio.vue'
 import TabHashtags from '@/components/layouts/SearchComponents/TabHashtags.vue'
+import { mapState, mapMutations } from 'vuex'
+import { audios } from '@/dummy'
 
 export default {
   components: {
@@ -195,10 +197,16 @@ export default {
           label: this.$t('tabs.search.hashtags'),
           content: 'Content for Tab 8'
         }
-      ]
+      ],
+      dummyAudios: audios
     }
   },
+  computed: {
+    ...mapState('audio', ['audios', 'isPlayerOpen'])
+  },
   methods: {
+    ...mapMutations('audio', ['setIsPlayerOpen', 'setAudios', 'setIndex']),
+    ...mapMutations(['setPlayerMargin']),
     toggleSidebar() {
       this.$emit('toggle-sidebar')
     },
@@ -207,6 +215,21 @@ export default {
     },
     isSearchFormClose() {
       this.isSearchForm = false
+    },
+    playerClickHandler() {
+      if (this.audios.length === 0) {
+        this.setIndex(0)
+        this.setAudios(this.dummyAudios)
+      }
+
+      if (!this.isPlayerOpen) {
+        this.audios = this.audios.forEach((a) => (a.isPlaying = false))
+        this.setAudios(this.audios)
+      } else {
+        this.setPlayerMargin(0)
+      }
+
+      this.setIsPlayerOpen(!this.isPlayerOpen)
     }
   }
 }
@@ -294,7 +317,7 @@ export default {
     width: 40px;
     height: 40px;
     margin: 0 6px;
-
+    &.active,
     &:hover {
       background-color: var(--color-hippie-blue);
       transition: all 0.15s ease-in-out;

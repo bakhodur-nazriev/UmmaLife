@@ -16,5 +16,8 @@ export default {
   },
   setChangeTabStyle(state, shouldChangeStyle) {
     state.shouldChangeTabStyle = shouldChangeStyle
+  },
+  setPlayerMargin(state, margin) {
+    state.playerMargin = margin
   }
 }

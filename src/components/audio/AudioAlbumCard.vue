@@ -2,9 +2,6 @@
   <div class="playlist" @click="openPlayList">
     <div class="playlist__cover">
       <img src="/images/message/message-img.jpg" alt="message-img" />
-      <button class="playlist__cover--bookmark">
-        <BookmarkIcon />
-      </button>
     </div>
     <div class="playlist__content">
       <h2>Favourite album</h2>
@@ -12,25 +9,32 @@
     </div>
   </div>
   <teleport to="body">
-    <AudioAlbumDetail v-if="isDetailOpen" @closeDetailHandler="isDetailOpen = false" />
+    <AudioAlbumDetail v-if="isAlbumOpen" @closeDetailHandler="closeHandler" />
   </teleport>
 </template>
 
 <script>
-import BookmarkIcon from '@/components/icons/BookmarkIcon.vue'
 import AudioAlbumDetail from '@/components/audio/AudioAlbumDetail.vue'
+import { mapMutations } from 'vuex'
+import { audios } from '@/dummy'
 
 export default {
-  components: { BookmarkIcon, AudioAlbumDetail },
+  components: { AudioAlbumDetail },
   data() {
     return {
-      isBookmarkClicked: false,
-      isDetailOpen: false
+      isAlbumOpen: false,
+      dummyAudios: audios
     }
   },
   methods: {
+    ...mapMutations('audio', ['setAudios', 'setIsAlbumOpen', 'setIsPlayerOpen']),
     openPlayList() {
-      this.isDetailOpen = true
+      this.setAudios([])
+      this.isAlbumOpen = true
+      this.setAudios(this.dummyAudios)
+    },
+    closeHandler() {
+      this.isAlbumOpen = false
     }
   }
 }

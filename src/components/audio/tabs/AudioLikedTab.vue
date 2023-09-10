@@ -1,56 +1,36 @@
 <template>
-  <div class="tabs" :style="isPlayerOpen ? `margin-bottom: ${playerHeight + 24}px` : ''">
+  <div class="tabs">
     <GroupsSearch class="tabs__search" placeholder="Поиск аудио" />
     <div class="tabs__lists">
-      <AudioList
-        v-for="audio in audios"
-        :key="audio.id"
-        :audio="audio"
-        @playAudio="playSingleAudio"
-        :isLiked="true"
-      />
-      <AudioList
-        v-for="audio in audios"
-        :key="audio.id"
-        :audio="audio"
-        @playAudio="playSingleAudio"
-        :isLiked="true"
-      />
+      <AudioList v-for="audio in likedAudios" :audio="audio" :index="index" :key="audio.id" />
     </div>
   </div>
-  <teleport to="body">
-    <AudioPlayerComponent
-      :audios="chosenAudios"
-      v-if="isPlayerOpen"
-      @playerHeight="setPlayerHeight"
-    />
-  </teleport>
 </template>
 
 <script>
-import GroupsSearch from '@/components/groups/ui/GroupsSearch.vue'
 import AudioList from '@/components/audio/AudioList.vue'
-import AudioPlayerComponent from '@/components/audio/AudioPlayerComponent.vue'
+import GroupsSearch from '@/components/groups/ui/GroupsSearch.vue'
 
-import { mapState, mapMutations } from 'vuex'
+import { mapState } from 'vuex'
+import { useWindowSize } from '@vueuse/core'
+
 export default {
-  components: { GroupsSearch, AudioList, AudioPlayerComponent },
-  data() {
-    return {
-      playerHeight: 0
-    }
+  components: {
+    GroupsSearch,
+    AudioList
   },
   computed: {
-    ...mapState('audio', ['chosenAudios', 'isPlayerOpen', 'audios'])
-  },
-  methods: {
-    ...mapMutations('audio', ['playSingleAudio', 'setPlayerClose']),
-    setPlayerHeight(height) {
-      this.playerHeight = height
+    ...mapState('audio', ['audios']),
+    likedAudios() {
+      return this.audios.filter((a) => a.isLiked)
     }
   },
-  beforeUnmount() {
-    this.setPlayerClose()
+
+  setup() {
+    const { width } = useWindowSize()
+    return {
+      screenWidth: width.value
+    }
   }
 }
 </script>
