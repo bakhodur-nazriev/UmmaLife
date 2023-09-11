@@ -19,5 +19,8 @@ export default {
   },
   setPlayerMargin(state, margin) {
     state.playerMargin = margin
+  },
+  setShareOpen(state, isShareOpen) {
+    state.isShareOpen = isShareOpen
   }
 }

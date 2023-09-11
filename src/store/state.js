@@ -5,5 +5,6 @@ export default {
   isAuthenticated: false,
   publicationTab: '',
   shouldChangeTabStyle: false,
-  playerMargin: 0
+  playerMargin: 0,
+  isShareOpen: false
 }

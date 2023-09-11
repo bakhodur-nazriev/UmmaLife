@@ -27,7 +27,7 @@
         <a class="download__icon" :href="audio.source" download>
           <AudioDownloadIcon />
         </a>
-        <AudioShareIcon />
+        <AudioShareIcon @click="setShareOpen(true)" />
       </div>
       <div v-else-if="className.includes('track__list') || screenWidth < 1199" class="list__menu">
         <MenuDetailsIcon />
@@ -45,7 +45,7 @@ import AudioLoop from '@/components/audio/AudioLoop.vue'
 import AudioDownloadIcon from '@/components/icons/audio/AudioDownloadIcon.vue'
 import AudioShareIcon from '@/components/icons/audio/AudioShareIcon.vue'
 import MenuDetailsIcon from '@/components/icons/MenuDetailsIcon.vue'
-import { mapActions, mapMutations, mapState } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 import { useWindowSize } from '@vueuse/core'
 import AudioDuration from './AudioDuration.vue'
 import AlbumLike from './AlbumLike.vue'
@@ -67,17 +67,9 @@ export default {
       default: ''
     }
   },
-  computed: {
-    ...mapState('audio', ['dummyAudios'])
-  },
   methods: {
-    ...mapMutations('audio', [
-      'setIndex',
-      'setIsPlayerOpen',
-      'setAudioPlaying',
-      'setAudioPause',
-      'setIsPlaying'
-    ]),
+    ...mapMutations(['setShareOpen']),
+    ...mapMutations('audio', ['setIndex', 'setIsPlayerOpen', 'setAudioPause', 'setIsPlaying']),
     ...mapActions('audio', ['playHandler']),
     pauseHandler(index) {
       this.setAudioPause(index)

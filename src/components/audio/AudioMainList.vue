@@ -27,7 +27,7 @@
         <a class="download__icon" :href="audio.source" download>
           <AudioDownloadIcon />
         </a>
-        <AudioShareIcon />
+        <AudioShareIcon @click="setShareOpen(true)" />
       </div>
       <div v-else class="list__menu">
         <MenuDetailsIcon />
@@ -62,6 +62,7 @@ export default {
   methods: {
     ...mapActions('audio', ['playHandler']),
     ...mapMutations('audio', ['setAudios', 'addAudio', 'setAudioPause', 'setIsPlaying']),
+    ...mapMutations(['setShareOpen']),
     clickPlayHandler(audio, index) {
       this.setIsPlaying(true)
       this.playHandler(index)

@@ -36,13 +36,12 @@ const props = defineProps({
 const clickButton = () => {
   emit('click')
 }
-
 </script>
 
 <template>
   <button
     :type="type"
-    :class="['btn', `btn_${ color }`, {'btn_rounded': rounded}, {'btn_icon': icon}]"
+    :class="['btn', `btn_${color}`, { btn_rounded: rounded }, { btn_icon: icon }]"
     @click="clickButton"
     :style="{ fontSize: `${size}px` }"
     :disabled="disabled"
@@ -54,7 +53,7 @@ const clickButton = () => {
   </button>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 .btn {
   background-color: var(--color-hippie-blue);
   color: var(--color-white);
@@ -86,11 +85,11 @@ const clickButton = () => {
   &_primary:hover {
     background-color: var(--color-deep-cerulean);
     color: var(--color-white);
-    transition: all .15s ease-in-out;
+    transition: all 0.15s ease-in-out;
   }
 
   &::placeholder {
-    color: #B0B0B0;
+    color: #b0b0b0;
     font-weight: 400;
   }
 
@@ -99,12 +98,12 @@ const clickButton = () => {
   }
 
   &:disabled {
-    opacity: .6;
+    opacity: 0.6;
     cursor: default;
     background-color: var(--color-silver-chalice);
 
     &:hover {
-      opacity: .6;
+      opacity: 0.6;
       background-color: var(--color-silver-chalice);
     }
   }
