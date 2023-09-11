@@ -34,6 +34,7 @@ export default {
 .search-navbar {
   position: fixed;
   right: 20px;
+  z-index: 101;
 }
 
 @media (min-width: 1920px) {

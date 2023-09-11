@@ -24,6 +24,7 @@
     "sticky-sidebar-v2": "^1.1.1",
     "swiper": "^10.1.0",
     "uuid": "^9.0.0",
+    "v-click-outside": "^3.2.0",
     "video.js": "^8.3.0",
     "vue": "^3.2.13",
     "vue-chartjs": "^5.2.0",

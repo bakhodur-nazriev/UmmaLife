@@ -1,7 +1,7 @@
 <template>
   <div class="main__search--block">
     <LoupeIcon class="search__icon" />
-    <input class="base__search--input" :placeholder="placeholder" />
+    <input class="base__search--input" :placeholder="placeholder" @click="openSearchInput"/>
   </div>
 </template>
 
@@ -12,6 +12,11 @@ export default {
   components: { LoupeIcon },
   props: {
     placeholder: String
+  },
+  methods: {
+    openSearchInput() {
+      this.$emit('open-search-input')
+    }
   }
 }
 </script>

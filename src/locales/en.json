@@ -340,7 +340,11 @@
       "people": "People",
       "communities": "Communities",
       "muvi": "MUVI",
-      "see_all": "See all"
+      "see_all": "See all",
+      "groups": "Groups",
+      "article": "Article",
+      "show_all_recommendation": "Show all recommendations",
+      "advanced_search": "Advanced search"
     }
   },
   "dropdown": {

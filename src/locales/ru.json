@@ -343,7 +343,9 @@
       "muvi": "MUVI",
       "groups": "Группы",
       "article": "Статьи",
-      "see_all": "Смотреть все"
+      "see_all": "Смотреть все",
+      "show_all_recommendation": "Показать все рекомендации",
+      "advanced_search": "Расширенный поиск"
     }
   },
   "dropdown": {
