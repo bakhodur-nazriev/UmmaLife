@@ -43,15 +43,10 @@
       </template>
     </Multiselect>
     <div class="selected">
-      <div
-        v-for="select in selected"
-        :key="select.id"
-        class="selected__items"
-        @click="deleteHandler(select)"
-      >
+      <div v-for="select in selected" :key="select.id" class="selected__items">
         <img :src="select.img" :alt="select[trackBy]" />
         <p>{{ select[trackBy] }}</p>
-        <button><CloseIcon /></button>
+        <button @click="deleteHandler(select)"><CloseIcon /></button>
       </div>
     </div>
   </div>
