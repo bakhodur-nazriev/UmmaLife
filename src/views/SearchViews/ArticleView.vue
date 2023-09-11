@@ -1,35 +1,43 @@
 <template>
-  <div class="article-block">
-    <article v-for="i in 5" :key="i" class="article-block__article">
-      <PostHeader
-        :is-menu-open="isMenuOpen"
-        @toggle-menu="toggleMenu"
-      />
+  <MainLayout>
+    <SearchMainLayout>
+      <div class="article-block">
+        <article v-for="i in 5" :key="i" class="article-block__article">
+          <PostHeader
+            :is-menu-open="isMenuOpen"
+            @toggle-menu="toggleMenu"
+          />
 
-      <ArticleContent />
+          <ArticleContent/>
 
-      <SampleDivider class="divider"/>
+          <SampleDivider class="divider"/>
 
-      <PostFooter
-        :is-reaction-window-open="isReactionWindowOpen"
-        :is-share-window-open="isShareWindowOpen"
-      />
-    </article>
-  </div>
+          <PostFooter
+            :is-reaction-window-open="isReactionWindowOpen"
+            :is-share-window-open="isShareWindowOpen"
+          />
+        </article>
+      </div>
+    </SearchMainLayout>
+  </MainLayout>
 </template>
 
 <script>
-import SampleDivider from '@/components/ui/SampleDivider.vue'
-import ArticleContent from '@/components/ui/Publications/Article/ArticleContent.vue'
-import PostHeader from '@/components/ui/Post/PostHeader.vue'
 import PostFooter from '@/components/ui/Post/PostFooter.vue'
+import ArticleContent from '@/components/ui/Publications/Article/ArticleContent.vue'
+import SampleDivider from '@/components/ui/SampleDivider.vue'
+import PostHeader from '@/components/ui/Post/PostHeader.vue'
+import MainLayout from '@/components/layouts/MainLayout.vue'
+import SearchMainLayout from '@/components/layouts/SearchMainLayout.vue'
 
 export default {
   components: {
-    PostFooter,
+    SearchMainLayout,
+    MainLayout,
     PostHeader,
+    SampleDivider,
     ArticleContent,
-    SampleDivider
+    PostFooter
   },
   data() {
     return {
@@ -51,6 +59,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  max-width: 700px;
 
   &__article {
     display: flex;

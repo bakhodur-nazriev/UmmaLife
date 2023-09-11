@@ -29,6 +29,14 @@ import MyGroupsContainer from '@/views/MyGroupsContainer.vue'
 import MyGroupsUsers from '@/views/MyGroupsUsers.vue'
 import MyGroupsPublications from '@/views/MyGroupsPublications.vue'
 import MyGroupsSettings from '@/views/MyGroupsSettings.vue'
+import SearchAllRecommendationsView from '@/views/SearchViews/AllRecommendationsView.vue'
+import SearchPeopleView from '@/views/SearchViews/PeopleView.vue'
+import SearchGroupsView from '@/views/SearchViews/GroupsView.vue'
+import SearchMUVIView from '@/views/SearchViews/MUVIView.vue'
+import SearchArticleView from '@/views/SearchViews/ArticleView.vue'
+import SearchAudioView from '@/views/SearchViews/AudioView.vue'
+import SearchVideoView from '@/views/SearchViews/VideoView.vue'
+import SearchHashtagsView from '@/views/SearchViews/HashtagsView.vue'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const baseDomain = isProduction ? 'front1.ummalife.dev' : 'localhost'
@@ -171,7 +179,6 @@ const routes = [
       }
     ]
   },
-
   {
     path: '/:lang?/my-audio',
     name: 'my-audio',
@@ -249,6 +256,80 @@ const routes = [
     }
   },
   {
+    path: '/:lang?/search-all-recommendations',
+    name: 'all-recommendations',
+    component: SearchAllRecommendationsView,
+    meta: {
+      title: i18n.global.t('meta_title.search.all-recommendations'),
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/:lang?/search-people',
+    name: 'people',
+    component: SearchPeopleView,
+    meta: {
+      title: i18n.global.t('meta_title.search.people'),
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/:lang?/search-groups',
+    name: 'search-groups',
+    component: SearchGroupsView,
+    meta: {
+      title: i18n.global.t('meta_title.search.groups'),
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/:lang?/search-muvi',
+    name: 'search-muvi',
+    component: SearchMUVIView,
+    meta: {
+      title: i18n.global.t('meta_title.search.muvi'),
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/:lang?/search-article',
+    name: 'search-article',
+    component: SearchArticleView,
+    meta: {
+      title: i18n.global.t('meta_title.search.article'),
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/:lang?/search-video',
+    name: 'search-video',
+    component: SearchVideoView,
+    meta: {
+      title: i18n.global.t('meta_title.search.video'),
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/:lang?/search-audio',
+    name: 'search-audio',
+    component: SearchAudioView,
+    meta: {
+      title: i18n.global.t('meta_title.search.audio'),
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/:lang?/search-hashtags',
+    name: 'search-hashtags',
+    component: SearchHashtagsView,
+    meta: {
+      title: i18n.global.t('meta_title.search.hashtags'),
+      requiresAuth: true
+    }
+  },
+
+
+  {
     path: '/:lang?/news',
     name: 'news',
     component: NewsView,
@@ -277,6 +358,15 @@ const routes = [
   },
   {
     path: '/:lang?/settings',
+    name: 'settings',
+    component: SettingsView,
+    meta: {
+      title: i18n.global.t('meta_title.settings'),
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/:lang?/',
     name: 'settings',
     component: SettingsView,
     meta: {

@@ -333,6 +333,30 @@ export default {
 }
 
 @media (max-width: 576px) {
+  .reaction__item {
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .share__item {
+    gap: 6px;
+  }
+
+  .reaction__window,
+  .share__window {
+    padding: 5px;
+  }
+
+  .reaction__menu {
+    gap: 14px;
+  }
+
+  .reaction__window {
+    padding: 10px 8px;
+  }
+
   .enter-comment__form {
     background-color: var(--color-white);
     filter: drop-shadow(10px 0px 40px rgba(108, 108, 108, 0.15));
@@ -354,8 +378,8 @@ export default {
     padding: 0;
 
     svg {
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
     }
 
     span {

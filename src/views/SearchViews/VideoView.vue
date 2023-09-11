@@ -1,37 +1,45 @@
 <template>
-  <div class="video-block">
-    <article class="video-block__article" v-for="i in 10" :key="i">
-      <PostHeader
-        :is-menu-open="isMenuOpen"
-        @toggle-menu="toggleMenu"
-      />
+  <MainLayout>
+    <SearchMainLayout>
+      <div class="video-block">
+        <article class="video-block__article" v-for="i in 10" :key="i">
+          <PostHeader
+            :is-menu-open="isMenuOpen"
+            @toggle-menu="toggleMenu"
+          />
 
-      <VideoContent />
+          <VideoContent/>
 
-      <SampleDivider class="divider" />
+          <SampleDivider class="divider"/>
 
-      <PostFooter
-        :is-reaction-window-open="isReactionWindowOpen"
-        :is-share-window-open="isShareWindowOpen"
-      />
-    </article>
-  </div>
+          <PostFooter
+            :is-reaction-window-open="isReactionWindowOpen"
+            :is-share-window-open="isShareWindowOpen"
+          />
+        </article>
+      </div>
+    </SearchMainLayout>
+  </MainLayout>
 </template>
 
 <script>
-import SampleDivider from '@/components/ui/SampleDivider.vue'
-import VideoContent from '@/components/ui/Publications/Video/VideoContent.vue'
-import PostHeader from '@/components/ui/Post/PostHeader.vue'
 import PostFooter from '@/components/ui/Post/PostFooter.vue'
+import VideoContent from '@/components/ui/Publications/Video/VideoContent.vue'
+import SampleDivider from '@/components/ui/SampleDivider.vue'
+import PostHeader from '@/components/ui/Post/PostHeader.vue'
+import MainLayout from '@/components/layouts/MainLayout.vue'
+import SearchMainLayout from '@/components/layouts/SearchMainLayout.vue'
 
 export default {
   components: {
-    PostFooter,
+    SearchMainLayout,
+    MainLayout,
     PostHeader,
+    SampleDivider,
     VideoContent,
-    SampleDivider
+    PostFooter
   },
-  data () {
+  data() {
     return {
       isMenuOpen: false,
       isReactionWindowOpen: false,
@@ -39,7 +47,7 @@ export default {
     }
   },
   methods: {
-    toggleMenu () {
+    toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen
     }
   }
@@ -56,6 +64,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  max-width: 700px;
 
   &__article {
     display: flex;
@@ -89,6 +98,7 @@ export default {
   .video__image {
     width: 100%;
   }
+
   .menu__detail--button {
     display: flex;
     position: absolute;

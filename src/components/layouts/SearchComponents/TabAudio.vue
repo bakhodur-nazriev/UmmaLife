@@ -67,8 +67,20 @@ export default {
 }
 
 @media (max-width: 576px) {
+  .audio-block {
+    padding: 24px 0;
+
+    &__article {
+      padding: 0;
+    }
+  }
+
   .audio-block__article {
     border-radius: 0;
+  }
+
+  .divider {
+    margin-top: 10px;
   }
 }
 </style>

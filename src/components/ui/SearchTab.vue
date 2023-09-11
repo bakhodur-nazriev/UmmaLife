@@ -33,6 +33,34 @@ export default {
     changeTab(index) {
       this.activeTab = index
     }
+  },
+  mounted() {
+    const list = document.querySelector('.tabs')
+    let isDragging = false
+    let startX
+    let scrollLeft
+
+    list.addEventListener('mousedown', (e) => {
+      isDragging = true
+      startX = e.pageX - list.offsetLeft
+      scrollLeft = list.scrollLeft
+    })
+
+    list.addEventListener('mouseleave', () => {
+      isDragging = false
+    })
+
+    list.addEventListener('mouseup', () => {
+      isDragging = false
+    })
+
+    list.addEventListener('mousemove', (e) => {
+      if (!isDragging) return
+      e.preventDefault()
+      const x = e.pageX - list.offsetLeft
+      const walk = (x - startX) * 2
+      list.scrollLeft = scrollLeft - walk
+    })
   }
 }
 </script>
@@ -65,6 +93,10 @@ export default {
   cursor: pointer;
   position: relative;
   color: var(--color-secondary);
+
+  &-content {
+    padding: 0 16px;
+  }
 }
 
 .active {
@@ -81,10 +113,6 @@ export default {
     border-radius: 5px 5px 0 0;
     z-index: 500;
   }
-}
-
-.tab-content {
-  padding: 0 16px;
 }
 
 @media (max-width: 576px) {

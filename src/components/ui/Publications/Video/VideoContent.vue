@@ -15,7 +15,7 @@
                 @click="state.playing ? player.pause() : player.play()"
                 class="play-button"
               >
-                <VideoPlayIcon />
+                <VideoPlayIcon class="play-icon__button-icon-big"/>
                 <SmallVideoPlayIcon class="play-icon__button-icon-small" />
               </div>
             </div>
@@ -182,13 +182,30 @@ video::-webkit-media-controls-enclosure {
 }
 
 @media (max-width: 576px) {
+  .custom-video__container {
+    height: 200px;
+  }
+
+  .custom-player-controls {
+    height: 200px;
+
+    .play-button {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .play-icon__button-icon-big {
+    display: none;
+  }
+
   .article-content {
     &__reactions {
-      padding: 0 16px;
+      padding: 0;
     }
 
     &__details-block {
-      padding: 0 16px;
+      padding: 0;
       line-height: 1;
 
       &-title {

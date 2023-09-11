@@ -14,6 +14,8 @@
         :is-reaction-window-open="isReactionWindowOpen"
         :is-share-window-open="isShareWindowOpen"
       />
+
+      <SampleDivider class="small-divider" />
     </article>
   </div>
 </template>
@@ -64,5 +66,27 @@ export default {
 
 .divider {
   margin: 2px;
+}
+
+.small-divider {
+  display: none;
+}
+
+@media (max-width: 576px) {
+  .article-block {
+    padding: 24px 0;
+
+    &__article {
+      padding: 0;
+    }
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .small-divider {
+    display: flex;
+  }
 }
 </style>
