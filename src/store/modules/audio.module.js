@@ -1,8 +1,10 @@
+import { audios } from '@/dummy'
+
 export default {
   namespaced: true,
   state() {
     return {
-      audios: [],
+      audios: audios,
       audioIndex: -1,
       isPlayerOpen: false,
       isListOpen: false,

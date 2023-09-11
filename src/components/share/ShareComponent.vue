@@ -3,15 +3,37 @@
     <div class="share__inner" v-on-click-outside="closeHandler">
       <div class="share__title">Поделиться</div>
       <div class="share__body">
-        <SampleRadio :checked="isChecked[0]" :index="0" @changeHandler="changeHandler">
-          На своей странице
-        </SampleRadio>
-        <SampleRadio :checked="isChecked[1]" :index="1" @changeHandler="changeHandler">
-          В группе
-        </SampleRadio>
-        <SampleRadio :checked="isChecked[2]" :index="2" @changeHandler="changeHandler">
-          В личном сообщении
-        </SampleRadio>
+        <div class="share__radio">
+          <SampleRadio :checked="isChecked[0]" :index="0" @changeHandler="changeHandler">
+            На своей странице
+          </SampleRadio>
+        </div>
+        <div class="share__radio">
+          <SampleRadio :checked="isChecked[1]" :index="1" @changeHandler="changeHandler">
+            В группе
+          </SampleRadio>
+          <SampleMultiselect
+            class="share__multiselect"
+            v-if="isChecked[1]"
+            :options="groups"
+            placeholder="Выберите группу"
+            trackBy="title"
+          />
+        </div>
+
+        <div class="share__radio">
+          <SampleRadio :checked="isChecked[2]" :index="2" @changeHandler="changeHandler">
+            В личном сообщении
+          </SampleRadio>
+          <SampleMultiselect
+            class="share__multiselect"
+            v-if="isChecked[2]"
+            :options="groupsUsers"
+            placeholder="Выберите личный или групповой чат"
+            trackBy="name"
+          />
+        </div>
+
         <div class="share__comment">
           <div class="share__comment--title">Ваш комментарий</div>
           <textarea class="share__comment--textarea"></textarea>
@@ -22,35 +44,26 @@
   </div>
 </template>
 
-<script>
-import SampleRadio from '@/components/ui/SampleRadio.vue'
-import SampleButton from '@/components/ui/SampleButton.vue'
-
-export default {
-  components: { SampleRadio, SampleButton },
-  data() {
-    return {
-      isChecked: [true, false, false]
-    }
-  },
-  methods: {
-    changeHandler({ target, index }) {
-      this.isChecked.forEach((_, i) => {
-        this.isChecked[i] = false
-      })
-      this.isChecked[index] = target
-    }
-  }
-}
-</script>
-
 <script setup>
 /* eslint-disable */
+import { groups, groupsUsers } from '@/dummy'
+import SampleRadio from '@/components/ui/SampleRadio.vue'
+import SampleButton from '@/components/ui/SampleButton.vue'
+import SampleMultiselect from '@/components/ui/SampleMultiselect.vue'
 import { vOnClickOutside } from '@vueuse/components'
 import { useStore } from 'vuex'
+import { ref } from 'vue'
 const store = useStore()
 const closeHandler = () => {
   store.commit('setShareOpen', false)
+}
+
+const isChecked = ref([true, false, false])
+const changeHandler = ({ target, index }) => {
+  isChecked.value.forEach((_, i) => {
+    isChecked.value[i] = false
+  })
+  isChecked.value[index] = target
 }
 </script>
 
@@ -88,7 +101,12 @@ const closeHandler = () => {
     padding: 20px 0 0;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+  }
+  &__multiselect {
+    margin-top: 12px;
+  }
+  &__radio {
+    margin-bottom: 20px;
   }
   &__comment {
     &--title {

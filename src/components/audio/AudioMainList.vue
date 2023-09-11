@@ -1,5 +1,5 @@
 <template>
-  <div class="list" v-for="(audio, index) in audios" :key="audio.id">
+  <div class="list" v-for="(audio, index) in dummyAudios" :key="audio.id">
     <div class="list__left">
       <button
         class="list__play playing"
@@ -53,11 +53,11 @@ import { audios } from '@/dummy'
 export default {
   data() {
     return {
-      dummyAudios: audios
+      dummyAudios: JSON.parse(JSON.stringify(audios))
     }
   },
   computed: {
-    ...mapState('audio', ['audios'])
+    ...mapState('audio', ['audios', 'isPlaying', 'audioIndex'])
   },
   methods: {
     ...mapActions('audio', ['playHandler']),
@@ -66,10 +66,26 @@ export default {
     clickPlayHandler(audio, index) {
       this.setIsPlaying(true)
       this.playHandler(index)
+      this.dummyAudios.forEach((a) => (a.isPlaying = false))
     },
     clickPauseHandler(audio, index) {
       this.setIsPlaying(false)
       this.setAudioPause(index)
+    }
+  },
+  watch: {
+    audios: {
+      handler() {
+        this.dummyAudios.forEach((a) => (a.isPlaying = false))
+        this.audios.forEach((audio) => {
+          if (audio.isPlaying) {
+            const { id } = audio
+            const find = this.dummyAudios.find((a) => a.id === id)
+            find.isPlaying = true
+          }
+        })
+      },
+      deep: true
     }
   },
   components: {
@@ -87,9 +103,6 @@ export default {
     return {
       screenWidth: width.value
     }
-  },
-  mounted() {
-    this.setAudios(this.dummyAudios)
   }
 }
 </script>
