@@ -1,7 +1,7 @@
 <template>
   <div class="list" v-for="(audio, index) in audios2" :key="audio.id">
     <div class="list__left">
-      <button
+      <!-- <button
         class="list__play playing"
         @click="clickPauseHandler(audio, index)"
         :class="{ playing: audio.isPlaying }"
@@ -10,8 +10,8 @@
         <svg class="audio__play-icon" aria-hidden="true">
           <use xlink:href="#icon-pause"></use>
         </svg>
-      </button>
-      <button v-else class="list__play" @click="clickPlayHandler(audio, index)">
+      </button> -->
+      <button class="list__play" @click="clickPlayHandler(audio, index)">
         <VideoPlayIcon />
       </button>
       <div class="list__name">{{ audio.title }}</div>
