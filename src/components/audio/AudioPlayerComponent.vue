@@ -52,7 +52,7 @@
         <a class="download__icon" :href="audios[audioIndex]?.source || ''" download>
           <AudioDownloadIcon />
         </a>
-        <AudioShareIcon />
+        <AudioShareIcon @click="setShareOpen(true)" />
       </div>
       <button class="audio__player--arrow" @click="setListOpen(!this.isListOpen)">
         <ArrowUpIcon />
@@ -114,6 +114,7 @@ export default {
       'addAudio',
       'setIsPlaying'
     ]),
+    ...mapMutations(['setShareOpen']),
     rangeHandler() {
       const range = document.querySelector('.volume input[type=range]')
 
