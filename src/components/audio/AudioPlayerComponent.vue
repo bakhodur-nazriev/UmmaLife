@@ -49,7 +49,7 @@
         </div>
         <AlbumLike :audio="audios[audioIndex]" :index="audioIndex" />
         <AudioLoop />
-        <a class="download__icon" :href="audios[audioIndex].source" download>
+        <a class="download__icon" :href="audios[audioIndex]?.source || ''" download>
           <AudioDownloadIcon />
         </a>
         <AudioShareIcon />
@@ -292,6 +292,7 @@ export default {
     this.playerHeight()
     this.currentPlayer = document.querySelector('.audio-player__audio')
     this.rangeHandler()
+    this.$refs.audioPlayer.isLoading = false
   }
 }
 </script>

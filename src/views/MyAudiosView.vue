@@ -10,6 +10,9 @@
         <AudioUploadTab v-else-if="links[4].isActive" />
       </div>
     </div>
+    <teleport to="body">
+      <ShareComponent v-if="isShareOpen" />
+    </teleport>
   </main-layout>
 </template>
 
@@ -21,7 +24,8 @@ import AudioMyAudioTab from '@/components/audio/tabs/AudioMyAudioTab.vue'
 import AudioPlaylistsTab from '@/components/audio/tabs/AudioPlaylistsTab.vue'
 import AudioLikedTab from '@/components/audio/tabs/AudioLikedTab.vue'
 import AudioUploadTab from '@/components/audio/tabs/AudioUploadTab.vue'
-
+import ShareComponent from '@/components/share/ShareComponent.vue'
+import { mapState } from 'vuex'
 export default {
   components: {
     MainLayout,
@@ -30,7 +34,8 @@ export default {
     AudioMyAudioTab,
     AudioPlaylistsTab,
     AudioLikedTab,
-    AudioUploadTab
+    AudioUploadTab,
+    ShareComponent
   },
   data() {
     return {
@@ -63,6 +68,9 @@ export default {
       this.links.forEach((link) => (link.isActive = false))
       this.links[index].isActive = true
     }
+  },
+  computed: {
+    ...mapState(['isShareOpen'])
   }
 }
 </script>
