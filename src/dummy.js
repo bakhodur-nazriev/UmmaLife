@@ -571,3 +571,29 @@ export const audios = [
     isPlaying: false
   }
 ]
+export const audios2 = [
+  {
+    id: 1,
+    source: '/audio/audio1.mp3',
+    title: 'Marshmallow',
+    artist: 'Lukrembo',
+    isLiked: false,
+    isPlaying: false
+  },
+  {
+    id: 2,
+    source: '/audio/audio2.mp3',
+    title: 'Travel',
+    artist: 'Lukrembo',
+    isLiked: false,
+    isPlaying: false
+  },
+  {
+    id: 3,
+    source: '/audio/audio3.mp3',
+    title: 'Donut',
+    artist: 'Lukrembo',
+    isLiked: false,
+    isPlaying: false
+  }
+]
