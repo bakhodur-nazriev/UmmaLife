@@ -160,7 +160,8 @@ const deleteHandler = (option) => {
 
       max-width: calc(50% - 4px);
       img {
-        width: 26px;
+        max-width: 26px;
+        width: 100%;
         height: 26px;
         border-radius: 50%;
         object-fit: cover;
