@@ -1,7 +1,7 @@
 <template>
-  <div class="list" v-for="(audio, index) in audios" :key="audio.id">
+  <div class="list" v-for="(audio, index) in audios2" :key="audio.id">
     <div class="list__left">
-      <button
+      <!-- <button
         class="list__play playing"
         @click="clickPauseHandler(audio, index)"
         :class="{ playing: audio.isPlaying }"
@@ -10,8 +10,8 @@
         <svg class="audio__play-icon" aria-hidden="true">
           <use xlink:href="#icon-pause"></use>
         </svg>
-      </button>
-      <button v-else class="list__play" @click="clickPlayHandler(audio, index)">
+      </button> -->
+      <button class="list__play" @click="clickPlayHandler(audio, index)">
         <VideoPlayIcon />
       </button>
       <div class="list__name">{{ audio.title }}</div>
@@ -49,15 +49,15 @@ import { mapActions, mapMutations, mapState } from 'vuex'
 import AudioDuration from './AudioDuration.vue'
 import { useWindowSize } from '@vueuse/core'
 import AlbumLike from './AlbumLike.vue'
-import { audios } from '@/dummy'
+import { audios2 } from '@/dummy'
 export default {
   data() {
     return {
-      dummyAudios: audios
+      audios2
     }
   },
   computed: {
-    ...mapState('audio', ['audios'])
+    ...mapState('audio', ['audios', 'isPlaying', 'audioIndex'])
   },
   methods: {
     ...mapActions('audio', ['playHandler']),
@@ -87,9 +87,6 @@ export default {
     return {
       screenWidth: width.value
     }
-  },
-  mounted() {
-    this.setAudios(this.dummyAudios)
   }
 }
 </script>
