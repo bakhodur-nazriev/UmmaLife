@@ -191,7 +191,8 @@
       "frozen": "Frozen"
     },
     "read_more": "Read",
-    "pinned_message": "Pinned message"
+    "pinned_message": "Pinned message",
+    "reset_filter": "Reset filter"
   },
   "languages": {
     "title": "English",
@@ -207,6 +208,7 @@
   },
   "placeholders": {
     "search_input": "Search",
+    "search_articles": "Search articles",
     "publications_input": "Write good or be silent...",
     "comment_input": "Your comment...",
     "question_for_poll": "Poll question or topic... ",
@@ -258,6 +260,13 @@
         "single": "year",
         "plural": "year"
       }
+    },
+    "articles_page": {
+      "all_articles": "All articles",
+      "my_articles": "My articles",
+      "saved": "Saved",
+      "drafts": "Drafts",
+      "create_new_article": "Create new article"
     }
   },
   "video": {

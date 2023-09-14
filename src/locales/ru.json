@@ -193,7 +193,8 @@
       "frozen": "Замерз"
     },
     "read_more": "Читать",
-    "pinned_message": "Закрепленное сообщение"
+    "pinned_message": "Закрепленное сообщение",
+    "reset_filter": "Сбросить фильтр"
   },
   "languages": {
     "title": "Русский",
@@ -209,6 +210,7 @@
   },
   "placeholders": {
     "search_input": "Поиск",
+    "search_articles": "Поиск статьи",
     "publications_input": "Напиши благое или молчи...",
     "comment_input": "Ваш комментарий...",
     "question_for_poll": "Вопрос или тема для опроса...",
@@ -260,6 +262,13 @@
         "single": "год",
         "plural": "лет"
       }
+    },
+    "articles_page": {
+      "all_articles": "Все статьи",
+      "my_articles": "Мои статьи",
+      "saved": "Сохраненные",
+      "drafts": "Черновики",
+      "create_new_article": "Создать новую статью"
     }
   },
   "video": {
