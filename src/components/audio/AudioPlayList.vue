@@ -3,7 +3,7 @@
   <div class="play__list" :style="`bottom: ${playerHeight}px`">
     <div class="play__list--title">Автовоспроизведение / на очереди</div>
     <div class="play__list--wrapper">
-      <draggable :list="audios" item-key="id">
+      <draggable :list="audios" item-key="id" @change="changeHandler" @start="start" @end="end">
         <template #item="{ element, index }">
           <AudioList
             :audio="element"
@@ -31,14 +31,16 @@ export default {
     ...mapState('audio', ['audios', 'audioIndex'])
   },
   methods: {
-    ...mapMutations('audio', ['addAudio', 'setAudios'])
-  },
-  watch: {
-    audios: {
-      handler(value) {
-        this.setAudios(value)
-      },
-      deep: true
+    ...mapMutations('audio', ['addAudio', 'setAudios', 'setIndex', 'setIsPlaying']),
+
+    changeHandler({ moved }) {
+      this.setIndex(moved.newIndex)
+    },
+    start() {
+      this.setIsPlaying(false)
+    },
+    end() {
+      this.setIsPlaying(null)
     }
   },
   components: { AudioList, draggable }
@@ -67,5 +69,12 @@ export default {
     line-height: normal;
     margin-bottom: 12px;
   }
+}
+.flip-list-move {
+  transition: transform 0.5s;
+}
+
+.no-move {
+  transition: transform 0s;
 }
 </style>

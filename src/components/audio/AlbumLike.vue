@@ -1,6 +1,6 @@
 <template>
   <div @click="likeHandler" class="like__icon">
-    <AudioLikeIcon v-if="!audio.isLiked" />
+    <AudioLikeIcon v-if="!audio?.isLiked" />
     <AudioFilledLikeIcon v-else />
   </div>
 </template>

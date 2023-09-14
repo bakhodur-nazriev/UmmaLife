@@ -17,6 +17,7 @@ import AudioPlayer from '@liripeng/vue-audio-player'
 
 import 'video.js/dist/video-js.css'
 import '@fancyapps/ui/dist/fancybox/fancybox.css'
+import 'vue-multiselect/dist/vue-multiselect.css'
 
 const app = createApp(App)
 // const metaManager = app.use(createMetaManager)
