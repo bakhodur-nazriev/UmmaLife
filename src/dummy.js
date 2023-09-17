@@ -597,3 +597,60 @@ export const audios2 = [
     isPlaying: false
   }
 ]
+
+export const profileShorts = [
+  {
+    id: 1,
+    src: '/images/shorts/shorts1.png',
+    name: 'Shorts 1',
+    seen: 17800
+  },
+  {
+    id: 2,
+    src: '/images/shorts/shorts2.png',
+    name: 'Shorts 2',
+    seen: 1300
+  },
+  {
+    id: 3,
+    src: '/images/shorts/shorts3.png',
+    name: 'Shorts 3',
+    seen: 1301231
+  },
+  {
+    id: 7,
+    src: '/images/shorts/shorts1.png',
+    name: 'Shorts 1',
+    seen: 17800
+  },
+  {
+    id: 8,
+    src: '/images/shorts/shorts2.png',
+    name: 'Shorts 2',
+    seen: 1300
+  },
+  {
+    id: 9,
+    src: '/images/shorts/shorts3.png',
+    name: 'Shorts 3',
+    seen: 100
+  },
+  {
+    id: 4,
+    src: '/images/shorts/shorts1.png',
+    name: 'Shorts 1',
+    seen: 17800
+  },
+  {
+    id: 5,
+    src: '/images/shorts/shorts2.png',
+    name: 'Shorts 2',
+    seen: 1300
+  },
+  {
+    id: 6,
+    src: '/images/shorts/shorts3.png',
+    name: 'Shorts 3',
+    seen: 100
+  }
+]

@@ -49,6 +49,10 @@ export default {
   @media (max-width: 1535px) {
     margin-left: 0;
   }
+  @media (max-width: 1377px) {
+    max-width: 100%;
+  }
+
   &__wrapper {
     display: flex;
     flex-direction: column;

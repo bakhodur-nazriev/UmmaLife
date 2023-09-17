@@ -177,7 +177,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .profile {
   &__box {
     margin-bottom: 8px;
@@ -227,6 +227,9 @@ export default {
       gap: 5px;
       opacity: 0;
       transition: all 0.3s;
+      @media (max-width: 575px) {
+        display: none;
+      }
     }
     &--btn {
       border: none;

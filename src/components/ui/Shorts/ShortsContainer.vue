@@ -69,6 +69,10 @@ export default {
   @media (max-width: 1850px) {
     height: calc(100vh - 260px);
   }
+  @media (max-width: 575px) {
+    height: calc(100dvh - 180px);
+  }
+
   &__buttons {
     position: absolute;
     bottom: 45px;
@@ -78,6 +82,9 @@ export default {
     gap: 12px;
     @media (max-width: 1850px) {
       left: 125px;
+    }
+    @media (max-width: 575px) {
+      left: 6px;
     }
     button {
       cursor: pointer;

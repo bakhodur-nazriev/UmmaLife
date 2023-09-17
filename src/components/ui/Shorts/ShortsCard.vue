@@ -89,6 +89,9 @@ watch(
     height: 93%;
     max-width: 350px;
   }
+  @media (max-width: 575px) {
+    max-width: 300px;
+  }
   &.isModal {
     max-width: 100%;
     height: 100%;

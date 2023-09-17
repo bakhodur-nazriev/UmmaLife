@@ -33,6 +33,9 @@ export default {
       max-height: fit-content;
       overflow: visible;
     }
+    @media (max-width: 575px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
   &--card {
     width: 100%;

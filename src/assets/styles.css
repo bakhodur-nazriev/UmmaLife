@@ -21,6 +21,7 @@
   --color-secondary: #9d9d9d;
   --bg-mute-btn: rgba(31, 31, 31, 0.5);
   --silver-gradient: linear-gradient(148deg, #066d86 1.08%, #00a3c8 100%);
+  --gray-rgba: rgba(45, 45, 45, 0.2);
 
   /* Black theme */
   --color-white-dark: #ffffff;
