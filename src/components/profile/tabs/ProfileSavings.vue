@@ -1,7 +1,7 @@
 <template>
   <div class="publications" :style="{ '--tabs-length': tabs.length }">
     <div class="publications__tabs">
-      <div class="publications__tabs--header">
+      <div class="publications__tabs--header" v-if="store.state.isSavedTabsOpen">
         <div
           class="publications__tabs--button"
           v-for="(tab, index) in tabs"
@@ -23,37 +23,37 @@
   </div>
 </template>
 
-<script>
+<script setup>
+/* eslint-disable */
+import { ref, computed } from 'vue'
 import PublishedNews from '@/components/profile/publications/PublishedNews.vue'
 import PublishedArticles from '@/components/profile/publications/PublishedArticles.vue'
 import PublishedPhotos from '@/components/profile/publications/PublishedPhotos.vue'
 import PublishedVideos from '@/components/profile/publications/PublishedVideos.vue'
 import PublishedAudios from '../publications/PublishedAudios.vue'
+import { useStore } from 'vuex'
+import { useWindowSize } from '@vueuse/core'
 
-export default {
-  components: {
-    PublishedNews,
-    PublishedArticles,
-    PublishedPhotos,
-    PublishedVideos,
-    PublishedAudios
-  },
-  data: () => ({
-    activeIndex: 0
-  }),
-  computed: {
-    tabs: () => [
-      'tabs.profile_tabs.news',
-      'tabs.profile_tabs.articles',
-      'tabs.profile_tabs.photo',
-      'tabs.profile_tabs.video',
-      'tabs.profile_tabs.audio'
-    ]
-  },
-  methods: {
-    clickHandler(index) {
-      this.activeIndex = index
-    }
+const screenWidth = computed(() => {
+  const { width } = useWindowSize()
+  return width.value
+})
+
+const store = useStore()
+const activeIndex = ref(0)
+
+const tabs = computed(() => [
+  'tabs.profile_tabs.news',
+  'tabs.profile_tabs.articles',
+  'tabs.profile_tabs.photo',
+  'tabs.profile_tabs.video',
+  'tabs.profile_tabs.audio'
+])
+
+const clickHandler = (index) => {
+  activeIndex.value = index
+  if (screenWidth.value < 575) {
+    store.commit('setIsSavedTabsOpen', false)
   }
 }
 </script>

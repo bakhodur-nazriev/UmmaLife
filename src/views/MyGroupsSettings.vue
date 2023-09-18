@@ -47,7 +47,7 @@ export default {
   mounted() {
     /* eslint-disable */
     new StickySidebar('.profile', {
-      topSpacing: 100,
+      topSpacing: 20,
       bottomSpacing: 20,
       containerSelector: '.groups__wrapper',
       innerWrapperSelector: '.profile__inner',

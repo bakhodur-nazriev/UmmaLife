@@ -3,7 +3,7 @@
     <div class="posts">
       <div class="publications">
         <swiper-slide class="publications__tabs">
-          <swiper class="saved__swiper--wrapper" :space-between="8" :slides-per-view="5">
+          <swiper class="saved__swiper--wrapper" :space-between="8" :slides-per-view="'auto'">
             <swiper-slide
               class="saved__swiper--slide"
               v-for="(tab, index) in tabs"
@@ -39,8 +39,6 @@ import ProfileUmmaShorts from '@/components/profile/tabs/ProfileUmmaShorts.vue'
 import ProfileUmmaVideo from '@/components/profile/tabs/ProfileUmmaVideo.vue'
 
 import { Swiper, SwiperSlide } from 'swiper/vue'
-
-import 'swiper/css'
 
 export default {
   components: {

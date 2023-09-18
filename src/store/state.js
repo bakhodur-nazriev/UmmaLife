@@ -6,5 +6,7 @@ export default {
   publicationTab: '',
   shouldChangeTabStyle: false,
   playerMargin: 0,
-  isShareOpen: false
+  isShareOpen: false,
+  isProfileTabsOpen: true,
+  isSavedTabsOpen: true
 }

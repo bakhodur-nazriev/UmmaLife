@@ -235,6 +235,10 @@ export default {
     justify-content: space-between;
     align-items: center;
     gap: 12px;
+    @media (max-width: 575px) {
+      flex-direction: column;
+      align-items: flex-end;
+    }
     .left {
       gap: 8px;
       display: flex;

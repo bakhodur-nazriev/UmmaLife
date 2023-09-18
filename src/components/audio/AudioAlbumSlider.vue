@@ -1,6 +1,6 @@
 <template>
   <swiper
-    :slides-per-view="4"
+    :slides-per-view="'auto'"
     :space-between="10"
     class="albums__swiper"
     navigation
@@ -16,9 +16,6 @@
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation } from 'swiper/modules'
 import AudioAlbumCard from '@/components/audio/AudioAlbumCard.vue'
-
-import 'swiper/css'
-import 'swiper/css/navigation'
 
 export default {
   components: { AudioAlbumCard, Swiper, SwiperSlide },
@@ -66,7 +63,9 @@ export default {
     height: 100%;
     z-index: 10;
   }
-
+  .swiper-slide {
+    width: 350px;
+  }
   .swiper-button-prev,
   .swiper-button-next {
     width: 60px;

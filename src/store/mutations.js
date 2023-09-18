@@ -22,5 +22,11 @@ export default {
   },
   setShareOpen(state, isShareOpen) {
     state.isShareOpen = isShareOpen
+  },
+  setIsProfileTabsOpen(state, isProfileTabsOpen) {
+    state.isProfileTabsOpen = isProfileTabsOpen
+  },
+  setIsSavedTabsOpen(state, isSavedTabsOpen) {
+    state.isSavedTabsOpen = isSavedTabsOpen
   }
 }

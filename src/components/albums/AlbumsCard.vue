@@ -146,6 +146,10 @@ export default {
       grid-template-columns: repeat(6, 108px);
       grid-template-rows: 108px 108px;
       gap: 4px;
+      @media (max-width: 575px) {
+        grid-template-columns: repeat(3, 33.333%);
+        grid-template-rows: unset;
+      }
     }
     .image {
       width: 100%;
