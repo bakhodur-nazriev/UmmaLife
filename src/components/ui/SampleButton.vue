@@ -30,6 +30,14 @@ const props = defineProps({
   type: {
     type: String,
     default: 'button'
+  },
+  width: {
+    type: String,
+    default: ''
+  },
+  padding: {
+    type: String,
+    default: '15px'
   }
 })
 
@@ -43,7 +51,7 @@ const clickButton = () => {
     :type="type"
     :class="['btn', `btn_${color}`, { btn_rounded: rounded }, { btn_icon: icon }]"
     @click="clickButton"
-    :style="{ fontSize: `${size}px` }"
+    :style="{ fontSize: `${size}px`, width, padding }"
     :disabled="disabled"
   >
     <span v-if="icon" class="btn__icon">
@@ -70,7 +78,17 @@ const clickButton = () => {
   &_secondary {
     background-color: var(--color-deep-cerulean);
   }
-
+  &_default {
+    background-color: var(--color-seashell);
+    color: var(--color-mine-shaft);
+  }
+  &_default_flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-seashell);
+    color: var(--color-mine-shaft);
+  }
   &_tertiary {
     background-color: var(--color-white);
     color: var(--color-hippie-blue);

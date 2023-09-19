@@ -37,6 +37,7 @@ import SearchArticleView from '@/views/SearchViews/ArticleView.vue'
 import SearchAudioView from '@/views/SearchViews/AudioView.vue'
 import SearchVideoView from '@/views/SearchViews/VideoView.vue'
 import SearchHashtagsView from '@/views/SearchViews/HashtagsView.vue'
+import UmmaVideoDetailVue from '@/views/UmmaVideoDetail.vue'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const baseDomain = isProduction ? 'front1.ummalife.dev' : 'localhost'
@@ -129,6 +130,15 @@ const routes = [
     component: LibraryView,
     meta: {
       title: i18n.global.t('meta_title.library'),
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/:lang?/video/:id',
+    name: 'video-detail',
+    component: UmmaVideoDetailVue,
+    meta: {
+      title: i18n.global.t('meta_title.video'),
       requiresAuth: true
     }
   },
@@ -327,7 +337,6 @@ const routes = [
       requiresAuth: true
     }
   },
-
 
   {
     path: '/:lang?/news',

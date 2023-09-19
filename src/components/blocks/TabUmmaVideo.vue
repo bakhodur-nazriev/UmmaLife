@@ -9,12 +9,12 @@
       <div>
         <SampleButton
           class="create__umma--video--button"
-          :title="`${ $t('buttons.create_umma_video') }`"
+          :title="`${$t('buttons.create_umma_video')}`"
         />
       </div>
     </section>
     <section class="umma__videos--section">
-      <UmmaVideo v-for="(item, index) in 12" :key="index" />
+      <UmmaVideo v-for="(item, index) in 12" :key="index" :index="index" />
     </section>
   </div>
 </template>
@@ -30,7 +30,7 @@ export default {
     UmmaVideo,
     SampleButton
   },
-  data () {
+  data() {
     return {}
   }
 }
@@ -72,7 +72,7 @@ export default {
   display: grid;
   gap: 16px;
   row-gap: 24px;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 @media (max-width: 576px) {
@@ -84,13 +84,12 @@ export default {
 @media (min-width: 768px) {
   .category__section {
     margin-bottom: 8px;
-
   }
   .selected__country--button {
     max-width: 310px;
   }
   .umma__videos--section {
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -102,7 +101,7 @@ export default {
     max-width: 600px;
   }
   .umma__videos--section {
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .umma__videos--section {
@@ -118,8 +117,7 @@ export default {
     max-width: 960px;
   }
   .umma__videos--section {
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
-
 </style>
