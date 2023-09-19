@@ -194,7 +194,11 @@
     },
     "read_more": "Читать",
     "pinned_message": "Закрепленное сообщение",
-    "reset_filter": "Сбросить фильтр"
+    "reset_filter": "Сбросить фильтр",
+    "image_updload": {
+      "title": "Нажмите или перетащите изображение",
+      "subtitle": "Допустимые расширения jpeg, jpg, png"
+    }
   },
   "languages": {
     "title": "Русский",
@@ -214,7 +218,8 @@
     "publications_input": "Напиши благое или молчи...",
     "comment_input": "Ваш комментарий...",
     "question_for_poll": "Вопрос или тема для опроса...",
-    "message": "Сообщение..."
+    "message": "Сообщение...",
+    "article_title": "Заголовок статьи"
   },
   "tabs": {
     "profile_tabs": {
@@ -355,7 +360,10 @@
       "see_all": "Смотреть все",
       "show_all_recommendation": "Показать все рекомендации",
       "advanced_search": "Расширенный поиск"
-    }
+    },
+    "choose_article_category": "Выберите категорию статьи",
+    "tags": "Теги",
+    "article_cover": "Обложка статьи"
   },
   "dropdown": {
     "reply_answer": "Посмотреть ответы",
