@@ -1,154 +1,38 @@
 <template>
   <section class="search-articles__section">
     <div class="search-articles__block">
-      <LoupeIcon/>
-      <input
-        type="text"
-        class="search-articles__input"
-        :placeholder="$t('placeholders.search_articles')"
-      >
+      <LoupeIcon />
+      <input type="text" v-model="searchQuery" class="search-articles__input"
+        :placeholder="$t('placeholders.search_articles')">
     </div>
   </section>
   <div class="articles-main__block">
     <section>
       <ul class="articles-list">
-        <li class="articles-list__item">
-          <div class="articles-image__section">
-            <img src="@/assets/images/articles/articles_1.png" alt="">
-            <div class="favourite-icon__block">
-              <FavouriteIcon/>
+        <li class="articles-list__item" v-for="item in filteredItems" :key="item.id">
+          <router-link :to="`/${$i18n.locale}/articles/1`">
+            <div class="articles-image__section">
+              <img src="@/assets/images/articles/articles_1.png" alt="">
+              <div class="favourite-icon__block">
+                <FavouriteIcon />
+              </div>
+              <div class="watched-icon__block">
+                <EyeIcon />
+                <span>145</span>
+              </div>
             </div>
-            <div class="watched-icon__block">
-              <EyeIcon/>
-              <span>145</span>
+            <div class="articles-description__section">
+              <div class="articles-category">
+                <span>Автомобили и транспорт</span>
+                <small>20.08.2022</small>
+              </div>
+              <h3 class="articles-description">{{ item.title }}</h3>
+              <div class="articles-description__author">
+                <img src="@/assets/images/navbar/people_1.png" alt="">
+                <span>{{ item.author }}</span>
+              </div>
             </div>
-          </div>
-          <div class="articles-description__section">
-            <div class="articles-category">
-              <span>Автомобили и транспорт</span>
-              <small>20.08.2022</small>
-            </div>
-            <h3 class="articles-description">Название очень интересной статьи, которую опубликовал пользователь</h3>
-            <div class="articles-description__author">
-              <img src="@/assets/images/navbar/people_1.png" alt="">
-              <span>Абдуллах Хамхоев</span>
-            </div>
-          </div>
-        </li>
-        <li class="articles-list__item">
-          <div class="articles-image__section">
-            <img src="@/assets/images/articles/articles_2.png" alt="">
-            <div class="favourite-icon__block">
-              <FavouriteIcon/>
-            </div>
-            <div class="watched-icon__block">
-              <EyeIcon/>
-              145
-            </div>
-          </div>
-          <div class="articles-description__section">
-            <div class="articles-category">
-              <span>Автомобили и транспорт</span>
-              <small>20.08.2022</small>
-            </div>
-            <h3 class="articles-description">Название очень интересной статьи, которую опубликовал пользователь</h3>
-            <div class="articles-description__author">
-              <img src="@/assets/images/navbar/people_2.png" alt="">
-              <span>Абдуллах Хамхоев</span>
-            </div>
-          </div>
-        </li>
-        <li class="articles-list__item">
-          <div class="articles-image__section">
-            <img src="@/assets/images/articles/articles_3.png" alt="">
-            <div class="favourite-icon__block">
-              <FavouriteIcon/>
-            </div>
-            <div class="watched-icon__block">
-              <EyeIcon/>
-              145
-            </div>
-          </div>
-          <div class="articles-description__section">
-            <div class="articles-category">
-              <span>Автомобили и транспорт</span>
-              <small>20.08.2022</small>
-            </div>
-            <h3 class="articles-description">Название очень интересной статьи, которую опубликовал пользователь</h3>
-            <div class="articles-description__author">
-              <img src="@/assets/images/navbar/people_3.png" alt="">
-              <span>Абдуллах Хамхоев</span>
-            </div>
-          </div>
-        </li>
-        <li class="articles-list__item">
-          <div class="articles-image__section">
-            <img src="@/assets/images/articles/articles_4.png" alt="">
-            <div class="favourite-icon__block">
-              <FavouriteIcon/>
-            </div>
-            <div class="watched-icon__block">
-              <EyeIcon/>
-              145
-            </div>
-          </div>
-          <div class="articles-description__section">
-            <div class="articles-category">
-              <span>Автомобили и транспорт</span>
-              <small>20.08.2022</small>
-            </div>
-            <h3 class="articles-description">Название очень интересной статьи, которую опубликовал пользователь</h3>
-            <div class="articles-description__author">
-              <img src="@/assets/images/navbar/people_5.png" alt="">
-              <span>Абдуллах Хамхоев</span>
-            </div>
-          </div>
-        </li>
-        <li class="articles-list__item">
-          <div class="articles-image__section">
-            <img src="@/assets/images/articles/articles_5.png" alt="">
-            <div class="favourite-icon__block">
-              <FavouriteIcon/>
-            </div>
-            <div class="watched-icon__block">
-              <EyeIcon/>
-              145
-            </div>
-          </div>
-          <div class="articles-description__section">
-            <div class="articles-category">
-              <span>Автомобили и транспорт</span>
-              <small>20.08.2022</small>
-            </div>
-            <h3 class="articles-description">Название очень интересной статьи, которую опубликовал пользователь</h3>
-            <div class="articles-description__author">
-              <img src="@/assets/images/navbar/people_4.png" alt="">
-              <span>Абдуллах Хамхоев</span>
-            </div>
-          </div>
-        </li>
-        <li class="articles-list__item">
-          <div class="articles-image__section">
-            <img src="@/assets/images/articles/articles_6.png" alt="">
-            <div class="favourite-icon__block">
-              <FavouriteIcon/>
-            </div>
-            <div class="watched-icon__block">
-              <EyeIcon/>
-              145
-            </div>
-          </div>
-          <div class="articles-description__section">
-            <div class="articles-category">
-              <span>Автомобили и транспорт</span>
-              <small>20.08.2022</small>
-            </div>
-            <h3 class="articles-description">Название очень интересной статьи, которую опубликовал пользователь</h3>
-            <div class="articles-description__author">
-              <img src="@/assets/images/navbar/people_3.png" alt="">
-              <span>Абдуллах Хамхоев</span>
-            </div>
-          </div>
+          </router-link>
         </li>
       </ul>
     </section>
@@ -176,7 +60,7 @@
           <li class="category-list__item">Другое</li>
         </ul>
       </div>
-      <SampleButton class="clear-filter__button" :title="$t('buttons.reset_filter')"/>
+      <SampleButton class="clear-filter__button" :title="$t('buttons.reset_filter')" />
     </aside>
   </div>
 </template>
@@ -193,6 +77,54 @@ export default {
     EyeIcon,
     FavouriteIcon,
     LoupeIcon
+  },
+  data() {
+    return {
+      searchQuery: '',
+      items: [
+        {
+          id: 0,
+          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem iste natus nemo quod similique tenetur?',
+          author: 'Абдуллах Хамхоев'
+        },
+        {
+          id: 1,
+          title: 'Jackson ipsum dolor sit amet, consectetur adipisicing elit. Modi, repellat!',
+          author: 'Jamaal Goldman'
+        },
+        {
+          id: 2,
+          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus distinctio doloremque eaque eius in iste nemo numquam quae ut.',
+          author: 'Maxim Reynolds'
+        },
+        {
+          id: 3,
+          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aut cupiditate fuga natus nemo?',
+          author: 'Raekwon Bach'
+        },
+        {
+          id: 4,
+          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores!',
+          author: 'Trace Coles'
+        },
+        {
+          id: 5,
+          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, cupiditate?',
+          author: 'Wilson Ybarra'
+        }
+      ]
+    }
+  },
+  computed: {
+    filteredItems() {
+      const query = this.searchQuery.toLowerCase()
+      return this.items.filter(item => item.title.toLowerCase().includes(query))
+    }
+  },
+  watch: {
+    searchQuery(newQuery) {
+      console.log('Search Query Changed:', newQuery)
+    }
   }
 }
 </script>

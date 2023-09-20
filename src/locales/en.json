@@ -192,7 +192,11 @@
     },
     "read_more": "Read",
     "pinned_message": "Pinned message",
-    "reset_filter": "Reset filter"
+    "reset_filter": "Reset filter",
+    "image_updload": {
+      "title": "Click or drag the image",
+      "subtitle": "Acceptable extensions jpeg, jpg, png"
+    }
   },
   "languages": {
     "title": "English",
@@ -212,7 +216,8 @@
     "publications_input": "Write good or be silent...",
     "comment_input": "Your comment...",
     "question_for_poll": "Poll question or topic... ",
-    "message": "Message..."
+    "message": "Message...",
+    "article_title": "Article title"
   },
   "tabs": {
     "profile_tabs": {
@@ -354,7 +359,10 @@
       "article": "Article",
       "show_all_recommendation": "Show all recommendations",
       "advanced_search": "Advanced search"
-    }
+    },
+    "choose_article_category": "Choose article category",
+    "tags": "Tags",
+    "article_cover": "Article cover"
   },
   "dropdown": {
     "reply_answer": "View answers",

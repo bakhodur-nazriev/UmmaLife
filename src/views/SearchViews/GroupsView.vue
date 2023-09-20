@@ -127,7 +127,7 @@ export default {
 .main-people__block {
   background-color: var(--color-white);
   border-radius: 20px;
-  width: 700px;
+  width: 600px;
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -180,6 +180,12 @@ export default {
         }
       }
     }
+  }
+}
+
+@media (min-width: 1920px) {
+  .main-people__block {
+    width: 700px;
   }
 }
 </style>

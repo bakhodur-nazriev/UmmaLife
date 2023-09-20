@@ -50,6 +50,7 @@ export default {
   flex-grow: 1;
   overflow-y: auto;
   overflow-x: hidden;
+  margin-left: 260px;
 }
 
 @media (max-width: 576px) {

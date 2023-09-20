@@ -28,13 +28,14 @@ export default {
 <style scoped lang="scss">
 .search-container {
   display: flex;
-  padding: 24px 24px 24px 220px;
+  gap: 20px;
+  justify-content: space-between;
+  padding: 24px 24px 24px 200px;
 }
 
 .search-navbar {
-  position: fixed;
-  right: 20px;
   z-index: 101;
+  height: 100%;
 }
 
 @media (min-width: 1920px) {
