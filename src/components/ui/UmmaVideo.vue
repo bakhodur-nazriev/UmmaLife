@@ -1,23 +1,23 @@
 <template>
   <div class="umma__video--block">
-    <div class="video__section">
-      <img width="42" height="42" src="@/assets/images/Ellipse.png" alt="">
-      <img width="364" height="200" src="@/assets/images/Rectangle.png" alt="">
+    <router-link :to="`/video/${index}`" class="video__section">
+      <img width="42" height="42" src="@/assets/images/Ellipse.png" alt="" />
+      <img width="364" height="200" src="@/assets/images/Rectangle.png" alt="" />
       <div class="time__section">
         <span>15:52</span>
       </div>
-    </div>
+    </router-link>
     <div class="title__section">
-      <h3 class="title">Вообще любое название для видео, которое влазит на 2 строки</h3>
-      <SampleMenuDetailsButton
-        :is-menu-open="isMenuOpen"
-        @toggle-menu="toggleMenu"
-      />
+      <router-link :to="`/video/${index}`" class="title"
+        >Вообще любое название для видео, которое влазит на 2 строки</router-link
+      >
+      <SampleMenuDetailsButton :is-menu-open="isMenuOpen" @toggle-menu="toggleMenu" />
     </div>
 
     <div class="subtitle__section">
       <div>
-        <time class="video__time" datetime="2022.08.20">20.08.2022</time><small>-</small> <small>1 тыс. {{ $t('video.views') }}</small>
+        <time class="video__time" datetime="2022.08.20">20.08.2022</time><small>-</small>
+        <small>1 тыс. {{ $t('video.views') }}</small>
       </div>
       <div>
         <small>255 {{ $t('video.reactions') }}</small>
@@ -30,16 +30,21 @@
 import SampleMenuDetailsButton from '@/components/ui/MenuDetails/SampleMenuDetailsButton.vue'
 
 export default {
+  props: {
+    index: {
+      type: Number
+    }
+  },
   components: {
     SampleMenuDetailsButton
   },
-  data () {
+  data() {
     return {
       isMenuOpen: false
     }
   },
   methods: {
-    toggleMenu () {
+    toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen
     }
   }
@@ -59,6 +64,8 @@ img {
 
 .title {
   line-height: 1.3;
+  color: var(--color-mine-shaft);
+  text-decoration: none;
 }
 
 .subtitle__section small {
