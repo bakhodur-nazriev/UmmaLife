@@ -16,7 +16,7 @@
                   <span>Istanbul, 24 года</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
             </li>
             <li class="recent-list__item">
               <div class="recent-list__item-left-block">
@@ -26,7 +26,7 @@
                   <span>15896 подписчиков</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
             </li>
             <li class="recent-list__item">
               <div class="recent-list__item-left-block">
@@ -36,11 +36,11 @@
                   <span>Мадрид, 28 лет</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
             </li>
           </ul>
         </section>
-        <SampleDivider/>
+        <SampleDivider />
 
         <section class="people-section">
           <div class="people-section__labels">
@@ -56,7 +56,7 @@
                   <span>Istanbul, 24 года</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
             </li>
             <li class="people-list__item">
               <div class="people-list__item-left-block">
@@ -66,7 +66,7 @@
                   <span>Грузия, 27 лет</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
             </li>
             <li class="people-list__item">
               <div class="people-list__item-left-block">
@@ -76,11 +76,11 @@
                   <span>Мадрид, 28 лет</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
             </li>
           </ul>
         </section>
-        <SampleDivider/>
+        <SampleDivider />
 
         <section class="groups-section">
           <div class="groups-section__labels">
@@ -96,7 +96,7 @@
                   <span>Istanbul, 24 года</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
             </li>
             <li class="groups-list__item">
               <div class="groups-list__item-left-block">
@@ -106,7 +106,7 @@
                   <span>Грузия, 27 лет</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
             </li>
             <li class="groups-list__item">
               <div class="groups-list__item-left-block">
@@ -116,11 +116,11 @@
                   <span>Мадрид, 28 лет</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
             </li>
           </ul>
         </section>
-        <SampleDivider/>
+        <SampleDivider />
 
         <section class="muvi-section">
           <div class="muvi-section__labels">
@@ -133,7 +133,7 @@
                 <img src="@/assets/images/search/muvi_1.png" alt="">
               </div>
               <div class="muvi-list__item-details">
-                <EyeIcon/>
+                <EyeIcon />
                 <span>147 просмотров</span>
               </div>
             </li>
@@ -142,7 +142,7 @@
                 <img src="@/assets/images/search/muvi_2.png" alt="">
               </div>
               <div class="muvi-list__item-details">
-                <EyeIcon/>
+                <EyeIcon />
                 <span>147 просмотров</span>
               </div>
             </li>
@@ -151,7 +151,7 @@
                 <img src="@/assets/images/search/muvi_3.png" alt="">
               </div>
               <div class="muvi-list__item-details">
-                <EyeIcon/>
+                <EyeIcon />
                 <span>147 просмотров</span>
               </div>
             </li>
@@ -160,13 +160,13 @@
                 <img src="@/assets/images/search/muvi_4.png" alt="">
               </div>
               <div class="muvi-list__item-details">
-                <EyeIcon/>
+                <EyeIcon />
                 <span>147 просмотров</span>
               </div>
             </li>
           </ul>
         </section>
-        <SampleDivider/>
+        <SampleDivider />
 
         <section class="article-section">
           <div class="article-section__labels">
@@ -186,7 +186,7 @@
                 <div class="article-body__views-block">
                   <img src="@/assets/images/search/article_1.png" alt="">
                   <div class="article-body__views">
-                    <EyeIcon/>
+                    <EyeIcon />
                     <span>413</span>
                   </div>
                 </div>
@@ -209,7 +209,7 @@
                 <div class="article-body__views-block">
                   <img src="@/assets/images/search/article_1.png" alt="">
                   <div class="article-body__views">
-                    <EyeIcon/>
+                    <EyeIcon />
                     <span>413</span>
                   </div>
                 </div>
@@ -222,7 +222,7 @@
             </li>
           </ul>
         </section>
-        <SampleDivider/>
+        <SampleDivider />
 
         <section class="video-section">
           <div class="video-section__labels">
@@ -239,20 +239,12 @@
                 </div>
               </div>
               <div class="custom-video__container">
-                <VideoPlayer
-                  src="/video/video.mp4"
-                  poster="/images/message/video-poster.jpg"
-                  controls
-                  :volume="1"
-                >
+                <VideoPlayer src="/video/video.mp4" poster="/images/message/video-poster.jpg" controls :volume="1">
                   <template v-slot="{ player, state }">
                     <div class="custom-player-controls">
-                      <div
-                        v-if="!state.playing"
-                        @click="state.playing ? player.pause() : player.play()"
-                        class="play-button"
-                      >
-                        <SmallVideoPlayIcon/>
+                      <div v-if="!state.playing" @click="state.playing ? player.pause() : player.play()"
+                        class="play-button">
+                        <SmallVideoPlayIcon />
                       </div>
                     </div>
                   </template>
@@ -272,20 +264,12 @@
                 </div>
               </div>
               <div class="custom-video__container">
-                <VideoPlayer
-                  src="/video/video.mp4"
-                  poster="/images/message/video-poster.jpg"
-                  controls
-                  :volume="1"
-                >
+                <VideoPlayer src="/video/video.mp4" poster="/images/message/video-poster.jpg" controls :volume="1">
                   <template v-slot="{ player, state }">
                     <div class="custom-player-controls">
-                      <div
-                        v-if="!state.playing"
-                        @click="state.playing ? player.pause() : player.play()"
-                        class="play-button"
-                      >
-                        <SmallVideoPlayIcon/>
+                      <div v-if="!state.playing" @click="state.playing ? player.pause() : player.play()"
+                        class="play-button">
+                        <SmallVideoPlayIcon />
                       </div>
                     </div>
                   </template>
@@ -298,7 +282,7 @@
             </li>
           </ul>
         </section>
-        <SampleDivider/>
+        <SampleDivider />
 
         <section class="audio-section">
           <div class="audio-section__labels">
@@ -310,7 +294,7 @@
               <div class="audio-content__section-item">
                 <div class="audio-content__left-side">
                   <div class="play-button">
-                    <SmallVideoPlayIcon/>
+                    <SmallVideoPlayIcon />
                     <!--          <audio controls>-->
                     <!--            <source src="" type="">-->
                     <!--            <source src="" type="">-->
@@ -331,7 +315,7 @@
               <div class="audio-content__section-item">
                 <div class="audio-content__left-side">
                   <div class="play-button">
-                    <SmallVideoPlayIcon/>
+                    <SmallVideoPlayIcon />
                     <!--          <audio controls>-->
                     <!--            <source src="" type="">-->
                     <!--            <source src="" type="">-->
@@ -352,7 +336,7 @@
               <div class="audio-content__section-item">
                 <div class="audio-content__left-side">
                   <div class="play-button">
-                    <SmallVideoPlayIcon/>
+                    <SmallVideoPlayIcon />
                     <!--          <audio controls>-->
                     <!--            <source src="" type="">-->
                     <!--            <source src="" type="">-->
@@ -371,7 +355,7 @@
             </li>
           </ul>
         </section>
-        <SampleDivider/>
+        <SampleDivider />
 
         <section class="hashtags-section">
           <div class="hashtags-section__labels">
@@ -381,7 +365,7 @@
           <ul class="hashtags-list">
             <li class="hashtags-list__item">
               <div class="hashtag-icon">
-                <HashtagIcon/>
+                <HashtagIcon />
               </div>
               <div class="hashtags-list__item-title">
                 <p>#напи</p>
@@ -390,7 +374,7 @@
             </li>
             <li class="hashtags-list__item">
               <div class="hashtag-icon">
-                <HashtagIcon/>
+                <HashtagIcon />
               </div>
               <div class="hashtags-list__item-title">
                 <p>#написанн</p>
@@ -399,7 +383,7 @@
             </li>
             <li class="hashtags-list__item">
               <div class="hashtag-icon">
-                <HashtagIcon/>
+                <HashtagIcon />
               </div>
               <div class="hashtags-list__item-title">
                 <p>#написанноеслово</p>
@@ -440,7 +424,7 @@ export default {
 .all-comment__main-block {
   background-color: var(--color-white);
   border-radius: 20px;
-  width: 700px;
+  width: 550px;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -453,6 +437,7 @@ export default {
   margin: 0;
   display: flex;
   justify-content: space-between;
+  gap: 8px;
 
   &__item {
     display: flex;
@@ -546,6 +531,7 @@ export default {
     gap: 12px;
   }
 }
+
 .audio-list {
   list-style: none;
   padding: 0;
@@ -611,28 +597,6 @@ export default {
       font-size: 16px;
       font-weight: 500;
       color: var(--color-mine-shaft);
-    }
-  }
-}
-
-@media (max-width: 576px) {
-  .audio-title {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    line-clamp: 1;
-    -webkit-box-orient: vertical;
-  }
-
-  .audio-content__audio-time {
-    span {
-      font-size: 14px;
-    }
-  }
-
-  .audio-content__right-side {
-    .author-name {
-      font-size: 14px;
     }
   }
 }
@@ -737,10 +701,11 @@ export default {
   margin: 0;
   display: flex;
   justify-content: space-between;
+  gap: 8px;
 
   .custom-video__container {
-    width: 320px;
-    height: 186px;
+    width: 220px;
+    height: 120px;
   }
 
   .custom-player-controls .play-button {
@@ -864,5 +829,48 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+@media (max-width: 576px) {
+  .audio-title {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+
+  .audio-content__audio-time {
+    span {
+      font-size: 14px;
+    }
+  }
+
+  .audio-content__right-side {
+    .author-name {
+      font-size: 14px;
+    }
+  }
+}
+
+@media (max-width: 1920px) {
+  .muvi-list__item-details {
+    span {
+      font-size: 12px;
+    }
+  }
+}
+
+@media (min-width: 1920px) {
+  .all-comment__main-block {
+    width: 700px;
+  }
+
+  .video-list {
+    .custom-video__container {
+      width: 320px;
+      height: 186px;
+    }
+  }
 }
 </style>

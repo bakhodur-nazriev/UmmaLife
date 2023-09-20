@@ -145,13 +145,12 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  position: sticky;
-  top: 0;
+  position: fixed;
+  top: 80px;
   background-color: var(--color-white);
   padding: 4px;
   height: 100vh;
-  max-width: 260px;
-  width: 100%;
+  width: 260px;
   overflow: hidden;
 
   &:hover {

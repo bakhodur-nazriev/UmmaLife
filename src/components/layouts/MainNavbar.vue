@@ -3,36 +3,36 @@
     <nav class="navbar">
       <div class="right__nav--side">
         <button type="button" class="menu__button" @click="toggleSidebar">
-          <MenuIcon/>
+          <MenuIcon />
         </button>
-        <MainPageLogo class="main__logo"/>
+        <MainPageLogo class="main__logo" />
       </div>
       <div class="main__nav--side">
-        <SampleButton class="create__button" :title="`${$t('buttons.create')}`"/>
-        <SearchInput @open-search-input="isSearchInputOpen = true" :placeholder="$t('placeholders.search_input')"/>
+        <SampleButton class="create__button" :title="`${$t('buttons.create')}`" />
+        <SearchInput @open-search-input="isSearchInputOpen = true" :placeholder="$t('placeholders.search_input')" />
       </div>
       <div class="left__nav--side">
         <ul class="navbar__right--buttons">
           <li class="music__button" :class="{ active: isPlayerOpen }" @click="playerClickHandler">
-            <MusicIcon/>
+            <MusicIcon />
           </li>
           <li class="email__button">
-            <EmailIcon/>
+            <EmailIcon />
           </li>
           <li class="notification__button">
-            <NotificationIcon/>
+            <NotificationIcon />
           </li>
           <router-link :to="`/${$i18n.locale}/settings`">
             <li class="settings__button">
-              <SettingIcon/>
+              <SettingIcon />
             </li>
           </router-link>
         </ul>
         <div class="user__menu--block">
           <div class="profile__image">
-            <img src="@/assets/images/Article_Author.png" alt="avatar-logo"/>
+            <img src="@/assets/images/Article_Author.png" alt="avatar-logo" />
           </div>
-          <ArrowIcon class="dropdown__icon"/>
+          <ArrowIcon class="dropdown__icon" />
         </div>
       </div>
     </nav>
@@ -42,31 +42,26 @@
         <ul class="top__nav--list">
           <li class="top__nav--left-item">
             <router-link v-if="!isSearchForm" to="/news">
-              <SmallLogo/>
+              <SmallLogo />
             </router-link>
-            <button
-              v-if="isSearchForm"
-              type="button"
-              @click="isSearchFormClose"
-              class="close-search__form"
-            >
-              <ArrowLeftIcon/>
+            <button v-if="isSearchForm" type="button" @click="isSearchFormClose" class="close-search__form">
+              <ArrowLeftIcon />
             </button>
           </li>
 
           <li class="top__nav--search-item" v-if="isSearchForm">
             <div class="main__search--block">
-              <LoupeInputIcon class="search__icon"/>
-              <input class="base__search--input" :placeholder="$t('placeholders.search_input')"/>
+              <LoupeInputIcon class="search__icon" />
+              <input class="base__search--input" :placeholder="$t('placeholders.search_input')" />
             </div>
           </li>
 
           <li class="top__nav--right-item" v-if="!isSearchForm">
             <div v-if="!isSearchForm" @click="isSearchFormOpen">
-              <LoupeIcon/>
+              <LoupeIcon />
             </div>
             <div>
-              <SmallMenuIcon/>
+              <SmallMenuIcon />
             </div>
           </li>
         </ul>
@@ -74,14 +69,14 @@
 
       <SearchTab :tabs="tabData" v-if="isSearchForm">
         <template v-for="(tab, i) in tabData" v-slot:[tab.label]="" :key="i">
-          <TabAll v-if="i === 0"/>
-          <TabPeople v-if="i === 1"/>
-          <TabCommunities v-if="i === 2"/>
-          <TabMUVI v-if="i === 3"/>
-          <TabArticle v-if="i === 4"/>
-          <TabVideo v-if="i === 5"/>
-          <TabAudio v-if="i === 6"/>
-          <TabHashtags v-if="i === 7"/>
+          <TabAll v-if="i === 0" />
+          <TabPeople v-if="i === 1" />
+          <TabCommunities v-if="i === 2" />
+          <TabMUVI v-if="i === 3" />
+          <TabArticle v-if="i === 4" />
+          <TabVideo v-if="i === 5" />
+          <TabAudio v-if="i === 6" />
+          <TabHashtags v-if="i === 7" />
         </template>
       </SearchTab>
 
@@ -89,32 +84,29 @@
         <ul class="bottom__nav--list">
           <li class="bottom__nav--item">
             <router-link to="to">
-              <NewsIcon/>
+              <NewsIcon />
             </router-link>
           </li>
           <li class="bottom__nav--item">
             <router-link to="">
-              <MessagesIcon/>
+              <MessagesIcon />
             </router-link>
           </li>
           <li class="bottom__nav--item">
             <router-link to="">
-              <BellIcon/>
+              <BellIcon />
             </router-link>
           </li>
           <li class="bottom__nav--item">
             <router-link to="">
-              <MyPageIcon/>
+              <MyPageIcon />
             </router-link>
           </li>
         </ul>
       </div>
     </nav>
 
-    <div
-      class="search-outside__block"
-      v-if="isSearchInputOpen"
-    >
+    <div class="search-outside__block" v-if="isSearchInputOpen">
       <div class="search-inside__block">
         <section class="all-recommendation__block">
           <router-link :to="`/${$i18n.locale}/search-article`">
@@ -122,7 +114,7 @@
             <ArrowLeftIcon />
           </router-link>
         </section>
-        <SampleDivider/>
+        <SampleDivider />
 
         <section class="recent-section">
           <div class="recent-section__labels">
@@ -138,7 +130,7 @@
                   <span>Istanbul, 24 года</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
             </li>
             <li class="recent-list__item">
               <div class="recent-list__item-left-block">
@@ -148,7 +140,7 @@
                   <span>15896 подписчиков</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
             </li>
             <li class="recent-list__item">
               <div class="recent-list__item-left-block">
@@ -158,11 +150,11 @@
                   <span>Мадрид, 28 лет</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
             </li>
           </ul>
         </section>
-        <SampleDivider/>
+        <SampleDivider />
 
         <section class="people-section">
           <div class="people-section__labels">
@@ -178,7 +170,7 @@
                   <span>Istanbul, 24 года</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
             </li>
             <li class="people-list__item">
               <div class="people-list__item-left-block">
@@ -188,7 +180,7 @@
                   <span>Грузия, 27 лет</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
             </li>
             <li class="people-list__item">
               <div class="people-list__item-left-block">
@@ -198,11 +190,11 @@
                   <span>Мадрид, 28 лет</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
             </li>
           </ul>
         </section>
-        <SampleDivider/>
+        <SampleDivider />
 
         <section class="groups-section">
           <div class="groups-section__labels">
@@ -218,7 +210,7 @@
                   <span>Istanbul, 24 года</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
             </li>
             <li class="groups-list__item">
               <div class="groups-list__item-left-block">
@@ -228,7 +220,7 @@
                   <span>Грузия, 27 лет</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
             </li>
             <li class="groups-list__item">
               <div class="groups-list__item-left-block">
@@ -238,18 +230,20 @@
                   <span>Мадрид, 28 лет</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${ $t('buttons.subscribe') }`"/>
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
             </li>
           </ul>
         </section>
         <SampleDivider />
 
         <section class="advanced-search__section">
-          <div class="advanced-search__section-left">
-            <LoupeInputIcon />
-            <span>{{ $t('labels.search.advanced_search') }}</span>
-          </div>
-          <ArrowLeftIcon />
+          <router-link to="/search-all-recommendations">
+            <div class="advanced-search__section-left">
+              <LoupeInputIcon />
+              <span>{{ $t('labels.search.advanced_search') }}</span>
+            </div>
+            <ArrowLeftIcon />
+          </router-link>
         </section>
       </div>
     </div>
@@ -483,6 +477,7 @@ export default {
 .all-recommendation__block {
   cursor: pointer;
   margin-bottom: 16px;
+
   svg {
     all: unset;
     color: transparent;
@@ -506,9 +501,18 @@ export default {
 
 .advanced-search__section {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  width: 100%;
   margin-top: 20px;
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    all: inherit;
+    cursor: pointer;
+    margin-top: 0;
+  }
 
   svg {
     all: unset;
@@ -526,6 +530,7 @@ export default {
     span {
       font-size: 18px;
       color: var(--color-secondary);
+      line-height: 1;
     }
 
     svg {
@@ -587,7 +592,7 @@ export default {
   transform: translateY(0);
   transition: transform 0.3s ease;
   background-color: var(--color-white);
-  z-index: 10;
+  z-index: 300;
 }
 
 .right__nav--side,

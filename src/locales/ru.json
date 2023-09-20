@@ -30,7 +30,8 @@
       "video": "Видео",
       "audio": "Аудио",
       "hashtags": "Хештеги"
-    }
+    },
+    "show_article": ""
   },
   "login": {
     "title": "Вход",
