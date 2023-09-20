@@ -64,7 +64,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  max-width: 700px;
+  width: 600px;
 
   &__article {
     display: flex;
@@ -144,6 +144,12 @@ export default {
   .video-block__article {
     padding: 24px 16px;
     border-radius: 0;
+  }
+}
+
+@media (min-width: 1920px) {
+  .video-block {
+    width: 700px;
   }
 }
 </style>

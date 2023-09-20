@@ -424,7 +424,7 @@ export default {
 .all-comment__main-block {
   background-color: var(--color-white);
   border-radius: 20px;
-  width: 550px;
+  width: 600px;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -489,7 +489,12 @@ export default {
 }
 
 .subscribe-button {
-  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 136px;
+  height: 36px;
+  padding: 0;
 }
 
 .recent-section__labels,
@@ -704,7 +709,7 @@ export default {
   gap: 8px;
 
   .custom-video__container {
-    width: 220px;
+    width: 100%;
     height: 120px;
   }
 
@@ -717,7 +722,7 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    max-width: 320px;
+    width: 320px;
 
     &-header {
       display: flex;

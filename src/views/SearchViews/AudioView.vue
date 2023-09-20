@@ -59,7 +59,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  max-width: 700px;
+  width: 600px;
 
   &__article {
     display: flex;
@@ -78,6 +78,12 @@ export default {
 @media (max-width: 576px) {
   .audio-block__article {
     border-radius: 0;
+  }
+}
+
+@media (min-width: 1920px) {
+  .audio-block {
+    width: 700px;
   }
 }
 </style>

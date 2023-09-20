@@ -36,12 +36,16 @@ export default {
 .search-navbar {
   z-index: 101;
   height: 100%;
+  max-width: 300px;
 }
 
 @media (min-width: 1920px) {
   .search-container {
-    justify-content: center;
+    display: flex;
     padding: 24px;
+    gap: 20px;
+    justify-content: space-between;
+    padding: 24px 24px 24px 200px;
   }
 }
 </style>

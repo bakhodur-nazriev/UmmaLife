@@ -135,7 +135,12 @@ export default {
 }
 
 .subscribe-button {
-  padding: 10px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 136px;
+  height: 36px;
+  padding: 0;
 }
 
 .people-list {
