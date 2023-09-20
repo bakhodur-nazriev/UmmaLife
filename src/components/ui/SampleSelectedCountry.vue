@@ -5,9 +5,9 @@
         :src="selectedCountry.flag"
         :alt="selectedCountry.name"
         class="country-dropdown__flag-icon"
-      >
+      />
       <span class="country-code">{{ selectedCountry.code }}</span>
-      <DropdownIcon class="locales__icon locales__icon--dropdown"/>
+      <DropdownIcon class="locales__icon locales__icon--dropdown" />
     </div>
     <div v-if="isDropdownOpen" class="country-dropdown">
       <ul class="country-dropdown__list">
@@ -17,7 +17,7 @@
           @click="selectCountry(country)"
           class="country-dropdown__list-item"
         >
-          <img :src="country.flag" :alt="country.name" class="country-dropdown__flag-icon"/>
+          <img :src="country.flag" :alt="country.name" class="country-dropdown__flag-icon" />
           <span class="country-code">{{ country.name }}</span>
           <span class="country-code">{{ country.code }}</span>
         </li>
@@ -32,7 +32,7 @@ import axios from 'axios'
 
 export default {
   components: { DropdownIcon },
-  data () {
+  data() {
     return {
       countries: [],
       selectedCountry: { name: '', code: '', flag: '' },
@@ -40,7 +40,7 @@ export default {
     }
   },
   methods: {
-    getCountries () {
+    getCountries() {
       axios
         .get('https://restcountries.com/v2/all')
         .then((response) => {
@@ -55,16 +55,16 @@ export default {
           console.error('Error fetching countries:', error)
         })
     },
-    toggleDropdown () {
+    toggleDropdown() {
       this.isDropdownOpen = !this.isDropdownOpen
     },
-    selectCountry (country) {
+    selectCountry(country) {
       this.selectedCountry = country
       this.isDropdownOpen = false
       this.$emit('country-selected', country.code)
     }
   },
-  mounted () {
+  mounted() {
     this.getCountries()
   }
 }
@@ -85,6 +85,7 @@ export default {
   &-select {
     position: relative;
     display: inline-block;
+    user-select: none;
 
     &-button {
       display: flex;
@@ -106,6 +107,7 @@ export default {
     max-height: 210px;
     overflow-y: auto;
     width: 470px;
+    z-index: 15;
 
     &__list {
       list-style-type: none;

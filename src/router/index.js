@@ -375,15 +375,6 @@ const routes = [
     }
   },
   {
-    path: '/:lang?/',
-    name: 'settings',
-    component: SettingsView,
-    meta: {
-      title: i18n.global.t('meta_title.settings'),
-      requiresAuth: true
-    }
-  },
-  {
     path: '/:pathMatch(.*)*',
     redirect: (to) => {
       // Перенаправляем пользователя на текущую страницу

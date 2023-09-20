@@ -210,7 +210,7 @@ export default {
       .group__right--side button {
         height: 34px;
         padding: 8px 10px;
-        font-size: 14px;
+        font-size: 14px !important;
         min-width: 110px;
         max-width: 110px;
       }
