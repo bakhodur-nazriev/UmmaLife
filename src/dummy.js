@@ -511,7 +511,8 @@ export const groupsUsers = [
     isSubs: false,
     hasBadge: false,
     isPremiuim: false,
-    isVerified: false
+    isVerified: false,
+    info: 'Istanbul, 24 года'
   },
   {
     id: 2,
@@ -521,7 +522,8 @@ export const groupsUsers = [
     isSubs: false,
     hasBadge: false,
     isPremiuim: true,
-    isVerified: true
+    isVerified: true,
+    info: 'Грузия, 27 лет'
   },
   {
     id: 3,
@@ -531,7 +533,8 @@ export const groupsUsers = [
     isSubs: false,
     hasBadge: true,
     isPremiuim: true,
-    isVerified: true
+    isVerified: true,
+    info: 'Мадрид, 28 лет'
   },
   {
     id: 3,
@@ -541,7 +544,8 @@ export const groupsUsers = [
     isSubs: false,
     hasBadge: true,
     isPremiuim: false,
-    isVerified: true
+    isVerified: true,
+    info: 'Istanbul, 24 года'
   }
 ]
 
