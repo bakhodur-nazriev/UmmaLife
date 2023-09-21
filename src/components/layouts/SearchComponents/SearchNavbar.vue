@@ -62,7 +62,7 @@ export default {
 
 <style scoped lang="scss">
 .all-comment__aside-block {
-  width: 260px;
+  width: 240px;
   background-color: var(--color-white);
   padding: 10px;
   border-radius: 20px;

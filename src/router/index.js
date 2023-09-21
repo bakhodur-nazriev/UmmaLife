@@ -1,7 +1,12 @@
 /* eslint-disable */
-import { createRouter, createWebHistory } from 'vue-router'
+import {
+  createRouter,
+  createWebHistory
+} from 'vue-router'
 import i18n from '@/i18n'
-import { supportedLanguages } from '@/constants'
+import {
+  supportedLanguages
+} from '@/constants'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/Auth/LoginView.vue'
 import RegisterView from '../views/Auth/RegisterView.vue'
@@ -37,13 +42,13 @@ import SearchArticleView from '@/views/SearchViews/ArticleView.vue'
 import SearchAudioView from '@/views/SearchViews/AudioView.vue'
 import SearchVideoView from '@/views/SearchViews/VideoView.vue'
 import SearchHashtagsView from '@/views/SearchViews/HashtagsView.vue'
+import ShowArticlesView from '@/views/ShowArticlesView.vue'
 import UmmaVideoDetailVue from '@/views/UmmaVideoDetail.vue'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const baseDomain = isProduction ? 'front1.ummalife.dev' : 'localhost'
 
-const routes = [
-  {
+const routes = [{
     path: '/:lang?/',
     name: 'home',
     component: HomeView,
@@ -122,7 +127,16 @@ const routes = [
     meta: {
       title: i18n.global.t('meta_title.articles'),
       requiresAuth: true
-    }
+    },
+    children: [{
+      path: ':id',
+      name: 'show-article',
+      component: ShowArticlesView,
+      meta: {
+        title: i18n.global.t('meta_title.show_article'),
+        requiredAuth: true
+      }
+    }]
   },
   {
     path: '/:lang?/library',
@@ -168,8 +182,7 @@ const routes = [
       title: i18n.global.t('meta_title.messenger'),
       requiresAuth: true
     },
-    children: [
-      {
+    children: [{
         path: ':id',
         name: 'messenger-chat',
         component: MessengerChatView,
@@ -206,8 +219,7 @@ const routes = [
       title: i18n.global.t('meta_title.my_groups'),
       requiresAuth: true
     },
-    children: [
-      {
+    children: [{
         path: '',
         name: 'my-groups-container',
         component: MyGroupsContainer,
@@ -233,8 +245,7 @@ const routes = [
           title: i18n.global.t('meta_title.my_groups'),
           requiresAuth: true
         },
-        children: [
-          {
+        children: [{
             path: '',
             name: 'my-groups-publications',
             component: MyGroupsPublications,
@@ -380,7 +391,9 @@ const routes = [
       // Перенаправляем пользователя на текущую страницу
       return {
         name: router.currentRoute.value.name,
-        params: { lang: router.currentRoute.value.params.lang }
+        params: {
+          lang: router.currentRoute.value.params.lang
+        }
       }
     }
   }
@@ -418,7 +431,12 @@ router.beforeEach((to, from, next) => {
   // Если язык в URL не совпадает с текущим языком, перенаправляем на правильный URL
   if (to.params.lang !== lang) {
     const pathWithoutLang = to.path.replace(`/${to.params.lang}`, `/${lang}`)
-    return next({ path: `/${lang}${pathWithoutLang}`, params: { lang } })
+    return next({
+      path: `/${lang}${pathWithoutLang}`,
+      params: {
+        lang
+      }
+    })
   }
 
   document.title = `${to.meta.title} | ${process.env.VUE_APP_TITLE}`
@@ -448,7 +466,9 @@ router.beforeEach((to, from, next) => {
   return next('/login')*/
 
   if (to.name === 'home') {
-    return next({ name: 'news' })
+    return next({
+      name: 'news'
+    })
   }
   return next()
 })

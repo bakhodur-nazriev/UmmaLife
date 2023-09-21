@@ -59,7 +59,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  max-width: 700px;
+  width: 600px;
 
   &__article {
     display: flex;
@@ -79,6 +79,12 @@ export default {
   .article-block__article {
     border-radius: 0;
     padding: 10px 16px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .article-block {
+    width: 700px;
   }
 }
 </style>

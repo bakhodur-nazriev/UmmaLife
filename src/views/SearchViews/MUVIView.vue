@@ -10,14 +10,16 @@
               <div class="muvi-list__item-block__author">
                 <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
                 <span class="muvi-list__item-block__author-name">alexaliev</span>
-                <VerifyIcon/>
+                <VerifyIcon />
               </div>
 
             </div>
             <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было Как это было</h3>
             <div class="muvi-list__item-subtitle">
               <span>02.03.2023</span>
-              <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
+              <span class="muvi-item__watched">
+                <EyeIcon /> 17,8k
+              </span>
             </div>
 
           </li>
@@ -28,14 +30,16 @@
               <div class="muvi-list__item-block__author">
                 <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
                 <span class="muvi-list__item-block__author-name">alexaliev</span>
-                <VerifyIcon/>
+                <VerifyIcon />
               </div>
 
             </div>
             <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
             <div class="muvi-list__item-subtitle">
               <span>02.03.2023</span>
-              <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
+              <span class="muvi-item__watched">
+                <EyeIcon /> 17,8k
+              </span>
             </div>
 
           </li>
@@ -46,14 +50,16 @@
               <div class="muvi-list__item-block__author">
                 <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
                 <span class="muvi-list__item-block__author-name">alexaliev</span>
-                <VerifyIcon/>
+                <VerifyIcon />
               </div>
 
             </div>
             <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
             <div class="muvi-list__item-subtitle">
               <span>02.03.2023</span>
-              <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
+              <span class="muvi-item__watched">
+                <EyeIcon /> 17,8k
+              </span>
             </div>
 
           </li>
@@ -64,14 +70,16 @@
               <div class="muvi-list__item-block__author">
                 <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
                 <span class="muvi-list__item-block__author-name">alexaliev</span>
-                <VerifyIcon/>
+                <VerifyIcon />
               </div>
 
             </div>
             <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
             <div class="muvi-list__item-subtitle">
               <span>02.03.2023</span>
-              <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
+              <span class="muvi-item__watched">
+                <EyeIcon /> 17,8k
+              </span>
             </div>
 
           </li>
@@ -82,14 +90,16 @@
               <div class="muvi-list__item-block__author">
                 <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
                 <span class="muvi-list__item-block__author-name">alexaliev</span>
-                <VerifyIcon/>
+                <VerifyIcon />
               </div>
 
             </div>
             <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
             <div class="muvi-list__item-subtitle">
               <span>02.03.2023</span>
-              <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
+              <span class="muvi-item__watched">
+                <EyeIcon /> 17,8k
+              </span>
             </div>
 
           </li>
@@ -100,14 +110,16 @@
               <div class="muvi-list__item-block__author">
                 <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
                 <span class="muvi-list__item-block__author-name">alexaliev</span>
-                <VerifyIcon/>
+                <VerifyIcon />
               </div>
 
             </div>
             <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
             <div class="muvi-list__item-subtitle">
               <span>02.03.2023</span>
-              <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
+              <span class="muvi-item__watched">
+                <EyeIcon /> 17,8k
+              </span>
             </div>
 
           </li>
@@ -118,14 +130,16 @@
               <div class="muvi-list__item-block__author">
                 <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
                 <span class="muvi-list__item-block__author-name">alexaliev</span>
-                <VerifyIcon/>
+                <VerifyIcon />
               </div>
 
             </div>
             <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
             <div class="muvi-list__item-subtitle">
               <span>02.03.2023</span>
-              <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
+              <span class="muvi-item__watched">
+                <EyeIcon /> 17,8k
+              </span>
             </div>
 
           </li>
@@ -136,14 +150,16 @@
               <div class="muvi-list__item-block__author">
                 <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
                 <span class="muvi-list__item-block__author-name">alexaliev</span>
-                <VerifyIcon/>
+                <VerifyIcon />
               </div>
 
             </div>
             <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
             <div class="muvi-list__item-subtitle">
               <span>02.03.2023</span>
-              <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
+              <span class="muvi-item__watched">
+                <EyeIcon /> 17,8k
+              </span>
             </div>
 
           </li>
@@ -154,14 +170,16 @@
               <div class="muvi-list__item-block__author">
                 <img src="@/assets/images/navbar/muvi_author_avatar.png" alt="">
                 <span class="muvi-list__item-block__author-name">alexaliev</span>
-                <VerifyIcon/>
+                <VerifyIcon />
               </div>
 
             </div>
             <h3 class="muvi-list__item-title">Наша поездка в Саудию в марте. Как это было...</h3>
             <div class="muvi-list__item-subtitle">
               <span>02.03.2023</span>
-              <span class="muvi-item__watched"><EyeIcon/> 17,8k</span>
+              <span class="muvi-item__watched">
+                <EyeIcon /> 17,8k
+              </span>
             </div>
 
           </li>
@@ -200,7 +218,7 @@ export default {
   padding: 24px;
   background-color: var(--color-white);
   border-radius: 20px;
-  max-width: 700px;
+  max-width: 600px;
 }
 
 .muvi-list {
@@ -246,8 +264,6 @@ export default {
   &__item-block {
     display: flex;
     position: relative;
-    width: 212px;
-    height: 326px;
 
     &__author {
       position: absolute;
@@ -269,4 +285,16 @@ export default {
     }
   }
 }
-</style>
+
+@media (min-width: 1920px) {
+  .muvi-block {
+    max-width: 700px;
+  }
+
+  .muvi-list {
+    &__item-block {
+      width: 212px;
+      height: 326px;
+    }
+  }
+}</style>
