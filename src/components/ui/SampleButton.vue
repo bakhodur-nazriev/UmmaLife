@@ -37,7 +37,7 @@ const props = defineProps({
   },
   padding: {
     type: String,
-    default: '15px'
+    default: ''
   }
 })
 
