@@ -4,12 +4,9 @@
       <template #icon>
         <BlackListIcon />
       </template>
-      <template #title>Черный список</template>
+      <template #title>{{ $t('settings.black_list.info_title') }}</template>
       <template #text>
-        Черный список - это функция, которая позволяет вам контролировать и ограничивать
-        взаимодействие с определенными пользователями на нашем сайте. Вы можете добавлять
-        пользователей в черный список, чтобы предотвратить получение сообщений, комментариев или
-        упоминаний от них.
+        {{ $t('settings.black_list.info_text') }}
       </template>
     </SettingsInfo>
     <div class="settings__form create__group">

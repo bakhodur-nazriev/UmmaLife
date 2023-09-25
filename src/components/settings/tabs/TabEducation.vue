@@ -4,81 +4,79 @@
       <template #icon>
         <EducationIcon />
       </template>
-      <template #title>Образование</template>
+      <template #title>{{ $t('settings.education.info_title') }}</template>
       <template #text>
-        В разделе "Образование и работа" вы можете указать информацию о вашем образовании и
-        занимаемой должности. Это поможет другим пользователям лучше понять вашу академическую и
-        профессиональную сферу интересов.
+        {{ $t('settings.education.info_text') }}
       </template>
     </SettingsInfo>
     <form class="settings__form create__group">
       <div class="create__group--block">
         <div class="create__group--form pt-0 create__group--form-text">
-          <label class="create__group--label">Школа</label>
+          <label class="create__group--label">{{ $t('settings.education.scholl') }}</label>
           <div class="settings__add">
             <div v-for="school in schools" :key="school">
               <input
                 type="text"
                 class="create__group--input pt-0"
-                placeholder="Введите название вашей школы"
+                :placeholder="$t('settings.education.scholl_placeholder')"
               />
-              <BaseCheckbox label="Закончил" />
+              <BaseCheckbox :label="$t('settings.education.completed')" />
               <button
                 class="settings__add--btn"
                 type="button"
                 @click="schools !== 4 ? schools++ : (schools = 4)"
                 v-if="school === schools && schools !== 4"
               >
-                <PlusIcon /> <span>Добавить школу</span>
+                <PlusIcon /> <span>{{ $t('settings.education.scholl_add') }}</span>
               </button>
             </div>
           </div>
         </div>
         <div class="create__group--form create__group--form-text">
-          <label class="create__group--label">Колледж</label>
+          <label class="create__group--label">{{ $t('settings.education.colledge') }}</label>
           <div class="settings__add">
             <div v-for="college in colleges" :key="college">
               <input
                 type="text"
                 class="create__group--input pt-0"
-                placeholder="Введите название вашего колледжа"
+                :placeholder="$t('settings.education.colledge_placeholder')"
               />
-              <BaseCheckbox label="Закончил" />
+              <BaseCheckbox :label="$t('settings.education.completed')" />
               <button
                 class="settings__add--btn"
                 type="button"
                 @click="colleges !== 4 ? colleges++ : (colleges = 4)"
                 v-if="college === colleges && colleges !== 4"
               >
-                <PlusIcon /> <span>Добавить колледж</span>
+                <PlusIcon /> <span>{{ $t('settings.education.colledge_add') }}</span>
               </button>
             </div>
           </div>
         </div>
         <div class="create__group--form create__group--form-text pb-0">
-          <label class="create__group--label">Университет</label>
+          <label class="create__group--label">{{ $t('settings.education.univercity') }}</label>
           <div class="settings__add">
             <div v-for="university in universities" :key="university">
               <input
                 type="text"
                 class="create__group--input pt-0"
-                placeholder="Введите название вашего университета"
+                :placeholder="$t('settings.education.univercity_placeholder')"
               />
-              <BaseCheckbox label="Закончил" />
+              <BaseCheckbox :label="$t('settings.education.completed')" />
               <button
                 class="settings__add--btn"
                 type="button"
                 @click="universities !== 4 ? universities++ : (universities = 4)"
                 v-if="university === universities && universities !== 4"
               >
-                <PlusIcon /> <span>Добавить университет</span>
+                <PlusIcon /> <span>{{ $t('settings.education.univercity_add') }}</span>
               </button>
             </div>
           </div>
         </div>
       </div>
       <div class="create__group--actions">
-        <button type="submit" class="create__group--btn submit">Сохранить</button>
+        <button type="submit" class="create__group--btn submit">{{ $t('buttons.save') }}</button>
       </div>
     </form>
   </div>

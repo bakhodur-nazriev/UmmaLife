@@ -1,12 +1,13 @@
 <template>
   <div class="custom-select" :tabindex="tabindex" @blur="open = false">
-    <div class="selected" :class="{ open: open }" @click="open = !open">
-      {{ selected }}
-    </div>
+    <div class="selected" :class="{ open: open }" @click="open = !open" v-html="selected"></div>
     <div class="items" :class="{ selectHide: !open }">
-      <div v-for="(option, i) of options" :key="i" @click="handleClick(option)">
-        {{ option }}
-      </div>
+      <div
+        v-for="(option, i) of options"
+        :key="i"
+        @click="handleClick(option)"
+        v-html="option"
+      ></div>
     </div>
   </div>
 </template>
@@ -49,7 +50,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .custom-select {
   position: relative;
   width: 100%;
@@ -115,5 +116,31 @@ export default {
 
 .selectHide {
   display: none;
+}
+
+.custom-select .items div:hover .select--item span {
+  color: var(--color-white);
+}
+.custom-select .selected .select--item,
+.custom-select .items .select--item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+}
+.custom-select .selected .select--item span,
+.custom-select .items .select--item span {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: var(--color-silver-chalice);
+}
+.custom-select .selected .select--item span {
+  padding-right: 50px;
+}
+.custom-select .items .select--item span {
+  padding-right: 20px;
 }
 </style>
