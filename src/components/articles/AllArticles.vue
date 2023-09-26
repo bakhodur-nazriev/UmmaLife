@@ -40,24 +40,7 @@
       <div class="filter_block">
         <h3>Категории</h3>
         <ul class="category-list">
-          <li class="category-list__item">Автомобили и транспорт</li>
-          <li class="category-list__item">Образование</li>
-          <li class="category-list__item">Экономика и торговля</li>
-          <li class="category-list__item">Образ жизни</li>
-          <li class="category-list__item">Развлечения</li>
-          <li class="category-list__item">Фетвы</li>
-          <li class="category-list__item">Игры</li>
-          <li class="category-list__item">История и факты</li>
-          <li class="category-list__item">Фильмы и анимация</li>
-          <li class="category-list__item">Новости и политика</li>
-          <li class="category-list__item">Люди и нация</li>
-          <li class="category-list__item">Природа</li>
-          <li class="category-list__item">Места и регионы</li>
-          <li class="category-list__item">Спорт</li>
-          <li class="category-list__item">Наука и технология</li>
-          <li class="category-list__item">Животные</li>
-          <li class="category-list__item">Путешествия и события</li>
-          <li class="category-list__item">Другое</li>
+          <li class="category-list__item" v-for="(category, i) in categories" :key="i">{{ category }}</li>
         </ul>
       </div>
       <SampleButton class="clear-filter__button" :title="$t('buttons.reset_filter')" />
@@ -112,6 +95,26 @@ export default {
           title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, cupiditate?',
           author: 'Wilson Ybarra'
         }
+      ],
+      categories: [
+        'Автомобили и транспорт',
+        'Образование',
+        'Экономика и торговля',
+        'Образ жизни',
+        'Развлечения',
+        'Фетвы',
+        'Игры',
+        'История и факты',
+        'Фильмы и анимация',
+        'Новости и политика',
+        'Люди и нация',
+        'Природа',
+        'Места и регионы',
+        'Спорт',
+        'Наука и технология',
+        'Животные',
+        'Путешествия и события',
+        'Другое'
       ]
     }
   },
@@ -214,6 +217,11 @@ aside {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
+
+  a {
+    all: unset;
+    cursor: pointer;
+  }
 
   &__item {
     max-width: 380px;

@@ -196,7 +196,8 @@
     "image_updload": {
       "title": "Click or drag the image",
       "subtitle": "Acceptable extensions jpeg, jpg, png"
-    }
+    },
+    "back_to_articles": "Return to list of articles"
   },
   "languages": {
     "title": "English",

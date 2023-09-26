@@ -199,7 +199,8 @@
     "image_updload": {
       "title": "Нажмите или перетащите изображение",
       "subtitle": "Допустимые расширения jpeg, jpg, png"
-    }
+    },
+    "back_to_articles": "Вернуться к списку статей"
   },
   "languages": {
     "title": "Русский",

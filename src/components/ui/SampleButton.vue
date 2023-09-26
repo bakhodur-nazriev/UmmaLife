@@ -70,6 +70,8 @@ const clickButton = () => {
   padding: 15px;
   font-size: 16px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 
   &_primary {
     background-color: var(--color-hippie-blue);
@@ -78,10 +80,17 @@ const clickButton = () => {
   &_secondary {
     background-color: var(--color-deep-cerulean);
   }
+
+  &_white {
+    background-color: var(--color-white);
+    color: var(--color-hippie-blue);
+  }
+
   &_default {
     background-color: var(--color-seashell);
     color: var(--color-mine-shaft);
   }
+
   &_default_flex {
     display: flex;
     align-items: center;
@@ -89,9 +98,15 @@ const clickButton = () => {
     background-color: var(--color-seashell);
     color: var(--color-mine-shaft);
   }
+
   &_tertiary {
     background-color: var(--color-white);
     color: var(--color-hippie-blue);
+  }
+
+  &_seashell {
+    background-color: var(--color-seashell);
+    color: var(--color-mine-shaft);
   }
 
   &_none {
