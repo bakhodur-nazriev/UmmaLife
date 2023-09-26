@@ -144,6 +144,38 @@ const handleSelect = (event) => {
     line-height: 130%;
     color: var(--color-secondary);
   }
+  @media (max-width: 767px) {
+    .create__group--block {
+      padding: 16px 12px 80px 12px;
+    }
+    .create__group--actions {
+      display: none;
+    }
+    .create__group--form {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 16px;
+      border-bottom: none !important;
+      padding: 0;
+      &:not(:last-child) {
+        margin-bottom: 22px;
+      }
+    }
+    .create__group--label {
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 550;
+      line-height: normal;
+      color: var(--color-secondary);
+    }
+    .create__group--input {
+      background-color: var(--color-seashell);
+      padding: 16px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+  }
 }
 .settings__toggle {
   border-radius: 10px;

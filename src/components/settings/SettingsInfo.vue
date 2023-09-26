@@ -20,6 +20,9 @@
   background-color: var(--color-white);
   border-radius: 16px;
   margin-bottom: 8px;
+  @media (max-width: 767px) {
+    display: none;
+  }
   &--wrapper {
     display: flex;
     gap: 16px;

@@ -1,7 +1,7 @@
 <template>
   <main-layout>
     <div class="settings">
-      <div class="settings__wrapper">
+      <div class="settings__wrapper" v-if="store.getters.screenWidth > 767">
         <main class="settings__main">
           <div class="settings__main--inner">
             <TabMainSettings v-if="selectedTab === 0" />
@@ -19,13 +19,17 @@
         </main>
         <SettingsNav :tabs="tabs" :selectedTab="selectedTab" @handleSelectTab="handleSelectTab" />
       </div>
+      <SettingsMobile v-else />
     </div>
   </main-layout>
 </template>
 
-<script>
+<script setup>
+import { ref, watch, onMounted } from 'vue'
+import { useStore } from 'vuex'
 import MainLayout from '@/components/layouts/MainLayout.vue'
 import SettingsNav from '@/components/settings/SettingsNav.vue'
+import SettingsMobile from '@/components/settings/mobile/SettingsMobile.vue'
 import TabMainSettings from '@/components/settings/tabs/TabMainSettings.vue'
 import TabPersonalData from '@/components/settings/tabs/TabPersonalData.vue'
 import TabEducation from '@/components/settings/tabs/TabEducation.vue'
@@ -38,27 +42,26 @@ import TabNotificationSettings from '@/components/settings/tabs/TabNotificationS
 import TabBlackList from '@/components/settings/tabs/TabBlackList.vue'
 import TabDeleteAccount from '@/components/settings/tabs/TabDeleteAccount.vue'
 
+const selectedTab = ref(0)
+const store = useStore()
+
+const handleSelectTab = (i) => {
+  selectedTab.value = i
+}
+
+const checkWidth = () => {
+  store.getters.screenWidth < 767 ? (selectedTab.value = -1) : (selectedTab.value = 0)
+}
+
+watch(() => store.getters.screenWidth, checkWidth, { deep: true })
+
+onMounted(() => {
+  checkWidth()
+})
+</script>
+
+<script>
 export default {
-  components: {
-    MainLayout,
-    SettingsNav,
-    TabMainSettings,
-    TabPersonalData,
-    TabEducation,
-    TabWorkplace,
-    TabConfidential,
-    TabPassword,
-    TabControlSession,
-    TabRestoreContact,
-    TabNotificationSettings,
-    TabBlackList,
-    TabDeleteAccount
-  },
-  data() {
-    return {
-      selectedTab: 0
-    }
-  },
   computed: {
     tabs() {
       return [
@@ -75,22 +78,32 @@ export default {
         this.$t('settings.nav.delete_account')
       ]
     }
-  },
-  methods: {
-    handleSelectTab(i) {
-      this.selectedTab = i
-    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .settings {
+  width: 100%;
   &__wrapper {
     display: grid;
     grid-template-columns: 1fr 430px;
     gap: 20px;
     padding: 24px 45px;
+    @media (max-width: 1512px) {
+      padding: 20px 16px;
+    }
+    @media (max-width: 1360px) {
+      grid-template-columns: 1fr 250px;
+      width: 100%;
+    }
+    @media (max-width: 767px) {
+      display: block;
+      width: 100%;
+      padding: 0;
+      gap: 0;
+      width: 100%;
+    }
   }
   &__main {
     display: flex;

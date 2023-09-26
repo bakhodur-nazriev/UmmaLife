@@ -1,6 +1,6 @@
 <template>
   <label class="switch">
-    <input type="checkbox" :value="isChecked" @change="changeHandler" />
+    <input type="checkbox" :checked="isChecked" @change="changeHandler" />
     <span class="slider round"></span>
   </label>
 </template>
@@ -9,7 +9,11 @@
 /* eslint-disable */
 import { ref } from 'vue'
 const emit = defineEmits(['update:isChecked'])
-const isChecked = ref(false)
+const props = defineProps({
+  checked: Boolean,
+  default: false
+})
+const isChecked = ref(props.checked)
 
 const changeHandler = () => {
   isChecked.value = !isChecked.value
