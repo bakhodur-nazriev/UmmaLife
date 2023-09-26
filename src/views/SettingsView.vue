@@ -23,7 +23,7 @@
   </main-layout>
 </template>
 
-<script setup>
+<script>
 import MainLayout from '@/components/layouts/MainLayout.vue'
 import SettingsNav from '@/components/settings/SettingsNav.vue'
 import TabMainSettings from '@/components/settings/tabs/TabMainSettings.vue'
@@ -38,25 +38,49 @@ import TabNotificationSettings from '@/components/settings/tabs/TabNotificationS
 import TabBlackList from '@/components/settings/tabs/TabBlackList.vue'
 import TabDeleteAccount from '@/components/settings/tabs/TabDeleteAccount.vue'
 
-import { ref } from 'vue'
-const tabs = ref([
-  'Основные настройки',
-  'Личные данные',
-  'Образование',
-  'Работа',
-  'Конфиденциальность',
-  'Пароль',
-  'Управление сеансами',
-  'Контакты для восстановления',
-  'Настройки уведомлений',
-  'Черный список',
-  'Удалить аккаунт'
-])
-
-const selectedTab = ref(0)
-
-const handleSelectTab = (i) => {
-  selectedTab.value = i
+export default {
+  components: {
+    MainLayout,
+    SettingsNav,
+    TabMainSettings,
+    TabPersonalData,
+    TabEducation,
+    TabWorkplace,
+    TabConfidential,
+    TabPassword,
+    TabControlSession,
+    TabRestoreContact,
+    TabNotificationSettings,
+    TabBlackList,
+    TabDeleteAccount
+  },
+  data() {
+    return {
+      selectedTab: 0
+    }
+  },
+  computed: {
+    tabs() {
+      return [
+        this.$t('settings.nav.main'),
+        this.$t('settings.nav.privet_data'),
+        this.$t('settings.nav.education'),
+        this.$t('settings.nav.work'),
+        this.$t('settings.nav.confidential'),
+        this.$t('settings.nav.password'),
+        this.$t('settings.nav.control_sessions'),
+        this.$t('settings.nav.restore_contact'),
+        this.$t('settings.nav.notifications'),
+        this.$t('settings.nav.black_list'),
+        this.$t('settings.nav.delete_account')
+      ]
+    }
+  },
+  methods: {
+    handleSelectTab(i) {
+      this.selectedTab = i
+    }
+  }
 }
 </script>
 

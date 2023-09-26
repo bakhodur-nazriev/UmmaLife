@@ -4,112 +4,118 @@
       <template #icon>
         <ConfidentialIcon />
       </template>
-      <template #title> Конфиденциальность </template>
+      <template #title>{{ $t('settings.privacy.info_title') }}</template>
       <template #text>
-        В разделе "Конфиденциальность" вы можете установить настройки приватности для вашего
-        профиля. Здесь вы можете ограничить действия других пользователей с вашим профилем,
-        настроить уведомления, ограничить доступ к определенной информации и так далее. Настройте
-        эти параметры в соответствии с вашими предпочтениями и желаемым уровнем конфиденциальности.
+        {{ $t('settings.privacy.info_text') }}
       </template>
     </SettingsInfo>
     <form class="settings__form create__group">
       <div class="create__group--block">
         <div class="settings__form--text">
-          Вы можете выбрать информацию, которую хотите показывать у себя на странице, а так же
-          запрещать или ограничивать доступ к своей странице
+          {{ $t('settings.privacy.top_text') }}
         </div>
         <div class="create__group--form">
-          <div class="create__group--label">Кто может подписаться на меня?</div>
+          <div class="create__group--label">{{ $t('settings.privacy.question1') }}</div>
           <BaseCustomSelect
-            :options="['Доступно всем', 'Только друзья']"
-            :default="'Доступно всем'"
+            :options="[$t('settings.privacy.available_all'), $t('settings.privacy.only_friends')]"
+            :default="$t('settings.privacy.available_all')"
             @input="handleSelect"
           />
         </div>
         <div class="create__group--form">
-          <div class="create__group--label">Кто может отправлять мне сообщения?</div>
+          <div class="create__group--label">{{ $t('settings.privacy.question2') }}</div>
           <BaseCustomSelect
-            :options="['Доступно всем', 'Только друзья']"
-            :default="'Доступно всем'"
+            :options="[$t('settings.privacy.available_all'), $t('settings.privacy.only_friends')]"
+            :default="$t('settings.privacy.available_all')"
             @input="handleSelect"
           />
         </div>
         <div class="create__group--form">
-          <div class="create__group--label">Кто может видеть моих друзей?</div>
+          <div class="create__group--label">{{ $t('settings.privacy.question3') }}</div>
           <BaseCustomSelect
-            :options="['Доступно всем', 'Только друзья']"
-            :default="'Доступно всем'"
+            :options="[$t('settings.privacy.available_all'), $t('settings.privacy.only_friends')]"
+            :default="$t('settings.privacy.available_all')"
             @input="handleSelect"
           />
         </div>
         <div class="create__group--form">
-          <div class="create__group--label">Кто может оставлять записи на моей стене?</div>
+          <div class="create__group--label">{{ $t('settings.privacy.question4') }}</div>
           <BaseCustomSelect
-            :options="['Доступно всем', 'Только друзья']"
-            :default="'Доступно всем'"
+            :options="[$t('settings.privacy.available_all'), $t('settings.privacy.only_friends')]"
+            :default="$t('settings.privacy.available_all')"
             @input="handleSelect"
           />
         </div>
         <div class="create__group--form">
-          <div class="create__group--label">Кто может видеть мой день рождения?</div>
+          <div class="create__group--label">{{ $t('settings.privacy.question5') }}</div>
           <BaseCustomSelect
-            :options="['Доступно всем', 'Только друзья']"
-            :default="'Доступно всем'"
+            :options="[$t('settings.privacy.available_all'), $t('settings.privacy.only_friends')]"
+            :default="$t('settings.privacy.available_all')"
             @input="handleSelect"
           />
         </div>
         <div class="create__group--form">
-          <div class="create__group--label">Принимать запрос на подписку?</div>
+          <div class="create__group--label">{{ $t('settings.privacy.question6') }}</div>
           <BaseCustomSelect
-            :options="['Доступно всем', 'Только друзья']"
-            :default="'Доступно всем'"
+            :options="[$t('settings.privacy.available_all'), $t('settings.privacy.only_friends')]"
+            :default="$t('settings.privacy.available_all')"
             @input="handleSelect"
           />
         </div>
         <div class="create__group--form">
-          <div class="create__group--label">Кто может добавлять меня в группу?</div>
-          <BaseCustomSelect :options="['Да', 'Нет']" :default="'Да'" @input="handleSelect" />
+          <div class="create__group--label">{{ $t('settings.privacy.question7') }}</div>
+          <BaseCustomSelect
+            :options="[$t('settings.privacy.yes'), $t('settings.privacy.no')]"
+            :default="$t('settings.privacy.yes')"
+            @input="handleSelect"
+          />
         </div>
         <div class="create__group--form create__group--form-text">
           <div class="create__group--label">
-            Отправлять пользователям уведомления, когда я посещаю их профили?
+            {{ $t('settings.privacy.question8') }}
           </div>
           <div>
             <BaseCustomSelect
-              :options="['Доступно всем', 'Только друзья']"
-              :default="'Доступно всем'"
+              :options="[$t('settings.privacy.available_all'), $t('settings.privacy.only_friends')]"
+              :default="$t('settings.privacy.available_all')"
               @input="handleSelect"
             />
             <div class="settings__form--text mt-12">
-              Если отключить это уведомление, вы не будете получать уведомления о том кто посещал
-              ваш профиль.
+              {{ $t('settings.privacy.question8_text') }}
             </div>
           </div>
         </div>
         <div class="create__group--form">
-          <div class="create__group--label">Показывать ваши действия?</div>
-          <BaseCustomSelect :options="['Да', 'Нет']" :default="'Да'" @input="handleSelect" />
+          <div class="create__group--label">{{ $t('settings.privacy.question9') }}</div>
+          <BaseCustomSelect
+            :options="[$t('settings.privacy.yes'), $t('settings.privacy.no')]"
+            :default="$t('settings.privacy.yes')"
+            @input="handleSelect"
+          />
         </div>
         <div class="create__group--form">
-          <div class="create__group--label">Показывать ваше местоположение другим?</div>
-          <BaseCustomSelect :options="['Да', 'Нет']" :default="'Да'" @input="handleSelect" />
+          <div class="create__group--label">{{ $t('settings.privacy.question10') }}</div>
+          <BaseCustomSelect
+            :options="[$t('settings.privacy.yes'), $t('settings.privacy.no')]"
+            :default="$t('settings.privacy.yes')"
+            @input="handleSelect"
+          />
         </div>
         <div class="create__group--form create__group--form-text">
-          <div class="create__group--label">Сохранение и копирование материалов</div>
+          <div class="create__group--label">{{ $t('settings.privacy.question11') }}</div>
           <div>
             <div class="settings__toggle">
-              <span>Запретить копирование</span>
+              <span>{{ $t('settings.privacy.question11_title') }}</span>
               <BaseToggle v-model:isChecked="isChecked" />
             </div>
             <div class="settings__form--text mt-12">
-              Вы можете выбрать информацию, которую хотите показывать у себя на странице, а так же
-              запрещать или ограничивать доступ к своей странице
+              {{ $t('settings.privacy.question11_text') }}
             </div>
           </div>
         </div>
       </div>
       <div class="create__group--actions">
-        <button type="submit" class="create__group--btn submit">Сохранить</button>
+        <button type="submit" class="create__group--btn submit">{{ $t('buttons.save') }}</button>
       </div>
     </form>
   </div>

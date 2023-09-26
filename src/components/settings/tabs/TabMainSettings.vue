@@ -4,53 +4,51 @@
       <template #icon>
         <MainSettingsIcon />
       </template>
-      <template #title> Основные настройки </template>
+      <template #title>{{ $t('settings.main.info_title') }}</template>
       <template #text>
-        В разделе "Основные настройки" вы можете настроить основные параметры вашего профиля.
-        Обновите свой логин, телефон, адрес электронной почты, дату рождения и страну проживания,
-        чтобы ваш профиль на Umma Life был актуальным и полноценным.
+        {{ $t('settings.main.info_text') }}
       </template>
     </SettingsInfo>
     <form class="settings__form create__group">
       <div class="create__group--block">
         <div class="settings__login create__group--form">
-          <label for="login" class="create__group--label">Логин</label>
+          <label for="login" class="create__group--label">{{ $t('settings.main.login') }}</label>
           <input
             type="text"
             name="login"
             class="create__group--input"
-            placeholder="Логин..."
+            :placeholder="$t('settings.main.login')"
             value="ibragimumma"
           />
         </div>
         <div class="settings__show">
-          <BaseCheckbox label="Отобразить в профиле" />
-          <div class="settings__show--text">Отображать логин в профиле вместо имени и фамилии</div>
+          <BaseCheckbox :label="$t('settings.main.show_in_profile')" />
+          <div class="settings__show--text">{{ $t('settings.main.show_in_profile_text') }}</div>
         </div>
         <div class="create__group--form">
-          <label for="phone" class="create__group--label">Телефон</label>
+          <label for="phone" class="create__group--label">{{ $t('settings.main.phone') }}</label>
           <div class="create__group--input-wrapper">
             <SampleSelectedCountry class="settings__phone" />
             <input
               type="text"
               name="phone"
               class="create__group--input"
-              placeholder="Номер телефона"
+              :placeholder="$t('settings.main.phone_placeholder')"
             />
           </div>
         </div>
         <div class="create__group--form">
-          <label for="email" class="create__group--label">Электронный адрес</label>
+          <label for="email" class="create__group--label">{{ $t('settings.main.email') }}</label>
           <input
             type="email"
             name="email"
             class="create__group--input"
-            placeholder="Email..."
+            :placeholder="$t('settings.main.email_placeholder')"
             value="ummalife@umma.ru"
           />
         </div>
         <div class="create__group--form">
-          <div class="create__group--label">Страна</div>
+          <div class="create__group--label">{{ $t('settings.main.country') }}</div>
           <BaseCustomSelect
             :options="['Турция', 'Россия']"
             :default="'Турция'"
@@ -58,23 +56,25 @@
           />
         </div>
         <div class="create__group--form">
-          <label for="address" class="create__group--label">Адрес</label>
+          <label for="address" class="create__group--label">{{
+            $t('settings.main.address')
+          }}</label>
           <input
             type="text"
             name="address"
             class="create__group--input"
-            placeholder="Введите адрес"
+            :placeholder="$t('settings.main.address_placeholder')"
           />
         </div>
         <div class="settings__categories">
-          <div class="create__group--label">Категории интересов</div>
+          <div class="create__group--label">{{ $t('settings.main.categorie_title') }}</div>
           <div class="settings__categories--wrapper">
             <BaseCheckbox v-for="category in categories" :key="category" :label="category" />
           </div>
         </div>
       </div>
       <div class="create__group--actions">
-        <button type="submit" class="create__group--btn submit">Сохранить</button>
+        <button type="submit" class="create__group--btn submit">{{ $t('buttons.save') }}</button>
       </div>
     </form>
   </div>
@@ -86,35 +86,42 @@ import SettingsInfo from '@/components/settings/SettingsInfo.vue'
 import BaseCustomSelect from '@/components/ui/BaseCustomSelect.vue'
 import BaseCheckbox from '@/components/ui/BaseCheckbox.vue'
 import SampleSelectedCountry from '@/components/ui/SampleSelectedCountry.vue'
-import { reactive } from 'vue'
 
 const handleSelect = (event) => {
   // TODO
 }
+</script>
 
-const categories = reactive([
-  'Религия',
-  'Психология',
-  'Семья',
-  'Работа',
-  'Здоровье',
-  'Учеба',
-  'Путешествия',
-  'Книги',
-  'Наука',
-  'Спорт',
-  'Искусство',
-  'Авто',
-  'Еда',
-  'Позитив',
-  'Фитнес',
-  'История',
-  'Мода',
-  'Архитектура',
-  'Красота',
-  'Воспитание',
-  'Природа'
-])
+<script>
+export default {
+  computed: {
+    categories() {
+      return [
+        this.$t('settings.main.categories.religion'),
+        this.$t('settings.main.categories.psixologiya'),
+        this.$t('settings.main.categories.familiy'),
+        this.$t('settings.main.categories.health'),
+        this.$t('settings.main.categories.work'),
+        this.$t('settings.main.categories.education'),
+        this.$t('settings.main.categories.travel'),
+        this.$t('settings.main.categories.books'),
+        this.$t('settings.main.categories.sience'),
+        this.$t('settings.main.categories.sport'),
+        this.$t('settings.main.categories.art'),
+        this.$t('settings.main.categories.auto'),
+        this.$t('settings.main.categories.food'),
+        this.$t('settings.main.categories.positive'),
+        this.$t('settings.main.categories.fitness'),
+        this.$t('settings.main.categories.history'),
+        this.$t('settings.main.categories.fashion'),
+        this.$t('settings.main.categories.architectory'),
+        this.$t('settings.main.categories.beauty'),
+        this.$t('settings.main.categories.parenting'),
+        this.$t('settings.main.categories.nature')
+      ]
+    }
+  }
+}
 </script>
 
 <style lang="scss">
