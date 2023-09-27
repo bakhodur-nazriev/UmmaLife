@@ -37,6 +37,10 @@ const emit = defineEmits(['handleSelectTab'])
       background-color: var(--color-white);
       border-radius: 20px;
       padding: 12px;
+      @media (max-width: 767px) {
+        width: 100%;
+        height: calc(100dvh - 64px);
+      }
     }
     &--item {
       padding: 16px;

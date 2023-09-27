@@ -9,7 +9,10 @@
       </div>
       <div class="main__nav--side">
         <SampleButton class="create__button" :title="`${$t('buttons.create')}`" />
-        <SearchInput @open-search-input="isSearchInputOpen = true" :placeholder="$t('placeholders.search_input')" />
+        <SearchInput
+          @open-search-input="isSearchInputOpen = true"
+          :placeholder="$t('placeholders.search_input')"
+        />
       </div>
       <div class="left__nav--side">
         <ul class="navbar__right--buttons">
@@ -44,7 +47,12 @@
             <router-link v-if="!isSearchForm" to="/news">
               <SmallLogo />
             </router-link>
-            <button v-if="isSearchForm" type="button" @click="isSearchFormClose" class="close-search__form">
+            <button
+              v-if="isSearchForm"
+              type="button"
+              @click="isSearchFormClose"
+              class="close-search__form"
+            >
               <ArrowLeftIcon />
             </button>
           </li>
@@ -98,7 +106,7 @@
             </router-link>
           </li>
           <li class="bottom__nav--item">
-            <router-link to="">
+            <router-link :to="`/${$i18n.locale}/settings`">
               <MyPageIcon />
             </router-link>
           </li>
@@ -119,12 +127,14 @@
         <section class="recent-section">
           <div class="recent-section__labels">
             <h3>{{ $t('labels.search.recent') }}</h3>
-            <router-link :to="`/${$i18n.locale}/search-article`">{{ $t('labels.search.see_all') }}</router-link>
+            <router-link :to="`/${$i18n.locale}/search-article`">{{
+              $t('labels.search.see_all')
+            }}</router-link>
           </div>
           <ul class="recent-list">
             <li class="recent-list__item">
               <div class="recent-list__item-left-block">
-                <img src="@/assets/images/navbar/recent_1.png" alt="">
+                <img src="@/assets/images/navbar/recent_1.png" alt="" />
                 <div>
                   <p>Мухаммад Мухаммадов</p>
                   <span>Istanbul, 24 года</span>
@@ -134,7 +144,7 @@
             </li>
             <li class="recent-list__item">
               <div class="recent-list__item-left-block">
-                <img src="@/assets/images/navbar/recent_2.png" alt="">
+                <img src="@/assets/images/navbar/recent_2.png" alt="" />
                 <div>
                   <p>Архитектура и дизайн</p>
                   <span>15896 подписчиков</span>
@@ -144,7 +154,7 @@
             </li>
             <li class="recent-list__item">
               <div class="recent-list__item-left-block">
-                <img src="@/assets/images/navbar/recent_3.png" alt="">
+                <img src="@/assets/images/navbar/recent_3.png" alt="" />
                 <div>
                   <p>Айжан Тумухамбетова</p>
                   <span>Мадрид, 28 лет</span>
@@ -159,12 +169,14 @@
         <section class="people-section">
           <div class="people-section__labels">
             <h3>{{ $t('labels.search.people') }}</h3>
-            <router-link :to="`/${$i18n.locale}/search-people`">{{ $t('labels.search.see_all') }}</router-link>
+            <router-link :to="`/${$i18n.locale}/search-people`">{{
+              $t('labels.search.see_all')
+            }}</router-link>
           </div>
           <ul class="people-list">
             <li class="people-list__item">
               <div class="people-list__item-left-block">
-                <img src="@/assets/images/navbar/people_1.png" alt="">
+                <img src="@/assets/images/navbar/people_1.png" alt="" />
                 <div>
                   <p>Мухаммад Мухаммадов</p>
                   <span>Istanbul, 24 года</span>
@@ -174,7 +186,7 @@
             </li>
             <li class="people-list__item">
               <div class="people-list__item-left-block">
-                <img src="@/assets/images/navbar/people_2.png" alt="">
+                <img src="@/assets/images/navbar/people_2.png" alt="" />
                 <div>
                   <p>Магомед Оздоев</p>
                   <span>Грузия, 27 лет</span>
@@ -184,7 +196,7 @@
             </li>
             <li class="people-list__item">
               <div class="people-list__item-left-block">
-                <img src="@/assets/images/navbar/people_3.png" alt="">
+                <img src="@/assets/images/navbar/people_3.png" alt="" />
                 <div>
                   <p>Айжан Тумухамбетова</p>
                   <span>Мадрид, 28 лет</span>
@@ -199,12 +211,14 @@
         <section class="groups-section">
           <div class="groups-section__labels">
             <h3>{{ $t('tabs.search.groups') }}</h3>
-            <router-link :to="`/${$i18n.locale}/search-groups`">{{ $t('labels.search.see_all') }}</router-link>
+            <router-link :to="`/${$i18n.locale}/search-groups`">{{
+              $t('labels.search.see_all')
+            }}</router-link>
           </div>
           <ul class="groups-list">
             <li class="groups-list__item">
               <div class="groups-list__item-left-block">
-                <img src="@/assets/images/navbar/people_1.png" alt="">
+                <img src="@/assets/images/navbar/people_1.png" alt="" />
                 <div>
                   <p>Мухаммад Мухаммадов</p>
                   <span>Istanbul, 24 года</span>
@@ -214,7 +228,7 @@
             </li>
             <li class="groups-list__item">
               <div class="groups-list__item-left-block">
-                <img src="@/assets/images/navbar/people_2.png" alt="">
+                <img src="@/assets/images/navbar/people_2.png" alt="" />
                 <div>
                   <p>Магомед Оздоев</p>
                   <span>Грузия, 27 лет</span>
@@ -224,7 +238,7 @@
             </li>
             <li class="groups-list__item">
               <div class="groups-list__item-left-block">
-                <img src="@/assets/images/navbar/people_3.png" alt="">
+                <img src="@/assets/images/navbar/people_3.png" alt="" />
                 <div>
                   <p>Айжан Тумухамбетова</p>
                   <span>Мадрид, 28 лет</span>
@@ -409,7 +423,7 @@ export default {
   .search-inside__block {
     width: 700px;
     background-color: var(--color-white);
-    fill: #FFF;
+    fill: #fff;
     filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.15));
     border-radius: 10px;
     height: 100%;

@@ -124,12 +124,6 @@
   transition: 0.3s;
   text-decoration: none;
 }
-.pt-0 {
-  padding-top: 0 !important;
-}
-.pb-0 {
-  padding-bottom: 0 !important;
-}
 
 *,
 *::before,
@@ -171,4 +165,13 @@ img {
 .page__body {
   margin: 0;
   background-color: var(--color-seashell);
+}
+
+@media (min-width: 767px) {
+  .pt-0 {
+    padding-top: 0 !important;
+  }
+  .pb-0 {
+    padding-bottom: 0 !important;
+  }
 }

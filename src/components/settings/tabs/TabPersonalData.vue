@@ -1,5 +1,12 @@
 <template>
   <div class="tab">
+    <div class="settings__header">
+      <div class="settings__header--back" @click="emit('handleSelectNav', 'profile')">
+        <SettingsBackIcon />
+      </div>
+      <div class="settings__header--text">{{ $t('settings.accaunt.profile_info') }}</div>
+      <div class="settings__header--ready">{{ $t('settings.accaunt.ready') }}</div>
+    </div>
     <SettingsInfo>
       <template #icon>
         <PersonalDataIcon />
@@ -64,9 +71,13 @@
 </template>
 
 <script setup>
+/* eslint-disable */
 import PersonalDataIcon from '@/components/icons/settings/PersonalDataIcon.vue'
 import SettingsInfo from '@/components/settings/SettingsInfo.vue'
 import BaseCustomSelect from '@/components/ui/BaseCustomSelect.vue'
+import SettingsBackIcon from '@/components/icons/settings/SettingsBackIcon.vue'
+
+const emit = defineEmits(['handleSelectNav'])
 
 const handleSelect = (event) => {
   // TODO

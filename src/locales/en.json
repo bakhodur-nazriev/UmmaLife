@@ -582,6 +582,23 @@
       "delete_account_text": "If you do not log into your account during this time, your account will be automatically deleted from the system permanently",
       "enter_password": "Enter the password to delete the account",
       "enter_password_placeholder": "Enter your current password"
+    },
+    "accaunt": {
+      "accaunt_settings": "Account settings",
+      "profile": "Profile",
+      "safety": "Safety",
+      "display": "Display",
+      "theme": "Theme",
+      "notif": "Notifications",
+      "popup_notif": "Pop-up notification",
+      "show_popup_notif": "Show notifications from the application",
+      "help_and_support": "Support and assistance",
+      "to_system_settings": "To system settings",
+      "repeort_problem": "Report an issue",
+      "quit": "Exit",
+      "profile_settings": "Profile settings",
+      "profile_info": "Personal information",
+      "ready": "Ready"
     }
   }
 }
