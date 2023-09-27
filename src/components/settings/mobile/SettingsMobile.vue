@@ -3,14 +3,22 @@
     <SettingsMainNav v-if="selectedMenu === 'main'" @handleSelectNav="handleSelectNav" />
     <SettingsProfileNav v-else-if="selectedMenu === 'profile'" @handleSelectNav="handleSelectNav" />
     <TabPersonalData v-else-if="selectedMenu === 'personal'" @handleSelectNav="handleSelectNav" />
+    <TabMainSettings v-else-if="selectedMenu === 'settings'" @handleSelectNav="handleSelectNav" />
+    <TabEducation v-else-if="selectedMenu === 'education'" @handleSelectNav="handleSelectNav" />
+    <TabWorkplace v-else-if="selectedMenu === 'work'" @handleSelectNav="handleSelectNav" />
+    <TabDeleteAccount v-else-if="selectedMenu === 'delete'" @handleSelectNav="handleSelectNav" />
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import SettingsMainNav from '@/components/settings/mobile/SettingsMainNav.vue'
 import SettingsProfileNav from '@/components/settings/mobile/SettingsProfileNav.vue'
 import TabPersonalData from '@/components/settings/tabs/TabPersonalData.vue'
-import { ref } from 'vue'
+import TabMainSettings from '@/components/settings/tabs/TabMainSettings.vue'
+import TabEducation from '@/components/settings/tabs/TabEducation.vue'
+import TabWorkplace from '@/components/settings/tabs/TabWorkplace.vue'
+import TabDeleteAccount from '@/components/settings/tabs/TabDeleteAccount.vue'
 
 const selectedMenu = ref('main')
 

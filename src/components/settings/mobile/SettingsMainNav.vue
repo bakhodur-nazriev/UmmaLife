@@ -7,7 +7,7 @@
   <div class="settings__mobile--container">
     <div class="settings__mobile--title">{{ $t('settings.accaunt.accaunt_settings') }}</div>
     <ul class="settings__mobile--menu">
-      <li class="settings__mobile--list">
+      <li class="settings__mobile--list" @click="emit('handleSelectNav', 'settings')">
         <span>{{ $t('settings.nav.main') }}</span>
         <ArrowRight />
       </li>

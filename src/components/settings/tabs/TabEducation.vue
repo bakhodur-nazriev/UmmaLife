@@ -1,5 +1,12 @@
 <template>
   <div class="tab">
+    <div class="settings__header">
+      <div class="settings__header--back" @click="emit('handleSelectNav', 'profile')">
+        <SettingsBackIcon />
+      </div>
+      <div class="settings__header--text">{{ $t('settings.nav.education') }}</div>
+      <div class="settings__header--ready">{{ $t('settings.accaunt.ready') }}</div>
+    </div>
     <SettingsInfo>
       <template #icon>
         <EducationIcon />
@@ -89,6 +96,8 @@ import PlusIcon from '@/components/icons/settings/PlusIcon.vue'
 import BaseCheckbox from '@/components/ui/BaseCheckbox.vue'
 import SettingsInfo from '@/components/settings/SettingsInfo.vue'
 import { ref } from 'vue'
+import SettingsBackIcon from '@/components/icons/settings/SettingsBackIcon.vue'
+const emit = defineEmits(['handleSelectNav'])
 const schools = ref(1)
 const colleges = ref(1)
 const universities = ref(1)
@@ -99,6 +108,12 @@ const universities = ref(1)
   display: flex;
   flex-direction: column;
   gap: 24px;
+  @media (max-width: 767px) {
+    width: 100%;
+    .create__group--input {
+      margin-bottom: 16px;
+    }
+  }
   &--btn {
     margin-top: 16px;
     display: flex;

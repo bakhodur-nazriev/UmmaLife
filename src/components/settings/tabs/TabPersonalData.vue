@@ -49,6 +49,7 @@
             :options="[$t('settings.privet_data.not_selected'), $t('settings.privet_data.married')]"
             :default="$t('settings.privet_data.not_selected')"
             @input="handleSelect"
+            :title="$t('settings.privet_data.marital_status')"
           />
         </div>
         <div class="create__group--form create__group--form-text pb-0">

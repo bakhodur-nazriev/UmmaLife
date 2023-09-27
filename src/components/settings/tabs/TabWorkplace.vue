@@ -1,5 +1,12 @@
 <template>
   <div class="tab">
+    <div class="settings__header">
+      <div class="settings__header--back" @click="emit('handleSelectNav', 'profile')">
+        <SettingsBackIcon />
+      </div>
+      <div class="settings__header--text">{{ $t('settings.nav.work') }}</div>
+      <div class="settings__header--ready">{{ $t('settings.accaunt.ready') }}</div>
+    </div>
     <SettingsInfo>
       <template #icon>
         <WorkplaceIcon />
@@ -36,6 +43,9 @@
 </template>
 
 <script setup>
+/* eslint-disable */
+import SettingsBackIcon from '@/components/icons/settings/SettingsBackIcon.vue'
 import WorkplaceIcon from '@/components/icons/settings/WorkplaceIcon.vue'
 import SettingsInfo from '@/components/settings/SettingsInfo.vue'
+const emit = defineEmits(['handleSelectNav'])
 </script>

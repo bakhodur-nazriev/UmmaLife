@@ -1,5 +1,5 @@
 <template>
-  <div class="custom-select" :tabindex="tabindex" @blur="open = false">
+  <div class="custom-select" :tabindex="tabindex" @blur="open = false" v-if="screenWidth > 767">
     <div class="selected" :class="{ open: open }" @click="open = !open" v-html="selected"></div>
     <div class="items" :class="{ selectHide: !open }">
       <div
@@ -10,9 +10,38 @@
       ></div>
     </div>
   </div>
+  <div class="mobile-select" v-else>
+    <div class="custom-select" :tabindex="tabindex">
+      <div class="selected" :class="{ open: open }" @click="open = !open" v-html="selected"></div>
+    </div>
+    <div class="mobile-select--inner" v-if="open">
+      <div
+        class="mobile-select--block"
+        :class="open && !className ? 'opened' : 'closed'"
+        v-on-click-outside="handleClose"
+      >
+        <div class="mobile-select--header" v-if="title">{{ title }}</div>
+        <div class="mobile-select--wrapper">
+          <label
+            class="mobile-select--item"
+            v-for="(option, i) of options"
+            :key="i"
+            @click="handleSelect(option)"
+          >
+            <div v-html="option"></div>
+            <div class="mobile-select--radio">
+              <input type="radio" name="radio" :checked="option === selected" />
+              <div class="mobile-select--radio-input"></div>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   emits: ['input'],
   props: {
@@ -29,19 +58,39 @@ export default {
       type: Number,
       required: false,
       default: 0
+    },
+    title: {
+      type: String,
+      default: ''
     }
   },
   data() {
     return {
       selected: this.default ? this.default : this.options.length > 0 ? this.options[0] : null,
-      open: false
+      open: false,
+      className: false
     }
+  },
+  computed: {
+    ...mapGetters(['screenWidth'])
   },
   methods: {
     handleClick(option) {
       this.selected = option
       this.open = false
       this.$emit('input', option)
+    },
+    handleSelect(option) {
+      this.selected = option
+      this.$emit('input', option)
+      this.handleClose()
+    },
+    handleClose() {
+      this.className = true
+      setTimeout(() => {
+        this.open = false
+        this.className = false
+      }, 100)
     }
   },
   mounted() {
@@ -50,7 +99,117 @@ export default {
 }
 </script>
 
-<style>
+<script setup>
+/* eslint-disable */
+import { vOnClickOutside } from '@vueuse/components'
+</script>
+
+<style lang="scss">
+.mobile-select {
+  width: 100%;
+  &--radio {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    width: 20px;
+    height: 20px;
+
+    input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      &:checked ~ .mobile-select--radio-input::after {
+        opacity: 1;
+      }
+    }
+    &-input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid var(--color-deep-cerulean);
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 10px;
+        height: 10px;
+        opacity: 0;
+        border-radius: 50%;
+        background-color: var(--color-deep-cerulean);
+        display: block;
+      }
+    }
+  }
+  &--inner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    background: rgba($color: #000000, $alpha: 0.4);
+  }
+  &--block {
+    position: absolute;
+    background-color: var(--color-white);
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    border-radius: 20px 20px 0 0;
+    transition: all 0.3s ease-in-out;
+    -webkit-animation-duration: 0.2s;
+    animation-duration: 0.2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    max-height: 464px;
+    overflow-y: scroll;
+    &.closed {
+      animation-name: fadeOut;
+    }
+    &.opened {
+      animation-name: fadeIn;
+    }
+  }
+  &--header {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 550;
+    line-height: normal;
+    color: var(--color-mine-shaft);
+    padding: 20px 16px;
+    border-bottom: 1px solid var(--color-seashell);
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: var(--color-white);
+    border-radius: 20px 20px 0 0;
+    z-index: 20;
+    &::before {
+      content: '';
+      width: 28px;
+      height: 2px;
+      background-color: var(--color-secondary);
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  &--item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 17px 16px;
+    border-bottom: 1px solid var(--color-seashell);
+  }
+}
 .custom-select {
   position: relative;
   width: 100%;
@@ -142,5 +301,24 @@ export default {
 }
 .custom-select .items .select--item span {
   padding-right: 20px;
+}
+
+@keyframes fadeIn {
+  from {
+    bottom: -100%;
+  }
+
+  to {
+    bottom: 0;
+  }
+}
+@keyframes fadeOut {
+  from {
+    bottom: 0;
+  }
+
+  to {
+    bottom: -100%;
+  }
 }
 </style>

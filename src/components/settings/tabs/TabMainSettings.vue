@@ -1,5 +1,12 @@
 <template>
   <div class="tab">
+    <div class="settings__header">
+      <div class="settings__header--back" @click="emit('handleSelectNav', 'main')">
+        <SettingsBackIcon />
+      </div>
+      <div class="settings__header--text">{{ $t('settings.nav.main') }}</div>
+      <div class="settings__header--ready">{{ $t('settings.accaunt.ready') }}</div>
+    </div>
     <SettingsInfo>
       <template #icon>
         <MainSettingsIcon />
@@ -53,6 +60,7 @@
             :options="['Турция', 'Россия']"
             :default="'Турция'"
             @input="handleSelect"
+            :title="$t('settings.main.country')"
           />
         </div>
         <div class="create__group--form">
@@ -81,12 +89,14 @@
 </template>
 
 <script setup>
+/* eslint-disable */
 import MainSettingsIcon from '@/components/icons/settings/MainSettingsIcon.vue'
 import SettingsInfo from '@/components/settings/SettingsInfo.vue'
 import BaseCustomSelect from '@/components/ui/BaseCustomSelect.vue'
 import BaseCheckbox from '@/components/ui/BaseCheckbox.vue'
 import SampleSelectedCountry from '@/components/ui/SampleSelectedCountry.vue'
-
+import SettingsBackIcon from '@/components/icons/settings/SettingsBackIcon.vue'
+const emit = defineEmits(['handleSelectNav'])
 const handleSelect = (event) => {
   // TODO
 }
@@ -134,6 +144,11 @@ export default {
     .create__group--label {
       font-weight: 550;
     }
+    .create__group--input-wrapper {
+      @media (max-width: 767px) {
+        width: 100%;
+      }
+    }
   }
   &__phone {
     margin-right: 20px;
@@ -161,6 +176,9 @@ export default {
     gap: 8px;
     padding-bottom: 24px;
     border-bottom: 1px solid var(--color-gallery-first);
+    @media (max-width: 767px) {
+      margin-bottom: 24px;
+    }
 
     &--text {
       font-size: 14px;
