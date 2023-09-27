@@ -365,7 +365,11 @@
     },
     "choose_article_category": "Выберите категорию статьи",
     "tags": "Теги",
-    "article_cover": "Обложка статьи"
+    "article_cover": "Обложка статьи",
+    "articles": {
+      "category": "Категории",
+      "popular_articles": "Популярные статьи"
+    }
   },
   "dropdown": {
     "reply_answer": "Посмотреть ответы",

@@ -363,7 +363,11 @@
     },
     "choose_article_category": "Choose article category",
     "tags": "Tags",
-    "article_cover": "Article cover"
+    "article_cover": "Article cover",
+    "articles": {
+      "category": "Category",
+      "popular_articles": "Popular articles"
+    }
   },
   "dropdown": {
     "reply_answer": "View answers",
