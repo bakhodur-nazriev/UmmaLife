@@ -7,6 +7,11 @@
     <TabEducation v-else-if="selectedMenu === 'education'" @handleSelectNav="handleSelectNav" />
     <TabWorkplace v-else-if="selectedMenu === 'work'" @handleSelectNav="handleSelectNav" />
     <TabDeleteAccount v-else-if="selectedMenu === 'delete'" @handleSelectNav="handleSelectNav" />
+    <TabConfidential v-else-if="selectedMenu === 'security'" @handleSelectNav="handleSelectNav" />
+    <TabPassword v-else-if="selectedMenu === 'password'" @handleSelectNav="handleSelectNav" />
+    <TabControlSession v-else-if="selectedMenu === 'sessions'" @handleSelectNav="handleSelectNav" />
+    <TabBlackList v-else-if="selectedMenu === 'blacklist'" @handleSelectNav="handleSelectNav" />
+    <SettingsTheme v-else-if="selectedMenu === 'theme'" @handleSelectNav="handleSelectNav" />
   </div>
 </template>
 
@@ -19,6 +24,11 @@ import TabMainSettings from '@/components/settings/tabs/TabMainSettings.vue'
 import TabEducation from '@/components/settings/tabs/TabEducation.vue'
 import TabWorkplace from '@/components/settings/tabs/TabWorkplace.vue'
 import TabDeleteAccount from '@/components/settings/tabs/TabDeleteAccount.vue'
+import TabConfidential from '@/components/settings/tabs/TabConfidential.vue'
+import TabPassword from '@/components/settings/tabs/TabPassword.vue'
+import TabControlSession from '@/components/settings/tabs/TabControlSession.vue'
+import TabBlackList from '@/components/settings/tabs/TabBlackList.vue'
+import SettingsTheme from '@/components/settings/mobile/SettingsTheme.vue'
 
 const selectedMenu = ref('main')
 
@@ -61,6 +71,16 @@ const handleSelectNav = (menu) => {
       line-height: normal;
       cursor: pointer;
       color: var(--color-hippie-blue);
+    }
+    &--search {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
     }
   }
   &__mobile {

@@ -1,7 +1,7 @@
 <template>
-  <div class="main__search--block">
+  <div class="main__search--block" :class="{ full }">
     <LoupeIcon class="search__icon" />
-    <input class="base__search--input" :placeholder="placeholder" @click="openSearchInput"/>
+    <input class="base__search--input" :placeholder="placeholder" @click="openSearchInput" />
   </div>
 </template>
 
@@ -11,8 +11,13 @@ import LoupeIcon from '@/components/icons/LoupeIcon.vue'
 export default {
   components: { LoupeIcon },
   props: {
-    placeholder: String
+    placeholder: String,
+    full: {
+      type: Boolean,
+      default: false
+    }
   },
+
   methods: {
     openSearchInput() {
       this.$emit('open-search-input')
@@ -40,6 +45,11 @@ export default {
   position: relative;
   display: flex;
   align-items: center;
+  &.full {
+    .base__search--input {
+      width: 100%;
+    }
+  }
 
   .search__icon {
     position: absolute;

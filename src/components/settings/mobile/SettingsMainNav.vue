@@ -18,26 +18,26 @@
     </ul>
     <div class="settings__mobile--title">{{ $t('settings.accaunt.safety') }}</div>
     <ul class="settings__mobile--menu">
-      <li class="settings__mobile--list">
+      <li class="settings__mobile--list" @click="emit('handleSelectNav', 'security')">
         <span>{{ $t('settings.nav.confidential') }}</span>
         <ArrowRight />
       </li>
-      <li class="settings__mobile--list">
+      <li class="settings__mobile--list" @click="emit('handleSelectNav', 'password')">
         <span>{{ $t('settings.nav.password') }}</span>
         <ArrowRight />
       </li>
-      <li class="settings__mobile--list">
+      <li class="settings__mobile--list" @click="emit('handleSelectNav', 'sessions')">
         <span>{{ $t('settings.nav.control_sessions') }}</span>
         <ArrowRight />
       </li>
-      <li class="settings__mobile--list">
+      <li class="settings__mobile--list" @click="emit('handleSelectNav', 'blacklist')">
         <span>{{ $t('settings.nav.black_list') }}</span>
         <ArrowRight />
       </li>
     </ul>
     <div class="settings__mobile--title">{{ $t('settings.accaunt.display') }}</div>
     <ul class="settings__mobile--menu">
-      <li class="settings__mobile--list">
+      <li class="settings__mobile--list" @click="emit('handleSelectNav', 'theme')">
         <span>{{ $t('settings.accaunt.theme') }}</span>
         <ArrowRight />
       </li>

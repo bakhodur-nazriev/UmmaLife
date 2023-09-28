@@ -598,7 +598,16 @@
       "quit": "Exit",
       "profile_settings": "Profile settings",
       "profile_info": "Personal information",
-      "ready": "Ready"
+      "ready": "Ready",
+      "app": "Application",
+      "location": "Location",
+      "ip": "IP Address",
+      "finish_seans": "End session"
     }
+  },
+  "themes": {
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
   }
 }

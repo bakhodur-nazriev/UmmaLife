@@ -36,6 +36,7 @@
                 'settings.session.if_not_active'
               )}<span>${$t('settings.session.six_month')}</span></div>`"
               @input="handleSelect"
+              :title="$t('settings.delete_account.delete_account_title')"
             />
             <div class="settings__form--text mt-12">
               {{ $t('settings.delete_account.delete_account_text') }}
@@ -65,6 +66,10 @@ import DeleteAccountIcon from '@/components/icons/settings/DeleteAccountIcon.vue
 import SettingsInfo from '@/components/settings/SettingsInfo.vue'
 import BaseCustomSelect from '@/components/ui/BaseCustomSelect.vue'
 const emit = defineEmits(['handleSelectNav'])
+
+const handleSelect = () => {
+  // TODO
+}
 </script>
 
 <style lang="scss">
