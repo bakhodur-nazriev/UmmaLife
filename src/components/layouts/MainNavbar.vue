@@ -624,7 +624,14 @@ export default {
   display: flex;
   align-items: center;
   padding: 0;
+  .router-link-active .settings__button {
+    background-color: var(--color-hippie-blue);
+    transition: all 0.15s ease-in-out;
 
+    svg {
+      color: var(--color-white);
+    }
+  }
   .music__button,
   .email__button,
   .notification__button,
@@ -637,7 +644,6 @@ export default {
     width: 40px;
     height: 40px;
     margin: 0 6px;
-
     &.active,
     &:hover {
       background-color: var(--color-hippie-blue);
