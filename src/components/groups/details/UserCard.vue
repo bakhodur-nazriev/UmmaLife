@@ -152,10 +152,14 @@ export default {
     outline: none;
     cursor: pointer;
     color: var(--color-white);
+    transition: all 0.3s;
     &--default {
       background-color: var(--color-seashell);
       color: var(--color-mine-shaft);
       font-weight: 550;
+      &:hover {
+        background-color: var(--color-gallery-second);
+      }
     }
     @media (max-width: 767px) {
       max-width: fit-content;

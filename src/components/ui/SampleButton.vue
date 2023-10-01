@@ -70,7 +70,7 @@ const clickButton = () => {
   padding: 15px;
   font-size: 16px;
   cursor: pointer;
-
+  transition: all 0.3s;
   &_primary {
     background-color: var(--color-hippie-blue);
   }
@@ -81,6 +81,9 @@ const clickButton = () => {
   &_default {
     background-color: var(--color-seashell);
     color: var(--color-mine-shaft);
+    &:hover {
+      background-color: var(--color-gallery-second);
+    }
   }
   &_default_flex {
     display: flex;

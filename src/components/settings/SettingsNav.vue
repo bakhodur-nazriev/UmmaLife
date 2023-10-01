@@ -8,7 +8,7 @@
         :key="`tab_${i + 1}`"
         @click="emit('handleSelectTab', i)"
       >
-        {{ tab }}
+        <span>{{ tab }}</span>
       </div>
     </div>
   </nav>
@@ -52,12 +52,31 @@ const emit = defineEmits(['handleSelectTab'])
       border-radius: 10px;
       cursor: pointer;
       user-select: none;
+      &:hover,
       &.active {
         background-color: var(--color-seashell);
-        font-weight: 550;
+      }
+      &.active {
         line-height: 1;
+        span {
+          display: block;
+          animation: shake 0.2s;
+          font-weight: 550;
+        }
       }
     }
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
 </style>

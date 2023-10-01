@@ -421,6 +421,11 @@ export default {
     font-weight: 400;
     line-height: normal;
     color: var(--color-valencia);
+    transition: all 0.3s;
+    &:hover {
+      color: var(--color-hippie-blue);
+      border-color: var(--color-hippie-blue);
+    }
     @media (max-width: 767px) {
       display: none;
     }
