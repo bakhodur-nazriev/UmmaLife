@@ -20,25 +20,41 @@
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/my-page`) }">
           <router-link :to="`/${$i18n.locale}/my-page`">
             <MyPageIcon class="sidebar__item--icon" />
-            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.my_page') }}</span>
+            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{
+              $t('links.my_page')
+            }}</span>
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/messenger`) }">
           <router-link :to="`/${$i18n.locale}/messenger`">
             <MessengerIcon class="sidebar__item--icon" />
-            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.messenger') }}</span>
+            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{
+              $t('links.messenger')
+            }}</span>
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/my-groups`) }">
           <router-link :to="`/${$i18n.locale}/my-groups`">
             <MyGroupIcon class="sidebar__item--icon" />
-            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.my_groups') }}</span>
+            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{
+              $t('links.my_groups')
+            }}</span>
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/my-audio`) }">
           <router-link :to="`/${$i18n.locale}/my-audio`">
             <MyAudioIcon class="sidebar__item--icon" />
-            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.my_audio') }}</span>
+            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{
+              $t('links.my_audio')
+            }}</span>
+          </router-link>
+        </li>
+        <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/muvi`) }">
+          <router-link :to="`/${$i18n.locale}/muvi`">
+            <MuviIcon class="sidebar__item--icon" />
+            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{
+              $t('tabs.profile_tabs.muvi')
+            }}</span>
           </router-link>
         </li>
 
@@ -53,7 +69,9 @@
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/articles`) }">
           <router-link :to="`/${$i18n.locale}/articles`">
             <ArticlesIcon class="sidebar__item--icon" />
-            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.articles') }}</span>
+            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{
+              $t('links.articles')
+            }}</span>
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/video`) }">
@@ -68,13 +86,17 @@
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/library`) }">
           <router-link :to="`/${$i18n.locale}/library`">
             <LibraryIcon class="sidebar__item--icon" />
-            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.library') }}</span>
+            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{
+              $t('links.library')
+            }}</span>
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/marriage-agency`) }">
           <router-link :to="`/${$i18n.locale}/marriage-agency`">
             <MarriageAgencyIcon class="sidebar__item--icon" />
-            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.marriage_agency') }}</span>
+            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{
+              $t('links.marriage_agency')
+            }}</span>
           </router-link>
         </li>
       </ul>
@@ -88,6 +110,7 @@
 <script>
 import NewsIcon from '@/components/icons/NewsIcon.vue'
 import MyPageIcon from '@/components/icons/MyPageIcon.vue'
+import MuviIcon from '@/components/icons/MuviIcon.vue'
 import MessengerIcon from '@/components/icons/MessengerIcon.vue'
 import MyGroupIcon from '@/components/icons/MyGroupIcon.vue'
 import MyAudioIcon from '@/components/icons/MyAudioIcon.vue'
@@ -114,7 +137,8 @@ export default {
     MyGroupIcon,
     MessengerIcon,
     MyPageIcon,
-    NewsIcon
+    NewsIcon,
+    MuviIcon
   },
   props: {
     isSidebarCollapsed: {
@@ -122,14 +146,14 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {}
   },
   computed: {
-    isActive () {
+    isActive() {
       return (route) => this.$route.path === route
     },
-    isDarkTheme  () {
+    isDarkTheme() {
       return this.$store.state.theme === 'dark'
     }
   }
@@ -155,7 +179,7 @@ export default {
 
   &:hover {
     overflow: auto;
-    transition: all .15s ease-in-out;
+    transition: all 0.15s ease-in-out;
   }
 
   &__locales {
@@ -187,7 +211,7 @@ export default {
     &:hover {
       background-color: var(--color-seashell);
       cursor: pointer;
-      transition: all .15s ease-in-out;
+      transition: all 0.15s ease-in-out;
 
       &.dark-theme {
         background-color: var(--color-woodsmoke);
@@ -230,9 +254,11 @@ export default {
   }
 }
 
-@media (min-width: 768px) {  }
+@media (min-width: 768px) {
+}
 
-@media (min-width: 1280px) {  }
+@media (min-width: 1280px) {
+}
 
 ::-webkit-scrollbar {
   width: 4px;
