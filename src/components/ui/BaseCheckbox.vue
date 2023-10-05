@@ -62,6 +62,9 @@ const handleClick = () => {
     color: var(--color-mine-shaft);
   }
 }
+</style>
+
+<style>
 .scale-enter-active {
   animation: scale 0.3s;
 }

@@ -52,17 +52,17 @@
                 <span>1935</span>
               </div>
             </div>
-            <div class="actions">
-              <div class="btn">
+            <div class="shorts__comments--actions">
+              <div class="actions__btn">
                 <HeartIcon />
                 <span>{{ $t('buttons.like') }}</span>
               </div>
-              <div class="btn">
+              <div class="actions__btn">
                 <ShareIcon />
                 <span>{{ $t('buttons.share') }}</span>
               </div>
             </div>
-            <form class="form">
+            <form class="shorts__comments--form">
               <div class="form__input">
                 <img src="/images/users/jeff.png" alt="jeff" />
                 <input type="text" placeholder="Комментарий..." />
@@ -99,52 +99,7 @@ const closeDropdown = () => {
 }
 </script>
 
-<style lang="scss" scoped>
-.form {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  &__input {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    width: calc(100% - 34px);
-    img {
-      width: 28px;
-      height: 28px;
-      display: block;
-      object-fit: cover;
-      object-position: center;
-      border-radius: 50%;
-      overflow: hidden;
-    }
-    input {
-      width: 100%;
-      border: none;
-      outline: none;
-      padding: 6px;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      color: var(--color-mine-shaft);
-      &::placeholder {
-        font-family: 'HelveticaNeueCyr', sans-serif;
-        color: var(--color-secondary);
-      }
-    }
-  }
-  &__btn {
-    width: 28px;
-    height: 28px;
-    border: none;
-    outline: none;
-    background: transparent;
-    cursor: pointer;
-  }
-}
+<style lang="scss">
 .shorts {
   &__modal {
     max-width: 1015px;
@@ -309,26 +264,80 @@ const closeDropdown = () => {
     &::-webkit-scrollbar {
       display: none;
     }
-  }
-}
-.actions {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  .btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    span {
-      color: var(--color-gray);
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
+
+    &--form {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      padding: 6px;
+      .form {
+        &__input {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          width: calc(100% - 34px);
+
+          img {
+            width: 28px;
+            height: 28px;
+            display: block;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 50%;
+            overflow: hidden;
+          }
+          input {
+            width: 100%;
+            border: none;
+            outline: none;
+            padding: 6px;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            color: var(--color-mine-shaft);
+            &::placeholder {
+              font-family: 'HelveticaNeueCyr', sans-serif;
+              color: var(--color-secondary);
+            }
+          }
+        }
+        &__btn {
+          width: 28px;
+          height: 28px;
+          border: none;
+          outline: none;
+          background: transparent;
+          cursor: pointer;
+        }
+      }
+    }
+
+    &--actions {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      .actions {
+        &__btn {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          cursor: pointer;
+          span {
+            color: var(--color-gray);
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+          }
+        }
+      }
     }
   }
 }
+
 @media (max-width: 1850px) {
   .parent {
     max-height: 95vh;
@@ -336,16 +345,12 @@ const closeDropdown = () => {
     .video {
       max-height: 95vh;
     }
-    .content {
-    }
-    .top {
-    }
     .comment {
       max-height: calc(88vh - 360px);
     }
     .bottom {
       position: static;
-      .form {
+      .shorts__comment--form {
         padding-left: 18px;
         padding-right: 18px;
         padding-bottom: 14px;

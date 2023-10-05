@@ -606,7 +606,7 @@ export default {
   transform: translateY(0);
   transition: transform 0.3s ease;
   background-color: var(--color-white);
-  z-index: 300;
+  z-index: 100;
 }
 
 .right__nav--side,

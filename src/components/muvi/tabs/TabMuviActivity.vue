@@ -1,23 +1,26 @@
 <template>
   <div class="muvi__activity">
-    <div class="muvi__activity--tab">
-      <div
-        class="muvi__activity--btn"
-        v-for="(tab, index) in tabs"
-        :key="tab"
-        :class="{ active: activeIndex === index }"
-        @click="handleTabClick(index)"
-      >
-        {{ tab }}
-      </div>
-    </div>
+    <MuviTabSwitch :tabs="tabs" :activeIndex="activeIndex" @handleTabClick="handleTabClick" />
     <div class="muvi__wrapper" v-if="activeIndex === 0">
-      <MuviCard v-for="muvi in likedMovies" :key="muvi.id" :muvi="muvi" />
+      <MuviCard
+        v-for="muvi in likedMovies"
+        :key="muvi.id"
+        :muvi="muvi"
+        @cardClickHandler="isDetailOpen = true"
+      />
     </div>
     <div class="muvi__wrapper" v-else-if="activeIndex === 1">
-      <MuviCard v-for="muvi in viewedMovies" :key="muvi.id" :muvi="muvi" />
+      <MuviCard
+        v-for="muvi in viewedMovies"
+        :key="muvi.id"
+        :muvi="muvi"
+        @cardClickHandler="isDetailOpen = true"
+      />
     </div>
   </div>
+  <teleport to="body">
+    <MuviDetailSlider v-if="isDetailOpen" @handleClickOutside="isDetailOpen = false" />
+  </teleport>
 </template>
 
 <script setup>
@@ -25,6 +28,9 @@
 import { computed, ref } from 'vue'
 import { muvies as allMuvies } from '@/dummy.js'
 import MuviCard from '@/components/muvi/MuviCard.vue'
+import MuviTabSwitch from '@/components/muvi/MuviTabSwitch.vue'
+import MuviDetailSlider from '@/components/muvi/MuviDetailSlider.vue'
+const isDetailOpen = ref(false)
 const likedMovies = computed(() => allMuvies.slice(0, 6))
 const viewedMovies = computed(() => allMuvies.slice(6, 12))
 const activeIndex = ref(0)
@@ -34,36 +40,3 @@ const handleTabClick = (index) => {
   activeIndex.value = index
 }
 </script>
-
-<style lang="scss">
-.muvi__activity {
-  &--tab {
-    background-color: var(--color-white);
-    width: fit-content;
-    margin: 0 auto 28px;
-    padding: 4px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    border-radius: 16px;
-  }
-  &--btn {
-    padding: 16px;
-    min-width: 242px;
-    border-radius: 12px;
-    background-color: var(--color-white);
-    color: var(--color-secondary);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 550;
-    line-height: normal;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s;
-    &.active {
-      background-color: var(--color-seashell);
-      color: var(--color-mine-shaft);
-    }
-  }
-}
-</style>

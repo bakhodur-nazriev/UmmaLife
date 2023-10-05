@@ -1,5 +1,5 @@
 <template>
-  <div class="muvi__card">
+  <div class="muvi__card" @click="emit('cardClickHandler')">
     <div class="muvi__card--top">
       <img :src="muvi.img" :alt="muvi.title" class="muvi__card--img" />
       <div class="muvi__card--seen">
@@ -19,6 +19,7 @@
 import shortNum from 'number-shortener'
 import SeenIcon from '@/components/icons/SeenIcon.vue'
 const props = defineProps({ muvi: Object })
+const emit = defineEmits(['cardClickHandler'])
 </script>
 
 <style lang="scss" scoped>

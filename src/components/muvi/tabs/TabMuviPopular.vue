@@ -14,24 +14,29 @@
       </swiper-slide>
     </swiper>
     <div class="muvi__wrapper">
-      <MuviCard v-for="muvi in muvies" :key="muvi.id" :muvi="muvi" />
+      <MuviCard
+        v-for="muvi in muvies"
+        :key="muvi.id"
+        :muvi="muvi"
+        @cardClickHandler="isDetailOpen = true"
+      />
     </div>
   </div>
+  <teleport to="body">
+    <MuviDetailSlider v-if="isDetailOpen" @handleClickOutside="isDetailOpen = false" />
+  </teleport>
 </template>
-<script>
-import { Swiper, SwiperSlide } from 'swiper/vue'
-export default {
-  components: { Swiper, SwiperSlide }
-}
-</script>
 <script setup>
 /* eslint-disable */
 import { computed, ref } from 'vue'
+import { Swiper, SwiperSlide } from 'swiper/vue'
 import { muvies as allMuvies } from '@/dummy.js'
 import MuviCard from '@/components/muvi/MuviCard.vue'
 import GroupsSearch from '@/components/groups/ui/GroupsSearch.vue'
+import MuviDetailSlider from '@/components/muvi/MuviDetailSlider.vue'
 const muvies = computed(() => allMuvies)
 const activeIndex = ref(0)
+const isDetailOpen = ref(false)
 const categories = ref([
   'settings.main.categories.religion',
   'settings.main.categories.psixologiya',
@@ -80,7 +85,6 @@ const handleSelect = (index) => {
       font-weight: 400;
       line-height: normal;
       user-select: none;
-      transition: all 0.3s;
       &:not(.active):hover {
         background-color: var(--color-hippie-blue);
         color: var(--color-white);
