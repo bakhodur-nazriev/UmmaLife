@@ -21,6 +21,7 @@
     "saved": "Saved",
     "video": "video",
     "settings": "Settings",
+    "muvi": "MUVI",
     "search": {
       "all-recommendations": "Show all recommendations",
       "people": "People",
@@ -39,6 +40,7 @@
       "password": "Enter your password...",
       "phone": "Enter your phone number..."
     },
+    "code_from_sms": "SMS code",
     "forgot_password": "Forgot password?",
     "create_account": "Create an account",
     "with_phone_number": "Login with phone number",
@@ -131,6 +133,8 @@
     "login": "Login",
     "get_code_by_email": "Get code by email",
     "next": "Next",
+    "prev": "Back",
+    "accept": "Confirm",
     "submit": "Submit",
     "create": "Create",
     "create_umma_video": "Create Umma Video",
@@ -528,6 +532,7 @@
       "new_password": "New password",
       "repeat_new_password": "Repeat the new password",
       "auth2": "Two-factor authentication",
+      "auth2_text": "For two-factor authentication, you must enter your phone number in your settings to receive a verification code for your UmmaLife account",
       "on": "Enabled",
       "off": "Disabled"
     },
@@ -598,7 +603,16 @@
       "quit": "Exit",
       "profile_settings": "Profile settings",
       "profile_info": "Personal information",
-      "ready": "Ready"
+      "ready": "Ready",
+      "app": "Application",
+      "location": "Location",
+      "ip": "IP Address",
+      "finish_seans": "End session"
     }
+  },
+  "themes": {
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
   }
 }

@@ -44,6 +44,15 @@ export default {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    padding: 20px 0;
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--color-seashell);
+    }
+  }
   &__actions {
     display: flex;
     gap: 8px;
@@ -73,6 +82,9 @@ export default {
     display: flex;
     align-items: center;
     gap: 12px;
+    @media (max-width: 767px) {
+      align-items: flex-start;
+    }
   }
 
   &__img {
@@ -125,6 +137,9 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
       overflow-wrap: break-word;
+      @media (max-width: 767px) {
+        display: none;
+      }
     }
   }
   &__btn {
@@ -137,10 +152,19 @@ export default {
     outline: none;
     cursor: pointer;
     color: var(--color-white);
+    transition: all 0.3s;
     &--default {
       background-color: var(--color-seashell);
       color: var(--color-mine-shaft);
       font-weight: 550;
+      &:hover {
+        background-color: var(--color-gallery-second);
+      }
+    }
+    @media (max-width: 767px) {
+      max-width: fit-content;
+      margin-left: 48px;
+      margin-top: -15px;
     }
   }
 }

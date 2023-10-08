@@ -14,11 +14,11 @@
           <span>{{ $t('settings.accaunt.profile_info') }}</span>
           <ArrowRight />
         </li>
-        <li class="settings__mobile--list">
+        <li class="settings__mobile--list" @click="emit('handleSelectNav', 'education')">
           <span>{{ $t('settings.nav.education') }}</span>
           <ArrowRight />
         </li>
-        <li class="settings__mobile--list">
+        <li class="settings__mobile--list" @click="emit('handleSelectNav', 'work')">
           <span>{{ $t('settings.nav.work') }}</span>
           <ArrowRight />
         </li>
@@ -26,7 +26,7 @@
     </div>
     <div class="bottom">
       <ul class="settings__mobile--menu">
-        <li class="settings__mobile--list">
+        <li class="settings__mobile--list" @click="emit('handleSelectNav', 'delete')">
           <span>{{ $t('settings.nav.delete_account') }}</span>
           <DeleteAccountMobileIcon />
         </li>

@@ -658,3 +658,126 @@ export const profileShorts = [
     seen: 100
   }
 ]
+
+export const muvies = [
+  {
+    id: 1,
+    title: 'Some description for this description description description',
+    seen: 101900,
+    img: '/images/muvies/muvi1.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 2,
+    title: 'Some description for this description description description',
+    seen: 712,
+    img: '/images/muvies/muvi2.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 3,
+    title: 'Some description for this description description description',
+    seen: 2100000,
+    img: '/images/muvies/muvi3.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 4,
+    title: 'Some description for this description description description',
+    seen: 475600,
+    img: '/images/muvies/muvi4.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 5,
+    title: 'Some description for this description description description',
+    seen: 41800,
+    img: '/images/muvies/muvi5.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 6,
+    title: 'Some description for this description description description',
+    seen: 9300,
+    img: '/images/muvies/muvi6.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 7,
+    title: 'Some description for this description description description',
+    seen: 101900,
+    img: '/images/muvies/muvi7.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 8,
+    title: 'Some description for this description description description',
+    seen: 712,
+    img: '/images/muvies/muvi8.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 9,
+    title: 'Some description for this description description description',
+    seen: 210000,
+    img: '/images/muvies/muvi9.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 10,
+    title: 'Some description for this description description description',
+    seen: 475600,
+    img: '/images/muvies/muvi10.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 11,
+    title: 'Some description for this description description description',
+    seen: 41800,
+    img: '/images/muvies/muvi11.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 12,
+    title: 'Some description for this description description description',
+    seen: 9300,
+    img: '/images/muvies/muvi12.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  }
+]

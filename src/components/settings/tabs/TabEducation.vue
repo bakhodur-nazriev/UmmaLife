@@ -1,5 +1,12 @@
 <template>
   <div class="tab">
+    <div class="settings__header">
+      <div class="settings__header--back" @click="emit('handleSelectNav', 'profile')">
+        <SettingsBackIcon />
+      </div>
+      <div class="settings__header--text">{{ $t('settings.nav.education') }}</div>
+      <div class="settings__header--ready">{{ $t('settings.accaunt.ready') }}</div>
+    </div>
     <SettingsInfo>
       <template #icon>
         <EducationIcon />
@@ -21,14 +28,23 @@
                 :placeholder="$t('settings.education.scholl_placeholder')"
               />
               <BaseCheckbox :label="$t('settings.education.completed')" />
-              <button
-                class="settings__add--btn"
-                type="button"
-                @click="schools !== 4 ? schools++ : (schools = 4)"
-                v-if="school === schools && schools !== 4"
-              >
-                <PlusIcon /> <span>{{ $t('settings.education.scholl_add') }}</span>
-              </button>
+              <div class="settings__add--wrapper">
+                <button
+                  class="settings__add--btn"
+                  type="button"
+                  v-if="school === schools && schools !== 4"
+                  @click="schools !== 4 ? schools++ : (schools = 4)"
+                >
+                  <PlusIcon /> <span>{{ $t('settings.education.scholl_add') }}</span>
+                </button>
+                <button
+                  type="button"
+                  class="settings__add--delete"
+                  @click="schools !== 1 && schools--"
+                >
+                  <DeleteIcon /> <span>{{ $t('buttons.delete') }}</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -42,14 +58,23 @@
                 :placeholder="$t('settings.education.colledge_placeholder')"
               />
               <BaseCheckbox :label="$t('settings.education.completed')" />
-              <button
-                class="settings__add--btn"
-                type="button"
-                @click="colleges !== 4 ? colleges++ : (colleges = 4)"
-                v-if="college === colleges && colleges !== 4"
-              >
-                <PlusIcon /> <span>{{ $t('settings.education.colledge_add') }}</span>
-              </button>
+              <div class="settings__add--wrapper">
+                <button
+                  class="settings__add--btn"
+                  type="button"
+                  @click="colleges !== 4 ? colleges++ : (colleges = 4)"
+                  v-if="college === colleges && colleges !== 4"
+                >
+                  <PlusIcon /> <span>{{ $t('settings.education.colledge_add') }}</span>
+                </button>
+                <button
+                  type="button"
+                  class="settings__add--delete"
+                  @click="colleges !== 1 && colleges--"
+                >
+                  <DeleteIcon /> <span>{{ $t('buttons.delete') }}</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -63,14 +88,23 @@
                 :placeholder="$t('settings.education.univercity_placeholder')"
               />
               <BaseCheckbox :label="$t('settings.education.completed')" />
-              <button
-                class="settings__add--btn"
-                type="button"
-                @click="universities !== 4 ? universities++ : (universities = 4)"
-                v-if="university === universities && universities !== 4"
-              >
-                <PlusIcon /> <span>{{ $t('settings.education.univercity_add') }}</span>
-              </button>
+              <div class="settings__add--wrapper">
+                <button
+                  class="settings__add--btn"
+                  type="button"
+                  @click="universities !== 4 ? universities++ : (universities = 4)"
+                  v-if="university === universities && universities !== 4"
+                >
+                  <PlusIcon /> <span>{{ $t('settings.education.univercity_add') }}</span>
+                </button>
+                <button
+                  type="button"
+                  class="settings__add--delete"
+                  @click="universities !== 1 && universities--"
+                >
+                  <DeleteIcon /> <span>{{ $t('buttons.delete') }}</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -85,10 +119,13 @@
 <script setup>
 /* eslint-disable */
 import EducationIcon from '@/components/icons/settings/EducationIcon.vue'
+import DeleteIcon from '@/components/icons/settings/DeleteIcon.vue'
 import PlusIcon from '@/components/icons/settings/PlusIcon.vue'
 import BaseCheckbox from '@/components/ui/BaseCheckbox.vue'
 import SettingsInfo from '@/components/settings/SettingsInfo.vue'
 import { ref } from 'vue'
+import SettingsBackIcon from '@/components/icons/settings/SettingsBackIcon.vue'
+const emit = defineEmits(['handleSelectNav'])
 const schools = ref(1)
 const colleges = ref(1)
 const universities = ref(1)
@@ -99,8 +136,19 @@ const universities = ref(1)
   display: flex;
   flex-direction: column;
   gap: 24px;
-  &--btn {
+  @media (max-width: 767px) {
+    width: 100%;
+    .create__group--input {
+      margin-bottom: 16px;
+    }
+  }
+  &--wrapper {
+    display: flex;
+    align-items: center;
+    gap: 28px;
     margin-top: 16px;
+  }
+  &--btn {
     display: flex;
     background: none;
     outline: none;
@@ -116,6 +164,29 @@ const universities = ref(1)
       font-weight: 400;
       line-height: normal;
       color: var(--color-hippie-blue);
+    }
+  }
+  &--delete {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    gap: 12px;
+
+    span {
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      color: var(--color-valencia);
+      transition: all 0.3s;
+      letter-spacing: 0px;
     }
   }
 }

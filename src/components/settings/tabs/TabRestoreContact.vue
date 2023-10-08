@@ -118,13 +118,22 @@ import PlusIcon from '@/components/icons/settings/PlusIcon.vue'
     cursor: pointer;
     border-radius: 8px;
     text-align: center;
+    transition: all 0.3s;
     &.success {
       border-color: 1px solid var(--color-hippie-blue);
       color: var(--color-hippie-blue);
+      &:hover {
+        background-color: var(--color-hippie-blue);
+        color: var(--color-white);
+      }
     }
     &.danger {
       border-color: 1px solid var(--color-valencia);
       color: var(--color-valencia);
+      &:hover {
+        background-color: var(--color-valencia);
+        color: var(--color-white);
+      }
     }
   }
   &--add {

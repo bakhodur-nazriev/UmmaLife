@@ -1,5 +1,12 @@
 <template>
   <div class="tab">
+    <div class="settings__header">
+      <div class="settings__header--back" @click="emit('handleSelectNav', 'main')">
+        <SettingsBackIcon />
+      </div>
+      <div class="settings__header--text">{{ $t('settings.nav.confidential') }}</div>
+      <div class="settings__header--ready">{{ $t('settings.accaunt.ready') }}</div>
+    </div>
     <SettingsInfo>
       <template #icon>
         <ConfidentialIcon />
@@ -20,6 +27,7 @@
             :options="[$t('settings.privacy.available_all'), $t('settings.privacy.only_friends')]"
             :default="$t('settings.privacy.available_all')"
             @input="handleSelect"
+            :title="$t('settings.privacy.question1')"
           />
         </div>
         <div class="create__group--form">
@@ -28,6 +36,7 @@
             :options="[$t('settings.privacy.available_all'), $t('settings.privacy.only_friends')]"
             :default="$t('settings.privacy.available_all')"
             @input="handleSelect"
+            :title="$t('settings.privacy.question2')"
           />
         </div>
         <div class="create__group--form">
@@ -36,6 +45,7 @@
             :options="[$t('settings.privacy.available_all'), $t('settings.privacy.only_friends')]"
             :default="$t('settings.privacy.available_all')"
             @input="handleSelect"
+            :title="$t('settings.privacy.question3')"
           />
         </div>
         <div class="create__group--form">
@@ -44,6 +54,7 @@
             :options="[$t('settings.privacy.available_all'), $t('settings.privacy.only_friends')]"
             :default="$t('settings.privacy.available_all')"
             @input="handleSelect"
+            :title="$t('settings.privacy.question4')"
           />
         </div>
         <div class="create__group--form">
@@ -52,6 +63,7 @@
             :options="[$t('settings.privacy.available_all'), $t('settings.privacy.only_friends')]"
             :default="$t('settings.privacy.available_all')"
             @input="handleSelect"
+            :title="$t('settings.privacy.question5')"
           />
         </div>
         <div class="create__group--form">
@@ -60,6 +72,7 @@
             :options="[$t('settings.privacy.available_all'), $t('settings.privacy.only_friends')]"
             :default="$t('settings.privacy.available_all')"
             @input="handleSelect"
+            :title="$t('settings.privacy.question6')"
           />
         </div>
         <div class="create__group--form">
@@ -68,6 +81,7 @@
             :options="[$t('settings.privacy.yes'), $t('settings.privacy.no')]"
             :default="$t('settings.privacy.yes')"
             @input="handleSelect"
+            :title="$t('settings.privacy.question7')"
           />
         </div>
         <div class="create__group--form create__group--form-text">
@@ -79,6 +93,7 @@
               :options="[$t('settings.privacy.available_all'), $t('settings.privacy.only_friends')]"
               :default="$t('settings.privacy.available_all')"
               @input="handleSelect"
+              :title="$t('settings.privacy.question8')"
             />
             <div class="settings__form--text mt-12">
               {{ $t('settings.privacy.question8_text') }}
@@ -91,6 +106,7 @@
             :options="[$t('settings.privacy.yes'), $t('settings.privacy.no')]"
             :default="$t('settings.privacy.yes')"
             @input="handleSelect"
+            :title="$t('settings.privacy.question9')"
           />
         </div>
         <div class="create__group--form">
@@ -99,6 +115,7 @@
             :options="[$t('settings.privacy.yes'), $t('settings.privacy.no')]"
             :default="$t('settings.privacy.yes')"
             @input="handleSelect"
+            :title="$t('settings.privacy.question10')"
           />
         </div>
         <div class="create__group--form create__group--form-text">
@@ -128,6 +145,9 @@ import ConfidentialIcon from '@/components/icons/settings/ConfidentialIcon.vue'
 import SettingsInfo from '@/components/settings/SettingsInfo.vue'
 import BaseCustomSelect from '@/components/ui/BaseCustomSelect.vue'
 import BaseToggle from '@/components/ui/BaseToggle.vue'
+import SettingsBackIcon from '@/components/icons/settings/SettingsBackIcon.vue'
+
+const emit = defineEmits(['handleSelectNav'])
 const isChecked = ref(false)
 
 const handleSelect = (event) => {
@@ -143,6 +163,11 @@ const handleSelect = (event) => {
     font-weight: 400;
     line-height: 130%;
     color: var(--color-secondary);
+    @media (max-width: 767px) {
+      &:first-child {
+        margin-bottom: 16px;
+      }
+    }
   }
   @media (max-width: 767px) {
     .create__group--block {

@@ -45,6 +45,23 @@ export default {
     display: grid;
     grid-template-columns: 1fr 411px;
     gap: 20px;
+    &.muvi__nav {
+      grid-template-columns: 100%;
+      gap: 0;
+
+      .groups__nav--menu {
+        margin-left: 0;
+        padding: 0 16px;
+        justify-content: center;
+        gap: 180px;
+        width: 100%;
+      }
+      .groups__nav--link {
+        margin-left: 0;
+        margin-right: 0;
+        padding-bottom: 16px;
+      }
+    }
     &.full {
       grid-template-columns: 1fr;
       .groups__nav--hidden {
