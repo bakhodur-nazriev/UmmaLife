@@ -36,12 +36,7 @@
 
     <form class="muvi__add--form" @submit.prevent v-else>
       <div class="muvi__add--player">
-        <VideoPlayer
-          src="/video/video.mp4"
-          poster="/images/message/video-poster.jpg"
-          controls
-          :volume="1"
-        >
+        <VideoPlayer controls :volume="1" :sources="videoSrc" :poster="posterSrc" preload="auto">
           <template v-slot="{ player, state }">
             <div class="custom-player-controls">
               <div
@@ -72,10 +67,14 @@
         <div class="muvi__add--right-title">Cover</div>
         <div class="muvi__add--right-wrapper">
           <div class="muvi__add--cover">
-            <img src="/images/message/video-poster.jpg" alt="poster" />
+            <img :src="posterSrc" alt="poster" v-if="posterSrc" />
             <label class="muvi__add--cover-change">
               Change cover
-              <input type="file" accept="image/png, image/jpg, image/jpeg" />
+              <input
+                @change="posterHandler"
+                type="file"
+                accept="image/png, image/jpg, image/jpeg"
+              />
             </label>
           </div>
           <ul class="muvi__add--menu">
@@ -123,16 +122,32 @@ import MuviChooseCategory from '@/components/muvi/lists/MuviChooseCategory.vue'
 const filesInput = ref()
 const file = ref(null)
 const description = ref('')
-const videoSrc = ref(null)
+const videoSrc = ref([])
+
+const posterSrc = ref(null)
 
 const drop = (event) => {
   file.value = event.dataTransfer.files[0]
-  videoSrc.value = URL.createObjectURL(file.value)
+  handleFile(file.value)
 }
 
 const handleChange = (event) => {
   file.value = event.target.files[0]
-  videoSrc.value = URL.createObjectURL(file.value)
+  handleFile(file.value)
+}
+
+const handleFile = (file) => {
+  videoSrc.value = [
+    {
+      src: URL.createObjectURL(file),
+      type: 'application/x-mpegURL'
+    }
+  ]
+}
+
+const posterHandler = (e) => {
+  const file = e.target.files[0]
+  posterSrc.value = URL.createObjectURL(file)
 }
 </script>
 
@@ -291,6 +306,7 @@ const handleChange = (event) => {
     border: 1px solid var(--color-seashell);
     overflow: hidden;
     position: relative;
+    background-color: var(--color-seashell);
     img {
       display: block;
       width: 100%;
