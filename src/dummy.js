@@ -62,7 +62,8 @@ export const users = [
           alt: 'message-img'
         }
       }
-    ]
+    ],
+    isChecked: false
   },
   {
     id: 2,
@@ -114,7 +115,8 @@ export const users = [
         state: 'recieve',
         message: 'Lorem ipsum dolor. Duis aute irure dolor in'
       }
-    ]
+    ],
+    isChecked: false
   },
   {
     id: 3,
@@ -173,7 +175,8 @@ export const users = [
           alt: 'message-img'
         }
       }
-    ]
+    ],
+    isChecked: false
   },
   {
     id: 4,
@@ -220,7 +223,8 @@ export const users = [
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anвмывмывмывы',
         status: 'notread'
       }
-    ]
+    ],
+    isChecked: false
   },
   {
     id: 5,
@@ -287,7 +291,8 @@ export const users = [
         message:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
       }
-    ]
+    ],
+    isChecked: false
   },
   {
     id: 6,
@@ -348,7 +353,8 @@ export const users = [
         message:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
       }
-    ]
+    ],
+    isChecked: false
   },
   {
     id: 7,
@@ -402,7 +408,8 @@ export const users = [
         },
         img: null
       }
-    ]
+    ],
+    isChecked: false
   },
   {
     id: 8,
@@ -467,7 +474,8 @@ export const users = [
         message:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
       }
-    ]
+    ],
+    isChecked: false
   }
 ]
 
