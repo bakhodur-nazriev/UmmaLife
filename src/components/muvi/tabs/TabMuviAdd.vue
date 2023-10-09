@@ -69,7 +69,7 @@
           <div class="muvi__add--cover">
             <img :src="posterSrc" alt="poster" v-if="posterSrc" />
             <label class="muvi__add--cover-change">
-              Change cover
+              {{ posterSrc ? 'Change cover' : 'Add cover' }}
               <input
                 @change="posterHandler"
                 type="file"
