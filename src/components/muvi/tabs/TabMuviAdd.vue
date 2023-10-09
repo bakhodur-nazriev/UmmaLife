@@ -66,7 +66,7 @@
         </div>
         <div class="muvi__add--right-title">Cover</div>
         <div class="muvi__add--right-wrapper">
-          <div class="muvi__add--cover">
+          <div class="muvi__add--cover" :class="{ blackCover: !posterSrc }">
             <img :src="posterSrc" alt="poster" v-if="posterSrc" />
             <label class="muvi__add--cover-change">
               {{ posterSrc ? 'Change cover' : 'Add cover' }}
@@ -307,6 +307,11 @@ const posterHandler = (e) => {
     overflow: hidden;
     position: relative;
     background-color: var(--color-seashell);
+    &.blackCover {
+      .muvi__add--cover-change {
+        color: var(--color-mine-shaft);
+      }
+    }
     img {
       display: block;
       width: 100%;
