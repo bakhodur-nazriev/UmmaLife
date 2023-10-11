@@ -22,7 +22,7 @@ const props = defineProps({
 const emit = defineEmits(['handleTabClick'])
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .muvi__activity {
   &--tab {
     background-color: var(--color-white);
