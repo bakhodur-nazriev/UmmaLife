@@ -55,6 +55,12 @@ export default {
         justify-content: center;
         gap: 180px;
         width: 100%;
+        @media (max-width: 1350px) {
+          gap: 40px;
+        }
+        @media (max-width: 800px) {
+          gap: 24px;
+        }
       }
       .groups__nav--link {
         margin-left: 0;

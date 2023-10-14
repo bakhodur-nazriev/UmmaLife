@@ -83,6 +83,11 @@ const handleTabClick = (index) => {
     align-items: center;
     gap: 28px;
     margin-bottom: 28px;
+    @media (max-width: 991px) {
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+    }
   }
   &--img {
     width: 120px;
@@ -111,6 +116,9 @@ const handleTabClick = (index) => {
       flex-direction: column;
       align-items: center;
       padding: 0 40px;
+      @media (max-width: 991px) {
+        padding: 0 20px;
+      }
       &:first-child {
         padding-left: 0;
       }

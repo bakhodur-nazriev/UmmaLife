@@ -789,3 +789,90 @@ export const muvies = [
     }
   }
 ]
+
+export const sources = [
+  {
+    src: '/video/short-1.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/short-2.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/video.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/short-1.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/short-2.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/video.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/short-1.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/short-2.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/video.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/short-1.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/short-2.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/video.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  }
+]

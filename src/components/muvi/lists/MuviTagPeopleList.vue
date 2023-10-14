@@ -72,7 +72,7 @@ const handleClick = (user) => {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .muvi__add {
   &--dropdown {
     position: absolute;

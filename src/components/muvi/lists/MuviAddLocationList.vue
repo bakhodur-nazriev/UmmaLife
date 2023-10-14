@@ -8,7 +8,7 @@
     </div>
   </li>
   <teleport to="body">
-    <div class="muvi__location--inner" v-if="isMapOpen">
+    <div class="muvi__location--inner" v-show="isMapOpen">
       <div class="muvi__location" v-on-click-outside="() => (isMapOpen = false)">
         <div class="muvi__location--title">Add location</div>
         <div class="muvi__location--search">
@@ -65,7 +65,6 @@
     </div>
   </teleport>
 </template>
-<!-- eslint-disable -->
 
 <script setup>
 /* eslint-disable */
@@ -83,7 +82,6 @@ const isRendered = ref(false)
 const isMapOpen = ref(false)
 
 const inputValue = ref('')
-
 const selectedValues = ref([])
 
 const getPayload = (value, state = 'push') => {

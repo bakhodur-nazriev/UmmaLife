@@ -81,6 +81,9 @@ const clickButton = () => {
   &_default {
     background-color: var(--color-seashell);
     color: var(--color-mine-shaft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     &:hover {
       background-color: var(--color-gallery-second);
     }

@@ -232,7 +232,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .horizontal-line {
   background-color: #9d9d9d;
   height: 2px;
