@@ -88,7 +88,7 @@
         </template>
       </SearchTab>
 
-      <div class="bottom__nav">
+      <div class="bottom__nav" v-if="$route.name !== 'muvi'">
         <ul class="bottom__nav--list">
           <li class="bottom__nav--item">
             <router-link to="to">
@@ -98,6 +98,11 @@
           <li class="bottom__nav--item">
             <router-link to="">
               <MessagesIcon />
+            </router-link>
+          </li>
+          <li class="bottom__nav--item">
+            <router-link :to="`/${$i18n.locale}/muvi`">
+              <MuviNavIcon />
             </router-link>
           </li>
           <li class="bottom__nav--item">
@@ -295,6 +300,7 @@ import TabHashtags from '@/components/layouts/SearchComponents/TabHashtags.vue'
 import { mapState, mapMutations } from 'vuex'
 import { audios } from '@/dummy'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
+import MuviNavIcon from '@/components/icons/shorts/MuviNavIcon.vue'
 
 export default {
   components: {
@@ -325,7 +331,8 @@ export default {
     SmallMenuIcon,
     SearchInput,
     SampleButton,
-    MainPageLogo
+    MainPageLogo,
+    MuviNavIcon
   },
   data() {
     return {
@@ -404,7 +411,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .navbar-header {
   position: relative;
 }

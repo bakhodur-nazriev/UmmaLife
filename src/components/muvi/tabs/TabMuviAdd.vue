@@ -172,6 +172,9 @@ const posterHandler = (e) => {
     border-radius: 15px;
     padding: 144px 20px 143px;
     text-align: center;
+    @media (max-width: 900px) {
+      padding: 60px 20px 60px;
+    }
     p {
       margin: 8px 0;
       font-size: 20px;
@@ -188,6 +191,10 @@ const posterHandler = (e) => {
     display: grid;
     grid-template-columns: 350px 1fr;
     gap: 106px;
+    @media (max-width: 1400px) {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
   }
   &--player {
     width: 100%;
@@ -195,6 +202,11 @@ const posterHandler = (e) => {
     border-radius: 15px;
     overflow: hidden;
     position: relative;
+    @media (max-width: 1400px) {
+      width: 350px;
+      margin: 0 auto;
+      order: 1;
+    }
     &-btn {
       border-radius: 8px;
       border: 1px solid var(--color-mine-shaft) !important;
