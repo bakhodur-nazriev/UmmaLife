@@ -10,7 +10,7 @@
         <div class="custom-dropdown">
           <div class="dropdown-toggle" @click="toggleDropdown">
             {{ selectedOption || placeholder }}
-            <ArrowDownIcon />
+            <ArrowDownIcon/>
           </div>
           <ul v-show="isOpen" class="dropdown-list">
             <li v-for="(option, index) in options" :key="index" @click="selectOption(option)">
@@ -21,14 +21,14 @@
       </section>
       <section class="tags-section">
         <h3>{{ $t('labels.tags') }}</h3>
-        <SampleInput />
+        <SampleInput/>
       </section>
       <section class="article-cover_section">
         <h3>{{ $t('labels.article_cover') }}</h3>
-        <div class="updload-image">
-          <GalleryAddIcon />
-          <span class="updload-image__title">{{ $t('buttons.image_updload.title') }}</span>
-          <span class="updload-image__subtitle">{{ $t('buttons.image_updload.subtitle') }}</span>
+        <div class="upload-image">
+          <GalleryAddIcon/>
+          <span class="upload-image__title">{{ $t('buttons.image_upload.title') }}</span>
+          <span class="upload-image__subtitle">{{ $t('buttons.image_upload.subtitle') }}</span>
         </div>
       </section>
     </aside>
@@ -110,7 +110,7 @@ export default {
   background-color: var(--color-white);
   border-radius: 20px;
   padding: 32px 40px;
-  width: 700px;
+  max-width: 700px;
 
   .article-title__input {
     all: unset;
@@ -148,7 +148,7 @@ aside {
   }
 }
 
-.updload-image {
+.upload-image {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -175,6 +175,27 @@ aside {
   &__subtitle {
     font-size: 14px;
     font-weight: 400;
+  }
+}
+
+@media (max-width: 576px) {
+  .create-article__container {
+    flex-direction: column;
+  }
+
+  aside {
+    background-color: var(--color-white);
+    order: 1;
+
+    .choose-article_category-section,
+    .tags-section,
+    .article-cover_section {
+      background-color: unset;
+    }
+  }
+
+  .main-container__article {
+    order: 2;
   }
 }
 </style>

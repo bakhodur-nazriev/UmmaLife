@@ -5,7 +5,6 @@
       {{ $t('buttons.back_to_articles') }}
     </router-link>
   </section>
-
   <section class="article-show__main-section">
     <main>
       <header class="article-header">
@@ -18,7 +17,7 @@
         </div>
         <div class="article-header__right-side">
           <button class="comment-button" color="seashell" icon="comment">
-            <CommentIcon/>
+            <SmallCommentIcon/>
             <span>25 комментариев</span>
           </button>
           <button class="show-button" color="seashell" icon="eye">
@@ -31,8 +30,9 @@
         </div>
       </header>
 
-      <div>
-        <h1 class="article-title">POLARIS начнет испытания четвертого демонстратора космического самолета с
+      <div class="main-content__block">
+        <h1 class="article-title">
+          POLARIS начнет испытания четвертого демонстратора космического самолета с
           сентября </h1>
         <img src="@/assets/images/articles/content-photo/article-photo.png" alt="">
 
@@ -159,7 +159,7 @@
       </div>
     </main>
 
-    <aside>
+    <aside class="sidebar-articles">
       <div class="articles-category">
         <h3>{{ $t('labels.articles.category') }}</h3>
         <ul class="category-list">
@@ -170,7 +170,7 @@
       <div class="articles-popular__articles">
         <h3>{{ $t('labels.articles.popular_articles') }}</h3>
         <ul class="popular-list">
-          <li class="popular-list__item" v-for="article in news" :key="article.id">
+          <li class="popular-list__item" v-for="(article, i) in news" :key="article.id">
             <div class="popular-list__item-block">
               <img v-if="article.image" :src="article.image" alt="">
               <div class="popular-list__item-title">
@@ -178,7 +178,7 @@
                 <span>{{ article.author }}</span>
               </div>
             </div>
-            <SampleDivider/>
+            <SampleDivider v-if="i !== (news.length - 1)"/>
           </li>
         </ul>
       </div>
@@ -190,18 +190,18 @@
 import ArrowLeft from '../components/icons/ArrowLeft.vue'
 import FavouriteIcon from '../components/icons/FavouriteIcon.vue'
 import EyeIcon from '../components/icons/EyeIcon.vue'
-import CommentIcon from '../components/icons/CommentIcon.vue'
 import QuoteIcon from '../components/icons/QuoteIcon.vue'
 import VideoPlayIcon from '../components/icons/VideoPlayIcon.vue'
 import SampleDivider from '../components/ui/SampleDivider.vue'
 import SampleTextarea from '../components/ui/Fields/SampleTextarea.vue'
+import SmallCommentIcon from '@/components/icons/comment/SmallCommentIcon.vue'
 
 export default {
   components: {
+    SmallCommentIcon,
     ArrowLeft,
     FavouriteIcon,
     EyeIcon,
-    CommentIcon,
     QuoteIcon,
     VideoPlayIcon,
     SampleDivider,
@@ -297,6 +297,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.sample__divider {
+  margin: 16px 0;
+}
+
 aside {
   max-width: 344px;
   height: 100%;
@@ -364,6 +368,9 @@ aside {
     }
 
     &-title {
+      display: flex;
+      flex-direction: column;
+
       h3 {
         font-size: 14px;
         color: var(--color-mine-shaft);
@@ -654,14 +661,16 @@ aside {
 }
 
 main {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
   border-radius: 20px;
   background-color: var(--color-white);
   max-width: 900px;
   padding: 34px 32px;
-  margin-left: 200px;
+}
+
+.main-content__block {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .article-description {
@@ -773,5 +782,113 @@ main {
   display: flex;
   justify-content: center;
   gap: 20px;
+}
+
+@media (max-width: 576px) {
+  .sidebar-articles {
+    display: none;
+  }
+
+  .article-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .button-back__section {
+    display: none;
+  }
+
+  .comment-button {
+    width: 160px;
+    height: 36px;
+    font-size: 14px;
+    padding: 4px 12px;
+
+    svg {
+      color: var(--color-mine-shaft);
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .show-button {
+    padding: 10px 12px;
+    font-size: 14px;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .favourite-button {
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .article-title {
+    font-size: 20px;
+    margin-top: 28px;
+  }
+
+  main {
+    padding: 16px;
+  }
+
+  .main-content__block {
+    img {
+      border-radius: 10px;
+    }
+  }
+
+  .article-description {
+    font-size: 16px;
+  }
+
+  .inset-block {
+    h3 {
+      font-size: 16px;
+    }
+  }
+
+  .quote-block {
+    h3 {
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+  }
+
+  .list-block {
+    .article-list {
+      margin: 0;
+      list-style: none;
+      font-size: 16px;
+      padding: 0;
+
+      li {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .audio-block__details-title {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .audio-block__details-time {
+    font-size: 12px;
+  }
+
+  .hashtags-block {
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+  }
 }
 </style>

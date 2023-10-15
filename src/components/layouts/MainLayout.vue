@@ -60,6 +60,7 @@ export default {
   }
 
   .main__content {
+    margin-left: 0;
     &::-webkit-scrollbar {
       width: 2px;
     }

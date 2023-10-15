@@ -196,7 +196,7 @@
     "read_more": "Читать",
     "pinned_message": "Закрепленное сообщение",
     "reset_filter": "Сбросить фильтр",
-    "image_updload": {
+    "image_upload": {
       "title": "Нажмите или перетащите изображение",
       "subtitle": "Допустимые расширения jpeg, jpg, png"
     },

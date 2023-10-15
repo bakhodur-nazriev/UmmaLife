@@ -193,7 +193,7 @@
     "read_more": "Read",
     "pinned_message": "Pinned message",
     "reset_filter": "Reset filter",
-    "image_updload": {
+    "image_upload": {
       "title": "Click or drag the image",
       "subtitle": "Acceptable extensions jpeg, jpg, png"
     },

@@ -2,27 +2,21 @@
   <div class="tabs">
     <div class="tabs__header">
       <div
-        v-for="(tab, index) in tabs"
-        :key="tab.index"
-        :class="['tabs__header-item', { 'active': activeTab === index }]"
-        @click="handleTabClick(index)"
+          v-for="(tab, index) in tabs"
+          :key="tab.index"
+          :class="['tabs__header-item', { 'active': activeTab === index }]"
+          @click="handleTabClick(index)"
       >
-        <div v-if="tab.index === 0">
-          <span class="dropdown-tab tab-title">
-            {{ tapTitleForSmallDisplay }}
-            <ArrowDownIcon class="dropdown-tab__icon" />
-          </span>
-        </div>
-        <span class="tab-title" v-if="tab.index > 0">{{ tab.title }}</span>
+        <span v-if="tab.index >= 0" class="tab-title">{{ tab.title }}</span>
       </div>
     </div>
 
     <div class="tabs__content">
       <div
-        v-for="(tab, index) in tabs"
-        :key="index"
-        v-show="activeTab === index"
-        class="tabs__content--item"
+          v-for="(tab, index) in tabs"
+          :key="index"
+          v-show="activeTab === index"
+          class="tabs__content--item"
       >
         <AllArticles v-if="index === 0"/>
         <MyArticles v-if="index === 1"/>
@@ -35,7 +29,6 @@
 </template>
 
 <script>
-import ArrowDownIcon from '@/components/icons/ArrowDownIcon.vue'
 import AllArticles from '@/components/articles/AllArticles.vue'
 import MyArticles from '@/components/articles/MyArticles.vue'
 import SavedArticles from '@/components/articles/SavedArticles.vue'
@@ -48,8 +41,7 @@ export default {
     DraftArticles,
     SavedArticles,
     MyArticles,
-    AllArticles,
-    ArrowDownIcon
+    AllArticles
   },
   props: {
     tabsArray: {
@@ -57,7 +49,7 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
       activeTab: 0,
       tabs: [],
@@ -68,14 +60,8 @@ export default {
   },
   methods: {
     handleTabClick(index) {
-      const isSmallScreen = this.isSmallScreen
-
-      if (isSmallScreen && index === 0) {
-        this.$store.dispatch('toggleChangeTabStyle')
-      } else {
-        this.activeTab = index
-        sessionStorage.setItem('activeTab', index.toString())
-      }
+      this.activeTab = index
+      sessionStorage.setItem('activeTab', index.toString())
     },
     changeTab(index) {
       const screenWidth = window.innerWidth
@@ -105,13 +91,6 @@ export default {
   computed: {
     isSmallScreen() {
       return window.innerWidth < 576
-    },
-    tapTitleForSmallDisplay () {
-      if (this.$store.getters.getPublicationTab === '') {
-        return this.$t('tabs.articles_page.all_articles')
-      } else {
-        return this.$store.getters.getPublicationTab
-      }
     }
   }
 }
@@ -147,6 +126,7 @@ export default {
 
       .tab-title {
         font-weight: 500;
+
         &:hover {
           color: var(--color-mine-shaft);
           transition: all .15s ease-in-out;
@@ -202,15 +182,29 @@ export default {
       top: 64px;
       z-index: 15;
       background-color: var(--color-white);
-      width: 100%;
+      width: max-content;
+      gap: 16px;
+      padding: 0 20px;
+
+      &::after {
+        height: 1px;
+        bottom: -1px;
+      }
 
       &-item {
         font-size: 16px;
         font-weight: 400;
         margin: 0;
-        padding: 18px 0;
+        padding: 16px 0;
+        white-space: nowrap;
+
+        .tab-title {
+          font-weight: 400;
+        }
 
         &.active {
+          padding-bottom: 16px;
+
           &::after {
             width: 100%;
             bottom: -1px;
@@ -221,6 +215,7 @@ export default {
           display: flex;
           align-items: center;
           gap: 4px;
+
           &__icon {
             display: block;
           }
@@ -263,7 +258,9 @@ export default {
   }
 }
 
-@media (min-width: 768px) {}
+@media (min-width: 768px) {
+}
 
-@media (min-width: 1280px) {}
+@media (min-width: 1280px) {
+}
 </style>
