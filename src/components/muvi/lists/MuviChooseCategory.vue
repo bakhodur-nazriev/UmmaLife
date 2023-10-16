@@ -15,6 +15,13 @@
       </li>
     </ul>
     <div class="muvi__add--dropdown" v-if="isDropdownOpen" @click.stop>
+      <div class="muvi__mobile--nav white">
+        <button @click="isDropdownOpen = false" class="muvi__mobile--nav-btn">
+          <ArrowLeftIcon />
+        </button>
+        <div class="muvi__mobile--nav-title">Choose a category</div>
+        <div class="left"></div>
+      </div>
       <div
         class="muvi__add--dropdown-list"
         v-for="(option, index) in options"
@@ -38,6 +45,7 @@ import { vOnClickOutside } from '@vueuse/components'
 import ChooseCategoryIcon from '@/components/icons/shorts/ChooseCategoryIcon.vue'
 import ArrowDownIcon from '@/components/icons/shorts/ArrowDownIcon.vue'
 import CustomRadio from '@/components/ui/CustomRadio.vue'
+import ArrowLeftIcon from '../../icons/shorts/ArrowLeftIcon.vue'
 
 const isDropdownOpen = ref(false)
 
@@ -88,6 +96,14 @@ const handleSelect = (index) => {
     max-height: 236px;
     overflow-y: auto;
     user-select: none;
+    @media (max-width: 767px) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      min-height: 100dvh;
+      padding: 0;
+    }
     &-list {
       display: flex;
       align-items: center;

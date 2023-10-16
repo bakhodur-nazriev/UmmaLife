@@ -6,7 +6,7 @@
         v-for="(link, index) in links"
         :key="link.icon"
         :class="{ active: link.isSelected }"
-        @click="emit('linkHandler', index)"
+        @click="index !== 2 ? emit('linkHandler', index) : emit('fileClicked')"
       >
         <component :is="`${link.icon}-icon`" :isActive="link.isSelected" />
       </li>
@@ -26,7 +26,7 @@ const props = defineProps({
   links: Array
 })
 
-const emit = defineEmits(['linkHandler'])
+const emit = defineEmits(['linkHandler', 'fileClicked'])
 </script>
 
 <script>

@@ -6,6 +6,7 @@
         <div class="muvi__feeds--tab-list">Subscriptions</div>
         <div class="muvi__feeds--tab-list">Recommendations</div>
       </div>
+      <div class="left"></div>
     </div>
     <swiper
       class="muvi__feeds--wrapper"
@@ -34,7 +35,10 @@
           :preload="'auto'"
           :autoplay="isActive"
         >
-          <MuviFeedsInfo />
+          <MuviFeedsInfo
+            @categoryHandler="emit('categoryHandler')"
+            @audioHandler="emit('audioHandler')"
+          />
         </VideoPlayer>
         <MuviFeedReactions
           @commentClicked="source.isCommentOpen = true"
@@ -82,9 +86,11 @@ import MuviFeedComments from '@/components/muvi/mobile/MuviFeedComments.vue'
 import MuviFeedShare from '@/components/muvi/mobile/MuviFeedShare.vue'
 import MuviFeedMenu from '@/components/muvi/mobile/MuviFeedMenu.vue'
 
+const emit = defineEmits(['categoryHandler', 'audioHandler'])
+
 const sw = ref(null)
 const sources = ref(allSources)
-const isPlaying = ref(false)
+const isPlaying = ref(true)
 const isSwipedLeft = ref(false)
 
 const onSlideChange = (swiper) => (sw.value = swiper)
@@ -185,7 +191,12 @@ const playingHandler = (event) => {
     z-index: 15;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 5px;
+    justify-content: space-between;
+    .left {
+      width: 28px;
+      height: 28px;
+    }
     &-left {
       padding: 0;
       border: none;

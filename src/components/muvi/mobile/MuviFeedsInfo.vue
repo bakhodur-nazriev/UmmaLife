@@ -18,8 +18,10 @@
       более 2,2 миллионов человек.
     </div>
     <div class="muvi__feeds--info-tags">
-      <div class="muvi__feeds--info-tags-list">Travel</div>
-      <div class="muvi__feeds--info-tags-list"><MusicIcon />Halal beats - Ramadan</div>
+      <div class="muvi__feeds--info-tags-list" @click="emit('categoryHandler')">Travel</div>
+      <div class="muvi__feeds--info-tags-list" @click="emit('audioHandler')">
+        <MusicIcon />Halal beats - Ramadan
+      </div>
     </div>
   </div>
 </template>
@@ -29,6 +31,7 @@
 import { ref } from 'vue'
 import MusicIcon from '@/components/icons/shorts/MusicIcon.vue'
 const isTextClicked = ref(true)
+const emit = defineEmits(['categoryHandler', 'audioHandler'])
 </script>
 
 <style lang="scss" scoped>

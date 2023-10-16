@@ -13,6 +13,13 @@
     <ArrowDownIcon class="arrow" :class="{ open: isDropdownOpen }" />
 
     <div class="muvi__add--dropdown" v-if="isDropdownOpen" @click.stop>
+      <div class="muvi__mobile--nav white">
+        <button @click="isDropdownOpen = false" class="muvi__mobile--nav-btn">
+          <ArrowLeftIcon />
+        </button>
+        <div class="muvi__mobile--nav-title">Who can view this MUVI</div>
+        <div class="left"></div>
+      </div>
       <div
         class="muvi__add--dropdown-list"
         v-for="(option, index) in options"
@@ -40,6 +47,7 @@ import CustomRadio from '@/components/ui/CustomRadio.vue'
 import AvailableAllIcon from '@/components/icons/shorts/AvailableAllIcon.vue'
 import SubscribesOnlyIcon from '@/components/icons/shorts/SubscribesOnlyIcon.vue'
 import SubscriptionsOnlyIcon from '@/components/icons/shorts/SubscriptionsOnlyIcon.vue'
+import ArrowLeftIcon from '@/components/icons/shorts/ArrowLeftIcon.vue'
 
 const isDropdownOpen = ref(false)
 const options = ref([
@@ -96,6 +104,20 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    .muvi__mobile--nav {
+      display: none;
+      @media (max-width: 767px) {
+        display: flex;
+      }
+    }
+    @media (max-width: 767px) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100dvh;
+      padding: 0;
+    }
     &-list {
       display: flex;
       align-items: center;
@@ -105,6 +127,9 @@ export default {
       background-color: var(--color-seashell);
       padding: 16px 20px;
       border-radius: 8px;
+      @media (max-width: 767px) {
+        margin: 0 16px;
+      }
     }
     &-top {
       display: flex;
