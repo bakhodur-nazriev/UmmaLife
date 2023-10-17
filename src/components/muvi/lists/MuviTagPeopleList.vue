@@ -14,6 +14,13 @@
     </div>
     <ArrowDownIcon class="arrow" :class="{ open: isTagPeopleOpen }" />
     <div class="muvi__add--dropdown" v-if="isTagPeopleOpen" @click.stop>
+      <div class="muvi__mobile--nav white">
+        <button @click="isTagPeopleOpen = false" class="muvi__mobile--nav-btn">
+          <ArrowLeftIcon />
+        </button>
+        <div class="muvi__mobile--nav-title">Tag people</div>
+        <div class="left"></div>
+      </div>
       <div class="search__container--inner">
         <div class="search__container">
           <div class="search__container--wrapper">
@@ -41,6 +48,9 @@
           </div>
         </div>
       </div>
+      <div class="selected__option--action">
+        <SampleButton :size="14" width="100%" :title="`Done (${selectedUsers.length})`" />
+      </div>
     </div>
   </li>
 </template>
@@ -53,6 +63,8 @@ import LoupeIcon from '@/components/icons/LoupeIcon.vue'
 import TagPeopleIcon from '@/components/icons/shorts/TagPeopleIcon.vue'
 import CheckMarkIcon from '@/components/icons/CheckMarkIcon.vue'
 import ArrowDownIcon from '@/components/icons/shorts/ArrowDownIcon.vue'
+import ArrowLeftIcon from '@/components/icons/shorts/ArrowLeftIcon.vue'
+import SampleButton from '@/components/ui/SampleButton.vue'
 
 const users = ref(allUsers)
 const selectedUsers = ref(users.value.filter((u) => u.isChecked))
@@ -86,6 +98,21 @@ const handleClick = (user) => {
     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.15);
     z-index: 15;
     cursor: auto;
+    .muvi__mobile--nav {
+      display: none;
+      @media (max-width: 767px) {
+        display: flex;
+      }
+    }
+    @media (max-width: 767px) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      max-height: 100dvh;
+      min-height: 100dvh;
+      z-index: 20;
+    }
     .search__container {
       width: 100%;
       background: var(--color-seashell);
@@ -127,6 +154,17 @@ const handleClick = (user) => {
       }
     }
     .selected__option {
+      &--action {
+        display: none;
+        @media (max-width: 767px) {
+          display: block;
+        }
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        padding: 16px;
+        width: 100%;
+      }
       &--checkbox {
         width: 24px;
         height: 24px;

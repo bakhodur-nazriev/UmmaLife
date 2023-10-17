@@ -9,6 +9,13 @@
   </li>
   <teleport to="body">
     <div class="muvi__location--inner" v-show="isMapOpen">
+      <div class="muvi__mobile--nav white">
+        <button @click="isMapOpen = false" class="muvi__mobile--nav-btn">
+          <ArrowLeftIcon />
+        </button>
+        <div class="muvi__mobile--nav-title">Add location</div>
+        <div class="left"></div>
+      </div>
       <div class="muvi__location" v-on-click-outside="() => (isMapOpen = false)">
         <div class="muvi__location--title">Add location</div>
         <div class="muvi__location--search">
@@ -75,6 +82,7 @@ import { vOnClickOutside } from '@vueuse/components'
 
 import AddLocationIcon from '@/components/icons/shorts/AddLocationIcon.vue'
 import LoupeIcon from '@/components/icons/LoupeIcon.vue'
+import ArrowLeftIcon from '@/components/icons/shorts/ArrowLeftIcon.vue'
 
 const apiKey = process.env.VUE_APP_GAPI_KEY
 const center = ref({ lat: 41.015137, lng: 28.97953 })
@@ -97,7 +105,7 @@ const getCoordinates = () => {
       lng: pos.coords.longitude
     }
 
-    const map = new google.maps.Map(document.getElementById('gmimap0'))
+    const map = new google.maps.Map(document.querySelector('.mapdiv map'))
     const marker = new google.maps.Marker({ position: center.value, map })
     const latLng = marker.getPosition()
     const geocoder = new google.maps.Geocoder()
@@ -145,6 +153,12 @@ $black: var(--color-mine-shaft);
   position: absolute;
   top: 50%;
   left: 50%;
+  @media (max-width: 767px) {
+    max-width: 100%;
+    height: 100dvh;
+    border-radius: 0;
+    padding: 84px 16px 20px;
+  }
   &--inner {
     position: fixed;
     top: 0;
@@ -153,6 +167,12 @@ $black: var(--color-mine-shaft);
     height: 100%;
     background-color: rgba($color: #1f1f1f, $alpha: 0.7);
     z-index: 100;
+    .muvi__mobile--nav {
+      display: none;
+      @media (max-width: 767px) {
+        display: flex;
+      }
+    }
   }
   &--title {
     font-size: 20px;
@@ -162,6 +182,9 @@ $black: var(--color-mine-shaft);
     text-align: center;
     color: var(--color-mine-shaft);
     margin-bottom: 20px;
+    @media (max-width: 767px) {
+      display: none;
+    }
   }
   &--search {
     width: 100%;
@@ -193,6 +216,10 @@ $black: var(--color-mine-shaft);
     border-radius: 10px;
     overflow: hidden;
     margin-bottom: 20px;
+    @media (max-width: 767px) {
+      height: 180px;
+      border-radius: 10px;
+    }
   }
   &--current {
     background-color: transparent;

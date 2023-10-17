@@ -61,7 +61,7 @@ const handleCloseSearch = () => {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .users__wrapper {
   @media (max-width: 767px) {
     gap: 0;

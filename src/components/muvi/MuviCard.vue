@@ -18,7 +18,9 @@
 /* eslint-disable */
 import shortNum from 'number-shortener'
 import SeenIcon from '@/components/icons/SeenIcon.vue'
-const props = defineProps({ muvi: Object })
+const props = defineProps({
+  muvi: Object
+})
 const emit = defineEmits(['cardClickHandler'])
 </script>
 
