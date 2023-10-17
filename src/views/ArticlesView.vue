@@ -8,7 +8,11 @@
       `${$t('tabs.articles_page.create_new_article')}`
     ]"/>
 
-    <button class="add-articles__button">+</button>
+    <div class="create-button__block">
+      <button type="button" class="create-button">
+        <PlusIcon/>
+      </button>
+    </div>
   </MainLayout>
 </template>
 
@@ -16,9 +20,11 @@
 import ArticlesMainTabs from '@/components/articles/ArticlesMainTabs.vue'
 // import ArticleLayout from '@/views/ArticleLayout.vue'
 import MainLayout from '@/components/layouts/MainLayout.vue'
+import PlusIcon from '@/components/icons/PlusIcon.vue'
 
 export default {
   components: {
+    PlusIcon,
     MainLayout,
     // ArticleLayout,
     ArticlesMainTabs
@@ -28,23 +34,36 @@ export default {
 
 <style scoped>
 
+.create-button__block {
+  display: none;
+}
+
 @media (max-width: 576px) {
-  .add-articles__button {
+  .create-button__block {
+    display: block;
     position: absolute;
-    right: 16px;
     bottom: 80px;
-    z-index: 1000;
-    background-color: var(--color-hippie-blue);
-    border-radius: 16px;
     width: 48px;
     height: 48px;
-    color: var(--color-white);
-    border: unset;
-    font-size: 24px;
-    font-weight: 400;
-    box-shadow: 0 2px 10px 0 rgba(73, 163, 153, 0.60);
-    padding-bottom: 3px;
-    cursor: pointer;
+    right: 20px;
+    z-index: 90;
+
+    .create-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      outline: none;
+      color: var(--color-white);
+      font-size: 24px;
+      width: 100%;
+      height: 100%;
+      background: var(--color-hippie-blue);
+      box-shadow: 0 2px 10px rgba(73, 163, 153, 0.60);
+      border-radius: 15px;
+      padding: 0;
+      cursor: pointer;
+    }
   }
 }
 </style>

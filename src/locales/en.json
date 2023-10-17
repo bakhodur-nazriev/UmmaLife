@@ -366,7 +366,21 @@
     "article_cover": "Article cover",
     "articles": {
       "category": "Category",
-      "popular_articles": "Popular articles"
+      "popular_articles": "Popular articles",
+      "create_article": {
+        "press_to_select_tool": "Press “+” to select a tool"
+      },
+      "editor": {
+        "header": "Header",
+        "photo_video": "Photo and Video",
+        "link": "Link",
+        "insert": "Insert",
+        "quote": "Quote",
+        "list": "List",
+        "divider": "Divider",
+        "audio": "Audio",
+        "chart": "Chart"
+      }
     }
   },
   "dropdown": {

@@ -2,6 +2,68 @@
   <div class="create-article__container">
     <section class="main-container__article">
       <input class="article-title__input" type="text" :placeholder="$t('placeholders.article_title')">
+      <span>{{ $t('labels.articles.create_article.press_to_select_tool') }}</span>
+      <QuillEditor
+          v-model="content"
+          ref="myQuillEditor"
+          :options="editorOption"
+          toolbar="#custom-toolbar"
+      >
+        <template #toolbar>
+          <div id="custom-toolbar">
+            <div class="toolbar-block__button">
+              <button class="ql-header">
+                <HeadingIcon />
+                <span>{{ $t('labels.articles.editor.header') }}</span>
+              </button>
+            </div>
+            <div class="toolbar-block__button">
+              <button class="ql-media">
+                <span class="icon-background">
+                  <GalleryAddEditorIcon />
+                </span>
+                <span>{{ $t('labels.articles.editor.photo_video') }}</span>
+              </button>
+            </div>
+            <div class="toolbar-block__button">
+              <button class="ql-link">
+                <LinkIcon />
+                <span>{{ $t('labels.articles.editor.link') }}</span>
+              </button>
+            </div>
+            <div class="toolbar-block__button">
+              <button class="ql-blockquote">
+                <QuoteIcon />
+                <span>{{ $t('labels.articles.editor.quote') }}</span>
+              </button>
+            </div>
+            <div class="toolbar-block__button">
+              <button class="ql-list">
+                <TaskIcon />
+                <span>{{ $t('labels.articles.editor.list') }}</span>
+              </button>
+            </div>
+            <div class="toolbar-block__button">
+              <button class="ql-list">
+                <DividerIcon />
+                <span>{{ $t('labels.articles.editor.divider') }}</span>
+              </button>
+            </div>
+            <div class="toolbar-block__button">
+              <button class="ql-audio">
+                <AudioIcon />
+                <span>{{ $t('labels.articles.editor.audio') }}</span>
+              </button>
+            </div>
+            <div class="toolbar-block__button">
+              <button class="ql-list">
+                <ChartIcon />
+                <span>{{ $t('labels.articles.editor.chart') }}</span>
+              </button>
+            </div>
+          </div>
+        </template>
+      </QuillEditor>
     </section>
     <aside>
       <section class="choose-article_category-section">
@@ -27,8 +89,10 @@
         <h3>{{ $t('labels.article_cover') }}</h3>
         <div class="upload-image">
           <GalleryAddIcon/>
-          <span class="upload-image__title">{{ $t('buttons.image_upload.title') }}</span>
-          <span class="upload-image__subtitle">{{ $t('buttons.image_upload.subtitle') }}</span>
+          <div class="upload-image__left-side">
+            <span class="upload-image__title">{{ $t('buttons.image_upload.title') }}</span>
+            <span class="upload-image__subtitle">{{ $t('buttons.image_upload.subtitle') }}</span>
+          </div>
         </div>
       </section>
     </aside>
@@ -39,19 +103,52 @@
 import ArrowDownIcon from '../icons/ArrowDownIcon.vue'
 import GalleryAddIcon from '../icons/GalleryAddIcon.vue'
 import SampleInput from '../ui/Fields/SampleInput.vue'
+import { QuillEditor } from '@vueup/vue-quill'
+import 'quill/dist/quill.snow.css'
+import QuoteIcon from '@/components/icons/quill-editor-icons/QuoteIcon.vue'
+import HeadingIcon from '@/components/icons/quill-editor-icons/HeadingIcon.vue'
+import GalleryAddEditorIcon from '@/components/icons/quill-editor-icons/GallerAddIcon.vue'
+import LinkIcon from '@/components/icons/quill-editor-icons/LinkIcon.vue'
+import TaskIcon from '@/components/icons/quill-editor-icons/TaskIcon.vue'
+import DividerIcon from '@/components/icons/quill-editor-icons/DividerIcon.vue'
+import AudioIcon from '@/components/icons/quill-editor-icons/AudioIcon.vue'
+import ChartIcon from '@/components/icons/quill-editor-icons/ChartIcon.vue'
 
 export default {
   components: {
+    ChartIcon,
+    AudioIcon,
+    DividerIcon,
+    TaskIcon,
+    LinkIcon,
+    HeadingIcon,
+    QuoteIcon,
+    QuillEditor,
     SampleInput,
     GalleryAddIcon,
-    ArrowDownIcon
+    ArrowDownIcon,
+    GalleryAddEditorIcon
   },
   data() {
     return {
       isOpen: false,
       selectedOption: null,
       options: ['Образование', 'Наука', 'Религия'],
-      placeholder: 'Выберите опцию'
+      placeholder: 'Выберите опцию',
+      content: '',
+      editorOption: {
+        debug: false,
+        placeholder: 'Type your post...',
+        readOnly: false,
+        theme: 'snow'
+      },
+      delta: undefined
+    }
+  },
+  watch: {
+    content(value) {
+      this.delta = this.$refs.myQuillEditor.quill.getContents()
+      console.log(this.delta)
     }
   },
   methods: {
@@ -66,7 +163,45 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
+.ql-toolbar.ql-snow {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  background: var(--White, #FFF);
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.15);
+  width: 266px;
+  border: none;
+  padding: 4px;
+
+  button {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: auto;
+  }
+}
+
+.toolbar-block__button {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+
+  span {
+    color: var(--color-mine-shaft);
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'HelveticaNeueCyr', sans-serif;
+  }
+
+  &:hover {
+    background-color: var(--color-seashell);
+  }
+}
+
 .custom-dropdown {
   position: relative;
 }
@@ -83,7 +218,7 @@ export default {
 
 .dropdown-list {
   width: 100%;
-  background-color: #fff;
+  background-color: var(--color-white);
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -110,7 +245,7 @@ export default {
   background-color: var(--color-white);
   border-radius: 20px;
   padding: 32px 40px;
-  max-width: 700px;
+  width: 700px;
 
   .article-title__input {
     all: unset;
@@ -176,16 +311,26 @@ aside {
     font-size: 14px;
     font-weight: 400;
   }
+
+  &__left-side {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 @media (max-width: 576px) {
   .create-article__container {
     flex-direction: column;
+    margin-top: 80px;
   }
 
   aside {
     background-color: var(--color-white);
     order: 1;
+    border-radius: 20px;
+    gap: 0;
 
     .choose-article_category-section,
     .tags-section,
@@ -196,6 +341,40 @@ aside {
 
   .main-container__article {
     order: 2;
+    width: auto;
+  }
+
+  .article-cover_section {
+    order: 1;
+  }
+
+  .choose-article_category-section {
+    order: 2;
+  }
+
+  .tags-section {
+    order: 3;
+  }
+
+  .upload-image {
+    flex-direction: row;
+    height: 100%;
+    background-image: none;
+    border: 2px solid var(--color-seashell);
+    padding: 12px 10px;
+
+    &__title {
+      font-size: 14px;
+    }
+
+    &__subtitle {
+      font-size: 12px;
+    }
+
+    &__left-side {
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
 </style>
