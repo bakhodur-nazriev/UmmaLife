@@ -14,12 +14,14 @@ import draggable from 'vuedraggable'
 import Vue3TouchEvents from 'vue3-touch-events'
 import VueStickyDirective from '@renatodeleao/vue-sticky-directive'
 import AudioPlayer from '@liripeng/vue-audio-player'
+import PrimeVue from 'primevue/config'
 
 import 'video.js/dist/video-js.css'
 import '@fancyapps/ui/dist/fancybox/fancybox.css'
 import 'vue-multiselect/dist/vue-multiselect.css'
 import 'swiper/css'
 import 'swiper/css/navigation'
+import 'primevue/resources/themes/lara-light-indigo/theme.css'
 
 const app = createApp(App)
 // const metaManager = app.use(createMetaManager)

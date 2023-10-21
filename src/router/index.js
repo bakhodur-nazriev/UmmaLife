@@ -14,7 +14,9 @@ import MessengerView from '@/views/MessengerView.vue'
 import MessengerChatView from '@/views/MessengerChatView.vue'
 import MessengerEmptyView from '@/views/MessengerEmptyView.vue'
 import ArticlesView from '@/views/ArticlesView.vue'
-import LibraryView from '@/views/LibraryView.vue'
+import LibraryView from '@/views/library/LibraryView.vue'
+import LibraryDetailView from '@/views/library/LibraryDetailView.vue'
+import LibraryBookView from '@/views/library/LibraryBookView.vue'
 import MarriageAgencyView from '@/views/MarriageAgencyView.vue'
 import MyAlbumsView from '@/views/MyAlbumsView.vue'
 import MyAudiosView from '@/views/MyAudiosView.vue'
@@ -141,6 +143,24 @@ const routes = [
     path: '/:lang?/library',
     name: 'library',
     component: LibraryView,
+    meta: {
+      title: i18n.global.t('meta_title.library'),
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/:lang?/library/:id',
+    name: 'library-detail',
+    component: LibraryDetailView,
+    meta: {
+      title: i18n.global.t('meta_title.library'),
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/:lang?/library/:id/read',
+    name: 'library-book-read',
+    component: LibraryBookView,
     meta: {
       title: i18n.global.t('meta_title.library'),
       requiresAuth: true

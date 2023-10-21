@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 export default {
   emits: ['input'],
   props: {
@@ -71,9 +70,6 @@ export default {
       className: false
     }
   },
-  computed: {
-    ...mapGetters(['screenWidth'])
-  },
   methods: {
     handleClick(option) {
       this.selected = option
@@ -92,16 +88,19 @@ export default {
         this.className = false
       }, 100)
     }
-  },
-  mounted() {
-    this.$emit('input', this.selected)
   }
 }
 </script>
 
 <script setup>
 /* eslint-disable */
+import { computed } from 'vue'
 import { vOnClickOutside } from '@vueuse/components'
+import { useWindowSize } from '@vueuse/core'
+const screenWidth = computed(() => {
+  const { width } = useWindowSize()
+  return width.value
+})
 </script>
 
 <style lang="scss">
