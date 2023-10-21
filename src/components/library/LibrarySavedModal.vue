@@ -53,6 +53,7 @@ const props = defineProps({
     max-width: 750px;
     width: 100%;
     min-height: 90dvh;
+    max-height: 90dvh;
     overflow-y: auto;
     background-color: var(--color-white);
     border-radius: 20px;
