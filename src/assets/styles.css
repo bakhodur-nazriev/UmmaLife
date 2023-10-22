@@ -4,6 +4,7 @@
 :root {
   /* White theme */
   --color-mine-shaft: #1f1f1f;
+  --color-light-black: #191919;
   --color-valencia: #d94b4b;
   --color-white: #ffffff;
   --color-toggle: #c7c7c7;
@@ -22,8 +23,9 @@
   --color-green: #49a399;
   --color-light-yellow: #fff4e6;
   --color-yellow: #e1891a;
+  --color-light-yellow: #f5efdd;
   --color-secondary: #9d9d9d;
-  --bg-mute-btn: rgba(31, 31, 31, 0.5);
+  --bg-mute-btn: rgba(23, 11, 11, 0.5);
   --silver-gradient: linear-gradient(148deg, #066d86 1.08%, #00a3c8 100%);
   --gray-rgba: rgba(45, 45, 45, 0.2);
 
@@ -133,6 +135,7 @@
 *::after {
   box-sizing: border-box;
   font-family: inherit;
+  font-family: 'HelveticaNeueCyr', sans-serif;
 }
 
 img {
@@ -162,7 +165,6 @@ img {
 .page {
   font-size: 16px;
   line-height: 1.5;
-  font-family: 'HelveticaNeueCyr', sans-serif;
 }
 
 .page__body {
