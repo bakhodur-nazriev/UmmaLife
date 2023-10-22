@@ -1,101 +1,114 @@
 <template>
   <div class="create-article__container">
-    <section class="main-container__article">
-      <input class="article-title__input" type="text" :placeholder="$t('placeholders.article_title')">
-      <span>{{ $t('labels.articles.create_article.press_to_select_tool') }}</span>
-      <QuillEditor
-          v-model="content"
-          ref="myQuillEditor"
-          :options="editorOption"
-          toolbar="#custom-toolbar"
-      >
-        <template #toolbar>
-          <div id="custom-toolbar">
-            <div class="toolbar-block__button">
-              <button class="ql-header">
-                <HeadingIcon />
-                <span>{{ $t('labels.articles.editor.header') }}</span>
-              </button>
-            </div>
-            <div class="toolbar-block__button">
-              <button class="ql-media">
-                <span class="icon-background">
-                  <GalleryAddEditorIcon />
-                </span>
-                <span>{{ $t('labels.articles.editor.photo_video') }}</span>
-              </button>
-            </div>
-            <div class="toolbar-block__button">
-              <button class="ql-link">
-                <LinkIcon />
-                <span>{{ $t('labels.articles.editor.link') }}</span>
-              </button>
-            </div>
-            <div class="toolbar-block__button">
-              <button class="ql-blockquote">
-                <QuoteIcon />
-                <span>{{ $t('labels.articles.editor.quote') }}</span>
-              </button>
-            </div>
-            <div class="toolbar-block__button">
-              <button class="ql-list">
-                <TaskIcon />
-                <span>{{ $t('labels.articles.editor.list') }}</span>
-              </button>
-            </div>
-            <div class="toolbar-block__button">
-              <button class="ql-list">
-                <DividerIcon />
-                <span>{{ $t('labels.articles.editor.divider') }}</span>
-              </button>
-            </div>
-            <div class="toolbar-block__button">
-              <button class="ql-audio">
-                <AudioIcon />
-                <span>{{ $t('labels.articles.editor.audio') }}</span>
-              </button>
-            </div>
-            <div class="toolbar-block__button">
-              <button class="ql-list">
-                <ChartIcon />
-                <span>{{ $t('labels.articles.editor.chart') }}</span>
-              </button>
-            </div>
-          </div>
-        </template>
-      </QuillEditor>
-    </section>
-    <aside>
-      <section class="choose-article_category-section">
-        <h3>{{ $t('labels.choose_article_category') }}:</h3>
+    <div class="main-tools__block">
+      <section class="main-container__article">
+        <div>
+          <input class="article-title__input" type="text" :placeholder="$t('placeholders.article_title')">
+          <span
+              @click="showEditorModal"
+              class="choose-tool__button"
+          >+ {{ $t('labels.articles.create_article.press_to_select_tool') }}</span>
+          <div v-if="showEditor" class="tool-block">
+            <SampleButton icon="close" color="none" @click="closeToolWindow">
+              <CloseToolEditorIcon />
+            </SampleButton>
+            <QuillEditor
+                v-model="content"
+                ref="myQuillEditor"
+                :options="editorOption"
+                toolbar="#custom-toolbar"
+            >
+              <template #toolbar>
+                <div id="custom-toolbar">
+                  <button class="ql-header">
+                    <HeadingIcon/>
+                    <span>{{ $t('labels.articles.editor.header') }}</span>
+                  </button>
 
-        <div class="custom-dropdown">
-          <div class="dropdown-toggle" @click="toggleDropdown">
-            {{ selectedOption || placeholder }}
-            <ArrowDownIcon/>
+                  <button class="ql-media">
+                    <GalleryAddEditorIcon/>
+                    <span>{{ $t('labels.articles.editor.photo_video') }}</span>
+                  </button>
+
+                  <button class="ql-link">
+                    <LinkIcon/>
+                    <span>{{ $t('labels.articles.editor.link') }}</span>
+                  </button>
+
+                  <button class="ql-blockquote">
+                    <QuoteIcon/>
+                    <span>{{ $t('labels.articles.editor.quote') }}</span>
+                  </button>
+                  <button class="ql-list">
+                    <TaskIcon/>
+                    <span>{{ $t('labels.articles.editor.list') }}</span>
+                  </button>
+
+                  <button class="ql-list">
+                    <DividerIcon/>
+                    <span>{{ $t('labels.articles.editor.divider') }}</span>
+                  </button>
+
+                  <button class="ql-audio">
+                    <AudioIcon/>
+                    <span>{{ $t('labels.articles.editor.audio') }}</span>
+                  </button>
+
+                  <button class="ql-list">
+                    <ChartIcon/>
+                    <span>{{ $t('labels.articles.editor.chart') }}</span>
+                  </button>
+                </div>
+              </template>
+            </QuillEditor>
           </div>
-          <ul v-show="isOpen" class="dropdown-list">
-            <li v-for="(option, index) in options" :key="index" @click="selectOption(option)">
-              {{ option }}
-            </li>
-          </ul>
+        </div>
+
+        <div class="editor-bottom__buttons">
+          <SampleButton icon="eye" color="seashell" :title="` ${ $t('buttons.article_preview') } `">
+            <EyeIcon/>
+          </SampleButton>
+          <SampleButton icon="bookmark" color="seashell" :title="` ${ $t('buttons.save_as_draft') } `">
+            <BookSquareIcon/>
+          </SampleButton>
         </div>
       </section>
-      <section class="tags-section">
-        <h3>{{ $t('labels.tags') }}</h3>
-        <SampleInput/>
-      </section>
-      <section class="article-cover_section">
-        <h3>{{ $t('labels.article_cover') }}</h3>
-        <div class="upload-image">
-          <GalleryAddIcon/>
-          <div class="upload-image__left-side">
-            <span class="upload-image__title">{{ $t('buttons.image_upload.title') }}</span>
-            <span class="upload-image__subtitle">{{ $t('buttons.image_upload.subtitle') }}</span>
+      <aside>
+        <section class="choose-article_category-section">
+          <h3>{{ $t('labels.choose_article_category') }}:</h3>
+
+          <div class="custom-dropdown">
+            <div class="dropdown-toggle" @click="toggleDropdown">
+              {{ selectedOption || placeholder }}
+              <ArrowDownIcon/>
+            </div>
+            <ul v-show="isOpen" class="dropdown-list">
+              <li v-for="(option, index) in options" :key="index" @click="selectOption(option)">
+                {{ option }}
+              </li>
+            </ul>
           </div>
-        </div>
-      </section>
-    </aside>
+        </section>
+        <section class="tags-section">
+          <h3>{{ $t('labels.tags') }}</h3>
+          <SampleInput/>
+        </section>
+        <section class="article-cover_section">
+          <h3>{{ $t('labels.article_cover') }}</h3>
+          <div class="upload-image">
+            <GalleryAddIcon/>
+            <div class="upload-image__left-side">
+              <span class="upload-image__title">{{ $t('buttons.image_upload.title') }}</span>
+              <span class="upload-image__subtitle">{{ $t('buttons.image_upload.subtitle') }}</span>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </div>
+    <section class="bottom-buttons">
+      <SampleButton color="primary" :title="`${ $t('buttons.publish') }`"/>
+      <SampleButton color="alto-first" :title="`${ $t('buttons.delete') }`"/>
+    </section>
   </div>
 </template>
 
@@ -113,9 +126,17 @@ import TaskIcon from '@/components/icons/quill-editor-icons/TaskIcon.vue'
 import DividerIcon from '@/components/icons/quill-editor-icons/DividerIcon.vue'
 import AudioIcon from '@/components/icons/quill-editor-icons/AudioIcon.vue'
 import ChartIcon from '@/components/icons/quill-editor-icons/ChartIcon.vue'
+import SampleButton from '@/components/ui/SampleButton.vue'
+import EyeIcon from '@/components/icons/EyeIcon.vue'
+import BookSquareIcon from '@/components/icons/quill-editor-icons/BookSquareIcon.vue'
+import CloseToolEditorIcon from '@/components/icons/quill-editor-icons/CloseToolEditorIcon.vue'
 
 export default {
   components: {
+    CloseToolEditorIcon,
+    BookSquareIcon,
+    EyeIcon,
+    SampleButton,
     ChartIcon,
     AudioIcon,
     DividerIcon,
@@ -142,7 +163,8 @@ export default {
         readOnly: false,
         theme: 'snow'
       },
-      delta: undefined
+      delta: undefined,
+      showEditor: true
     }
   },
   watch: {
@@ -158,48 +180,107 @@ export default {
     selectOption(option) {
       this.selectedOption = option
       this.isOpen = false
+    },
+    showEditorModal() {
+      this.showEditor = !this.showEditor
+    },
+    closeToolWindow() {
+      this.showEditor = false
     }
   }
 }
 </script>
 
 <style lang="scss">
+.tool-block {
+  display: flex;
+  position: absolute;
+  left: 15px;
+  gap: 6px;
+
+  .btn_none {
+    cursor: pointer;
+    padding: 0 !important;
+    padding-top: 6px !important;
+    height: 100%;
+  }
+}
+
+.editor-bottom__buttons {
+  display: flex;
+  gap: 12px;
+
+  button {
+    height: 40px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.bottom-buttons {
+  display: flex;
+  width: 100%;
+  gap: 12px;
+
+  button {
+    width: 162px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.choose-tool__button {
+  color: var(--color-secondary);
+  font-size: 18px;
+  cursor: pointer;
+  user-select: none;
+}
+
 .ql-toolbar.ql-snow {
   display: flex;
   flex-direction: column;
-  border-radius: 10px;
   background: var(--White, #FFF);
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.15);
   width: 266px;
   border: none;
   padding: 4px;
+  z-index: 10;
+  border-radius: 10px;
 
   button {
-    padding: 0;
     display: flex;
     align-items: center;
     gap: 10px;
     width: auto;
+    height: auto;
+    padding: 12px;
+    border-radius: 10px;
+
+    span {
+      color: var(--color-mine-shaft);
+      font-size: 16px;
+      font-weight: 400;
+      font-family: 'HelveticaNeueCyr', sans-serif;
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    &:hover {
+      background-color: var(--color-seashell);
+    }
   }
 }
 
-.toolbar-block__button {
-  display: flex;
-  align-items: center;
-  padding: 12px;
-  border-radius: 10px;
-  cursor: pointer;
-
-  span {
-    color: var(--color-mine-shaft);
-    font-size: 16px;
-    font-weight: 400;
-    font-family: 'HelveticaNeueCyr', sans-serif;
-  }
-
-  &:hover {
-    background-color: var(--color-seashell);
-  }
+.ql-container.ql-snow {
+  border: none;
+  height: auto;
 }
 
 .custom-dropdown {
@@ -236,16 +317,26 @@ export default {
   }
 }
 
-.create-article__container {
+.main-tools__block {
   display: flex;
   gap: 16px;
 }
 
+.create-article__container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .main-container__article {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: var(--color-white);
   border-radius: 20px;
   padding: 32px 40px;
   width: 700px;
+  position: relative;
 
   .article-title__input {
     all: unset;
@@ -274,6 +365,7 @@ aside {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  user-select: none;
 
   h3 {
     margin: 0;

@@ -109,10 +109,22 @@ const clickButton = () => {
     color: var(--color-mine-shaft);
   }
 
+  &_alto-first {
+    background-color: var(--color-alto-first);
+    color: var(--color-mine-shaft);
+  }
+
   &_none {
     all: unset;
     border: none;
     background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      margin: 0;
+    }
   }
 
   &_primary:hover {
