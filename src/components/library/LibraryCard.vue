@@ -1,16 +1,35 @@
 <template>
   <router-link :to="`/${$i18n.locale}/library/${book.id}`" class="library__card">
-    <div class="library__card--img">
-      <img :src="book.img" :alt="book.name" />
-      <div class="library__card--seen">
-        <VisibleIcon />
-        <span>548</span>
+    <div class="library__card--wrapper">
+      <div class="library__card--img">
+        <img :src="book.img" :alt="book.name" />
+        <div class="library__card--seen">
+          <VisibleIcon />
+          <span>548</span>
+        </div>
       </div>
-    </div>
-    <div class="library__card--info">
-      <div class="library__card--top">
-        <div class="library__card--name">{{ book.name }}</div>
-        <div class="library__card--details">
+      <div class="library__card--info">
+        <div class="library__card--top">
+          <div class="library__card--name">{{ book.name }}</div>
+          <div class="library__card--details desktop--details">
+            <div class="library__card--rating">
+              <StarIcon />
+              <span>{{ book.rating }}</span>
+            </div>
+            <div
+              class="library__card--like"
+              @click.stop.prevent="emit('likeHandler', !book.isLiked)"
+            >
+              <HeartFilledIcon v-if="book.isLiked" />
+              <HeartIcon v-else />
+            </div>
+          </div>
+        </div>
+        <div class="library__card--category">
+          <p>{{ $t('library.category') }}:</p>
+          <span>{{ book.category }}</span>
+        </div>
+        <div class="library__card--details mobile--details">
           <div class="library__card--rating">
             <StarIcon />
             <span>{{ book.rating }}</span>
@@ -20,22 +39,20 @@
             <HeartIcon v-else />
           </div>
         </div>
+        <div class="library__card--author">
+          <p>{{ $t('library.author') }}:</p>
+          <span>{{ book.author }}</span>
+        </div>
+        <div class="library__card--description desktop--description">{{ book.desc }}</div>
       </div>
-      <div class="library__card--category">
-        <p>Категория:</p>
-        <span>{{ book.category }}</span>
-      </div>
-      <div class="library__card--author">
-        <p>Автор:</p>
-        <span>{{ book.author }}</span>
-      </div>
-      <div class="library__card--description">{{ book.desc }}</div>
     </div>
+    <div class="library__card--description mobile--description">{{ book.desc }}</div>
   </router-link>
 </template>
 
 <script setup>
 /* eslint-disable */
+
 import StarIcon from '@/components/icons/StarIcon.vue'
 import HeartFilledIcon from '@/components/icons/HeartFilledIcon.vue'
 import HeartIcon from '@/components/icons/HeartIcon.vue'
@@ -53,17 +70,31 @@ const emit = defineEmits(['likeHandler'])
   background-color: var(--color-white);
   border-radius: 20px;
   padding: 16px;
-  display: grid;
-  grid-template-columns: 130px 1fr;
-  gap: 13px;
   user-select: none;
   text-decoration: none;
+  @media (max-width: 767px) {
+    padding: 0;
+  }
+  &--wrapper {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 13px;
+
+    @media (max-width: 767px) {
+      gap: 8px;
+      grid-template-columns: 109px 1fr;
+    }
+  }
   &--img {
     position: relative;
     width: 100%;
     height: 186px;
     border-radius: 12px;
     overflow: hidden;
+    @media (max-width: 767px) {
+      border-radius: 10px;
+      height: 156px;
+    }
     img {
       width: 100%;
       height: 100%;
@@ -96,6 +127,9 @@ const emit = defineEmits(['likeHandler'])
     align-items: flex-start;
     justify-content: space-between;
     gap: 10px;
+    @media (max-width: 767px) {
+      margin-bottom: 8px;
+    }
   }
   &--name {
     font-size: 18px;
@@ -108,6 +142,17 @@ const emit = defineEmits(['likeHandler'])
     display: flex;
     align-items: center;
     gap: 8px;
+    &.desktop--details {
+      @media (max-width: 767px) {
+        display: none;
+      }
+    }
+    &.mobile--details {
+      display: none;
+      @media (max-width: 767px) {
+        display: flex;
+      }
+    }
   }
   &--rating {
     border-radius: 8px;
@@ -148,6 +193,9 @@ const emit = defineEmits(['likeHandler'])
       font-weight: 400;
       line-height: normal;
       color: var(--color-secondary);
+      @media (max-width: 767px) {
+        display: none;
+      }
     }
     span {
       padding: 10px 12px;
@@ -166,6 +214,9 @@ const emit = defineEmits(['likeHandler'])
     align-items: center;
     gap: 8px;
     margin-bottom: 18px;
+    @media (max-width: 767px) {
+      display: none;
+    }
     p {
       padding: 0;
       margin: 0;
@@ -196,6 +247,18 @@ const emit = defineEmits(['likeHandler'])
     overflow: hidden;
     text-overflow: ellipsis;
     overflow-wrap: break-word;
+    &.desktop--description {
+      @media (max-width: 767px) {
+        display: none;
+      }
+    }
+    &.mobile--description {
+      display: none;
+      @media (max-width: 767px) {
+        display: -webkit-box;
+        margin-top: 12px;
+      }
+    }
   }
 }
 </style>

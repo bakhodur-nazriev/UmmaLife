@@ -10,7 +10,7 @@
             :class="{ active: link.isActive }"
             @click="$emit('clickNavHandler', index)"
           >
-            {{ link.name }}
+            {{ $t(link.name) }}
           </div>
         </div>
       </div>
@@ -41,10 +41,15 @@ export default {
 .groups__nav {
   padding: 24px 0 0;
   border-bottom: 1px solid var(--color-alto-second);
+  @media (max-width: 767px) {
+    background-color: var(--color-white);
+    padding-top: 20px;
+  }
   &--wrapper {
     display: grid;
     grid-template-columns: 1fr 411px;
     gap: 20px;
+
     &.muvi__nav {
       grid-template-columns: 100%;
       gap: 0;
@@ -61,11 +66,21 @@ export default {
         @media (max-width: 800px) {
           gap: 24px;
         }
+        @media (max-width: 767px) {
+          justify-content: flex-start;
+          overflow-x: auto;
+          &::-webkit-scrollbar {
+            display: none;
+          }
+        }
       }
       .groups__nav--link {
         margin-left: 0;
         margin-right: 0;
         padding-bottom: 16px;
+        @media (max-width: 767px) {
+          padding-bottom: 8px;
+        }
       }
     }
     &.full {
@@ -109,6 +124,9 @@ export default {
     border-bottom: 3px solid transparent;
     padding-bottom: 14px;
     user-select: none;
+    @media (max-width: 767px) {
+      white-space: nowrap;
+    }
     &.active {
       color: var(--color-mine-shaft);
       border-color: var(--color-deep-cerulean);

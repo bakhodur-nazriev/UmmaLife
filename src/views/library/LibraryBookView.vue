@@ -274,6 +274,10 @@ onMounted(() => {
     box-shadow: 10px 0px 40px 0px rgba(108, 108, 108, 0.15);
     z-index: 10;
     position: relative;
+    @media (max-width: 767px) {
+      padding: 20px 16px;
+      box-shadow: none;
+    }
 
     &--container {
       max-width: 1680px;
@@ -312,6 +316,9 @@ onMounted(() => {
         width: 100%;
         display: block;
       }
+      @media (max-width: 969px) {
+        display: none;
+      }
     }
     &--name {
       font-size: 20px;
@@ -319,6 +326,9 @@ onMounted(() => {
       font-weight: 400;
       line-height: normal;
       color: var(--color-mine-shaft);
+      @media (max-width: 900px) {
+        display: none;
+      }
     }
     &--switch {
       display: flex;
@@ -331,12 +341,18 @@ onMounted(() => {
         line-height: normal;
         color: var(--color-mine-shaft);
       }
+      @media (max-width: 900px) {
+        display: none;
+      }
     }
     &--settings {
       display: flex;
       gap: 40px;
       align-items: center;
       position: relative;
+      @media (max-width: 767px) {
+        gap: 20px;
+      }
     }
     &--menu {
       color: var(--color-secondary);
@@ -356,6 +372,10 @@ onMounted(() => {
         width: 100%;
         height: 100%;
         display: block;
+      }
+      @media (max-width: 767px) {
+        width: 24px;
+        height: 24px;
       }
     }
   }
@@ -414,6 +434,9 @@ onMounted(() => {
 }
 .readerArea {
   min-height: 75dvh;
+  @media (max-width: 767px) {
+    min-height: 83dvh;
+  }
   .titleArea {
     display: none !important;
   }
@@ -433,6 +456,9 @@ onMounted(() => {
       background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='29.5' stroke='%2349A399'/%3E%3Cpath d='M27 23.2578L33.6207 29.8785L27 36.4992' stroke='%2349A399' stroke-width='2' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
 
       right: 20px;
+    }
+    @media (max-width: 767px) {
+      display: none;
     }
   }
 }

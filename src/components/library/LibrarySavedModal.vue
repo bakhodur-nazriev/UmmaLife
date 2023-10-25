@@ -58,6 +58,12 @@ const props = defineProps({
     background-color: var(--color-white);
     border-radius: 20px;
     padding: 36px;
+    @media (max-width: 767px) {
+      width: calc(100vw - 32px);
+      padding: 24px;
+      min-height: 70dvh;
+      max-height: 70dvh;
+    }
   }
   &--top {
     display: flex;
@@ -65,10 +71,17 @@ const props = defineProps({
     gap: 10px;
     align-items: center;
     margin-bottom: 50px;
+    @media (max-width: 767px) {
+      margin-bottom: 24px;
+    }
     svg {
       width: 18px;
       height: 18px;
       cursor: pointer;
+      @media (max-width: 767px) {
+        width: 14px;
+        height: 14px;
+      }
     }
   }
   &--title {
@@ -76,12 +89,19 @@ const props = defineProps({
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    @media (max-width: 767px) {
+      font-size: 16px;
+    }
   }
   &--wrapper {
     display: flex;
     flex-direction: column;
     gap: 50px;
+    @media (max-width: 767px) {
+      gap: 30px;
+    }
   }
+
   &--list {
     display: flex;
     justify-content: space-between;
@@ -93,11 +113,18 @@ const props = defineProps({
       font-style: normal;
       font-weight: 400;
       line-height: normal;
+      @media (max-width: 767px) {
+        font-size: 14px;
+      }
     }
     svg {
       width: 24px;
       height: 24px;
       display: block;
+      @media (max-width: 767px) {
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 }

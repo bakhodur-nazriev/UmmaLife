@@ -94,13 +94,10 @@ export default {
 
 <script setup>
 /* eslint-disable */
-import { computed } from 'vue'
 import { vOnClickOutside } from '@vueuse/components'
 import { useWindowSize } from '@vueuse/core'
-const screenWidth = computed(() => {
-  const { width } = useWindowSize()
-  return width.value
-})
+
+const { width: screenWidth } = useWindowSize()
 </script>
 
 <style lang="scss">

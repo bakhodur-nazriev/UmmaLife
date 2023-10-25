@@ -1033,11 +1033,25 @@ export const selectCategories = [
   {
     name: 'Научная литература',
     isSubOpen: false,
-    subcategories: []
+    subcategories: [
+      { name: 'Коран' },
+      { name: 'Вероубеждение' },
+      { name: 'Тафсир' },
+      { name: 'Арабский язык' },
+      { name: 'Хадисы' },
+      { name: 'Истории' }
+    ]
   },
   {
     name: 'Экономика и бизнес',
     isSubOpen: false,
-    subcategories: []
+    subcategories: [
+      { name: 'Коран' },
+      { name: 'Вероубеждение' },
+      { name: 'Тафсир' },
+      { name: 'Арабский язык' },
+      { name: 'Хадисы' },
+      { name: 'Истории' }
+    ]
   }
 ]

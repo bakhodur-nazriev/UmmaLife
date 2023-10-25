@@ -43,7 +43,7 @@ const emit = defineEmits(['backToMain'])
 
     padding: 18px 16px;
     position: sticky;
-    top: 0;
+    top: -1px;
     left: 0;
     background-color: var(--color-light-yellow);
     &.white {

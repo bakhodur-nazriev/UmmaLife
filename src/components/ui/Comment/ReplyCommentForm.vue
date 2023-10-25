@@ -24,7 +24,7 @@
       <SampleButton
         color="secondary"
         :title="`${$t('buttons.pinned_message')}`"
-        size="12"
+        :size="12"
         icon="pin"
       >
         <PinIcon />
@@ -185,15 +185,15 @@ export default {
       replyAuthorName: 'Courtney Henry',
       isFilterOpen: false,
       reactions: [
-        { id: 1, icon: LikeIcon, count: 1.7 },
-        { id: 2, icon: DislikeIcon, count: 123 },
-        { id: 3, icon: LoveIcon, count: 354 },
-        { id: 4, icon: LaughIcon, count: 2.5 },
-        { id: 5, icon: FireIcon, count: 867 },
-        { id: 6, icon: ThinkIcon, count: 52 },
-        { id: 7, icon: AngryIcon, count: 96 },
-        { id: 8, icon: SadIcon, count: 78 },
-        { id: 8, icon: ScaredIcon, count: 125 }
+        { id: 1, icon: 'LikeIcon', count: 1.7 },
+        { id: 2, icon: 'DislikeIcon', count: 123 },
+        { id: 3, icon: 'LoveIcon', count: 354 },
+        { id: 4, icon: 'LaughIcon', count: 2.5 },
+        { id: 5, icon: 'FireIcon', count: 867 },
+        { id: 6, icon: 'ThinkIcon', count: 52 },
+        { id: 7, icon: 'AngryIcon', count: 96 },
+        { id: 8, icon: 'SadIcon', count: 78 },
+        { id: 8, icon: 'ScaredIcon', count: 125 }
       ]
     }
   },
@@ -640,6 +640,21 @@ export default {
 @media (min-width: 768px) {
   .comment-header__small {
     display: none;
+  }
+}
+.book__comment {
+  .comment-header__small {
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+  .reply__form {
+    @media (max-width: 576px) {
+      padding: 0;
+      .sample__divider {
+        display: none;
+      }
+    }
   }
 }
 </style>

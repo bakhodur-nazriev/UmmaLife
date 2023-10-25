@@ -29,6 +29,11 @@ const books = ref(allBooks)
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
     padding: 22px 0;
+    @media (max-width: 1232px) {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
   }
 }
 </style>
