@@ -1,27 +1,32 @@
 <template>
-  <div class="library__options">
+  <div class="library__top__options">
     <div
-      class="library__options--select"
+      class="library__top__options--select"
       @click="isCategoryOpen = !isCategoryOpen"
       :class="{ active: isCategoryOpen }"
       v-on-click-outside="() => (isCategoryOpen = false)"
     >
-      <span>{{ selecttedCategory }}</span>
+      <span>{{ !selecttedCategory ? $t('library.category') : selecttedCategory }}</span>
       <ArrowDownIcon />
 
-      <ul class="library__options--menu" v-if="isCategoryOpen">
+      <ul class="library__top__options--menu" v-if="isCategoryOpen">
         <li
           v-for="category in categories"
           :key="category.name"
-          @mouseenter="category.isSubOpen = true"
-          @mouseleave="category.isSubOpen = false"
-          @click.stop="handleSelectCategory(category.name), (category.isSubOpen = false)"
+          @mouseenter="width > 767 && (category.isSubOpen = true)"
+          @mouseleave="width > 767 && (category.isSubOpen = false)"
         >
-          <span>{{ category.name }}</span>
+          <span
+            @click.stop="category.isSubOpen = !category.isSubOpen"
+            :class="{ open: category.isSubOpen }"
+            >{{ category.name }} <ArrowDownIcon
+          /></span>
+
           <ol
+            class="library__top__options--menu"
             v-if="category.subcategories.length > 0 && category.isSubOpen"
-            class="library__options--menu"
           >
+            <!-- -->
             <li
               v-for="sub in category.subcategories"
               :key="sub.name"
@@ -34,19 +39,19 @@
       </ul>
     </div>
     <div
-      class="library__options--select"
+      class="library__top__options--select"
       @click="isYearOpen = !isYearOpen"
       :class="{ active: isYearOpen }"
       v-on-click-outside="() => (isYearOpen = false)"
     >
-      <span>{{ selectedYear }}</span>
+      <span>{{ !selectedYear ? $t('library.year') : selectedYear }}</span>
       <ArrowDownIcon />
-      <ul class="library__options--menu library__options--years" v-if="isYearOpen">
+      <ul class="library__top__options--menu library__top__options--years" v-if="isYearOpen">
         <li v-for="year in years" :key="year" @click.stop="handleSelectYear(year)">{{ year }}</li>
       </ul>
     </div>
-    <div class="library__options--search">
-      <GroupsSearch placeholder="Поиск по названию книги" />
+    <div class="library__top__options--search">
+      <GroupsSearch :placeholder="$t('library.serach_placeholder')" />
     </div>
   </div>
 </template>
@@ -54,12 +59,13 @@
 <script setup>
 /* eslint-disable */
 import { ref } from 'vue'
+import { useWindowSize } from '@vueuse/core'
 import { vOnClickOutside } from '@vueuse/components'
 import { selectCategories } from '@/dummy.js'
 import GroupsSearch from '@/components/groups/ui/GroupsSearch.vue'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon.vue'
-const selecttedCategory = ref('Категория')
-const selectedYear = ref('Год')
+const selecttedCategory = ref('')
+const selectedYear = ref(null)
 
 const isCategoryOpen = ref(false)
 const isYearOpen = ref(false)
@@ -83,17 +89,29 @@ const handleSelectYear = (year) => {
   isYearOpen.value = false
 }
 
+const { width } = useWindowSize()
+const handleToggle = (isOpen) => {
+  if (width.value < 767) {
+    console.log(isOpen)
+  }
+}
 renderYears()
 </script>
 
 <style lang="scss" scoped>
-.library__options {
+.library__top__options {
   display: flex;
   gap: 16px;
   margin-top: 26px;
+  @media (max-width: 767px) {
+    margin-top: 10px;
+  }
   &--search {
     max-width: 521px;
     width: 100%;
+    @media (max-width: 767px) {
+      display: none;
+    }
   }
   &--select {
     position: relative;
@@ -105,6 +123,10 @@ renderYears()
     padding: 16px 24px;
     cursor: pointer;
     user-select: none;
+    @media (max-width: 767px) {
+      background-color: var(--color-seashell);
+      padding: 13px 16px;
+    }
     & > span {
       font-size: 16px;
       font-style: normal;
@@ -133,6 +155,9 @@ renderYears()
     padding: 12px 0;
     list-style: none;
     margin: 0;
+    @media (max-width: 767px) {
+      width: calc(100vw - 32px);
+    }
 
     li {
       padding: 12px 24px;
@@ -143,14 +168,45 @@ renderYears()
       color: var(--color-mine-shaft);
       white-space: nowrap;
       position: relative;
+      @media (max-width: 767px) {
+        white-space: unset;
+      }
       &:hover {
         color: var(--color-hippie-blue);
+      }
+      span {
+        svg {
+          display: none;
+        }
+      }
+      @media (max-width: 767px) {
+        span {
+          width: 100%;
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          svg {
+            display: block;
+          }
+          &.open {
+            & > svg {
+              rotate: 180deg;
+            }
+          }
+        }
       }
     }
     ol {
       position: absolute;
       left: 100%;
       top: -12px;
+      @media (max-width: 767px) {
+        position: static;
+        background-color: transparent;
+        box-shadow: none;
+        white-space: unset;
+      }
     }
   }
   &--years {

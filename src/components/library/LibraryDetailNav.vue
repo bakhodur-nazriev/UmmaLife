@@ -1,6 +1,6 @@
 <template>
   <div class="detail__nav">
-    <div class="detail__nav--title">Популярные книги</div>
+    <div class="detail__nav--title">{{ $t('library.popular_books') }}</div>
     <div class="detail__nav--wrapper">
       <router-link
         :to="`/${$i18n.locale}/library/${book.id}`"
@@ -13,11 +13,11 @@
           <div class="detail__nav--name">{{ book.name }}</div>
           <ul class="detail__nav--menu">
             <li>
-              <span>Автор книги:</span>
+              <span>{{ $t('library.author') }}:</span>
               <span>{{ book.author }}</span>
             </li>
             <li>
-              <span>Просмотров:</span>
+              <span>{{ $t('library.views') }}:</span>
               <span>2507</span>
             </li>
           </ul>

@@ -102,8 +102,16 @@ const handleChange = (key, value) => {
   flex-direction: column;
   gap: 24px;
   z-index: 50;
+  @media (max-width: 767px) {
+    width: calc(100vw - 32px);
+    border-radius: 12px;
+    top: calc(100% + 12px);
+  }
   &--right {
     position: relative;
+    @media (max-width: 767px) {
+      width: 100%;
+    }
     .p-slider {
       margin-top: 15px;
     }
@@ -138,6 +146,15 @@ const handleChange = (key, value) => {
     grid-template-columns: 125px 1fr;
     gap: 16px;
     align-items: center;
+    @media (max-width: 767px) {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      align-items: flex-start;
+      & > span {
+        width: 100%;
+      }
+    }
     & > span {
       font-size: 16px;
       font-style: normal;

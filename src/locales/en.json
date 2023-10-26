@@ -614,5 +614,26 @@
     "system": "System",
     "light": "Light",
     "dark": "Dark"
+  },
+  "library": {
+    "all_books": "All books",
+    "read_now": "Reading now",
+    "bookmarks": "Bookmarks",
+    "liked_books": "Liked books",
+    "category": "Category",
+    "author": "Author",
+    "serach_placeholder": "Search by book title",
+    "year": "Year",
+    "back_to_main": "Back to book list",
+    "views": "Views",
+    "share_in": "Share in",
+    "download": "Download",
+    "description": "Description",
+    "read_more": "read more",
+    "comments": "Comments",
+    "sort": "Sort",
+    "read": "Read",
+    "popular_books": "Popular books",
+    "book_page": "Book page"
   }
 }
