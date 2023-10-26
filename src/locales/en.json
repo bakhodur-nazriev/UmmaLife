@@ -197,7 +197,9 @@
       "title": "Click or drag the image",
       "subtitle": "Acceptable extensions jpeg, jpg, png"
     },
-    "back_to_articles": "Return to list of articles"
+    "back_to_articles": "Return to list of articles",
+    "article_preview": "Article preview",
+    "save_as_draft": "Save as draft"
   },
   "languages": {
     "title": "English",
@@ -374,12 +376,17 @@
         "header": "Header",
         "photo_video": "Photo and Video",
         "link": "Link",
-        "insert": "Insert",
+        "inset": "Inset",
         "quote": "Quote",
         "list": "List",
         "divider": "Divider",
         "audio": "Audio",
-        "chart": "Chart"
+        "chart": "Chart",
+        "placeholder": "Type your post...",
+        "poll": {
+          "header": "Poll title",
+          "placeholder": "Answer option"
+        }
       }
     }
   },

@@ -8,59 +8,89 @@
               @click="showEditorModal"
               class="choose-tool__button"
           >+ {{ $t('labels.articles.create_article.press_to_select_tool') }}</span>
-          <div v-if="showEditor" class="tool-block">
+          <div v-if="!showEditor" class="tool-block">
             <SampleButton icon="close" color="none" @click="closeToolWindow">
-              <CloseToolEditorIcon />
+              <CloseToolEditorIcon/>
             </SampleButton>
-            <QuillEditor
-                v-model="content"
-                ref="myQuillEditor"
-                :options="editorOption"
-                toolbar="#custom-toolbar"
-            >
-              <template #toolbar>
-                <div id="custom-toolbar">
-                  <button class="ql-header">
-                    <HeadingIcon/>
-                    <span>{{ $t('labels.articles.editor.header') }}</span>
-                  </button>
+            <div>
+              <QuillEditor
+                  v-model="content"
+                  ref="myQuillEditor"
+                  :options="editorOption"
+                  :placeholder="placeholderText"
+                  toolbar="#custom-toolbar"
+              >
+                <template #toolbar>
+                  <div id="custom-toolbar">
+                    <button class="ql-header">
+                      <HeadingIcon/>
+                      <span>{{ $t('labels.articles.editor.header') }}</span>
+                    </button>
 
-                  <button class="ql-media">
-                    <GalleryAddEditorIcon/>
-                    <span>{{ $t('labels.articles.editor.photo_video') }}</span>
-                  </button>
+                    <button class="ql-media">
+                      <GalleryAddEditorIcon/>
+                      <span>{{ $t('labels.articles.editor.photo_video') }}</span>
+                    </button>
 
-                  <button class="ql-link">
-                    <LinkIcon/>
-                    <span>{{ $t('labels.articles.editor.link') }}</span>
-                  </button>
+                    <button class="link">
+                      <LinkIcon/>
+                      <span>{{ $t('labels.articles.editor.link') }}</span>
+                    </button>
 
-                  <button class="ql-blockquote">
-                    <QuoteIcon/>
-                    <span>{{ $t('labels.articles.editor.quote') }}</span>
-                  </button>
-                  <button class="ql-list">
-                    <TaskIcon/>
-                    <span>{{ $t('labels.articles.editor.list') }}</span>
-                  </button>
+                    <button class="blockquote" @click="toggleQuote">
+                      <QuoteIcon/>
+                      <span>{{ $t('labels.articles.editor.quote') }}</span>
+                    </button>
 
-                  <button class="ql-list">
-                    <DividerIcon/>
-                    <span>{{ $t('labels.articles.editor.divider') }}</span>
-                  </button>
+                    <button class="ql-inset" @click="toggleInset">
+                      <InsetIcon/>
+                      <span>{{ $t('labels.articles.editor.inset') }}</span>
+                    </button>
 
-                  <button class="ql-audio">
-                    <AudioIcon/>
-                    <span>{{ $t('labels.articles.editor.audio') }}</span>
-                  </button>
+                    <button class="ql-list">
+                      <TaskIcon/>
+                      <span>{{ $t('labels.articles.editor.list') }}</span>
+                    </button>
 
-                  <button class="ql-list">
-                    <ChartIcon/>
-                    <span>{{ $t('labels.articles.editor.chart') }}</span>
-                  </button>
-                </div>
-              </template>
-            </QuillEditor>
+                    <button class="ql-divider">
+                      <DividerIcon/>
+                      <span>{{ $t('labels.articles.editor.divider') }}</span>
+                    </button>
+
+                    <div>
+                      <input
+                          type="file"
+                          accept="audio/*"
+                          ref="fileInput"
+                          style="display: none"
+                          @change="handleFileSelect"
+                      />
+                      <button class="ql-audio" @click="openFilePicker">
+                        <AudioIcon/>
+                        <span>{{ $t('labels.articles.editor.audio') }}</span>
+                      </button>
+                    </div>
+
+                    <button class="ql-chart" @click="togglePoll">
+                      <ChartIcon/>
+                      <span>{{ $t('labels.articles.editor.chart') }}</span>
+                    </button>
+                  </div>
+                </template>
+              </QuillEditor>
+            </div>
+          </div>
+
+          <div class="editor-poll">
+            <input v-model="pollTitle" :placeholder="`${ $t('labels.articles.editor.poll.header') }`">
+            <div v-for="(option, index) in pollOptions" :key="index" class="poll-item__block">
+              <span class="poll-item__counter">{{ index + 1 }}</span>
+              <input v-model="option.text" :placeholder="` ${ $t('labels.articles.editor.poll.placeholder') } `">
+              <span class="remove-item__poll" @click="removeOption(index)">
+                <RemoveIcon />
+              </span>
+            </div>
+            <button class="add-item__poll" @click="addOption">{{ $t('buttons.add_answer') }}</button>
           </div>
         </div>
 
@@ -130,9 +160,13 @@ import SampleButton from '@/components/ui/SampleButton.vue'
 import EyeIcon from '@/components/icons/EyeIcon.vue'
 import BookSquareIcon from '@/components/icons/quill-editor-icons/BookSquareIcon.vue'
 import CloseToolEditorIcon from '@/components/icons/quill-editor-icons/CloseToolEditorIcon.vue'
+import InsetIcon from '@/components/icons/quill-editor-icons/InsetIcon.vue'
+import RemoveIcon from '@/components/icons/RemoveIcon.vue'
 
 export default {
   components: {
+    RemoveIcon,
+    InsetIcon,
     CloseToolEditorIcon,
     BookSquareIcon,
     EyeIcon,
@@ -152,6 +186,10 @@ export default {
   },
   data() {
     return {
+      pollActive: false,
+      pollTitle: '',
+      pollOption1: '',
+      pollOption2: '',
       isOpen: false,
       selectedOption: null,
       options: ['Образование', 'Наука', 'Религия'],
@@ -159,12 +197,19 @@ export default {
       content: '',
       editorOption: {
         debug: false,
-        placeholder: 'Type your post...',
+        // placeholder: 'Type your post...',
         readOnly: false,
         theme: 'snow'
       },
       delta: undefined,
-      showEditor: true
+      showEditor: true,
+      selectedAudioFileName: null,
+      pollOptions: []
+    }
+  },
+  computed: {
+    placeholderText() {
+      return this.$i18n.t('labels.articles.editor.placeholder')
     }
   },
   watch: {
@@ -186,12 +231,166 @@ export default {
     },
     closeToolWindow() {
       this.showEditor = false
+    },
+    toggleInset() {
+      const el = document.querySelector('.ql-editor > p')
+      if (el) {
+        el.style.color = el.style.color === 'rgb(31, 31, 31)' ? 'initial' : 'rgb(31, 31, 31)'
+        el.style.backgroundColor = el.style.backgroundColor === 'rgb(241, 241, 241)' ? 'initial' : 'rgb(241, 241, 241)'
+        el.style.borderRadius = el.style.borderRadius === '10px' ? null : '10px'
+        el.style.padding = el.style.padding === '15px' ? null : '15px'
+        el.style.fontSize = el.style.fontSize === '18px' ? null : '18px'
+      }
+    },
+    toggleQuote() {
+      const pEl = document.querySelector('.ql-editor > p')
+
+      if (pEl) {
+        // Создаем новый элемент blockquote
+        const blockquoteEl = document.createElement('blockquote')
+        blockquoteEl.textContent = pEl.textContent // Копируем текст из p в blockquote
+
+        // Создаем элемент для SVG и добавляем SVG-код
+        const svgEl = document.createElement('svg')
+        svgEl.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <!-- Ваш SVG-код здесь -->
+            </svg>
+        `
+
+        // Создаем контейнер и добавляем svg, затем blockquote
+        const containerEl = document.createElement('div')
+        containerEl.appendChild(svgEl)
+        containerEl.appendChild(blockquoteEl)
+
+        // Заменяем p на контейнер
+        pEl.parentNode.replaceChild(containerEl, pEl)
+
+        // Применяем стили к blockquote
+        blockquoteEl.style.color = '#1F1F1F'
+        blockquoteEl.style.backgroundColor = '#F1F1F1'
+        blockquoteEl.style.borderRadius = '10px'
+        blockquoteEl.style.padding = '15px'
+        blockquoteEl.style.fontSize = '18px'
+
+        // Применяем стили к svg (при необходимости)
+        svgEl.style.width = '20px' // Пример
+        svgEl.style.height = '20px' // Пример
+      }
+    },
+    openFilePicker() {
+      this.$refs.fileInput.click()
+    },
+    handleFileSelect(event) {
+      const selectedFile = event.target.files[0]
+      if (selectedFile) {
+        // Сохраняем имя файла в data
+        this.selectedFileName = selectedFile.name
+
+        // Создаем новый элемент и добавляем его в DOM
+        const customElement = document.createElement('div')
+        customElement.className = 'custom-element'
+
+        // Создаем аудио элемент
+        const audioElement = document.createElement('audio')
+        audioElement.src = URL.createObjectURL(selectedFile)
+
+        // Создаем заголовок
+        const paragraph = document.createElement('p')
+        paragraph.textContent = `Выбранный аудио файл: ${selectedFile.name}`
+
+        // Добавляем аудио и заголовок в элемент .custom-element
+        customElement.appendChild(audioElement)
+        customElement.appendChild(paragraph)
+
+        // Заменяем содержимое текущего .ql-editor на новый .custom-element
+        const qlEditor = document.querySelector('.ql-editor > p')
+        qlEditor.innerHTML = ''
+        qlEditor.appendChild(customElement)
+      }
+    },
+    togglePoll() {
+      this.pollActive = !this.pollActive
+      if (!this.pollActive) {
+        this.pollTitle = ''
+        this.pollOptions = []
+      }
+    },
+    addOption() {
+      this.pollOptions.push('')
+    },
+    removeOption(index) {
+      this.pollOptions.splice(index, 1)
     }
   }
 }
 </script>
 
 <style lang="scss">
+.editor-poll {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  input {
+    border: none;
+    background-color: var(--color-seashell);
+    padding: 16px;
+    border-radius: 10px;
+    font-size: 16px;
+    width: 80%;
+  }
+
+  .add-item__poll {
+    border: none;
+    cursor: pointer;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 10px;
+    width: 160px;
+
+    &:hover {
+      background-color: var(--color-silver-chalice);
+      color: var(--color-white);
+      transition: all .15s ease-in-out;
+    }
+  }
+}
+
+.poll-item__block {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+
+  .poll-item__counter {
+    position: absolute;
+    left: -15px;
+  }
+}
+
+.remove-item__poll {
+  background-color: var(--color-silver-chalice);
+  border-radius: 50%;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: var(--color-secondary);
+    transition: all .15s ease-in-out;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    color: var(--color-mine-shaft);
+  }
+}
+
 .tool-block {
   display: flex;
   position: absolute;
@@ -240,6 +439,35 @@ export default {
   user-select: none;
 }
 
+.ql-editor {
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin: 0; /* Внешний отступ сверху и снизу для разделения элементов списка */
+      padding: 5px; /* Внутренний отступ для текста элемента */
+      position: relative; /* Для позиционирования точек */
+      font-size: 18px;
+
+      &:before {
+        content: '\2022'; /* Код символа для точки */
+        color: var(--color-hippie-blue); /* Цвет точки */
+        font-size: 34px; /* Размер точки */
+        margin-right: 5px; /* Расстояние между точкой и текстом */
+        position: absolute;
+        top: 50%; /* Выравнивание точки по центру вертикально */
+        transform: translateY(-50%);
+      }
+    }
+  }
+
+  &.ql-blank::before {
+    font-size: 16px;
+    font-style: normal;
+  }
+}
+
 .ql-toolbar.ql-snow {
   display: flex;
   flex-direction: column;
@@ -255,7 +483,7 @@ export default {
     display: flex;
     align-items: center;
     gap: 10px;
-    width: auto;
+    width: 100%;
     height: auto;
     padding: 12px;
     border-radius: 10px;
@@ -274,6 +502,7 @@ export default {
 
     &:hover {
       background-color: var(--color-seashell);
+      transition: all .15s ease-in-out;
     }
   }
 }
@@ -336,6 +565,7 @@ export default {
   border-radius: 20px;
   padding: 32px 40px;
   width: 700px;
+  height: 720px;
   position: relative;
 
   .article-title__input {
