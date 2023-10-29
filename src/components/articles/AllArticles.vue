@@ -1,9 +1,12 @@
 <template>
   <section class="search-articles__section">
     <div class="search-articles__block">
-      <LoupeIcon />
-      <input type="text" v-model="searchQuery" class="search-articles__input"
-        :placeholder="$t('placeholders.search_articles')">
+      <LoupeIcon/>
+      <input
+        type="text"
+        v-model="searchQuery" class="search-articles__input"
+        :placeholder="$t('placeholders.search_articles')"
+      >
     </div>
   </section>
   <div class="articles-main__block">
@@ -14,10 +17,10 @@
             <div class="articles-image__section">
               <img src="@/assets/images/articles/articles_1.png" alt="">
               <div class="favourite-icon__block">
-                <FavouriteIcon />
+                <FavouriteIcon/>
               </div>
               <div class="watched-icon__block">
-                <EyeIcon />
+                <EyeIcon/>
                 <span>145</span>
               </div>
             </div>
@@ -40,27 +43,10 @@
       <div class="filter_block">
         <h3>Категории</h3>
         <ul class="category-list">
-          <li class="category-list__item">Автомобили и транспорт</li>
-          <li class="category-list__item">Образование</li>
-          <li class="category-list__item">Экономика и торговля</li>
-          <li class="category-list__item">Образ жизни</li>
-          <li class="category-list__item">Развлечения</li>
-          <li class="category-list__item">Фетвы</li>
-          <li class="category-list__item">Игры</li>
-          <li class="category-list__item">История и факты</li>
-          <li class="category-list__item">Фильмы и анимация</li>
-          <li class="category-list__item">Новости и политика</li>
-          <li class="category-list__item">Люди и нация</li>
-          <li class="category-list__item">Природа</li>
-          <li class="category-list__item">Места и регионы</li>
-          <li class="category-list__item">Спорт</li>
-          <li class="category-list__item">Наука и технология</li>
-          <li class="category-list__item">Животные</li>
-          <li class="category-list__item">Путешествия и события</li>
-          <li class="category-list__item">Другое</li>
+          <li class="category-list__item" v-for="(category, i) in categories" :key="i">{{ category }}</li>
         </ul>
       </div>
-      <SampleButton class="clear-filter__button" :title="$t('buttons.reset_filter')" />
+      <SampleButton class="clear-filter__button" :title="$t('buttons.reset_filter')"/>
     </aside>
   </div>
 </template>
@@ -112,6 +98,26 @@ export default {
           title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, cupiditate?',
           author: 'Wilson Ybarra'
         }
+      ],
+      categories: [
+        'Автомобили и транспорт',
+        'Образование',
+        'Экономика и торговля',
+        'Образ жизни',
+        'Развлечения',
+        'Фетвы',
+        'Игры',
+        'История и факты',
+        'Фильмы и анимация',
+        'Новости и политика',
+        'Люди и нация',
+        'Природа',
+        'Места и регионы',
+        'Спорт',
+        'Наука и технология',
+        'Животные',
+        'Путешествия и события',
+        'Другое'
       ]
     }
   },
@@ -185,7 +191,7 @@ aside {
   background-color: var(--color-white);
   border-radius: 15px;
   padding: 18px 32px;
-  width: 800px;
+  max-width: 800px;
   gap: 16px;
 
   svg {
@@ -214,6 +220,11 @@ aside {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
+
+  a {
+    all: unset;
+    cursor: pointer;
+  }
 
   &__item {
     max-width: 380px;
@@ -308,6 +319,61 @@ aside {
     font-size: 14px;
     color: var(--color-secondary);
     line-height: 1;
+  }
+}
+
+@media (max-width: 576px) {
+  .watched-icon__block {
+    font-size: 12px;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  .articles-category {
+    small {
+      font-size: 12px;
+    }
+  }
+
+  .articles-description {
+    font-size: 14px;
+  }
+
+  .articles-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  aside {
+    display: none;
+  }
+
+  .articles-description__author {
+    img {
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+  .search-articles__section {
+    display: none;
+  }
+
+  .articles-main__block {
+    position: relative;
+    top: 80px;
+    padding: 0 20px;
+  }
+
+  .articles-list__item {
+    padding: 0;
+  }
+
+  .articles-list {
+    gap: 20px;
+    margin-bottom: 80px;
   }
 }
 

@@ -200,10 +200,13 @@
     "read_more": "Читать",
     "pinned_message": "Закрепленное сообщение",
     "reset_filter": "Сбросить фильтр",
-    "image_updload": {
+    "image_upload": {
       "title": "Нажмите или перетащите изображение",
       "subtitle": "Допустимые расширения jpeg, jpg, png"
-    }
+    },
+    "back_to_articles": "Вернуться к списку статей",
+    "article_preview": "Предпросмотр статьи",
+    "save_as_draft": "Сохранить как черновик"
   },
   "languages": {
     "title": "Русский",
@@ -368,7 +371,30 @@
     },
     "choose_article_category": "Выберите категорию статьи",
     "tags": "Теги",
-    "article_cover": "Обложка статьи"
+    "article_cover": "Обложка статьи",
+    "articles": {
+      "category": "Категории",
+      "popular_articles": "Популярные статьи",
+      "create_article": {
+        "press_to_select_tool": "Нажмите “+” для выбора инструмента"
+      },
+      "editor": {
+        "header": "Заголовок",
+        "photo_video": "Фото или видео",
+        "link": "Сылка",
+        "inset": "Врезка",
+        "quote": "Цитата",
+        "list": "Список",
+        "divider": "Разделитель",
+        "audio": "Аудио",
+        "chart": "Опрос",
+        "placeholder": "Введите сообщение...",
+        "poll": {
+          "header": "Заголовок опроса",
+          "placeholder": "Вариант ответа"
+        }
+      }
+    }
   },
   "dropdown": {
     "reply_answer": "Посмотреть ответы",

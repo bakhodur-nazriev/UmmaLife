@@ -6,21 +6,64 @@
       `${$t('tabs.articles_page.saved')}`,
       `${$t('tabs.articles_page.drafts')}`,
       `${$t('tabs.articles_page.create_new_article')}`
-    ]" />
-    <RouterView></RouterView>
+    ]"/>
+
+    <div class="create-button__block">
+      <button type="button" class="create-button">
+        <PlusIcon/>
+      </button>
+    </div>
   </MainLayout>
 </template>
 
 <script>
-import MainLayout from '@/components/layouts/MainLayout.vue'
 import ArticlesMainTabs from '@/components/articles/ArticlesMainTabs.vue'
+// import ArticleLayout from '@/views/ArticleLayout.vue'
+import MainLayout from '@/components/layouts/MainLayout.vue'
+import PlusIcon from '@/components/icons/PlusIcon.vue'
 
 export default {
   components: {
-    ArticlesMainTabs,
-    MainLayout
+    PlusIcon,
+    MainLayout,
+    // ArticleLayout,
+    ArticlesMainTabs
   }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+.create-button__block {
+  display: none;
+}
+
+@media (max-width: 576px) {
+  .create-button__block {
+    display: block;
+    position: absolute;
+    bottom: 80px;
+    width: 48px;
+    height: 48px;
+    right: 20px;
+    z-index: 90;
+
+    .create-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      outline: none;
+      color: var(--color-white);
+      font-size: 24px;
+      width: 100%;
+      height: 100%;
+      background: var(--color-hippie-blue);
+      box-shadow: 0 2px 10px rgba(73, 163, 153, 0.60);
+      border-radius: 15px;
+      padding: 0;
+      cursor: pointer;
+    }
+  }
+}
+</style>
