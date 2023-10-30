@@ -643,13 +643,12 @@ export default {
 
   &__views-block {
     position: relative;
-    height: 186px;
   }
 
   &__views {
     position: absolute;
     right: 10px;
-    bottom: 8px;
+    bottom: 14px;
     display: flex;
     align-items: center;
     gap: 4px;

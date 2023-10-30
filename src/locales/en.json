@@ -197,10 +197,13 @@
     "read_more": "Read",
     "pinned_message": "Pinned message",
     "reset_filter": "Reset filter",
-    "image_updload": {
+    "image_upload": {
       "title": "Click or drag the image",
       "subtitle": "Acceptable extensions jpeg, jpg, png"
-    }
+    },
+    "back_to_articles": "Return to list of articles",
+    "article_preview": "Article preview",
+    "save_as_draft": "Save as draft"
   },
   "languages": {
     "title": "English",
@@ -388,7 +391,30 @@
     },
     "choose_article_category": "Choose article category",
     "tags": "Tags",
-    "article_cover": "Article cover"
+    "article_cover": "Article cover",
+    "articles": {
+      "category": "Category",
+      "popular_articles": "Popular articles",
+      "create_article": {
+        "press_to_select_tool": "Press “+” to select a tool"
+      },
+      "editor": {
+        "header": "Header",
+        "photo_video": "Photo and Video",
+        "link": "Link",
+        "inset": "Inset",
+        "quote": "Quote",
+        "list": "List",
+        "divider": "Divider",
+        "audio": "Audio",
+        "chart": "Chart",
+        "placeholder": "Type your post...",
+        "poll": {
+          "header": "Poll title",
+          "placeholder": "Answer option"
+        }
+      }
+    }
   },
   "dropdown": {
     "reply_answer": "View answers",

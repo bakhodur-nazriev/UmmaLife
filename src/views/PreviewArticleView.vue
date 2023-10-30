@@ -16,17 +16,17 @@
           </div>
         </div>
         <div class="article-header__right-side">
-          <button class="comment-button" color="seashell" icon="comment">
+          <SampleButton class="comment-button" color="seashell" icon="comment">
             <SmallCommentIcon/>
             <span>25 комментариев</span>
-          </button>
-          <button class="show-button" color="seashell" icon="eye">
+          </SampleButton>
+          <SampleButton class="show-button" color="seashell" icon="eye">
             <EyeIcon/>
             <span>543</span>
-          </button>
-          <button class="favourite-button" color="seashell" icon="favorite">
+          </SampleButton>
+          <SampleButton class="favourite-button" color="seashell" icon="favorite">
             <FavouriteIcon/>
-          </button>
+          </SampleButton>
         </div>
       </header>
 
@@ -187,17 +187,19 @@
 </template>
 
 <script>
-import ArrowLeft from '../components/icons/ArrowLeft.vue'
-import FavouriteIcon from '../components/icons/FavouriteIcon.vue'
-import EyeIcon from '../components/icons/EyeIcon.vue'
-import QuoteIcon from '../components/icons/QuoteIcon.vue'
-import VideoPlayIcon from '../components/icons/VideoPlayIcon.vue'
-import SampleDivider from '../components/ui/SampleDivider.vue'
-import SampleTextarea from '../components/ui/Fields/SampleTextarea.vue'
+import ArrowLeft from '@/components/icons/ArrowLeft.vue'
+import FavouriteIcon from '@/components/icons/FavouriteIcon.vue'
+import EyeIcon from '@/components/icons/EyeIcon.vue'
+import QuoteIcon from '@/components/icons/QuoteIcon.vue'
+import VideoPlayIcon from '@/components/icons/VideoPlayIcon.vue'
+import SampleDivider from '@/components/ui/SampleDivider.vue'
+import SampleTextarea from '@/components/ui/Fields/SampleTextarea.vue'
 import SmallCommentIcon from '@/components/icons/comment/SmallCommentIcon.vue'
+import SampleButton from '@/components/ui/SampleButton.vue'
 
 export default {
   components: {
+    SampleButton,
     SmallCommentIcon,
     ArrowLeft,
     FavouriteIcon,

@@ -70,6 +70,9 @@ const clickButton = () => {
   padding: 15px;
   font-size: 16px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+
   transition: all 0.3s;
   &_primary {
     background-color: var(--color-hippie-blue);
@@ -78,6 +81,12 @@ const clickButton = () => {
   &_secondary {
     background-color: var(--color-deep-cerulean);
   }
+
+  &_white {
+    background-color: var(--color-white);
+    color: var(--color-hippie-blue);
+  }
+
   &_default {
     background-color: var(--color-seashell);
     color: var(--color-mine-shaft);
@@ -88,6 +97,7 @@ const clickButton = () => {
       background-color: var(--color-gallery-second);
     }
   }
+
   &_default_flex {
     display: flex;
     align-items: center;
@@ -95,15 +105,33 @@ const clickButton = () => {
     background-color: var(--color-seashell);
     color: var(--color-mine-shaft);
   }
+
   &_tertiary {
     background-color: var(--color-white);
     color: var(--color-hippie-blue);
+  }
+
+  &_seashell {
+    background-color: var(--color-seashell);
+    color: var(--color-mine-shaft);
+  }
+
+  &_alto-first {
+    background-color: var(--color-alto-first);
+    color: var(--color-mine-shaft);
   }
 
   &_none {
     all: unset;
     border: none;
     background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      margin: 0;
+    }
   }
 
   &_primary:hover {
