@@ -44,19 +44,20 @@ import SearchVideoView from '@/views/SearchViews/VideoView.vue'
 import SearchHashtagsView from '@/views/SearchViews/HashtagsView.vue'
 import ShowArticlesView from '@/views/ShowArticlesView.vue'
 import UmmaVideoDetailVue from '@/views/UmmaVideoDetail.vue'
+import PreviewArticleView from '@/views/PreviewArticleView.vue'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const baseDomain = isProduction ? 'front1.ummalife.dev' : 'localhost'
 
 const routes = [{
-    path: '/:lang?/',
-    name: 'home',
-    component: HomeView,
-    meta: {
-      title: i18n.global.t('meta_title.home'),
-      requiresAuth: true
-    }
-  },
+  path: '/:lang?/',
+  name: 'home',
+  component: HomeView,
+  meta: {
+    title: i18n.global.t('meta_title.home'),
+    requiresAuth: true
+  }
+},
   {
     path: '/:lang?/login',
     name: 'login',
@@ -128,15 +129,26 @@ const routes = [{
       title: i18n.global.t('meta_title.articles'),
       requiresAuth: true
     },
-    children: [{
-      path: ':id',
-      name: 'show-article',
-      component: ShowArticlesView,
-      meta: {
-        title: i18n.global.t('meta_title.show_article'),
-        requiredAuth: true
+    children: [
+      {
+        path: ':id',
+        name: 'show-article',
+        component: ShowArticlesView,
+        meta: {
+          title: i18n.global.t('meta_title.show_article'),
+          requiredAuth: true
+        }
+      },
+      {
+        path: ':id',
+        name: 'preview-article',
+        component: PreviewArticleView,
+        meta: {
+          title: i18n.global.t('meta_title.preview_article'),
+          requiresAuth: true
+        }
       }
-    }]
+    ]
   },
   {
     path: '/:lang?/library',
@@ -183,14 +195,14 @@ const routes = [{
       requiresAuth: true
     },
     children: [{
-        path: ':id',
-        name: 'messenger-chat',
-        component: MessengerChatView,
-        meta: {
-          title: i18n.global.t('meta_title.messenger'),
-          requiresAuth: true
-        }
-      },
+      path: ':id',
+      name: 'messenger-chat',
+      component: MessengerChatView,
+      meta: {
+        title: i18n.global.t('meta_title.messenger'),
+        requiresAuth: true
+      }
+    },
       {
         path: '',
         name: 'messenger-empty',
@@ -220,14 +232,14 @@ const routes = [{
       requiresAuth: true
     },
     children: [{
-        path: '',
-        name: 'my-groups-container',
-        component: MyGroupsContainer,
-        meta: {
-          title: i18n.global.t('meta_title.my_groups'),
-          requiresAuth: true
-        }
-      },
+      path: '',
+      name: 'my-groups-container',
+      component: MyGroupsContainer,
+      meta: {
+        title: i18n.global.t('meta_title.my_groups'),
+        requiresAuth: true
+      }
+    },
       {
         path: 'settings',
         name: 'my-groups-settings',
@@ -246,14 +258,14 @@ const routes = [{
           requiresAuth: true
         },
         children: [{
-            path: '',
-            name: 'my-groups-publications',
-            component: MyGroupsPublications,
-            meta: {
-              title: i18n.global.t('meta_title.my_groups'),
-              requiresAuth: true
-            }
-          },
+          path: '',
+          name: 'my-groups-publications',
+          component: MyGroupsPublications,
+          meta: {
+            title: i18n.global.t('meta_title.my_groups'),
+            requiresAuth: true
+          }
+        },
           {
             path: 'users',
             name: 'my-groups-users',
@@ -424,6 +436,7 @@ function isUserAuthenticated() {
   // Здесь проверяйте, аутентифицирован ли пользователь
   // Возвращайте true, если пользователь аутентифицирован, иначе false
 }
+
 router.beforeEach((to, from, next) => {
   const lang = to.params.lang || i18n.global.locale.value
   const requiresAuth = to.matched.some((route) => route.meta.requiresAuth)

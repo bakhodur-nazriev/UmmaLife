@@ -8,7 +8,7 @@
               @click="showEditorModal"
               class="choose-tool__button"
           >+ {{ $t('labels.articles.create_article.press_to_select_tool') }}</span>
-          <div v-if="!showEditor" class="tool-block">
+          <div v-if="showEditor" class="tool-block">
             <SampleButton icon="close" color="none" @click="closeToolWindow">
               <CloseToolEditorIcon/>
             </SampleButton>
@@ -87,7 +87,7 @@
               <span class="poll-item__counter">{{ index + 1 }}</span>
               <input v-model="option.text" :placeholder="` ${ $t('labels.articles.editor.poll.placeholder') } `">
               <span class="remove-item__poll" @click="removeOption(index)">
-                <RemoveIcon />
+                <RemoveIcon/>
               </span>
             </div>
             <button class="add-item__poll" @click="addOption">{{ $t('buttons.add_answer') }}</button>
@@ -95,10 +95,18 @@
         </div>
 
         <div class="editor-bottom__buttons">
-          <SampleButton icon="eye" color="seashell" :title="` ${ $t('buttons.article_preview') } `">
+          <SampleButton
+              icon="eye"
+              color="seashell"
+              :title="`${ $t('buttons.article_preview') }`"
+          >
             <EyeIcon/>
           </SampleButton>
-          <SampleButton icon="bookmark" color="seashell" :title="` ${ $t('buttons.save_as_draft') } `">
+          <SampleButton
+              icon="bookmark"
+              color="seashell"
+              :title="`${ $t('buttons.save_as_draft') }`"
+          >
             <BookSquareIcon/>
           </SampleButton>
         </div>
@@ -202,7 +210,7 @@ export default {
         theme: 'snow'
       },
       delta: undefined,
-      showEditor: true,
+      showEditor: false,
       selectedAudioFileName: null,
       pollOptions: []
     }
@@ -230,6 +238,7 @@ export default {
       this.showEditor = !this.showEditor
     },
     closeToolWindow() {
+      console.log('test')
       this.showEditor = false
     },
     toggleInset() {
@@ -411,10 +420,14 @@ export default {
 
   button {
     height: 40px;
-
     svg {
       width: 16px;
       height: 16px;
+    }
+
+    &:hover {
+      background-color: var(--color-alto-second);
+      transition: all .15s ease-in-out;
     }
   }
 }
