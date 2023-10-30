@@ -4,8 +4,10 @@
 :root {
   /* White theme */
   --color-mine-shaft: #1f1f1f;
+  --color-light-black: #191919;
   --color-valencia: #d94b4b;
   --color-white: #ffffff;
+  --color-toggle: #c7c7c7;
   --color-gallery-first: #f0f0f0;
   --color-hippie-blue: #49a399;
   --color-deep-cerulean: #00819d;
@@ -17,8 +19,13 @@
   --color-gray: #818181;
   --color-purple: #5352c0;
   --color-edit-border: #d9d9d9;
+  --color-light-gray: #fafafa;
   --color-green: #49a399;
+  --color-light-yellow: #fff4e6;
+  --color-yellow: #e1891a;
+  --color-light-yellow: #f5efdd;
   --color-secondary: #9d9d9d;
+  --bg-mute-btn: rgba(23, 11, 11, 0.5);
   --color-bg-hippie-blue: #dcf0ee;
   --bg-mute-btn: rgba(31, 31, 31, 0.5);
   --silver-gradient: linear-gradient(148deg, #066d86 1.08%, #00a3c8 100%);
@@ -159,10 +166,21 @@ img {
 .page {
   font-size: 16px;
   line-height: 1.5;
-  font-family: 'HelveticaNeueCyr', sans-serif;
 }
 
 .page__body {
   margin: 0;
   background-color: var(--color-seashell);
+}
+
+@media (min-width: 767px) {
+  .pt-0 {
+    padding-top: 0 !important;
+  }
+  .pb-0 {
+    padding-bottom: 0 !important;
+  }
+}
+.p-0 {
+  padding: 0 !important;
 }

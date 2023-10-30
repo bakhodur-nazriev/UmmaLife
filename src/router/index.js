@@ -19,7 +19,9 @@ import MessengerView from '@/views/MessengerView.vue'
 import MessengerChatView from '@/views/MessengerChatView.vue'
 import MessengerEmptyView from '@/views/MessengerEmptyView.vue'
 import ArticlesView from '@/views/ArticlesView.vue'
-import LibraryView from '@/views/LibraryView.vue'
+import LibraryView from '@/views/library/LibraryView.vue'
+import LibraryDetailView from '@/views/library/LibraryDetailView.vue'
+import LibraryBookView from '@/views/library/LibraryBookView.vue'
 import MarriageAgencyView from '@/views/MarriageAgencyView.vue'
 import MyAlbumsView from '@/views/MyAlbumsView.vue'
 import MyAudiosView from '@/views/MyAudiosView.vue'
@@ -44,20 +46,21 @@ import SearchVideoView from '@/views/SearchViews/VideoView.vue'
 import SearchHashtagsView from '@/views/SearchViews/HashtagsView.vue'
 import ShowArticlesView from '@/views/ShowArticlesView.vue'
 import UmmaVideoDetailVue from '@/views/UmmaVideoDetail.vue'
+import MuviView from '@/views/MuviView.vue'
 import PreviewArticleView from '@/views/PreviewArticleView.vue'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const baseDomain = isProduction ? 'front1.ummalife.dev' : 'localhost'
 
 const routes = [{
-  path: '/:lang?/',
-  name: 'home',
-  component: HomeView,
-  meta: {
-    title: i18n.global.t('meta_title.home'),
-    requiresAuth: true
-  }
-},
+    path: '/:lang?/',
+    name: 'home',
+    component: HomeView,
+    meta: {
+      title: i18n.global.t('meta_title.home'),
+      requiresAuth: true
+    }
+  },
   {
     path: '/:lang?/login',
     name: 'login',
@@ -160,6 +163,24 @@ const routes = [{
     }
   },
   {
+    path: '/:lang?/library/:id',
+    name: 'library-detail',
+    component: LibraryDetailView,
+    meta: {
+      title: i18n.global.t('meta_title.library'),
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/:lang?/library/:id/read',
+    name: 'library-book-read',
+    component: LibraryBookView,
+    meta: {
+      title: i18n.global.t('meta_title.library'),
+      requiresAuth: true
+    }
+  },
+  {
     path: '/:lang?/video/:id',
     name: 'video-detail',
     component: UmmaVideoDetailVue,
@@ -194,15 +215,16 @@ const routes = [{
       title: i18n.global.t('meta_title.messenger'),
       requiresAuth: true
     },
-    children: [{
-      path: ':id',
-      name: 'messenger-chat',
-      component: MessengerChatView,
-      meta: {
-        title: i18n.global.t('meta_title.messenger'),
-        requiresAuth: true
-      }
-    },
+    children: [
+      {
+        path: ':id',
+        name: 'messenger-chat',
+        component: MessengerChatView,
+        meta: {
+          title: i18n.global.t('meta_title.messenger'),
+          requiresAuth: true
+        }
+      },
       {
         path: '',
         name: 'messenger-empty',
@@ -231,15 +253,16 @@ const routes = [{
       title: i18n.global.t('meta_title.my_groups'),
       requiresAuth: true
     },
-    children: [{
-      path: '',
-      name: 'my-groups-container',
-      component: MyGroupsContainer,
-      meta: {
-        title: i18n.global.t('meta_title.my_groups'),
-        requiresAuth: true
-      }
-    },
+    children: [
+      {
+        path: '',
+        name: 'my-groups-container',
+        component: MyGroupsContainer,
+        meta: {
+          title: i18n.global.t('meta_title.my_groups'),
+          requiresAuth: true
+        }
+      },
       {
         path: 'settings',
         name: 'my-groups-settings',
@@ -257,15 +280,16 @@ const routes = [{
           title: i18n.global.t('meta_title.my_groups'),
           requiresAuth: true
         },
-        children: [{
-          path: '',
-          name: 'my-groups-publications',
-          component: MyGroupsPublications,
-          meta: {
-            title: i18n.global.t('meta_title.my_groups'),
-            requiresAuth: true
-          }
-        },
+        children: [
+          {
+            path: '',
+            name: 'my-groups-publications',
+            component: MyGroupsPublications,
+            meta: {
+              title: i18n.global.t('meta_title.my_groups'),
+              requiresAuth: true
+            }
+          },
           {
             path: 'users',
             name: 'my-groups-users',
@@ -398,11 +422,11 @@ const routes = [{
     }
   },
   {
-    path: '/:lang?/',
-    name: 'settings',
-    component: SettingsView,
+    path: '/:lang?/muvi',
+    name: 'muvi',
+    component: MuviView,
     meta: {
-      title: i18n.global.t('meta_title.settings'),
+      title: i18n.global.t('meta_title.muvi'),
       requiresAuth: true
     }
   },

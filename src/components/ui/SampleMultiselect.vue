@@ -29,10 +29,7 @@
             <img class="selected__option--img" :src="option.img" :alt="option[trackBy]" />
             <div class="selected__option--title">{{ option[trackBy] }}</div>
           </div>
-
-          <div class="selected__option--checkbox" :class="{ checked: option.isChecked }">
-            <CheckMarkIcon v-if="option.isChecked" />
-          </div>
+          <BaseCheckbox @handleCheck="(isChecked) => (option.isChecked = isChecked)" />
         </div>
       </template>
       <template #noResult>
@@ -56,8 +53,8 @@
 /* eslint-disable */
 import { ref } from 'vue'
 import Multiselect from 'vue-multiselect'
-import CheckMarkIcon from '@/components/icons/CheckMarkIcon.vue'
 import CloseIcon from '@/components/icons/CloseIcon.vue'
+import BaseCheckbox from '@/components/ui/BaseCheckbox.vue'
 const props = defineProps({
   placeholder: {
     type: String,
@@ -122,21 +119,6 @@ const deleteHandler = (option) => {
       font-weight: 550;
       line-height: normal;
       color: var(--color-mine-shaft);
-    }
-    &--checkbox {
-      width: 24px;
-      height: 24px;
-      border: 1px solid var(--color-silver-chalice);
-      border-radius: 5px;
-      padding: 4px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      &.checked {
-        border: 1px solid var(--color-hippie-blue);
-        background-color: var(--color-hippie-blue);
-        color: var(--color-white);
-      }
     }
   }
   .selected {

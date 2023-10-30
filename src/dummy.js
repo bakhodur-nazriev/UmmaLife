@@ -62,7 +62,8 @@ export const users = [
           alt: 'message-img'
         }
       }
-    ]
+    ],
+    isChecked: false
   },
   {
     id: 2,
@@ -114,7 +115,8 @@ export const users = [
         state: 'recieve',
         message: 'Lorem ipsum dolor. Duis aute irure dolor in'
       }
-    ]
+    ],
+    isChecked: false
   },
   {
     id: 3,
@@ -173,7 +175,8 @@ export const users = [
           alt: 'message-img'
         }
       }
-    ]
+    ],
+    isChecked: false
   },
   {
     id: 4,
@@ -220,7 +223,8 @@ export const users = [
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anвмывмывмывы',
         status: 'notread'
       }
-    ]
+    ],
+    isChecked: false
   },
   {
     id: 5,
@@ -287,7 +291,8 @@ export const users = [
         message:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
       }
-    ]
+    ],
+    isChecked: false
   },
   {
     id: 6,
@@ -348,7 +353,8 @@ export const users = [
         message:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
       }
-    ]
+    ],
+    isChecked: false
   },
   {
     id: 7,
@@ -402,7 +408,8 @@ export const users = [
         },
         img: null
       }
-    ]
+    ],
+    isChecked: false
   },
   {
     id: 8,
@@ -467,7 +474,8 @@ export const users = [
         message:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
       }
-    ]
+    ],
+    isChecked: false
   }
 ]
 
@@ -511,7 +519,8 @@ export const groupsUsers = [
     isSubs: false,
     hasBadge: false,
     isPremiuim: false,
-    isVerified: false
+    isVerified: false,
+    info: 'Istanbul, 24 года'
   },
   {
     id: 2,
@@ -521,7 +530,8 @@ export const groupsUsers = [
     isSubs: false,
     hasBadge: false,
     isPremiuim: true,
-    isVerified: true
+    isVerified: true,
+    info: 'Грузия, 27 лет'
   },
   {
     id: 3,
@@ -531,7 +541,8 @@ export const groupsUsers = [
     isSubs: false,
     hasBadge: true,
     isPremiuim: true,
-    isVerified: true
+    isVerified: true,
+    info: 'Мадрид, 28 лет'
   },
   {
     id: 3,
@@ -541,7 +552,8 @@ export const groupsUsers = [
     isSubs: false,
     hasBadge: true,
     isPremiuim: false,
-    isVerified: true
+    isVerified: true,
+    info: 'Istanbul, 24 года'
   }
 ]
 
@@ -571,6 +583,7 @@ export const audios = [
     isPlaying: false
   }
 ]
+
 export const audios2 = [
   {
     id: 1,
@@ -652,5 +665,393 @@ export const profileShorts = [
     src: '/images/shorts/shorts3.png',
     name: 'Shorts 3',
     seen: 100
+  }
+]
+
+export const muvies = [
+  {
+    id: 1,
+    title: 'Some description for this description description description',
+    seen: 101900,
+    img: '/images/muvies/muvi1.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 2,
+    title: 'Some description for this description description description',
+    seen: 712,
+    img: '/images/muvies/muvi2.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 3,
+    title: 'Some description for this description description description',
+    seen: 2100000,
+    img: '/images/muvies/muvi3.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 4,
+    title: 'Some description for this description description description',
+    seen: 475600,
+    img: '/images/muvies/muvi4.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 5,
+    title: 'Some description for this description description description',
+    seen: 41800,
+    img: '/images/muvies/muvi5.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 6,
+    title: 'Some description for this description description description',
+    seen: 9300,
+    img: '/images/muvies/muvi6.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 7,
+    title: 'Some description for this description description description',
+    seen: 101900,
+    img: '/images/muvies/muvi7.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 8,
+    title: 'Some description for this description description description',
+    seen: 712,
+    img: '/images/muvies/muvi8.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 9,
+    title: 'Some description for this description description description',
+    seen: 210000,
+    img: '/images/muvies/muvi9.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 10,
+    title: 'Some description for this description description description',
+    seen: 475600,
+    img: '/images/muvies/muvi10.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 11,
+    title: 'Some description for this description description description',
+    seen: 41800,
+    img: '/images/muvies/muvi11.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  },
+  {
+    id: 12,
+    title: 'Some description for this description description description',
+    seen: 9300,
+    img: '/images/muvies/muvi12.jpg',
+    user: {
+      img: '/images/users/jeff.png',
+      name: 'alexaliev'
+    }
+  }
+]
+
+export const sources = [
+  {
+    src: '/video/short-1.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/short-2.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/video.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/short-1.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/short-2.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/video.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/short-1.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/short-2.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/video.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/short-1.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/short-2.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  },
+  {
+    src: '/video/video.mp4',
+    type: 'video/mp4',
+    isCommentOpen: false,
+    isShareOpen: false,
+    isMenuOpen: false
+  }
+]
+
+export const books = [
+  {
+    id: 1,
+    name: 'Мухаммад Фатих',
+    category: 'Исторические',
+    author: 'Хэйтем Али',
+    img: '/images/books/book1.jpg',
+    desc: 'История того, как армия под предводительством султана Мухаммада захватила Константинопль. Мухаммад-Фатих великий мусульманский полководец, открыватель Стамбула,также говорят Исламбул (бывший Константинополь). Мух...',
+    rating: '4.9',
+    isLiked: false,
+    epubSrc: '/epub/epub1.epub'
+  },
+  {
+    id: 2,
+    name: 'Мухаммад Фатих',
+    category: 'Исторические',
+    author: 'Хэйтем Али',
+    img: '/images/books/book2.jpg',
+    desc: 'История того, как армия под предводительством султана Мухаммада захватила Константинопль. Мухаммад-Фатих великий мусульманский полководец, открыватель Стамбула,также говорят Исламбул (бывший Константинополь). Мух...',
+    rating: '4.9',
+    isLiked: false,
+    epubSrc: '/epub/epub2.epub'
+  },
+  {
+    id: 3,
+    name: 'Мухаммад Фатих',
+    category: 'Исторические',
+    author: 'Хэйтем Али',
+    img: '/images/books/book3.jpg',
+    desc: 'История того, как армия под предводительством султана Мухаммада захватила Константинопль. Мухаммад-Фатих великий мусульманский полководец, открыватель Стамбула,также говорят Исламбул (бывший Константинополь). Мух...',
+    rating: '4.9',
+    isLiked: false,
+    epubSrc: '/epub/epub3.epub'
+  },
+  {
+    id: 4,
+    name: 'Мухаммад Фатих',
+    category: 'Исторические',
+    author: 'Хэйтем Али',
+    img: '/images/books/book4.jpg',
+    desc: 'История того, как армия под предводительством султана Мухаммада захватила Константинопль. Мухаммад-Фатих великий мусульманский полководец, открыватель Стамбула,также говорят Исламбул (бывший Константинополь). Мух...',
+    rating: '4.9',
+    isLiked: false,
+    epubSrc: '/epub/epub4.epub'
+  },
+  {
+    id: 5,
+    name: 'Мухаммад Фатих',
+    category: 'Исторические',
+    author: 'Хэйтем Али',
+    img: '/images/books/book1.jpg',
+    desc: 'История того, как армия под предводительством султана Мухаммада захватила Константинопль. Мухаммад-Фатих великий мусульманский полководец, открыватель Стамбула,также говорят Исламбул (бывший Константинополь). Мух...',
+    rating: '4.9',
+    isLiked: false,
+    epubSrc: '/epub/epub1.epub'
+  },
+  {
+    id: 6,
+    name: 'Мухаммад Фатих',
+    category: 'Исторические',
+    author: 'Хэйтем Али',
+    img: '/images/books/book2.jpg',
+    desc: 'История того, как армия под предводительством султана Мухаммада захватила Константинопль. Мухаммад-Фатих великий мусульманский полководец, открыватель Стамбула,также говорят Исламбул (бывший Константинополь). Мух...',
+    rating: '4.9',
+    isLiked: false,
+    epubSrc: '/epub/epub2.epub'
+  },
+  {
+    id: 7,
+    name: 'Мухаммад Фатих',
+    category: 'Исторические',
+    author: 'Хэйтем Али',
+    img: '/images/books/book3.jpg',
+    desc: 'История того, как армия под предводительством султана Мухаммада захватила Константинопль. Мухаммад-Фатих великий мусульманский полководец, открыватель Стамбула,также говорят Исламбул (бывший Константинополь). Мух...',
+    rating: '4.9',
+    isLiked: false,
+    epubSrc: '/epub/epub3.epub'
+  },
+  {
+    id: 8,
+    name: 'Мухаммад Фатих',
+    category: 'Исторические',
+    author: 'Хэйтем Али',
+    img: '/images/books/book4.jpg',
+    desc: 'История того, как армия под предводительством султана Мухаммада захватила Константинопль. Мухаммад-Фатих великий мусульманский полководец, открыватель Стамбула,также говорят Исламбул (бывший Константинополь). Мух...',
+    rating: '4.9',
+    isLiked: false,
+    epubSrc: '/epub/epub4.epub'
+  }
+]
+
+export const selectCategories = [
+  {
+    name: 'Ислам',
+    isSubOpen: false,
+    subcategories: [
+      { name: 'Коран' },
+      { name: 'Вероубеждение' },
+      { name: 'Тафсир' },
+      { name: 'Арабский язык' },
+      { name: 'Хадисы' },
+      { name: 'Истории' }
+    ]
+  },
+  {
+    name: 'Исламское право',
+    isSubOpen: false,
+    subcategories: [
+      { name: 'Коран' },
+      { name: 'Вероубеждение' },
+      { name: 'Тафсир' },
+      { name: 'Арабский язык' },
+      { name: 'Хадисы' },
+      { name: 'Истории' }
+    ]
+  },
+  {
+    name: 'Детям',
+    isSubOpen: false,
+    subcategories: [
+      { name: 'Коран' },
+      { name: 'Вероубеждение' },
+      { name: 'Тафсир' },
+      { name: 'Арабский язык' },
+      { name: 'Хадисы' },
+      { name: 'Истории' }
+    ]
+  },
+  {
+    name: 'Здоровье',
+    isSubOpen: false,
+    subcategories: [
+      { name: 'Коран' },
+      { name: 'Вероубеждение' },
+      { name: 'Тафсир' },
+      { name: 'Арабский язык' },
+      { name: 'Хадисы' },
+      { name: 'Истории' }
+    ]
+  },
+  {
+    name: 'Художественная литература',
+    isSubOpen: false,
+    subcategories: [
+      { name: 'Коран' },
+      { name: 'Вероубеждение' },
+      { name: 'Тафсир' },
+      { name: 'Арабский язык' },
+      { name: 'Хадисы' },
+      { name: 'Истории' }
+    ]
+  },
+  {
+    name: 'Научная литература',
+    isSubOpen: false,
+    subcategories: [
+      { name: 'Коран' },
+      { name: 'Вероубеждение' },
+      { name: 'Тафсир' },
+      { name: 'Арабский язык' },
+      { name: 'Хадисы' },
+      { name: 'Истории' }
+    ]
+  },
+  {
+    name: 'Экономика и бизнес',
+    isSubOpen: false,
+    subcategories: [
+      { name: 'Коран' },
+      { name: 'Вероубеждение' },
+      { name: 'Тафсир' },
+      { name: 'Арабский язык' },
+      { name: 'Хадисы' },
+      { name: 'Истории' }
+    ]
   }
 ]

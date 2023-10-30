@@ -37,7 +37,7 @@ const props = defineProps({
   },
   padding: {
     type: String,
-    default: '15px'
+    default: ''
   }
 })
 
@@ -73,6 +73,7 @@ const clickButton = () => {
   display: flex;
   align-items: center;
 
+  transition: all 0.3s;
   &_primary {
     background-color: var(--color-hippie-blue);
   }
@@ -89,6 +90,12 @@ const clickButton = () => {
   &_default {
     background-color: var(--color-seashell);
     color: var(--color-mine-shaft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      background-color: var(--color-gallery-second);
+    }
   }
 
   &_default_flex {

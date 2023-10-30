@@ -50,12 +50,19 @@ export default {
   flex-grow: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  margin-left: 260px;
+  @media (min-width: 767px) {
+    margin-left: 260px;
+  }
+}
+
+@media (max-width: 767px) {
+  .main__container {
+    margin-top: 65px;
+  }
 }
 
 @media (max-width: 576px) {
   .main__container {
-    margin-top: 65px;
     height: calc(100vh - 65px);
   }
 
