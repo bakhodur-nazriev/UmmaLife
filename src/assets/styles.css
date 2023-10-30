@@ -130,12 +130,15 @@
   text-decoration: none;
 }
 
+*:not(.video-js) {
+  font-family: 'HelveticaNeueCyr', sans-serif;
+}
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   font-family: inherit;
-  font-family: 'HelveticaNeueCyr', sans-serif;
 }
 
 img {

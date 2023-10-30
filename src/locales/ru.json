@@ -283,7 +283,29 @@
   },
   "video": {
     "reactions": "реакций",
-    "views": "просмотров"
+    "views": "просмотров",
+    "read_more": "читать далее",
+    "search_video": "Поиск видео",
+    "related_movies": "Похожие фильмы",
+    "video_page": "Страница видео",
+    "tabs": {
+      "all_films": "Все фильмы",
+      "new_films": "Новинки",
+      "recomended_films": "Рекомендации",
+      "saved_films": "Сохраненное",
+      "viewed": "Просмотренные"
+    },
+    "parametrs": {
+      "title": "Параметры поиска",
+      "category": "Категория",
+      "year": "Год",
+      "genre": "Жанр",
+      "country": "Страна",
+      "creator": "Создатель",
+      "duration": "Длительность:",
+      "minut": "минут",
+      "views": "Количество просмотров"
+    }
   },
   "sections_title": {
     "last_actions": "Последние действия",

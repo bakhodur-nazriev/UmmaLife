@@ -58,7 +58,7 @@ export default {
         margin-left: 0;
         padding: 0 16px;
         justify-content: center;
-        gap: 180px;
+        gap: 10%;
         width: 100%;
         @media (max-width: 1350px) {
           gap: 40px;

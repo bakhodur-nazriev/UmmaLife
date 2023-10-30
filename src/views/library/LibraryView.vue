@@ -86,7 +86,7 @@ const handleCloseSearch = () => {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .library {
   @media (max-width: 767px) {
     background-color: var(--color-white);
