@@ -99,6 +99,7 @@
               icon="eye"
               color="seashell"
               :title="`${ $t('buttons.article_preview') }`"
+              @click="goToArticlePreview"
           >
             <EyeIcon/>
           </SampleButton>
@@ -227,6 +228,10 @@ export default {
     }
   },
   methods: {
+    goToArticlePreview() {
+      const articleId = 1
+      this.$router.push({ name: 'preview-article', params: { id: articleId } })
+    },
     toggleDropdown() {
       this.isOpen = !this.isOpen
     },
@@ -356,7 +361,7 @@ export default {
     padding: 12px;
     font-size: 16px;
     border-radius: 10px;
-    width: 160px;
+    width: 180px;
 
     &:hover {
       background-color: var(--color-silver-chalice);

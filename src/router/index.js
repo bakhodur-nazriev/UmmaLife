@@ -131,7 +131,7 @@ const routes = [{
     },
     children: [
       {
-        path: ':id',
+        path: 'show/:id',
         name: 'show-article',
         component: ShowArticlesView,
         meta: {
@@ -140,7 +140,7 @@ const routes = [{
         }
       },
       {
-        path: ':id',
+        path: 'preview/:id',
         name: 'preview-article',
         component: PreviewArticleView,
         meta: {
