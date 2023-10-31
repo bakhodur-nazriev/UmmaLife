@@ -1,13 +1,12 @@
 <template>
   <section class="publications__form--section" ref="formSectionRef">
-    <form action="" class="form__section" :style="{ flexDirection: isTextAreaActive ? 'column' : 'row' }">
+    <form
+      action=""
+      class="form__section"
+      :style="{ flexDirection: isTextAreaActive ? 'column' : 'row' }"
+    >
       <div class="form__left--side">
-        <img
-          width="48"
-          height="48"
-          src="@/assets/images/Ellipse.png"
-          alt=""
-        />
+        <img width="48" height="48" src="@/assets/images/Ellipse.png" alt="" />
         <textarea
           rows="1"
           :placeholder="$t('placeholders.publications_input')"
@@ -36,11 +35,8 @@
         </FileUpload>
       </div>
       <div v-if="isTextAreaActive" class="textarea__active--buttons">
-        <div
-          class="textarea__active--smile mood__section"
-          v-if="showSmileSection"
-        >
-          <span class="emotions__label">{{ $t("labels.feeling.label") }}</span>
+        <div class="textarea__active--smile mood__section" v-if="showSmileSection">
+          <span class="emotions__label">{{ $t('labels.feeling.label') }}</span>
 
           <div class="buttons">
             <SampleButton
@@ -88,16 +84,14 @@
 
         <div class="emotions__buttons--main--section" v-if="showMoodSection">
           <div class="emotions__input--section">
-            <span @click="backToMoodSection" class="emotion__label">{{ $t("labels.feeling.mood.title") }}</span>
-            <span class="emotion__input">{{ $t("labels.feeling.mood.placeholder") }}</span>
+            <span @click="backToMoodSection" class="emotion__label">{{
+              $t('labels.feeling.mood.title')
+            }}</span>
+            <span class="emotion__input">{{ $t('labels.feeling.mood.placeholder') }}</span>
           </div>
 
           <div class="emotions__section--buttons">
-            <SampleButton
-              color="tertiary"
-              icon="happy"
-              :title="`${$t('buttons.emotions.happy')}`"
-            >
+            <SampleButton color="tertiary" icon="happy" :title="`${$t('buttons.emotions.happy')}`">
               <HappyIcon />
             </SampleButton>
             <SampleButton
@@ -128,11 +122,7 @@
             >
               <GiggleIcon />
             </SampleButton>
-            <SampleButton
-              color="tertiary"
-              icon="crazy"
-              :title="`${$t('buttons.emotions.crazy')}`"
-            >
+            <SampleButton color="tertiary" icon="crazy" :title="`${$t('buttons.emotions.crazy')}`">
               <CrazyIcon />
             </SampleButton>
             <SampleButton
@@ -156,11 +146,7 @@
             >
               <ExcitedIcon />
             </SampleButton>
-            <SampleButton
-              color="tertiary"
-              icon="angry"
-              :title="`${$t('buttons.emotions.angry')}`"
-            >
+            <SampleButton color="tertiary" icon="angry" :title="`${$t('buttons.emotions.angry')}`">
               <AngryIcon />
             </SampleButton>
             <SampleButton
@@ -170,11 +156,7 @@
             >
               <MaskedIcon />
             </SampleButton>
-            <SampleButton
-              color="tertiary"
-              icon="think"
-              :title="`${$t('buttons.emotions.think')}`"
-            >
+            <SampleButton color="tertiary" icon="think" :title="`${$t('buttons.emotions.think')}`">
               <ThinkIcon />
             </SampleButton>
             <SampleButton
@@ -191,11 +173,7 @@
             >
               <WonderIcon />
             </SampleButton>
-            <SampleButton
-              color="tertiary"
-              icon="sick"
-              :title="`${$t('buttons.emotions.sick')}`"
-            >
+            <SampleButton color="tertiary" icon="sick" :title="`${$t('buttons.emotions.sick')}`">
               <SickIcon />
             </SampleButton>
             <SampleButton
@@ -223,7 +201,9 @@
         </div>
 
         <div class="emotions__input--section" v-if="showTravelingSection">
-          <span @click="backToMoodSection" class="emotion__label">{{ $t("labels.feeling.traveling.title") }}</span>
+          <span @click="backToMoodSection" class="emotion__label">{{
+            $t('labels.feeling.traveling.title')
+          }}</span>
           <input
             class="emotion__input"
             :placeholder="`${$t('labels.feeling.traveling.placeholder')}`"
@@ -231,7 +211,9 @@
         </div>
 
         <div class="emotions__input--section" v-if="showWatchingSection">
-          <span @click="backToMoodSection" class="emotion__label">{{ $t("labels.feeling.watching.title") }}</span>
+          <span @click="backToMoodSection" class="emotion__label">{{
+            $t('labels.feeling.watching.title')
+          }}</span>
           <input
             class="emotion__input"
             :placeholder="`${$t('labels.feeling.watching.placeholder')}`"
@@ -239,7 +221,9 @@
         </div>
 
         <div class="emotions__input--section" v-if="showPlayingSection">
-          <span @click="backToMoodSection" class="emotion__label">{{ $t("labels.feeling.playing.title") }}</span>
+          <span @click="backToMoodSection" class="emotion__label">{{
+            $t('labels.feeling.playing.title')
+          }}</span>
           <input
             class="emotion__input"
             :placeholder="`${$t('labels.feeling.playing.placeholder')}`"
@@ -247,17 +231,16 @@
         </div>
 
         <div class="emotions__input--section" v-if="showListeningSection">
-          <span @click="backToMoodSection" class="emotion__label">{{ $t("labels.feeling.listening.title") }}</span>
+          <span @click="backToMoodSection" class="emotion__label">{{
+            $t('labels.feeling.listening.title')
+          }}</span>
           <input
             class="emotion__input"
             :placeholder="`${$t('labels.feeling.listening.placeholder')}`"
           />
         </div>
 
-        <div
-          class="audio__input--section"
-          v-if="showAudioSection && addedAudioItems.length"
-        >
+        <div class="audio__input--section" v-if="showAudioSection && addedAudioItems.length">
           <div class="audio__input--section--content">
             <div
               class="audio__input--section--item"
@@ -265,17 +248,8 @@
               :key="index"
             >
               <AudioPublicationIcon />
-              <input
-                readonly
-                type="text"
-                class="audio__title"
-                :value="item.title"
-              />
-              <button
-                type="button"
-                class="remove__audio--button"
-                @click="removeAudioItem(index)"
-              >
+              <input readonly type="text" class="audio__title" :value="item.title" />
+              <button type="button" class="remove__audio--button" @click="removeAudioItem(index)">
                 <RemoveAudioIcon />
               </button>
             </div>
@@ -283,7 +257,7 @@
         </div>
 
         <div class="audio__input--section" v-if="showAudioSection">
-          <p class="audio__input--section--title">{{ $t("labels.audio") }}</p>
+          <p class="audio__input--section--title">{{ $t('labels.audio') }}</p>
 
           <div class="audio__input--section--content">
             <div
@@ -292,17 +266,8 @@
               :key="index"
             >
               <AudioPublicationIcon />
-              <input
-                readonly
-                type="text"
-                class="audio__title"
-                :value="item.title"
-              />
-              <button
-                type="button"
-                class="add__audio--button"
-                @click="addAudioItem"
-              >
+              <input readonly type="text" class="audio__title" :value="item.title" />
+              <button type="button" class="add__audio--button" @click="addAudioItem">
                 <AddAudioIcon />
               </button>
             </div>
@@ -317,19 +282,11 @@
 
             <PollModal v-if="showPollModal" @close="closePollModal" />
 
-            <button
-              class="smile__button"
-              type="button"
-              @click="activeSmileSection"
-            >
+            <button class="smile__button" type="button" @click="activeSmileSection">
               <SmileIcon />
             </button>
 
-            <button
-              class="audio__button"
-              type="button"
-              @click="activeAudioSection"
-            >
+            <button class="audio__button" type="button" @click="activeAudioSection">
               <AudioPublicationIcon />
             </button>
 
@@ -344,7 +301,7 @@
             <SampleButton
               :title="`${$t('buttons.publish')}`"
               class="publish__button"
-              :class="{ 'rounded': isTextAreaActive }"
+              :class="{ rounded: isTextAreaActive }"
             />
           </div>
         </div>
@@ -479,7 +436,7 @@ export default {
     ]
   }),
   methods: {
-    backToMoodSection () {
+    backToMoodSection() {
       if (this.showMoodSection) {
         this.showMoodSection = false
         this.showSmileSection = true
@@ -505,52 +462,52 @@ export default {
         this.showSmileSection = true
       }
     },
-    isMoodActive () {
+    isMoodActive() {
       this.showMoodSection = !this.showMoodSection
       this.showSmileSection = false
     },
-    activeAudioSection () {
+    activeAudioSection() {
       this.showAudioSection = !this.showAudioSection
     },
-    isTravelingActive () {
+    isTravelingActive() {
       this.showTravelingSection = !this.showTravelingSection
       this.showSmileSection = false
     },
-    isWatchingActive () {
+    isWatchingActive() {
       this.showWatchingSection = !this.showWatchingSection
       this.showSmileSection = false
     },
-    isPlayingActive () {
+    isPlayingActive() {
       this.showPlayingSection = !this.showPlayingSection
       this.showSmileSection = false
     },
-    isListeningActive () {
+    isListeningActive() {
       this.showListeningSection = !this.showListeningSection
       this.showSmileSection = false
     },
-    activeSmileSection () {
+    activeSmileSection() {
       this.showSmileSection = !this.showSmileSection
     },
-    openPollModal () {
+    openPollModal() {
       this.showPollModal = true
       document.body.classList.add('modal-open')
     },
-    closePollModal () {
+    closePollModal() {
       this.showPollModal = false
       document.body.classList.remove('modal-open')
     },
-    handleTextareaInput (event) {
+    handleTextareaInput(event) {
       const textarea = event.target
       textarea.style.height = 'auto'
       textarea.style.height = `${textarea.scrollHeight}px`
     },
-    removeAudioItem (index) {
+    removeAudioItem(index) {
       const item = this.addedAudioItems.splice(index, 1)[0] // Удаляем элемент из addedAudioItems по индексу
       if (item) {
         this.audioItems.push(item) // Добавляем его в audioItems
       }
     },
-    addAudioItem () {
+    addAudioItem() {
       if (this.audioItems.length > 0) {
         const item = this.audioItems.shift() // Удаляем первый элемент из audioItems
         this.addedAudioItems.push(item) // Добавляем его в addedAudioItems
@@ -566,7 +523,7 @@ export default {
   mounted() {
     document.addEventListener('click', this.handleDocumentClick)
   },
-  beforeUnmount () {
+  beforeUnmount() {
     document.removeEventListener('click', this.handleDocumentClick)
   }
 }
@@ -574,7 +531,7 @@ export default {
 
 <style lang="scss" scoped>
 .modal-open {
-  transition: all .15s ease-in-out;
+  transition: all 0.15s ease-in-out;
   overflow: hidden;
 }
 .publications__form--section {
@@ -610,6 +567,7 @@ export default {
     font-size: 16px;
     min-height: 22px;
     width: 89%;
+    background-color: transparent;
 
     &::placeholder {
       color: var(--color-silver-chalice);
@@ -622,13 +580,14 @@ export default {
   align-items: center;
   gap: 24px;
 
-  label, input {
+  label,
+  input {
     svg {
       color: var(--color-silver-chalice);
 
       &:hover {
         color: var(--color-hippie-blue);
-        transition: all .15s ease-in-out;
+        transition: all 0.15s ease-in-out;
       }
     }
   }
@@ -770,7 +729,7 @@ export default {
 
     &:hover {
       color: var(--color-hippie-blue);
-      transition: all .15s ease-in-out;
+      transition: all 0.15s ease-in-out;
     }
   }
 }
@@ -792,7 +751,7 @@ export default {
 
       &:hover {
         color: var(--color-hippie-blue);
-        transition: all .15s ease-in-out;
+        transition: all 0.15s ease-in-out;
       }
     }
   }

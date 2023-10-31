@@ -7,7 +7,7 @@
 <script>
 export default {
   props: ['link'],
-  data () {
+  data() {
     return {
       isDark: {
         type: Boolean,
@@ -20,6 +20,6 @@ export default {
 
 <style scoped>
 .dark-link {
-  color: #1F1F1F;
+  color: var(--color-mine-shaft);
 }
 </style>

@@ -357,6 +357,9 @@ export default {
 .author__time {
   color: var(--color-silver-chalice);
 }
+.author__name {
+  color: var(--color-mine-shaft);
+}
 
 .reply__buttons {
   display: flex;

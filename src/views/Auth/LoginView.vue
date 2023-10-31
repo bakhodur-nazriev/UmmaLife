@@ -9,10 +9,11 @@
         color="none"
         class="link-with-phone-number"
         @click="toggleForm"
-        :title="`${ selectedForm === 'email' ? $t('login.with_phone_number') : $t('login.with_email') }`"
+        :title="`${
+          selectedForm === 'email' ? $t('login.with_phone_number') : $t('login.with_email')
+        }`"
       />
     </div>
-
   </LayoutAuth>
 </template>
 
@@ -29,24 +30,24 @@ export default {
     LayoutAuth,
     LoginWithPhone
   },
-  data () {
+  data() {
     return {
       selectedForm: ''
     }
   },
   methods: {
-    toggleForm () {
+    toggleForm() {
       this.selectedForm = this.selectedForm === 'phone' ? 'email' : 'phone'
       sessionStorage.setItem('selectedForm', this.selectedForm)
     },
-    handleLoginSuccess () {
+    handleLoginSuccess() {
       // Логика успешного входа пользователя
 
       const redirectTo = this.$route.query.redirect || { name: 'home' }
       this.$router.push(redirectTo)
     }
   },
-  created () {
+  created() {
     this.selectedForm = sessionStorage.getItem('selectedForm') || 'email'
   }
 }
@@ -56,7 +57,7 @@ export default {
 .link-with-phone-number {
   font-size: 16px;
   font-weight: 500;
-  color: #1F1F1F;
+  color: var(--color-mine-shaft);
   cursor: pointer;
   border: none;
 }

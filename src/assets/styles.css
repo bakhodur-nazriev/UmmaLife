@@ -1,8 +1,12 @@
 @import url('@/assets/fonts/stylesheet.css');
 
-/* White Theme */
 :root {
-  /* White theme */
+  --tablet-width: 768px;
+  --desktop-width: 1200px;
+}
+
+/* White theme */
+.light:root {
   --color-mine-shaft: #1f1f1f;
   --color-light-black: #191919;
   --color-valencia: #d94b4b;
@@ -30,23 +34,37 @@
   --bg-mute-btn: rgba(31, 31, 31, 0.5);
   --silver-gradient: linear-gradient(148deg, #066d86 1.08%, #00a3c8 100%);
   --gray-rgba: rgba(45, 45, 45, 0.2);
+}
 
-  /* Black theme */
-  --color-white-dark: #ffffff;
-  --color-valencia-dark: #d94b4b;
-  --color-mine-shaft-dark: #1f1f1f;
-  --color-mako-first-dark: #434953;
-  --color-hippie-blue-dark: #49a399;
-  --color-deep-cerulean-dark: #00819d;
-  --color-regent-gray: #8f99a8;
-  --color-woodsmoke: #0e0e0f;
-  --color-shark-first: #27292d;
-  --color-shark-second: #2d2f34;
-  --color-mako-second: #434953;
-  --color-shuttle-gray: #2d2f34;
-
-  --tablet-width: 768px;
-  --desktop-width: 1200px;
+/* Dark Theme */
+.dark:root {
+  --color-mine-shaft: #ffffff;
+  --color-light-black: #f1f1f1;
+  --color-valencia: #d94b4b;
+  --color-white: #1f1f1f;
+  --color-toggle: #f1f1f1;
+  --color-gallery-first: #434953;
+  --color-hippie-blue: #49a399;
+  --color-deep-cerulean: #00819d;
+  --color-silver-chalice: #8f99a8;
+  --color-seashell: #0e0e0f;
+  --color-alto-first: #27292d;
+  --color-alto-second: #6e6d6d;
+  --color-gallery-second: #434953;
+  --color-gray: #5f656f;
+  --color-purple: #5352c0;
+  --color-edit-border: #434953;
+  --color-light-gray: #1f1f1f;
+  --color-green: #49a399;
+  --color-light-yellow: #fff4e6;
+  --color-yellow: #e1891a;
+  --color-light-yellow: #f5efdd;
+  --color-secondary: #9d9d9d;
+  --bg-mute-btn: rgba(23, 11, 11, 0.5);
+  --color-bg-hippie-blue: #dcf0ee;
+  --bg-mute-btn: rgba(31, 31, 31, 0.5);
+  --silver-gradient: linear-gradient(148deg, #066d86 1.08%, #00a3c8 100%);
+  --gray-rgba: rgba(45, 45, 45, 0.2);
 }
 
 /* WebKit (Chrome, Safari, Opera) */
@@ -134,6 +152,7 @@
 
 *:not(.video-js) {
   font-family: 'HelveticaNeueCyr', sans-serif;
+  font-weight: 400;
 }
 
 *,

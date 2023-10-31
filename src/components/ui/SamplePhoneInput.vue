@@ -15,18 +15,18 @@ import SampleSelectedCountry from '@/components/ui/SampleSelectedCountry.vue'
 
 export default {
   components: { SampleSelectedCountry },
-  data () {
+  data() {
     return {
       phoneNumber: '',
       selectedCountryCode: ''
     }
   },
   methods: {
-    handleCountrySelected (countryCode) {
+    handleCountrySelected(countryCode) {
       this.selectedCountryCode = countryCode
     }
   },
-  mounted () {
+  mounted() {
     this.handleCountrySelected()
   }
 }
@@ -34,18 +34,18 @@ export default {
 
 <style scoped>
 .base-input {
-  background-color: #f1f1f1;
   border: none;
   outline: none;
   border-radius: 10px;
   font-size: 14px;
   padding: 16px;
-  color: #1F1F1F;
+  background-color: var(--color-seashell);
+  color: var(--color-mine-shaft);
   width: 100%;
 }
 
 .base-input::placeholder {
-  color: #B0B0B0;
+  color: #b0b0b0;
 }
 
 .phone__field-section {

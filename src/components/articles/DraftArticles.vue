@@ -1,12 +1,12 @@
 <template>
   <section class="search-articles__section">
     <div class="search-articles__block">
-      <LoupeIcon/>
+      <LoupeIcon />
       <input
         type="text"
         class="search-articles__input"
         :placeholder="$t('placeholders.search_articles')"
-      >
+      />
     </div>
   </section>
   <div class="articles-main__block">
@@ -14,12 +14,12 @@
       <ul class="articles-list">
         <li class="articles-list__item">
           <div class="articles-image__section">
-            <img src="@/assets/images/articles/articles_1.png" alt="">
+            <img src="@/assets/images/articles/articles_1.png" alt="" />
             <div class="favourite-icon__block">
-              <TrashIcon/>
+              <TrashIcon />
             </div>
             <div class="watched-icon__block">
-              <EyeIcon/>
+              <EyeIcon />
               <span>145</span>
             </div>
           </div>
@@ -28,21 +28,23 @@
               <span>Автомобили и транспорт</span>
               <small>20.08.2022</small>
             </div>
-            <h3 class="articles-description">Название очень интересной статьи, которую опубликовал пользователь</h3>
+            <h3 class="articles-description">
+              Название очень интересной статьи, которую опубликовал пользователь
+            </h3>
             <div class="articles-description__author">
-              <img src="@/assets/images/navbar/people_1.png" alt="">
+              <img src="@/assets/images/navbar/people_1.png" alt="" />
               <span>Абдуллах Хамхоев</span>
             </div>
           </div>
         </li>
         <li class="articles-list__item">
           <div class="articles-image__section">
-            <img src="@/assets/images/articles/articles_2.png" alt="">
+            <img src="@/assets/images/articles/articles_2.png" alt="" />
             <div class="favourite-icon__block">
-              <TrashIcon/>
+              <TrashIcon />
             </div>
             <div class="watched-icon__block">
-              <EyeIcon/>
+              <EyeIcon />
               145
             </div>
           </div>
@@ -51,21 +53,23 @@
               <span>Автомобили и транспорт</span>
               <small>20.08.2022</small>
             </div>
-            <h3 class="articles-description">Название очень интересной статьи, которую опубликовал пользователь</h3>
+            <h3 class="articles-description">
+              Название очень интересной статьи, которую опубликовал пользователь
+            </h3>
             <div class="articles-description__author">
-              <img src="@/assets/images/navbar/people_2.png" alt="">
+              <img src="@/assets/images/navbar/people_2.png" alt="" />
               <span>Абдуллах Хамхоев</span>
             </div>
           </div>
         </li>
         <li class="articles-list__item">
           <div class="articles-image__section">
-            <img src="@/assets/images/articles/articles_3.png" alt="">
+            <img src="@/assets/images/articles/articles_3.png" alt="" />
             <div class="favourite-icon__block">
-              <TrashIcon/>
+              <TrashIcon />
             </div>
             <div class="watched-icon__block">
-              <EyeIcon/>
+              <EyeIcon />
               145
             </div>
           </div>
@@ -74,21 +78,23 @@
               <span>Автомобили и транспорт</span>
               <small>20.08.2022</small>
             </div>
-            <h3 class="articles-description">Название очень интересной статьи, которую опубликовал пользователь</h3>
+            <h3 class="articles-description">
+              Название очень интересной статьи, которую опубликовал пользователь
+            </h3>
             <div class="articles-description__author">
-              <img src="@/assets/images/navbar/people_3.png" alt="">
+              <img src="@/assets/images/navbar/people_3.png" alt="" />
               <span>Абдуллах Хамхоев</span>
             </div>
           </div>
         </li>
         <li class="articles-list__item">
           <div class="articles-image__section">
-            <img src="@/assets/images/articles/articles_4.png" alt="">
+            <img src="@/assets/images/articles/articles_4.png" alt="" />
             <div class="favourite-icon__block">
-              <TrashIcon/>
+              <TrashIcon />
             </div>
             <div class="watched-icon__block">
-              <EyeIcon/>
+              <EyeIcon />
               145
             </div>
           </div>
@@ -97,21 +103,23 @@
               <span>Автомобили и транспорт</span>
               <small>20.08.2022</small>
             </div>
-            <h3 class="articles-description">Название очень интересной статьи, которую опубликовал пользователь</h3>
+            <h3 class="articles-description">
+              Название очень интересной статьи, которую опубликовал пользователь
+            </h3>
             <div class="articles-description__author">
-              <img src="@/assets/images/navbar/people_5.png" alt="">
+              <img src="@/assets/images/navbar/people_5.png" alt="" />
               <span>Абдуллах Хамхоев</span>
             </div>
           </div>
         </li>
         <li class="articles-list__item">
           <div class="articles-image__section">
-            <img src="@/assets/images/articles/articles_5.png" alt="">
+            <img src="@/assets/images/articles/articles_5.png" alt="" />
             <div class="favourite-icon__block">
-              <TrashIcon/>
+              <TrashIcon />
             </div>
             <div class="watched-icon__block">
-              <EyeIcon/>
+              <EyeIcon />
               145
             </div>
           </div>
@@ -120,21 +128,23 @@
               <span>Автомобили и транспорт</span>
               <small>20.08.2022</small>
             </div>
-            <h3 class="articles-description">Название очень интересной статьи, которую опубликовал пользователь</h3>
+            <h3 class="articles-description">
+              Название очень интересной статьи, которую опубликовал пользователь
+            </h3>
             <div class="articles-description__author">
-              <img src="@/assets/images/navbar/people_4.png" alt="">
+              <img src="@/assets/images/navbar/people_4.png" alt="" />
               <span>Абдуллах Хамхоев</span>
             </div>
           </div>
         </li>
         <li class="articles-list__item">
           <div class="articles-image__section">
-            <img src="@/assets/images/articles/articles_6.png" alt="">
+            <img src="@/assets/images/articles/articles_6.png" alt="" />
             <div class="favourite-icon__block">
-              <TrashIcon/>
+              <TrashIcon />
             </div>
             <div class="watched-icon__block">
-              <EyeIcon/>
+              <EyeIcon />
               145
             </div>
           </div>
@@ -143,9 +153,11 @@
               <span>Автомобили и транспорт</span>
               <small>20.08.2022</small>
             </div>
-            <h3 class="articles-description">Название очень интересной статьи, которую опубликовал пользователь</h3>
+            <h3 class="articles-description">
+              Название очень интересной статьи, которую опубликовал пользователь
+            </h3>
             <div class="articles-description__author">
-              <img src="@/assets/images/navbar/people_3.png" alt="">
+              <img src="@/assets/images/navbar/people_3.png" alt="" />
               <span>Абдуллах Хамхоев</span>
             </div>
           </div>
@@ -176,7 +188,7 @@
           <li class="category-list__item">Другое</li>
         </ul>
       </div>
-      <SampleButton class="clear-filter__button" :title="$t('buttons.reset_filter')"/>
+      <SampleButton class="clear-filter__button" :title="$t('buttons.reset_filter')" />
     </aside>
   </div>
 </template>
@@ -297,7 +309,7 @@ aside {
 
 .favourite-icon__block {
   border-radius: 6px;
-  background: rgba(31, 31, 31, 0.50);
+  background: rgba(31, 31, 31, 0.5);
   backdrop-filter: blur(10px);
   position: absolute;
   top: 10px;
@@ -312,7 +324,7 @@ aside {
 
 .watched-icon__block {
   border-radius: 6px;
-  background: rgba(31, 31, 31, 0.50);
+  background: rgba(31, 31, 31, 0.5);
   backdrop-filter: blur(10px);
   position: absolute;
   bottom: 18px;
@@ -361,6 +373,7 @@ aside {
   font-size: 16px;
   line-height: 1.2;
   margin: 0;
+  color: var(--color-mine-shaft);
 }
 
 .articles-description__author {

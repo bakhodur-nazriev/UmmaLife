@@ -1,23 +1,20 @@
 <template>
-  <main-layout>
-    <div class="audio__page">
-      <GroupsNav :links="links" className="full" @clickNavHandler="clickNavHandler" />
-      <div class="audio__page--container">
-        <AudioReviewTab v-if="links[0].isActive" />
-        <AudioMyAudioTab v-else-if="links[1].isActive" />
-        <AudioPlaylistsTab v-else-if="links[2].isActive" />
-        <AudioLikedTab v-else-if="links[3].isActive" />
-        <AudioUploadTab v-else-if="links[4].isActive" />
-      </div>
+  <div class="audio__page">
+    <GroupsNav :links="links" className="full" @clickNavHandler="clickNavHandler" />
+    <div class="audio__page--container">
+      <AudioReviewTab v-if="links[0].isActive" />
+      <AudioMyAudioTab v-else-if="links[1].isActive" />
+      <AudioPlaylistsTab v-else-if="links[2].isActive" />
+      <AudioLikedTab v-else-if="links[3].isActive" />
+      <AudioUploadTab v-else-if="links[4].isActive" />
     </div>
-    <teleport to="body">
-      <ShareComponent v-if="isShareOpen" />
-    </teleport>
-  </main-layout>
+  </div>
+  <teleport to="body">
+    <ShareComponent v-if="isShareOpen" />
+  </teleport>
 </template>
 
 <script>
-import MainLayout from '@/components/layouts/MainLayout.vue'
 import GroupsNav from '@/components/groups/GroupsNav.vue'
 import AudioReviewTab from '@/components/audio/tabs/AudioReviewTab.vue'
 import AudioMyAudioTab from '@/components/audio/tabs/AudioMyAudioTab.vue'
@@ -28,7 +25,6 @@ import ShareComponent from '@/components/share/ShareComponent.vue'
 import { mapState } from 'vuex'
 export default {
   components: {
-    MainLayout,
     GroupsNav,
     AudioReviewTab,
     AudioMyAudioTab,

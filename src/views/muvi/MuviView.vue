@@ -1,17 +1,21 @@
 <template>
-  <GroupsNav :links="links" className="muvi__nav" @clickNavHandler="clickNavHandler" />
-  <div class="muvi__container">
-    <TabMuviFeeds v-if="links[0].isActive" />
-    <TabMuviPopular v-else-if="links[1].isActive" />
-    <TabMuviActivity v-else-if="links[2].isActive" />
-    <TabMuviProfile v-else-if="links[3].isActive" />
-    <TabMuviAdd v-else-if="links[4].isActive" />
+  <div class="muvi__page">
+    <GroupsNav :links="links" className="muvi__nav" @clickNavHandler="clickNavHandler" />
+    <div class="muvi__container">
+      <TabMuviFeeds v-if="links[0].isActive" />
+      <TabMuviPopular v-else-if="links[1].isActive" />
+      <TabMuviActivity v-else-if="links[2].isActive" />
+      <TabMuviProfile v-else-if="links[3].isActive" />
+      <TabMuviAdd v-else-if="links[4].isActive" />
+    </div>
   </div>
 </template>
 
 <script setup>
 /* eslint-disable */
-import { ref } from 'vue'
+import { ref, watch, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { useWindowSize } from '@vueuse/core'
 
 import GroupsNav from '@/components/groups/GroupsNav.vue'
 import TabMuviFeeds from '@/components/muvi/tabs/TabMuviFeeds.vue'
@@ -19,6 +23,20 @@ import TabMuviPopular from '@/components/muvi/tabs/TabMuviPopular.vue'
 import TabMuviActivity from '@/components/muvi/tabs/TabMuviActivity.vue'
 import TabMuviProfile from '@/components/muvi/tabs/TabMuviProfile.vue'
 import TabMuviAdd from '@/components/muvi/tabs/TabMuviAdd.vue'
+
+const router = useRouter()
+const { width } = useWindowSize()
+
+watch(
+  () => width.value,
+  (val) => checkRouter(val)
+)
+
+const checkRouter = (width) => {
+  if (width < 767) {
+    router.push('/muvi-mobile')
+  }
+}
 
 const links = ref([
   {
@@ -47,6 +65,10 @@ const clickNavHandler = (index) => {
   links.value.forEach((link) => (link.isActive = false))
   links.value[index].isActive = true
 }
+
+onMounted(() => {
+  checkRouter(width.value)
+})
 </script>
 
 <style lang="scss">

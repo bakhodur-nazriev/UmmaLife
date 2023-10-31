@@ -1,12 +1,3 @@
 <template>
-  <main-layout>
-    <h1>My Albums Page!</h1>
-  </main-layout>
+  <h1>My Albums Page!</h1>
 </template>
-
-<script>
-import MainLayout from '@/components/layouts/MainLayout.vue'
-export default {
-  components: { MainLayout }
-}
-</script>

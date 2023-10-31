@@ -22,7 +22,10 @@
 
 <script setup>
 /* eslint-disable */
-import { ref } from 'vue'
+import { ref, watch, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { useWindowSize } from '@vueuse/core'
+
 import MuviMobileNav from '@/components/muvi/mobile/MuviMobileNav.vue'
 import FeedsTab from '@/components/muvi/mobile/tabs/FeedsTab.vue'
 import SearchTab from '@/components/muvi/mobile/tabs/SearchTab.vue'
@@ -31,6 +34,20 @@ import ActivityMuvi from '@/components/muvi/mobile/tabs/ActivityMuvi.vue'
 import ProfileTab from '@/components/muvi/mobile/tabs/ProfileTab.vue'
 import CategoryTab from '@/components/muvi/mobile/tabs/CategoryTab.vue'
 import AudioTab from '@/components/muvi/mobile/tabs/AudioTab.vue'
+
+const router = useRouter()
+const { width } = useWindowSize()
+
+watch(
+  () => width.value,
+  (val) => checkRouter(val)
+)
+
+const checkRouter = (width) => {
+  if (width > 767) {
+    router.push('/muvi')
+  }
+}
 
 const isCategoryOpen = ref(false)
 const isAudioOpen = ref(false)
@@ -83,4 +100,7 @@ const fileBackHandler = () => {
   backToMain(0)
   file.value = null
 }
+onMounted(() => {
+  checkRouter(width.value)
+})
 </script>

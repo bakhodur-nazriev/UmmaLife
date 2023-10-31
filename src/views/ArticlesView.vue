@@ -1,39 +1,34 @@
 <template>
-  <MainLayout>
-    <ArticlesMainTabs :tabsArray="[
+  <ArticlesMainTabs
+    :tabsArray="[
       `${$t('tabs.articles_page.all_articles')}`,
       `${$t('tabs.articles_page.my_articles')}`,
       `${$t('tabs.articles_page.saved')}`,
       `${$t('tabs.articles_page.drafts')}`,
       `${$t('tabs.articles_page.create_new_article')}`
-    ]"/>
+    ]"
+  />
 
-    <div class="create-button__block">
-      <button type="button" class="create-button">
-        <PlusIcon/>
-      </button>
-    </div>
-  </MainLayout>
+  <div class="create-button__block">
+    <button type="button" class="create-button">
+      <PlusIcon />
+    </button>
+  </div>
 </template>
 
 <script>
 import ArticlesMainTabs from '@/components/articles/ArticlesMainTabs.vue'
-// import ArticleLayout from '@/views/ArticleLayout.vue'
-import MainLayout from '@/components/layouts/MainLayout.vue'
 import PlusIcon from '@/components/icons/PlusIcon.vue'
 
 export default {
   components: {
     PlusIcon,
-    MainLayout,
-    // ArticleLayout,
     ArticlesMainTabs
   }
 }
 </script>
 
 <style scoped>
-
 .create-button__block {
   display: none;
 }
@@ -59,7 +54,7 @@ export default {
       width: 100%;
       height: 100%;
       background: var(--color-hippie-blue);
-      box-shadow: 0 2px 10px rgba(73, 163, 153, 0.60);
+      box-shadow: 0 2px 10px rgba(73, 163, 153, 0.6);
       border-radius: 15px;
       padding: 0;
       cursor: pointer;

@@ -1,95 +1,91 @@
 <template>
-  <MainLayout>
-    <SearchMainLayout>
-      <div class="main-hashtags__block">
-        <ul class="hashtags-list">
-          <li class="hashtags-list__item">
-            <div class="hashtag-icon">
-              <HashtagIcon/>
-            </div>
-            <div class="hashtags-list__item-title">
-              <p>#н</p>
-              <span>2 тыс. просмотров</span>
-            </div>
-          </li>
-          <li class="hashtags-list__item">
-            <div class="hashtag-icon">
-              <HashtagIcon/>
-            </div>
-            <div class="hashtags-list__item-title">
-              <p>#на</p>
-              <span>1 млн. просмотров</span>
-            </div>
-          </li>
-          <li class="hashtags-list__item">
-            <div class="hashtag-icon">
-              <HashtagIcon/>
-            </div>
-            <div class="hashtags-list__item-title">
-              <p>#на</p>
-              <span>1 млн. просмотров</span>
-            </div>
-          </li>
-          <li class="hashtags-list__item">
-            <div class="hashtag-icon">
-              <HashtagIcon/>
-            </div>
-            <div class="hashtags-list__item-title">
-              <p>#нап</p>
-              <span>144 тыс. просмотров</span>
-            </div>
-          </li>
-          <li class="hashtags-list__item">
-            <div class="hashtag-icon">
-              <HashtagIcon/>
-            </div>
-            <div class="hashtags-list__item-title">
-              <p>#напи</p>
-              <span>810 просмотров</span>
-            </div>
-          </li>
-          <li class="hashtags-list__item">
-            <div class="hashtag-icon">
-              <HashtagIcon/>
-            </div>
-            <div class="hashtags-list__item-title">
-              <p>#напис</p>
-              <span>500 просмотров</span>
-            </div>
-          </li>
-          <li class="hashtags-list__item">
-            <div class="hashtag-icon">
-              <HashtagIcon/>
-            </div>
-            <div class="hashtags-list__item-title">
-              <p>#написанноеслово</p>
-              <span>94 тыс. просмотров</span>
-            </div>
-          </li>
-          <li class="hashtags-list__item">
-            <div class="hashtag-icon">
-              <HashtagIcon/>
-            </div>
-            <div class="hashtags-list__item-title">
-              <p>#написанноеслово</p>
-              <span>94 тыс. просмотров</span>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </SearchMainLayout>
-  </MainLayout>
+  <SearchMainLayout>
+    <div class="main-hashtags__block">
+      <ul class="hashtags-list">
+        <li class="hashtags-list__item">
+          <div class="hashtag-icon">
+            <HashtagIcon />
+          </div>
+          <div class="hashtags-list__item-title">
+            <p>#н</p>
+            <span>2 тыс. просмотров</span>
+          </div>
+        </li>
+        <li class="hashtags-list__item">
+          <div class="hashtag-icon">
+            <HashtagIcon />
+          </div>
+          <div class="hashtags-list__item-title">
+            <p>#на</p>
+            <span>1 млн. просмотров</span>
+          </div>
+        </li>
+        <li class="hashtags-list__item">
+          <div class="hashtag-icon">
+            <HashtagIcon />
+          </div>
+          <div class="hashtags-list__item-title">
+            <p>#на</p>
+            <span>1 млн. просмотров</span>
+          </div>
+        </li>
+        <li class="hashtags-list__item">
+          <div class="hashtag-icon">
+            <HashtagIcon />
+          </div>
+          <div class="hashtags-list__item-title">
+            <p>#нап</p>
+            <span>144 тыс. просмотров</span>
+          </div>
+        </li>
+        <li class="hashtags-list__item">
+          <div class="hashtag-icon">
+            <HashtagIcon />
+          </div>
+          <div class="hashtags-list__item-title">
+            <p>#напи</p>
+            <span>810 просмотров</span>
+          </div>
+        </li>
+        <li class="hashtags-list__item">
+          <div class="hashtag-icon">
+            <HashtagIcon />
+          </div>
+          <div class="hashtags-list__item-title">
+            <p>#напис</p>
+            <span>500 просмотров</span>
+          </div>
+        </li>
+        <li class="hashtags-list__item">
+          <div class="hashtag-icon">
+            <HashtagIcon />
+          </div>
+          <div class="hashtags-list__item-title">
+            <p>#написанноеслово</p>
+            <span>94 тыс. просмотров</span>
+          </div>
+        </li>
+        <li class="hashtags-list__item">
+          <div class="hashtag-icon">
+            <HashtagIcon />
+          </div>
+          <div class="hashtags-list__item-title">
+            <p>#написанноеслово</p>
+            <span>94 тыс. просмотров</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </SearchMainLayout>
 </template>
 
 <script>
 import HashtagIcon from '@/components/icons/navbar/small-display/HashtagIcon.vue'
-import MainLayout from '@/components/layouts/MainLayout.vue'
 import SearchMainLayout from '@/components/layouts/SearchMainLayout.vue'
 
 export default {
   components: {
     SearchMainLayout,
-    MainLayout,
     HashtagIcon
   }
 }

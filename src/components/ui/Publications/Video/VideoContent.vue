@@ -15,7 +15,7 @@
                 @click="state.playing ? player.pause() : player.play()"
                 class="play-button"
               >
-                <VideoPlayIcon class="play-icon__button-icon-big"/>
+                <VideoPlayIcon class="play-icon__button-icon-big" />
                 <SmallVideoPlayIcon class="play-icon__button-icon-small" />
               </div>
             </div>
@@ -24,7 +24,9 @@
       </div>
       <div class="article-content__details-block">
         <h3 class="article-content__details-block-title">Как я принял ислам. Все от А до Я</h3>
-        <span class="article-content__details-block-views">20.08.2022 - 1 тыс.{{ $t('video.views') }}</span>
+        <span class="article-content__details-block-views"
+          >20.08.2022 - 1 тыс.{{ $t('video.views') }}</span
+        >
       </div>
     </div>
 
@@ -153,6 +155,7 @@ video::-webkit-media-controls-enclosure {
       font-size: 20px;
       margin-top: 0;
       margin-bottom: 10px;
+      color: var(--color-mine-shaft);
     }
 
     &-views {
