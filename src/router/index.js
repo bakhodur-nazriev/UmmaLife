@@ -1,12 +1,7 @@
 /* eslint-disable */
-import {
-  createRouter,
-  createWebHistory
-} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import i18n from '@/i18n'
-import {
-  supportedLanguages
-} from '@/constants'
+import { supportedLanguages } from '@/constants'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/Auth/LoginView.vue'
 import RegisterView from '../views/Auth/RegisterView.vue'
@@ -47,12 +42,14 @@ import SearchHashtagsView from '@/views/SearchViews/HashtagsView.vue'
 import ShowArticlesView from '@/views/ShowArticlesView.vue'
 import UmmaVideoDetailVue from '@/views/UmmaVideoDetail.vue'
 import MuviView from '@/views/MuviView.vue'
+import VideoSingleViewVue from '@/views/VideoSingleView.vue'
 import PreviewArticleView from '@/views/PreviewArticleView.vue'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const baseDomain = isProduction ? 'front1.ummalife.dev' : 'localhost'
 
-const routes = [{
+const routes = [
+  {
     path: '/:lang?/',
     name: 'home',
     component: HomeView,
@@ -184,6 +181,15 @@ const routes = [{
     path: '/:lang?/video/:id',
     name: 'video-detail',
     component: UmmaVideoDetailVue,
+    meta: {
+      title: i18n.global.t('meta_title.video'),
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/:lang?/video-page/:id',
+    name: 'video-page-single',
+    component: VideoSingleViewVue,
     meta: {
       title: i18n.global.t('meta_title.video'),
       requiresAuth: true

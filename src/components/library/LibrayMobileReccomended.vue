@@ -1,22 +1,30 @@
 <template>
   <div class="book__recomended-mobile">
-    <div class="book__recomended--title">{{ $t('library.popular_books') }}:</div>
+    <div class="book__recomended--title">{{ $t(title) }}:</div>
     <swiper class="book__swiper" :slides-per-view="'auto'" :space-between="9">
       <swiper-slide v-for="book in books" :key="book.id" class="book__swiper--slide">
-        <router-link :to="`/${$i18n.locale}/library/${book.id}`">
+        <router-link :to="`/${$i18n.locale}/library/${book.id}`" v-if="isBook">
           <div class="book__swiper--img">
             <img :src="book.img" :alt="book.name" />
           </div>
           <div class="book__swiper--name">{{ book.name }}</div>
         </router-link>
+        <div v-else>
+          <div class="book__swiper--img">
+            <img :src="book.img" :alt="book.name" />
+          </div>
+          <div class="book__swiper--name">{{ book.name }}</div>
+        </div>
       </swiper-slide>
     </swiper>
   </div>
 </template>
 
 <script setup>
+/* eslint-disable */
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { books } from '@/dummy.js'
+const props = defineProps(['title', 'isBook'])
 </script>
 
 <style lang="scss">

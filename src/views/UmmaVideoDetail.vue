@@ -57,7 +57,7 @@
                     icon="true"
                     color="default_flex"
                   >
-                    <BookmarkIcon color="#1f1f1f" />
+                    <BookmarkIcon />
                   </SampleButton>
                 </div>
               </div>

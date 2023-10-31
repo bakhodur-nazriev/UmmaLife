@@ -283,7 +283,29 @@
   },
   "video": {
     "reactions": "reactions",
-    "views": "views"
+    "views": "views",
+    "read_more": "read more",
+    "search_video": "Search video",
+    "related_movies": "Related movies",
+    "video_page": "Video page",
+    "tabs": {
+      "all_films": "All movies",
+      "new_films": "News",
+      "recomended_films": "Recommendations",
+      "saved_films": "Saved",
+      "viewed": "Watched"
+    },
+    "parametrs": {
+      "title": "Search options",
+      "category": "Category",
+      "year": "Year",
+      "genre": "Genre",
+      "country": "Country",
+      "creator": "Creator",
+      "duration": "Duration",
+      "minut": "minutes",
+      "views": "Number of views"
+    }
   },
   "sections_title": {
     "last_actions": "Last actions",

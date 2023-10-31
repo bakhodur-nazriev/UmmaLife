@@ -1,9 +1,9 @@
 <template>
   <MainLayout>
-    <div class="detail__container">
-      <div class="detail__wrapper">
-        <div class="detail__block--wrapper">
-          <div class="detail__block">
+    <div class="library__detail__container">
+      <div class="library__detail__wrapper">
+        <div class="library__detail__block--wrapper">
+          <div class="library__detail__block">
             <div class="muvi__mobile--nav white" v-if="width < 767">
               <button
                 class="muvi__mobile--nav-btn"
@@ -15,29 +15,29 @@
               <div class="left"></div>
             </div>
             <div
-              class="detail__block--top"
+              class="library__detail__block--top"
               @click="$router.push(`/${$i18n.locale}/library`)"
               v-else
             >
               <ArrowLeft />
               <span>{{ $t('library.back_to_main') }}</span>
             </div>
-            <div class="detail__main">
-              <div class="detail__main--wrapper">
-                <img :src="book.img" :alt="book.name" class="detail__main--img" />
-                <div class="detail__main--info">
-                  <div class="detail__main--top">
-                    <div class="detail__main--name">{{ book.name }}</div>
-                    <div class="detail__main--details">
-                      <div class="detail__main--rating-mobile" v-if="width < 767">
+            <div class="library__detail__main">
+              <div class="library__detail__main--wrapper">
+                <img :src="book.img" :alt="book.name" class="library__detail__main--img" />
+                <div class="library__detail__main--info">
+                  <div class="library__detail__main--top">
+                    <div class="library__detail__main--name">{{ book.name }}</div>
+                    <div class="library__detail__main--details">
+                      <div class="library__detail__main--rating-mobile" v-if="width < 767">
                         <StarIcon v-for="i in 5" :key="i" />
                       </div>
-                      <div class="detail__main--rating">
+                      <div class="library__detail__main--rating">
                         <StarIcon />
                         <span>{{ book.rating }}</span>
                       </div>
                       <div
-                        class="detail__main--like"
+                        class="library__detail__main--like"
                         @click.stop.prevent="book.isLiked = !book.isLiked"
                       >
                         <HeartFilledIcon v-if="book.isLiked" />
@@ -45,7 +45,7 @@
                       </div>
                     </div>
                   </div>
-                  <ul class="detail__main--option">
+                  <ul class="library__detail__main--option">
                     <li>
                       <span>{{ $t('library.year') }}:</span>
                       <p>2009</p>
@@ -68,29 +68,31 @@
                     :size="14"
                     padding="13px 16px"
                     width="125px"
-                    class="detail__main--read"
+                    class="library__detail__main--read"
                     @click="$router.push(`/${$i18n.locale}/library/${book.id}/read`)"
                   />
-                  <div class="detail__main--bottom">
-                    <div class="detail__main--social">
-                      <div class="detail__main--social-title">{{ $t('library.share_in') }}:</div>
-                      <div class="detail__main--social-wrapper">
-                        <a href="#" class="detail__main--social-link">
+                  <div class="library__detail__main--bottom">
+                    <div class="library__detail__main--social">
+                      <div class="library__detail__main--social-title">
+                        {{ $t('library.share_in') }}:
+                      </div>
+                      <div class="library__detail__main--social-wrapper">
+                        <a href="#" class="library__detail__main--social-link">
                           <img src="@/assets/images/social/facebook.png" alt="facebook" />
                         </a>
-                        <a href="#" class="detail__main--social-link">
+                        <a href="#" class="library__detail__main--social-link">
                           <img src="@/assets/images/social/twitter.png" alt="twitter" />
                         </a>
-                        <a href="#" class="detail__main--social-link">
+                        <a href="#" class="library__detail__main--social-link">
                           <img src="@/assets/images/social/telegram.png" alt="telegram" />
                         </a>
-                        <a href="#" class="detail__main--social-link">
+                        <a href="#" class="library__detail__main--social-link">
                           <img src="@/assets/images/social/whatsapp.png" alt="whatsapp" />
                         </a>
                       </div>
                     </div>
                     <div
-                      class="detail__main--select"
+                      class="library__detail__main--select"
                       @click="isDownloadOpen = !isDownloadOpen"
                       v-on-click-outside="() => (isDownloadOpen = false)"
                       :class="{ active: isDownloadOpen }"
@@ -98,7 +100,7 @@
                       <span>{{ $t('library.download') }}</span>
                       <ArrowDownIcon />
 
-                      <ul class="detail__main--menu" v-if="isDownloadOpen">
+                      <ul class="library__detail__main--menu" v-if="isDownloadOpen">
                         <li>list 1</li>
                         <li>list 2</li>
                         <li>list 3</li>
@@ -107,10 +109,15 @@
                   </div>
                 </div>
               </div>
-              <div class="detail__main--description">
-                <div class="detail__main--description-title">{{ $t('library.description') }}:</div>
-                <div class="detail__main--description-wrapper">
-                  <div class="detail__main--description-text" :class="{ closed: isClosed }">
+              <div class="library__detail__main--description">
+                <div class="library__detail__main--description-title">
+                  {{ $t('library.description') }}:
+                </div>
+                <div class="library__detail__main--description-wrapper">
+                  <div
+                    class="library__detail__main--description-text"
+                    :class="{ closed: isClosed }"
+                  >
                     {{ book.desc }}
                     Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные
                     тексты. Продолжил, скатился. Выйти прямо маленький путь живет, повстречался
@@ -129,7 +136,7 @@
                     журчит реторический рукопись ему ipsum?
                   </div>
                   <span
-                    class="detail__main--description-more"
+                    class="library__detail__main--description-more"
                     v-if="isClosed"
                     @click="isClosed = !isClosed"
                   >
@@ -137,7 +144,11 @@
                   </span>
                 </div>
               </div>
-              <LibrayMobileReccomended v-if="width < 1310" />
+              <LibrayMobileReccomended
+                v-if="width < 1310"
+                title="library.popular_books"
+                :isBook="true"
+              />
               <div class="detail__comments">
                 <div class="detail__comments--top">
                   <div class="detail__comments--length">
@@ -210,8 +221,8 @@ watch(
 )
 </script>
 
-<style lang="scss" scoped>
-.detail {
+<style lang="scss">
+.library__detail {
   &__wrapper {
     display: grid;
     grid-template-columns: 1fr 377px;
@@ -564,11 +575,12 @@ watch(
       }
     }
   }
-  &__comments {
-    .detail__comments--top {
-      @media (max-width: 767px) {
-        margin-bottom: 0;
-      }
+  .detail__comments--top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @media (max-width: 767px) {
+      margin-bottom: 0;
     }
   }
 }

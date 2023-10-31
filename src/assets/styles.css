@@ -132,6 +132,10 @@
   text-decoration: none;
 }
 
+*:not(.video-js) {
+  font-family: 'HelveticaNeueCyr', sans-serif;
+}
+
 *,
 *::before,
 *::after {

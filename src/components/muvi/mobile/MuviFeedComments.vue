@@ -152,7 +152,7 @@ import TextareaClipIcon from '@/components/icons/TextareaClipIcon.vue'
 import FileUpload from '@/components/ui/FileUpload.vue'
 import SampleTextarea from '@/components/ui/Fields/SampleTextarea.vue'
 import SampleDropDown from '@/components/ui/SampleDropDown.vue'
-import CloseFormIcon from '../../icons/comment/CloseFormIcon.vue'
+import CloseFormIcon from '@/components/icons/comment/CloseFormIcon.vue'
 
 const props = defineProps({
   isCommentsOpen: {
