@@ -1,10 +1,12 @@
 <template>
   <div class="publication-content">
-    <p class="publication-content__paragraph">The 29-year-old took more than a tenth of a second off a record that had stood
-      for 16 years, clocking 52.20 seconds to beat Russian Yuliya<br>
-      Pechonkina's previous mark of 52.34.<br>
-      "I'm just shocked," said Muhammad.<br>
-      "I've been kind of hitting that time in practice and my coach was like 'there's no way you can't do it'."
+    <p class="publication-content__paragraph">
+      The 29-year-old took more than a tenth of a second off a record that had stood for 16 years,
+      clocking 52.20 seconds to beat Russian Yuliya<br />
+      Pechonkina's previous mark of 52.34.<br />
+      "I'm just shocked," said Muhammad.<br />
+      "I've been kind of hitting that time in practice and my coach was like 'there's no way you
+      can't do it'."
     </p>
     <div class="publication-content__reactions">
       <PostReactions />
@@ -42,6 +44,7 @@ export default {
 
 .publication-content__paragraph {
   margin: 0;
+  color: var(--color-mine-shaft);
 }
 
 @media (max-width: 576px) {
@@ -50,11 +53,13 @@ export default {
   }
 
   .publication-content__paragraph {
-   font-size: 14px;
+    font-size: 14px;
   }
 }
 
-@media (min-width: 1280px) {}
+@media (min-width: 1280px) {
+}
 
-@media (min-width: 1920px) {}
+@media (min-width: 1920px) {
+}
 </style>

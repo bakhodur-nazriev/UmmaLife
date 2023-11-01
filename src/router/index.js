@@ -41,7 +41,8 @@ import SearchVideoView from '@/views/SearchViews/VideoView.vue'
 import SearchHashtagsView from '@/views/SearchViews/HashtagsView.vue'
 import ShowArticlesView from '@/views/ShowArticlesView.vue'
 import UmmaVideoDetailVue from '@/views/UmmaVideoDetail.vue'
-import MuviView from '@/views/MuviView.vue'
+import MuviView from '@/views/muvi/MuviView.vue'
+import MuviMobileView from '@/views/muvi/MuviMobileView.vue'
 import VideoSingleViewVue from '@/views/VideoSingleView.vue'
 import PreviewArticleView from '@/views/PreviewArticleView.vue'
 
@@ -55,7 +56,8 @@ const routes = [
     component: HomeView,
     meta: {
       title: i18n.global.t('meta_title.home'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {
@@ -64,7 +66,8 @@ const routes = [
     component: LoginView,
     meta: {
       title: i18n.global.t('meta_title.login'),
-      requiresAuth: false
+      requiresAuth: false,
+      layout: 'auth'
     }
   },
   {
@@ -73,7 +76,8 @@ const routes = [
     component: RegisterView,
     meta: {
       title: i18n.global.t('meta_title.register'),
-      requiresAuth: false
+      requiresAuth: false,
+      layout: 'auth'
     }
   },
   {
@@ -82,7 +86,8 @@ const routes = [
     component: ForgotPasswordView,
     meta: {
       title: i18n.global.t('meta_title.forgot_password'),
-      requiresAuth: false
+      requiresAuth: false,
+      layout: 'auth'
     }
   },
   {
@@ -91,7 +96,8 @@ const routes = [
     component: TermsView,
     meta: {
       title: i18n.global.t('meta_title.terms'),
-      requiresAuth: false
+      requiresAuth: false,
+      layout: 'auth'
     }
   },
   {
@@ -100,7 +106,8 @@ const routes = [
     component: PrivacyPolicyView,
     meta: {
       title: i18n.global.t('meta_title.privacy_policy'),
-      requiresAuth: false
+      requiresAuth: false,
+      layout: 'auth'
     }
   },
   {
@@ -109,7 +116,8 @@ const routes = [
     component: ContactsView,
     meta: {
       title: i18n.global.t('meta_title.contacts'),
-      requiresAuth: false
+      requiresAuth: false,
+      layout: 'auth'
     }
   },
   {
@@ -118,7 +126,8 @@ const routes = [
     component: AboutUs,
     meta: {
       title: i18n.global.t('meta_title.about_us'),
-      requiresAuth: false
+      requiresAuth: false,
+      layout: 'auth'
     }
   },
   {
@@ -127,7 +136,8 @@ const routes = [
     component: ArticlesView,
     meta: {
       title: i18n.global.t('meta_title.articles'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     },
     children: [
       {
@@ -136,7 +146,8 @@ const routes = [
         component: ShowArticlesView,
         meta: {
           title: i18n.global.t('meta_title.show_article'),
-          requiredAuth: true
+          requiredAuth: true,
+          layout: 'main'
         }
       },
       {
@@ -145,7 +156,8 @@ const routes = [
         component: PreviewArticleView,
         meta: {
           title: i18n.global.t('meta_title.preview_article'),
-          requiresAuth: true
+          requiresAuth: true,
+          layout: 'main'
         }
       }
     ]
@@ -156,7 +168,8 @@ const routes = [
     component: LibraryView,
     meta: {
       title: i18n.global.t('meta_title.library'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {
@@ -165,7 +178,8 @@ const routes = [
     component: LibraryDetailView,
     meta: {
       title: i18n.global.t('meta_title.library'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {
@@ -174,7 +188,8 @@ const routes = [
     component: LibraryBookView,
     meta: {
       title: i18n.global.t('meta_title.library'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {
@@ -183,7 +198,8 @@ const routes = [
     component: UmmaVideoDetailVue,
     meta: {
       title: i18n.global.t('meta_title.video'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {
@@ -192,7 +208,8 @@ const routes = [
     component: VideoSingleViewVue,
     meta: {
       title: i18n.global.t('meta_title.video'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {
@@ -201,7 +218,8 @@ const routes = [
     component: MarriageAgencyView,
     meta: {
       title: i18n.global.t('meta_title.marriage_agency'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {
@@ -210,7 +228,8 @@ const routes = [
     component: MyAlbumsView,
     meta: {
       title: i18n.global.t('meta_title.my_albums'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {
@@ -219,7 +238,8 @@ const routes = [
     component: MessengerView,
     meta: {
       title: i18n.global.t('meta_title.messenger'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     },
     children: [
       {
@@ -228,7 +248,8 @@ const routes = [
         component: MessengerChatView,
         meta: {
           title: i18n.global.t('meta_title.messenger'),
-          requiresAuth: true
+          requiresAuth: true,
+          layout: 'main'
         }
       },
       {
@@ -237,7 +258,8 @@ const routes = [
         component: MessengerEmptyView,
         meta: {
           title: i18n.global.t('meta_title.messenger'),
-          requiresAuth: true
+          requiresAuth: true,
+          layout: 'main'
         }
       }
     ]
@@ -248,7 +270,8 @@ const routes = [
     component: MyAudiosView,
     meta: {
       title: i18n.global.t('meta_title.my_audio'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {
@@ -257,7 +280,8 @@ const routes = [
     component: MyGroupsView,
     meta: {
       title: i18n.global.t('meta_title.my_groups'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     },
     children: [
       {
@@ -266,7 +290,8 @@ const routes = [
         component: MyGroupsContainer,
         meta: {
           title: i18n.global.t('meta_title.my_groups'),
-          requiresAuth: true
+          requiresAuth: true,
+          layout: 'main'
         }
       },
       {
@@ -275,7 +300,8 @@ const routes = [
         component: MyGroupsSettings,
         meta: {
           title: i18n.global.t('meta_title.my_groups'),
-          requiresAuth: true
+          requiresAuth: true,
+          layout: 'main'
         }
       },
       {
@@ -284,7 +310,8 @@ const routes = [
         component: MyGroupsDetails,
         meta: {
           title: i18n.global.t('meta_title.my_groups'),
-          requiresAuth: true
+          requiresAuth: true,
+          layout: 'main'
         },
         children: [
           {
@@ -293,7 +320,8 @@ const routes = [
             component: MyGroupsPublications,
             meta: {
               title: i18n.global.t('meta_title.my_groups'),
-              requiresAuth: true
+              requiresAuth: true,
+              layout: 'main'
             }
           },
           {
@@ -302,7 +330,8 @@ const routes = [
             component: MyGroupsUsers,
             meta: {
               title: i18n.global.t('meta_title.my_groups'),
-              requiresAuth: true
+              requiresAuth: true,
+              layout: 'main'
             }
           }
         ]
@@ -315,7 +344,8 @@ const routes = [
     component: MyPageView,
     meta: {
       title: i18n.global.t('meta_title.my_page'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {
@@ -324,7 +354,8 @@ const routes = [
     component: SearchAllRecommendationsView,
     meta: {
       title: i18n.global.t('meta_title.search.all-recommendations'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {
@@ -333,7 +364,8 @@ const routes = [
     component: SearchPeopleView,
     meta: {
       title: i18n.global.t('meta_title.search.people'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {
@@ -342,7 +374,8 @@ const routes = [
     component: SearchGroupsView,
     meta: {
       title: i18n.global.t('meta_title.search.groups'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {
@@ -351,7 +384,8 @@ const routes = [
     component: SearchMUVIView,
     meta: {
       title: i18n.global.t('meta_title.search.muvi'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {
@@ -360,7 +394,8 @@ const routes = [
     component: SearchArticleView,
     meta: {
       title: i18n.global.t('meta_title.search.article'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {
@@ -369,7 +404,8 @@ const routes = [
     component: SearchVideoView,
     meta: {
       title: i18n.global.t('meta_title.search.video'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {
@@ -378,7 +414,8 @@ const routes = [
     component: SearchAudioView,
     meta: {
       title: i18n.global.t('meta_title.search.audio'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {
@@ -387,7 +424,8 @@ const routes = [
     component: SearchHashtagsView,
     meta: {
       title: i18n.global.t('meta_title.search.hashtags'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
 
@@ -397,7 +435,8 @@ const routes = [
     component: NewsView,
     meta: {
       title: i18n.global.t('meta_title.news'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {
@@ -406,7 +445,8 @@ const routes = [
     component: SavedView,
     meta: {
       title: i18n.global.t('meta_title.saved'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {
@@ -415,7 +455,8 @@ const routes = [
     component: VideoView,
     meta: {
       title: i18n.global.t('meta_title.video'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {
@@ -424,7 +465,8 @@ const routes = [
     component: SettingsView,
     meta: {
       title: i18n.global.t('meta_title.settings'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {
@@ -433,7 +475,18 @@ const routes = [
     component: MuviView,
     meta: {
       title: i18n.global.t('meta_title.muvi'),
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/muvi-mobile',
+    name: 'muvi-mobile',
+    component: MuviMobileView,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'main-mobile'
     }
   },
   {

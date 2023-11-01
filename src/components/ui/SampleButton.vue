@@ -72,6 +72,8 @@ const clickButton = () => {
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
+  gap: 8px;
 
   transition: all 0.3s;
   &_primary {
@@ -163,7 +165,6 @@ const clickButton = () => {
   &__icon {
     display: inline-flex;
     align-items: center;
-    margin-right: 8px;
   }
 }
 

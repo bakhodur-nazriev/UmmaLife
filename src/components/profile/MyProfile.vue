@@ -126,12 +126,9 @@ import ImageDropdown from '@/components/profile/ImageDropdown.vue'
 import MobileProfileTopActions from './MobileProfileTopActions.vue'
 
 import { useWindowSize } from '@vueuse/core'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 
-const screenWidth = computed(() => {
-  const { width } = useWindowSize()
-  return width.value
-})
+const { width: screenWidth } = useWindowSize()
 
 const profileImage = ref('')
 const coverImage = ref('')

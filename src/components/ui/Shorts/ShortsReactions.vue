@@ -45,6 +45,7 @@ export default {
   margin-bottom: 28px;
   .reaction {
     cursor: pointer;
+    color: var(--color-mine-shaft);
     p {
       margin: 0;
       margin-top: 4px;

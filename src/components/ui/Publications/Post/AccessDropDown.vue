@@ -1,22 +1,19 @@
 <template>
   <div class="dropdown">
     <button type="button" class="dropdown__toggle" @click="toggleDropdown">
-      <AccessIcon class="access__icon"/>
+      <AccessIcon class="access__icon" />
       <span>{{ selectedTitle }}</span>
-      <DropdownIcon/>
+      <DropdownIcon />
     </button>
 
     <Transition name="fade">
       <ul v-if="isOpen" class="dropdown__list">
-        <li
-          v-for="(item, index) in dropdownItems"
-          :key="index"
-        >
+        <li v-for="(item, index) in dropdownItems" :key="index">
           <div @click="selectItem(item)" class="dropdown__item">
-            <component :is="item.icon"/>
+            <component :is="item.icon" />
             <span class="dropdown__item--title">{{ item.title }}</span>
           </div>
-          <SampleDivider class="access-item__divider"/>
+          <SampleDivider class="access-item__divider" />
         </li>
       </ul>
     </Transition>
@@ -88,16 +85,14 @@ export default {
   },
   computed: {
     selectedTitle() {
-      const selectedItem = this.dropdownItems.find(
-        item => item.id === this.selectedItemId
-      )
+      const selectedItem = this.dropdownItems.find((item) => item.id === this.selectedItemId)
       if (selectedItem) {
         return selectedItem.title
       }
       return ''
     },
     dropdownItems() {
-      return this.items.map(item => ({
+      return this.items.map((item) => ({
         ...item,
         icon: this.icons[item.icon]
       }))
@@ -108,21 +103,21 @@ export default {
 
 <style scoped lang="scss">
 .fade-enter-active {
-  animation: scale-up-top .2s;
+  animation: scale-up-top 0.2s;
 }
 
 .fade-leave-active {
-  animation: scale-up-top .2s reverse;
+  animation: scale-up-top 0.2s reverse;
 }
 
 @keyframes scale-up-top {
   0% {
-    transform:scale(.5);
-    transform-origin:center top
+    transform: scale(0.5);
+    transform-origin: center top;
   }
   100% {
-    transform:scale(1);
-    transform-origin:center top
+    transform: scale(1);
+    transform-origin: center top;
   }
 }
 
@@ -132,7 +127,7 @@ export default {
 }
 
 .access__icon {
-  color: var(--color-silver-chalice)
+  color: var(--color-silver-chalice);
 }
 
 .left__side--item {
@@ -154,7 +149,7 @@ export default {
     list-style: none;
     margin: 0;
     font-size: 16px;
-    box-shadow: 3px 3px 15px 0 rgba(0, 0, 0, 0.10);
+    box-shadow: 3px 3px 15px 0 rgba(0, 0, 0, 0.1);
     background-color: var(--color-white);
     padding: 8px;
     border-radius: 10px;
@@ -163,6 +158,9 @@ export default {
     left: -32px;
     z-index: 10;
     width: 230px;
+    li {
+      color: var(--color-mine-shaft);
+    }
   }
 }
 
@@ -183,7 +181,7 @@ export default {
 }
 
 .dropdown__toggle svg {
-  fill: var(--color-silver-chalice);
+  // fill: var(--color-silver-chalice);
 }
 
 .dropdown__item {
@@ -195,7 +193,9 @@ export default {
   cursor: pointer;
   border-radius: 10px;
   position: relative;
-
+  &--title {
+    color: var(--color-mine-shaft);
+  }
   &:hover {
     transition: all 0.15s ease-in-out;
     background-color: var(--color-seashell);

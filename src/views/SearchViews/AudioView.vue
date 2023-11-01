@@ -1,25 +1,20 @@
 <template>
-  <MainLayout>
-    <SearchMainLayout>
-      <div class="audio-block">
-        <article class="audio-block__article" v-for="i in 5" :key="i">
-          <PostHeader
-            :is-menu-open="isMenuOpen"
-            @toggle-menu="toggleMenu"
-          />
+  <SearchMainLayout>
+    <div class="audio-block">
+      <article class="audio-block__article" v-for="i in 5" :key="i">
+        <PostHeader :is-menu-open="isMenuOpen" @toggle-menu="toggleMenu" />
 
-          <AudioContent/>
+        <AudioContent />
 
-          <SampleDivider class="divider"/>
+        <SampleDivider class="divider" />
 
-          <PostFooter
-            :is-reaction-window-open="isReactionWindowOpen"
-            :is-share-window-open="isShareWindowOpen"
-          />
-        </article>
-      </div>
-    </SearchMainLayout>
-  </MainLayout>
+        <PostFooter
+          :is-reaction-window-open="isReactionWindowOpen"
+          :is-share-window-open="isShareWindowOpen"
+        />
+      </article>
+    </div>
+  </SearchMainLayout>
 </template>
 
 <script>
@@ -27,13 +22,11 @@ import AudioContent from '@/components/ui/Publications/Audio/AudioContent.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
 import PostHeader from '@/components/ui/Post/PostHeader.vue'
 import PostFooter from '@/components/ui/Post/PostFooter.vue'
-import MainLayout from '@/components/layouts/MainLayout.vue'
 import SearchMainLayout from '@/components/layouts/SearchMainLayout.vue'
 
 export default {
   components: {
     SearchMainLayout,
-    MainLayout,
     PostFooter,
     PostHeader,
     SampleDivider,

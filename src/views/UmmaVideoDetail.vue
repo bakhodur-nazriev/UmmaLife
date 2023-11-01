@@ -1,120 +1,117 @@
 <template>
-  <MainLayout>
-    <div class="detail">
-      <div class="detail__wrapper">
-        <div class="detail__main">
-          <div class="detail__video">
-            <VideoPlayer
-              src="/video/video.mp4"
-              poster="/images/message/video-poster.jpg"
-              controls
-              :volume="1"
-            >
-              <template v-slot="{ player, state }">
-                <div class="custom-player-controls">
-                  <div
-                    v-if="!state.playing"
-                    @click="state.playing ? player.pause() : player.play()"
-                    class="play-button"
-                  >
-                    <VideoPlayIcon class="play-icon__button-icon-big" />
-                    <SmallVideoPlayIcon class="play-icon__button-icon-small" />
-                  </div>
-                </div>
-              </template>
-            </VideoPlayer>
-          </div>
-          <div class="detail__info">
-            <div class="detail__info--top">
-              <div class="detail__info--title">Название видео, которое вы просматриваете</div>
-              <div class="detail__info--wrapper">
-                <div class="detail__info--left">
-                  <div class="detail__author">
-                    <img src="/images/users/jeff.png" alt="jeff" class="detail__author--img" />
-                    <div class="detail__author--info">
-                      <div class="detail__author--name">Максуд Максудов</div>
-                      <div class="detail__author--subs">49,5 тыс. подписчиков</div>
-                    </div>
-                  </div>
-                  <SampleButton title="Подписаться" width="152px" padding="13px" :size="14" />
-                </div>
-                <div class="detail__info--right">
-                  <SampleButton
-                    title="Поделиться"
-                    width="156px"
-                    padding="12px"
-                    :size="14"
-                    icon="true"
-                    color="default_flex"
-                  >
-                    <ShareMenuIcon color="#1f1f1f" width="16" height="16" />
-                  </SampleButton>
-                  <SampleButton
-                    title="Сохранить"
-                    width="156px"
-                    padding="12px"
-                    :size="14"
-                    icon="true"
-                    color="default_flex"
-                  >
-                    <BookmarkIcon />
-                  </SampleButton>
+  <div class="detail">
+    <div class="detail__wrapper">
+      <div class="detail__main">
+        <div class="detail__video">
+          <VideoPlayer
+            src="/video/video.mp4"
+            poster="/images/message/video-poster.jpg"
+            controls
+            :volume="1"
+          >
+            <template v-slot="{ player, state }">
+              <div class="custom-player-controls">
+                <div
+                  v-if="!state.playing"
+                  @click="state.playing ? player.pause() : player.play()"
+                  class="play-button"
+                >
+                  <VideoPlayIcon class="play-icon__button-icon-big" />
+                  <SmallVideoPlayIcon class="play-icon__button-icon-small" />
                 </div>
               </div>
-            </div>
-            <div class="detail__views">349 просмотров - 1 час назад</div>
-            <div class="detail__reactions">
-              <PostReactions />
-            </div>
-            <div class="detail__desc">
-              <p :class="isNotShort ? '' : 'short'">
-                Далеко-далеко за, словесными горами в стране гласных и согласных живут рыбные
-                тексты. Там вдали ему не сих собрал своих своего до, злых что напоивший, однажды
-                реторический силуэт парадигматическая снова текстами семантика единственное?
-                Далеко-далеко за, словесными горами в стране гласных и согласных живут рыбные
-                тексты. Там вдали ему не сих собрал своих своего до, злых что напоивший, однажды
-                реторический силуэт парадигматическая снова текстами семантика единственное?
-                Далеко-далеко за, словесными горами в стране гласных и согласных живут рыбные
-                тексты. Там вдали ему не сих собрал своих своего до, злых что напоивший, однажды
-                реторический силуэт парадигматическая снова текстами семантика единственное?
-              </p>
-              <span @click="isNotShort = !isNotShort">
-                {{ isNotShort ? 'развернуть' : 'ещё' }}
-              </span>
-            </div>
-            <div class="detail__comments">
-              <div class="detail__comments--top">
-                <div class="detail__comments--length">
-                  <p>Комментарии</p>
-                  <span>5</span>
-                </div>
-                <div class="detail__comments--sort"><CommentFilter /> <span>Сортировка</span></div>
-              </div>
-              <div
-                ref="commentForm"
-                :class="['main__comment--form', isFormOpen ? 'main__comment--form--shown' : '']"
-              >
-                <ReplyCommentForm @close-comment-window="isFormOpen = !isFormOpen" />
-
-                <div class="enter-comment__form">
-                  <CommentForm />
-                </div>
-              </div>
-            </div>
-          </div>
+            </template>
+          </VideoPlayer>
         </div>
-        <div class="detail__aside">
-          <AsideVideoDetail v-for="index in 10" :index="index" :key="index" />
+        <div class="detail__info">
+          <div class="detail__info--top">
+            <div class="detail__info--title">Название видео, которое вы просматриваете</div>
+            <div class="detail__info--wrapper">
+              <div class="detail__info--left">
+                <div class="detail__author">
+                  <img src="/images/users/jeff.png" alt="jeff" class="detail__author--img" />
+                  <div class="detail__author--info">
+                    <div class="detail__author--name">Максуд Максудов</div>
+                    <div class="detail__author--subs">49,5 тыс. подписчиков</div>
+                  </div>
+                </div>
+                <SampleButton title="Подписаться" width="152px" padding="13px" :size="14" />
+              </div>
+              <div class="detail__info--right">
+                <SampleButton
+                  title="Поделиться"
+                  width="156px"
+                  padding="12px"
+                  :size="14"
+                  icon="true"
+                  color="default_flex"
+                >
+                  <ShareMenuIcon color="#1f1f1f" width="16" height="16" />
+                </SampleButton>
+                <SampleButton
+                  title="Сохранить"
+                  width="156px"
+                  padding="12px"
+                  :size="14"
+                  icon="true"
+                  color="default_flex"
+                >
+                  <BookmarkIcon />
+                </SampleButton>
+              </div>
+            </div>
+          </div>
+          <div class="detail__views">349 просмотров - 1 час назад</div>
+          <div class="detail__reactions">
+            <PostReactions />
+          </div>
+          <div class="detail__desc">
+            <p :class="isNotShort ? '' : 'short'">
+              Далеко-далеко за, словесными горами в стране гласных и согласных живут рыбные тексты.
+              Там вдали ему не сих собрал своих своего до, злых что напоивший, однажды реторический
+              силуэт парадигматическая снова текстами семантика единственное? Далеко-далеко за,
+              словесными горами в стране гласных и согласных живут рыбные тексты. Там вдали ему не
+              сих собрал своих своего до, злых что напоивший, однажды реторический силуэт
+              парадигматическая снова текстами семантика единственное? Далеко-далеко за, словесными
+              горами в стране гласных и согласных живут рыбные тексты. Там вдали ему не сих собрал
+              своих своего до, злых что напоивший, однажды реторический силуэт парадигматическая
+              снова текстами семантика единственное?
+            </p>
+            <span @click="isNotShort = !isNotShort">
+              {{ isNotShort ? 'развернуть' : 'ещё' }}
+            </span>
+          </div>
+          <div class="detail__comments">
+            <div class="detail__comments--top">
+              <div class="detail__comments--length">
+                <p>Комментарии</p>
+                <span>5</span>
+              </div>
+              <div class="detail__comments--sort"><CommentFilter /> <span>Сортировка</span></div>
+            </div>
+            <div
+              ref="commentForm"
+              :class="['main__comment--form', isFormOpen ? 'main__comment--form--shown' : '']"
+            >
+              <ReplyCommentForm @close-comment-window="isFormOpen = !isFormOpen" />
+
+              <div class="enter-comment__form">
+                <CommentForm />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+      <div class="detail__aside">
+        <AsideVideoDetail v-for="index in 10" :index="index" :key="index" />
+      </div>
     </div>
-  </MainLayout>
+  </div>
 </template>
 
 <script setup>
 import VideoPlayIcon from '@/components/icons/VideoPlayIcon.vue'
 import SmallVideoPlayIcon from '@/components/icons/SmallVideoPlayIcon.vue'
-import MainLayout from '@/components/layouts/MainLayout.vue'
 import { VideoPlayer } from '@videojs-player/vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import ShareMenuIcon from '@/components/icons/MenuDetails/ShareMenuIcon.vue'
