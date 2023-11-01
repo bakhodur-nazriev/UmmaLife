@@ -9,7 +9,7 @@
 <style lang="scss" scoped>
 .dropdown {
   border-radius: 10px;
-  background-color: var(--color-white);
+  background: #fff;
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.15);
   padding: 5px;
   max-width: 168px;

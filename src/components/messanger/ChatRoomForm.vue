@@ -176,7 +176,6 @@ export default {
       padding: 12px 12px 8px 14px;
       width: calc(100% - 235px);
       border-radius: 0px 10px 10px 0px;
-
       span {
         display: block;
         font-size: 14px;
@@ -225,7 +224,6 @@ export default {
         resize: none;
         height: 56px;
         overflow: hidden;
-        background-color: var(--color-white);
         &::placeholder {
           color: var(--color-silver-chalice);
         }

@@ -53,7 +53,6 @@ export default {
     padding: 0;
     border: none;
     outline: none;
-    background-color: var(--color-seashell);
   }
   &__menu {
     list-style: none;

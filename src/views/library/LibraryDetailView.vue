@@ -1,178 +1,186 @@
 <template>
-  <div class="library__detail__container">
-    <div class="library__detail__wrapper">
-      <div class="library__detail__block--wrapper">
-        <div class="library__detail__block">
-          <div class="muvi__mobile--nav white" v-if="width < 767">
-            <button class="muvi__mobile--nav-btn" @click="$router.push(`/${$i18n.locale}/library`)">
-              <ArrowLeftIcon />
-            </button>
-            <div class="muvi__mobile--nav-title">{{ $t('library.book_page') }}</div>
-            <div class="left"></div>
-          </div>
-          <div
-            class="library__detail__block--top"
-            @click="$router.push(`/${$i18n.locale}/library`)"
-            v-else
-          >
-            <ArrowLeft />
-            <span>{{ $t('library.back_to_main') }}</span>
-          </div>
-          <div class="library__detail__main">
-            <div class="library__detail__main--wrapper">
-              <img :src="book.img" :alt="book.name" class="library__detail__main--img" />
-              <div class="library__detail__main--info">
-                <div class="library__detail__main--top">
-                  <div class="library__detail__main--name">{{ book.name }}</div>
-                  <div class="library__detail__main--details">
-                    <div class="library__detail__main--rating-mobile" v-if="width < 767">
-                      <StarIcon v-for="i in 5" :key="i" />
+  <MainLayout>
+    <div class="library__detail__container">
+      <div class="library__detail__wrapper">
+        <div class="library__detail__block--wrapper">
+          <div class="library__detail__block">
+            <div class="muvi__mobile--nav white" v-if="width < 767">
+              <button
+                class="muvi__mobile--nav-btn"
+                @click="$router.push(`/${$i18n.locale}/library`)"
+              >
+                <ArrowLeftIcon />
+              </button>
+              <div class="muvi__mobile--nav-title">{{ $t('library.book_page') }}</div>
+              <div class="left"></div>
+            </div>
+            <div
+              class="library__detail__block--top"
+              @click="$router.push(`/${$i18n.locale}/library`)"
+              v-else
+            >
+              <ArrowLeft />
+              <span>{{ $t('library.back_to_main') }}</span>
+            </div>
+            <div class="library__detail__main">
+              <div class="library__detail__main--wrapper">
+                <img :src="book.img" :alt="book.name" class="library__detail__main--img" />
+                <div class="library__detail__main--info">
+                  <div class="library__detail__main--top">
+                    <div class="library__detail__main--name">{{ book.name }}</div>
+                    <div class="library__detail__main--details">
+                      <div class="library__detail__main--rating-mobile" v-if="width < 767">
+                        <StarIcon v-for="i in 5" :key="i" />
+                      </div>
+                      <div class="library__detail__main--rating">
+                        <StarIcon />
+                        <span>{{ book.rating }}</span>
+                      </div>
+                      <div
+                        class="library__detail__main--like"
+                        @click.stop.prevent="book.isLiked = !book.isLiked"
+                      >
+                        <HeartFilledIcon v-if="book.isLiked" />
+                        <HeartIcon v-else />
+                      </div>
                     </div>
-                    <div class="library__detail__main--rating">
-                      <StarIcon />
-                      <span>{{ book.rating }}</span>
+                  </div>
+                  <ul class="library__detail__main--option">
+                    <li>
+                      <span>{{ $t('library.year') }}:</span>
+                      <p>2009</p>
+                    </li>
+                    <li>
+                      <span>{{ $t('library.category') }}:</span>
+                      <p>Истории</p>
+                    </li>
+                    <li>
+                      <span>{{ $t('library.author') }}:</span>
+                      <p>Абдуррахман Рафат Аль-Баша</p>
+                    </li>
+                    <li>
+                      <span>{{ $t('library.views') }}:</span>
+                      <p>433</p>
+                    </li>
+                  </ul>
+                  <SampleButton
+                    :title="$t('library.read')"
+                    :size="14"
+                    padding="13px 16px"
+                    width="125px"
+                    class="library__detail__main--read"
+                    @click="$router.push(`/${$i18n.locale}/library/${book.id}/read`)"
+                  />
+                  <div class="library__detail__main--bottom">
+                    <div class="library__detail__main--social">
+                      <div class="library__detail__main--social-title">
+                        {{ $t('library.share_in') }}:
+                      </div>
+                      <div class="library__detail__main--social-wrapper">
+                        <a href="#" class="library__detail__main--social-link">
+                          <img src="@/assets/images/social/facebook.png" alt="facebook" />
+                        </a>
+                        <a href="#" class="library__detail__main--social-link">
+                          <img src="@/assets/images/social/twitter.png" alt="twitter" />
+                        </a>
+                        <a href="#" class="library__detail__main--social-link">
+                          <img src="@/assets/images/social/telegram.png" alt="telegram" />
+                        </a>
+                        <a href="#" class="library__detail__main--social-link">
+                          <img src="@/assets/images/social/whatsapp.png" alt="whatsapp" />
+                        </a>
+                      </div>
                     </div>
                     <div
-                      class="library__detail__main--like"
-                      @click.stop.prevent="book.isLiked = !book.isLiked"
+                      class="library__detail__main--select"
+                      @click="isDownloadOpen = !isDownloadOpen"
+                      v-on-click-outside="() => (isDownloadOpen = false)"
+                      :class="{ active: isDownloadOpen }"
                     >
-                      <HeartFilledIcon v-if="book.isLiked" />
-                      <HeartIcon v-else />
+                      <span>{{ $t('library.download') }}</span>
+                      <ArrowDownIcon />
+
+                      <ul class="library__detail__main--menu" v-if="isDownloadOpen">
+                        <li>list 1</li>
+                        <li>list 2</li>
+                        <li>list 3</li>
+                      </ul>
                     </div>
                   </div>
                 </div>
-                <ul class="library__detail__main--option">
-                  <li>
-                    <span>{{ $t('library.year') }}:</span>
-                    <p>2009</p>
-                  </li>
-                  <li>
-                    <span>{{ $t('library.category') }}:</span>
-                    <p>Истории</p>
-                  </li>
-                  <li>
-                    <span>{{ $t('library.author') }}:</span>
-                    <p>Абдуррахман Рафат Аль-Баша</p>
-                  </li>
-                  <li>
-                    <span>{{ $t('library.views') }}:</span>
-                    <p>433</p>
-                  </li>
-                </ul>
-                <SampleButton
-                  :title="$t('library.read')"
-                  :size="14"
-                  padding="13px 16px"
-                  width="125px"
-                  class="library__detail__main--read"
-                  @click="$router.push(`/${$i18n.locale}/library/${book.id}/read`)"
-                />
-                <div class="library__detail__main--bottom">
-                  <div class="library__detail__main--social">
-                    <div class="library__detail__main--social-title">
-                      {{ $t('library.share_in') }}:
-                    </div>
-                    <div class="library__detail__main--social-wrapper">
-                      <a href="#" class="library__detail__main--social-link">
-                        <img src="@/assets/images/social/facebook.png" alt="facebook" />
-                      </a>
-                      <a href="#" class="library__detail__main--social-link">
-                        <img src="@/assets/images/social/twitter.png" alt="twitter" />
-                      </a>
-                      <a href="#" class="library__detail__main--social-link">
-                        <img src="@/assets/images/social/telegram.png" alt="telegram" />
-                      </a>
-                      <a href="#" class="library__detail__main--social-link">
-                        <img src="@/assets/images/social/whatsapp.png" alt="whatsapp" />
-                      </a>
-                    </div>
-                  </div>
+              </div>
+              <div class="library__detail__main--description">
+                <div class="library__detail__main--description-title">
+                  {{ $t('library.description') }}:
+                </div>
+                <div class="library__detail__main--description-wrapper">
                   <div
-                    class="library__detail__main--select"
-                    @click="isDownloadOpen = !isDownloadOpen"
-                    v-on-click-outside="() => (isDownloadOpen = false)"
-                    :class="{ active: isDownloadOpen }"
+                    class="library__detail__main--description-text"
+                    :class="{ closed: isClosed }"
                   >
-                    <span>{{ $t('library.download') }}</span>
-                    <ArrowDownIcon />
-
-                    <ul class="library__detail__main--menu" v-if="isDownloadOpen">
-                      <li>list 1</li>
-                      <li>list 2</li>
-                      <li>list 3</li>
-                    </ul>
+                    {{ book.desc }}
+                    Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные
+                    тексты. Продолжил, скатился. Выйти прямо маленький путь живет, повстречался
+                    подзаголовок одна, ее даль, по всей журчит возвращайся диких своих. Последний
+                    моей, ipsum даль назад языкового пустился за если переписывается вскоре вопроса
+                    рот свою алфавит необходимыми что языком власти буквоград по всей там, буквенных
+                    живет. Вскоре снова речью его осталось, алфавит страна деревни толку города
+                    заголовок что ipsum путь мир свой наш выйти власти сих, несколько своего он
+                    рукописи. Снова продолжил текст от всех там? Коварный ты залетают мир но пор
+                    алфавит, маленький переписали взобравшись буквоград предупредила назад текстов
+                    грамматики, вершину языком о свой? Предложения свою снова города, щеке они
+                    пустился грустный ему текст сбить оксмокс по всей переулка переписали
+                    взобравшись за всемогущая, свой lorem рукописи решила составитель продолжил
+                    буквенных вопрос прямо это. Рекламных власти текстов lorem все правилами дороге
+                    грустный осталось курсивных свой не ведущими, одна над переписали меня по всей
+                    журчит реторический рукопись ему ipsum?
+                  </div>
+                  <span
+                    class="library__detail__main--description-more"
+                    v-if="isClosed"
+                    @click="isClosed = !isClosed"
+                  >
+                    {{ $t('library.read_more') }}
+                  </span>
+                </div>
+              </div>
+              <LibrayMobileReccomended
+                v-if="width < 1310"
+                title="library.popular_books"
+                :isBook="true"
+              />
+              <div class="detail__comments">
+                <div class="detail__comments--top">
+                  <div class="detail__comments--length">
+                    <p>{{ $t('library.comments') }}</p>
+                    <span>5</span>
+                  </div>
+                  <div class="detail__comments--sort">
+                    <CommentFilter :isFilterWindowOpen="isFilterWindowOpen" />
+                    <span>{{ $t('library.sort') }}</span>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="library__detail__main--description">
-              <div class="library__detail__main--description-title">
-                {{ $t('library.description') }}:
-              </div>
-              <div class="library__detail__main--description-wrapper">
-                <div class="library__detail__main--description-text" :class="{ closed: isClosed }">
-                  {{ book.desc }}
-                  Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные
-                  тексты. Продолжил, скатился. Выйти прямо маленький путь живет, повстречался
-                  подзаголовок одна, ее даль, по всей журчит возвращайся диких своих. Последний
-                  моей, ipsum даль назад языкового пустился за если переписывается вскоре вопроса
-                  рот свою алфавит необходимыми что языком власти буквоград по всей там, буквенных
-                  живет. Вскоре снова речью его осталось, алфавит страна деревни толку города
-                  заголовок что ipsum путь мир свой наш выйти власти сих, несколько своего он
-                  рукописи. Снова продолжил текст от всех там? Коварный ты залетают мир но пор
-                  алфавит, маленький переписали взобравшись буквоград предупредила назад текстов
-                  грамматики, вершину языком о свой? Предложения свою снова города, щеке они
-                  пустился грустный ему текст сбить оксмокс по всей переулка переписали взобравшись
-                  за всемогущая, свой lorem рукописи решила составитель продолжил буквенных вопрос
-                  прямо это. Рекламных власти текстов lorem все правилами дороге грустный осталось
-                  курсивных свой не ведущими, одна над переписали меня по всей журчит реторический
-                  рукопись ему ipsum?
-                </div>
-                <span
-                  class="library__detail__main--description-more"
-                  v-if="isClosed"
-                  @click="isClosed = !isClosed"
+                <div
+                  ref="commentForm"
+                  :class="[
+                    'main__comment--form book__comment',
+                    isFormOpen ? 'main__comment--form--shown' : ''
+                  ]"
                 >
-                  {{ $t('library.read_more') }}
-                </span>
-              </div>
-            </div>
-            <LibrayMobileReccomended
-              v-if="width < 1310"
-              title="library.popular_books"
-              :isBook="true"
-            />
-            <div class="detail__comments">
-              <div class="detail__comments--top">
-                <div class="detail__comments--length">
-                  <p>{{ $t('library.comments') }}</p>
-                  <span>5</span>
-                </div>
-                <div class="detail__comments--sort">
-                  <CommentFilter :isFilterWindowOpen="isFilterWindowOpen" />
-                  <span>{{ $t('library.sort') }}</span>
-                </div>
-              </div>
-              <div
-                ref="commentForm"
-                :class="[
-                  'main__comment--form book__comment',
-                  isFormOpen ? 'main__comment--form--shown' : ''
-                ]"
-              >
-                <ReplyCommentForm @close-comment-window="isFormOpen = !isFormOpen" />
+                  <ReplyCommentForm @close-comment-window="isFormOpen = !isFormOpen" />
 
-                <div class="enter-comment__form">
-                  <CommentForm />
+                  <div class="enter-comment__form">
+                    <CommentForm />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <LibraryDetailNav v-if="width > 1310" />
       </div>
-      <LibraryDetailNav v-if="width > 1310" />
     </div>
-  </div>
+  </MainLayout>
 </template>
 
 <script setup>
@@ -182,6 +190,7 @@ import { useRoute } from 'vue-router'
 import { vOnClickOutside } from '@vueuse/components'
 import { useWindowSize } from '@vueuse/core'
 
+import MainLayout from '@/components/layouts/MainLayout.vue'
 import ArrowLeft from '@/components/icons/ArrowLeft.vue'
 import StarIcon from '@/components/icons/StarIcon.vue'
 import HeartFilledIcon from '@/components/icons/HeartFilledIcon.vue'

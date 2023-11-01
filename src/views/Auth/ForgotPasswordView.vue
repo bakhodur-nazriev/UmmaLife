@@ -13,18 +13,15 @@
           :placeholder="$t('login.placeholders.email')"
         />
         <small v-if="hasError || isInvalidEmail" class="error-message">
-          {{
-            $t(
-              isInvalidEmail
-                ? 'forgot_password.validation.incorrect_email'
-                : 'forgot_password.validation.empty_email'
-            )
-          }}
+          {{ $t(isInvalidEmail ? 'forgot_password.validation.incorrect_email' : 'forgot_password.validation.empty_email') }}
         </small>
       </div>
 
       <div class="login-button-section">
-        <SampleButton @click="handleSubmit" :title="`${$t('buttons.submit')}`" />
+        <SampleButton
+          @click="handleSubmit"
+          :title="`${ $t('buttons.submit') }`"
+        />
       </div>
     </form-auth>
   </LayoutAuth>
@@ -43,27 +40,27 @@ export default {
     TitleSample,
     SampleButton
   },
-  data() {
+  data () {
     return {
       email: '',
       hasError: false
     }
   },
   watch: {
-    email(newEmail) {
+    email (newEmail) {
       if (newEmail.trim() !== '') {
         this.hasError = false
       }
     }
   },
   computed: {
-    isInvalidEmail() {
+    isInvalidEmail () {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       return this.email.trim() !== '' && !emailRegex.test(this.email)
     }
   },
   methods: {
-    handleSubmit() {
+    handleSubmit () {
       if (this.email.trim() === '' || this.isInvalidEmail) {
         this.hasError = true
       } else {
@@ -73,7 +70,7 @@ export default {
         this.$emit('next-step')
       }
     },
-    submit(event) {
+    submit (event) {
       console.log('submit button called')
       event.preventDefault()
       this.handleSubmit()
@@ -99,18 +96,18 @@ export default {
 }
 
 .base-input {
-  background-color: var(--color-seashell);
+  background-color: #f1f1f1;
   border: none;
   outline: none;
   border-radius: 10px;
   font-size: 14px;
   padding: 16px;
-  color: var(--color-mine-shaft);
+  color: #1F1F1F;
   width: 100%;
 }
 
 .base-input::placeholder {
-  color: #b0b0b0;
+  color: #B0B0B0;
 }
 
 .reminder-message {

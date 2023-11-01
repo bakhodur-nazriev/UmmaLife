@@ -1,16 +1,14 @@
 <template>
   <section class="article-content__section">
     <div class="article-content__section-item">
-      <img src="@/assets/images/Post_1.png" alt="" class="article-content__image" />
+      <img
+        src="@/assets/images/Post_1.png"
+        alt=""
+        class="article-content__image"
+      >
       <div class="article-content__details-block">
-        <h3 class="article-content__details-block-title">
-          Название статьи, которое не поместилось на одну строку и переместилось на вторую строчку
-        </h3>
-        <p class="article-content__details-block-paragraph">
-          Аль-Ула - город, полный археологических чудес. Расположенный на северо-западе Саудовской
-          Аравии в провинции Медина, это популярное туристическое направление. Аль-Ула является
-          первым объектом Всемирного наследия ЮНЕСКО в стране. Это место, изве...
-        </p>
+        <h3 class="article-content__details-block-title">Название статьи, которое не поместилось на одну строку и переместилось на вторую строчку</h3>
+        <p class="article-content__details-block-paragraph">Аль-Ула - город, полный археологических чудес. Расположенный на северо-западе Саудовской Аравии в провинции Медина, это популярное туристическое направление. Аль-Ула является первым объектом Всемирного наследия ЮНЕСКО в стране. Это место, изве...</p>
         <span class="article-content__details-block-date">20.08.2022</span>
       </div>
     </div>
@@ -56,26 +54,23 @@ export default {
       overflow: hidden;
       display: -webkit-box;
       -webkit-line-clamp: 3;
-      line-clamp: 3;
+      line-clamp: 3 ;
       -webkit-box-orient: vertical;
     }
-    &-date {
-      color: var(--color-mine-shaft);
-    }
   }
 
-  &__section {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+ &__section {
+   display: flex;
+   flex-direction: column;
+   gap: 12px;
 
-    &-item {
-      display: flex;
-      flex-direction: column;
-      background-color: var(--color-seashell);
-      border-radius: 15px;
-    }
-  }
+   &-item {
+     display: flex;
+     flex-direction: column;
+     background-color: var(--color-seashell);
+     border-radius: 15px;
+   }
+ }
 
   &__image {
     width: 100%;

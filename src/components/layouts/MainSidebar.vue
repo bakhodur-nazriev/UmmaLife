@@ -246,7 +246,6 @@ export default {
       cursor: pointer;
       padding: 15px 0 15px 22px;
       line-height: 1;
-      color: var(--color-mine-shaft);
     }
 
     .collapse-active {

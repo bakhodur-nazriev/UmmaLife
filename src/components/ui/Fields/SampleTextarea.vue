@@ -3,7 +3,9 @@
 </template>
 
 <script>
-export default {}
+export default {
+
+}
 </script>
 
 <style scoped>
@@ -15,7 +17,6 @@ export default {}
   background-color: var(--color-seashell);
   border-radius: 15px;
   padding: 12px;
-  color: var(--color-mine-shaft);
 }
 
 .sample__textarea::placeholder {

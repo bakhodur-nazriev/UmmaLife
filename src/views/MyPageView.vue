@@ -1,15 +1,18 @@
 <template>
-  <div class="page__container">
-    <div class="page__wrapper">
-      <MyPosts />
-      <MyProfile />
+  <main-layout>
+    <div class="page__container">
+      <div class="page__wrapper">
+        <MyPosts />
+        <MyProfile />
+      </div>
     </div>
-  </div>
+  </main-layout>
 </template>
 
 <script setup>
 /* eslint-disable */
 import { onMounted } from 'vue'
+import MainLayout from '@/components/layouts/MainLayout.vue'
 import MyProfile from '@/components/profile/MyProfile.vue'
 import MyPosts from '@/components/profile/MyPosts.vue'
 import StickySidebar from 'sticky-sidebar-v2'

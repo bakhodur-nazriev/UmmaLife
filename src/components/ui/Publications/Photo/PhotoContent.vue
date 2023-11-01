@@ -1,11 +1,11 @@
 <template>
   <section class="photo-block__article" v-for="photo in items" :key="photo.id">
     <a :href="photo.image" data-fancybox class="image__item">
-      <img :src="photo.image" :alt="photo.desc" />
+      <img :src="photo.image" :alt="photo.desc"/>
     </a>
   </section>
   <section class="article-content__reactions">
-    <PostReactions />
+    <PostReactions/>
   </section>
 </template>
 
@@ -19,7 +19,7 @@ export default {
   },
   props: {
     items: {
-      type: Array,
+      type: String,
       required: true
     }
   },

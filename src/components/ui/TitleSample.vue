@@ -1,17 +1,19 @@
 <template>
   <h1 class="title">
-    <slot />
+    <slot/>
   </h1>
 </template>
 
-<script></script>
+<script>
+
+</script>
 
 <style scoped lang="scss">
-.title {
-  margin: 0 0 40px 0;
-  font-weight: 500;
-  font-size: 44px;
-  line-height: 1;
-  color: var(--color-mine-shaft);
-}
+  .title {
+    margin: 0 0 40px 0;
+    font-weight: 500;
+    font-size: 44px;
+    line-height: 1;
+    color: #1F1F1F;
+  }
 </style>

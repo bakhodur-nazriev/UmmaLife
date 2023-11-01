@@ -1,13 +1,12 @@
 <template>
   <section class="search-articles__section">
     <div class="search-articles__block">
-      <LoupeIcon />
+      <LoupeIcon/>
       <input
         type="text"
-        v-model="searchQuery"
-        class="search-articles__input"
+        v-model="searchQuery" class="search-articles__input"
         :placeholder="$t('placeholders.search_articles')"
-      />
+      >
     </div>
   </section>
   <div class="articles-main__block">
@@ -16,12 +15,12 @@
         <li class="articles-list__item" v-for="item in filteredItems" :key="item.id">
           <router-link :to="`/${$i18n.locale}/articles/1`">
             <div class="articles-image__section">
-              <img src="@/assets/images/articles/articles_1.png" alt="" />
+              <img src="@/assets/images/articles/articles_1.png" alt="">
               <div class="favourite-icon__block">
-                <FavouriteIcon />
+                <FavouriteIcon/>
               </div>
               <div class="watched-icon__block">
-                <EyeIcon />
+                <EyeIcon/>
                 <span>145</span>
               </div>
             </div>
@@ -32,7 +31,7 @@
               </div>
               <h3 class="articles-description">{{ item.title }}</h3>
               <div class="articles-description__author">
-                <img src="@/assets/images/navbar/people_1.png" alt="" />
+                <img src="@/assets/images/navbar/people_1.png" alt="">
                 <span>{{ item.author }}</span>
               </div>
             </div>
@@ -44,12 +43,10 @@
       <div class="filter_block">
         <h3>Категории</h3>
         <ul class="category-list">
-          <li class="category-list__item" v-for="(category, i) in categories" :key="i">
-            {{ category }}
-          </li>
+          <li class="category-list__item" v-for="(category, i) in categories" :key="i">{{ category }}</li>
         </ul>
       </div>
-      <SampleButton class="clear-filter__button" :title="$t('buttons.reset_filter')" />
+      <SampleButton class="clear-filter__button" :title="$t('buttons.reset_filter')"/>
     </aside>
   </div>
 </template>
@@ -73,8 +70,7 @@ export default {
       items: [
         {
           id: 0,
-          title:
-            'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem iste natus nemo quod similique tenetur?',
+          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem iste natus nemo quod similique tenetur?',
           author: 'Абдуллах Хамхоев'
         },
         {
@@ -84,14 +80,12 @@ export default {
         },
         {
           id: 2,
-          title:
-            'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus distinctio doloremque eaque eius in iste nemo numquam quae ut.',
+          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus distinctio doloremque eaque eius in iste nemo numquam quae ut.',
           author: 'Maxim Reynolds'
         },
         {
           id: 3,
-          title:
-            'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aut cupiditate fuga natus nemo?',
+          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aut cupiditate fuga natus nemo?',
           author: 'Raekwon Bach'
         },
         {
@@ -130,7 +124,7 @@ export default {
   computed: {
     filteredItems() {
       const query = this.searchQuery.toLowerCase()
-      return this.items.filter((item) => item.title.toLowerCase().includes(query))
+      return this.items.filter(item => item.title.toLowerCase().includes(query))
     }
   },
   watch: {
@@ -168,7 +162,6 @@ aside {
     font-size: 14px;
     background-color: var(--color-seashell);
     cursor: pointer;
-    color: var(--color-mine-shaft);
   }
 }
 
@@ -185,7 +178,6 @@ aside {
   h3 {
     margin: 0 0 10px;
     line-height: 1;
-    color: var(--color-mine-shaft);
   }
 }
 
@@ -248,7 +240,7 @@ aside {
 
 .favourite-icon__block {
   border-radius: 6px;
-  background: rgba(31, 31, 31, 0.5);
+  background: rgba(31, 31, 31, 0.50);
   backdrop-filter: blur(10px);
   position: absolute;
   top: 10px;
@@ -267,7 +259,7 @@ aside {
 
 .watched-icon__block {
   border-radius: 6px;
-  background: rgba(31, 31, 31, 0.5);
+  background: rgba(31, 31, 31, 0.50);
   backdrop-filter: blur(10px);
   position: absolute;
   bottom: 18px;
@@ -316,7 +308,6 @@ aside {
   font-size: 16px;
   line-height: 1.2;
   margin: 0;
-  color: var(--color-mine-shaft);
 }
 
 .articles-description__author {

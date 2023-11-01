@@ -1,5 +1,5 @@
 <template>
-  <hr class="sample__divider" />
+  <hr class="sample__divider">
 </template>
 
 <script>
@@ -7,6 +7,7 @@ export default {}
 </script>
 
 <style scoped>
+
 .sample__divider {
   height: 1px;
   width: 100%;
@@ -14,7 +15,7 @@ export default {}
   border: none;
 }
 
-.profile-divider.sample__divider {
+.profile-divider.sample__divider{
   background-color: var(--color-white);
 }
 </style>

@@ -272,7 +272,6 @@ const closeDropdown = () => {
       width: 100%;
       display: flex;
       padding: 6px;
-
       .form {
         &__input {
           display: flex;
@@ -299,7 +298,6 @@ const closeDropdown = () => {
             font-weight: 400;
             line-height: normal;
             color: var(--color-mine-shaft);
-            background-color: transparent;
             &::placeholder {
               font-family: 'HelveticaNeueCyr', sans-serif;
               color: var(--color-secondary);

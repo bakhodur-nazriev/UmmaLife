@@ -1,34 +1,36 @@
 <template>
-  <div class="library">
-    <div class="muvi__mobile--nav white" v-if="width < 767">
-      <div class="library__actions--btn" @click="$router.go(-1)">
-        <ArrowLeftIcon />
-      </div>
-      <div class="muvi__mobile--nav-title">{{ $t('links.library') }}</div>
-      <div class="library__actions">
-        <div class="library__actions--btn" @click="handleSearchOpen">
-          <SearchIcon />
+  <main-layout>
+    <div class="library">
+      <div class="muvi__mobile--nav white" v-if="width < 767">
+        <div class="library__actions--btn" @click="$router.go(-1)">
+          <ArrowLeftIcon />
         </div>
-        <div class="library__actions--btn"><FilterCommentsIcon /></div>
-      </div>
-      <transition name="slide">
-        <div
-          v-if="isSearchOpen"
-          class="settings__header--input"
-          v-on-click-outside="handleCloseSearch"
-        >
-          <SearchInput :full="true" :placeholder="$t('placeholders.search_input')" />
+        <div class="muvi__mobile--nav-title">{{ $t('links.library') }}</div>
+        <div class="library__actions">
+          <div class="library__actions--btn" @click="handleSearchOpen">
+            <SearchIcon />
+          </div>
+          <div class="library__actions--btn"><FilterCommentsIcon /></div>
         </div>
-      </transition>
+        <transition name="slide">
+          <div
+            v-if="isSearchOpen"
+            class="settings__header--input"
+            v-on-click-outside="handleCloseSearch"
+          >
+            <SearchInput :full="true" :placeholder="$t('placeholders.search_input')" />
+          </div>
+        </transition>
+      </div>
+      <groups-nav :links="links" className="muvi__nav" @clickNavHandler="clickNavHandler" />
+      <div class="library__container">
+        <AllBooksTab v-if="links[0].isActive" />
+        <ReadingNowTab v-else-if="links[1].isActive" />
+        <BookmarksTab v-else-if="links[2].isActive" />
+        <LikedBooksTab v-else-if="links[3].isActive" />
+      </div>
     </div>
-    <groups-nav :links="links" className="muvi__nav" @clickNavHandler="clickNavHandler" />
-    <div class="library__container">
-      <AllBooksTab v-if="links[0].isActive" />
-      <ReadingNowTab v-else-if="links[1].isActive" />
-      <BookmarksTab v-else-if="links[2].isActive" />
-      <LikedBooksTab v-else-if="links[3].isActive" />
-    </div>
-  </div>
+  </main-layout>
 </template>
 
 <script setup>
