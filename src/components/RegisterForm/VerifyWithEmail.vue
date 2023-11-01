@@ -163,6 +163,8 @@ export default {
 
 .login__button-section button {
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 @media (min-width: 768px) {
@@ -172,6 +174,8 @@ export default {
 
   .login__button-section button {
     max-width: 320px;
+    display: flex;
+    justify-content: center;
   }
 
   .verify__number-section {

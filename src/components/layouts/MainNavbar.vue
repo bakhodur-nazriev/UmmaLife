@@ -797,7 +797,7 @@ export default {
     padding: 0 32px;
     background-color: var(--color-white);
     margin: 0;
-    z-index: 5;
+    z-index: 101;
   }
 
   .bottom__nav--item {

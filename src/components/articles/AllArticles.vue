@@ -13,7 +13,7 @@
     <section>
       <ul class="articles-list">
         <li class="articles-list__item" v-for="item in filteredItems" :key="item.id">
-          <router-link :to="`/${$i18n.locale}/articles/1`">
+          <router-link :to="`/${$i18n.locale}/articles/show/1`">
             <div class="articles-image__section">
               <img src="@/assets/images/articles/articles_1.png" alt="">
               <div class="favourite-icon__block">

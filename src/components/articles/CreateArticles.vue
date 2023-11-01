@@ -81,7 +81,7 @@
             </div>
           </div>
 
-          <div class="editor-poll">
+          <div class="editor-poll" v-if="pollActive">
             <input v-model="pollTitle" :placeholder="`${ $t('labels.articles.editor.poll.header') }`">
             <div v-for="(option, index) in pollOptions" :key="index" class="poll-item__block">
               <span class="poll-item__counter">{{ index + 1 }}</span>

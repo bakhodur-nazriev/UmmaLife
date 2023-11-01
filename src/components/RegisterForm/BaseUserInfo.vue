@@ -220,6 +220,8 @@ export default {
   &-next {
     width: 100%;
     margin-top: 64px;
+    display: flex;
+    justify-content: center;
   }
 }
 
