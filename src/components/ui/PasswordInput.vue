@@ -5,7 +5,7 @@
       :type="isPasswordVisible ? 'text' : 'password'"
       v-model="inputValue"
       class="base-input"
-      :class="{ 'input-field': true, error: passwordError }"
+      :class="{'input-field': true, 'error': passwordError}"
       :placeholder="placeholder"
     />
 
@@ -13,6 +13,7 @@
       <eye-slash-icon v-if="isPasswordVisible"></eye-slash-icon>
       <eye-icon v-else></eye-icon>
     </button>
+
   </div>
   <small v-if="isError" class="error-message">{{ errorMessage }}</small>
 </template>
@@ -31,7 +32,7 @@ export default {
       type: String
     }
   },
-  data() {
+  data () {
     return {
       isPasswordVisible: false,
       passwordError: false,
@@ -39,20 +40,20 @@ export default {
     }
   },
   methods: {
-    togglePasswordVisibility() {
+    togglePasswordVisibility () {
       this.isPasswordVisible = !this.isPasswordVisible
     },
-    validate() {
+    validate () {
       return this.inputValue.trim() !== ''
     }
   },
   watch: {
-    inputValue() {
+    inputValue () {
       this.$emit('input', this.inputValue)
     }
   },
   computed: {
-    isError() {
+    isError () {
       return !this.validate()
     }
   }
@@ -61,18 +62,18 @@ export default {
 
 <style scoped>
 .base-input {
-  background-color: var(--color-seashell);
+  background-color: #f1f1f1;
   border: none;
   outline: none;
   border-radius: 10px;
   font-size: 14px;
   padding: 16px;
-  color: var(--color-mine-shaft);
+  color: #1F1F1F;
   width: 100%;
 }
 
 .base-input::placeholder {
-  color: var(--color-silver-chalice);
+  color: #B0B0B0;
 }
 
 .input-with-eye {
@@ -99,15 +100,15 @@ export default {
 }
 
 .eye-button svg {
-  color: var(--color-silver-chalice);
+  color: #B0B0B0;
 }
 
 .input-wrapper.error .base-input {
-  border: 1.4px solid var(--color-valencia);
+  border: 1.4px solid red;
 }
 
 .error-message {
-  color: var(--color-valencia);
+  color: red;
   font-size: 12px;
   margin-top: 4px;
 }

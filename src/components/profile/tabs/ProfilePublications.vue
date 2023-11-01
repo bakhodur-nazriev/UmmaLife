@@ -38,7 +38,10 @@ import PublishedAudios from '../publications/PublishedAudios.vue'
 import { ref, computed } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 import { useStore } from 'vuex'
-const { width: screenWidth } = useWindowSize()
+const screenWidth = computed(() => {
+  const { width } = useWindowSize()
+  return width.value
+})
 
 const activeIndex = ref(0)
 
@@ -89,7 +92,7 @@ const clickHandler = (index) => {
     &--button {
       padding: 16px 10px;
       border-radius: 12px;
-      border: 1px solid var(--color-gallery-first);
+      border: 1px solid var(--color-seashell);
       cursor: pointer;
       text-align: center;
       color: var(--color-silver-chalice);

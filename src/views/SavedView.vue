@@ -1,18 +1,21 @@
 <template>
-  <div class="page__container">
-    <div class="page__wrapper">
-      <SavedPublications />
-      <MyProfile />
+  <main-layout>
+    <div class="page__container">
+      <div class="page__wrapper">
+        <SavedPublications />
+        <MyProfile />
+      </div>
     </div>
-  </div>
+  </main-layout>
 </template>
 
 <script>
+import MainLayout from '@/components/layouts/MainLayout.vue'
 import MyProfile from '@/components/profile/MyProfile.vue'
 import SavedPublications from '@/components/saved/SavedPublications.vue'
 import StickySidebar from 'sticky-sidebar-v2'
 export default {
-  components: { MyProfile, SavedPublications },
+  components: { MainLayout, MyProfile, SavedPublications },
   mounted() {
     /* eslint-disable */
     new StickySidebar('.profile', {

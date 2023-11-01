@@ -4,20 +4,23 @@
       <MenuDetailsIcon class="dropdown__toggle" />
     </div>
 
-    <div class="menu__overlay" v-show="isReplyMenuOpen">
+    <div
+      class="menu__overlay"
+      v-show="isReplyMenuOpen"
+    >
       <ul class="dropdown__menu">
         <li class="dropdown__item">
           <EditIcon />
           <span>{{ $t('buttons.edit') }}</span>
         </li>
-        <SampleDivider class="dropdown__item--divider" />
+        <SampleDivider class="dropdown__item--divider"/>
 
         <li class="dropdown__item">
           <CopyLinkIcon />
           <span>{{ $t('buttons.copy_link') }}</span>
         </li>
 
-        <SampleDivider class="dropdown__item--divider" />
+        <SampleDivider class="dropdown__item--divider"/>
         <li class="dropdown__item">
           <DeleteIcon />
           <span>{{ $t('buttons.delete') }}</span>
@@ -46,11 +49,11 @@ export default {
       required: true
     }
   },
-  data() {
+  data () {
     return {}
   },
   methods: {
-    toggleReplyMenu() {
+    toggleReplyMenu () {
       this.$emit('toggle-reply-menu')
     }
   }
@@ -64,12 +67,12 @@ export default {
 
 @keyframes menu__overlay {
   0% {
-    transform: scale(0.5);
-    transform-origin: center top;
+    transform:scale(.5);
+    transform-origin:center top;
   }
   100% {
-    transform: scale(1);
-    transform-origin: center top;
+    transform:scale(1);
+    transform-origin:center top
   }
 }
 
@@ -115,7 +118,6 @@ export default {
   font-size: 14px;
   padding: 5px 10px;
   cursor: pointer;
-  color: var(--color-mine-shaft);
 
   svg {
     margin-right: 9px;
@@ -133,7 +135,7 @@ export default {
     height: 100%;
     transform: rotate(90deg);
     svg {
-      transform: scale(0.8);
+      transform: scale(.8);
     }
   }
 }

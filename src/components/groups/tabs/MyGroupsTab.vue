@@ -75,7 +75,6 @@ export default {
     cursor: pointer;
     background: transparent;
     padding: 13px 23px;
-    color: var(--color-mine-shaft);
     &.active {
       background: var(--color-seashell);
     }

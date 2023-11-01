@@ -33,7 +33,7 @@
 <script setup>
 /* eslint-disable */
 import { vOnClickOutside } from '@vueuse/components'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 import { useStore } from 'vuex'
 
@@ -50,7 +50,10 @@ const emit = defineEmits(['changeTab'])
 
 const activeTab = ref(0)
 
-const { width: screenWidth } = useWindowSize()
+const screenWidth = computed(() => {
+  const { width } = useWindowSize()
+  return width.value
+})
 
 const changeTab = (index) => {
   activeTab.value = index

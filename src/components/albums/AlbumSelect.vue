@@ -89,13 +89,11 @@ const closeHandler = () => {
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    color: var(--color-mine-shaft);
 
     .left {
       display: flex;
       align-items: center;
       gap: 8px;
-      color: var(--color-mine-shaft);
       svg {
         width: 16px;
         height: 16px;
@@ -137,7 +135,6 @@ const closeHandler = () => {
         cursor: pointer;
         border-radius: 10px;
         position: relative;
-        color: var(--color-mine-shaft);
         &:not(:last-child) {
           border-bottom: 1px solid var(--color-seashell);
         }

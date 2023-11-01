@@ -64,7 +64,6 @@ const closeHandler = () => {
   cursor: pointer;
   gap: 30px;
   line-height: 1;
-  color: var(--color-mine-shaft);
 
   &:hover {
     background-color: var(--color-seashell);

@@ -17,18 +17,18 @@ export default {
       type: Number
     }
   },
-  data() {
+  data () {
     return {
       inputValue: this.value
     }
   },
   computed: {
-    isError() {
+    isError () {
       return this.error && !this.inputValue
     }
   },
   methods: {
-    handleInput() {
+    handleInput () {
       const value = this.inputValue
       this.$emit('input', this.inputValue)
       if (value.length === 1) {
@@ -37,7 +37,7 @@ export default {
         this.inputValue = value.slice(0, 1)
       }
     },
-    handleKeyDown(event) {
+    handleKeyDown (event) {
       if (event.key === 'Backspace' && this.inputValue.length === 0) {
         // Если нажата клавиша Backspace и поле ввода пустое
         // Эмитировать событие 'backspace' для удаления предыдущего поля
@@ -50,16 +50,16 @@ export default {
 
 <style scoped>
 .base-input {
-  background-color: var(--color-seashell);
+  background-color: #f1f1f1;
   border: none;
   outline: none;
   border-radius: 10px;
   font-size: 14px;
   padding: 16px;
-  color: var(--color-mine-shaft);
+  color: #1F1F1F;
 }
 
 .base-input::placeholder {
-  color: var(--color-silver-chalice);
+  color: #B0B0B0;
 }
 </style>

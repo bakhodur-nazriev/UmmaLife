@@ -6,47 +6,31 @@
       :class="{ active: isSidebarCollapsed }"
       @click="handleButtonClick"
     >
-      <global-icon class="locales__icon" />
-      <span v-if="!isSidebarCollapsed" class="dropdown__locale-title">{{
-        currentLanguageName
-      }}</span>
-      <dropdown-icon class="locales__icon locales__icon--dropdown" />
+      <global-icon class="locales__icon"/>
+      <span v-if="!isSidebarCollapsed" class="dropdown__locale-title">{{ currentLanguageName }}</span>
+      <dropdown-icon class="locales__icon locales__icon--dropdown"/>
     </button>
     <ul class="locales__list" :class="{ active: isSidebarCollapsed }" ref="list">
       <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('en')">{{
-          `${isSidebarCollapsed ? 'En' : $t('languages.names.english')}`
-        }}</a>
+        <a class="locales__link" :href="getLocalizedLink('en')">{{ `${isSidebarCollapsed ? 'En' : $t('languages.names.english')}` }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('ar')">{{
-          `${isSidebarCollapsed ? 'Ar' : $t('languages.names.arabic')}`
-        }}</a>
+        <a class="locales__link" :href="getLocalizedLink('ar')">{{ `${isSidebarCollapsed ? 'Ar' : $t('languages.names.arabic')}` }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('ru')">{{
-          `${isSidebarCollapsed ? 'Ru' : $t('languages.names.russian')}`
-        }}</a>
+        <a class="locales__link" :href="getLocalizedLink('ru')">{{ `${isSidebarCollapsed ? 'Ru' : $t('languages.names.russian')}` }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('tr')">{{
-          `${isSidebarCollapsed ? 'Tr' : $t('languages.names.turkish')}`
-        }}</a>
+        <a class="locales__link" :href="getLocalizedLink('tr')">{{ `${isSidebarCollapsed ? 'Tr' : $t('languages.names.turkish')}` }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('uz')">{{
-          `${isSidebarCollapsed ? 'Uz' : $t('languages.names.uzbek')}`
-        }}</a>
+        <a class="locales__link" :href="getLocalizedLink('uz')">{{ `${isSidebarCollapsed ? 'Uz' : $t('languages.names.uzbek')}` }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('id')">{{
-          `${isSidebarCollapsed ? 'Id' : $t('languages.names.indonesia')}`
-        }}</a>
+        <a class="locales__link" :href="getLocalizedLink('id')">{{ `${isSidebarCollapsed ? 'Id' : $t('languages.names.indonesia')}` }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('ms')">{{
-          `${isSidebarCollapsed ? 'Ms' : $t('languages.names.malay')}`
-        }}</a>
+        <a class="locales__link" :href="getLocalizedLink('ms')">{{ `${isSidebarCollapsed ? 'Ms' : $t('languages.names.malay')}` }}</a>
       </li>
     </ul>
   </div>
@@ -58,8 +42,7 @@ import GlobalIcon from '@/components/icons/GlobalIcon.vue'
 
 export default {
   components: {
-    GlobalIcon,
-    DropdownIcon
+    GlobalIcon, DropdownIcon
   },
   props: {
     isSidebarCollapsed: {
@@ -68,12 +51,12 @@ export default {
     }
   },
   computed: {
-    currentLanguageName() {
+    currentLanguageName () {
       return this.$i18n.t('languages.title')
     }
   },
   methods: {
-    handleButtonClick() {
+    handleButtonClick () {
       const list = this.$refs.list
       const container = this.$refs.container
 
@@ -87,7 +70,7 @@ export default {
         this.closeDropdown()
       }
     },
-    openDropdown() {
+    openDropdown () {
       const list = this.$refs.list
       const container = this.$refs.container
 
@@ -100,7 +83,7 @@ export default {
       document.addEventListener('click', this.handleDocumentClick)
       document.addEventListener('keydown', this.handleEscapeKeydown)
     },
-    closeDropdown() {
+    closeDropdown () {
       const list = this.$refs.list
       const container = this.$refs.container
 
@@ -113,13 +96,13 @@ export default {
       document.removeEventListener('click', this.handleDocumentClick)
       document.removeEventListener('keydown', this.handleEscapeKeydown)
     },
-    handleDocumentClick(evt) {
+    handleDocumentClick (evt) {
       return !evt.target.closest('.main__sidebar--locales') && this.closeDropdown()
     },
-    handleEscapeKeydown(evt) {
-      return evt.keyCode === 27 && this.closeDropdown()
+    handleEscapeKeydown (evt) {
+      return (evt.keyCode === 27) && this.closeDropdown()
     },
-    getLocalizedLink(lang) {
+    getLocalizedLink (lang) {
       const currentPath = this.$route.path
       const languagePrefix = '/' + this.$i18n.locale
       const newPath = currentPath.replace(languagePrefix, '')
@@ -169,7 +152,7 @@ export default {
   gap: 8px;
   font-size: 14px;
   line-height: 1;
-  color: var(--color-mine-shaft);
+  color: #1f1f1f;
   width: 155px;
   cursor: pointer;
   z-index: 3;
@@ -211,7 +194,7 @@ export default {
   transition: 0.3s;
   flex-direction: column;
   width: max-content;
-}
+ }
 
 .locales--shown .locales__list {
   transform: translateY(-100%);
@@ -288,7 +271,7 @@ export default {
     transform: none;
   }
 
-  .locales__list::before {
+  .locales__list::before  {
     display: none;
   }
 
