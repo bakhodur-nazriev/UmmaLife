@@ -163,7 +163,6 @@ const clickButton = () => {
   &__icon {
     display: inline-flex;
     align-items: center;
-    margin-right: 8px;
   }
 }
 

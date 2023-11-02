@@ -185,11 +185,15 @@ export default {
 
 .login-button-section button {
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 @media (min-width: 768px) {
   .login-button-section button {
     max-width: 320px;
+    display: flex;
+    justify-content: center;
   }
 }
 </style>
