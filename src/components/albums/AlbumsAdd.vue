@@ -142,6 +142,7 @@ export default {
 .album__form {
   display: flex;
   flex-direction: column;
+
   gap: 16px;
   .right {
     font-size: 16px;
@@ -155,6 +156,12 @@ export default {
     display: grid;
     gap: 20px;
     grid-template-columns: 60px 1fr;
+    @media (max-width: 767px) {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+    }
   }
   &--file {
     width: 60px;
@@ -167,6 +174,10 @@ export default {
     position: relative;
     background: var(--color-seashell);
     cursor: pointer;
+    @media (max-width: 767px) {
+      width: 80px;
+      height: 80px;
+    }
     input[type='file'] {
       position: absolute;
       left: 0;
@@ -188,9 +199,16 @@ export default {
     line-height: normal;
     color: var(--color-mine-shaft);
     background: transparent;
+    @media (max-width: 767px) {
+      width: 100%;
+      margin-bottom: 8px;
+    }
     &::placeholder {
       color: var(--color-silver-chalice);
     }
+  }
+  &--textarea {
+    min-height: 150px;
   }
   &--drag {
     height: 252px;

@@ -1,9 +1,11 @@
 <template>
   <div class="tabs">
-    <GroupsSearch class="tabs__search" placeholder="Поиск аудио" />
-    <h2 class="tabs__title">Плейлисты</h2>
+    <GroupsSearch class="tabs__search" :placeholder="$t('audio.search_audio')" />
+    <h2 class="tabs__title">{{ $t('audio.tabs.playlists') }}</h2>
     <AudioAlbumSlider />
-    <h2 class="tabs__title">Аудио</h2>
+    <h2 class="tabs__title">{{ $t('audio.audio') }}</h2>
+    <AudioMainList />
+    <AudioMainList />
     <AudioMainList />
   </div>
 </template>
@@ -12,7 +14,7 @@
 import AudioAlbumSlider from '@/components/audio/AudioAlbumSlider.vue'
 import GroupsSearch from '@/components/groups/ui/GroupsSearch.vue'
 
-import AudioMainList from '../AudioMainList.vue'
+import AudioMainList from '@/components/audio/AudioMainList.vue'
 export default {
   components: { AudioAlbumSlider, GroupsSearch, AudioMainList },
   data() {
@@ -33,6 +35,9 @@ export default {
   &__search {
     max-width: 716px;
     width: 100%;
+    @media (max-width: 767px) {
+      display: none;
+    }
   }
   &__title {
     font-size: 18px;

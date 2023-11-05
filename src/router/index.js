@@ -189,7 +189,7 @@ const routes = [
     meta: {
       title: i18n.global.t('meta_title.library'),
       requiresAuth: true,
-      layout: 'main'
+      layout: 'library'
     }
   },
   {

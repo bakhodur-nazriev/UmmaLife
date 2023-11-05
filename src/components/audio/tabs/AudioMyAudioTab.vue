@@ -1,9 +1,9 @@
 <template>
   <div class="tabs">
-    <GroupsSearch class="tabs__search" placeholder="Поиск аудио" />
-    <h2 class="tabs__title">Мои плейлисты</h2>
+    <GroupsSearch class="tabs__search" :placeholder="$t('audio.search_audio')" />
+    <h2 class="tabs__title">{{ $t('audio.my_playlists') }}</h2>
     <AudioAlbumSlider />
-    <h2 class="tabs__title">Все аудио</h2>
+    <h2 class="tabs__title">{{ $t('audio.all_audio') }}</h2>
     <AudioMainList />
   </div>
 </template>
@@ -33,6 +33,9 @@ export default {
   &__search {
     max-width: 716px;
     width: 100%;
+    @media (max-width: 767px) {
+      display: none;
+    }
   }
   &__title {
     font-size: 18px;

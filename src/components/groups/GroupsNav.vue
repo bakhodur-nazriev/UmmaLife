@@ -1,5 +1,5 @@
 <template>
-  <div class="groups__nav">
+  <div class="groups__nav" :class="`${className}__nav`">
     <div class="groups__nav--wrapper" :class="className">
       <div class="groups__nav--inner">
         <div class="groups__nav--menu">
@@ -44,6 +44,20 @@ export default {
   @media (max-width: 767px) {
     background-color: var(--color-white);
     padding-top: 20px;
+  }
+  &.full__nav {
+    @media (max-width: 767px) {
+      overflow-x: scroll;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      .groups__nav--menu {
+        gap: 40px;
+      }
+      .groups__nav--link {
+        margin: 0;
+      }
+    }
   }
   &--wrapper {
     display: grid;

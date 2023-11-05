@@ -2,93 +2,20 @@
   <div class="audio__page--container">
     <form class="download__audio">
       <div class="download__audio--left">
-        <div class="download__audio--box">
-          <div class="download__audio--title">Добавить аудио</div>
-          <div
-            class="create__group--drop"
-            @dragover.prevent
-            @dragleave.prevent
-            @drop.prevent="drop"
-          >
-            <input type="file" accept="audio/mp3" multiple />
-            <AudioDropdownIcon />
-            <p>Нажмите или перетащите аудио</p>
-            <span>Допустимые расширения mp3</span>
-          </div>
-        </div>
-        <div class="download__audio--box">
-          <div class="download__audio--title secondary">Создать альбом</div>
-          <div class="download__audio--subtitle">
-            Для создания альбома необходимо заполнить поля ниже
-          </div>
-
-          <div class="album__form--wrapper">
-            <div class="album__form--file">
-              <input
-                type="file"
-                accept="image/png, image/jpg, image/jpeg"
-                multiple
-                @change="inputHandler"
-              />
-              <CameraIcon />
-            </div>
-            <input class="album__form--input" type="text" placeholder="Добавить название альбома" />
-          </div>
-          <textarea
-            class="album__form--input album__form--textarea"
-            type="text"
-            placeholder="Добавить описание альбома"
-          />
-        </div>
+        <AddAudioDrag />
+        <CreateAlbum />
       </div>
       <div class="download__audio--right">
-        <div class="download__audio--box full">
-          <div class="download__audio--title">
-            Все аудио для загрузки
-            <span>3 файла</span>
-          </div>
-          <div class="download__state">
-            <div class="download__state--name">Название аудиофайла56kbpr_....mp3</div>
-            <div class="download__state--status success">Загрузка завершена</div>
-            <CloseCircle class="download__state--close" />
-          </div>
-          <div class="download__state">
-            <div class="download__state--name">Название аудиофайла56kbpr_....mp3</div>
-            <div class="download__state--status waiting">
-              <WaitingYellowIcon />
-              Ожидание
-            </div>
-            <CloseCircle class="download__state--close" />
-          </div>
-          <div class="download__state">
-            <div class="download__state--name">Название аудиофайла56kbpr_....mp3</div>
-            <div class="download__state--status alert">Ошибка загрузки</div>
-            <CloseCircle class="download__state--close" />
-          </div>
-        </div>
-        <div class="download__audio--actions">
-          <button type="submit" class="download__audio--btn primary">Загрузить в плейлист</button>
-          <button type="button" class="download__audio--btn secondary">Создать как альбом</button>
-          <button type="button" class="download__audio--btn default">Отменить</button>
-        </div>
+        <AudioDownloadStatus />
       </div>
     </form>
   </div>
 </template>
 
-<script>
-import AudioDropdownIcon from '@/components/icons/audio/AudioDropdownIcon.vue'
-import CameraIcon from '@/components/icons/CameraIcon.vue'
-import CloseCircle from '@/components/icons/CloseCircle.vue'
-import WaitingYellowIcon from '@/components/icons/WaitingYellowIcon.vue'
-export default {
-  components: { AudioDropdownIcon, CameraIcon, CloseCircle, WaitingYellowIcon },
-  methods: {
-    drop(event) {
-      // TODO
-    }
-  }
-}
+<script setup>
+import AddAudioDrag from '@/components/audio/download/AddAudioDrag.vue'
+import CreateAlbum from '@/components/audio/download/CreateAlbum.vue'
+import AudioDownloadStatus from '@/components/audio/download/AudioDownloadStatus.vue'
 </script>
 
 <style lang="scss">
@@ -107,6 +34,12 @@ export default {
     &.full {
       height: calc(100% - 72px);
     }
+    @media (max-width: 767px) {
+      padding: 0;
+      &.full {
+        height: auto;
+      }
+    }
   }
   &--title {
     font-size: 20px;
@@ -118,12 +51,21 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     span {
       font-size: 20px;
       font-style: normal;
       font-weight: 550;
       line-height: normal;
       color: var(--color-silver-chalice);
+    }
+    @media (max-width: 767px) {
+      font-size: 14px;
+      margin-bottom: 12px;
+      span {
+        font-size: 14px;
+        font-weight: 400;
+      }
     }
     &.secondary {
       margin-bottom: 4px;
@@ -148,6 +90,15 @@ export default {
   &--actions {
     display: flex;
     gap: 10px;
+    @media (max-width: 767px) {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      border-top: 1px solid var(--color-gallery-first);
+      width: 100%;
+      padding: 12px 16px;
+      background-color: var(--color-white);
+    }
   }
   &--btn {
     flex-grow: 1;
@@ -170,6 +121,9 @@ export default {
     &.default {
       background-color: var(--color-alto-second);
       color: var(--color-silver-chalice);
+      @media (max-width: 767px) {
+        display: none;
+      }
     }
   }
 }
@@ -180,6 +134,13 @@ export default {
   border-radius: 15px;
   margin-bottom: 8px;
   border: 1px solid var(--color-silver-chalice);
+  @media (max-width: 767px) {
+    display: grid;
+    grid-template-columns: calc(100% - 32px) 20px;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid var(--color-gallery-first);
+  }
   &--name {
     display: -webkit-box;
     -webkit-line-clamp: 1;
@@ -189,6 +150,12 @@ export default {
     overflow-wrap: break-word;
     width: 340px;
     margin-right: 50px;
+    color: var(--color-mine-shaft);
+    @media (max-width: 767px) {
+      margin-right: 0;
+      width: 100%;
+      word-break: break-all;
+    }
   }
   &--status {
     width: 211px;
@@ -206,6 +173,10 @@ export default {
     gap: 8px;
     justify-content: center;
     margin-right: 24px;
+    @media (max-width: 767px) {
+      order: 1;
+      margin-right: 0;
+    }
     &.success {
       background: #edf7ed;
       color: #53af50;
@@ -218,6 +189,12 @@ export default {
       background: #ffe7e7;
       color: var(--color-valencia);
     }
+  }
+  &--close {
+    max-width: 32px;
+    width: 100%;
+    height: 32px;
+    display: block;
   }
 }
 </style>

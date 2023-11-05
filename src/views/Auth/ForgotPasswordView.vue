@@ -1,44 +1,40 @@
 <template>
-  <LayoutAuth>
-    <form-auth @submit="submit">
-      <title-sample>{{ $t('login.forgot_password') }}</title-sample>
+  <form-auth @submit="submit">
+    <title-sample>{{ $t('login.forgot_password') }}</title-sample>
 
-      <h5 class="text-1 roman reminder-message">{{ $t('login.messages.reset_password') }}</h5>
+    <h5 class="text-1 roman reminder-message">{{ $t('login.messages.reset_password') }}</h5>
 
-      <div :class="['input-wrapper', { error: hasError || isInvalidEmail }]">
-        <input
-          type="email"
-          v-model="email"
-          class="base-input"
-          :placeholder="$t('login.placeholders.email')"
-        />
-        <small v-if="hasError || isInvalidEmail" class="error-message">
-          {{
-            $t(
-              isInvalidEmail
-                ? 'forgot_password.validation.incorrect_email'
-                : 'forgot_password.validation.empty_email'
-            )
-          }}
-        </small>
-      </div>
+    <div :class="['input-wrapper', { error: hasError || isInvalidEmail }]">
+      <input
+        type="email"
+        v-model="email"
+        class="base-input"
+        :placeholder="$t('login.placeholders.email')"
+      />
+      <small v-if="hasError || isInvalidEmail" class="error-message">
+        {{
+          $t(
+            isInvalidEmail
+              ? 'forgot_password.validation.incorrect_email'
+              : 'forgot_password.validation.empty_email'
+          )
+        }}
+      </small>
+    </div>
 
-      <div class="login-button-section">
-        <SampleButton @click="handleSubmit" :title="`${$t('buttons.submit')}`" />
-      </div>
-    </form-auth>
-  </LayoutAuth>
+    <div class="login-button-section">
+      <SampleButton @click="handleSubmit" :title="`${$t('buttons.submit')}`" />
+    </div>
+  </form-auth>
 </template>
 
 <script>
-import LayoutAuth from '@/components/layouts/LayoutAuth.vue'
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 
 export default {
   components: {
-    LayoutAuth,
     FormAuth,
     TitleSample,
     SampleButton

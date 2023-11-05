@@ -1,6 +1,6 @@
 <template>
   <div class="tabs">
-    <GroupsSearch class="tabs__search" placeholder="Поиск аудио" />
+    <GroupsSearch class="tabs__search" :placeholder="$t('audio.search_audio')" />
     <div class="tabs__lists">
       <AudioList v-for="audio in likedAudios" :audio="audio" :index="index" :key="audio.id" />
     </div>
@@ -40,6 +40,9 @@ export default {
   &__search {
     max-width: 716px;
     width: 100%;
+    @media (max-width: 767px) {
+      display: none;
+    }
   }
   &__title {
     font-size: 18px;

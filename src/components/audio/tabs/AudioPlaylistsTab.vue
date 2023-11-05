@@ -1,8 +1,8 @@
 <template>
   <div class="tabs">
-    <GroupsSearch class="tabs__search" placeholder="Поиск аудио" />
+    <GroupsSearch class="tabs__search" :placeholder="$t('audio.search_audio')" />
     <div class="tabs__wrapper">
-      <AudioAlbumCard v-for="i in 12" :key="i" />
+      <AudioAlbumCard v-for="i in 12" :key="i" :className="'tabs__playlist'" />
     </div>
   </div>
 </template>
@@ -21,6 +21,9 @@ export default {
   &__search {
     max-width: 716px;
     width: 100%;
+    @media (max-width: 767px) {
+      display: none;
+    }
   }
   &__title {
     font-size: 18px;
@@ -35,6 +38,15 @@ export default {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
+    @media (max-width: 1200px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 767px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .tabs__playlist {
+      max-width: 100% !important;
+    }
   }
 }
 </style>

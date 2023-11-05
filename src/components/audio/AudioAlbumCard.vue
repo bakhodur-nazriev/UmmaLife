@@ -1,5 +1,5 @@
 <template>
-  <div class="playlist" @click="openPlayList">
+  <div class="playlist" @click="openPlayList" :class="className">
     <div class="playlist__cover">
       <img src="/images/message/message-img.jpg" alt="message-img" />
     </div>
@@ -19,6 +19,12 @@ import { mapMutations } from 'vuex'
 import { audios } from '@/dummy'
 
 export default {
+  props: {
+    className: {
+      type: String,
+      default: null
+    }
+  },
   components: { AudioAlbumDetail },
   data() {
     return {
@@ -49,12 +55,24 @@ export default {
   background-color: var(--color-white);
   display: block;
   cursor: pointer;
+  user-select: none;
+  @media (max-width: 767px) {
+    max-width: 140px;
+    padding: 0;
+    background-color: transparent;
+  }
+  &.tabs__playlist {
+    max-width: 100%;
+  }
   &__cover {
     position: relative;
     width: 100%;
     height: 200px;
     border-radius: 8px;
     overflow: hidden;
+    @media (max-width: 767px) {
+      height: 140px;
+    }
     img {
       width: 100%;
       height: 100%;
@@ -81,6 +99,12 @@ export default {
   }
   &__content {
     padding-top: 14px;
+    @media (max-width: 767px) {
+      padding-top: 8px;
+      h2 {
+        font-size: 14px;
+      }
+    }
     h2 {
       font-size: 16px;
       font-style: normal;
