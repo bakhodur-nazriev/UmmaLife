@@ -1,6 +1,6 @@
 <template>
-  <form-auth @submit="handleSubmit">
-    <title-sample>{{ $t('login.title') }}</title-sample>
+  <FormAuth @submit="handleSubmit">
+    <TitleSample>{{ $t('login.title') }}</TitleSample>
 
     <div class="main__input-email-block">
       <div :class="['input-wrapper', { error: hasError.email || isInvalidEmail }]">
@@ -58,7 +58,7 @@
     >
       {{ $t('login.create_account') }}
     </router-link>
-  </form-auth>
+  </FormAuth>
 </template>
 
 <script>

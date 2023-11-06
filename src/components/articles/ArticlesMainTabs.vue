@@ -2,7 +2,7 @@
   <div class="tabs">
     <div class="tabs__header">
       <div
-          v-for="(tab, index) in tabs"
+          v-for="(tab, index) in filteredTabs"
           :key="tab.index"
           :class="['tabs__header-item', { 'active': activeTab === index }]"
           @click="handleTabClick(index)"
@@ -25,6 +25,12 @@
         <CreateArticles v-if="index === 4"/>
       </div>
     </div>
+
+    <div class="create-button__block">
+      <button type="button" class="create-button" @click="activateCreateArticles">
+        <PlusIcon/>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -34,9 +40,11 @@ import MyArticles from '@/components/articles/MyArticles.vue'
 import SavedArticles from '@/components/articles/SavedArticles.vue'
 import DraftArticles from '@/components/articles/DraftArticles.vue'
 import CreateArticles from '@/components/articles/CreateArticles.vue'
+import PlusIcon from '@/components/icons/PlusIcon.vue'
 
 export default {
   components: {
+    PlusIcon,
     CreateArticles,
     DraftArticles,
     SavedArticles,
@@ -62,6 +70,9 @@ export default {
     handleTabClick(index) {
       this.activeTab = index
       sessionStorage.setItem('activeTab', index.toString())
+    },
+    activateCreateArticles() {
+      this.activeTab = 4
     },
     changeTab(index) {
       const screenWidth = window.innerWidth
@@ -91,6 +102,11 @@ export default {
   computed: {
     isSmallScreen() {
       return window.innerWidth < 576
+    },
+    filteredTabs() {
+      return this.tabs.filter((tab, index) => {
+        return !this.isSmallScreen || index < this.tabs.length - 1
+      })
     }
   }
 }
@@ -100,7 +116,6 @@ export default {
 .tabs {
   &__header {
     display: flex;
-    justify-content: center;
     align-items: center;
     gap: 160px;
     position: relative;
@@ -175,6 +190,18 @@ export default {
   }
 }
 
+.create-button__block {
+  display: none;
+}
+
+@media (min-width: 576px) {
+  .tabs {
+    &__header {
+      justify-content: center;
+    }
+  }
+}
+
 @media (max-width: 576px) {
   .tabs {
     &__header {
@@ -182,9 +209,11 @@ export default {
       top: 64px;
       z-index: 15;
       background-color: var(--color-white);
-      width: max-content;
+      width: 100%;
       gap: 16px;
       padding: 0 20px;
+      overflow-x: scroll;
+      overflow-y: hidden;
 
       &::after {
         height: 1px;
@@ -221,6 +250,15 @@ export default {
           }
         }
       }
+
+      &::-webkit-scrollbar-thumb {
+        background: var(--color-secondary);
+        border-radius: 10px;
+      }
+
+      &::-webkit-scrollbar {
+        height: 2px;
+      }
     }
 
     &__content {
@@ -256,11 +294,32 @@ export default {
       }
     }
   }
-}
 
-@media (min-width: 768px) {
-}
+  .create-button__block {
+    display: block;
+    position: absolute;
+    bottom: 80px;
+    width: 48px;
+    height: 48px;
+    right: 20px;
+    z-index: 90;
 
-@media (min-width: 1280px) {
+    .create-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      outline: none;
+      color: var(--color-white);
+      font-size: 24px;
+      width: 100%;
+      height: 100%;
+      background: var(--color-hippie-blue);
+      box-shadow: 0 2px 10px rgba(73, 163, 153, 0.60);
+      border-radius: 15px;
+      padding: 0;
+      cursor: pointer;
+    }
+  }
 }
 </style>

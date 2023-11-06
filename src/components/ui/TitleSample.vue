@@ -14,6 +14,6 @@
     font-weight: 500;
     font-size: 44px;
     line-height: 1;
-    color: #1F1F1F;
+    color: var(--color-mine-shaft);
   }
 </style>
