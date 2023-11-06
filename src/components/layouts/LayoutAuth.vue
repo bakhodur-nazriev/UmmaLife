@@ -47,7 +47,7 @@ export default {
     display: flex;
     justify-content: center;
     margin-top: 64px;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
   }
 
   &__inner {
@@ -56,7 +56,6 @@ export default {
     align-items: center;
     flex-grow: 1;
     flex-direction: column;
-    justify-content: center;
     z-index: 0;
   }
 

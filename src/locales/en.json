@@ -56,6 +56,10 @@
       "incorrect_email": "Invalid email",
       "incorrect_password": "Invalid password",
       "incorrect_code": "Invalid code"
+    },
+    "interests_category": {
+      "title": "Last Step!",
+      "subtitle": "Select interest categories so we can show you content that will interest you"
     }
   },
   "links": {
