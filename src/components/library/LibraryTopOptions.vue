@@ -51,7 +51,7 @@
       </ul>
     </div>
     <div class="library__top__options--search">
-      <GroupsSearch :placeholder="$t('library.serach_placeholder')" />
+      <GroupsSearch :placeholder="$t('library.search_placeholder')" />
     </div>
   </div>
 </template>

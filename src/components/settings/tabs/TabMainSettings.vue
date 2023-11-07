@@ -5,7 +5,7 @@
         <SettingsBackIcon />
       </div>
       <div class="settings__header--text">{{ $t('settings.nav.main') }}</div>
-      <div class="settings__header--ready">{{ $t('settings.accaunt.ready') }}</div>
+      <div class="settings__header--ready">{{ $t('settings.account.ready') }}</div>
     </div>
     <SettingsInfo>
       <template #icon>
@@ -75,7 +75,7 @@
           />
         </div>
         <div class="settings__categories">
-          <div class="create__group--label">{{ $t('settings.main.categorie_title') }}</div>
+          <div class="create__group--label">{{ $t('settings.main.categories_title') }}</div>
           <div class="settings__categories--wrapper">
             <BaseCheckbox v-for="category in categories" :key="category" :label="category" />
           </div>
@@ -108,14 +108,14 @@ export default {
     categories() {
       return [
         this.$t('settings.main.categories.religion'),
-        this.$t('settings.main.categories.psixologiya'),
-        this.$t('settings.main.categories.familiy'),
+        this.$t('settings.main.categories.psychology'),
+        this.$t('settings.main.categories.family'),
         this.$t('settings.main.categories.health'),
         this.$t('settings.main.categories.work'),
         this.$t('settings.main.categories.education'),
         this.$t('settings.main.categories.travel'),
         this.$t('settings.main.categories.books'),
-        this.$t('settings.main.categories.sience'),
+        this.$t('settings.main.categories.science'),
         this.$t('settings.main.categories.sport'),
         this.$t('settings.main.categories.art'),
         this.$t('settings.main.categories.auto'),
@@ -124,7 +124,7 @@ export default {
         this.$t('settings.main.categories.fitness'),
         this.$t('settings.main.categories.history'),
         this.$t('settings.main.categories.fashion'),
-        this.$t('settings.main.categories.architectory'),
+        this.$t('settings.main.categories.architecture'),
         this.$t('settings.main.categories.beauty'),
         this.$t('settings.main.categories.parenting'),
         this.$t('settings.main.categories.nature')

@@ -12,7 +12,7 @@
     <form class="settings__form create__group">
       <div class="create__group--block">
         <div class="settings__categories">
-          <div class="create__group--label">{{ $t('settings.notifications.system_notifs') }}</div>
+          <div class="create__group--label">{{ $t('settings.notifications.system_notifications') }}</div>
           <div class="settings__categories--wrapper">
             <BaseCheckbox
               v-for="notification in systemNotifications"
@@ -22,7 +22,7 @@
           </div>
         </div>
         <div class="settings__categories">
-          <div class="create__group--label">{{ $t('settings.notifications.email_notifs') }}</div>
+          <div class="create__group--label">{{ $t('settings.notifications.email_notifications') }}</div>
           <div class="settings__categories--wrapper">
             <BaseCheckbox
               v-for="notification in systemNotifications"
@@ -53,7 +53,7 @@ export default {
         this.$t('settings.notifications.like_my_notes'),
         this.$t('settings.notifications.comment_my_notes'),
         this.$t('settings.notifications.share_my_notes'),
-        this.$t('settings.notifications.subed_me'),
+        this.$t('settings.notifications.subscribed_me'),
         this.$t('settings.notifications.like_my_page'),
         this.$t('settings.notifications.mentioned_me'),
         this.$t('settings.notifications.join_my_group'),

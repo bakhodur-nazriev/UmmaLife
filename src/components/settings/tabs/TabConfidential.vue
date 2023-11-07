@@ -5,7 +5,7 @@
         <SettingsBackIcon />
       </div>
       <div class="settings__header--text">{{ $t('settings.nav.confidential') }}</div>
-      <div class="settings__header--ready">{{ $t('settings.accaunt.ready') }}</div>
+      <div class="settings__header--ready">{{ $t('settings.account.ready') }}</div>
     </div>
     <SettingsInfo>
       <template #icon>

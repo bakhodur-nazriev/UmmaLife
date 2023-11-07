@@ -138,6 +138,7 @@
   },
   "buttons": {
     "login": "Войти",
+    "ready": "Готово",
     "get_code_by_email": "Получить код на почту",
     "next": "Далее",
     "prev": "Назад",
@@ -298,11 +299,11 @@
     "tabs": {
       "all_films": "Все фильмы",
       "new_films": "Новинки",
-      "recomended_films": "Рекомендации",
+      "recommended_films": "Рекомендации",
       "saved_films": "Сохраненное",
       "viewed": "Просмотренные"
     },
-    "parametrs": {
+    "parameters": {
       "title": "Параметры поиска",
       "category": "Категория",
       "year": "Год",
@@ -310,7 +311,7 @@
       "country": "Страна",
       "creator": "Создатель",
       "duration": "Длительность:",
-      "minut": "минут",
+      "minute": "минут",
       "views": "Количество просмотров"
     }
   },
@@ -497,17 +498,17 @@
       "country": "Страна",
       "address": "Адрес",
       "address_placeholder": "Введите адрес",
-      "categorie_title": "Категории интересов",
+      "categories_title": "Категории интересов",
       "categories": {
         "religion": "Религия",
-        "psixologiya": "Психология",
-        "familiy": "Семья",
+        "psychology": "Психология",
+        "family": "Семья",
         "health": "Здоровье",
         "work": "Работа",
         "education": "Учеба",
         "travel": "Путешествия",
         "books": "Книги",
-        "sience": "Наука",
+        "science": "Наука",
         "sport": "Спорт",
         "art": "Искусство",
         "auto": "Авто",
@@ -516,7 +517,7 @@
         "fitness": "Фитнес",
         "history": "История",
         "fashion": "Мода",
-        "architectory": "Архитектура",
+        "architecture": "Архитектура",
         "beauty": "Красота",
         "parenting": "Воспитание",
         "nature": "Природа"
@@ -537,15 +538,15 @@
       "info_title": "Образование",
       "info_text": "В разделе \"Образование и работа\" вы можете указать информацию о вашем образовании и занимаемой должности. Это поможет другим пользователям лучше понять вашу академическую и профессиональную сферу интересов.",
       "completed": "Закончил",
-      "scholl": "Школа",
-      "scholl_placeholder": "Введите название вашей школы",
-      "scholl_add": "Добавить школу",
-      "colledge": "Колледж",
-      "colledge_placeholder": "Введите название вашего колледжа",
-      "colledge_add": "Добавить колледж",
-      "univercity": "Университет",
-      "univercity_placeholder": "Введите название вашего университета",
-      "univercity_add": "Добавить университет"
+      "school": "Школа",
+      "school_placeholder": "Введите название вашей школы",
+      "school_add": "Добавить школу",
+      "college": "Колледж",
+      "college_placeholder": "Введите название вашего колледжа",
+      "college_add": "Добавить колледж",
+      "university": "Университет",
+      "university_placeholder": "Введите название вашего университета",
+      "university_add": "Добавить университет"
     },
     "work": {
       "info_title": "Работа",
@@ -620,12 +621,12 @@
     "notifications": {
       "info_title": "Настройки уведомлений",
       "info_text": "Настройки уведомлений позволяют вам настроить информацию и оповещения, которые вы получаете от нашего сайта.",
-      "system_notifs": "Системные уведомления",
-      "email_notifs": "E-mail уведомления",
+      "system_notifications": "Системные уведомления",
+      "email_notifications": "E-mail уведомления",
       "like_my_notes": "Нравятся мои заметки",
       "comment_my_notes": "Прокомментировали мои заметки",
       "share_my_notes": "Поделились моими заметками",
-      "subed_me": "Подписаны на меня",
+      "subscribed_me": "Подписаны на меня",
       "like_my_page": "Нравится моя страница",
       "mentioned_me": "Упомянули меня",
       "join_my_group": "Вступили в мою группу",
@@ -644,18 +645,18 @@
       "enter_password": "Введите пароль для удаления аккаунта",
       "enter_password_placeholder": "Введите ваш текущий пароль"
     },
-    "accaunt": {
-      "accaunt_settings": "Настройки аккаунта",
+    "account": {
+      "account_settings": "Настройки аккаунта",
       "profile": "Профиль",
       "safety": "Безопасность",
       "display": "Дисплей",
       "theme": "Тема",
-      "notif": "Уведомления",
-      "popup_notif": "Всплывающее уведомление",
-      "show_popup_notif": "Показывать уведомления из приложения",
+      "notification": "Уведомления",
+      "popup_notification": "Всплывающее уведомление",
+      "show_popup_notification": "Показывать уведомления из приложения",
       "help_and_support": "Поддержка и помощь",
       "to_system_settings": "К настройкам системы",
-      "repeort_problem": "Сообщить о проблеме",
+      "report_problem": "Сообщить о проблеме",
       "quit": "Выход",
       "profile_settings": "Настройки профиля",
       "profile_info": "Личная информация",
@@ -663,7 +664,7 @@
       "app": "Приложение",
       "location": "Расположение",
       "ip": "IP адрес",
-      "finish_seans": "Завершить сессию"
+      "finish_session": "Завершить сессию"
     }
   },
   "themes": {
@@ -678,7 +679,7 @@
     "liked_books": "Нравится",
     "category": "Категория",
     "author": "Автор:",
-    "serach_placeholder": "Поиск по названию книги",
+    "search_placeholder": "Поиск по названию книги",
     "year": "Год",
     "back_to_main": "Вернуться к списку книг",
     "views": "Количество просмотров",
