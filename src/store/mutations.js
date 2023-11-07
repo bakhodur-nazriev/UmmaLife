@@ -21,7 +21,6 @@ export default {
     state.playerMargin = margin
   },
   setShareOpen(state, isShareOpen) {
-    console.log({ isShareOpen })
     state.isShareOpen = isShareOpen
   },
   setIsProfileTabsOpen(state, isProfileTabsOpen) {

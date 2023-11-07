@@ -1055,3 +1055,211 @@ export const selectCategories = [
     ]
   }
 ]
+
+export const notifications = [
+  {
+    timestamp: 'notification.new',
+    data: [
+      {
+        id: 1,
+        isRead: false,
+        type: 'photo-liked',
+        time: 7,
+        users: [
+          {
+            id: 1,
+            name: 'Ибрагим Ибрагимов',
+            avatar: '/images/users/jeff.png'
+          }
+        ],
+        post_photo: '/images/albums/album-1.jpg'
+      },
+      {
+        id: 2,
+        isRead: false,
+        type: 'photo-liked',
+        time: 7,
+        users: [
+          {
+            id: 1,
+            name: 'Ибрагим Ибрагимов',
+            avatar: '/images/users/jhon.png'
+          },
+          {
+            id: 2,
+            name: 'Андрей Иванов',
+            avatar: '/images/users/jozef.png'
+          }
+        ],
+        post_photo: '/images/albums/album-2.jpg'
+      },
+      {
+        id: 2,
+        isRead: false,
+        type: 'group-new-post',
+        time: 44,
+        group: {
+          id: 1,
+          name: 'World Nature',
+          avatar: '/images/groups/group-1.jpg'
+        },
+        group_photo: '/images/albums/album-3.jpg'
+      }
+    ]
+  },
+  {
+    timestamp: 'notification.yesterday',
+    data: [
+      {
+        id: 1,
+        isRead: true,
+        type: 'user-subscribe',
+        time: '28.03',
+        users: [
+          {
+            id: 1,
+            name: 'Ибрагим Ибрагимов',
+            avatar: '/images/users/jeff.png'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    timestamp: 'notification.week',
+    data: [
+      {
+        id: 1,
+        isRead: true,
+        type: 'group-new-post',
+        time: 44,
+        group: {
+          id: 1,
+          name: 'World Nature',
+          avatar: '/images/groups/group-1.jpg'
+        },
+        group_photo: '/images/albums/album-3.jpg'
+      }
+    ]
+  },
+  {
+    timestamp: 'notification.month',
+    data: [
+      {
+        id: 1,
+        isRead: true,
+        type: 'muvie-liked',
+        time: '28.03',
+        users: [
+          {
+            id: 1,
+            name: 'Ибрагим Ибрагимов',
+            avatar: '/images/users/jeff.png'
+          }
+        ],
+        muvie_photo: '/images/albums/album-1.jpg'
+      },
+      {
+        id: 2,
+        isRead: true,
+        type: 'post-liked',
+        time: '28.03',
+        users: [
+          {
+            id: 1,
+            name: 'Арслан Темирбеков',
+            avatar: '/images/users/jeff.png'
+          }
+        ],
+        post_title: 'random post title random post title',
+        post_photo: null
+      },
+      {
+        id: 3,
+        isRead: true,
+        type: 'post-liked',
+        time: '28.03',
+        users: [
+          {
+            id: 1,
+            name: 'Арслан Темирбеков',
+            avatar: '/images/users/jeff.png'
+          }
+        ],
+        post_title: 'random post title random post title',
+        post_photo: '/images/albums/album-3.jpg'
+      },
+      {
+        id: 3,
+        isRead: true,
+        type: 'post-commented',
+        time: '28.03',
+        users: [
+          {
+            id: 1,
+            name: 'Андрей Андреев',
+            avatar: '/images/users/jozef1.png'
+          }
+        ],
+        post_title: 'random post title random post title',
+        post_photo: '/images/albums/album-5.jpg',
+        comment_text: 'Текст самого комментария, который оставил пользователь'
+      },
+      {
+        id: 4,
+        isRead: true,
+        type: 'comment-tagged',
+        time: '28.03',
+        users: [
+          {
+            id: 1,
+            name: 'Андрей Андреев',
+            avatar: '/images/users/jozef2.png'
+          }
+        ],
+        post_title: 'random post title random post title',
+        post_photo: '/images/albums/album-5.jpg',
+        comment_text: 'Привет! Я отметил тебя!'
+      },
+      {
+        id: 5,
+        isRead: true,
+        type: 'post-viewed',
+        time: '28.03',
+        users: [
+          {
+            id: 1,
+            name: 'Андрей Андреев',
+            avatar: '/images/users/jozef2.png'
+          }
+        ]
+      },
+      {
+        id: 6,
+        isRead: true,
+        type: 'video-posted',
+        time: '28.03',
+        post_photo: '/images/albums/album-6.jpg'
+      },
+      {
+        id: 6,
+        isRead: true,
+        type: 'login-notification',
+        time: '28.03'
+      },
+      {
+        id: 6,
+        isRead: true,
+        type: 'friend-request',
+        time: '28.03',
+        users: [
+          {
+            id: 1,
+            name: 'Пётр Василенко',
+            avatar: '/images/users/jozef4.png'
+          }
+        ]
+      }
+    ]
+  }
+]

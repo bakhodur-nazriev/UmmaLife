@@ -45,6 +45,7 @@ import MuviView from '@/views/muvi/MuviView.vue'
 import MuviMobileView from '@/views/muvi/MuviMobileView.vue'
 import VideoSingleViewVue from '@/views/VideoSingleView.vue'
 import PreviewArticleView from '@/views/PreviewArticleView.vue'
+import NotificationsView from '@/views/NotificationsView.vue'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const baseDomain = isProduction ? 'front1.ummalife.dev' : 'localhost'
@@ -487,6 +488,16 @@ const routes = [
       title: i18n.global.t('meta_title.muvi'),
       requiresAuth: true,
       layout: 'main-mobile'
+    }
+  },
+  {
+    path: '/:lang?/notifications',
+    name: 'notifications',
+    component: NotificationsView,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'main'
     }
   },
   {

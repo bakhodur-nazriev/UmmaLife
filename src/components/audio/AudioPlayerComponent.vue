@@ -277,9 +277,9 @@ export default {
     },
     handleBeforePlay(next) {
       this.$refs.audioPlayer.currentPlayIndex = this.audioIndex
-      const currentIndex = this.$refs.audioPlayer.currentPlayIndex
-      this.currentAudioName = this.audios[currentIndex].title
-      this.currentAuthor = this.audios[currentIndex].artist
+      const currentIndex = this.$refs.audioPlayer.currentPlayIndex || 0
+      this.currentAudioName = this.audios[currentIndex]?.title || 'title'
+      this.currentAuthor = this.audios[currentIndex]?.artist || 'artist'
       this.setAudioPlaying(currentIndex)
 
       next()
