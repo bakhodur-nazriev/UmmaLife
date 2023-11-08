@@ -153,6 +153,7 @@ export default {
     font-weight: 400;
     line-height: normal;
     color: var(--color-mine-shaft);
+    background-color: transparent;
     &::placeholder {
       color: var(--color-silver-chalice);
     }

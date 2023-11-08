@@ -30,7 +30,7 @@
                 <small>{{ group.members }}</small>
               </div>
             </router-link>
-            <SampleButton icon="plus" color="primary" :title="`${$t('buttons.join')}`" />
+            <SampleButton color="primary" :title="`${$t('buttons.join')}`" />
           </div>
         </div>
       </section>

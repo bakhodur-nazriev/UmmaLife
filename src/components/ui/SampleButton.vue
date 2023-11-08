@@ -64,7 +64,7 @@ const clickButton = () => {
 <style lang="scss">
 .btn {
   background-color: var(--color-hippie-blue);
-  color: var(--color-white);
+  color: var(--color-stable-white);
   border: none;
   border-radius: 10px;
   padding: 15px;
@@ -72,7 +72,8 @@ const clickButton = () => {
   cursor: pointer;
   display: flex;
   align-items: center;
-
+  justify-content: center;
+  gap: 8px;
   transition: all 0.3s;
   &_primary {
     background-color: var(--color-hippie-blue);
@@ -136,7 +137,6 @@ const clickButton = () => {
 
   &_primary:hover {
     background-color: var(--color-deep-cerulean);
-    color: var(--color-white);
     transition: all 0.15s ease-in-out;
   }
 

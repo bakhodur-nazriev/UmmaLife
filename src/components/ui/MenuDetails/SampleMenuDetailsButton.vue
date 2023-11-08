@@ -1,44 +1,37 @@
 <template>
   <div class="menu__details">
-    <div
-      class="menu__toggle--button open__menu--details--button"
-      @click="toggleMenu"
-    >
+    <div class="menu__toggle--button open__menu--details--button" @click="toggleMenu">
       <MenuDetailsIcon class="dropdown__toggle" />
     </div>
 
     <Transition name="bounce">
-      <div
-        class="menu__overlay"
-        v-if="isMenuOpen"
-        @click="handleOverlayClick"
-      >
+      <div class="menu__overlay" v-if="isMenuOpen" @click="handleOverlayClick">
         <ul class="dropdown__menu">
           <li class="dropdown-item">
             <ShareIcon />
             <span>{{ $t('buttons.share') }}</span>
           </li>
-          <SampleDivider class="dropdown-item__divider"/>
+          <SampleDivider class="dropdown-item__divider" />
           <li class="dropdown-item">
             <CopyLinkIcon />
             <span>{{ $t('buttons.copy_link') }}</span>
           </li>
-          <SampleDivider class="dropdown-item__divider"/>
+          <SampleDivider class="dropdown-item__divider" />
           <li class="dropdown-item">
             <SaveIcon />
             <span>{{ $t('buttons.save') }}</span>
           </li>
-          <SampleDivider class="dropdown-item__divider"/>
+          <SampleDivider class="dropdown-item__divider" />
           <li class="dropdown-item">
             <BlankIcon />
             <span>{{ $t('buttons.open_in_new_tab') }}</span>
           </li>
-          <SampleDivider class="dropdown-item__divider"/>
+          <SampleDivider class="dropdown-item__divider" />
           <li class="dropdown-item">
             <ComplainIcon />
             <span>{{ $t('buttons.complain') }}</span>
           </li>
-          <SampleDivider class="dropdown-item__divider"/>
+          <SampleDivider class="dropdown-item__divider" />
           <li class="dropdown-item">
             <HideIcon />
             <span>{{ $t('buttons.hide') }}</span>
@@ -75,31 +68,35 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
       test: this.isMenuOpen
     }
   },
   methods: {
-    toggleMenu () {
+    toggleMenu() {
       this.$emit('toggle-menu')
     },
-    handleOverlayClick () {
+    handleOverlayClick() {
       this.$emit('toggle-menu')
     },
-    closeMenuDetailsWindow (event) {
+    closeMenuDetailsWindow(event) {
       const menuDetailsWWindow = this.$refs.menuDetailsWindow
       const openMenuDetailsButton = document.querySelector('.open__menu--details--button')
 
-      if (menuDetailsWWindow && !menuDetailsWWindow.contains(event.target) && event.target !== openMenuDetailsButton) {
+      if (
+        menuDetailsWWindow &&
+        !menuDetailsWWindow.contains(event.target) &&
+        event.target !== openMenuDetailsButton
+      ) {
         this.test = false
       }
     }
   },
-  mounted () {
+  mounted() {
     document.addEventListener('click', this.closeMenuDetailsWindow)
   },
-  beforeUnmount () {
+  beforeUnmount() {
     document.removeEventListener('click', this.closeMenuDetailsWindow)
   }
 }
@@ -116,12 +113,12 @@ export default {
 
 @keyframes scale-up-top-right {
   0% {
-    transform:scale(.5);
-    transform-origin:top right
+    transform: scale(0.5);
+    transform-origin: top right;
   }
   100% {
-    transform:scale(1);
-    transform-origin:top right
+    transform: scale(1);
+    transform-origin: top right;
   }
 }
 
@@ -168,9 +165,10 @@ export default {
   cursor: pointer;
   border-radius: 10px;
   position: relative;
+  color: var(--color-mine-shaft);
 
   &:hover {
-    transition: all .15s ease-in-out;
+    transition: all 0.15s ease-in-out;
     background-color: var(--color-seashell);
   }
 

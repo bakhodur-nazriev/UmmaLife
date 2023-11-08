@@ -1,6 +1,6 @@
 <template>
   <div class="umma__shorts--block">
-    <img src="../../assets/images/UmmaShorts.png" alt="">
+    <img src="@/assets/images/UmmaShorts.png" alt="" />
     <div class="umma__shorts--title__section">
       <div class="umma__shorts--title--button">
         <h3 class="title umma__shorts--title">
@@ -31,13 +31,13 @@ export default {
   components: {
     SampleMenuDetailsButton
   },
-  data () {
+  data() {
     return {
       isMenuOpen: false
     }
   },
   methods: {
-    toggleMenu () {
+    toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen
     }
   }
@@ -51,6 +51,7 @@ export default {
   -webkit-line-clamp: 2;
   line-clamp: 2;
   -webkit-box-orient: vertical;
+  color: var(--color-mine-shaft);
 }
 
 .umma__shorts--title--button {

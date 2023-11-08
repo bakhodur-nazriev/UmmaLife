@@ -54,6 +54,6 @@ const closeHandler = () => {
 }
 </script>
 
-<style scoped>
+<style>
 @import 'assets/styles.scss';
 </style>

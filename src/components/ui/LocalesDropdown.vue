@@ -6,32 +6,46 @@
       :class="isRTL ? 'rtl' : 'ltr'"
       @click="handleButtonClick"
     >
-      <global-icon class="locales__icon"/>
+      <global-icon class="locales__icon" />
       <span class="locales__title">{{ currentLanguageName }}</span>
-      <dropdown-icon :class="isRTL ? 'rtl' : 'ltr'" class="locales__icon locales__icon--dropdown"/>
+      <dropdown-icon :class="isRTL ? 'rtl' : 'ltr'" class="locales__icon locales__icon--dropdown" />
     </button>
 
     <ul :class="isRTL ? 'rtl' : 'ltr'" class="locales__list" :data-locale="$t('languages.title')">
       <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('en')">{{ $t('languages.names.english') }}</a>
+        <a class="locales__link" :href="getLocalizedLink('en')">{{
+          $t('languages.names.english')
+        }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('ar')">{{ $t('languages.names.arabic') }}</a>
+        <a class="locales__link" :href="getLocalizedLink('ar')">{{
+          $t('languages.names.arabic')
+        }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('ru')">{{ $t('languages.names.russian') }}</a>
+        <a class="locales__link" :href="getLocalizedLink('ru')">{{
+          $t('languages.names.russian')
+        }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('tr')">{{ $t('languages.names.turkish') }}</a>
+        <a class="locales__link" :href="getLocalizedLink('tr')">{{
+          $t('languages.names.turkish')
+        }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('uz')">{{ $t('languages.names.uzbek') }}</a>
+        <a class="locales__link" :href="getLocalizedLink('uz')">{{
+          $t('languages.names.uzbek')
+        }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('id')">{{ $t('languages.names.indonesia') }}</a>
+        <a class="locales__link" :href="getLocalizedLink('id')">{{
+          $t('languages.names.indonesia')
+        }}</a>
       </li>
       <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('ms')">{{ $t('languages.names.malay') }}</a>
+        <a class="locales__link" :href="getLocalizedLink('ms')">{{
+          $t('languages.names.malay')
+        }}</a>
       </li>
     </ul>
   </div>
@@ -47,22 +61,22 @@ export default {
     DropdownIcon
   },
   computed: {
-    currentLanguageName () {
+    currentLanguageName() {
       return this.$i18n.t('languages.title')
     },
-    isRTL () {
+    isRTL() {
       return this.$i18n.locale === 'ar'
     }
   },
   methods: {
-    handleButtonClick () {
+    handleButtonClick() {
       const container = this.$refs.container
       if (!container) {
         return
       }
 
       const handleDocumentClick = (evt) => !evt.target.closest('.locales') && closeDropdown()
-      const handleEscapeKeydown = (evt) => (evt.keyCode === 27) && closeDropdown()
+      const handleEscapeKeydown = (evt) => evt.keyCode === 27 && closeDropdown()
       const openDropdown = () => {
         this.$refs.container.classList.add('locales--shown')
         document.addEventListener('click', handleDocumentClick)
@@ -75,7 +89,7 @@ export default {
       }
       !this.$refs.container.classList.contains('locales--shown') ? openDropdown() : closeDropdown()
     },
-    getLocalizedLink (lang) {
+    getLocalizedLink(lang) {
       const currentPath = this.$route.path
       const languagePrefix = '/' + this.$i18n.locale
       const newPath = currentPath.replace(languagePrefix, '')
@@ -105,7 +119,7 @@ export default {
   z-index: 1;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;

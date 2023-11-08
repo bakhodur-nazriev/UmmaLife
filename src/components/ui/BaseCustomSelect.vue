@@ -1,6 +1,9 @@
 <template>
   <div class="custom-select" :tabindex="tabindex" @blur="open = false" v-if="screenWidth > 767">
-    <div class="selected" :class="{ open: open }" @click="open = !open" v-html="selected"></div>
+    <div class="selected" :class="{ open: open }" @click="open = !open">
+      <span v-html="selected"></span>
+      <ArrowDownIcon />
+    </div>
     <div class="items" :class="{ selectHide: !open }">
       <div
         v-for="(option, i) of options"
@@ -12,7 +15,10 @@
   </div>
   <div class="mobile-select" v-else>
     <div class="custom-select" :tabindex="tabindex">
-      <div class="selected" :class="{ open: open }" @click="open = !open" v-html="selected"></div>
+      <div class="selected" :class="{ open: open }" @click="open = !open">
+        <span v-html="selected"></span>
+        <ArrowDownIcon />
+      </div>
     </div>
     <div class="mobile-select--inner" v-if="open">
       <div
@@ -96,6 +102,7 @@ export default {
 /* eslint-disable */
 import { vOnClickOutside } from '@vueuse/components'
 import { useWindowSize } from '@vueuse/core'
+import ArrowDownIcon from '@/components/icons/ArrowDownIcon.vue'
 
 const { width: screenWidth } = useWindowSize()
 </script>
@@ -204,6 +211,7 @@ const { width: screenWidth } = useWindowSize()
     gap: 10px;
     padding: 17px 16px;
     border-bottom: 1px solid var(--color-seashell);
+    color: var(--color-mine-shaft);
   }
 }
 .custom-select {
@@ -228,11 +236,9 @@ const { width: screenWidth } = useWindowSize()
   border-radius: 6px 6px 0px 0px;
 }
 
-.custom-select .selected:after {
+.custom-select .selected svg {
   position: absolute;
-  content: '';
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M14.2134 8.125L10.0754 12.2629L5.9375 8.125' stroke='black' stroke-width='2' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-position: center center;
+  color: var(--color-mine-shaft);
   background-size: contain;
   background-repeat: no-repeat;
   top: 50%;
@@ -241,7 +247,7 @@ const { width: screenWidth } = useWindowSize()
   width: 20px;
   height: 20px;
 }
-.custom-select .selected.open:after {
+.custom-select .selected.open svg {
   transform: translateY(-50%) rotate(180deg);
 }
 

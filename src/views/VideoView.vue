@@ -1,52 +1,50 @@
 <template>
-  <MainLayout>
-    <div class="video__page">
-      <div class="muvi__mobile--nav white" v-if="width < 767">
-        <div class="library__actions--btn" @click="$router.go(-1)">
-          <ArrowLeftIcon />
-        </div>
-        <div class="muvi__mobile--nav-title">{{ $t('links.video') }}</div>
-        <div class="library__actions">
-          <div class="library__actions--btn" @click="handleSearchOpen">
-            <SearchIcon />
-          </div>
-          <div class="library__actions--btn" @click="isFilterOpen = !isFilterOpen">
-            <FilterCommentsIcon />
-          </div>
-        </div>
-        <transition name="slide">
-          <div
-            v-if="isSearchOpen"
-            class="settings__header--input"
-            v-on-click-outside="handleCloseSearch"
-          >
-            <SearchInput :full="true" :placeholder="$t('placeholders.search_input')" />
-          </div>
-        </transition>
+  <div class="video__page">
+    <div class="muvi__mobile--nav white" v-if="width < 767">
+      <div class="library__actions--btn" @click="$router.go(-1)">
+        <ArrowLeftIcon />
       </div>
-      <groups-nav :links="links" className="muvi__nav" @clickNavHandler="clickNavHandler" />
-      <div class="library__detail__container">
-        <div class="library__detail__wrapper">
-          <div class="library__detail__block--wrapper">
-            <div class="library__detail__block">
-              <div class="video__page--search">
-                <GroupsSearch :placeholder="$t('video.search_video')" />
-              </div>
-              <AllMuvies v-if="links[0].isActive" />
-              <NewMuvies v-else-if="links[1].isActive" />
-              <ReccomendedMuvies v-else-if="links[2].isActive" />
-              <SavedMuvies v-else-if="links[3].isActive" />
-              <WatchedMuvies v-else-if="links[4].isActive" />
-            </div>
-          </div>
-          <VideoPageFilter
-            :class="{ 'mobile-active': isFilterOpen }"
-            @closeHandler="isFilterOpen = false"
-          />
+      <div class="muvi__mobile--nav-title">{{ $t('links.video') }}</div>
+      <div class="library__actions">
+        <div class="library__actions--btn" @click="handleSearchOpen">
+          <SearchIcon />
         </div>
+        <div class="library__actions--btn" @click="isFilterOpen = !isFilterOpen">
+          <FilterCommentsIcon />
+        </div>
+      </div>
+      <transition name="slide">
+        <div
+          v-if="isSearchOpen"
+          class="settings__header--input"
+          v-on-click-outside="handleCloseSearch"
+        >
+          <SearchInput :full="true" :placeholder="$t('placeholders.search_input')" />
+        </div>
+      </transition>
+    </div>
+    <groups-nav :links="links" className="muvi__nav" @clickNavHandler="clickNavHandler" />
+    <div class="library__detail__container">
+      <div class="library__detail__wrapper">
+        <div class="library__detail__block--wrapper">
+          <div class="library__detail__block">
+            <div class="video__page--search">
+              <GroupsSearch :placeholder="$t('video.search_video')" />
+            </div>
+            <AllMuvies v-if="links[0].isActive" />
+            <NewMuvies v-else-if="links[1].isActive" />
+            <ReccomendedMuvies v-else-if="links[2].isActive" />
+            <SavedMuvies v-else-if="links[3].isActive" />
+            <WatchedMuvies v-else-if="links[4].isActive" />
+          </div>
+        </div>
+        <VideoPageFilter
+          :class="{ 'mobile-active': isFilterOpen }"
+          @closeHandler="isFilterOpen = false"
+        />
       </div>
     </div>
-  </MainLayout>
+  </div>
 </template>
 
 <script setup>
@@ -54,7 +52,6 @@ import { ref } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 import { vOnClickOutside } from '@vueuse/components'
 
-import MainLayout from '@/components/layouts/MainLayout.vue'
 import ArrowLeftIcon from '@/components/icons/shorts/ArrowLeftIcon.vue'
 import GroupsNav from '@/components/groups/GroupsNav.vue'
 import AllMuvies from '@/components/video/tabs/AllMuvies.vue'

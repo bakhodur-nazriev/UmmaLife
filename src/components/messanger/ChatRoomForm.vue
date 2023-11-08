@@ -224,6 +224,7 @@ export default {
         resize: none;
         height: 56px;
         overflow: hidden;
+        background-color: var(--color-white);
         &::placeholder {
           color: var(--color-silver-chalice);
         }

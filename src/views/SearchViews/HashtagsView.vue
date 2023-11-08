@@ -4,7 +4,7 @@
       <ul class="hashtags-list">
         <li class="hashtags-list__item">
           <div class="hashtag-icon">
-            <HashtagIcon/>
+            <HashtagIcon />
           </div>
           <div class="hashtags-list__item-title">
             <p>#н</p>
@@ -13,7 +13,7 @@
         </li>
         <li class="hashtags-list__item">
           <div class="hashtag-icon">
-            <HashtagIcon/>
+            <HashtagIcon />
           </div>
           <div class="hashtags-list__item-title">
             <p>#на</p>
@@ -22,7 +22,7 @@
         </li>
         <li class="hashtags-list__item">
           <div class="hashtag-icon">
-            <HashtagIcon/>
+            <HashtagIcon />
           </div>
           <div class="hashtags-list__item-title">
             <p>#на</p>
@@ -31,7 +31,7 @@
         </li>
         <li class="hashtags-list__item">
           <div class="hashtag-icon">
-            <HashtagIcon/>
+            <HashtagIcon />
           </div>
           <div class="hashtags-list__item-title">
             <p>#нап</p>
@@ -40,7 +40,7 @@
         </li>
         <li class="hashtags-list__item">
           <div class="hashtag-icon">
-            <HashtagIcon/>
+            <HashtagIcon />
           </div>
           <div class="hashtags-list__item-title">
             <p>#напи</p>
@@ -49,7 +49,7 @@
         </li>
         <li class="hashtags-list__item">
           <div class="hashtag-icon">
-            <HashtagIcon/>
+            <HashtagIcon />
           </div>
           <div class="hashtags-list__item-title">
             <p>#напис</p>
@@ -58,7 +58,7 @@
         </li>
         <li class="hashtags-list__item">
           <div class="hashtag-icon">
-            <HashtagIcon/>
+            <HashtagIcon />
           </div>
           <div class="hashtags-list__item-title">
             <p>#написанноеслово</p>
@@ -67,7 +67,7 @@
         </li>
         <li class="hashtags-list__item">
           <div class="hashtag-icon">
-            <HashtagIcon/>
+            <HashtagIcon />
           </div>
           <div class="hashtags-list__item-title">
             <p>#написанноеслово</p>
@@ -81,13 +81,11 @@
 
 <script>
 import HashtagIcon from '@/components/icons/navbar/small-display/HashtagIcon.vue'
-import MainLayout from '@/components/layouts/MainLayout.vue'
 import SearchMainLayout from '@/components/layouts/SearchMainLayout.vue'
 
 export default {
   components: {
     SearchMainLayout,
-    MainLayout,
     HashtagIcon
   }
 }

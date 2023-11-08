@@ -298,6 +298,7 @@ const closeDropdown = () => {
             font-weight: 400;
             line-height: normal;
             color: var(--color-mine-shaft);
+            background-color: transparent;
             &::placeholder {
               font-family: 'HelveticaNeueCyr', sans-serif;
               color: var(--color-secondary);

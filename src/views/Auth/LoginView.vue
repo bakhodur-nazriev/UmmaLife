@@ -1,7 +1,7 @@
 <script setup>
 /* eslint-disable */
-import {ref, onMounted} from 'vue'
-import {useRouter} from 'vue-router'
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import LoginWithPhone from '@/components/LoginForm/LoginWithPhone.vue'
 import LoginWithEmail from '@/components/LoginForm/LoginWithEmail.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
@@ -13,7 +13,7 @@ const toggleForm = () => {
   sessionStorage.setItem('selectedForm', selectedForm.value)
 }
 const handleLoginSuccess = () => {
-  const redirectTo = router.currentRoute.value.query.redirect || {name: 'home'}
+  const redirectTo = router.currentRoute.value.query.redirect || { name: 'home' }
   router.push(redirectTo)
 }
 
@@ -23,16 +23,18 @@ onMounted(() => {
 </script>
 
 <template>
-  <LoginWithEmail v-if="selectedForm === 'email'"/>
+  <LoginWithEmail v-if="selectedForm === 'email'" />
 
-  <LoginWithPhone v-if="selectedForm === 'phone'"/>
+  <LoginWithPhone v-if="selectedForm === 'phone'" />
 
   <div class="login-with-phone-section">
     <SampleButton
-        color="none"
-        class="link-with-phone-number"
-        @click="toggleForm"
-        :title="`${ selectedForm === 'email' ? $t('login.with_phone_number') : $t('login.with_email') }`"
+      color="none"
+      class="link-with-phone-number"
+      @click="toggleForm"
+      :title="`${
+        selectedForm === 'email' ? $t('login.with_phone_number') : $t('login.with_email')
+      }`"
     />
   </div>
 </template>

@@ -123,6 +123,7 @@ renderYears()
     padding: 16px 24px;
     cursor: pointer;
     user-select: none;
+    background-color: var(--color-white);
     @media (max-width: 767px) {
       background-color: var(--color-seashell);
       padding: 13px 16px;

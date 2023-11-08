@@ -85,11 +85,11 @@ export default {
 }
 
 .input-wrapper.error .base-input {
-  border: 1.4px solid red;
+  border: 1.4px solid var(--color-valencia);
 }
 
 .input-wrapper .error-message {
-  color: red;
+  color: var(--color-valencia);
   font-size: 12px;
   margin-top: 4px;
 }
