@@ -5,20 +5,20 @@
         <div>
           <input class="article-title__input" type="text" :placeholder="$t('placeholders.article_title')">
           <span
-              @click="showEditorModal"
-              class="choose-tool__button"
+            @click="showEditorModal"
+            class="choose-tool__button"
           >+ {{ $t('labels.articles.create_article.press_to_select_tool') }}</span>
           <div v-if="showEditor" class="tool-block">
             <SampleButton icon="close" color="none" @click="closeToolWindow">
               <CloseToolEditorIcon/>
             </SampleButton>
-            <div>
+            <div class="tools-block">
               <QuillEditor
-                  v-model="content"
-                  ref="myQuillEditor"
-                  :options="editorOption"
-                  :placeholder="placeholderText"
-                  toolbar="#custom-toolbar"
+                v-model="content"
+                ref="myQuillEditor"
+                :options="editorOption"
+                :placeholder="placeholderText"
+                toolbar="#custom-toolbar"
               >
                 <template #toolbar>
                   <div id="custom-toolbar">
@@ -38,7 +38,7 @@
                     </button>
 
                     <button class="blockquote" @click="toggleQuote">
-                      <QuoteIcon/>
+                      <EditorQuoteIcon/>
                       <span>{{ $t('labels.articles.editor.quote') }}</span>
                     </button>
 
@@ -52,18 +52,18 @@
                       <span>{{ $t('labels.articles.editor.list') }}</span>
                     </button>
 
-                    <button class="ql-divider">
+                    <button class="ql-divider" @click="addDivider">
                       <DividerIcon/>
                       <span>{{ $t('labels.articles.editor.divider') }}</span>
                     </button>
 
-                    <div>
+                    <div class="ql-audio__block">
                       <input
-                          type="file"
-                          accept="audio/*"
-                          ref="fileInput"
-                          style="display: none"
-                          @change="handleFileSelect"
+                        type="file"
+                        accept="audio/*"
+                        ref="fileInput"
+                        style="display: none"
+                        @change="handleFileSelect"
                       />
                       <button class="ql-audio" @click="openFilePicker">
                         <AudioIcon/>
@@ -92,21 +92,44 @@
             </div>
             <button class="add-item__poll" @click="addOption">{{ $t('buttons.add_answer') }}</button>
           </div>
+          <div class="editor-audio" v-if="editorAudioActive">
+            <div class="editor-audio__play-icon">
+              <SmallVideoPlayIcon/>
+            </div>
+            <div class="editor-audio__description">
+              <span>{{ audioTitle }}</span>
+              <small>{{ audioTime }}</small>
+            </div>
+
+          </div>
+          <div class="editor-divider" v-if="editorDividerActive">
+            <BigDividerIcon />
+          </div>
+          <div class="editor-blockquote" v-if="editorBlockquoteActive">
+            <QuoteIcon />
+            <blockquote class="quote">
+              "Жизнь слишком коротка, чтобы тратить ее на злость и раздражение."
+              "Жизнь слишком коротка, чтобы тратить ее на злость и раздражение."
+              "Жизнь слишком коротка, чтобы тратить ее на злость и раздражение."
+            </blockquote>
+          </div>
         </div>
 
         <div class="editor-bottom__buttons">
           <SampleButton
-              icon="eye"
-              color="seashell"
-              :title="`${ $t('buttons.article_preview') }`"
-              @click="goToArticlePreview"
+            icon="eye"
+            color="seashell"
+            :title="`${ $t('buttons.article_preview') }`"
+            @click="goToArticlePreview"
+            size="14"
           >
             <EyeIcon/>
           </SampleButton>
           <SampleButton
-              icon="bookmark"
-              color="seashell"
-              :title="`${ $t('buttons.save_as_draft') }`"
+            icon="bookmark"
+            color="seashell"
+            :title="`${ $t('buttons.save_as_draft') }`"
+            size="14"
           >
             <BookSquareIcon/>
           </SampleButton>
@@ -157,6 +180,7 @@ import GalleryAddIcon from '../icons/GalleryAddIcon.vue'
 import SampleInput from '../ui/Fields/SampleInput.vue'
 import { QuillEditor } from '@vueup/vue-quill'
 import 'quill/dist/quill.snow.css'
+import EditorQuoteIcon from '@/components/icons/quill-editor-icons/EditorQuoteIcon.vue'
 import QuoteIcon from '@/components/icons/quill-editor-icons/QuoteIcon.vue'
 import HeadingIcon from '@/components/icons/quill-editor-icons/HeadingIcon.vue'
 import GalleryAddEditorIcon from '@/components/icons/quill-editor-icons/GallerAddIcon.vue'
@@ -171,9 +195,13 @@ import BookSquareIcon from '@/components/icons/quill-editor-icons/BookSquareIcon
 import CloseToolEditorIcon from '@/components/icons/quill-editor-icons/CloseToolEditorIcon.vue'
 import InsetIcon from '@/components/icons/quill-editor-icons/InsetIcon.vue'
 import RemoveIcon from '@/components/icons/RemoveIcon.vue'
+import SmallVideoPlayIcon from '@/components/icons/SmallVideoPlayIcon.vue'
+import BigDividerIcon from '@/components/icons/quill-editor-icons/BigDividerIcon.vue'
 
 export default {
   components: {
+    BigDividerIcon,
+    SmallVideoPlayIcon,
     RemoveIcon,
     InsetIcon,
     CloseToolEditorIcon,
@@ -186,6 +214,7 @@ export default {
     TaskIcon,
     LinkIcon,
     HeadingIcon,
+    EditorQuoteIcon,
     QuoteIcon,
     QuillEditor,
     SampleInput,
@@ -196,6 +225,9 @@ export default {
   data() {
     return {
       pollActive: false,
+      editorAudioActive: false,
+      editorDividerActive: false,
+      editorBlockquoteActive: true,
       pollTitle: '',
       pollOption1: '',
       pollOption2: '',
@@ -206,14 +238,15 @@ export default {
       content: '',
       editorOption: {
         debug: false,
-        // placeholder: 'Type your post...',
         readOnly: false,
         theme: 'snow'
       },
       delta: undefined,
-      showEditor: false,
+      showEditor: true,
       selectedAudioFileName: null,
-      pollOptions: []
+      pollOptions: [],
+      audioTitle: '',
+      audioTime: ''
     }
   },
   computed: {
@@ -257,71 +290,18 @@ export default {
       }
     },
     toggleQuote() {
-      const pEl = document.querySelector('.ql-editor > p')
-
-      if (pEl) {
-        // Создаем новый элемент blockquote
-        const blockquoteEl = document.createElement('blockquote')
-        blockquoteEl.textContent = pEl.textContent // Копируем текст из p в blockquote
-
-        // Создаем элемент для SVG и добавляем SVG-код
-        const svgEl = document.createElement('svg')
-        svgEl.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <!-- Ваш SVG-код здесь -->
-            </svg>
-        `
-
-        // Создаем контейнер и добавляем svg, затем blockquote
-        const containerEl = document.createElement('div')
-        containerEl.appendChild(svgEl)
-        containerEl.appendChild(blockquoteEl)
-
-        // Заменяем p на контейнер
-        pEl.parentNode.replaceChild(containerEl, pEl)
-
-        // Применяем стили к blockquote
-        blockquoteEl.style.color = '#1F1F1F'
-        blockquoteEl.style.backgroundColor = '#F1F1F1'
-        blockquoteEl.style.borderRadius = '10px'
-        blockquoteEl.style.padding = '15px'
-        blockquoteEl.style.fontSize = '18px'
-
-        // Применяем стили к svg (при необходимости)
-        svgEl.style.width = '20px' // Пример
-        svgEl.style.height = '20px' // Пример
-      }
+      this.editorBlockquoteActive = true
     },
     openFilePicker() {
       this.$refs.fileInput.click()
     },
-    handleFileSelect(event) {
-      const selectedFile = event.target.files[0]
-      if (selectedFile) {
-        // Сохраняем имя файла в data
-        this.selectedFileName = selectedFile.name
-
-        // Создаем новый элемент и добавляем его в DOM
-        const customElement = document.createElement('div')
-        customElement.className = 'custom-element'
-
-        // Создаем аудио элемент
-        const audioElement = document.createElement('audio')
-        audioElement.src = URL.createObjectURL(selectedFile)
-
-        // Создаем заголовок
-        const paragraph = document.createElement('p')
-        paragraph.textContent = `Выбранный аудио файл: ${selectedFile.name}`
-
-        // Добавляем аудио и заголовок в элемент .custom-element
-        customElement.appendChild(audioElement)
-        customElement.appendChild(paragraph)
-
-        // Заменяем содержимое текущего .ql-editor на новый .custom-element
-        const qlEditor = document.querySelector('.ql-editor > p')
-        qlEditor.innerHTML = ''
-        qlEditor.appendChild(customElement)
-      }
+    getAudioDuration(file) {
+      return new Promise((resolve) => {
+        const audio = new Audio(URL.createObjectURL(file))
+        audio.addEventListener('loadedmetadata', () => {
+          resolve(audio.duration)
+        })
+      })
     },
     togglePoll() {
       this.pollActive = !this.pollActive
@@ -335,12 +315,95 @@ export default {
     },
     removeOption(index) {
       this.pollOptions.splice(index, 1)
+    },
+    async handleFileSelect(event) {
+      this.editorAudioActive = !this.editorAudioActive
+      const file = event.target.files[0]
+      if (file) {
+        const audioName = file.name
+        const audioDuration = await this.getAudioDuration(file)
+        const formattedDuration = this.formatTime(audioDuration)
+        this.audioTitle = audioName
+        this.audioTime = formattedDuration
+      }
+    },
+    formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60)
+      const remainingSeconds = Math.round(seconds % 60)
+      const formattedMinutes = String(minutes).padStart(2, '0')
+      const formattedSeconds = String(remainingSeconds).padStart(2, '0')
+      return `${formattedMinutes}:${formattedSeconds}`
+    },
+    addDivider() {
+      this.editorDividerActive = true
     }
   }
 }
 </script>
 
 <style lang="scss">
+.editor-blockquote {
+  display: flex;
+  border-radius: 8px;
+  padding: 15px 0;
+
+  svg {
+    margin-top: 4px;
+    min-width: 16px;
+  }
+
+  .quote {
+    font-size: 16px;
+    margin: 0;
+    padding: 0 10px;
+    line-height: normal;
+  }
+}
+
+.editor-divider {
+  display: flex;
+  justify-content: center;
+}
+
+.editor-audio {
+  display: flex;
+  z-index: 120;
+  background-color: var(--color-seashell);
+  border-radius: 14px;
+  padding: 12px;
+  gap: 8px;
+  max-width: 345px;
+
+  &__play-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-hippie-blue);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+
+  &__description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+
+    span {
+      font-size: 14px;
+      color: var(--color-mine-shaft);
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    small {
+      font-size: 12px;
+      line-height: 1;
+    }
+  }
+}
+
 .editor-poll {
   display: flex;
   flex-direction: column;
@@ -425,6 +488,8 @@ export default {
 
   button {
     height: 40px;
+    gap: 6px;
+
     svg {
       width: 16px;
       height: 16px;
@@ -463,18 +528,18 @@ export default {
     padding: 0;
 
     li {
-      margin: 0; /* Внешний отступ сверху и снизу для разделения элементов списка */
-      padding: 5px; /* Внутренний отступ для текста элемента */
-      position: relative; /* Для позиционирования точек */
+      margin: 0;
+      padding: 5px;
+      position: relative;
       font-size: 18px;
 
       &:before {
-        content: '\2022'; /* Код символа для точки */
-        color: var(--color-hippie-blue); /* Цвет точки */
-        font-size: 34px; /* Размер точки */
-        margin-right: 5px; /* Расстояние между точкой и текстом */
+        content: '\2022';
+        color: var(--color-hippie-blue);
+        font-size: 34px;
+        margin-right: 5px;
         position: absolute;
-        top: 50%; /* Выравнивание точки по центру вертикально */
+        top: 50%;
         transform: translateY(-50%);
       }
     }
@@ -582,7 +647,7 @@ export default {
   background-color: var(--color-white);
   border-radius: 20px;
   padding: 32px 40px;
-  width: 700px;
+  max-width: 700px;
   height: 720px;
   position: relative;
 
@@ -661,27 +726,80 @@ aside {
 }
 
 @media (max-width: 576px) {
+  .choose-tool__button {
+    font-size: 16px;
+  }
+
+  .tools-block {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  #custom-toolbar {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+
+    button {
+      span {
+        display: none;
+      }
+    }
+  }
+
+  .tool-block {
+    flex-direction: row-reverse;
+  }
+
+  .editor-poll {
+    input {
+      width: 100%;
+    }
+  }
+
   .create-article__container {
     flex-direction: column;
-    margin-top: 80px;
+    margin-top: 65px;
+  }
+
+  .main-tools__block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .editor-bottom__buttons {
+    justify-content: center;
+
+    button {
+      font-size: 14px;
+    }
   }
 
   aside {
     background-color: var(--color-white);
+    box-shadow: 10px 0 40px 0 rgba(108, 108, 108, 0.15);
     order: 1;
-    border-radius: 20px;
-    gap: 0;
+    border-radius: 20px 20px 0 0;
+    gap: 20px;
+    width: 100%;
+    padding: 20px 0;
 
     .choose-article_category-section,
     .tags-section,
     .article-cover_section {
       background-color: unset;
+      padding: 0 24px;
     }
   }
 
   .main-container__article {
     order: 2;
     width: auto;
+    height: 500px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding: 20px 18px;
+    z-index: 100;
+    position: relative;
   }
 
   .article-cover_section {
