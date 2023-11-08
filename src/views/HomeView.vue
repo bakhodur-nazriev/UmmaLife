@@ -1,28 +1,14 @@
 <template>
-  <main-layout>
-    <vue-tel-input v-model="phone" mode="international"></vue-tel-input>
-  </main-layout>
+  <vue-tel-input v-model="phone" mode="international"></vue-tel-input>
 </template>
 
-<script>
+<script setup>
+/* eslint-disable */
 import VueTelInput from 'vue-tel-input'
 import 'vue-tel-input/vue-tel-input.css'
-import MainLayout from '@/components/layouts/MainLayout.vue'
+import {ref} from 'vue'
 
-export default {
-  name: 'HomeView',
-  components: {
-    MainLayout,
-    VueTelInput
-  },
-  data () {
-    return {
-      phone: ''
-    }
-  }
-}
+const phone = ref('')
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

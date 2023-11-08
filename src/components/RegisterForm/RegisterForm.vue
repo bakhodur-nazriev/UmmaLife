@@ -1,13 +1,13 @@
 <template>
-  <form-auth @submit="submit">
-    <title-sample>{{ $t('register.title') }}</title-sample>
+  <FormAuth @submit="submit">
+    <TitleSample>{{ $t('register.title') }}</TitleSample>
 
     <div :class="['input-wrapper', { error: hasError || isInvalidEmail }]">
       <input
-        type="email"
-        v-model="email"
-        class="base-input"
-        :placeholder="$t('register.placeholders.email')"
+          type="email"
+          v-model="email"
+          class="base-input"
+          :placeholder="$t('register.placeholders.email')"
       />
       <small v-if="hasError || isInvalidEmail" class="error-message">
         {{ $t(isInvalidEmail ? 'register.validation.incorrect_email' : 'register.validation.empty_email') }}
@@ -15,22 +15,22 @@
     </div>
 
     <CheckBox
-      class="register-checkbox"
-      name="agreement"
-      color="secondary"
-      text-size="small"
+        class="register-checkbox"
+        name="agreement"
+        color="secondary"
+        text-size="small"
     >
       {{ $t('register.messages.agreement_to_creating_account') }} <br>
       <router-link
-        class="link register-checkbox__link"
-        :to="`/${$i18n.locale}/terms`"
+          class="link register-checkbox__link"
+          :to="`/${$i18n.locale}/terms`"
       >
         {{ $t('links.terms') }}
       </router-link>
       <span class="symbol__ampersand">&</span>
       <router-link
-        class="link register-checkbox__link"
-        :to="`/${$i18n.locale}/privacy-policy`"
+          class="link register-checkbox__link"
+          :to="`/${$i18n.locale}/privacy-policy`"
       >
         {{ $t('links.privacy_policy') }}
       </router-link>
@@ -38,8 +38,8 @@
 
     <div class="login-button-section">
       <SampleButton
-        @click="handleSubmit"
-        :title="`${ $t('buttons.get_code_by_email') }`"
+          @click="handleSubmit"
+          :title="`${ $t('buttons.get_code_by_email') }`"
       />
     </div>
 
@@ -47,7 +47,7 @@
       <label class="login-section__label">{{ $t('register.label') }}</label>
       <router-link class="login-section__link" :to="`/${$i18n.locale}/login`">{{ $t('login.title') }}</router-link>
     </div>
-  </form-auth>
+  </FormAuth>
 </template>
 
 <script>
@@ -55,6 +55,7 @@ import SampleButton from '@/components/ui/SampleButton.vue'
 import FormAuth from '@/components/ui/FormAuth.vue'
 import CheckBox from '@/components/ui/CheckBox.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
+import axios from 'axios'
 
 export default {
   components: {
@@ -63,20 +64,20 @@ export default {
     FormAuth,
     SampleButton
   },
-  data () {
+  data() {
     return {
       email: '',
       hasError: false
     }
   },
   computed: {
-    isInvalidEmail () {
+    isInvalidEmail() {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       return this.email.trim() !== '' && !emailRegex.test(this.email)
     }
   },
   watch: {
-    email (newEmail) {
+    email(newEmail) {
       this.$store.commit('setEmail', newEmail)
       if (newEmail.trim() !== '') {
         this.hasError = false
@@ -84,32 +85,36 @@ export default {
     }
   },
   methods: {
-    handleSubmit () {
-      this.$store.commit('setEmail', this.email)
+    async submit(event) {
+      console.log('submit button called')
+      event.preventDefault()
 
       if (this.email.trim() === '' || this.isInvalidEmail) {
         this.hasError = true
       } else {
-        // Perform form submission logic here
-        // ...
+        try {
+          const response = await axios.post('https://ummalife.com/api/check-email', {
+            email: this.email,
+            server_key: '7c5940661c603657d973782cfdff94c2'
+          })
+          // Здесь вы можете обработать ответ от сервера
+          console.log('Ответ от сервера:', response.data)
 
-        this.$emit('next-step')
+          // После успешного получения ответа, вызывайте метод handleSubmit
+          await this.handleSubmit()
+        } catch (error) {
+          console.error('Ошибка при отправке POST-запроса:', error)
+        }
       }
     },
 
-    submit (event) {
-      console.log('submit button called')
-      event.preventDefault()
-      this.handleSubmit()
+    async handleSubmit() {
+      this.$store.commit('setEmail', this.email)
 
-      // axios
-      //   .post('/')
-      //   .then(res => {
-      //     console.log(res)
-      //   })
-      //   .catch(err => {
-      //     console.log(err)
-      //   })
+      // Здесь можете выполнить дополнительную "логику отправки формы" или другие действия
+      // ...
+
+      this.$emit('next-step')
     }
   }
 }
@@ -185,15 +190,11 @@ export default {
 
 .login-button-section button {
   width: 100%;
-  display: flex;
-  justify-content: center;
 }
 
 @media (min-width: 768px) {
   .login-button-section button {
     max-width: 320px;
-    display: flex;
-    justify-content: center;
   }
 }
 </style>

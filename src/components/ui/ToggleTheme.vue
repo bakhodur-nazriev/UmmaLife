@@ -1,21 +1,21 @@
 <template>
   <div class="toggle__block">
     <button
-      v-if="!isSidebarCollapsed || selectedTheme === 'light'"
-      type="button"
-      class="toggle__button"
-      :class="{ active: selectedTheme === 'light', 'collapsed': isSidebarCollapsed }"
-      @click="toggleTheme(!isSidebarCollapsed ? 'light' : 'dark')"
+        v-if="!isSidebarCollapsed || selectedTheme === 'light'"
+        type="button"
+        class="toggle__button"
+        :class="{ active: selectedTheme === 'light', collapsed: isSidebarCollapsed }"
+        @click="toggleTheme(!isSidebarCollapsed ? 'light' : 'dark')"
     >
       <sunny-icon class="toggle__button--icon"></sunny-icon>
       {{ isSidebarCollapsed ? '' : $t('buttons.toggle_theme.light') }}
     </button>
     <button
-      v-if="!isSidebarCollapsed || selectedTheme === 'dark'"
-      type="button"
-      class="toggle__button"
-      :class="{ active: selectedTheme === 'dark', 'collapsed': isSidebarCollapsed }"
-      @click="toggleTheme(!isSidebarCollapsed ? 'dark' : 'light')"
+        v-if="!isSidebarCollapsed || selectedTheme === 'dark'"
+        type="button"
+        class="toggle__button"
+        :class="{ active: selectedTheme === 'dark', collapsed: isSidebarCollapsed }"
+        @click="toggleTheme(!isSidebarCollapsed ? 'dark' : 'light')"
     >
       <moon-icon class="toggle__button--icon"></moon-icon>
       {{ isSidebarCollapsed ? '' : $t('buttons.toggle_theme.dark') }}
@@ -38,27 +38,31 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {}
   },
   computed: {
     selectedTheme: {
-      get () {
+      get() {
         return this.$store.state.selectedTheme
       },
-      set (theme) {
+      set(theme) {
         this.$store.commit('setSelectedTheme', theme)
       }
     }
   },
   methods: {
-    toggleTheme (theme) {
-      if (this.selectedTheme === theme && !this.isSidebarCollapsed) {
-        this.$store.commit('setSelectedTheme', null)
-      } else {
-        this.$store.commit('setSelectedTheme', theme)
-      }
+    toggleTheme(theme) {
+      this.$store.commit('setSelectedTheme', theme)
+      localStorage.setItem('theme', theme)
+      const html = document.querySelector('html')
+      html.classList.value = 'page'
+      html.classList.add(theme)
     }
+  },
+  mounted() {
+    this.$store.commit('setSelectedTheme', localStorage.getItem('theme') || 'light')
+    this.toggleTheme(this.selectedTheme)
   }
 }
 </script>
@@ -66,7 +70,7 @@ export default {
 <style scoped>
 .toggle__block {
   display: flex;
-  background-color: var(--color-seashell);
+  background-color: var(--color-gallery-first);
   padding: 2px;
   height: 44px;
   border-radius: 8px;
@@ -82,6 +86,7 @@ export default {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.4s;
+  background-color: var(--color-gallery-first);
 }
 
 .toggle__button.collapsed {
@@ -93,20 +98,20 @@ export default {
 }
 
 .toggle__button.active {
-  background-color: #ffffff;
-  color: #000;
+  background-color: var(--color-white);
+  color: var(--color-mine-shaft);
 }
 
 .toggle__button {
-  color: #B0B0B0;
+  color: var(--color-silver-chalice);
 }
 
 .toggle__button .toggle__button--icon {
-  color: #B0B0B0;
+  color: var(--color-silver-chalice);
 }
 
 .toggle__button.active .toggle__button--icon {
-  color: #00819D;
+  color: var(--color-deep-cerulean);
 }
 
 .toggle__button--icon {

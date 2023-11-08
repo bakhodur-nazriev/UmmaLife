@@ -1,43 +1,43 @@
 <template>
-  <main-layout>
-    <div class="library">
-      <div class="muvi__mobile--nav white" v-if="width < 767">
-        <div class="library__actions--btn" @click="$router.go(-1)">
-          <ArrowLeftIcon />
+  <div class="library">
+    <div class="muvi__mobile--nav white" v-if="width < 767">
+      <div class="library__actions--btn" @click="$router.go(-1)">
+        <ArrowLeftIcon/>
+      </div>
+      <div class="muvi__mobile--nav-title">{{ $t('links.library') }}</div>
+      <div class="library__actions">
+        <div class="library__actions--btn" @click="handleSearchOpen">
+          <SearchIcon/>
         </div>
-        <div class="muvi__mobile--nav-title">{{ $t('links.library') }}</div>
-        <div class="library__actions">
-          <div class="library__actions--btn" @click="handleSearchOpen">
-            <SearchIcon />
-          </div>
-          <div class="library__actions--btn"><FilterCommentsIcon /></div>
+        <div class="library__actions--btn">
+          <FilterCommentsIcon/>
         </div>
-        <transition name="slide">
-          <div
+      </div>
+      <transition name="slide">
+        <div
             v-if="isSearchOpen"
             class="settings__header--input"
             v-on-click-outside="handleCloseSearch"
-          >
-            <SearchInput :full="true" :placeholder="$t('placeholders.search_input')" />
-          </div>
-        </transition>
-      </div>
-      <groups-nav :links="links" className="muvi__nav" @clickNavHandler="clickNavHandler" />
-      <div class="library__container">
-        <AllBooksTab v-if="links[0].isActive" />
-        <ReadingNowTab v-else-if="links[1].isActive" />
-        <BookmarksTab v-else-if="links[2].isActive" />
-        <LikedBooksTab v-else-if="links[3].isActive" />
-      </div>
+        >
+          <SearchInput :full="true" :placeholder="$t('placeholders.search_input')"/>
+        </div>
+      </transition>
     </div>
-  </main-layout>
+    <groups-nav :links="links" className="muvi__nav" @clickNavHandler="clickNavHandler"/>
+    <div class="library__container">
+      <AllBooksTab v-if="links[0].isActive"/>
+      <ReadingNowTab v-else-if="links[1].isActive"/>
+      <BookmarksTab v-else-if="links[2].isActive"/>
+      <LikedBooksTab v-else-if="links[3].isActive"/>
+    </div>
+  </div>
 </template>
 
 <script setup>
 /* eslint-disable */
-import { ref } from 'vue'
-import { vOnClickOutside } from '@vueuse/components'
-import { useWindowSize } from '@vueuse/core'
+import {ref} from 'vue'
+import {vOnClickOutside} from '@vueuse/components'
+import {useWindowSize} from '@vueuse/core'
 
 import GroupsNav from '@/components/groups/GroupsNav.vue'
 import AllBooksTab from '@/components/library/tabs/AllBooksTab.vue'
@@ -49,7 +49,7 @@ import SearchIcon from '@/components/icons/settings/SearchIcon.vue'
 import SearchInput from '@/components/ui/SearchInput.vue'
 import FilterCommentsIcon from '@/components/icons/comment/FilterCommentsIcon.vue'
 
-const { width } = useWindowSize()
+const {width} = useWindowSize()
 
 const links = ref([
   {
@@ -91,20 +91,24 @@ const handleCloseSearch = () => {
     background-color: var(--color-white);
     padding-bottom: 52px;
   }
+
   &__container {
     max-width: 1646px;
     width: 100%;
     padding: 0 16px;
     margin: 0 auto;
   }
+
   &__actions {
     display: flex;
     align-items: center;
     gap: 20px;
+
     &--btn {
       width: 24px;
       height: 24px;
       color: var(--color-hippie-blue);
+
       svg {
         display: block;
         width: 100%;

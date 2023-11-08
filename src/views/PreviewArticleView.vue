@@ -1,169 +1,166 @@
 <template>
-  <MainLayout>
+  <div class="block-button__back">
+    <section class="button-back__section">
+      <router-link class="back-to__articles" :to="`/${$i18n.locale}/articles`">
+        <ArrowLeft/>
+        {{ $t('buttons.back_to_articles') }}
+      </router-link>
+    </section>
+  </div>
 
-    <div class="block-button__back">
-      <section class="button-back__section">
-        <router-link class="back-to__articles" :to="`/${$i18n.locale}/articles`">
-          <ArrowLeft/>
-          {{ $t('buttons.back_to_articles') }}
-        </router-link>
-      </section>
-    </div>
-
-    <section class="article-show__main-section">
-      <main>
-        <header class="article-header">
-          <div class="article-header__left-side">
-            <img src="@/assets/images/articles/avatars/avatar_1.png" alt="">
-            <div class="article-header__left-side-details">
-              <span>Ибрагим Ибрагим</span>
-              <small>14 августа 2023</small>
-            </div>
+  <section class="article-show__main-section">
+    <main>
+      <header class="article-header">
+        <div class="article-header__left-side">
+          <img src="@/assets/images/articles/avatars/avatar_1.png" alt="">
+          <div class="article-header__left-side-details">
+            <span>Ибрагим Ибрагим</span>
+            <small>14 августа 2023</small>
           </div>
-          <div class="article-header__right-side">
-            <SampleButton class="comment-button" color="seashell" icon="comment">
-              <SmallCommentIcon/>
-              <span>25 комментариев</span>
-            </SampleButton>
-            <SampleButton class="show-button" color="seashell" icon="eye">
-              <EyeIcon/>
-              <span>543</span>
-            </SampleButton>
-            <SampleButton class="favourite-button" color="seashell" icon="favorite">
-              <FavouriteIcon/>
-            </SampleButton>
-          </div>
-        </header>
+        </div>
+        <div class="article-header__right-side">
+          <SampleButton class="comment-button" color="seashell" icon="comment">
+            <SmallCommentIcon/>
+            <span>25 комментариев</span>
+          </SampleButton>
+          <SampleButton class="show-button" color="seashell" icon="eye">
+            <EyeIcon/>
+            <span>543</span>
+          </SampleButton>
+          <SampleButton class="favourite-button" color="seashell" icon="favorite">
+            <FavouriteIcon/>
+          </SampleButton>
+        </div>
+      </header>
 
-        <div class="main-content__block">
-          <h1 class="article-title">
-            POLARIS начнет испытания четвертого демонстратора космического самолета с
-            сентября </h1>
-          <img src="@/assets/images/articles/content-photo/article-photo.png" alt="">
+      <div class="main-content__block">
+        <h1 class="article-title">
+          POLARIS начнет испытания четвертого демонстратора космического самолета с
+          сентября </h1>
+        <img src="@/assets/images/articles/content-photo/article-photo.png" alt="">
 
-          <span class="article-description">
+        <span class="article-description">
             Немецкий стартап POLARIS Spaceplanes получил разрешение на временное ограниченное воздушное пространство
             (ED-R) для начала испытаний своего демонстрационного космического самолета MIRA над водами Балтийского моря
           </span>
 
-          <div class="inset-block">
-            <h3>MIRA имеет длину 4,25 метра и взлетную массу 210 килограммов. Армированный волокном корпус фюзеляжа
-              демонстратора был построен для POLARIS компанией Up2-Tec из Аахена. Это четвертый демонстратор компании, и
-              он будет первым, оснащенным линейным ракетным двигателем с аэродинамическими шипами. Космоплан также
-              оснащен
-              четырьмя газотурбинными двигателями, работающими на керосине.
-            </h3>
-          </div>
+        <div class="inset-block">
+          <h3>MIRA имеет длину 4,25 метра и взлетную массу 210 килограммов. Армированный волокном корпус фюзеляжа
+            демонстратора был построен для POLARIS компанией Up2-Tec из Аахена. Это четвертый демонстратор компании, и
+            он будет первым, оснащенным линейным ракетным двигателем с аэродинамическими шипами. Космоплан также
+            оснащен
+            четырьмя газотурбинными двигателями, работающими на керосине.
+          </h3>
+        </div>
 
-          <div class="link-block">
-            <div class="link-block__left-side">
-              <h3>POLARIS receives Bundeswehr Study Contract for Linear Aerospike</h3>
-              <p>
-                The German aerospace start-up POLARIS Raumflugzeuge GmbH is developing a revolutionary reusable space
-                launch
-                and hypersonic transport system that operates like an aircraft.
-              </p>
-              <a href="https://www.polaris-raumflugzeuge.de/">https://www.polaris-raumflugzeuge.de/</a>
-            </div>
-            <div class="link-block__right-side">
-              <img src="@/assets/images/articles/link-images/link-image.png" alt="">
-            </div>
-          </div>
-
-          <div class="quote-block">
-            <h3>Когда будет запуск</h3>
+        <div class="link-block">
+          <div class="link-block__left-side">
+            <h3>POLARIS receives Bundeswehr Study Contract for Linear Aerospike</h3>
             <p>
-              <QuoteIcon/>
-              <span>
+              The German aerospace start-up POLARIS Raumflugzeuge GmbH is developing a revolutionary reusable space
+              launch
+              and hypersonic transport system that operates like an aircraft.
+            </p>
+            <a href="https://www.polaris-raumflugzeuge.de/">https://www.polaris-raumflugzeuge.de/</a>
+          </div>
+          <div class="link-block__right-side">
+            <img src="@/assets/images/articles/link-images/link-image.png" alt="">
+          </div>
+        </div>
+
+        <div class="quote-block">
+          <h3>Когда будет запуск</h3>
+          <p>
+            <QuoteIcon/>
+            <span>
                 Запрос компании ED-R был одобрен Федеральным министерством цифровых технологий и транспорта Германии и
                 Deutsche Flugsicherung (немецкий поставщик аэронавигационных услуг). Зона ограниченного доступа охватывает 260
                 квадратных километров, включая небо над аэродромом Пенемюнде и над водами Балтийского моря к северу от аэродрома.
               </span>
-            </p>
+          </p>
+        </div>
+
+        <div class="list-block">
+          <ul class="article-list">
+            <li v-for="i in 3" :key="i">Какой-то текст</li>
+          </ul>
+        </div>
+
+        <div class="audio-block">
+          <div class="play-button">
+            <VideoPlayIcon/>
           </div>
-
-          <div class="list-block">
-            <ul class="article-list">
-              <li v-for="i in 3" :key="i">Какой-то текст</li>
-            </ul>
-          </div>
-
-          <div class="audio-block">
-            <div class="play-button">
-              <VideoPlayIcon/>
-            </div>
-            <div class="audio-block__details">
-              <span class="audio-block__details-title">Название какого-то аудио, которое прикрепил юзеklamsdckls</span>
-              <span class="audio-block__details-time">14:25</span>
-            </div>
-          </div>
-
-          <div class="poll-block">
-            <h3 class="poll-title">Какой-то опрос по теме статьи</h3>
-            <span class="poll-subtitle">{{ $t('labels.poll.anonymous_poll') }}</span>
-
-            <div class="radio-button-group">
-              <div class="radio-button-group__item">
-                <input type="radio" name="poll" value="answer first" id="answer_first">
-                <label for="answer_first">Ответ 1</label>
-              </div>
-
-              <div class="radio-button-group__item">
-                <input type="radio" name="poll" value="second answer" id="answer_second">
-                <label for="answer_second">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                  tempor</label>
-              </div>
-
-              <div class="radio-button-group__item">
-                <input type="radio" name="poll" value="other" id="other">
-                <label for="other">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                </label>
-              </div>
-
-              <div class="radio-button-group__item">
-                <input type="radio" name="poll" value="answer fourth" id="answer_fourth">
-                <label for="answer_fourth">Ответ 4</label>
-              </div>
-            </div>
-
-            <span class="answers-count">255 ответов</span>
-          </div>
-
-          <div class="hashtags-block">
-            <div class="hashtags-label">
-              <span>Наука и технология</span>
-            </div>
-            <div class="hashtags-items">
-              <span>Теги:</span>
-              <a href="#">#наука</a>
-              <a href="#">#самолет</a>
-              <a href="#">#polaris</a>
-            </div>
-          </div>
-
-          <SampleDivider/>
-
-          <div class="comments-block">
-            <div class="comment-form__title">
-              <h3>Комментарии</h3>
-              <span>5</span>
-            </div>
-
-            <!-- <form action="">
-            <img src="" alt="">
-            <input type="text">
-          </form> -->
-
-            <SampleTextarea
-                class="form__textarea"
-                :placeholder="`${$t('placeholders.comment_input')}`"
-                @input="adjustTextareaHeight"
-            />
+          <div class="audio-block__details">
+            <span class="audio-block__details-title">Название какого-то аудио, которое прикрепил юзеklamsdckls</span>
+            <span class="audio-block__details-time">14:25</span>
           </div>
         </div>
-      </main>
-    </section>
-  </MainLayout>
+
+        <div class="poll-block">
+          <h3 class="poll-title">Какой-то опрос по теме статьи</h3>
+          <span class="poll-subtitle">{{ $t('labels.poll.anonymous_poll') }}</span>
+
+          <div class="radio-button-group">
+            <div class="radio-button-group__item">
+              <input type="radio" name="poll" value="answer first" id="answer_first">
+              <label for="answer_first">Ответ 1</label>
+            </div>
+
+            <div class="radio-button-group__item">
+              <input type="radio" name="poll" value="second answer" id="answer_second">
+              <label for="answer_second">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                tempor</label>
+            </div>
+
+            <div class="radio-button-group__item">
+              <input type="radio" name="poll" value="other" id="other">
+              <label for="other">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+              </label>
+            </div>
+
+            <div class="radio-button-group__item">
+              <input type="radio" name="poll" value="answer fourth" id="answer_fourth">
+              <label for="answer_fourth">Ответ 4</label>
+            </div>
+          </div>
+
+          <span class="answers-count">255 ответов</span>
+        </div>
+
+        <div class="hashtags-block">
+          <div class="hashtags-label">
+            <span>Наука и технология</span>
+          </div>
+          <div class="hashtags-items">
+            <span>Теги:</span>
+            <a href="#">#наука</a>
+            <a href="#">#самолет</a>
+            <a href="#">#polaris</a>
+          </div>
+        </div>
+
+        <SampleDivider/>
+
+        <div class="comments-block">
+          <div class="comment-form__title">
+            <h3>Комментарии</h3>
+            <span>5</span>
+          </div>
+
+          <!-- <form action="">
+          <img src="" alt="">
+          <input type="text">
+        </form> -->
+
+          <SampleTextarea
+              class="form__textarea"
+              :placeholder="`${$t('placeholders.comment_input')}`"
+              @input="adjustTextareaHeight"
+          />
+        </div>
+      </div>
+    </main>
+  </section>
 </template>
 
 <script setup>
@@ -180,7 +177,6 @@ import SampleDivider from '@/components/ui/SampleDivider.vue'
 import SampleTextarea from '@/components/ui/Fields/SampleTextarea.vue'
 import SmallCommentIcon from '@/components/icons/comment/SmallCommentIcon.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
-import MainLayout from '@/components/layouts/MainLayout.vue'
 
 const categories = ref([
   'Автомобили и транспорт',

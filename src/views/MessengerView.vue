@@ -1,22 +1,19 @@
 <template>
-  <main-layout>
-    <div class="messanger">
-      <div class="messanger__wrapper">
-        <MessangerNavigation :users="users" />
-        <router-view />
-      </div>
+  <div class="messenger">
+    <div class="messenger__wrapper">
+      <MessangerNavigation :users="users"/>
+      <router-view/>
     </div>
-  </main-layout>
+  </div>
 </template>
 
 <script>
-import MainLayout from '@/components/layouts/MainLayout.vue'
 import MessangerNavigation from '@/components/messanger/MessangerNavigation.vue'
 import { users } from '@/dummy.js'
 
 export default {
-  components: { MainLayout, MessangerNavigation },
-  data () {
+  components: { MessangerNavigation },
+  data() {
     return {
       users
     }
@@ -25,11 +22,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.messanger {
+.messenger {
   max-width: 1651px;
   width: 100%;
   padding: 16px;
   height: 100%;
+
   &__wrapper {
     display: grid;
     gap: 16px;

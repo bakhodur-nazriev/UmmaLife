@@ -2,7 +2,6 @@
 /* eslint-disable */
 import {ref, onMounted} from 'vue'
 import {useRouter} from 'vue-router'
-import LayoutAuth from '@/components/layouts/LayoutAuth.vue'
 import LoginWithPhone from '@/components/LoginForm/LoginWithPhone.vue'
 import LoginWithEmail from '@/components/LoginForm/LoginWithEmail.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
@@ -24,20 +23,18 @@ onMounted(() => {
 </script>
 
 <template>
-  <LayoutAuth>
-    <LoginWithEmail v-if="selectedForm === 'email'"/>
+  <LoginWithEmail v-if="selectedForm === 'email'"/>
 
-    <LoginWithPhone v-if="selectedForm === 'phone'"/>
+  <LoginWithPhone v-if="selectedForm === 'phone'"/>
 
-    <div class="login-with-phone-section">
-      <SampleButton
-          color="none"
-          class="link-with-phone-number"
-          @click="toggleForm"
-          :title="`${ selectedForm === 'email' ? $t('login.with_phone_number') : $t('login.with_email') }`"
-      />
-    </div>
-  </LayoutAuth>
+  <div class="login-with-phone-section">
+    <SampleButton
+        color="none"
+        class="link-with-phone-number"
+        @click="toggleForm"
+        :title="`${ selectedForm === 'email' ? $t('login.with_phone_number') : $t('login.with_email') }`"
+    />
+  </div>
 </template>
 
 <style scoped>

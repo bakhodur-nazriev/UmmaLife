@@ -1,25 +1,23 @@
 <template>
-  <MainLayout>
-    <SearchMainLayout>
-      <div class="video-block">
-        <article class="video-block__article" v-for="i in 10" :key="i">
-          <PostHeader
+  <SearchMainLayout>
+    <div class="video-block">
+      <article class="video-block__article" v-for="i in 10" :key="i">
+        <PostHeader
             :is-menu-open="isMenuOpen"
             @toggle-menu="toggleMenu"
-          />
+        />
 
-          <VideoContent/>
+        <VideoContent/>
 
-          <SampleDivider class="divider"/>
+        <SampleDivider class="divider"/>
 
-          <PostFooter
+        <PostFooter
             :is-reaction-window-open="isReactionWindowOpen"
             :is-share-window-open="isShareWindowOpen"
-          />
-        </article>
-      </div>
-    </SearchMainLayout>
-  </MainLayout>
+        />
+      </article>
+    </div>
+  </SearchMainLayout>
 </template>
 
 <script>
@@ -27,13 +25,11 @@ import PostFooter from '@/components/ui/Post/PostFooter.vue'
 import VideoContent from '@/components/ui/Publications/Video/VideoContent.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
 import PostHeader from '@/components/ui/Post/PostHeader.vue'
-import MainLayout from '@/components/layouts/MainLayout.vue'
 import SearchMainLayout from '@/components/layouts/SearchMainLayout.vue'
 
 export default {
   components: {
     SearchMainLayout,
-    MainLayout,
     PostHeader,
     SampleDivider,
     VideoContent,

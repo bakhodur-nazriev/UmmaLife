@@ -1,7 +1,6 @@
 <script setup>
 /* eslint-disable */
 import {ref} from 'vue'
-import LayoutAuth from '@/components/layouts/LayoutAuth.vue'
 import VerifyWithEmail from '@/components/RegisterForm/VerifyWithEmail.vue'
 import CreateNewPassword from '@/components/RegisterForm/CreateNewPassword.vue'
 import BaseUserInfo from '@/components/RegisterForm/BaseUserInfo.vue'
@@ -33,14 +32,12 @@ const handleNextStep = () => {
 </script>
 
 <template>
-  <LayoutAuth>
-    <RegisterForm v-if="currentStep === 'registerForm'" @nextStep="handleNextStep"/>
-    <VerifyWithEmail v-if="currentStep === 'verifyWithEmail'" @nextStep="handleNextStep"/>
-    <CreateNewPassword v-if="currentStep === 'createNewPassword'" @nextStep="handleNextStep"/>
-    <BaseUserInfo v-if="currentStep === 'baseUserInfo'" @nextStep="handleNextStep"/>
-    <AddPhoneAndLogin v-if="currentStep === 'addPhoneAndLogin'" @nextStep="handleNextStep"/>
-    <CategorySelection v-if="currentStep === 'categoryInterests'" @nextStep="handleNextStep"/>
-  </LayoutAuth>
+  <RegisterForm v-if="currentStep === 'registerForm'" @nextStep="handleNextStep"/>
+  <VerifyWithEmail v-if="currentStep === 'verifyWithEmail'" @nextStep="handleNextStep"/>
+  <CreateNewPassword v-if="currentStep === 'createNewPassword'" @nextStep="handleNextStep"/>
+  <BaseUserInfo v-if="currentStep === 'baseUserInfo'" @nextStep="handleNextStep"/>
+  <AddPhoneAndLogin v-if="currentStep === 'addPhoneAndLogin'" @nextStep="handleNextStep"/>
+  <CategorySelection v-if="currentStep === 'categoryInterests'" @nextStep="handleNextStep"/>
 </template>
 
 <style scoped></style>

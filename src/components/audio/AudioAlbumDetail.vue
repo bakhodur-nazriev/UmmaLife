@@ -22,8 +22,8 @@
           </div>
         </div>
         <div class="albums__detail--action">
-          <button class="albums__detail--btn"><PlusIcon />Добавить</button>
-          <button class="albums__detail--btn"><ShareIcon />Поделиться</button>
+          <button class="albums__detail--btn"><PlusIcon />{{ $t('buttons.add') }}</button>
+          <button class="albums__detail--btn"><ShareIcon />{{ $t('buttons.share') }}</button>
         </div>
       </div>
       <div class="albums__detail--right">
@@ -48,10 +48,16 @@ import AudioList from '@/components/audio/AudioList.vue'
 import ShareIcon from '@/components/icons/shorts/ShareIcon.vue'
 import { mapState } from 'vuex'
 import { useWindowSize } from '@vueuse/core'
-import CloseFormIcon from '../icons/comment/CloseFormIcon.vue'
+import CloseFormIcon from '@/components/icons/comment/CloseFormIcon.vue'
 
 export default {
-  components: { PlusIcon, BookmarkIcon, AudioList, ShareIcon },
+  components: {
+    PlusIcon,
+    BookmarkIcon,
+    AudioList,
+    ShareIcon,
+    CloseFormIcon
+  },
   computed: {
     ...mapState('audio', ['audios', 'audioIndex'])
   }

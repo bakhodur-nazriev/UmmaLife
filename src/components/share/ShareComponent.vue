@@ -92,7 +92,6 @@ const changeHandler = ({ target, index }) => {
       bottom: 0;
       left: unset;
       transform: unset;
-      bottom: 0;
       padding: 0;
       border-radius: 12px 12px 0 0;
       min-height: auto;

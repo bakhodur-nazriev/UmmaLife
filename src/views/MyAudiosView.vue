@@ -15,9 +15,9 @@
       </div>
       <transition name="slide">
         <div
-          v-if="isSearchOpen"
-          class="settings__header--input"
-          v-on-click-outside="handleCloseSearch"
+            v-if="isSearchOpen"
+            class="settings__header--input"
+            v-on-click-outside="handleCloseSearch"
         >
           <SearchInput :full="true" :placeholder="$t('placeholders.search_input')" />
         </div>
@@ -35,9 +35,9 @@
   <teleport to="body">
     <ShareComponent v-if="isShareOpen" />
     <UploadAudio
-      v-if="isUploadOpen"
-      @closeHandler="isUploadOpen = false"
-      @addAlbumHandler="isAddAlbumOpen = true"
+        v-if="isUploadOpen"
+        @closeHandler="isUploadOpen = false"
+        @addAlbumHandler="isAddAlbumOpen = true"
     />
     <CreateAlbumModal @closeHandler="isAddAlbumOpen = false" v-if="isAddAlbumOpen" />
   </teleport>
@@ -62,7 +62,6 @@ import AudioAddIcon from '@/components/icons/audio/AudioAddIcon.vue'
 import SearchInput from '@/components/ui/SearchInput.vue'
 import UploadAudio from '@/components/audio/mobile/UploadAudio.vue'
 import CreateAlbumModal from '@/components/audio/mobile/CreateAlbumModal.vue'
-
 export default {
   components: {
     GroupsNav,
@@ -73,11 +72,11 @@ export default {
     AudioUploadTab,
     ShareComponent,
     AudioAddIcon,
-    ArrowLeftIcon,
-    SearchIcon,
-    SearchInput,
+    CreateAlbumModal,
     UploadAudio,
-    CreateAlbumModal
+    SearchInput,
+    SearchIcon,
+    ArrowLeftIcon
   },
 
   computed: {
@@ -116,10 +115,7 @@ const tempLinks = links.value
 const isUploadOpen = ref(false)
 const isAddAlbumOpen = ref(false)
 
-watch(
-  () => width.value,
-  (val) => checkLinks(val)
-)
+watch(() => width.value, (val) => checkLinks(val))
 
 const checkLinks = (width) => {
   if (width < 767) {
