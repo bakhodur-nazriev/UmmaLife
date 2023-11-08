@@ -9,7 +9,10 @@
       </div>
       <div class="main__nav--side">
         <SampleButton class="create__button" :title="`${$t('buttons.create')}`" />
-        <SearchInput @open-search-input="isSearchInputOpen = true" :placeholder="$t('placeholders.search_input')" />
+        <SearchInput
+          @open-search-input="isSearchInputOpen = true"
+          :placeholder="$t('placeholders.search_input')"
+        />
       </div>
       <div class="left__nav--side">
         <ul class="navbar__right--buttons">
@@ -44,7 +47,12 @@
             <router-link v-if="!isSearchForm" to="/news">
               <SmallLogo />
             </router-link>
-            <button v-if="isSearchForm" type="button" @click="isSearchFormClose" class="close-search__form">
+            <button
+              v-if="isSearchForm"
+              type="button"
+              @click="isSearchFormClose"
+              class="close-search__form"
+            >
               <ArrowLeftIcon />
             </button>
           </li>
@@ -208,7 +216,9 @@
         <section class="groups-section">
           <div class="groups-section__labels">
             <h3>{{ $t('tabs.search.groups') }}</h3>
-            <router-link :to="`/${$i18n.locale}/search-groups`">{{ $t('labels.search.see_all') }}</router-link>
+            <router-link :to="`/${$i18n.locale}/search-groups`">{{
+              $t('labels.search.see_all')
+            }}</router-link>
           </div>
           <ul class="groups-list">
             <li class="groups-list__item">
@@ -223,7 +233,7 @@
             </li>
             <li class="groups-list__item">
               <div class="groups-list__item-left-block">
-                <img src="@/assets/images/navbar/people_2.png" alt="">
+                <img src="@/assets/images/navbar/people_2.png" alt="" />
                 <div>
                   <p>Магомед Оздоев</p>
                   <span>Грузия, 27 лет</span>
@@ -420,7 +430,7 @@ export default {
   .search-inside__block {
     width: 700px;
     background-color: var(--color-white);
-    fill: #FFF;
+    fill: #fff;
     filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.15));
     border-radius: 10px;
     height: 100%;
@@ -672,11 +682,15 @@ export default {
 
 .menu__button {
   background-color: var(--color-white);
-  margin: 14px;
-  border-radius: 50%;
-  padding: 14px;
-  width: 100%;
+  // margin: 14px;
+  border-radius: 10px;
+  // padding: 14px;
+  width: 32px;
+  height: 32px;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
     transition: all 0.15s ease-in-out;

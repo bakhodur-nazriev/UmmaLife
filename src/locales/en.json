@@ -312,6 +312,35 @@
       "views": "Number of views"
     }
   },
+  "audio": {
+    "tabs": {
+      "review": "Review",
+      "my_audio": "My audios",
+      "playlists": "Playlists",
+      "liked": "Liked",
+      "download_audio": "Download new audio"
+    },
+    "search_audio": "Search for audio",
+    "audio": "Audio",
+    "all_audio": "All audio",
+    "my_playlists": "My playlists",
+    "add_audio": "Add audio",
+    "all_audios_for_download": "All audio for download",
+    "create_album": "Create an album",
+    "files": "files",
+    "drop_title": "Add or drag and drop the audio",
+    "drop_subtitle": "Valid extension is mp3",
+    "status_success": "Upload completed",
+    "status_pending": "Pending",
+    "status_fail": "Loading error",
+    "album_subtitle": "To create an album you need to fill in the fields below",
+    "album_input": "Add album title",
+    "album_textarea": "Add album description",
+    "download_to_playlist": "Upload to playlist",
+    "create_as_album": "Create as album",
+    "cancel": "Cancel",
+    "upload_video": "Upload audio"
+  },
   "sections_title": {
     "last_actions": "Last actions",
     "recommended_groups": "Recommended groups",

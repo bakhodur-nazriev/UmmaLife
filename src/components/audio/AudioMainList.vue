@@ -1,21 +1,13 @@
 <template>
   <div class="list" v-for="(audio, index) in audios2" :key="audio.id">
     <div class="list__left">
-      <!-- <button
-        class="list__play playing"
-        @click="clickPauseHandler(audio, index)"
-        :class="{ playing: audio.isPlaying }"
-        v-if="audio.isPlaying"
-      >
-        <svg class="audio__play-icon" aria-hidden="true">
-          <use xlink:href="#icon-pause"></use>
-        </svg>
-      </button> -->
       <button class="list__play" @click="clickPlayHandler(audio, index)">
         <VideoPlayIcon />
       </button>
-      <div class="list__name">{{ audio.title }}</div>
-      <div class="list__author">{{ audio.artist }}</div>
+      <div class="list__left--wrapper">
+        <div class="list__name">{{ audio.title }}</div>
+        <div class="list__author">{{ audio.artist }}</div>
+      </div>
     </div>
     <div class="list__right">
       <div class="list__icons" v-if="screenWidth > 1199">
@@ -27,7 +19,9 @@
         <a class="download__icon" :href="audio.source" download>
           <AudioDownloadIcon />
         </a>
-        <AudioShareIcon @click="setShareOpen(true)" />
+        <div class="list__icons--btn" @click="setShareOpen(true)">
+          <AudioShareIcon />
+        </div>
       </div>
       <div v-else class="list__menu">
         <MenuDetailsIcon />
@@ -81,14 +75,12 @@ export default {
     MenuDetailsIcon,
     AudioDuration,
     AlbumLike
-  },
-  setup() {
-    const { width } = useWindowSize()
-    return {
-      screenWidth: width.value
-    }
   }
 }
+</script>
+
+<script setup>
+const { width: screenWidth } = useWindowSize()
 </script>
 
 <style lang="scss">
@@ -102,13 +94,16 @@ export default {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+
   &.active__list {
     background-color: var(--color-seashell);
   }
+
   .download__icon,
   .like__icon {
     width: 20px;
     height: 20px;
+    color: var(--color-silver-chalice);
   }
   &.track__list {
     padding: 8px;
@@ -127,24 +122,36 @@ export default {
   }
   &__right {
     gap: 48px;
+    @media (max-width: 767px) {
+      gap: 16px;
+    }
   }
   &__menu {
     width: 32px;
     height: 32px;
     cursor: pointer;
+    @media (max-width: 767px) {
+      order: 1;
+    }
   }
   &__play {
     background-color: var(--color-hippie-blue);
     cursor: pointer;
     border: none;
     outline: none;
-    width: 32px;
+    max-width: 32px;
+    width: 100px;
     height: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
     margin-right: 16px;
+    @media (max-width: 767px) {
+      margin-right: 12px;
+      max-width: 40px;
+      height: 40px;
+    }
     &.playing {
       background-color: transparent;
       &:hover {
@@ -173,20 +180,16 @@ export default {
     font-weight: 400;
     line-height: normal;
     color: var(--color-mine-shaft);
-    width: 563px;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
     overflow-wrap: break-word;
-    margin-right: 107px;
-    @media (max-width: 1450px) {
-      width: 200px;
-      margin-right: 16px;
-    }
-    @media (max-width: 991px) {
-      width: 150px;
+    width: 100%;
+    @media (max-width: 767px) {
+      margin-right: 0;
+      font-size: 14px;
     }
   }
   &__author {
@@ -195,6 +198,17 @@ export default {
     font-weight: 550;
     line-height: normal;
     color: var(--color-mine-shaft);
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
+
+    @media (max-width: 767px) {
+      font-size: 12px;
+      opacity: 0.5;
+    }
   }
   &__icons {
     display: flex;
@@ -214,6 +228,7 @@ export default {
       height: 20px;
       scale: 1;
       cursor: pointer;
+      color: var(--color-silver-chalice);
 
       position: relative;
       &.active::after,
@@ -240,6 +255,28 @@ export default {
     font-weight: 550;
     line-height: normal;
     color: var(--color-silver-chalice);
+    @media (max-width: 767px) {
+      font-size: 14px;
+    }
+  }
+  &__left {
+    width: 80%;
+    @media (max-width: 767px) {
+    }
+    &--wrapper {
+      display: grid;
+      align-items: center;
+      grid-template-columns: 50% 50%;
+      width: 100%;
+      gap: 10px;
+
+      @media (max-width: 767px) {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+    }
   }
 }
 </style>

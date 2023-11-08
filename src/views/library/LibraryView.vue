@@ -39,7 +39,6 @@ import { ref } from 'vue'
 import { vOnClickOutside } from '@vueuse/components'
 import { useWindowSize } from '@vueuse/core'
 
-import MainLayout from '@/components/layouts/MainLayout.vue'
 import GroupsNav from '@/components/groups/GroupsNav.vue'
 import AllBooksTab from '@/components/library/tabs/AllBooksTab.vue'
 import ReadingNowTab from '@/components/library/tabs/ReadingNowTab.vue'

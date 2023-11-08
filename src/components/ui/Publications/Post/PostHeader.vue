@@ -1,22 +1,14 @@
 <template>
   <header class="post__header">
     <router-link class="post__author" to="#">
-      <img
-        width="56"
-        height="56"
-        src="../../../../assets/images/Article_Author.png"
-        alt=""
-      >
+      <img width="56" height="56" src="../../../../assets/images/Article_Author.png" alt="" />
       <div class="author__info">
         <span class="name">Абрахам Арахамович</span>
         <span class="time">15 минут назад</span>
       </div>
     </router-link>
     <div class="menu__button">
-      <SampleMenuDetailsButton
-        :is-menu-open="isMenuOpen"
-        @toggle-menu="$emit('toggle-menu')"
-      />
+      <SampleMenuDetailsButton :is-menu-open="isMenuOpen" @toggle-menu="$emit('toggle-menu')" />
     </div>
   </header>
 </template>
@@ -53,6 +45,7 @@ export default {
 .post__header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin: 0 0 8px 0;
 }
 

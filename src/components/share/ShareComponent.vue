@@ -75,7 +75,7 @@ const changeHandler = ({ target, index }) => {
   width: 100%;
   height: 100%;
   background: rgba($color: #000000, $alpha: 0.7);
-  z-index: 20;
+  z-index: 150;
   &__inner {
     width: 450px;
     min-height: 466px;
@@ -86,6 +86,17 @@ const changeHandler = ({ target, index }) => {
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 24px;
+    @media (max-width: 767px) {
+      width: 100%;
+      top: unset;
+      bottom: 0;
+      left: unset;
+      transform: unset;
+      bottom: 0;
+      padding: 0;
+      border-radius: 12px 12px 0 0;
+      min-height: auto;
+    }
   }
   &__title {
     font-size: 20px;
@@ -95,20 +106,35 @@ const changeHandler = ({ target, index }) => {
     color: var(--color-mine-shaft);
     text-align: center;
     margin-bottom: 20px;
+    @media (max-width: 767px) {
+      padding: 20px 16px;
+      margin-bottom: 0;
+    }
   }
   &__body {
     border-top: 1px solid var(--color-gallery-first);
     padding: 20px 0 0;
     display: flex;
     flex-direction: column;
+    @media (max-width: 767px) {
+      padding: 16px;
+    }
   }
   &__multiselect {
     margin-top: 12px;
+    .multiselect__tags,
+    .multiselect__input {
+      background-color: transparent;
+      color: var(--color-mine-shaft);
+    }
   }
   &__radio {
     margin-bottom: 20px;
   }
   &__comment {
+    @media (max-width: 767px) {
+      margin-bottom: 20px;
+    }
     &--title {
       font-size: 16px;
       font-style: normal;
@@ -126,6 +152,8 @@ const changeHandler = ({ target, index }) => {
       border-radius: 10px;
       outline: none;
       display: block;
+      background-color: transparent;
+      color: var(--color-mine-shaft);
     }
   }
   &__btn {

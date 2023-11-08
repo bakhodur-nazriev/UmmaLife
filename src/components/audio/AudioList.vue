@@ -27,7 +27,9 @@
         <a class="download__icon" :href="audio.source" download>
           <AudioDownloadIcon />
         </a>
-        <AudioShareIcon @click="setShareOpen(true)" />
+        <div class="list__icons--btn" @click="setShareOpen(true)">
+          <AudioShareIcon />
+        </div>
       </div>
       <div v-else-if="className.includes('track__list') || screenWidth < 1199" class="list__menu">
         <MenuDetailsIcon />
@@ -41,12 +43,12 @@
 import VideoPlayIcon from '@/components/icons/VideoPlayIcon.vue'
 import AudioAddIcon from '@/components/icons/audio/AudioAddIcon.vue'
 import AudioLoop from '@/components/audio/AudioLoop.vue'
-
+import { useWindowSize } from '@vueuse/core'
 import AudioDownloadIcon from '@/components/icons/audio/AudioDownloadIcon.vue'
 import AudioShareIcon from '@/components/icons/audio/AudioShareIcon.vue'
 import MenuDetailsIcon from '@/components/icons/MenuDetailsIcon.vue'
 import { mapActions, mapMutations } from 'vuex'
-import { useWindowSize } from '@vueuse/core'
+
 import AudioDuration from './AudioDuration.vue'
 import AlbumLike from './AlbumLike.vue'
 
@@ -89,12 +91,10 @@ export default {
     AudioDuration,
     AudioLoop,
     AlbumLike
-  },
-  setup() {
-    const { width } = useWindowSize()
-    return {
-      screenWidth: width.value
-    }
   }
 }
+</script>
+
+<script setup>
+const { width: screenWidth } = useWindowSize()
 </script>

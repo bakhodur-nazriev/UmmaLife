@@ -44,7 +44,7 @@ onMounted(() => {
 .link-with-phone-number {
   font-size: 16px;
   font-weight: 500;
-  color: #1F1F1F;
+  color: var(--color-mine-shaft);
   cursor: pointer;
   border: none;
 }

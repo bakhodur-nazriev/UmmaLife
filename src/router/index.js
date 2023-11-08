@@ -41,343 +41,393 @@ import SearchVideoView from '@/views/SearchViews/VideoView.vue'
 import SearchHashtagsView from '@/views/SearchViews/HashtagsView.vue'
 import ShowArticlesView from '@/views/ShowArticlesView.vue'
 import UmmaVideoDetailVue from '@/views/UmmaVideoDetail.vue'
-import MuviView from '@/views/MuviView.vue'
+import MuviView from '@/views/muvi/MuviView.vue'
+import MuviMobileView from '@/views/muvi/MuviMobileView.vue'
 import VideoSingleViewVue from '@/views/VideoSingleView.vue'
 import PreviewArticleView from '@/views/PreviewArticleView.vue'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const baseDomain = isProduction ? 'front1.ummalife.dev' : 'localhost'
 
-const routes = [{
-	path: '/:lang?/',
-	name: 'home',
-	component: HomeView,
-	meta: {
-		title: i18n.global.t('meta_title.home'),
-		requiresAuth: true
-	}
-},
-	{
-		path: '/:lang?/login',
-		name: 'login',
-		component: LoginView,
-		meta: {
-			title: i18n.global.t('meta_title.login'),
-			requiresAuth: false
-		}
-	},
-	{
-		path: '/:lang?/register',
-		name: 'register',
-		component: RegisterView,
-		meta: {
-			title: i18n.global.t('meta_title.register'),
-			requiresAuth: false
-		}
-	},
-	{
-		path: '/:lang?/forgot-password',
-		name: 'forgot-password',
-		component: ForgotPasswordView,
-		meta: {
-			title: i18n.global.t('meta_title.forgot_password'),
-			requiresAuth: false
-		}
-	},
-	{
-		path: '/:lang?/terms',
-		name: 'terms',
-		component: TermsView,
-		meta: {
-			title: i18n.global.t('meta_title.terms'),
-			requiresAuth: false
-		}
-	},
-	{
-		path: '/:lang?/privacy-policy',
-		name: 'privacy-policy',
-		component: PrivacyPolicyView,
-		meta: {
-			title: i18n.global.t('meta_title.privacy_policy'),
-			requiresAuth: false
-		}
-	},
-	{
-		path: '/:lang?/contacts',
-		name: 'contacts',
-		component: ContactsView,
-		meta: {
-			title: i18n.global.t('meta_title.contacts'),
-			requiresAuth: false
-		}
-	},
-	{
-		path: '/:lang?/about-us',
-		name: 'about-us',
-		component: AboutUs,
-		meta: {
-			title: i18n.global.t('meta_title.about_us'),
-			requiresAuth: false
-		}
-	},
-	{
-		path: '/:lang?/articles',
-		name: 'articles',
-		component: ArticlesView,
-		meta: {
-			title: i18n.global.t('meta_title.articles'),
-			requiresAuth: true
-		},
-	},
-	{
-		path: '/:lang?/articles/show/:id',
-		name: 'show-article',
-		component: ShowArticlesView,
-		meta: {
-			title: i18n.global.t('meta_title.show_article'),
-			requiredAuth: true
-		}
-	},
-	{
-		path: '/:lang?/articles/preview/:id',
-		name: 'preview-article',
-		component: PreviewArticleView,
-		meta: {
-			title: i18n.global.t('meta_title.preview_article'),
-			requiresAuth: true
-		}
-	},
-	{
-		path: '/:lang?/library',
-		name: 'library',
-		component: LibraryView,
-		meta: {
-			title: i18n.global.t('meta_title.library'),
-			requiresAuth: true
-		}
-	},
-	{
-		path: '/:lang?/library/:id',
-		name: 'library-detail',
-		component: LibraryDetailView,
-		meta: {
-			title: i18n.global.t('meta_title.library'),
-			requiresAuth: true
-		}
-	},
-	{
-		path: '/:lang?/library/:id/read',
-		name: 'library-book-read',
-		component: LibraryBookView,
-		meta: {
-			title: i18n.global.t('meta_title.library'),
-			requiresAuth: true
-		}
-	},
-	{
-		path: '/:lang?/video/:id',
-		name: 'video-detail',
-		component: UmmaVideoDetailVue,
-		meta: {
-			title: i18n.global.t('meta_title.video'),
-			requiresAuth: true
-		}
-	},
-	{
-		path: '/:lang?/marriage-agency',
-		name: 'marriage-agency',
-		component: MarriageAgencyView,
-		meta: {
-			title: i18n.global.t('meta_title.marriage_agency'),
-			requiresAuth: true
-		}
-	},
-	{
-		path: '/:lang?/my-albums',
-		name: 'my-albums',
-		component: MyAlbumsView,
-		meta: {
-			title: i18n.global.t('meta_title.my_albums'),
-			requiresAuth: true
-		}
-	},
-	{
-		path: '/:lang?/messenger',
-		name: 'messenger',
-		component: MessengerView,
-		meta: {
-			title: i18n.global.t('meta_title.messenger'),
-			requiresAuth: true
-		},
-		children: [
-			{
-				path: ':id',
-				name: 'messenger-chat',
-				component: MessengerChatView,
-				meta: {
-					title: i18n.global.t('meta_title.messenger'),
-					requiresAuth: true
-				}
-			},
-			{
-				path: '',
-				name: 'messenger-empty',
-				component: MessengerEmptyView,
-				meta: {
-					title: i18n.global.t('meta_title.messenger'),
-					requiresAuth: true
-				}
-			}
-		]
-	},
-	{
-		path: '/:lang?/my-audio',
-		name: 'my-audio',
-		component: MyAudiosView,
-		meta: {
-			title: i18n.global.t('meta_title.my_audio'),
-			requiresAuth: true
-		}
-	},
-	{
-		path: '/:lang?/my-groups',
-		name: 'my-groups',
-		component: MyGroupsView,
-		meta: {
-			title: i18n.global.t('meta_title.my_groups'),
-			requiresAuth: true
-		},
-		children: [
-			{
-				path: '',
-				name: 'my-groups-container',
-				component: MyGroupsContainer,
-				meta: {
-					title: i18n.global.t('meta_title.my_groups'),
-					requiresAuth: true
-				}
-			},
-			{
-				path: 'settings',
-				name: 'my-groups-settings',
-				component: MyGroupsSettings,
-				meta: {
-					title: i18n.global.t('meta_title.my_groups'),
-					requiresAuth: true
-				}
-			},
-			{
-				path: ':id',
-				name: 'my-groups-details',
-				component: MyGroupsDetails,
-				meta: {
-					title: i18n.global.t('meta_title.my_groups'),
-					requiresAuth: true
-				},
-				children: [
-					{
-						path: '',
-						name: 'my-groups-publications',
-						component: MyGroupsPublications,
-						meta: {
-							title: i18n.global.t('meta_title.my_groups'),
-							requiresAuth: true
-						}
-					},
-					{
-						path: 'users',
-						name: 'my-groups-users',
-						component: MyGroupsUsers,
-						meta: {
-							title: i18n.global.t('meta_title.my_groups'),
-							requiresAuth: true
-						}
-					}
-				]
-			}
-		]
-	},
-	{
-		path: '/:lang?/my-page',
-		name: 'my-page',
-		component: MyPageView,
-		meta: {
-			title: i18n.global.t('meta_title.my_page'),
-			requiresAuth: true
-		}
-	},
-	{
-		path: '/:lang?/search-all-recommendations',
-		name: 'all-recommendations',
-		component: SearchAllRecommendationsView,
-		meta: {
-			title: i18n.global.t('meta_title.search.all-recommendations'),
-			requiresAuth: true
-		}
-	},
-	{
-		path: '/:lang?/search-people',
-		name: 'people',
-		component: SearchPeopleView,
-		meta: {
-			title: i18n.global.t('meta_title.search.people'),
-			requiresAuth: true
-		}
-	},
-	{
-		path: '/:lang?/search-groups',
-		name: 'search-groups',
-		component: SearchGroupsView,
-		meta: {
-			title: i18n.global.t('meta_title.search.groups'),
-			requiresAuth: true
-		}
-	},
-	{
-		path: '/:lang?/search-muvi',
-		name: 'search-muvi',
-		component: SearchMUVIView,
-		meta: {
-			title: i18n.global.t('meta_title.search.muvi'),
-			requiresAuth: true
-		}
-	},
-	{
-		path: '/:lang?/search-article',
-		name: 'search-article',
-		component: SearchArticleView,
-		meta: {
-			title: i18n.global.t('meta_title.search.article'),
-			requiresAuth: true
-		}
-	},
-	{
-		path: '/:lang?/search-video',
-		name: 'search-video',
-		component: SearchVideoView,
-		meta: {
-			title: i18n.global.t('meta_title.search.video'),
-			requiresAuth: true
-		}
-	},
-	{
-		path: '/:lang?/search-audio',
-		name: 'search-audio',
-		component: SearchAudioView,
-		meta: {
-			title: i18n.global.t('meta_title.search.audio'),
-			requiresAuth: true
-		}
-	},
-	{
-		path: '/:lang?/search-hashtags',
-		name: 'search-hashtags',
-		component: SearchHashtagsView,
-		meta: {
-			title: i18n.global.t('meta_title.search.hashtags'),
-			requiresAuth: true
-		}
-	},
+const routes = [
+  {
+    path: '/:lang?/',
+    name: 'home',
+    component: HomeView,
+    meta: {
+      title: i18n.global.t('meta_title.home'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/login',
+    name: 'login',
+    component: LoginView,
+    meta: {
+      title: i18n.global.t('meta_title.login'),
+      requiresAuth: false,
+      layout: 'auth'
+    }
+  },
+  {
+    path: '/:lang?/register',
+    name: 'register',
+    component: RegisterView,
+    meta: {
+      title: i18n.global.t('meta_title.register'),
+      requiresAuth: false,
+      layout: 'auth'
+    }
+  },
+  {
+    path: '/:lang?/forgot-password',
+    name: 'forgot-password',
+    component: ForgotPasswordView,
+    meta: {
+      title: i18n.global.t('meta_title.forgot_password'),
+      requiresAuth: false,
+      layout: 'auth'
+    }
+  },
+  {
+    path: '/:lang?/terms',
+    name: 'terms',
+    component: TermsView,
+    meta: {
+      title: i18n.global.t('meta_title.terms'),
+      requiresAuth: false,
+      layout: 'auth'
+    }
+  },
+  {
+    path: '/:lang?/privacy-policy',
+    name: 'privacy-policy',
+    component: PrivacyPolicyView,
+    meta: {
+      title: i18n.global.t('meta_title.privacy_policy'),
+      requiresAuth: false,
+      layout: 'auth'
+    }
+  },
+  {
+    path: '/:lang?/contacts',
+    name: 'contacts',
+    component: ContactsView,
+    meta: {
+      title: i18n.global.t('meta_title.contacts'),
+      requiresAuth: false,
+      layout: 'auth'
+    }
+  },
+  {
+    path: '/:lang?/about-us',
+    name: 'about-us',
+    component: AboutUs,
+    meta: {
+      title: i18n.global.t('meta_title.about_us'),
+      requiresAuth: false,
+      layout: 'auth'
+    }
+  },
+  {
+    path: '/:lang?/articles',
+    name: 'articles',
+    component: ArticlesView,
+    meta: {
+      title: i18n.global.t('meta_title.articles'),
+      requiresAuth: true,
+      layout: 'main'
+    },
+    children: [
+      {
+        path: ':id',
+        name: 'show-article',
+        component: ShowArticlesView,
+        meta: {
+          title: i18n.global.t('meta_title.show_article'),
+          requiredAuth: true,
+          layout: 'main'
+        }
+      },
+      {
+        path: ':id',
+        name: 'preview-article',
+        component: PreviewArticleView,
+        meta: {
+          title: i18n.global.t('meta_title.preview_article'),
+          requiresAuth: true,
+          layout: 'main'
+        }
+      }
+    ]
+  },
+  {
+    path: '/:lang?/library',
+    name: 'library',
+    component: LibraryView,
+    meta: {
+      title: i18n.global.t('meta_title.library'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/library/:id',
+    name: 'library-detail',
+    component: LibraryDetailView,
+    meta: {
+      title: i18n.global.t('meta_title.library'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/library/:id/read',
+    name: 'library-book-read',
+    component: LibraryBookView,
+    meta: {
+      title: i18n.global.t('meta_title.library'),
+      requiresAuth: true,
+      layout: 'library'
+    }
+  },
+  {
+    path: '/:lang?/video/:id',
+    name: 'video-detail',
+    component: UmmaVideoDetailVue,
+    meta: {
+      title: i18n.global.t('meta_title.video'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/video-page/:id',
+    name: 'video-page-single',
+    component: VideoSingleViewVue,
+    meta: {
+      title: i18n.global.t('meta_title.video'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/marriage-agency',
+    name: 'marriage-agency',
+    component: MarriageAgencyView,
+    meta: {
+      title: i18n.global.t('meta_title.marriage_agency'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/my-albums',
+    name: 'my-albums',
+    component: MyAlbumsView,
+    meta: {
+      title: i18n.global.t('meta_title.my_albums'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/messenger',
+    name: 'messenger',
+    component: MessengerView,
+    meta: {
+      title: i18n.global.t('meta_title.messenger'),
+      requiresAuth: true,
+      layout: 'main'
+    },
+    children: [
+      {
+        path: ':id',
+        name: 'messenger-chat',
+        component: MessengerChatView,
+        meta: {
+          title: i18n.global.t('meta_title.messenger'),
+          requiresAuth: true,
+          layout: 'main'
+        }
+      },
+      {
+        path: '',
+        name: 'messenger-empty',
+        component: MessengerEmptyView,
+        meta: {
+          title: i18n.global.t('meta_title.messenger'),
+          requiresAuth: true,
+          layout: 'main'
+        }
+      }
+    ]
+  },
+  {
+    path: '/:lang?/my-audio',
+    name: 'my-audio',
+    component: MyAudiosView,
+    meta: {
+      title: i18n.global.t('meta_title.my_audio'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/my-groups',
+    name: 'my-groups',
+    component: MyGroupsView,
+    meta: {
+      title: i18n.global.t('meta_title.my_groups'),
+      requiresAuth: true,
+      layout: 'main'
+    },
+    children: [
+      {
+        path: '',
+        name: 'my-groups-container',
+        component: MyGroupsContainer,
+        meta: {
+          title: i18n.global.t('meta_title.my_groups'),
+          requiresAuth: true,
+          layout: 'main'
+        }
+      },
+      {
+        path: 'settings',
+        name: 'my-groups-settings',
+        component: MyGroupsSettings,
+        meta: {
+          title: i18n.global.t('meta_title.my_groups'),
+          requiresAuth: true,
+          layout: 'main'
+        }
+      },
+      {
+        path: ':id',
+        name: 'my-groups-details',
+        component: MyGroupsDetails,
+        meta: {
+          title: i18n.global.t('meta_title.my_groups'),
+          requiresAuth: true,
+          layout: 'main'
+        },
+        children: [
+          {
+            path: '',
+            name: 'my-groups-publications',
+            component: MyGroupsPublications,
+            meta: {
+              title: i18n.global.t('meta_title.my_groups'),
+              requiresAuth: true,
+              layout: 'main'
+            }
+          },
+          {
+            path: 'users',
+            name: 'my-groups-users',
+            component: MyGroupsUsers,
+            meta: {
+              title: i18n.global.t('meta_title.my_groups'),
+              requiresAuth: true,
+              layout: 'main'
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    path: '/:lang?/my-page',
+    name: 'my-page',
+    component: MyPageView,
+    meta: {
+      title: i18n.global.t('meta_title.my_page'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/search-all-recommendations',
+    name: 'all-recommendations',
+    component: SearchAllRecommendationsView,
+    meta: {
+      title: i18n.global.t('meta_title.search.all-recommendations'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/search-people',
+    name: 'people',
+    component: SearchPeopleView,
+    meta: {
+      title: i18n.global.t('meta_title.search.people'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/search-groups',
+    name: 'search-groups',
+    component: SearchGroupsView,
+    meta: {
+      title: i18n.global.t('meta_title.search.groups'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/search-muvi',
+    name: 'search-muvi',
+    component: SearchMUVIView,
+    meta: {
+      title: i18n.global.t('meta_title.search.muvi'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/search-article',
+    name: 'search-article',
+    component: SearchArticleView,
+    meta: {
+      title: i18n.global.t('meta_title.search.article'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/search-video',
+    name: 'search-video',
+    component: SearchVideoView,
+    meta: {
+      title: i18n.global.t('meta_title.search.video'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/search-audio',
+    name: 'search-audio',
+    component: SearchAudioView,
+    meta: {
+      title: i18n.global.t('meta_title.search.audio'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/search-hashtags',
+    name: 'search-hashtags',
+    component: SearchHashtagsView,
+    meta: {
+      title: i18n.global.t('meta_title.search.hashtags'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
 
 	{
 		path: '/:lang?/news',
@@ -422,6 +472,16 @@ const routes = [{
 		meta: {
 			title: i18n.global.t('meta_title.muvi'),
 			requiresAuth: true
+		}
+	},
+	{
+		path: '/:lang?/muvi-mobile',
+		name: 'muvi-mobile',
+		component: MuviMobileView,
+		meta: {
+			title: i18n.global.t('meta_title.muvi'),
+			requiresAuth: true,
+			layout: 'main-mobile'
 		}
 	},
 	{

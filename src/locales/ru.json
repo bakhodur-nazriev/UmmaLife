@@ -315,6 +315,35 @@
       "views": "Количество просмотров"
     }
   },
+  "audio": {
+    "tabs": {
+      "review": "Обзор",
+      "my_audio": "Мои аудио",
+      "playlists": "Плейлисты",
+      "liked": "Нравится",
+      "download_audio": "Загрузить новые аудио"
+    },
+    "search_audio": "Поиск аудио",
+    "audio": "Аудио",
+    "my_playlists": "Мои плейлисты",
+    "all_audio": "Все аудио",
+    "add_audio": "Добавить аудио",
+    "all_audios_for_download": "Все аудио для загрузки",
+    "create_album": "Создать альбом",
+    "files": "файла",
+    "drop_title": "Нажмите или перетащите аудио",
+    "drop_subtitle": "Допустимые расширения mp3",
+    "status_success": "Загрузка завершена",
+    "status_pending": "Ожидание",
+    "status_fail": "Ошибка загрузки",
+    "album_subtitle": "Для создания альбома необходимо заполнить поля ниже",
+    "album_input": "Добавить название альбома",
+    "album_textarea": "Добавить описание альбома",
+    "download_to_playlist": "Загрузить в плейлист",
+    "create_as_album": "Создать как альбом",
+    "cancel": "Отменить",
+    "upload_video": "Загрузить аудио"
+  },
   "sections_title": {
     "last_actions": "Последние действия",
     "recommended_groups": "Рекомендуемые группы",

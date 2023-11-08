@@ -1,5 +1,10 @@
 <template>
-  <div class="audio__player" ref="player">
+  <div
+    class="audio__player"
+    ref="player"
+    @click="clickAudioHandler"
+    :class="{ extended: screenWidth < 767 && isAudioClicked }"
+  >
     <div class="audio__player--left">
       <audio-player
         ref="audioPlayer"
@@ -16,18 +21,32 @@
         :loop="isLoop"
       >
         <template #play-prev>
-          <button class="play-control"><AudioPlayPrev /></button>
+          <div class="play-control--wrapper">
+            <div class="play-control--icon"><AudioShuffleIcon /></div>
+            <button class="play-control"><AudioPlayPrev /></button>
+          </div>
         </template>
         <template #play-next>
-          <button class="play-control"><AudioPlayNext /></button>
+          <div class="play-control--wrapper">
+            <button class="play-control"><AudioPlayNext /></button>
+            <div class="play-control--icon"><AudioAddIcon /></div>
+          </div>
         </template>
         <template #play-start>
           <button class="play-btn"><VideoPlayIcon /></button>
         </template>
       </audio-player>
       <div class="audio__player--info">
-        <div class="audio__player--title">{{ currentAudioName || audios[0].title }}</div>
-        <div class="audio__player--author">{{ currentAuthor || audios[0].artist }}</div>
+        <div class="audio__player--music">
+          <MusicIcon />
+        </div>
+        <div>
+          <div class="audio__player--title">{{ currentAudioName || audios[0].title }}</div>
+          <div class="audio__player--author">{{ currentAuthor || audios[0].artist }}</div>
+        </div>
+        <div class="audio__player--info-menu" @click="isActionMenuOpen = true">
+          <MenuBlackDetailsIcon />
+        </div>
       </div>
     </div>
     <div class="audio__player--right">
@@ -43,7 +62,7 @@
           <use :xlink:href="isVolumeClicked ? '#icon-volume' : '#icon-volume-no'" />
         </svg>
       </div>
-      <div class="list__icons">
+      <div class="list__icons" v-if="screenWidth > 1199">
         <div class="list__icons--btn">
           <AudioAddIcon />
         </div>
@@ -52,16 +71,35 @@
         <a class="download__icon" :href="audios[audioIndex]?.source || ''" download>
           <AudioDownloadIcon />
         </a>
-        <AudioShareIcon @click="setShareOpen(true)" />
+        <div class="list__icons--btn" @click="setShareOpen(true)">
+          <AudioShareIcon />
+        </div>
       </div>
-      <button class="audio__player--arrow" @click="setListOpen(!this.isListOpen)">
+      <div v-else class="list__menu">
+        <MenuDetailsIcon />
+      </div>
+      <button class="audio__player--arrow" @click.stop="setListOpen(!this.isListOpen)">
         <ArrowUpIcon />
       </button>
     </div>
   </div>
+  <span
+    class="extended__overlay"
+    :class="{ open: screenWidth < 767 && isAudioClicked }"
+    @click="isAudioClicked = false"
+  ></span>
+  <teleport to="body">
+    <ActionMenu
+      v-if="isActionMenuOpen"
+      @closeHandler="isActionMenuOpen = false"
+      @shareHandler="setShareOpen(true), (isActionMenuOpen = false)"
+    />
+  </teleport>
 </template>
 
 <script>
+/* eslint-disable */
+import { ref } from 'vue'
 import AudioPlayPrev from '@/components/icons/audio/AudioPlayPrev.vue'
 import AudioPlayNext from '@/components/icons/audio/AudioPlayNext.vue'
 import VideoPlayIcon from '@/components/icons/VideoPlayIcon.vue'
@@ -71,8 +109,14 @@ import AudioDownloadIcon from '@/components/icons/audio/AudioDownloadIcon.vue'
 import AudioShareIcon from '@/components/icons/audio/AudioShareIcon.vue'
 import ArrowUpIcon from '@/components/icons/audio/ArrowUpIcon.vue'
 import AlbumLike from '@/components/audio/AlbumLike.vue'
+import ActionMenu from '@/components/audio/mobile/ActionMenu.vue'
 
 import { mapMutations, mapState } from 'vuex'
+import { useWindowSize } from '@vueuse/core'
+import MenuDetailsIcon from '@/components/icons/MenuDetailsIcon.vue'
+import MusicIcon from '@/components/icons/MusicIcon.vue'
+import MenuBlackDetailsIcon from '@/components/icons/MenuBlackDetailsIcon.vue'
+import AudioShuffleIcon from '@/components/icons/audio/AudioShuffleIcon.vue'
 
 export default {
   components: {
@@ -289,21 +333,30 @@ export default {
     this.rangeHandler()
   },
   updated() {
-    this.autoPlay()
-    this.playerHeight()
-    this.currentPlayer = document.querySelector('.audio-player__audio')
-    this.rangeHandler()
-    this.$refs.audioPlayer.isLoading = false
+    // this.autoPlay()
+    // this.playerHeight()
+    // this.currentPlayer = document.querySelector('.audio-player__audio')
+    // this.rangeHandler()
+    // this.$refs.audioPlayer.isLoading = false
   }
 }
 </script>
+<script setup>
+const { width: screenWidth } = useWindowSize()
+const isAudioClicked = ref(false)
+const isActionMenuOpen = ref(false)
 
+const clickAudioHandler = () => {
+  if (screenWidth.value < 767) {
+    isAudioClicked.value = true
+  }
+}
+</script>
 <style lang="scss">
 .audio__player {
   background: var(--color-white);
   width: 100%;
   position: absolute;
-  transition: all 3s ease-in-out;
   bottom: 0;
   right: 0;
   width: calc(100% - 268px);
@@ -312,10 +365,30 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media (max-width: 767px) {
+    left: 0;
+    width: 100%;
+    bottom: 64px;
+    padding: 0 12px 0 0;
+  }
   .download__icon,
   .like__icon {
     width: 20px;
     height: 20px;
+    color: var(--color-silver-chalice);
+  }
+  &--music {
+    display: none;
+    @media (max-width: 767px) {
+      display: block;
+      width: 54px;
+      height: 54px;
+      background-color: var(--color-seashell);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--color-silver-chalice);
+    }
   }
   &--arrow {
     background: transparent;
@@ -328,6 +401,19 @@ export default {
   &--right {
     display: flex;
     align-items: center;
+  }
+  &--right {
+    @media (max-width: 767px) {
+      display: none;
+    }
+  }
+  &--left {
+    @media (max-width: 767px) {
+      width: 100%;
+      justify-content: space-between;
+      overflow: hidden;
+      padding: 5px 15px 5px 0;
+    }
   }
   &--title,
   &--author {
@@ -347,6 +433,23 @@ export default {
     margin-right: 56px;
     svg {
       cursor: pointer;
+    }
+  }
+  &--info {
+    @media (max-width: 767px) {
+      order: 1;
+      width: 50%;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    &-menu {
+      display: none;
+    }
+  }
+  .audio-player {
+    @media (max-width: 767px) {
+      order: 2;
     }
   }
   .play-btn {
@@ -373,6 +476,16 @@ export default {
     height: 22px;
     cursor: pointer;
     padding: 0;
+    &--icon {
+      display: none;
+    }
+    &--wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 24px;
+      height: 24px;
+    }
     svg {
       width: 24px !important;
       height: 22px !important;
@@ -390,6 +503,11 @@ export default {
     position: static !important;
     gap: 16px;
     margin-right: 204px;
+    @media (max-width: 767px) {
+      margin-right: 0;
+      position: relative !important;
+      right: -52px;
+    }
   }
   .audio__progress-point {
     z-index: 20;
@@ -400,6 +518,9 @@ export default {
     transform: translateY(-50%);
     left: 170px;
     margin-top: 0 !important;
+    @media (max-width: 767px) {
+      display: none !important;
+    }
     .audio__current-time,
     .audio__duration {
       font-size: 12px;
@@ -427,6 +548,9 @@ export default {
   .audio__play-prev {
     width: 24px;
     height: 22px;
+  }
+  .audio__play-prev::after {
+    opacity: 0;
   }
   .audio__notice {
     display: none !important;
@@ -521,6 +645,135 @@ export default {
         background-clip: border-box;
         pointer-events: none;
         border-radius: 15px;
+      }
+    }
+  }
+}
+.extended {
+  min-height: 246px;
+  z-index: 150;
+  background-color: var(--color-white);
+  padding: 22px 16px;
+  border-radius: 20px 20px 0 0;
+  display: block;
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 64px);
+    background-color: rgba($color: #000000, $alpha: 0.4);
+    z-index: 50;
+    display: none;
+    &.open {
+      display: block;
+    }
+  }
+  .audio__player--left {
+    flex-direction: column;
+    padding: 0;
+  }
+  .audio__player--info {
+    padding-right: 30px;
+    position: relative;
+    width: 100%;
+    margin-bottom: 26px;
+  }
+  .audio__player--info-menu {
+    display: block;
+    width: 24px;
+    height: 24px;
+    color: var(--color-silver-chalice);
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    svg {
+      width: 100%;
+      width: 100%;
+      display: block;
+    }
+  }
+  .audio__player--left {
+    width: 100%;
+    overflow: visible;
+  }
+
+  .audio-player {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+    .play-control--icon {
+      display: block;
+    }
+    .audio__play-start,
+    .audio__play-pause {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 60px;
+    }
+    .audio__play-icon {
+      width: 60px;
+      height: 60px;
+    }
+    .play-btn {
+      width: 60px;
+      height: 60px;
+      svg {
+        width: 24px !important;
+        height: 24px !important;
+        display: block;
+      }
+    }
+    .audio__play-prev {
+      width: 50%;
+      height: 60px;
+      padding-left: 5%;
+      .play-control--wrapper {
+        justify-content: flex-start;
+      }
+      &::after {
+        display: none;
+      }
+    }
+    .audio__play-next {
+      width: 50%;
+      transform: unset;
+      height: 60px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding-right: 5%;
+      .play-control--wrapper {
+        justify-content: flex-end;
+      }
+    }
+    .audio__btn-wrap {
+      right: unset;
+      width: 100%;
+      justify-content: space-between;
+      height: 60px;
+      order: 2;
+    }
+    .play-control--wrapper {
+      gap: 25%;
+      width: 100%;
+    }
+    .audio__progress-wrap {
+      position: relative !important;
+      order: 1;
+    }
+    .play-control--icon {
+      width: 24px;
+      height: 24px;
+      color: var(--color-silver-chalice);
+      svg {
+        display: block;
+        width: 100%;
+        height: 100%;
       }
     }
   }

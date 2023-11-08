@@ -1,66 +1,65 @@
 <template>
-  <LayoutAuth>
-    <form-auth @submit="submit">
-      <title-sample>{{ $t('login.forgot_password') }}</title-sample>
+  <form-auth @submit="submit">
+    <title-sample>{{ $t('login.forgot_password') }}</title-sample>
 
-      <h5 class="text-1 roman reminder-message">{{ $t('login.messages.reset_password') }}</h5>
+    <h5 class="text-1 roman reminder-message">{{ $t('login.messages.reset_password') }}</h5>
 
-      <div :class="['input-wrapper', { error: hasError || isInvalidEmail }]">
-        <input
-          type="email"
-          v-model="email"
-          class="base-input"
-          :placeholder="$t('login.placeholders.email')"
-        />
-        <small v-if="hasError || isInvalidEmail" class="error-message">
-          {{ $t(isInvalidEmail ? 'forgot_password.validation.incorrect_email' : 'forgot_password.validation.empty_email') }}
-        </small>
-      </div>
+    <div :class="['input-wrapper', { error: hasError || isInvalidEmail }]">
+      <input
+        type="email"
+        v-model="email"
+        class="base-input"
+        :placeholder="$t('login.placeholders.email')"
+      />
+      <small v-if="hasError || isInvalidEmail" class="error-message">
+        {{
+          $t(
+            isInvalidEmail
+              ? 'forgot_password.validation.incorrect_email'
+              : 'forgot_password.validation.empty_email'
+          )
+        }}
+      </small>
+    </div>
 
-      <div class="login-button-section">
-        <SampleButton
-          @click="handleSubmit"
-          :title="`${ $t('buttons.submit') }`"
-        />
-      </div>
-    </form-auth>
-  </LayoutAuth>
+    <div class="login-button-section">
+      <SampleButton @click="handleSubmit" :title="`${$t('buttons.submit')}`" />
+    </div>
+  </form-auth>
 </template>
 
 <script>
-import LayoutAuth from '@/components/layouts/LayoutAuth.vue'
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 
 export default {
   components: {
-    LayoutAuth,
     FormAuth,
     TitleSample,
     SampleButton
   },
-  data () {
+  data() {
     return {
       email: '',
       hasError: false
     }
   },
   watch: {
-    email (newEmail) {
+    email(newEmail) {
       if (newEmail.trim() !== '') {
         this.hasError = false
       }
     }
   },
   computed: {
-    isInvalidEmail () {
+    isInvalidEmail() {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       return this.email.trim() !== '' && !emailRegex.test(this.email)
     }
   },
   methods: {
-    handleSubmit () {
+    handleSubmit() {
       if (this.email.trim() === '' || this.isInvalidEmail) {
         this.hasError = true
       } else {
@@ -70,7 +69,7 @@ export default {
         this.$emit('next-step')
       }
     },
-    submit (event) {
+    submit(event) {
       console.log('submit button called')
       event.preventDefault()
       this.handleSubmit()
@@ -96,18 +95,18 @@ export default {
 }
 
 .base-input {
-  background-color: #f1f1f1;
+  background-color: var(--color-seashell);
   border: none;
   outline: none;
   border-radius: 10px;
   font-size: 14px;
   padding: 16px;
-  color: #1F1F1F;
+  color: var(--color-mine-shaft);
   width: 100%;
 }
 
 .base-input::placeholder {
-  color: #B0B0B0;
+  color: var(--color-silver-chalice);
 }
 
 .reminder-message {
