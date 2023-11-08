@@ -15,10 +15,14 @@ export default {
   },
   mutations: {
     setAudioPlaying(state, index) {
+      let currenIndex = index
+      if (index === -1) {
+        currenIndex = 0
+      }
       state.audios.forEach((audio) => (audio.isPlaying = false))
       state.audios2.forEach((audio) => (audio.isPlaying = false))
-      state.audios[index].isPlaying = true
-      state.audios2[index].isPlaying = true
+      state.audios[currenIndex].isPlaying = true
+      state.audios2[currenIndex].isPlaying = true
     },
     setAudioPause(state, index) {
       state.audios[index].isPlaying = false

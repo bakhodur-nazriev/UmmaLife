@@ -22,7 +22,11 @@
           <li class="email__button">
             <EmailIcon />
           </li>
-          <li class="notification__button">
+          <li
+            class="notification__button"
+            @click="isNotificationOpen = !isNotificationOpen"
+            :class="{ active: isNotificationOpen }"
+          >
             <NotificationIcon />
           </li>
           <router-link :to="`/${$i18n.locale}/settings`">
@@ -106,7 +110,7 @@
             </router-link>
           </li>
           <li class="bottom__nav--item">
-            <router-link to="">
+            <router-link :to="`/${$i18n.locale}/notifications`">
               <BellIcon />
             </router-link>
           </li>
@@ -267,6 +271,13 @@
       </div>
     </div>
   </header>
+  <teleport to="body">
+    <NotificationContainer
+      v-if="isNotificationOpen"
+      @closeHandler="isNotificationOpen = false"
+      :modal="true"
+    />
+  </teleport>
 </template>
 
 <script>
@@ -301,6 +312,7 @@ import { mapState, mapMutations } from 'vuex'
 import { audios } from '@/dummy'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
 import MuviNavIcon from '@/components/icons/shorts/MuviNavIcon.vue'
+import NotificationContainer from '@/components/notification/NotificationContainer.vue'
 
 export default {
   components: {
@@ -332,12 +344,14 @@ export default {
     SearchInput,
     SampleButton,
     MainPageLogo,
-    MuviNavIcon
+    MuviNavIcon,
+    NotificationContainer
   },
   data() {
     return {
       isMenuOpen: false,
       isSearchForm: false,
+      isNotificationOpen: false,
       tabData: [
         {
           label: this.$t('tabs.search.all'),

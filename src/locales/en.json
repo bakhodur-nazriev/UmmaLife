@@ -717,5 +717,14 @@
     "read": "Read",
     "popular_books": "Popular books",
     "book_page": "Book page"
+  },
+  "notification": {
+    "title": "Notifications",
+    "clear": "Mark it all as read",
+    "show_all": "Show all",
+    "new": "New",
+    "yesterday": "Yesterday",
+    "week": "This week",
+    "month": "This month"
   }
 }

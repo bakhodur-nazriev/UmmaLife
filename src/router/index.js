@@ -45,6 +45,7 @@ import MuviView from '@/views/muvi/MuviView.vue'
 import MuviMobileView from '@/views/muvi/MuviMobileView.vue'
 import VideoSingleViewVue from '@/views/VideoSingleView.vue'
 import PreviewArticleView from '@/views/PreviewArticleView.vue'
+import NotificationsView from '@/views/NotificationsView.vue'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const baseDomain = isProduction ? 'front1.ummalife.dev' : 'localhost'
@@ -429,148 +430,163 @@ const routes = [
     }
   },
 
-	{
-		path: '/:lang?/news',
-		name: 'news',
-		component: NewsView,
-		meta: {
-			title: i18n.global.t('meta_title.news'),
-			requiresAuth: true
-		}
-	},
-	{
-		path: '/:lang?/saved',
-		name: 'saved',
-		component: SavedView,
-		meta: {
-			title: i18n.global.t('meta_title.saved'),
-			requiresAuth: true
-		}
-	},
-	{
-		path: '/:lang?/video',
-		name: 'video',
-		component: VideoView,
-		meta: {
-			title: i18n.global.t('meta_title.video'),
-			requiresAuth: true
-		}
-	},
-	{
-		path: '/:lang?/settings',
-		name: 'settings',
-		component: SettingsView,
-		meta: {
-			title: i18n.global.t('meta_title.settings'),
-			requiresAuth: true
-		}
-	},
-	{
-		path: '/:lang?/muvi',
-		name: 'muvi',
-		component: MuviView,
-		meta: {
-			title: i18n.global.t('meta_title.muvi'),
-			requiresAuth: true
-		}
-	},
-	{
-		path: '/:lang?/muvi-mobile',
-		name: 'muvi-mobile',
-		component: MuviMobileView,
-		meta: {
-			title: i18n.global.t('meta_title.muvi'),
-			requiresAuth: true,
-			layout: 'main-mobile'
-		}
-	},
-	{
-		path: '/:pathMatch(.*)*',
-		redirect: (to) => {
-			// Перенаправляем пользователя на текущую страницу
-			return {
-				name: router.currentRoute.value.name,
-				params: {
-					lang: router.currentRoute.value.params.lang
-				}
-			}
-		}
-	}
+  {
+    path: '/:lang?/news',
+    name: 'news',
+    component: NewsView,
+    meta: {
+      title: i18n.global.t('meta_title.news'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/saved',
+    name: 'saved',
+    component: SavedView,
+    meta: {
+      title: i18n.global.t('meta_title.saved'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/video',
+    name: 'video',
+    component: VideoView,
+    meta: {
+      title: i18n.global.t('meta_title.video'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/settings',
+    name: 'settings',
+    component: SettingsView,
+    meta: {
+      title: i18n.global.t('meta_title.settings'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/muvi',
+    name: 'muvi',
+    component: MuviView,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/muvi-mobile',
+    name: 'muvi-mobile',
+    component: MuviMobileView,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'main-mobile'
+    }
+  },
+  {
+    path: '/:lang?/notifications',
+    name: 'notifications',
+    component: NotificationsView,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: (to) => {
+      // Перенаправляем пользователя на текущую страницу
+      return {
+        name: router.currentRoute.value.name,
+        params: {
+          lang: router.currentRoute.value.params.lang
+        }
+      }
+    }
+  }
 ]
 
 if (isProduction) {
-	routes.forEach((route) => {
-		route.path = `/${baseDomain}${route.path}`
-	})
+  routes.forEach((route) => {
+    route.path = `/${baseDomain}${route.path}`
+  })
 }
 
 const router = createRouter({
-	history: createWebHistory(process.env.BASE_URL),
-	mode: 'history',
-	routes
+  history: createWebHistory(process.env.BASE_URL),
+  mode: 'history',
+  routes
 })
 
 function isUserAuthenticated() {
-	// Здесь проверяйте, аутентифицирован ли пользователь
-	// Возвращайте true, если пользователь аутентифицирован, иначе false
+  // Здесь проверяйте, аутентифицирован ли пользователь
+  // Возвращайте true, если пользователь аутентифицирован, иначе false
 }
 
 router.beforeEach((to, from, next) => {
-	const lang = to.params.lang || i18n.global.locale.value
-	const requiresAuth = to.matched.some((route) => route.meta.requiresAuth)
+  const lang = to.params.lang || i18n.global.locale.value
+  const requiresAuth = to.matched.some((route) => route.meta.requiresAuth)
 
-	if (supportedLanguages.includes(lang)) {
-		// Установка языка для i18n
-		i18n.global.locale = lang
-	} else {
-		// Если указанный язык не поддерживается, перенаправляем на язык по умолчанию
-		const defaultLang = i18n.global.locale || 'ru'
-		return next(`/${defaultLang}${to.path}`)
-	}
+  if (supportedLanguages.includes(lang)) {
+    // Установка языка для i18n
+    i18n.global.locale = lang
+  } else {
+    // Если указанный язык не поддерживается, перенаправляем на язык по умолчанию
+    const defaultLang = i18n.global.locale || 'ru'
+    return next(`/${defaultLang}${to.path}`)
+  }
 
-	// Если язык в URL не совпадает с текущим языком, перенаправляем на правильный URL
-	if (to.params.lang !== lang) {
-		const pathWithoutLang = to.path.replace(`/${to.params.lang}`, `/${lang}`)
-		return next({
-			path: `/${lang}${pathWithoutLang}`,
-			params: {
-				lang
-			}
-		})
-	}
+  // Если язык в URL не совпадает с текущим языком, перенаправляем на правильный URL
+  if (to.params.lang !== lang) {
+    const pathWithoutLang = to.path.replace(`/${to.params.lang}`, `/${lang}`)
+    return next({
+      path: `/${lang}${pathWithoutLang}`,
+      params: {
+        lang
+      }
+    })
+  }
 
-	document.title = `${to.meta.title} | ${process.env.VUE_APP_TITLE}`
+  document.title = `${to.meta.title} | ${process.env.VUE_APP_TITLE}`
 
-	// if (requiresAuth && !isUserAuthenticated()) {
-	//   // Если маршрут требует авторизации и пользователь не аутентифицирован, перенаправляем на страницу авторизации
-	//   return next({ name: 'login' })
-	// }
+  // if (requiresAuth && !isUserAuthenticated()) {
+  //   // Если маршрут требует авторизации и пользователь не аутентифицирован, перенаправляем на страницу авторизации
+  //   return next({ name: 'login' })
+  // }
 
-	// Проверка статуса авторизации
-	/*const isAuthenticated = store.getters.getAuthenticated
+  // Проверка статуса авторизации
+  /*const isAuthenticated = store.getters.getAuthenticated
 
-	// Роуты, на которых разрешено продолжить навигацию для неавторизованных пользователей
-	const allowedRoutes = ['login', 'register', 'forgot-password']
+  // Роуты, на которых разрешено продолжить навигацию для неавторизованных пользователей
+  const allowedRoutes = ['login', 'register', 'forgot-password']
 
-	// Если пользователь авторизован, перенаправляем на главную страницу
-	if (isAuthenticated) {
-		return next('/')
-	}
+  // Если пользователь авторизован, перенаправляем на главную страницу
+  if (isAuthenticated) {
+    return next('/')
+  }
 
-	// Если пользователь не авторизован и находится на разрешенных роутах, разрешаем продолжить навигацию
-	if (!isAuthenticated && allowedRoutes.includes(to.name)) {
-		return next()
-	}
+  // Если пользователь не авторизован и находится на разрешенных роутах, разрешаем продолжить навигацию
+  if (!isAuthenticated && allowedRoutes.includes(to.name)) {
+    return next()
+  }
 
-	// Если пользователь не авторизован и находится на других роутах, перенаправляем на страницу входа
-	return next('/login')*/
+  // Если пользователь не авторизован и находится на других роутах, перенаправляем на страницу входа
+  return next('/login')*/
 
-	if (to.name === 'home') {
-		return next({
-			name: 'news'
-		})
-	}
-	return next()
+  if (to.name === 'home') {
+    return next({
+      name: 'news'
+    })
+  }
+  return next()
 })
 
 export default router
