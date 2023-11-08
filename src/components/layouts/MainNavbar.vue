@@ -686,7 +686,7 @@ export default {
       opacity: 0.5;
     }
     opacity: 1;
-    background-color: #fff;
+    background-color: var(--color-white);
   }
 }
 .dropdown__icon {

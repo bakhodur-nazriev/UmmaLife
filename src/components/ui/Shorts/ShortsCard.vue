@@ -151,7 +151,7 @@ watch(
       }
       .vjs-slide {
         opacity: 0.2;
-        background: #fff;
+        background: var(--color-white);
         width: 428px;
         margin: 0 auto;
       }

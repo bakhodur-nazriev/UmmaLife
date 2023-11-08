@@ -242,7 +242,7 @@ export default {
 }
 
 .modal__dialog {
-  background-color: #fff;
+  background-color: var(--color-white);
   width: 600px;
   border-radius: 20px;
   overflow: hidden;
