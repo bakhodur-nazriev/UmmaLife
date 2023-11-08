@@ -83,7 +83,7 @@ const links = ref([
     isActive: false
   },
   {
-    name: 'video.tabs.recomended_films',
+    name: 'video.tabs.recommended_films',
     isActive: false
   },
   {

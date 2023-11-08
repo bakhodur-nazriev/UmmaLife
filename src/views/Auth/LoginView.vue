@@ -1,59 +1,44 @@
+<script setup>
+/* eslint-disable */
+import {ref, onMounted} from 'vue'
+import {useRouter} from 'vue-router'
+import LayoutAuth from '@/components/layouts/LayoutAuth.vue'
+import LoginWithPhone from '@/components/LoginForm/LoginWithPhone.vue'
+import LoginWithEmail from '@/components/LoginForm/LoginWithEmail.vue'
+import SampleButton from '@/components/ui/SampleButton.vue'
+
+const selectedForm = ref('')
+const router = useRouter()
+const toggleForm = () => {
+  selectedForm.value = selectedForm.value === 'phone' ? 'email' : 'phone'
+  sessionStorage.setItem('selectedForm', selectedForm.value)
+}
+const handleLoginSuccess = () => {
+  const redirectTo = router.currentRoute.value.query.redirect || {name: 'home'}
+  router.push(redirectTo)
+}
+
+onMounted(() => {
+  selectedForm.value = sessionStorage.getItem('selectedForm') || 'email'
+})
+</script>
+
 <template>
   <LayoutAuth>
-<!--    <login-with-email v-if="selectedForm === 'email'"></login-with-email>-->
+    <LoginWithEmail v-if="selectedForm === 'email'"/>
 
-<!--    <login-with-phone v-if="selectedForm === 'phone'"></login-with-phone>-->
+    <LoginWithPhone v-if="selectedForm === 'phone'"/>
 
-<!--    <div class="login-with-phone-section">-->
-<!--      <SampleButton-->
-<!--        color="none"-->
-<!--        class="link-with-phone-number"-->
-<!--        @click="toggleForm"-->
-<!--        :title="`${ selectedForm === 'email' ? $t('login.with_phone_number') : $t('login.with_email') }`"-->
-<!--      />-->
-<!--    </div>-->
-
-    <CategorySelection></CategorySelection>
+    <div class="login-with-phone-section">
+      <SampleButton
+          color="none"
+          class="link-with-phone-number"
+          @click="toggleForm"
+          :title="`${ selectedForm === 'email' ? $t('login.with_phone_number') : $t('login.with_email') }`"
+      />
+    </div>
   </LayoutAuth>
 </template>
-
-<script>
-import LayoutAuth from '@/components/layouts/LayoutAuth.vue'
-// import LoginWithPhone from '@/components/LoginForm/LoginWithPhone.vue'
-// import LoginWithEmail from '@/components/LoginForm/LoginWithEmail.vue'
-// import SampleButton from '@/components/ui/SampleButton.vue'
-import CategorySelection from '@/components/RegisterForm/CategorySelection.vue'
-
-export default {
-  components: {
-    CategorySelection,
-    // SampleButton,
-    // LoginWithEmail,
-    LayoutAuth
-    // LoginWithPhone
-  },
-  data () {
-    return {
-      selectedForm: ''
-    }
-  },
-  methods: {
-    toggleForm () {
-      this.selectedForm = this.selectedForm === 'phone' ? 'email' : 'phone'
-      sessionStorage.setItem('selectedForm', this.selectedForm)
-    },
-    handleLoginSuccess () {
-      // Логика успешного входа пользователя
-
-      const redirectTo = this.$route.query.redirect || { name: 'home' }
-      this.$router.push(redirectTo)
-    }
-  },
-  created () {
-    this.selectedForm = sessionStorage.getItem('selectedForm') || 'email'
-  }
-}
-</script>
 
 <style scoped>
 .link-with-phone-number {

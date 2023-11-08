@@ -2,25 +2,25 @@
   <div class="video__filter">
     <div class="muvi__mobile--nav white" v-if="width < 767">
       <div class="library__actions--btn"></div>
-      <div class="muvi__mobile--nav-title">{{ $t('video.parametrs.title') }}</div>
+      <div class="muvi__mobile--nav-title">{{ $t('video.parameters.title') }}</div>
       <div class="left close" @click="emit('closeHandler')"><CloseIcon /></div>
     </div>
-    <div class="video__filter--title" v-else>{{ $t('video.parametrs.title') }}</div>
+    <div class="video__filter--title" v-else>{{ $t('video.parameters.title') }}</div>
     <ul class="video__filter--wrapper">
       <li class="video__filter--list">
-        <div class="video__filter--list-title">{{ $t('video.parametrs.category') }}</div>
+        <div class="video__filter--list-title">{{ $t('video.parameters.category') }}</div>
         <BaseCustomSelect :options="['All', 'Drama', 'Comedy']" :default="'All'" />
       </li>
       <li class="video__filter--list">
-        <div class="video__filter--list-title">{{ $t('video.parametrs.year') }}</div>
+        <div class="video__filter--list-title">{{ $t('video.parameters.year') }}</div>
         <BaseCustomSelect :options="['All', '2023', '2022']" :default="'All'" />
       </li>
       <li class="video__filter--list">
-        <div class="video__filter--list-title">{{ $t('video.parametrs.genre') }}</div>
+        <div class="video__filter--list-title">{{ $t('video.parameters.genre') }}</div>
         <BaseCustomSelect :options="['All', 'Drama', 'Comedy']" :default="'All'" />
       </li>
       <li class="video__filter--list">
-        <div class="video__filter--list-title">{{ $t('video.parametrs.country') }}</div>
+        <div class="video__filter--list-title">{{ $t('video.parameters.country') }}</div>
         <BaseCustomSelect :options="['All', 'Turkey', 'USA']" :default="'All'" />
       </li>
     </ul>

@@ -3,15 +3,15 @@
     <div class="settings__header--back" @click="emit('handleSelectNav', 'main')">
       <SettingsBackIcon />
     </div>
-    <div class="settings__header--text">{{ $t('settings.accaunt.profile') }}</div>
+    <div class="settings__header--text">{{ $t('settings.account.profile') }}</div>
     <div class="settings__header--back"></div>
   </div>
   <div class="settings__mobile--container wrapper">
     <div class="top">
-      <div class="settings__mobile--title">{{ $t('settings.accaunt.profile_settings') }}</div>
+      <div class="settings__mobile--title">{{ $t('settings.account.profile_settings') }}</div>
       <ul class="settings__mobile--menu">
         <li class="settings__mobile--list" @click="emit('handleSelectNav', 'personal')">
-          <span>{{ $t('settings.accaunt.profile_info') }}</span>
+          <span>{{ $t('settings.account.profile_info') }}</span>
           <ArrowRight />
         </li>
         <li class="settings__mobile--list" @click="emit('handleSelectNav', 'education')">

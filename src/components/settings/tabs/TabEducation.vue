@@ -5,7 +5,7 @@
         <SettingsBackIcon />
       </div>
       <div class="settings__header--text">{{ $t('settings.nav.education') }}</div>
-      <div class="settings__header--ready">{{ $t('settings.accaunt.ready') }}</div>
+      <div class="settings__header--ready">{{ $t('settings.account.ready') }}</div>
     </div>
     <SettingsInfo>
       <template #icon>
@@ -19,13 +19,13 @@
     <form class="settings__form create__group">
       <div class="create__group--block">
         <div class="create__group--form pt-0 create__group--form-text">
-          <label class="create__group--label">{{ $t('settings.education.scholl') }}</label>
+          <label class="create__group--label">{{ $t('settings.education.school') }}</label>
           <div class="settings__add">
             <div v-for="school in schools" :key="school">
               <input
                 type="text"
                 class="create__group--input pt-0"
-                :placeholder="$t('settings.education.scholl_placeholder')"
+                :placeholder="$t('settings.education.school_placeholder')"
               />
               <BaseCheckbox :label="$t('settings.education.completed')" />
               <div class="settings__add--wrapper">
@@ -35,7 +35,7 @@
                   v-if="school === schools && schools !== 4"
                   @click="schools !== 4 ? schools++ : (schools = 4)"
                 >
-                  <PlusIcon /> <span>{{ $t('settings.education.scholl_add') }}</span>
+                  <PlusIcon /> <span>{{ $t('settings.education.school_add') }}</span>
                 </button>
                 <button
                   type="button"
@@ -49,13 +49,13 @@
           </div>
         </div>
         <div class="create__group--form create__group--form-text">
-          <label class="create__group--label">{{ $t('settings.education.colledge') }}</label>
+          <label class="create__group--label">{{ $t('settings.education.college') }}</label>
           <div class="settings__add">
             <div v-for="college in colleges" :key="college">
               <input
                 type="text"
                 class="create__group--input pt-0"
-                :placeholder="$t('settings.education.colledge_placeholder')"
+                :placeholder="$t('settings.education.college_placeholder')"
               />
               <BaseCheckbox :label="$t('settings.education.completed')" />
               <div class="settings__add--wrapper">
@@ -65,7 +65,7 @@
                   @click="colleges !== 4 ? colleges++ : (colleges = 4)"
                   v-if="college === colleges && colleges !== 4"
                 >
-                  <PlusIcon /> <span>{{ $t('settings.education.colledge_add') }}</span>
+                  <PlusIcon /> <span>{{ $t('settings.education.college_add') }}</span>
                 </button>
                 <button
                   type="button"
@@ -79,13 +79,13 @@
           </div>
         </div>
         <div class="create__group--form create__group--form-text pb-0">
-          <label class="create__group--label">{{ $t('settings.education.univercity') }}</label>
+          <label class="create__group--label">{{ $t('settings.education.university') }}</label>
           <div class="settings__add">
             <div v-for="university in universities" :key="university">
               <input
                 type="text"
                 class="create__group--input pt-0"
-                :placeholder="$t('settings.education.univercity_placeholder')"
+                :placeholder="$t('settings.education.university_placeholder')"
               />
               <BaseCheckbox :label="$t('settings.education.completed')" />
               <div class="settings__add--wrapper">
@@ -95,7 +95,7 @@
                   @click="universities !== 4 ? universities++ : (universities = 4)"
                   v-if="university === universities && universities !== 4"
                 >
-                  <PlusIcon /> <span>{{ $t('settings.education.univercity_add') }}</span>
+                  <PlusIcon /> <span>{{ $t('settings.education.university_add') }}</span>
                 </button>
                 <button
                   type="button"

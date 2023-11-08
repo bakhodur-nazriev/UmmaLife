@@ -135,6 +135,7 @@
   },
   "buttons": {
     "login": "Login",
+    "ready": "Ready",
     "get_code_by_email": "Get code by email",
     "next": "Next",
     "prev": "Back",
@@ -295,11 +296,11 @@
     "tabs": {
       "all_films": "All movies",
       "new_films": "News",
-      "recomended_films": "Recommendations",
+      "recommended_films": "Recommendations",
       "saved_films": "Saved",
       "viewed": "Watched"
     },
-    "parametrs": {
+    "parameters": {
       "title": "Search options",
       "category": "Category",
       "year": "Year",
@@ -307,7 +308,7 @@
       "country": "Country",
       "creator": "Creator",
       "duration": "Duration",
-      "minut": "minutes",
+      "minute": "minutes",
       "views": "Number of views"
     }
   },
@@ -495,17 +496,17 @@
       "country": "Country",
       "address": "Address",
       "address_placeholder": "Enter the address",
-      "categorie_title": "Categories of interest",
+      "categories_title": "Categories of interest",
       "categories": {
         "religion": "Religion",
-        "psixologiya": "Psychology",
-        "familiy": "Family",
+        "psychology": "Psychology",
+        "family": "Family",
         "health": "Health",
         "work": "Work",
         "education": "Study",
         "travel": "Travel",
         "books": "Books",
-        "sience": "Science",
+        "science": "Science",
         "sport": "Sport",
         "art": "Art",
         "auto": "Auto",
@@ -514,7 +515,7 @@
         "fitness": "Fitness",
         "history": "History",
         "fashion": "Fashion",
-        "architectory": "Architecture",
+        "architecture": "Architecture",
         "beauty": "Beauty",
         "parenting": "Parenting",
         "nature": "Nature"
@@ -535,15 +536,15 @@
       "info_title": "Education",
       "info_text": "In the Education and Work section, you can provide information about your education and job title. This will help other users better understand your academic and professional interests.",
       "completed": "Completed",
-      "scholl": "School",
-      "scholl_placeholder": "Enter the name of your school",
-      "scholl_add": "Add a school",
-      "colledge": "College",
-      "colledge_placeholder": "Enter the name of your college",
-      "colledge_add": "Add a college",
-      "univercity": "University",
-      "univercity_placeholder": "Enter the name of your university",
-      "univercity_add": "Add a university"
+      "school": "School",
+      "school_placeholder": "Enter the name of your school",
+      "school_add": "Add a school",
+      "college": "College",
+      "college_placeholder": "Enter the name of your college",
+      "college_add": "Add a college",
+      "university": "University",
+      "university_placeholder": "Enter the name of your university",
+      "university_add": "Add a university"
     },
     "work": {
       "info_title": "Work",
@@ -616,12 +617,12 @@
     "notifications": {
       "info_title": "Notification settings",
       "info_text": "Notification settings allow you to customize the information and alerts you receive from our site.",
-      "system_notifs": "System Notifications",
-      "email_notifs": "E-mail notifications",
+      "system_notifications": "System Notifications",
+      "email_notifications": "E-mail notifications",
       "like_my_notes": "Like my notes",
       "comment_my_notes": "Commented on my notes",
       "share_my_notes": "Share my notes",
-      "subed_me": "Subscribed to me",
+      "subscribed_me": "Subscribed to me",
       "like_my_page": "Like my page",
       "mentioned_me": "Mentioned me",
       "join_my_group": "Join my group",
@@ -640,18 +641,18 @@
       "enter_password": "Enter the password to delete the account",
       "enter_password_placeholder": "Enter your current password"
     },
-    "accaunt": {
-      "accaunt_settings": "Account settings",
+    "account": {
+      "account_settings": "Account settings",
       "profile": "Profile",
       "safety": "Safety",
       "display": "Display",
       "theme": "Theme",
       "notif": "Notifications",
-      "popup_notif": "Pop-up notification",
-      "show_popup_notif": "Show notifications from the application",
+      "popup_notification": "Pop-up notification",
+      "show_popup_notification": "Show notifications from the application",
       "help_and_support": "Support and assistance",
       "to_system_settings": "To system settings",
-      "repeort_problem": "Report an issue",
+      "report_problem": "Report an issue",
       "quit": "Exit",
       "profile_settings": "Profile settings",
       "profile_info": "Personal information",
@@ -659,7 +660,7 @@
       "app": "Application",
       "location": "Location",
       "ip": "IP Address",
-      "finish_seans": "End session"
+      "finish_session": "End session"
     }
   },
   "themes": {
@@ -674,7 +675,7 @@
     "liked_books": "Liked books",
     "category": "Category",
     "author": "Author",
-    "serach_placeholder": "Search by book title",
+    "search_placeholder": "Search by book title",
     "year": "Year",
     "back_to_main": "Back to book list",
     "views": "Views",

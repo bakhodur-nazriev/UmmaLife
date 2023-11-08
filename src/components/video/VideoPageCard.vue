@@ -23,24 +23,24 @@
       </div>
       <ul class="video__page--card__list">
         <li>
-          <span>{{ $t('video.parametrs.country') }}:</span>
+          <span>{{ $t('video.parameters.country') }}:</span>
           <p>{{ videoCard.country }}</p>
         </li>
         <li>
-          <span>{{ $t('video.parametrs.year') }}:</span>
+          <span>{{ $t('video.parameters.year') }}:</span>
           <p>{{ videoCard.year }}</p>
         </li>
         <li>
-          <span>{{ $t('video.parametrs.genre') }}:</span>
+          <span>{{ $t('video.parameters.genre') }}:</span>
           <p>{{ videoCard.genre }}</p>
         </li>
         <li>
-          <span>{{ $t('video.parametrs.creator') }}:</span>
+          <span>{{ $t('video.parameters.creator') }}:</span>
           <p>{{ videoCard.creator }}</p>
         </li>
         <li>
-          <span>{{ $t('video.parametrs.duration') }}:</span>
-          <p>{{ videoCard.duration }} {{ $t('video.parametrs.minut') }}</p>
+          <span>{{ $t('video.parameters.duration') }}:</span>
+          <p>{{ videoCard.duration }} {{ $t('video.parameters.minute') }}</p>
         </li>
       </ul>
       <div class="video__page--card__description">

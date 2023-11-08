@@ -5,7 +5,7 @@
         <SettingsBackIcon />
       </div>
       <div class="settings__header--text">{{ $t('settings.nav.control_sessions') }}</div>
-      <div class="settings__header--ready">{{ $t('settings.accaunt.ready') }}</div>
+      <div class="settings__header--ready">{{ $t('settings.account.ready') }}</div>
     </div>
     <SettingsInfo>
       <template #icon>
@@ -159,19 +159,19 @@
           </div>
           <div class="session__modal--block">
             <div class="session__modal--list">
-              <p>{{ $t('settings.accaunt.app') }}</p>
+              <p>{{ $t('settings.account.app') }}</p>
               <span>{{ selectedOption.app }}</span>
             </div>
             <div class="session__modal--list">
-              <p>{{ $t('settings.accaunt.ip') }}</p>
+              <p>{{ $t('settings.account.ip') }}</p>
               <span>{{ selectedOption.ip }}</span>
             </div>
             <div class="session__modal--list">
-              <p>{{ $t('settings.accaunt.location') }}</p>
+              <p>{{ $t('settings.account.location') }}</p>
               <span>{{ selectedOption.location }}</span>
             </div>
           </div>
-          <div class="session__modal--btn">{{ $t('settings.accaunt.finish_seans') }}</div>
+          <div class="session__modal--btn">{{ $t('settings.account.finish_session') }}</div>
         </div>
       </div>
       <div class="create__group--actions">

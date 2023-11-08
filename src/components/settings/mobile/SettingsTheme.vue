@@ -4,8 +4,8 @@
       <div class="settings__header--back" @click="emit('handleSelectNav', 'main')">
         <SettingsBackIcon />
       </div>
-      <div class="settings__header--text">{{ $t('settings.accaunt.theme') }}</div>
-      <div class="settings__header--ready">{{ $t('settings.accaunt.ready') }}</div>
+      <div class="settings__header--text">{{ $t('settings.account.theme') }}</div>
+      <div class="settings__header--ready">{{ $t('settings.account.ready') }}</div>
     </div>
     <div class="theme__wrapper">
       <label

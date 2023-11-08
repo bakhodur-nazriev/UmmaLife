@@ -5,18 +5,18 @@
     <SettingsClose @click="$router.go(-1)" />
   </div>
   <div class="settings__mobile--container">
-    <div class="settings__mobile--title">{{ $t('settings.accaunt.accaunt_settings') }}</div>
+    <div class="settings__mobile--title">{{ $t('settings.account.account_settings') }}</div>
     <ul class="settings__mobile--menu">
       <li class="settings__mobile--list" @click="emit('handleSelectNav', 'settings')">
         <span>{{ $t('settings.nav.main') }}</span>
         <ArrowRight />
       </li>
       <li class="settings__mobile--list" @click="emit('handleSelectNav', 'profile')">
-        <span>{{ $t('settings.accaunt.profile') }}</span>
+        <span>{{ $t('settings.account.profile') }}</span>
         <ArrowRight />
       </li>
     </ul>
-    <div class="settings__mobile--title">{{ $t('settings.accaunt.safety') }}</div>
+    <div class="settings__mobile--title">{{ $t('settings.account.safety') }}</div>
     <ul class="settings__mobile--menu">
       <li class="settings__mobile--list" @click="emit('handleSelectNav', 'security')">
         <span>{{ $t('settings.nav.confidential') }}</span>
@@ -35,26 +35,26 @@
         <ArrowRight />
       </li>
     </ul>
-    <div class="settings__mobile--title">{{ $t('settings.accaunt.display') }}</div>
+    <div class="settings__mobile--title">{{ $t('settings.account.display') }}</div>
     <ul class="settings__mobile--menu">
       <li class="settings__mobile--list" @click="emit('handleSelectNav', 'theme')">
-        <span>{{ $t('settings.accaunt.theme') }}</span>
+        <span>{{ $t('settings.account.theme') }}</span>
         <ArrowRight />
       </li>
     </ul>
-    <div class="settings__mobile--title">{{ $t('settings.accaunt.notif') }}</div>
+    <div class="settings__mobile--title">{{ $t('settings.account.notification') }}</div>
     <div class="settings__notif">
       <div class="settings__notif--top">
-        <div class="settings__notif--title">{{ $t('settings.accaunt.popup_notif') }}</div>
+        <div class="settings__notif--title">{{ $t('settings.account.popup_notification') }}</div>
         <BaseToggle :checked="true" />
       </div>
-      <div class="settings__notif--text">{{ $t('settings.accaunt.show_popup_notif') }}</div>
-      <a href="#" class="settings__notif--link">{{ $t('settings.accaunt.to_system_settings') }}</a>
+      <div class="settings__notif--text">{{ $t('settings.account.show_popup_notification') }}</div>
+      <a href="#" class="settings__notif--link">{{ $t('settings.account.to_system_settings') }}</a>
     </div>
-    <div class="settings__mobile--title">{{ $t('settings.accaunt.help_and_support') }}</div>
+    <div class="settings__mobile--title">{{ $t('settings.account.help_and_support') }}</div>
     <ul class="settings__mobile--menu">
       <li class="settings__mobile--list">
-        <span>{{ $t('settings.accaunt.repeort_problem') }}</span>
+        <span>{{ $t('settings.account.report_problem') }}</span>
         <ArrowRight />
       </li>
     </ul>
@@ -73,7 +73,7 @@
         <ArrowRight />
       </li>
     </ul>
-    <div class="settings__mobile--title">{{ $t('settings.accaunt.quit') }}</div>
+    <div class="settings__mobile--title">{{ $t('settings.account.quit') }}</div>
     <ul class="settings__mobile--menu">
       <li class="settings__mobile--list">
         <span class="quit">{{ $t('settings.session.quit') }}</span>
