@@ -41,7 +41,7 @@ const props = defineProps({
   }
 })
 
-const clickButton = () => {
+const handleButtonClick = () => {
   emit('click')
 }
 </script>
@@ -50,7 +50,7 @@ const clickButton = () => {
   <button
     :type="type"
     :class="['btn', `btn_${color}`, { btn_rounded: rounded }, { btn_icon: icon }]"
-    @click="clickButton"
+    @click="handleButtonClick"
     :style="{ fontSize: `${size}px`, width, padding }"
     :disabled="disabled"
   >
