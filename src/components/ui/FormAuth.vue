@@ -1,13 +1,13 @@
 <template>
   <form class="form" :class="isRTL ? 'rtl' : 'ltr'">
-    <slot/>
+    <slot />
   </form>
 </template>
 
 <script>
 export default {
   computed: {
-    isRTL () {
+    isRTL() {
       return this.$i18n.locale === 'ar'
     }
   }
@@ -18,7 +18,7 @@ export default {
 .form {
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: var(--color-white);
   padding: 40px 32px;
   width: 100%;
 }

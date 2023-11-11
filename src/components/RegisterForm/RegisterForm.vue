@@ -1,13 +1,13 @@
 <template>
-  <FormAuth @submit="submit">
+  <FormAuth @submit="submitForm">
     <TitleSample>{{ $t('register.title') }}</TitleSample>
 
     <div :class="['input-wrapper', { error: hasError || isInvalidEmail }]">
       <input
-          type="email"
-          v-model="email"
-          class="base-input"
-          :placeholder="$t('register.placeholders.email')"
+        type="email"
+        v-model="email"
+        class="base-input"
+        :placeholder="$t('register.placeholders.email')"
       />
       <small v-if="hasError || isInvalidEmail" class="error-message">
         {{ $t(isInvalidEmail ? 'register.validation.incorrect_email' : 'register.validation.empty_email') }}
@@ -15,22 +15,22 @@
     </div>
 
     <CheckBox
-        class="register-checkbox"
-        name="agreement"
-        color="secondary"
-        text-size="small"
+      class="register-checkbox"
+      name="agreement"
+      color="secondary"
+      text-size="small"
     >
       {{ $t('register.messages.agreement_to_creating_account') }} <br>
       <router-link
-          class="link register-checkbox__link"
-          :to="`/${$i18n.locale}/terms`"
+        class="link register-checkbox__link"
+        :to="`/${$i18n.locale}/terms`"
       >
         {{ $t('links.terms') }}
       </router-link>
       <span class="symbol__ampersand">&</span>
       <router-link
-          class="link register-checkbox__link"
-          :to="`/${$i18n.locale}/privacy-policy`"
+        class="link register-checkbox__link"
+        :to="`/${$i18n.locale}/privacy-policy`"
       >
         {{ $t('links.privacy_policy') }}
       </router-link>
@@ -38,9 +38,12 @@
 
     <div class="login-button-section">
       <SampleButton
-          @click="handleSubmit"
-          :title="`${ $t('buttons.get_code_by_email') }`"
-      />
+        :title="$t('buttons.get_code_by_email')"
+        :type="submitting ? 'button' : 'submit'"
+        :disabled="submitting"
+        @click="submitForm"
+      >
+      </SampleButton>
     </div>
 
     <div class="login-section">
@@ -67,7 +70,9 @@ export default {
   data() {
     return {
       email: '',
-      hasError: false
+      hasError: false,
+      loading: false,
+      submitting: false
     }
   },
   computed: {
@@ -85,14 +90,16 @@ export default {
     }
   },
   methods: {
-    async submit(event) {
+    async submitForm(event) {
       console.log('submit button called')
-      event.preventDefault()
+      if (this.submitting) return
+      this.submitting = true
 
       if (this.email.trim() === '' || this.isInvalidEmail) {
         this.hasError = true
       } else {
         try {
+          this.loading = true
           const response = await axios.post('https://ummalife.com/api/check-email', {
             email: this.email,
             server_key: '7c5940661c603657d973782cfdff94c2'
@@ -101,19 +108,20 @@ export default {
           console.log('Ответ от сервера:', response.data)
 
           // После успешного получения ответа, вызывайте метод handleSubmit
+          this.submitting = false
           await this.handleSubmit()
         } catch (error) {
           console.error('Ошибка при отправке POST-запроса:', error)
+          this.submitting = false
+        } finally {
+          this.loading = false
         }
       }
     },
 
     async handleSubmit() {
       this.$store.commit('setEmail', this.email)
-
       // Здесь можете выполнить дополнительную "логику отправки формы" или другие действия
-      // ...
-
       this.$emit('next-step')
     }
   }

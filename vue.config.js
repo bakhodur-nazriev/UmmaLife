@@ -3,7 +3,13 @@ module.exports = defineConfig({
   publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
   devServer: {
     historyApiFallback: true,
-    allowedHosts: 'all'
+    allowedHosts: 'all',
+    proxy: {
+      '/api': {
+        target: 'https://ummalife.com',
+        changeOrigin: true
+      }
+    }
   },
   transpileDependencies: true,
 

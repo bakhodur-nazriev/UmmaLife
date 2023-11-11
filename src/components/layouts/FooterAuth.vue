@@ -1,19 +1,25 @@
 <template>
   <footer class="footer">
     <nav class="footer__navigation">
-      <router-link class="footer__link" :to="`/${$i18n.locale}/terms`">{{ $t('links.terms') }}</router-link>
-      <router-link class="footer__link" :to="`/${$i18n.locale}/privacy-policy`">{{ $t('links.privacy_policy') }}</router-link>
-      <router-link class="footer__link" :to="`/${$i18n.locale}/contacts`">{{ $t('links.contacts') }}</router-link>
-      <router-link class="footer__link" :to="`/${$i18n.locale}/about-us`">{{ $t('links.about_us') }}</router-link>
+      <router-link class="footer__link" :to="`/${$i18n.locale}/terms`">{{
+        $t('links.terms')
+      }}</router-link>
+      <router-link class="footer__link" :to="`/${$i18n.locale}/privacy-policy`">{{
+        $t('links.privacy_policy')
+      }}</router-link>
+      <router-link class="footer__link" :to="`/${$i18n.locale}/contacts`">{{
+        $t('links.contacts')
+      }}</router-link>
+      <router-link class="footer__link" :to="`/${$i18n.locale}/about-us`">{{
+        $t('links.about_us')
+      }}</router-link>
     </nav>
 
     <p class="footer__copyright">(c) 2023 Umma Life</p>
   </footer>
 </template>
 
-<script>
-
-</script>
+<script></script>
 
 <style scoped>
 .footer {
@@ -36,11 +42,12 @@
   text-decoration: none;
   color: inherit;
   font-size: 14px;
+  color: var(--color-mine-shaft);
 }
 
 .footer__copyright {
   margin: 0;
-  color: #8D98B4;
+  color: #8d98b4;
   text-align: center;
   width: 100%;
   font-size: 14px;

@@ -11,7 +11,7 @@
         <sample-code-number-input
           v-for="index in 6"
           :key="index"
-          v-model="code[index-1]"
+          v-model="code[index - 1]"
           @next="focusNextInput"
           @backspace="handleBackspace"
         ></sample-code-number-input>
@@ -22,18 +22,12 @@
     </div>
 
     <div class="login__button-section">
-      <SampleButton
-        @click="handleSubmit"
-        :title="`${ $t('buttons.next') }`"
-      />
+      <SampleButton @click="handleSubmit" :title="`${$t('buttons.next')}`" />
     </div>
 
     <div class="resend__code">
       <label>{{ $t('login.messages.didnt_receive_code') }}</label>
-      <router-link
-        class="link"
-        :to="`/${$i18n.locale}/login`"
-      >
+      <router-link class="link" :to="`/${$i18n.locale}/login`">
         {{ $t('links.resend') }} 00:32
       </router-link>
     </div>
@@ -53,20 +47,20 @@ export default {
     FormAuth,
     TitleSample
   },
-  data () {
+  data() {
     return {
       code: ['', '', '', '', '', ''],
       hasError: false
     }
   },
   computed: {
-    mainEmail () {
+    mainEmail() {
       return this.$store.getters.getEmail
     }
   },
   methods: {
-    handleSubmit () {
-      if (this.code.some(val => val.trim() === '')) {
+    handleSubmit() {
+      if (this.code.some((val) => val.trim() === '')) {
         this.hasError = true
       } else {
         const fullCode = this.code.join('') // объединение значений кода в одну строку
@@ -78,20 +72,20 @@ export default {
       }
     },
 
-    submit (event) {
+    submit(event) {
       event.preventDefault()
       this.handleSubmit()
     },
-    focusNextInput () {
+    focusNextInput() {
       const inputs = this.$el.querySelectorAll('.verify__number-section input')
-      const currentIndex = Array.from(inputs).findIndex(input => input === document.activeElement)
+      const currentIndex = Array.from(inputs).findIndex((input) => input === document.activeElement)
       if (currentIndex >= 0 && currentIndex < inputs.length - 1) {
         inputs[currentIndex + 1].focus()
       }
     },
-    handleBackspace () {
+    handleBackspace() {
       const inputs = this.$el.querySelectorAll('.verify__number-section input')
-      const currentIndex = Array.from(inputs).findIndex(input => input === document.activeElement)
+      const currentIndex = Array.from(inputs).findIndex((input) => input === document.activeElement)
 
       if (currentIndex > 0) {
         inputs[currentIndex - 1].focus()
@@ -119,6 +113,7 @@ export default {
 .reminder-message {
   margin-top: 0;
   margin-bottom: 24px;
+  color: var(--color-mine-shaft);
 }
 
 .reply__phone-number {
@@ -133,13 +128,14 @@ export default {
   flex-direction: column;
 }
 
-.resend__code > label, a {
+.resend__code > label,
+a {
   margin: 0 4px;
   text-decoration: none;
 }
 
 .resend__code > label {
-  color: #B0B0B0;
+  color: #b0b0b0;
 }
 
 .verify__number-section {
