@@ -28,13 +28,13 @@
 </template>
 <script setup>
 /* eslint-disable */
-import { computed, ref } from 'vue'
+import axios from 'axios'
+import { ref } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { muvies as allMuvies } from '@/dummy.js'
 import MuviCard from '@/components/muvi/MuviCard.vue'
 import GroupsSearch from '@/components/groups/ui/GroupsSearch.vue'
 import MuviDetailSlider from '@/components/muvi/MuviDetailSlider.vue'
-const muvies = computed(() => allMuvies)
+const muvies = ref([])
 const activeIndex = ref(0)
 const isDetailOpen = ref(false)
 const categories = ref([
@@ -63,6 +63,13 @@ const categories = ref([
 const handleSelect = (index) => {
   activeIndex.value = index
 }
+
+const fetchFeeds = async () => {
+  const { data } = await axios.get('/json/muvi/reccomendations.json')
+  muvies.value = data.data
+}
+
+fetchFeeds()
 </script>
 
 <style lang="scss" scoped>
@@ -87,14 +94,24 @@ const handleSelect = (index) => {
       user-select: none;
       &:not(.active):hover {
         background-color: var(--color-hippie-blue);
-        color: var(--color-white);
+        color: var(--color-stable-white);
         opacity: 0.5;
       }
       &.active {
         background-color: var(--color-hippie-blue);
-        color: var(--color-white);
+        color: var(--color-stable-white) !important;
       }
     }
+  }
+}
+.light .muvi__popular--swiper {
+  .swiper-slide {
+    color: var(--color-mine-shaft);
+  }
+}
+.dark .muvi__popular--swiper {
+  .swiper-slide {
+    color: var(--color-stable-white);
   }
 }
 </style>

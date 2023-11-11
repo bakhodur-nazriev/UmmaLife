@@ -1,11 +1,13 @@
 <template>
-  <GroupsNav :links="links" className="muvi__nav" @clickNavHandler="clickNavHandler" />
-  <div class="muvi__container">
-    <TabMuviFeeds v-if="links[0].isActive" />
-    <TabMuviPopular v-else-if="links[1].isActive" />
-    <TabMuviActivity v-else-if="links[2].isActive" />
-    <TabMuviProfile v-else-if="links[3].isActive" />
-    <TabMuviAdd v-else-if="links[4].isActive" />
+  <div class="muvi__page">
+    <GroupsNav :links="links" className="muvi__nav" @clickNavHandler="clickNavHandler" />
+    <div class="muvi__container">
+      <TabMuviFeeds v-if="links[0].isActive" />
+      <TabMuviPopular v-else-if="links[1].isActive" />
+      <TabMuviActivity v-else-if="links[2].isActive" />
+      <TabMuviProfile v-else-if="links[3].isActive" />
+      <TabMuviAdd v-else-if="links[4].isActive" />
+    </div>
   </div>
 </template>
 
@@ -22,23 +24,23 @@ import TabMuviAdd from '@/components/muvi/tabs/TabMuviAdd.vue'
 
 const links = ref([
   {
-    name: 'Feed',
+    name: 'muvi.tabs.feed',
     isActive: true
   },
   {
-    name: 'Popular',
+    name: 'muvi.tabs.popular',
     isActive: false
   },
   {
-    name: 'Activity',
+    name: 'muvi.tabs.activity',
     isActive: false
   },
   {
-    name: 'Profile',
+    name: 'muvi.tabs.profile',
     isActive: false
   },
   {
-    name: '+ Add MUVI',
+    name: 'muvi.tabs.add_muvi',
     isActive: false
   }
 ])
@@ -59,8 +61,21 @@ const clickNavHandler = (index) => {
   }
   &__wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(233px, 1fr));
-    gap: 28px 16px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 68px 16px;
+
+    @media (max-width: 1580px) {
+      grid-template-columns: repeat(5, 1fr);
+    }
+    @media (max-width: 1380px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    @media (max-width: 1127px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 910px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 }
 </style>

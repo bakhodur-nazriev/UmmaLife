@@ -41,8 +41,7 @@ import SearchVideoView from '@/views/SearchViews/VideoView.vue'
 import SearchHashtagsView from '@/views/SearchViews/HashtagsView.vue'
 import ShowArticlesView from '@/views/ShowArticlesView.vue'
 import UmmaVideoDetailVue from '@/views/UmmaVideoDetail.vue'
-import MuviView from '@/views/muvi/MuviView.vue'
-import MuviMobileView from '@/views/muvi/MuviMobileView.vue'
+import MuviView from '@/views/MuviView.vue'
 import VideoSingleViewVue from '@/views/VideoSingleView.vue'
 import PreviewArticleView from '@/views/PreviewArticleView.vue'
 import NotificationsView from '@/views/NotificationsView.vue'
@@ -477,19 +476,10 @@ const routes = [
     meta: {
       title: i18n.global.t('meta_title.muvi'),
       requiresAuth: true,
-      layout: 'main'
+      layout: 'another'
     }
   },
-  {
-    path: '/:lang?/muvi-mobile',
-    name: 'muvi-mobile',
-    component: MuviMobileView,
-    meta: {
-      title: i18n.global.t('meta_title.muvi'),
-      requiresAuth: true,
-      layout: 'main-mobile'
-    }
-  },
+
   {
     path: '/:lang?/notifications',
     name: 'notifications',

@@ -731,5 +731,14 @@
     "yesterday": "Вчера",
     "week": "На этой неделе",
     "month": "В этом месяце"
+  },
+  "muvi": {
+    "tabs": {
+      "feed": "Feed",
+      "popular": "Популярные",
+      "activity": "Активность",
+      "profile": "Профиль",
+      "add_muvi": "+ Добавить MUVI"
+    }
   }
 }

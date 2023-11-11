@@ -186,6 +186,8 @@ const posterHandler = (e) => {
   }
   &--label {
     margin-top: 70px;
+    display: flex;
+    justify-content: center;
   }
   &--form {
     display: grid;

@@ -726,5 +726,14 @@
     "yesterday": "Yesterday",
     "week": "This week",
     "month": "This month"
+  },
+  "muvi": {
+    "tabs": {
+      "feed": "Feed",
+      "popular": "Popular",
+      "activity": "Activity",
+      "profile": "Profile",
+      "add_muvi": "+ Add MUVI"
+    }
   }
 }

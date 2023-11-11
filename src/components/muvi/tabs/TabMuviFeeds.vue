@@ -14,11 +14,18 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
-import { muvies as allMuvies } from '@/dummy.js'
+import axios from 'axios'
+import { ref } from 'vue'
 import MuviCard from '@/components/muvi/MuviCard.vue'
 import MuviDetailSlider from '@/components/muvi/MuviDetailSlider.vue'
-const muvies = computed(() => allMuvies)
+const muvies = ref([])
 
 const isDetailOpen = ref(false)
+
+const fetchFeeds = async () => {
+  const { data } = await axios.get('/json/muvi/viewed.json')
+  muvies.value = data.data
+}
+
+fetchFeeds()
 </script>
