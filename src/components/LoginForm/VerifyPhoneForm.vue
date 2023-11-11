@@ -11,7 +11,7 @@
         <sample-code-number-input
           v-for="index in 6"
           :key="index"
-          v-model="code[index-1]"
+          v-model="code[index - 1]"
           @next="focusNextInput"
           @backspace="handleBackspace"
           @input="checkCodeFilled"
@@ -24,7 +24,7 @@
 
     <div class="login__button-section">
       <SampleButton
-        :title="`${ $t('buttons.login') }`"
+        :title="`${$t('buttons.login')}`"
         @click="handleSubmit"
         :disabled="!isCodeFilled"
         :class="{ 'inActive-button': !isCodeFilled }"
@@ -33,10 +33,7 @@
 
     <div class="resend__code">
       <label>{{ $t('login.messages.didnt_receive_code') }}</label>
-      <router-link
-        class="link"
-        :to="`/${$i18n.locale}/login`"
-      >
+      <router-link class="link" :to="`/${$i18n.locale}/login`">
         {{ $t('links.resend') }} 00:32
       </router-link>
     </div>
@@ -56,7 +53,7 @@ export default {
     TitleSample,
     SampleButton
   },
-  data () {
+  data() {
     return {
       isCodeFilled: false,
       code: ['', '', '', '', '', ''],
@@ -64,13 +61,13 @@ export default {
     }
   },
   computed: {
-    phoneNumber () {
+    phoneNumber() {
       return this.$store.getters.getPhoneNumber
     }
   },
   methods: {
-    handleSubmit () {
-      if (this.code.some(val => val.trim() === '')) {
+    handleSubmit() {
+      if (this.code.some((val) => val.trim() === '')) {
         this.hasError = true
       } else {
         const fullCode = this.code.join('') // объединение значений кода в одну строку
@@ -82,27 +79,27 @@ export default {
       }
     },
 
-    submit (event) {
+    submit(event) {
       event.preventDefault()
       this.handleSubmit()
     },
 
-    checkCodeFilled () {
+    checkCodeFilled() {
       const inputs = this.$el.querySelectorAll('.verify__number-section input')
-      const isFilled = Array.from(inputs).every(input => input.value !== '')
+      const isFilled = Array.from(inputs).every((input) => input.value !== '')
       this.isCodeFilled = isFilled
     },
-    handleBackspace () {
+    handleBackspace() {
       const inputs = this.$el.querySelectorAll('.verify__number-section input')
-      const currentIndex = Array.from(inputs).findIndex(input => input === document.activeElement)
+      const currentIndex = Array.from(inputs).findIndex((input) => input === document.activeElement)
 
       if (currentIndex > 0) {
         inputs[currentIndex - 1].focus()
       }
     },
-    focusNextInput () {
+    focusNextInput() {
       const inputs = this.$el.querySelectorAll('.verify__number-section input')
-      const currentIndex = Array.from(inputs).findIndex(input => input === document.activeElement)
+      const currentIndex = Array.from(inputs).findIndex((input) => input === document.activeElement)
       if (currentIndex >= 0 && currentIndex < inputs.length - 1) {
         inputs[currentIndex + 1].focus()
       }
@@ -138,12 +135,13 @@ export default {
   flex-direction: column;
 }
 
-.resend__code > label, a {
+.resend__code > label,
+a {
   margin: 0 4px;
 }
 
 .resend__code > label {
-  color: #B0B0B0;
+  color: #b0b0b0;
 }
 
 .reply__phone-number {
@@ -153,6 +151,7 @@ export default {
 .reminder-message {
   margin-top: 0;
   margin-bottom: 24px;
+  color: var(--color-mine-shaft);
 }
 
 .verify__number-section {

@@ -11,7 +11,7 @@
           :type="isPasswordVisible ? 'text' : 'password'"
           v-model="password"
           class="base-input"
-          :class="{'input-field': true, 'error': passwordError}"
+          :class="{ 'input-field': true, error: passwordError }"
           :placeholder="$t('register.placeholders.your_password')"
         />
 
@@ -29,7 +29,7 @@
       <SampleButton
         @click="handleSubmit"
         class="login-button__section-next"
-        :title="`${ $t('buttons.next') }`"
+        :title="`${$t('buttons.next')}`"
       />
     </div>
   </form-auth>
@@ -50,7 +50,7 @@ export default {
     FormAuth,
     SampleButton
   },
-  data () {
+  data() {
     return {
       password: '',
       hasError: false,
@@ -59,19 +59,19 @@ export default {
     }
   },
   watch: {
-    password (newPassword) {
+    password(newPassword) {
       if (newPassword.trim() !== '') {
         this.hasError = false
       }
     }
   },
   computed: {
-    isRTL () {
+    isRTL() {
       return this.$i18n.locale === 'ar'
     }
   },
   methods: {
-    handleSubmit () {
+    handleSubmit() {
       // Выполните обработку данных формы
       if (this.password.trim() === '') {
         this.hasError = true
@@ -83,11 +83,11 @@ export default {
         // Переключитесь на следующий шаг
       }
     },
-    submit (event) {
+    submit(event) {
       event.preventDefault()
       this.handleSubmit()
     },
-    togglePasswordVisibility () {
+    togglePasswordVisibility() {
       this.isPasswordVisible = !this.isPasswordVisible
     }
   }
@@ -114,6 +114,7 @@ export default {
 .reminder-message {
   margin-top: 0;
   margin-bottom: 40px;
+  color: var(--color-mine-shaft);
 }
 
 .login-button__section {

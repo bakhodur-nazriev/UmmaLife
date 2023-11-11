@@ -1,13 +1,13 @@
 <template>
   <div class="layout">
-    <LocalesDropdown class="layout__locales"/>
-    <MainLogo class="layout__logo"/>
+    <LocalesDropdown class="layout__locales" />
+    <MainLogo class="layout__logo" />
 
     <div class="layout__inner">
       <slot></slot>
     </div>
 
-    <FooterAuth :class="isTRL ? 'rtl' : ''" class="layout__footer"/>
+    <FooterAuth :class="isTRL ? 'rtl' : ''" class="layout__footer" />
   </div>
 </template>
 
@@ -24,9 +24,13 @@ export default {
   },
 
   computed: {
-    isTRL () {
+    isTRL() {
       return this.$i18n.locale === 'ar'
     }
+  },
+  mounted() {
+    const html = document.querySelector('html')
+    html.classList.value = localStorage.getItem('theme') || 'light'
   }
 }
 </script>
