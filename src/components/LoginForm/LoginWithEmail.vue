@@ -5,10 +5,10 @@
     <div class="main__input-email-block">
       <div :class="['input-wrapper', { error: hasError.email || isInvalidEmail }]">
         <input
-          name="username"
-          v-model="email"
-          class="base-input"
-          :placeholder="$t('login.placeholders.email')"
+            name="username"
+            v-model="email"
+            class="base-input"
+            :placeholder="$t('login.placeholders.email')"
         />
         <small v-if="hasError.email || isInvalidEmail" class="error-message">
           {{ $t(isInvalidEmail ? 'login.validation.incorrect_email' : 'login.validation.empty_email') }}
@@ -19,12 +19,12 @@
     <div class="main__input-password-block">
       <div class="input-with-eye" :class="['input-wrapper', { error: hasError.password }]">
         <input
-          name="password"
-          :type="isPasswordVisible ? 'text' : 'password'"
-          v-model="password"
-          class="base-input"
-          :class="{'input-field': true, 'error': passwordError}"
-          :placeholder="$t('login.placeholders.password')"
+            name="password"
+            :type="isPasswordVisible ? 'text' : 'password'"
+            v-model="password"
+            class="base-input"
+            :class="{'input-field': true, 'error': passwordError}"
+            :placeholder="$t('login.placeholders.password')"
         />
 
         <button type="button" class="eye-button" @click="togglePasswordVisibility">
@@ -38,23 +38,23 @@
     </div>
 
     <router-link
-      :to="`/${$i18n.locale}/forgot-password`"
-      class="forgot-password-link link"
+        :to="`/${$i18n.locale}/forgot-password`"
+        class="forgot-password-link link"
     >
       {{ $t('login.forgot_password') }}
     </router-link>
 
     <div class="login-button-section">
       <SampleButton
-        type="submit"
-        :title="$t('buttons.login')"
-        :disabled="loading"
+          type="submit"
+          :title="$t('buttons.login')"
+          :disabled="loading"
       />
     </div>
 
     <router-link
-      class="link create-account-link"
-      :to="`/${$i18n.locale}/register`"
+        class="link create-account-link"
+        :to="`/${$i18n.locale}/register`"
     >
       {{ $t('login.create_account') }}
     </router-link>
@@ -62,6 +62,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import SampleButton from '@/components/ui/SampleButton.vue'
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
@@ -77,7 +78,7 @@ export default {
     FormAuth,
     SampleButton
   },
-  data () {
+  data() {
     return {
       email: '',
       password: '',
@@ -91,18 +92,18 @@ export default {
     }
   },
   computed: {
-    isInvalidEmail () {
+    isInvalidEmail() {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       return this.email.trim() !== '' && !emailRegex.test(this.email)
     }
   },
   watch: {
-    email (newEmail) {
+    email(newEmail) {
       if (newEmail.trim() !== '') {
         this.hasError.email = false
       }
     },
-    password (newPassword) {
+    password(newPassword) {
       if (newPassword.trim() !== '') {
         this.hasError.password = false
       }
@@ -115,9 +116,9 @@ export default {
       this.hasError.email = this.email.trim() === ''
       this.hasError.password = this.password.trim() === ''
 
-      if (this.hasError.email || this.hasError.password) {
-        return
-      }
+      // if (this.hasError.email || this.hasError.password) {
+      //   return
+      // }
 
       try {
         this.loading = true // Set loading state
@@ -138,15 +139,59 @@ export default {
     },
 
     async sendLoginRequest() {
-      const loginData = {
-        server_key: '7c5940661c603657d973782cfdff94c2',
-        username: this.email,
-        password: this.password
-      }
+    //   const loginData = {
+    //     server_key: '7c5940661c603657d973782cfdff94c2',
+    //     username: this.email,
+    //     password: this.password
+    //   }
+    //
+    //   return axios.post('https://ummalife.com/api/auth', loginData, {
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Access-Control-Allow-Origin': '*',
+    //       'Cookie': '_us=1699670165; ad-con=%7B%26quot%3Bdate%26quot%3B%3A%26quot%3B2023-11-10%26quot%3B%2C%26quot%3Bads%26quot%3B%3A%5B%5D%7D; PHPSESSID=1mldrf0l16agugedeuuv06f7tr; access=1; mode=day; timezone=Asia%2FDushanbe'
+    //     },
+    //   withCredentials: true
+    // })
 
-      return axios.post('https://ummalife.com/api/auth', loginData)
+      // Import Axios at the beginning of your script
+// ...
+
+// Your API endpoint
+      const apiUrl = 'https://ummalife.com/api/auth';
+
+// Your form data
+      const formData = new FormData();
+      formData.append('server_key', '7c5940661c603657d973782cfdff94c2');
+      formData.append('username', 'Test2021');
+      formData.append('password', '123456789');
+      formData.append('android_n_device_id', '');
+      formData.append('android_dev_device_id', '');
+      formData.append('android_beta_device_id', '');
+      formData.append('ios_n_device_id', '');
+      formData.append('ios_dev_device_id', '');
+      formData.append('ios_beta_device_id', '');
+
+// Your cookies
+      const cookies = '_us=1699670165; ad-con=%7B%26quot%3Bdate%26quot%3B%3A%26quot%3B2023-11-10%26quot%3B%2C%26quot%3Bads%26quot%3B%3A%5B%5D%7D; PHPSESSID=1mldrf0l16agugedeuuv06f7tr; access=1; mode=day; timezone=Asia%2FDushanbe';
+
+// Make the request
+      axios.post(apiUrl, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Cookie': cookies,
+        },
+      })
+          .then(response => {
+            console.log('Response Headers:', response.headers);
+            console.log('Response:', response.data);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+
     },
-    togglePasswordVisibility () {
+    togglePasswordVisibility() {
       this.isPasswordVisible = !this.isPasswordVisible
     }
   }

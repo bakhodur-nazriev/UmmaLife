@@ -31,7 +31,9 @@
       "video": "Video",
       "audio": "Audio",
       "hashtags": "Hashtags"
-    }
+    },
+    "show_article": "",
+    "preview_article": ""
   },
   "login": {
     "title": "Login",

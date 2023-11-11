@@ -32,7 +32,8 @@
       "audio": "Аудио",
       "hashtags": "Хештеги"
     },
-    "show_article": ""
+    "show_article": "",
+    "preview_article": ""
   },
   "login": {
     "title": "Вход",
