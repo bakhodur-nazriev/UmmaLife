@@ -111,6 +111,7 @@ export default {
 
 .reminder-message {
   margin-bottom: 12px;
+  color: var(--color-mine-shaft);
 }
 
 .login-button-section {
