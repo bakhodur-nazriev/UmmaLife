@@ -1,6 +1,6 @@
 <template>
-  <form-auth @submit="submit">
-    <title-sample>{{ $t('login.forgot_password') }}</title-sample>
+  <FormAuth @submit="submit">
+    <TitleSample>{{ $t('login.forgot_password') }}</TitleSample>
 
     <h5 class="text-1 roman reminder-message">{{ $t('login.messages.reset_password') }}</h5>
 
@@ -13,11 +13,7 @@
       />
       <small v-if="hasError || isInvalidEmail" class="error-message">
         {{
-          $t(
-            isInvalidEmail
-              ? 'forgot_password.validation.incorrect_email'
-              : 'forgot_password.validation.empty_email'
-          )
+          $t(isInvalidEmail ? 'forgot_password.validation.incorrect_email' : 'forgot_password.validation.empty_email')
         }}
       </small>
     </div>
@@ -25,7 +21,16 @@
     <div class="login-button-section">
       <SampleButton @click="handleSubmit" :title="`${$t('buttons.submit')}`" />
     </div>
-  </form-auth>
+  </FormAuth>
+
+  <div class="link-register__block">
+    <router-link
+        :to="`/${$i18n.locale}/register`"
+        class="link-register"
+    >
+      {{ $t('login.create_account') }}
+    </router-link>
+  </div>
 </template>
 
 <script>
@@ -79,6 +84,19 @@ export default {
 </script>
 
 <style scoped>
+.link-register {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-mine-shaft);
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+
+.link-register__block {
+  margin-top: 32px;
+}
+
 .input-wrapper {
   position: relative;
   margin-bottom: 24px;

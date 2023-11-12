@@ -61,11 +61,12 @@
   </FormAuth>
 
   <div class="login-with-phone-section">
-    <SampleButton
-        color="none"
+    <router-link
+        :to="`/${$i18n.locale}/login-by-phone`"
         class="link-with-phone-number"
-        :title="`${ $t('login.with_phone_number') }`"
-    />
+    >
+      {{ $t('login.with_phone_number') }}
+    </router-link>
   </div>
 </template>
 
@@ -176,6 +177,7 @@ export default {
   color: var(--color-mine-shaft);
   cursor: pointer;
   border: none;
+  text-decoration: none;
 }
 
 .login-with-phone-section {

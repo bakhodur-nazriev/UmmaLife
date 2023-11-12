@@ -7,10 +7,10 @@
         <div class="phone__field-section">
           <SampleSelectedCountry @country-selected="handleCountrySelected"/>
           <input
-            type="tel"
-            class="base-input"
-            v-model="phoneNumber"
-            :placeholder="$t('login.placeholders.phone')"
+              type="tel"
+              class="base-input"
+              v-model="phoneNumber"
+              :placeholder="$t('login.placeholders.phone')"
           />
         </div>
         <small v-if="hasError" class="error-message">
@@ -21,14 +21,14 @@
     </div>
     <div class="login-button__section">
       <SampleButton
-        class="login-button__section-button"
-        @click="handleSubmit"
-        :title="`${ $t('buttons.login') }`"
+          class="login-button__section-button"
+          @click="handleSubmit"
+          :title="`${ $t('buttons.login') }`"
       />
     </div>
     <router-link
-      class="link create-account-link"
-      :to="`/${$i18n.locale}/register`"
+        class="link create-account-link"
+        :to="`/${$i18n.locale}/register`"
     >
       {{ $t('login.create_account') }}
     </router-link>

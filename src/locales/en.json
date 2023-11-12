@@ -2,8 +2,19 @@
   "lang": "en",
   "meta_title": {
     "home": "Home",
-    "login": "Login",
-    "register": "Register",
+    "login": {
+      "by_email": "Login with Email",
+      "by_phone_step1": "Login with Phone - Step 1",
+      "confirm_phone_step2": "Login with Phone - Step 2"
+    },
+    "register": {
+      "add_email_step1": "Register - Add Email",
+      "confirm_email_step2": "Register - Confirm Email",
+      "create_password_step3": "Register - Create Password",
+      "add_info_step4": "Register - Add Info",
+      "add_phone_step5": "Register - Add Phone",
+      "category_interests_step6": "Register - Category Interests"
+    },
     "forgot_password": "Forgot Password",
     "terms": "Terms",
     "privacy_policy": "Privacy Policy",

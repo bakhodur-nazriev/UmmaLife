@@ -48,7 +48,7 @@
 
     <div class="login-section">
       <label class="login-section__label">{{ $t('register.label') }}</label>
-      <router-link class="login-section__link" :to="`/${$i18n.locale}/login`">{{ $t('login.title') }}</router-link>
+      <router-link class="login-section__link" :to="`/${$i18n.locale}/login-by-email`">{{ $t('login.title') }}</router-link>
     </div>
   </FormAuth>
 </template>

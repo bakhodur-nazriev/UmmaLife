@@ -213,7 +213,7 @@ export default {
     text-decoration: none;
     font-size: 16px;
     line-height: 1.5;
-    color: inherit;
+    color: var(--color-mine-shaft);
   }
 }
 

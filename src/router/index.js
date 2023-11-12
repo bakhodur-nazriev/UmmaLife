@@ -2,14 +2,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import i18n from '@/i18n'
 import { supportedLanguages } from '@/constants'
-import HomeView from '../views/HomeView.vue'
-import LoginView from '../views/Auth/LoginView.vue'
-import RegisterView from '../views/Auth/RegisterView.vue'
-import ForgotPasswordView from '../views/Auth/ForgotPasswordView.vue'
-import TermsView from '../views/TermsView.vue'
-import PrivacyPolicyView from '../views/PrivacyPolicyView.vue'
-import ContactsView from '../views/ContactsView.vue'
-import AboutUs from '../views/AboutUsView.vue'
+import HomeView from '@/views/HomeView.vue'
+import LoginByEmailView from '@/views/Auth/Login/LoginByEmailView.vue'
+import LoginByPhoneStep1View from '@/views/Auth/Login/LoginByPhoneStep1View.vue'
+import RegisterView from '@/views/Auth/Register/RegisterAddEmailStep1View.vue'
+import ForgotPasswordView from '@/views/Auth/ForgotPasswordView.vue'
+import TermsView from '@/views/TermsView.vue'
+import PrivacyPolicyView from '@/views/PrivacyPolicyView.vue'
+import ContactsView from '@/views/ContactsView.vue'
+import AboutUs from '@/views/AboutUsView.vue'
 import MessengerView from '@/views/MessengerView.vue'
 import MessengerChatView from '@/views/MessengerChatView.vue'
 import MessengerEmptyView from '@/views/MessengerEmptyView.vue'
@@ -46,6 +47,13 @@ import MuviMobileView from '@/views/muvi/MuviMobileView.vue'
 import VideoSingleViewVue from '@/views/VideoSingleView.vue'
 import PreviewArticleView from '@/views/PreviewArticleView.vue'
 import NotificationsView from '@/views/NotificationsView.vue'
+import LoginByPhoneStep2View from '@/views/Auth/Login/LoginByPhoneStep2View.vue'
+import RegisterAddEmailStep1View from '@/views/Auth/Register/RegisterAddEmailStep1View.vue'
+import RegisterConfirmEmailStep2View from '@/views/Auth/Register/RegisterConfirmEmailStep2View.vue'
+import RegisterCreatePasswordStep3View from '@/views/Auth/Register/RegisterCreatePasswordStep3View.vue'
+import RegisterAddInfoStep4View from '@/views/Auth/Register/RegisterAddInfoStep4View.vue'
+import RegisterAddPhoneStep5View from '@/views/Auth/Register/RegisterAddPhoneStep5View.vue'
+import RegisterCategoryInterestsStep6View from '@/views/Auth/Register/RegisterCategoryInterestsStep6View.vue'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const baseDomain = isProduction ? 'front1.ummalife.dev' : 'localhost'
@@ -62,24 +70,106 @@ const routes = [
     }
   },
   {
-    path: '/:lang?/login',
-    name: 'login',
-    component: LoginView,
+    path: '/:lang?/login-by-email',
+    name: 'login-by-email',
+    component: LoginByEmailView,
     meta: {
-      title: i18n.global.t('meta_title.login'),
+      title: i18n.global.t('meta_title.login.by_email'),
       requiresAuth: false,
       layout: 'auth'
     }
   },
   {
+    path: '/:lang?/login-by-phone',
+    component: LoginByPhoneStep1View,
+    children: [
+      {
+        path: '',
+        name: 'LoginByPhoneStep1View',
+        component: LoginByPhoneStep1View,
+        meta: {
+          title: i18n.global.t('meta_title.login.by_phone_step1'),
+          requiresAuth: false,
+          layout: 'auth'
+        }
+      },
+      {
+        path: 'step2',
+        name: 'LoginByPhoneStep2View',
+        component: LoginByPhoneStep2View,
+        meta: {
+          title: i18n.global.t('meta_title.login.confirm_phone_step2'),
+          requiresAuth: false,
+          layout: 'auth'
+        }
+      }
+    ]
+  },
+  {
     path: '/:lang?/register',
-    name: 'register',
     component: RegisterView,
-    meta: {
-      title: i18n.global.t('meta_title.register'),
-      requiresAuth: false,
-      layout: 'auth'
-    }
+    children: [
+      {
+        path: '',
+        name: 'RegisterAddEmailStep1View',
+        component: RegisterAddEmailStep1View,
+        meta: {
+          title: i18n.global.t('meta_title.register.add_email_step1'),
+          requiresAuth: false,
+          layout: 'auth'
+        }
+      },
+      {
+        path: 'step2',
+        name: 'RegisterConfirmEmailStep2View',
+        component: RegisterConfirmEmailStep2View,
+        meta: {
+          title: i18n.global.t('meta_title.register.confirm_email_step2'),
+          requiresAuth: false,
+          layout: 'auth'
+        }
+      },
+      {
+        path: 'step3',
+        name: 'RegisterCreatePasswordStep3View',
+        component: RegisterCreatePasswordStep3View,
+        meta: {
+          title: i18n.global.t('meta_title.register.create_password_step3'),
+          requiresAuth: false,
+          layout: 'auth'
+        }
+      },
+      {
+        path: 'step4',
+        name: 'RegisterAddInfoStep4View',
+        component: RegisterAddInfoStep4View,
+        meta: {
+          title: i18n.global.t('meta_title.register.add_info_step4'),
+          requiresAuth: false,
+          layout: 'auth'
+        }
+      },
+      {
+        path: 'step5',
+        name: 'RegisterAddPhoneStep5View',
+        component: RegisterAddPhoneStep5View,
+        meta: {
+          title: i18n.global.t('meta_title.register.add_phone_step5'),
+          requiresAuth: false,
+          layout: 'auth'
+        }
+      },
+      {
+        path: 'step6',
+        name: 'RegisterCategoryInterestsStep6View',
+        component: RegisterCategoryInterestsStep6View,
+        meta: {
+          title: i18n.global.t('meta_title.register.category_interests_step6'),
+          requiresAuth: false,
+          layout: 'auth'
+        }
+      }
+    ]
   },
   {
     path: '/:lang?/forgot-password',
@@ -429,7 +519,6 @@ const routes = [
       layout: 'main'
     }
   },
-
   {
     path: '/:lang?/news',
     name: 'news',
@@ -557,16 +646,16 @@ router.beforeEach((to, from, next) => {
 
   document.title = `${to.meta.title} | ${process.env.VUE_APP_TITLE}`
 
-  // if (requiresAuth && !isUserAuthenticated()) {
-  //   // Если маршрут требует авторизации и пользователь не аутентифицирован, перенаправляем на страницу авторизации
-  //   return next({ name: 'login' })
-  // }
+  if (requiresAuth && !isUserAuthenticated()) {
+    // Если маршрут требует авторизации и пользователь не аутентифицирован, перенаправляем на страницу авторизации
+    return next({ name: 'login-by-email' })
+  }
 
   // Проверка статуса авторизации
   /*const isAuthenticated = store.getters.getAuthenticated
 
   // Роуты, на которых разрешено продолжить навигацию для неавторизованных пользователей
-  const allowedRoutes = ['login', 'register', 'forgot-password']
+  const allowedRoutes = ['Login', 'register', 'forgot-password']
 
   // Если пользователь авторизован, перенаправляем на главную страницу
   if (isAuthenticated) {
@@ -579,7 +668,7 @@ router.beforeEach((to, from, next) => {
   }
 
   // Если пользователь не авторизован и находится на других роутах, перенаправляем на страницу входа
-  return next('/login')*/
+  return next('/Login')*/
 
   if (to.name === 'home') {
     return next({

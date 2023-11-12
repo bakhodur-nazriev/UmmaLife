@@ -80,6 +80,7 @@ export default {
   &-code {
     font-size: 16px;
     margin: 0 8px;
+    color: var(--color-mine-shaft);
   }
 
   &-select {
