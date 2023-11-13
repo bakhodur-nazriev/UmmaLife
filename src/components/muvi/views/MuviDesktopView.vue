@@ -63,6 +63,7 @@ const clickNavHandler = (index) => {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 68px 16px;
+    padding-bottom: 20px;
 
     @media (max-width: 1580px) {
       grid-template-columns: repeat(5, 1fr);

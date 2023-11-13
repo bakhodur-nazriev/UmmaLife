@@ -1,27 +1,25 @@
 <template>
   <MainLayout v-if="width > 767">
-    <button type="button" @click="login">Fetch</button>
-    <pre v-html="pre"></pre>
     <MuviDesktopView />
   </MainLayout>
   <MuviMobileView v-else />
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import axios from 'axios'
+import { onMounted } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 import MainLayout from '@/components/layouts/MainLayout.vue'
 import MuviDesktopView from '@/components/muvi/views/MuviDesktopView.vue'
 import MuviMobileView from '@/components/muvi/views/MuviMobileView.vue'
-
+import { getFormData } from '../utils'
 const { width } = useWindowSize()
-const pre = ref(null)
-const login = async () => {
-  const url = 'https://dev.ummalife.com/api'
 
+const login = async () => {
   try {
+    if (localStorage.getItem('access_token')) return
     const payload = getFormData({
-      server_key: '7c5940661c603657d973782cfdff94c2',
+      server_key: process.env.VUE_APP_SERVER_KEY,
       username: 'Test2021',
       password: '123456789',
       android_n_device_id: null,
@@ -31,30 +29,18 @@ const login = async () => {
       ios_dev_device_id: null,
       ios_beta_device_id: null
     })
-    const json = await fetch(`${url}/auth`, {
-      method: 'POST',
-      body: payload,
+    const { data } = await axios.post('/auth', payload, {
       headers: {
-        'Content-Type': 'multipart/form-data',
-        Accept: '*/*'
+        'Content-Type': 'multipart/form-data'
       }
     })
-
-    const data = await json.json()
-    console.log(data)
-
-    pre.value = JSON.stringify(data)
+    if (data?.api_status === 200) {
+      localStorage.setItem('access_token', data.access_token)
+    }
   } catch (err) {
-    pre.value = err
+    console.log(err)
   }
 }
 
-const getFormData = (options) => {
-  const formData = new FormData()
-  for (let key in options) {
-    formData.append(key, options[key])
-  }
-
-  return formData
-}
+onMounted(login)
 </script>

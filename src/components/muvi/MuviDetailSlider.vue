@@ -14,7 +14,7 @@
           @swiper="setThumbsSwiper"
         >
           <swiper-slide v-for="muvi in muvies" :key="muvi.id" class="thumb-slider-item">
-            <img :src="muvi.img" :alt="muvi.title" />
+            <img :src="muvi.preview" :alt="muvi.description" loading="lazy" />
             <ShortsPlay />
           </swiper-slide>
         </swiper>
@@ -31,10 +31,10 @@
         :resistance-ratio="0"
         class="muvi__detail--main"
       >
-        <swiper-slide v-for="muvi in muvies" :key="muvi.id">
+        <swiper-slide v-for="muvi in muvies" :key="muvi.id" v-slot="{ isActive }">
           <div class="shorts__modal parent">
             <div class="shorts__video video">
-              <ShortsCard class="isModal" />
+              <ShortsCard class="isModal" :muvi="muvi" v-if="isActive" />
             </div>
             <div class="shorts__content">
               <div class="shorts__info content">
@@ -115,8 +115,7 @@
 
 <script setup>
 /* eslint-disable */
-import { muvies } from '@/dummy'
-import { Navigation, Thumbs, Mousewheel } from 'swiper/modules'
+import { Navigation, Thumbs, Mousewheel, EffectFade } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { vOnClickOutside } from '@vueuse/components'
 import ShortsCard from '@/components/ui/Shorts/ShortsCard.vue'
@@ -131,6 +130,13 @@ import ShareIcon from '@/components/icons/shorts/ShareIcon.vue'
 import SendIcon from '@/components/icons/shorts/SendIcon.vue'
 import ShortsPlay from '@/components/icons/shorts/ShortsPlay.vue'
 import { ref, computed } from 'vue'
+
+const props = defineProps({
+  muvies: {
+    type: Array,
+    default: () => []
+  }
+})
 const emit = defineEmits(['handleClickOutside'])
 const thumbsSwiper = ref(null)
 const detailMore = ref()
@@ -144,7 +150,6 @@ const setThumbsSwiper = (swiper) => {
 }
 
 const handleClickOutside = () => {
-  console.log('clicked')
   emit('handleClickOutside')
 }
 </script>
@@ -296,5 +301,9 @@ const handleClickOutside = () => {
     color: var(--color-white);
     margin-bottom: 6px;
   }
+}
+.shorts__video {
+  position: relative;
+  z-index: 100;
 }
 </style>

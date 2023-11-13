@@ -1,6 +1,6 @@
 <template>
   <div class="muvi__wrapper">
-    <template v-for="muvi in muvies" :key="muvi.id">
+    <template v-for="muvi in likedMovies" :key="muvi.id">
       <MuviCard
         :muvi="muvi"
         v-if="muvi && !Array.isArray(muvi)"
@@ -8,43 +8,34 @@
       />
     </template>
   </div>
-  <div
-    v-intersection-observer="loadMore"
-    v-if="!isLoading && countElements >= 20"
-    class="observer"
-  ></div>
-
   <MuviDetailSlider
     v-if="isDetailOpen"
     @handleClickOutside="isDetailOpen = false"
-    :muvies="muvies"
+    :muvies="likedMovies"
   />
 </template>
 
 <script setup>
 /* eslint-disable */
+import { ref } from 'vue'
 import axios from 'axios'
 import { vIntersectionObserver } from '@vueuse/components'
-import { ref } from 'vue'
+import { getFormData } from '@/utils'
 import MuviCard from '@/components/muvi/MuviCard.vue'
 import MuviDetailSlider from '@/components/muvi/MuviDetailSlider.vue'
-import { getFormData } from '@/utils'
-const muvies = ref([])
 
-const isDetailOpen = ref(false)
-const page = ref(1)
+const likedMovies = ref([])
 const isLoading = ref(false)
-const countElements = ref(0)
+const isDetailOpen = ref(false)
 
-const fetchFeeds = async (page) => {
+const fetchLikedMovies = async () => {
   try {
     isLoading.value = true
     const payload = getFormData({
       server_key: process.env.VUE_APP_SERVER_KEY,
-      page,
-      filter: 'recomendation'
+      last_id: null
     })
-    const { data } = await axios.post('/get-short-videos', payload, {
+    const { data } = await axios.post('/muvi-liked-videos', payload, {
       headers: {
         'Content-Type': 'multipart/form-data'
       },
@@ -52,8 +43,7 @@ const fetchFeeds = async (page) => {
         access_token: localStorage.getItem('access_token')
       }
     })
-    muvies.value = [...muvies.value, ...data.data]
-    countElements.value = data.countElements
+    likedMovies.value = data.data
   } catch (err) {
     console.log(err)
   } finally {
@@ -67,5 +57,6 @@ const loadMore = async ([{ isIntersecting }]) => {
     await fetchFeeds(page.value)
   }
 }
-fetchFeeds(page.value)
+
+fetchLikedMovies()
 </script>

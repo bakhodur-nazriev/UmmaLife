@@ -1,14 +1,14 @@
 <template>
   <div class="muvi__card" @click="emit('cardClickHandler')">
     <div class="muvi__card--top">
-      <img :src="muvi.preview" :alt="muvi.description" class="muvi__card--img" />
+      <img :src="muvi.preview" :alt="muvi.description" class="muvi__card--img" loading="lazy" />
       <div class="muvi__card--seen">
         <SeenIcon /><span>{{ shortNum(Number(muvi.videoViews || 0)) }}</span>
       </div>
     </div>
     <div class="muvi__card--title">{{ muvi.description }}</div>
     <a href="#" class="muvi__card--profile">
-      <img :src="muvi.user_avatar" :alt="muvi.username" />
+      <img :src="muvi.user_avatar" :alt="muvi.username" loading="lazy" />
       <span>{{ muvi.username }}</span>
     </a>
   </div>
@@ -27,10 +27,9 @@ const emit = defineEmits(['cardClickHandler'])
 <style lang="scss" scoped>
 .muvi__card {
   width: 100%;
-  min-height: 474px;
-  max-height: 474px;
+  height: 474px;
   &--top {
-    min-height: 415px;
+    height: 415px;
     width: 100%;
     position: relative;
     overflow: hidden;

@@ -1,11 +1,7 @@
 <template>
   <div ref="shortsCard" class="shorts__card" :style="{ '--shorts-offset': `${offset}px` }">
     <div class="shorts__card--inner">
-      <video-player
-        :src="index % 2 === 1 ? '/video/short-1.mp4' : '/video/short-2.mp4'"
-        controls
-        :volume="1"
-      >
+      <video-player :src="muvi.src" controls :volume="1" autoplay="play">
         <template v-slot="{ player, state }">
           <div class="custom-player-controls">
             <button class="mute" @click="player.muted(!state.muted)">
@@ -30,40 +26,40 @@
         </template>
       </video-player>
     </div>
-    <ShortsReactions @openModal="$emit('openModal')" />
+    <ShortsReactions @openModal="emit('openModal')" />
   </div>
 </template>
 
-<script>
+<script setup>
+/* eslint-disable */
+import { useElementSize } from '@vueuse/core'
+import { ref, watch } from 'vue'
+
 import { VideoPlayer } from '@videojs-player/vue'
 import UnmuteIcon from '@/components/icons/shorts/UnmuteIcon.vue'
 import MuteIcon from '@/components/icons/shorts/MuteIcon.vue'
 import ShortsReactions from '@/components/ui/Shorts/ShortsReactions.vue'
 
-export default {
-  emits: ['openModal'],
-  props: {
-    index: {
-      type: Number,
-      default: 0
-    },
-    offset: {
-      type: Number,
-      default: 0
-    }
+const emit = defineEmits(['openModal', 'eleHeight'])
+const props = defineProps({
+  index: {
+    type: Number,
+    default: 0
   },
-  components: { VideoPlayer, UnmuteIcon, MuteIcon, ShortsReactions }
-}
-</script>
-<script setup>
-/* eslint-disable */
-import { useElementSize } from '@vueuse/core'
-import { ref, watch } from 'vue'
+  offset: {
+    type: Number,
+    default: 0
+  },
+  muvi: {
+    type: Object,
+    default: () => ({
+      src: '/video/short-1.mp4'
+    })
+  }
+})
+
 const shortsCard = ref(null)
-
 const { height: eleHeight } = useElementSize(shortsCard)
-
-const emit = defineEmits(['eleHeight'])
 
 watch(
   () => eleHeight.value,
@@ -95,6 +91,7 @@ watch(
   &.isModal {
     max-width: 100%;
     height: 100%;
+    z-index: 120;
     .shorts__card--inner {
       border-radius: 0;
     }

@@ -1,6 +1,6 @@
 <template>
   <div class="muvi__wrapper">
-    <template v-for="muvi in muvies" :key="muvi.id">
+    <template v-for="muvi in viewedMovies" :key="muvi.id">
       <MuviCard
         :muvi="muvi"
         v-if="muvi && !Array.isArray(muvi)"
@@ -13,38 +13,38 @@
     v-if="!isLoading && countElements >= 20"
     class="observer"
   ></div>
-
   <MuviDetailSlider
     v-if="isDetailOpen"
     @handleClickOutside="isDetailOpen = false"
-    :muvies="muvies"
+    :muvies="viewedMovies"
   />
 </template>
 
 <script setup>
 /* eslint-disable */
-import axios from 'axios'
-import { vIntersectionObserver } from '@vueuse/components'
 import { ref } from 'vue'
+import { vIntersectionObserver } from '@vueuse/components'
+import axios from 'axios'
+import { getFormData } from '@/utils'
+
 import MuviCard from '@/components/muvi/MuviCard.vue'
 import MuviDetailSlider from '@/components/muvi/MuviDetailSlider.vue'
-import { getFormData } from '@/utils'
-const muvies = ref([])
 
-const isDetailOpen = ref(false)
-const page = ref(1)
+const viewedMovies = ref([])
 const isLoading = ref(false)
 const countElements = ref(0)
+const isDetailOpen = ref(false)
 
-const fetchFeeds = async (page) => {
+const computedLastId = ref(null)
+
+const fetchViewedMovies = async (last_id = 18543) => {
+  isLoading.value = true
   try {
-    isLoading.value = true
     const payload = getFormData({
       server_key: process.env.VUE_APP_SERVER_KEY,
-      page,
-      filter: 'recomendation'
+      last_id
     })
-    const { data } = await axios.post('/get-short-videos', payload, {
+    const { data } = await axios.post('/muvi-viewed-videos', payload, {
       headers: {
         'Content-Type': 'multipart/form-data'
       },
@@ -52,8 +52,9 @@ const fetchFeeds = async (page) => {
         access_token: localStorage.getItem('access_token')
       }
     })
-    muvies.value = [...muvies.value, ...data.data]
     countElements.value = data.countElements
+    viewedMovies.value = [...viewedMovies.value, ...data.data]
+    computedLastId.value = viewedMovies.value[viewedMovies.value.length - 1].id
   } catch (err) {
     console.log(err)
   } finally {
@@ -63,9 +64,9 @@ const fetchFeeds = async (page) => {
 
 const loadMore = async ([{ isIntersecting }]) => {
   if (isIntersecting) {
-    page.value += 1
-    await fetchFeeds(page.value)
+    await fetchViewedMovies(computedLastId.value)
   }
 }
-fetchFeeds(page.value)
+
+fetchViewedMovies()
 </script>

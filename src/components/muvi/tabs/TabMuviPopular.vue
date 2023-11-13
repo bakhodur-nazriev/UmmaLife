@@ -8,23 +8,26 @@
         v-for="(category, index) in categories"
         :key="category"
         :class="{ active: activeIndex === index }"
-        @click="handleSelect(index)"
+        @click="handleSelect(index, category)"
       >
-        <span>{{ $t(category) }}</span>
+        <span>{{ category.description }} {{ category.emoji }}</span>
       </swiper-slide>
     </swiper>
     <div class="muvi__wrapper">
-      <MuviCard
-        v-for="muvi in muvies"
-        :key="muvi.id"
-        :muvi="muvi"
-        @cardClickHandler="isDetailOpen = true"
-      />
+      <template v-for="muvi in muvies" :key="muvi.id">
+        <MuviCard
+          :muvi="muvi"
+          @cardClickHandler="isDetailOpen = true"
+          v-if="muvi && !Array.isArray(muvi)"
+        />
+      </template>
     </div>
   </div>
-  <teleport to="body">
-    <MuviDetailSlider v-if="isDetailOpen" @handleClickOutside="isDetailOpen = false" />
-  </teleport>
+  <MuviDetailSlider
+    v-if="isDetailOpen"
+    @handleClickOutside="isDetailOpen = false"
+    :movies="muvies"
+  />
 </template>
 <script setup>
 /* eslint-disable */
@@ -34,42 +37,98 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import MuviCard from '@/components/muvi/MuviCard.vue'
 import GroupsSearch from '@/components/groups/ui/GroupsSearch.vue'
 import MuviDetailSlider from '@/components/muvi/MuviDetailSlider.vue'
+import { getFormData } from '@/utils'
+
 const muvies = ref([])
 const activeIndex = ref(0)
 const isDetailOpen = ref(false)
+
 const categories = ref([
-  'settings.main.categories.religion',
-  'settings.main.categories.psychology',
-  'settings.main.categories.family',
-  'settings.main.categories.work',
-  'settings.main.categories.education',
-  'settings.main.categories.travel',
-  'settings.main.categories.books',
-  'settings.main.categories.science',
-  'settings.main.categories.sport',
-  'settings.main.categories.art',
-  'settings.main.categories.auto',
-  'settings.main.categories.food',
-  'settings.main.categories.positive',
-  'settings.main.categories.fitness',
-  'settings.main.categories.history',
-  'settings.main.categories.fashion',
-  'settings.main.categories.architecture',
-  'settings.main.categories.beauty',
-  'settings.main.categories.parenting',
-  'settings.main.categories.nature'
+  {
+    code: 'top',
+    description: 'Top',
+    emoji: '🔝',
+    id: 999999
+  },
+  {
+    code: 'new',
+    description: 'New',
+    emoji: '🆕',
+    id: 9992132
+  }
 ])
 
-const handleSelect = (index) => {
+const handleSelect = async (index, category) => {
   activeIndex.value = index
+  if (category.code === 'top' || category.code === 'new') {
+    await fetchRecommendations(category.code)
+  } else {
+    await fetchCategorieVideos(category.id)
+  }
 }
 
-const fetchFeeds = async () => {
-  const { data } = await axios.get('/json/muvi/reccomendations.json')
-  muvies.value = data.data
+const fetchRecommendations = async (category_code) => {
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      last_id: null,
+      filter: category_code
+    })
+    const { data } = await axios.post('/muvi-recommendations', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    muvies.value = data.data
+  } catch (err) {
+    console.log(err)
+  }
 }
 
-fetchFeeds()
+const fetchCategories = async () => {
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      page: 1
+    })
+    const { data } = await axios.post('/categories', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    categories.value = [...categories.value, ...data.data]
+  } catch (err) {
+    console.log(err)
+  }
+}
+const fetchCategorieVideos = async (category_id) => {
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      last_id: null,
+      category_id
+    })
+    const { data } = await axios.post('/muvi-category-videos', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    muvies.value = data.data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+Promise.all([fetchRecommendations(categories.value[0].code), fetchCategories()])
 </script>
 
 <style lang="scss" scoped>
