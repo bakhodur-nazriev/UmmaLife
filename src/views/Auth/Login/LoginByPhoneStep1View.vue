@@ -1,22 +1,30 @@
 <template>
-  <FormAuth @submit="submit">
+  <FormAuth>
     <TitleSample>{{ $t('login.title') }}</TitleSample>
     <div class="sample__phone-input">
 
-      <div :class="['input-wrapper', { error: hasError }]">
-        <div class="phone__field-section">
-          <SampleSelectedCountry @country-selected="handleCountrySelected"/>
-          <input
-              type="tel"
-              class="base-input"
-              v-model="phoneNumber"
-              :placeholder="$t('login.placeholders.phone')"
-          />
-        </div>
-        <small v-if="hasError" class="error-message">
-          {{ $t('register.validation.incorrect_phone_number') }}
-        </small>
-      </div>
+      <vue-tel-input
+          v-model="phoneNumber"
+          v-bind="bindProps"
+          @country-changed="countryChanged"
+      >
+      </vue-tel-input>
+
+      {{ responseErrorText }}
+      <!--      <div :class="['input-wrapper', { error: hasError }]">
+              <div class="phone__field-section">
+                <input
+                    type="tel"
+                    class="base-input"
+                    name="phone"
+                    v-model="phoneNumber"
+                    :placeholder="$t('login.placeholders.phone')"
+                />
+              </div>
+              <small v-if="hasError" class="error-message">
+                {{ $t('register.validation.incorrect_phone_number') }}
+              </small>
+            </div>-->
 
     </div>
     <div class="login-button__section">
@@ -45,14 +53,19 @@
 </template>
 
 <script>
+/* eslint-disable */
 import SampleButton from '@/components/ui/SampleButton.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import FormAuth from '@/components/ui/FormAuth.vue'
-import SampleSelectedCountry from '@/components/ui/SampleSelectedCountry.vue'
+import axios from 'axios'
+import {VueTelInput} from 'vue-tel-input'
+import 'vue-tel-input/vue-tel-input.css'
+import DropdownIcon from "@/components/icons/DropdownIcon.vue";
 
 export default {
   components: {
-    SampleSelectedCountry,
+    DropdownIcon,
+    VueTelInput,
     FormAuth,
     TitleSample,
     SampleButton
@@ -61,36 +74,65 @@ export default {
     return {
       phoneNumber: '',
       selectedCountryCode: '',
-      hasError: false
-    }
-  },
-  watch: {
-    phoneNumber(newPhoneNumber) {
-      const fullPhoneNumber = this.selectedCountry.code + newPhoneNumber
-      this.$store.commit('setPhoneNumber', fullPhoneNumber)
-      if (newPhoneNumber.trim() !== '') {
-        this.hasError = false
-      }
+      hasError: false,
+      bindProps: {
+        autoFormat: false,
+        mode: 'international',
+        inputOptions: {
+          placeholder: this.$t('login.placeholders.phone'),
+          name: 'phone',
+          styleClasses: 'base-input',
+        },
+        dropdownOptions: {
+          showFlags: true,
+          showDialCodeInList: true,
+          showDialCodeInSelection: true,
+        },
+        styleClasses: 'input-wrapper'
+      },
+      country: null,
+      responseErrorText: ''
     }
   },
   methods: {
-    handleSubmit() {
-      this.hasError = this.phoneNumber.trim() === ''
-
-      if (this.hasError) {
-        return
+    async handleSubmit() {
+      if (!this.phoneNumber || !this.selectedCountryCode) {
+        console.error('Phone number or country code is missing');
+        return;
       }
 
-      this.phoneNumber = this.selectedCountry.code + this.phoneNumber
-      this.$emit('next-step')
+      try {
+        const response = await this.sendLoginRequest();
+
+        if (response.data.api_status === 200) {
+          this.$router.push({name: 'LoginByPhoneStep2View'});
+          console.log(response.data)
+        } else {
+          this.responseErrorText = response.data.errors
+          console.error(response.data);
+          // Обработка других кодов состояния, если нужно
+        }
+      } catch (error) {
+        console.error('Error sending request:', error);
+        // Обработка ошибки, если нужно
+      }
     },
-    submit(event) {
-      console.log('submit button called')
-      event.preventDefault()
+    sendLoginRequest() {
+      const fullPhoneNumber = this.selectedCountryCode + this.phoneNumber;
+      const formData = new FormData();
+      formData.append('server_key', process.env.VUE_APP_SERVER_KEY);
+      formData.append('phone', fullPhoneNumber);
+
+      const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'multipart/form-data'
+      };
+
+      return axios.post('https://ummalife.com/api/auth-phone', formData, {headers});
     },
-    handleCountrySelected(countryCode) {
-      this.selectedCountryCode = countryCode
-    }
+    countryChanged(country) {
+      this.selectedCountryCode = '+' + country.dialCode
+    },
   },
   computed: {
     isRTL() {
@@ -98,8 +140,17 @@ export default {
     }
   },
   mounted() {
-    this.handleCountrySelected()
-  }
+    console.log(this.country)
+  },
+  watch: {
+    phoneNumber(newPhoneNumber) {
+      const fullPhoneNumber = this.selectedCountryCode + newPhoneNumber
+      this.$store.commit('setPhoneNumber', fullPhoneNumber)
+      if (newPhoneNumber.trim() !== '') {
+        this.hasError = false
+      }
+    }
+  },
 }
 </script>
 

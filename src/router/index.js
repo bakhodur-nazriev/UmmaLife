@@ -81,7 +81,6 @@ const routes = [
   },
   {
     path: '/:lang?/login-by-phone',
-    component: LoginByPhoneStep1View,
     children: [
       {
         path: '',
@@ -93,16 +92,16 @@ const routes = [
           layout: 'auth'
         }
       },
-      {
-        path: 'step2',
-        name: 'LoginByPhoneStep2View',
-        component: LoginByPhoneStep2View,
-        meta: {
-          title: i18n.global.t('meta_title.login.confirm_phone_step2'),
-          requiresAuth: false,
-          layout: 'auth'
-        }
-      }
+	    {
+		    path: 'step2',
+		    name: 'LoginByPhoneStep2View',
+		    component: LoginByPhoneStep2View,
+		    meta: {
+			    title: i18n.global.t('meta_title.login.confirm_phone_step2'),
+			    requiresAuth: false,
+			    layout: 'auth'
+		    }
+	    }
     ]
   },
   {
@@ -646,10 +645,10 @@ router.beforeEach((to, from, next) => {
 
   document.title = `${to.meta.title} | ${process.env.VUE_APP_TITLE}`
 
-  if (requiresAuth && !isUserAuthenticated()) {
-    // Если маршрут требует авторизации и пользователь не аутентифицирован, перенаправляем на страницу авторизации
-    return next({ name: 'login-by-email' })
-  }
+  // if (requiresAuth && !isUserAuthenticated()) {
+  //   // Если маршрут требует авторизации и пользователь не аутентифицирован, перенаправляем на страницу авторизации
+  //   return next({ name: 'login-by-email' })
+  // }
 
   // Проверка статуса авторизации
   /*const isAuthenticated = store.getters.getAuthenticated

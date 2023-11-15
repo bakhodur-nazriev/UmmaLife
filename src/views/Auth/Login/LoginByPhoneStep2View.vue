@@ -1,8 +1,8 @@
 <template>
-  <form-auth @submit="submit">
-    <title-sample>{{ $t('login.title') }}</title-sample>
+  <FormAuth @submit="submit">
+    <TitleSample>{{ $t('login.title') }}</TitleSample>
 
-    <h5 class="subhead roman reminder-message">{{ $t('Login.messages.verify_with_phone') }}</h5>
+    <h5 class="subhead roman reminder-message">{{ $t('login.messages.verify_with_phone') }}</h5>
 
     <h5 class="title bold reply__phone-number">{{ phoneNumber }}</h5>
 
@@ -18,7 +18,7 @@
         ></sample-code-number-input>
       </div>
       <small v-if="hasError" class="error-message">
-        {{ $t('Login.validation.incorrect_code') }}
+        {{ $t('login.validation.incorrect_code') }}
       </small>
     </div>
 
@@ -32,12 +32,12 @@
     </div>
 
     <div class="resend__code">
-      <label>{{ $t('Login.messages.didnt_receive_code') }}</label>
+      <label>{{ $t('login.messages.didnt_receive_code') }}</label>
       <router-link class="link" :to="`/${$i18n.locale}/login`">
         {{ $t('links.resend') }} 00:32
       </router-link>
     </div>
-  </form-auth>
+  </FormAuth>
 </template>
 
 <script>
@@ -141,11 +141,12 @@ a {
 }
 
 .resend__code > label {
-  color: #b0b0b0;
+  color: var(--color-silver-chalice);
 }
 
 .reply__phone-number {
   margin-bottom: 32px;
+  color: var(--color-silver-chalice);
 }
 
 .reminder-message {

@@ -44,6 +44,10 @@
       {{ $t('login.forgot_password') }}
     </router-link>
 
+    <div class="error-message" v-if="errorText">
+      {{ errorText }}
+    </div>
+
     <div class="login-button-section">
       <SampleButton
           type="submit"
@@ -97,7 +101,8 @@ export default {
         email: false,
         password: false
       },
-      loading: false
+      loading: false,
+      errorText: null
     }
   },
   computed: {
@@ -120,53 +125,92 @@ export default {
   },
   methods: {
     async handleSubmit(event) {
-      event.preventDefault()
-
-      this.hasError.email = this.email.trim() === ''
-      this.hasError.password = this.password.trim() === ''
-
-      if (this.hasError.email || this.hasError.password) {
-        return
-      }
-
       try {
-        this.loading = true // Set loading state
-        const response = await this.sendLoginRequest()
+        event.preventDefault();
+
+        const errors = this.validateForm();
+        if (errors.length > 0) {
+          // Обработка ошибок валидации, если они есть
+          return;
+        }
+
+        this.loading = true;
+        const response = await this.sendLoginRequest();
 
         if (response.status === 200) {
-          // Process the response data here
-          console.log(response.data)
+          this.handleSuccessfulLogin(response.data);
         } else {
-          console.error('Response status is not 200')
+          this.handleFailedLogin(response.data);
         }
       } catch (error) {
-        // Handle errors
-        console.error('Error fetching data:', error)
+        this.handleError(error);
       } finally {
-        this.loading = false // Reset loading state
+        this.loading = false;
+      }
+    },
+
+    validateForm() {
+      const errors = [];
+
+      if (this.email.trim() === '') {
+        this.hasError.email = true;
+        errors.push('Email is required');
+      } else {
+        this.hasError.email = false;
+      }
+
+      if (this.password.trim() === '') {
+        this.hasError.password = true;
+        errors.push('Password is required');
+      } else {
+        this.hasError.password = false;
+      }
+
+      return errors;
+    },
+
+    handleSuccessfulLogin(data) {
+      console.log(data.errors.error_text);
+      this.errorText = data.errors.error_text;
+    },
+
+    handleFailedLogin(data) {
+      console.error('Response status is not 200');
+      this.errorText = data.errors ? data.errors.error_text : 'Login failed. Please check your credentials.';
+    },
+
+    handleError(error) {
+      console.error('Error fetching data:', error);
+
+      if (error.response && error.response.data && error.response.data.errors && error.response.data.errors.error_text) {
+        this.errorText = error.response.data.errors.error_text;
+      } else {
+        this.errorText = 'An error occurred while processing your request. Please try again later.';
       }
     },
 
     async sendLoginRequest() {
-      const loginData = {
-        server_key: '7c5940661c603657d973782cfdff94c2',
-        username: this.email,
-        password: this.password
+      const formData = new FormData();
+      formData.append('server_key', process.env.VUE_APP_SERVER_KEY);
+      formData.append('username', this.email);
+      formData.append('password', this.password);
+
+      const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'multipart/form-data'
+      };
+
+      try {
+        return await axios.post('https://ummalife.com/api/auth', formData, {headers});
+      } catch (error) {
+        throw error;
       }
-
-      return axios.post('https://ummalife.com/api/auth', loginData, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
-        },
-        withCredentials: true
-      })
-
     },
+
     togglePasswordVisibility() {
       this.isPasswordVisible = !this.isPasswordVisible
     }
-  }
+  },
 }
 </script>
 
@@ -191,7 +235,7 @@ export default {
 }
 
 .forgot-password-link {
-  margin-bottom: 64px;
+  margin-bottom: 5px;
   font-size: 14px;
   width: max-content;
 }
@@ -199,6 +243,7 @@ export default {
 .login-button-section {
   display: flex;
   justify-content: center;
+  margin-top: 64px;
 
   button {
     width: 100%;
@@ -215,6 +260,10 @@ export default {
   margin-bottom: 8px;
 }
 
+.error-message {
+  color: var(--color-valencia);
+}
+
 .input-wrapper {
   position: relative;
 
@@ -224,7 +273,7 @@ export default {
   }
 
   .error-message {
-    color: red;
+    color: var(--color-valencia);
     font-size: 12px;
     margin-top: 4px;
   }

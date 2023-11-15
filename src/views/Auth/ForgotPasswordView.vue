@@ -6,10 +6,10 @@
 
     <div :class="['input-wrapper', { error: hasError || isInvalidEmail }]">
       <input
-        type="email"
-        v-model="email"
-        class="base-input"
-        :placeholder="$t('login.placeholders.email')"
+          type="email"
+          v-model="email"
+          class="base-input"
+          :placeholder="$t('login.placeholders.email')"
       />
       <small v-if="hasError || isInvalidEmail" class="error-message">
         {{
@@ -19,7 +19,7 @@
     </div>
 
     <div class="login-button-section">
-      <SampleButton @click="handleSubmit" :title="`${$t('buttons.submit')}`" />
+      <SampleButton @click="handleSubmit" :title="`${$t('buttons.submit')}`"/>
     </div>
   </FormAuth>
 
@@ -130,6 +130,8 @@ export default {
 .reminder-message {
   margin-bottom: 12px;
   color: var(--color-mine-shaft);
+  font-size: 20px;
+  line-height: 1.5;
 }
 
 .login-button-section {
