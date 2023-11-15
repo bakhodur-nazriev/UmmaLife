@@ -124,6 +124,42 @@ export default {
     }
   },
   methods: {
+    validateForm() {
+      const errors = [];
+
+      if (this.email.trim() === '') {
+        this.hasError.email = true;
+        errors.push('Email is required');
+      } else {
+        this.hasError.email = false;
+      }
+
+      if (this.password.trim() === '') {
+        this.hasError.password = true;
+        errors.push('Password is required');
+      } else {
+        this.hasError.password = false;
+      }
+
+      return errors;
+    },
+    handleSuccessfulLogin(data) {
+      console.log(data.errors.error_text);
+      this.errorText = data.errors.error_text;
+    },
+    handleFailedLogin(data) {
+      console.error('Response status is not 200');
+      this.errorText = data.errors ? data.errors.error_text : 'Login failed. Please check your credentials.';
+    },
+    handleError(error) {
+      console.error('Error fetching data:', error);
+
+      if (error.response && error.response.data && error.response.data.errors && error.response.data.errors.error_text) {
+        this.errorText = error.response.data.errors.error_text;
+      } else {
+        this.errorText = 'An error occurred while processing your request. Please try again later.';
+      }
+    },
     async handleSubmit(event) {
       try {
         event.preventDefault();
@@ -148,47 +184,6 @@ export default {
         this.loading = false;
       }
     },
-
-    validateForm() {
-      const errors = [];
-
-      if (this.email.trim() === '') {
-        this.hasError.email = true;
-        errors.push('Email is required');
-      } else {
-        this.hasError.email = false;
-      }
-
-      if (this.password.trim() === '') {
-        this.hasError.password = true;
-        errors.push('Password is required');
-      } else {
-        this.hasError.password = false;
-      }
-
-      return errors;
-    },
-
-    handleSuccessfulLogin(data) {
-      console.log(data.errors.error_text);
-      this.errorText = data.errors.error_text;
-    },
-
-    handleFailedLogin(data) {
-      console.error('Response status is not 200');
-      this.errorText = data.errors ? data.errors.error_text : 'Login failed. Please check your credentials.';
-    },
-
-    handleError(error) {
-      console.error('Error fetching data:', error);
-
-      if (error.response && error.response.data && error.response.data.errors && error.response.data.errors.error_text) {
-        this.errorText = error.response.data.errors.error_text;
-      } else {
-        this.errorText = 'An error occurred while processing your request. Please try again later.';
-      }
-    },
-
     async sendLoginRequest() {
       const formData = new FormData();
       formData.append('server_key', process.env.VUE_APP_SERVER_KEY);

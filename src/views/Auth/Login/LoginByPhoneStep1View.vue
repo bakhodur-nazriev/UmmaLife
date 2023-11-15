@@ -119,6 +119,7 @@ export default {
     },
     sendLoginRequest() {
       const fullPhoneNumber = this.selectedCountryCode + this.phoneNumber;
+      this.$store.commit('setPhoneNumber', fullPhoneNumber)
       const formData = new FormData();
       formData.append('server_key', process.env.VUE_APP_SERVER_KEY);
       formData.append('phone', fullPhoneNumber);
@@ -141,16 +142,7 @@ export default {
   },
   mounted() {
     console.log(this.country)
-  },
-  watch: {
-    phoneNumber(newPhoneNumber) {
-      const fullPhoneNumber = this.selectedCountryCode + newPhoneNumber
-      this.$store.commit('setPhoneNumber', fullPhoneNumber)
-      if (newPhoneNumber.trim() !== '') {
-        this.hasError = false
-      }
-    }
-  },
+  }
 }
 </script>
 

@@ -5,7 +5,6 @@ import { supportedLanguages } from '@/constants'
 import HomeView from '@/views/HomeView.vue'
 import LoginByEmailView from '@/views/Auth/Login/LoginByEmailView.vue'
 import LoginByPhoneStep1View from '@/views/Auth/Login/LoginByPhoneStep1View.vue'
-import RegisterView from '@/views/Auth/Register/RegisterAddEmailStep1View.vue'
 import ForgotPasswordView from '@/views/Auth/ForgotPasswordView.vue'
 import TermsView from '@/views/TermsView.vue'
 import PrivacyPolicyView from '@/views/PrivacyPolicyView.vue'
@@ -106,7 +105,6 @@ const routes = [
   },
   {
     path: '/:lang?/register',
-    component: RegisterView,
     children: [
       {
         path: '',

@@ -1,5 +1,5 @@
 <template>
-  <FormAuth @submit="submit">
+  <FormAuth @submit="handleSubmit">
     <TitleSample>{{ $t('login.forgot_password') }}</TitleSample>
 
     <h5 class="text-1 roman reminder-message">{{ $t('login.messages.reset_password') }}</h5>
@@ -19,7 +19,10 @@
     </div>
 
     <div class="login-button-section">
-      <SampleButton @click="handleSubmit" :title="`${$t('buttons.submit')}`"/>
+      <SampleButton
+          type="submit"
+          :title="`${$t('buttons.submit')}`"
+      />
     </div>
   </FormAuth>
 
@@ -34,9 +37,11 @@
 </template>
 
 <script>
+/* eslint-disable */
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
+import axios from "axios";
 
 export default {
   components: {
@@ -64,20 +69,27 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {
+    async handleSubmit(event) {
       if (this.email.trim() === '' || this.isInvalidEmail) {
         this.hasError = true
-      } else {
-        // Perform form submission logic here
-        // ...
-
-        this.$emit('next-step')
       }
     },
-    submit(event) {
-      console.log('submit button called')
-      event.preventDefault()
-      this.handleSubmit()
+
+    async sendRequest() {
+      const formData = new FormData()
+      formData.append('server_key', process.env.VUE_APP_SERVER_KEY)
+      formData.append('email', this.email)
+
+      const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'multipart/form-data'
+      }
+
+      try {
+        return await axios.post('https://ummalife.com/api/send-reset-password-email', formData, {headers});
+      } catch (error) {
+        throw error
+      }
     }
   }
 }

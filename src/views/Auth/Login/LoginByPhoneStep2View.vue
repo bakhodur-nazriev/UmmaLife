@@ -9,12 +9,12 @@
     <div :class="['input-wrapper', { error: hasError }]">
       <div class="verify__number-section">
         <sample-code-number-input
-            v-for="index in 6"
-            :key="index"
-            v-model="code[index - 1]"
-            @next="focusNextInput"
-            @backspace="handleBackspace"
-            @input="checkCodeFilled"
+          v-for="index in 6"
+          :key="index"
+          v-model="code[index - 1]"
+          @next="focusNextInput"
+          @backspace="handleBackspace"
+          @input="checkCodeFilled"
         ></sample-code-number-input>
       </div>
       <small v-if="hasError" class="error-message">
@@ -24,18 +24,22 @@
 
     <div class="login__button-section">
       <SampleButton
-          :title="`${$t('buttons.login')}`"
-          @click="handleSubmit"
-          :disabled="!isCodeFilled"
-          :class="{ 'inActive-button': !isCodeFilled }"
+        :title="`${$t('buttons.login')}`"
+        @click="handleSubmit"
+        :disabled="!isCodeFilled"
+        :class="{ 'inActive-button': !isCodeFilled }"
       />
     </div>
 
     <div class="resend__code">
       <label>{{ $t('login.messages.didnt_receive_code') }}</label>
-      <router-link class="link" :to="`/${$i18n.locale}/login`">
-        {{ $t('links.resend') }} 00:32
-      </router-link>
+      <button
+        class="link"
+        @click="handleSubmit"
+        :disabled="isResendDisabled"
+      >
+        {{ $t('links.resend') }} {{ formatTime(countDown) }}
+      </button>
     </div>
   </FormAuth>
 </template>
@@ -45,6 +49,7 @@ import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import SampleCodeNumberInput from '@/components/ui/SampleCodeNumberInput.vue'
+import axios from "axios";
 
 export default {
   components: {
@@ -57,12 +62,17 @@ export default {
     return {
       isCodeFilled: false,
       code: ['', '', '', '', '', ''],
-      hasError: false
+      hasError: false,
+      countDown: 60,
+      timer: null
     }
   },
   computed: {
     phoneNumber() {
       return this.$store.getters.getPhoneNumber
+    },
+    isResendDisabled() {
+      return this.countDown > 0
     }
   },
   methods: {
@@ -75,19 +85,29 @@ export default {
         // Perform form submission logic here
         // ...
 
-        this.$emit('next-step')
       }
     },
+    async sendRequest() {
+      const fullCode = this.code.join('')
+      const formData = new FormData()
+      formData.append('server_key', process.env.VUE_APP_SERVER_KEY)
+      formData.append('phone', this.phoneNumber)
+      formData.append('code', fullCode)
 
-    submit(event) {
-      event.preventDefault()
-      this.handleSubmit()
+      const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'multipart/form-data'
+      }
+
+      try {
+        return await axios.post('https://ummalife.com/api/confirm-phone', formData, {headers})
+      } catch (error) {
+        throw error
+      }
     },
-
     checkCodeFilled() {
       const inputs = this.$el.querySelectorAll('.verify__number-section input')
-      const isFilled = Array.from(inputs).every((input) => input.value !== '')
-      this.isCodeFilled = isFilled
+      this.isCodeFilled = Array.from(inputs).every((input) => input.value !== '')
     },
     handleBackspace() {
       const inputs = this.$el.querySelectorAll('.verify__number-section input')
@@ -103,7 +123,28 @@ export default {
       if (currentIndex >= 0 && currentIndex < inputs.length - 1) {
         inputs[currentIndex + 1].focus()
       }
+    },
+    startCountdown() {
+      this.timer = setInterval(() => {
+        if (this.countDown > 0) {
+          this.countDown--
+        } else {
+          clearInterval(this.timer)
+        }
+      }, 1000)
+    },
+    formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60)
+      const reminderSeconds = seconds % 60
+
+      return `${minutes.toString().padStart(2, '0')}:${reminderSeconds.toString().padEnd(2, '0')}`
     }
+  },
+  created() {
+    this.startCountdown()
+  },
+  beforeDestroy() {
+    clearInterval(this.timer)
   }
 }
 </script>
@@ -123,16 +164,22 @@ export default {
   font-size: 12px;
 }
 
-.link {
-  text-decoration: none;
-}
-
 .resend__code {
   margin-top: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  .link {
+    text-decoration: none;
+    background: none;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    padding: 0;
+    outline: inherit;
+  }
 }
 
 .resend__code > label,
@@ -153,6 +200,7 @@ a {
   margin-top: 0;
   margin-bottom: 24px;
   color: var(--color-mine-shaft);
+  line-height: 1.5;
 }
 
 .verify__number-section {
