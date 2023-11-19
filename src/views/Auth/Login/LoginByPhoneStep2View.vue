@@ -1,5 +1,5 @@
 <template>
-  <FormAuth @submit="submit">
+  <FormAuth @submit="handleSubmit">
     <TitleSample>{{ $t('login.title') }}</TitleSample>
 
     <h5 class="subhead roman reminder-message">{{ $t('login.messages.verify_with_phone') }}</h5>
@@ -9,12 +9,12 @@
     <div :class="['input-wrapper', { error: hasError }]">
       <div class="verify__number-section">
         <sample-code-number-input
-          v-for="index in 6"
-          :key="index"
-          v-model="code[index - 1]"
-          @next="focusNextInput"
-          @backspace="handleBackspace"
-          @input="checkCodeFilled"
+            v-for="index in 6"
+            :key="index"
+            v-model="code[index - 1]"
+            @next="focusNextInput"
+            @backspace="handleBackspace"
+            @input="checkCodeFilled"
         ></sample-code-number-input>
       </div>
       <small v-if="hasError" class="error-message">
@@ -22,21 +22,28 @@
       </small>
     </div>
 
+    <span
+        class="notification-message"
+        v-if="notificationMessage"
+    >
+      {{ notificationMessage }}
+    </span>
+
     <div class="login__button-section">
       <SampleButton
-        :title="`${$t('buttons.login')}`"
-        @click="handleSubmit"
-        :disabled="!isCodeFilled"
-        :class="{ 'inActive-button': !isCodeFilled }"
+          type="submit"
+          :disabled="!isCodeFilled"
+          :title="`${$t('buttons.login')}`"
+          :class="{ 'inActive-button': !isCodeFilled }"
       />
     </div>
 
     <div class="resend__code">
       <label>{{ $t('login.messages.didnt_receive_code') }}</label>
       <button
-        class="link"
-        @click="handleSubmit"
-        :disabled="isResendDisabled"
+          class="link"
+          @click="handleSubmit"
+          :disabled="isResendDisabled"
       >
         {{ $t('links.resend') }} {{ formatTime(countDown) }}
       </button>
@@ -45,6 +52,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
@@ -64,7 +72,8 @@ export default {
       code: ['', '', '', '', '', ''],
       hasError: false,
       countDown: 60,
-      timer: null
+      timer: null,
+      notificationMessage: null
     }
   },
   computed: {
@@ -76,15 +85,17 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {
+    async handleSubmit(event) {
+      event.preventDefault()
+
       if (this.code.some((val) => val.trim() === '')) {
         this.hasError = true
-      } else {
-        const fullCode = this.code.join('') // объединение значений кода в одну строку
-        console.log(fullCode)
-        // Perform form submission logic here
-        // ...
+      }
 
+      const response = await this.sendRequest()
+      if (response.status === 200) {
+        console.log(response.data)
+        this.notificationMessage = response.data.message
       }
     },
     async sendRequest() {
@@ -162,6 +173,11 @@ export default {
 .input-wrapper .error-message {
   color: red;
   font-size: 12px;
+}
+
+.notification-message {
+  font-size: 12px;
+  color: var(--color-hippie-blue);
 }
 
 .resend__code {
@@ -243,6 +259,12 @@ a {
     width: 66px;
     height: 66px;
     font-size: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .reminder-message {
+    font-size: 16px;
   }
 }
 </style>

@@ -166,7 +166,6 @@ export default {
 
         const errors = this.validateForm();
         if (errors.length > 0) {
-          // Обработка ошибок валидации, если они есть
           return;
         }
 

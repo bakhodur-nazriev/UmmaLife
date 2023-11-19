@@ -7,14 +7,13 @@
 
     <div :class="['input-wrapper', { error: hasError }]">
       <div class="phone-field__section">
-        <SampleSelectedCountry @country-selected="handleCountrySelected"/>
-        <input
-            type="text"
-            class="base-input phone-field__section-input"
-            :class="{ '' : isRTL }"
+        <vue-tel-input
+            ref="vueTelInput"
             v-model="phoneNumber"
-            :placeholder="$t('Login.placeholders.phone')"
-        />
+            v-bind="bindProps"
+            @country-changed="countryChanged"
+        >
+        </vue-tel-input>
       </div>
       <small v-if="hasError" class="error-message">
         {{ $t('register.validation.incorrect_phone_number') }}
@@ -25,71 +24,102 @@
       <SampleButton
           class="login-button__section-button"
           @click="handleSubmit"
-          :title="`${ $t('buttons.Login') }`"
+          :title="`${ $t('buttons.login') }`"
       />
     </div>
 
     <div class="skip-section">
-      <router-link
+      <button
           class="skip-section__link"
-          :to="`/${$i18n.locale}/login`"
-      >{{ $t('links.skip') }}</router-link>
+          @click="skipPhoneStep"
+      >
+        {{ $t('links.skip') }}
+      </button>
     </div>
   </FormAuth>
 </template>
 
 <script>
+/* eslint-disable */
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
-import SampleSelectedCountry from '@/components/ui/SampleSelectedCountry.vue'
+import axios from 'axios'
+import {VueTelInput} from 'vue-tel-input'
+
 export default {
   components: {
-    SampleSelectedCountry,
+    VueTelInput,
     TitleSample,
     FormAuth,
     SampleButton
   },
-  data () {
+  data() {
     return {
       phoneNumber: '',
       selectedCountryCode: '',
-      hasError: false
+      hasError: false,
+      bindProps: {
+        autoFormat: false,
+        mode: 'international',
+        inputOptions: {
+          placeholder: this.$t('login.placeholders.phone'),
+          name: 'phone',
+          styleClasses: 'base-input'
+        },
+        dropdownOptions: {
+          showFlags: true,
+          showDialCodeInList: true,
+          showDialCodeInSelection: true
+        },
+      },
+      country: null,
+      responseErrorText: null
     }
   },
   computed: {
-    isRTL () {
+    isRTL() {
       return this.$i18n.locale === 'ar'
     }
   },
   watch: {
-    phoneNumber (newPhoneNumber) {
+    phoneNumber(newPhoneNumber) {
       if (newPhoneNumber.trim() !== '') {
         this.hasError = false
       }
     }
   },
   methods: {
-    handleSubmit () {
-      // Выполните обработку данных формы
+    handleSubmit() {
       this.hasError = this.phoneNumber.trim() === ''
+    },
+    async sendRequest() {
+      const formData = new FormData()
+      formData.append('server_key', process.env.VUE_APP_SERVER_KEY)
+      formData.append('phone', this.phoneNumber)
 
-      if (this.hasError) {
-        return
+      const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'multipart/form-data'
       }
 
-      // Переключитесь на следующий шаг
-      this.$emit('next-step')
+      try {
+        return axios.post('https://ummalife.com/api/check-phone?access_token=68f5567c12ccb5448d6c2f89b5975ae97fb0acb7ce4fecacaddf667b80aea66e7f32a98322750872c75e10ef9ef6d295d4ceba8335d93bdd', formData, {headers})
+      } catch (error) {
+        throw error
+      }
     },
-    submit (event) {
-      console.log('submit button called')
-      event.preventDefault()
-    },
-    handleCountrySelected (countryCode) {
+    handleCountrySelected(countryCode) {
       this.selectedCountryCode = countryCode
+    },
+    countryChanged(country) {
+      this.selectedCountryCode = '+' + country.dialCode
+    },
+    skipPhoneStep() {
+      console.log()
     }
   },
-  mounted () {
+  mounted() {
     this.handleCountrySelected()
   }
 }
@@ -109,6 +139,56 @@ export default {
       color: red;
       font-size: 12px;
       margin-top: 4px;
+    }
+  }
+}
+
+.vue-tel-input {
+  width: 100%;
+  border: none;
+
+  &:focus-within {
+    box-shadow: none;
+  }
+
+  &::v-deep(.vti__dropdown) {
+    background-color: var(--color-seashell);
+    border-radius: 10px 0 0 10px;
+
+    .vti__selection {
+      .vti__country-code {
+        font-size: 16px;
+        color: var(--color-mine-shaft);
+      }
+
+      .vti__flag {
+        width: 16px;
+      }
+
+      //.vti__dropdown-arrow {
+      //  background-image: url('data:image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.3707 6.5L8.06035 9.81035L4.75 6.5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+      //  width: 16px;
+      //  height: 16px;
+      //
+      //  font-size: 0;
+      //  color: transparent;
+      //  text-indent: -9999px;
+      //}
+    }
+  }
+
+  &::v-deep(.base-input) {
+    width: 100%;
+    border-radius: 0 10px 10px 0;
+    background-color: var(--color-seashell);
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding: 16px;
+    color: var(--color-mine-shaft);
+
+    &::placeholder {
+      color: var(--color-silver-chalice);
     }
   }
 }
@@ -136,6 +216,9 @@ export default {
     color: var(--color-mine-shaft);
     text-decoration: none;
     font-weight: 500;
+    border: none;
+    background: none;
+    cursor: pointer;
   }
 }
 
@@ -162,6 +245,7 @@ export default {
 .phone-field__section {
   display: flex;
   justify-content: center;
+  flex-direction: column;
 
   &-input {
     width: 100%;

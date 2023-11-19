@@ -3,43 +3,43 @@
     <nav class="navbar">
       <div class="right__nav--side">
         <button type="button" class="menu__button" @click="toggleSidebar">
-          <MenuIcon />
+          <MenuIcon/>
         </button>
-        <MainPageLogo class="main__logo" />
+        <MainPageLogo class="main__logo"/>
       </div>
       <div class="main__nav--side">
-        <SampleButton class="create__button" :title="`${$t('buttons.create')}`" />
+        <SampleButton class="create__button" :title="`${$t('buttons.create')}`"/>
         <SearchInput
-            @open-search-input="isSearchInputOpen = true"
-            :placeholder="$t('placeholders.search_input')"
+          @open-search-input="isSearchInputOpen = true"
+          :placeholder="$t('placeholders.search_input')"
         />
       </div>
       <div class="left__nav--side">
         <ul class="navbar__right--buttons">
           <li class="music__button" :class="{ active: isPlayerOpen }" @click="playerClickHandler">
-            <MusicIcon />
+            <MusicIcon/>
           </li>
           <li class="email__button">
-            <EmailIcon />
+            <EmailIcon/>
           </li>
           <li
-              class="notification__button"
-              @click="isNotificationOpen = !isNotificationOpen"
-              :class="{ active: isNotificationOpen }"
+            class="notification__button"
+            @click="isNotificationOpen = !isNotificationOpen"
+            :class="{ active: isNotificationOpen }"
           >
-            <NotificationIcon />
+            <NotificationIcon/>
           </li>
           <router-link :to="`/${$i18n.locale}/settings`">
             <li class="settings__button">
-              <SettingIcon />
+              <SettingIcon/>
             </li>
           </router-link>
         </ul>
         <div class="user__menu--block">
           <div class="profile__image">
-            <img src="@/assets/images/Article_Author.png" alt="avatar-logo" />
+            <img src="@/assets/images/Article_Author.png" alt="avatar-logo"/>
           </div>
-          <ArrowIcon class="dropdown__icon" />
+          <ArrowIcon class="dropdown__icon"/>
         </div>
       </div>
     </nav>
@@ -48,70 +48,70 @@
         <ul class="top__nav--list">
           <li class="top__nav--left-item">
             <router-link v-if="!isSearchForm" to="/news">
-              <SmallLogo />
+              <SmallLogo/>
             </router-link>
             <button
-                v-if="isSearchForm"
-                type="button"
-                @click="isSearchFormClose"
-                class="close-search__form"
+              v-if="isSearchForm"
+              type="button"
+              @click="isSearchFormClose"
+              class="close-search__form"
             >
-              <ArrowLeftIcon />
+              <ArrowLeftIcon/>
             </button>
           </li>
           <li class="top__nav--search-item" v-if="isSearchForm">
             <div class="main__search--block">
-              <LoupeInputIcon class="search__icon" />
-              <input class="base__search--input" :placeholder="$t('placeholders.search_input')" />
+              <LoupeInputIcon class="search__icon"/>
+              <input class="base__search--input" :placeholder="$t('placeholders.search_input')"/>
             </div>
           </li>
           <li class="top__nav--right-item" v-if="!isSearchForm">
             <div v-if="!isSearchForm" @click="isSearchFormOpen">
-              <LoupeIcon />
+              <LoupeIcon/>
             </div>
             <div>
-              <SmallMenuIcon />
+              <SmallMenuIcon/>
             </div>
           </li>
         </ul>
       </div>
       <SearchTab :tabs="tabData" v-if="isSearchForm">
         <template v-for="(tab, i) in tabData" v-slot:[tab.label]="" :key="i">
-          <TabAll v-if="i === 0" />
-          <TabPeople v-if="i === 1" />
-          <TabCommunities v-if="i === 2" />
-          <TabMUVI v-if="i === 3" />
-          <TabArticle v-if="i === 4" />
-          <TabVideo v-if="i === 5" />
-          <TabAudio v-if="i === 6" />
-          <TabHashtags v-if="i === 7" />
+          <TabAll v-if="i === 0"/>
+          <TabPeople v-if="i === 1"/>
+          <TabCommunities v-if="i === 2"/>
+          <TabMUVI v-if="i === 3"/>
+          <TabArticle v-if="i === 4"/>
+          <TabVideo v-if="i === 5"/>
+          <TabAudio v-if="i === 6"/>
+          <TabHashtags v-if="i === 7"/>
         </template>
       </SearchTab>
       <div class="bottom__nav" v-if="$route.name !== 'muvi'">
         <ul class="bottom__nav--list">
           <li class="bottom__nav--item">
             <router-link to="to">
-              <NewsIcon />
+              <NewsIcon/>
             </router-link>
           </li>
           <li class="bottom__nav--item">
             <router-link to="">
-              <MessagesIcon />
+              <MessagesIcon/>
             </router-link>
           </li>
           <li class="bottom__nav--item">
             <router-link :to="`/${$i18n.locale}/muvi`">
-              <MuviNavIcon />
+              <MuviNavIcon/>
             </router-link>
           </li>
           <li class="bottom__nav--item">
             <router-link :to="`/${$i18n.locale}/notifications`">
-              <BellIcon />
+              <BellIcon/>
             </router-link>
           </li>
           <li class="bottom__nav--item">
             <router-link :to="`/${$i18n.locale}/settings`">
-              <MyPageIcon />
+              <MyPageIcon/>
             </router-link>
           </li>
         </ul>
@@ -122,10 +122,10 @@
         <section class="all-recommendation__block">
           <router-link :to="`/${$i18n.locale}/search-article`">
             {{ $t('labels.search.show_all_recommendation') }}
-            <ArrowLeftIcon />
+            <ArrowLeftIcon/>
           </router-link>
         </section>
-        <SampleDivider />
+        <SampleDivider/>
         <section class="recent-section">
           <div class="recent-section__labels">
             <h3>{{ $t('labels.search.recent') }}</h3>
@@ -134,37 +134,37 @@
           <ul class="recent-list">
             <li class="recent-list__item">
               <div class="recent-list__item-left-block">
-                <img src="@/assets/images/navbar/recent_1.png" alt="" />
+                <img src="@/assets/images/navbar/recent_1.png" alt=""/>
                 <div>
                   <p>Мухаммад Мухаммадов</p>
                   <span>Istanbul, 24 года</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`"/>
             </li>
             <li class="recent-list__item">
               <div class="recent-list__item-left-block">
-                <img src="@/assets/images/navbar/recent_2.png" alt="" />
+                <img src="@/assets/images/navbar/recent_2.png" alt=""/>
                 <div>
                   <p>Архитектура и дизайн</p>
                   <span>15896 подписчиков</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`"/>
             </li>
             <li class="recent-list__item">
               <div class="recent-list__item-left-block">
-                <img src="@/assets/images/navbar/recent_3.png" alt="" />
+                <img src="@/assets/images/navbar/recent_3.png" alt=""/>
                 <div>
                   <p>Айжан Тумухамбетова</p>
                   <span>Мадрид, 28 лет</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`"/>
             </li>
           </ul>
         </section>
-        <SampleDivider />
+        <SampleDivider/>
         <section class="people-section">
           <div class="people-section__labels">
             <h3>{{ $t('labels.search.people') }}</h3>
@@ -173,37 +173,37 @@
           <ul class="people-list">
             <li class="people-list__item">
               <div class="people-list__item-left-block">
-                <img src="@/assets/images/navbar/people_1.png" alt="" />
+                <img src="@/assets/images/navbar/people_1.png" alt=""/>
                 <div>
                   <p>Мухаммад Мухаммадов</p>
                   <span>Istanbul, 24 года</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`"/>
             </li>
             <li class="people-list__item">
               <div class="people-list__item-left-block">
-                <img src="@/assets/images/navbar/people_2.png" alt="" />
+                <img src="@/assets/images/navbar/people_2.png" alt=""/>
                 <div>
                   <p>Магомед Оздоев</p>
                   <span>Грузия, 27 лет</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`"/>
             </li>
             <li class="people-list__item">
               <div class="people-list__item-left-block">
-                <img src="@/assets/images/navbar/people_3.png" alt="" />
+                <img src="@/assets/images/navbar/people_3.png" alt=""/>
                 <div>
                   <p>Айжан Тумухамбетова</p>
                   <span>Мадрид, 28 лет</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`"/>
             </li>
           </ul>
         </section>
-        <SampleDivider />
+        <SampleDivider/>
         <section class="groups-section">
           <div class="groups-section__labels">
             <h3>{{ $t('tabs.search.groups') }}</h3>
@@ -212,44 +212,44 @@
           <ul class="groups-list">
             <li class="groups-list__item">
               <div class="groups-list__item-left-block">
-                <img src="@/assets/images/navbar/people_1.png" alt="" />
+                <img src="@/assets/images/navbar/people_1.png" alt=""/>
                 <div>
                   <p>Мухаммад Мухаммадов</p>
                   <span>Istanbul, 24 года</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`"/>
             </li>
             <li class="groups-list__item">
               <div class="groups-list__item-left-block">
-                <img src="@/assets/images/navbar/people_2.png" alt="" />
+                <img src="@/assets/images/navbar/people_2.png" alt=""/>
                 <div>
                   <p>Магомед Оздоев</p>
                   <span>Грузия, 27 лет</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`"/>
             </li>
             <li class="groups-list__item">
               <div class="groups-list__item-left-block">
-                <img src="@/assets/images/navbar/people_3.png" alt="" />
+                <img src="@/assets/images/navbar/people_3.png" alt=""/>
                 <div>
                   <p>Айжан Тумухамбетова</p>
                   <span>Мадрид, 28 лет</span>
                 </div>
               </div>
-              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
+              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`"/>
             </li>
           </ul>
         </section>
-        <SampleDivider />
+        <SampleDivider/>
         <section class="advanced-search__section">
           <router-link to="/search-all-recommendations">
             <div class="advanced-search__section-left">
-              <LoupeInputIcon />
+              <LoupeInputIcon/>
               <span>{{ $t('labels.search.advanced_search') }}</span>
             </div>
-            <ArrowLeftIcon />
+            <ArrowLeftIcon/>
           </router-link>
         </section>
       </div>
@@ -257,9 +257,9 @@
   </header>
   <teleport to="body">
     <NotificationContainer
-        v-if="isNotificationOpen"
-        @closeHandler="isNotificationOpen = false"
-        :modal="true"
+      v-if="isNotificationOpen"
+      @closeHandler="isNotificationOpen = false"
+      :modal="true"
     />
   </teleport>
 </template>
@@ -297,6 +297,7 @@ import { audios } from '@/dummy'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
 import MuviNavIcon from '@/components/icons/shorts/MuviNavIcon.vue'
 import NotificationContainer from '@/components/notification/NotificationContainer.vue'
+
 export default {
   components: {
     SampleDivider,
@@ -409,6 +410,7 @@ export default {
 .navbar-header {
   position: relative;
 }
+
 .search-outside__block {
   display: flex;
   justify-content: center;
@@ -419,6 +421,7 @@ export default {
   margin: auto;
   max-width: 700px;
   z-index: 200;
+
   .search-inside__block {
     width: 700px;
     background-color: var(--color-white);
@@ -427,22 +430,26 @@ export default {
     border-radius: 10px;
     height: 100%;
     padding: 24px;
+
     .recent-section,
     .people-section,
     .groups-section {
       display: flex;
       flex-direction: column;
       gap: 20px;
+
       &__labels {
         display: flex;
         align-items: center;
         justify-content: space-between;
+
         h3 {
           line-height: 1;
           margin: 0;
           font-size: 18px;
           font-weight: 500;
         }
+
         a {
           text-decoration: none;
           color: var(--color-hippie-blue);
@@ -451,6 +458,7 @@ export default {
     }
   }
 }
+
 .recent-list,
 .people-list,
 .groups-list {
@@ -460,26 +468,32 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 16px;
+
   &__item {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     &-left-block {
       display: flex;
       align-items: center;
       gap: 12px;
+
       p {
         margin: 0;
       }
     }
   }
 }
+
 .subscribe-button {
   padding: 10px 24px;
 }
+
 .all-recommendation__block {
   cursor: pointer;
   margin-bottom: 16px;
+
   svg {
     all: unset;
     color: transparent;
@@ -487,6 +501,7 @@ export default {
     width: 22px;
     height: 22px;
   }
+
   a {
     width: 100%;
     display: flex;
@@ -499,11 +514,13 @@ export default {
     text-decoration: none;
   }
 }
+
 .advanced-search__section {
   display: flex;
   justify-content: space-between;
   width: 100%;
   margin-top: 20px;
+
   a {
     display: flex;
     align-items: center;
@@ -512,6 +529,7 @@ export default {
     cursor: pointer;
     margin-top: 0;
   }
+
   svg {
     all: unset;
     transform: rotate(-180deg);
@@ -519,15 +537,18 @@ export default {
     width: 22px;
     height: 22px;
   }
+
   &-left {
     display: flex;
     align-items: center;
     gap: 12px;
+
     span {
       font-size: 18px;
       color: var(--color-secondary);
       line-height: 1;
     }
+
     svg {
       width: 18px;
       height: 18px;
@@ -536,6 +557,7 @@ export default {
     }
   }
 }
+
 .base__search--input {
   border-radius: 10px;
   background-color: var(--color-seashell);
@@ -544,14 +566,17 @@ export default {
   outline: none;
   font-size: 16px;
   padding: 12px 12px 12px 48px;
+
   &::placeholder {
     color: var(--color-silver-chalice);
   }
 }
+
 .main__search--block {
   position: relative;
   display: flex;
   align-items: center;
+
   .search__icon {
     position: absolute;
     top: 50%;
@@ -560,15 +585,18 @@ export default {
     display: flex;
   }
 }
+
 .bottom__nav--item {
   a {
     display: flex;
     align-items: center;
   }
 }
+
 .small-nav {
   display: none;
 }
+
 .navbar {
   display: flex;
   align-items: center;
@@ -582,26 +610,37 @@ export default {
   background-color: var(--color-white);
   z-index: 100;
 }
+
 .right__nav--side,
 .left__nav--side {
   display: flex;
   align-items: center;
 }
+
+.right__nav--side {
+ gap: 20px;
+  padding-left: 20px;
+}
+
 .main__nav--side {
   display: flex;
   gap: 50px;
 }
+
 .navbar__right--buttons {
   display: flex;
   align-items: center;
   padding: 0;
+
   .router-link-active .settings__button {
     background-color: var(--color-hippie-blue);
     transition: all 0.15s ease-in-out;
+
     svg {
       color: var(--color-white);
     }
   }
+
   .music__button,
   .email__button,
   .notification__button,
@@ -614,20 +653,24 @@ export default {
     width: 40px;
     height: 40px;
     margin: 0 6px;
+
     &.active,
     &:hover {
       background-color: var(--color-hippie-blue);
       transition: all 0.15s ease-in-out;
+
       svg {
         color: var(--color-white);
       }
     }
+
     svg {
       color: var(--color-hippie-blue);
       transition: all 0.15s ease-in-out;
     }
   }
 }
+
 .menu__button,
 .music__button,
 .email__button,
@@ -638,22 +681,27 @@ export default {
   outline: none;
   cursor: pointer;
 }
+
 .menu__button {
   background-color: var(--color-white);
-  border-radius: 10px;
+  border-radius: 50%;
   width: 32px;
   height: 32px;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0;
+
   &:hover {
     transition: all 0.15s ease-in-out;
     background-color: var(--color-seashell);
   }
 }
+
 .main__logo {
   min-width: 151px;
 }
+
 .create__button {
   display: flex;
   align-items: center;
@@ -662,6 +710,7 @@ export default {
   width: 159px;
   max-height: 40px;
 }
+
 .user__menu--block {
   position: relative;
   display: inline-block;
@@ -669,41 +718,50 @@ export default {
   margin-left: 65px;
   margin-right: 45px;
 }
+
 .profile__image {
   border-radius: 50%;
   overflow: hidden;
   display: flex;
   width: 48px;
   height: 48px;
+
   img {
     width: 48px;
     height: 48px;
     border-radius: 50%;
   }
+
   &:hover {
     img {
       transition: all 0.15s ease-in-out;
       opacity: 0.5;
     }
+
     opacity: 1;
     background-color: var(--color-white);
   }
 }
+
 .dropdown__icon {
   position: absolute;
   bottom: 0;
   right: 0;
 }
+
 .top__nav--right-item {
   display: flex;
   gap: 20px;
+
   div {
     display: flex;
   }
+
   svg {
     color: var(--color-hippie-blue);
   }
 }
+
 .top__nav--left-item {
   .close-search__form {
     all: unset;
@@ -711,6 +769,7 @@ export default {
     display: flex;
   }
 }
+
 @media (max-width: 576px) {
   .top__nav--search-item {
     width: 100%;
@@ -719,6 +778,7 @@ export default {
     width: 100%;
   }
 }
+
 @media (max-width: 767px) {
   .top__nav--list {
     display: flex;
@@ -764,6 +824,7 @@ export default {
     margin-right: 24px;
   }
 }
+
 @media (min-width: 768px) and (max-width: 1200px) {
   .small-nav {
     display: none;

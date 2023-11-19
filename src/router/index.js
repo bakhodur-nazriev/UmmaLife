@@ -6,6 +6,7 @@ import HomeView from '@/views/HomeView.vue'
 import LoginByEmailView from '@/views/Auth/Login/LoginByEmailView.vue'
 import LoginByPhoneStep1View from '@/views/Auth/Login/LoginByPhoneStep1View.vue'
 import ForgotPasswordView from '@/views/Auth/ForgotPasswordView.vue'
+import ResetPasswordView from '@/views/Auth/ResetPasswordView.vue'
 import TermsView from '@/views/TermsView.vue'
 import PrivacyPolicyView from '@/views/PrivacyPolicyView.vue'
 import ContactsView from '@/views/ContactsView.vue'
@@ -622,15 +623,12 @@ router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some((route) => route.meta.requiresAuth)
 
   if (supportedLanguages.includes(lang)) {
-    // Установка языка для i18n
     i18n.global.locale = lang
   } else {
-    // Если указанный язык не поддерживается, перенаправляем на язык по умолчанию
     const defaultLang = i18n.global.locale || 'ru'
     return next(`/${defaultLang}${to.path}`)
   }
 
-  // Если язык в URL не совпадает с текущим языком, перенаправляем на правильный URL
   if (to.params.lang !== lang) {
     const pathWithoutLang = to.path.replace(`/${to.params.lang}`, `/${lang}`)
     return next({

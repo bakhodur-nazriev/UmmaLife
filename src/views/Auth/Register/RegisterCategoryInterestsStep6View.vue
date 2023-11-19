@@ -3,29 +3,29 @@
 import FormAuth from '@/components/ui/FormAuth.vue'
 import {ref} from 'vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
+import axios from 'axios'
+import i18n from '@/i18n'
 
 const categoryItems = ref([
-  'Религия',
-  'Семья',
-  'Здоровье',
-  'Фитнес',
-  'Книги',
-  'Путешествия',
-  'Авто',
-  'Наука',
-  'Природа',
-  'Еда',
-  'Мода',
-  'Архитектура',
-  'Красота',
-  'Работа',
-  'Учеба',
-  'Искусство',
-  'Спорт',
-  'Позитив',
-  'История',
-  'Психология',
-  'Воспитание'
+  i18n.global.t('register.category_interests.religion'),
+  i18n.global.t('register.category_interests.family'),
+  i18n.global.t('register.category_interests.health'),
+  i18n.global.t('register.category_interests.fitness'),
+  i18n.global.t('register.category_interests.books'),
+  i18n.global.t('register.category_interests.traveling'),
+  i18n.global.t('register.category_interests.auto'),
+  i18n.global.t('register.category_interests.science'),
+  i18n.global.t('register.category_interests.nature'),
+  i18n.global.t('register.category_interests.food'),
+  i18n.global.t('register.category_interests.architecture'),
+  i18n.global.t('register.category_interests.beauty'),
+  i18n.global.t('register.category_interests.job'),
+  i18n.global.t('register.category_interests.art'),
+  i18n.global.t('register.category_interests.sport'),
+  i18n.global.t('register.category_interests.positive'),
+  i18n.global.t('register.category_interests.history'),
+  i18n.global.t('register.category_interests.psychology'),
+  i18n.global.t('register.category_interests.upbringing')
 ])
 const selectedCategories = ref([])
 
@@ -40,10 +40,30 @@ const toggleCategory = (category) => {
 const isSelected = (category) => {
   return selectedCategories.value.includes(category)
 }
+
+const sendRequest = () => {
+  const formData = new FormData()
+  formData.append('server_key', process.env.VUE_APP_SERVER_KEY)
+  formData.append('', '')
+
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'multipart/form-data'
+  }
+
+  try {
+    return axios.post('', formData, {headers})
+  } catch (error) {
+    throw error
+  }
+}
+const handleSubmit = () => {
+  console.log('test')
+}
 </script>
 
 <template>
-  <FormAuth>
+  <FormAuth @submit="handleSubmit">
     <h3 class="form-title">{{ $t('login.interests_category.title') }}</h3>
     <p class="form-subtitle">{{ $t('login.interests_category.subtitle') }}</p>
     <span class="category-count">{{ selectedCategories.length }}/5</span>

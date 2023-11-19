@@ -1,6 +1,6 @@
 <template>
-  <form-auth @submit="submit">
-    <title-sample>{{ $t('register.title') }}</title-sample>
+  <FormAuth @submit="sendRequest">
+    <TitleSample>{{ $t('reset_password.title') }}</TitleSample>
 
     <h5 class="title medium reminder-message">{{ $t('register.messages.create_password') }}</h5>
 
@@ -12,7 +12,7 @@
             v-model="password"
             class="base-input"
             :class="{ 'input-field': true, error: passwordError }"
-            :placeholder="$t('register.placeholders.your_password')"
+            :placeholder="$t('reset_password.placeholder')"
         />
 
         <button type="button" class="eye-button" @click="togglePasswordVisibility">
@@ -27,12 +27,12 @@
 
     <div class="login-button__section">
       <SampleButton
-          @click="handleSubmit"
+          type="submit"
           class="login-button__section-next"
-          :title="`${$t('buttons.next')}`"
+          :title="`${$t('buttons.reset')}`"
       />
     </div>
-  </form-auth>
+  </FormAuth>
 </template>
 
 <script>
@@ -42,7 +42,7 @@ import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import EyeSlashIcon from '@/components/icons/EyeSlashIcon.vue'
 import EyeIcon from '@/components/icons/EyeIcon.vue'
-import axios from "axios";
+import axios from 'axios'
 
 export default {
   components: {
@@ -74,22 +74,18 @@ export default {
   },
   methods: {
     handleSubmit() {
-      // Выполните обработку данных формы
-      if (this.password.trim() === '') {
-        this.hasError = true
-      } else {
-        // Perform form submission logic here
-        // ...
 
-        this.$emit('next-step')
-        // Переключитесь на следующий шаг
-      }
     },
     async sendRequest() {
-      const formData = new FormData()
-      formData.append('server_key', process.env.VUE_APP_SERVER_KEY)
-      formData.append('email', this.email)
-      formData.append('password', this.password)
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get('code')
+      const email = urlParams.get('email')
+
+      const formData = new FormData();
+      formData.append('server_key', process.env.VUE_APP_SERVER_KEY);
+      formData.append('new_password', this.password);
+      formData.append('email', email);
+      formData.append('code', code)
 
       const headers = {
         'Access-Control-Allow-Origin': '*',
@@ -97,7 +93,9 @@ export default {
       }
 
       try {
-        return await axios.post('https://ummalife.com/api/create-account', formData, {headers})
+        return await axios
+            .post('https://ummalife.com/api/reset-password', formData, {headers})
+            .then(this.$router.push({name: 'LoginByEmailView'}))
       } catch (error) {
         throw error
       }
@@ -113,14 +111,17 @@ export default {
 .input-wrapper {
   position: relative;
 
-  &.error .base-input {
-    border: 1.4px solid red;
-  }
-}
+  &.error {
+    .base-input {
+      border: 1.4px solid red;
+    }
 
-.error-message {
-  color: red;
-  font-size: 12px;
+    .error-message {
+      color: red;
+      font-size: 12px;
+      display: block;
+    }
+  }
 }
 
 .reminder-message {

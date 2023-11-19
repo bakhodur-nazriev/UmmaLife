@@ -27,18 +27,24 @@
 
     <div class="resend__code">
       <label>{{ $t('login.messages.didnt_receive_code') }}</label>
-      <router-link class="link" :to="`/${$i18n.locale}/login`">
-        {{ $t('links.resend') }} 00:32
-      </router-link>
+      <button
+          class="link"
+          @click="handleSubmit"
+          :disabled="isResendDisabled"
+      >
+        {{ $t('links.resend') }} {{ formatTime(countDown) }}
+      </button>
     </div>
   </form-auth>
 </template>
 
 <script>
+/* eslint-disable */
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import SampleCodeNumberInput from '@/components/ui/SampleCodeNumberInput.vue'
+import axios from 'axios'
 
 export default {
   components: {
@@ -50,25 +56,43 @@ export default {
   data() {
     return {
       code: ['', '', '', '', '', ''],
-      hasError: false
+      hasError: false,
+      countDown: 60
     }
   },
   computed: {
     mainEmail() {
       return this.$store.getters.getEmail
+    },
+    isResendDisabled() {
+      return this.countDown > 0
     }
   },
   methods: {
-    handleSubmit() {
+    async handleSubmit() {
       if (this.code.some((val) => val.trim() === '')) {
         this.hasError = true
       } else {
-        const fullCode = this.code.join('') // объединение значений кода в одну строку
+        const fullCode = this.code.join('')
         console.log(fullCode)
-        // Perform form submission logic here
-        // ...
 
         this.$emit('next-step')
+      }
+
+      const formData = new FormData()
+      formData.append('server_key', process.env.VUE_APP_SERVER_KEY)
+      formData.append('email', this.email)
+      formData.append('code', this.code)
+
+      const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'multipart/form-data'
+      }
+
+      try {
+        return await axios.post('https://ummalife.com/api/confirm-email', formData, {headers})
+      } catch (error) {
+        throw error
       }
     },
 
@@ -90,7 +114,28 @@ export default {
       if (currentIndex > 0) {
         inputs[currentIndex - 1].focus()
       }
+    },
+    startCountdown() {
+      this.timer = setInterval(() => {
+        if (this.countDown > 0) {
+          this.countDown--
+        } else {
+          clearInterval(this.timer)
+        }
+      }, 1000)
+    },
+    formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60)
+      const reminderSeconds = seconds % 60
+
+      return `${minutes.toString().padStart(2, '0')}:${reminderSeconds.toString().padEnd(2, '0')}`
     }
+  },
+  created() {
+    this.startCountdown()
+  },
+  beforeDestroy() {
+    clearInterval(this.timer)
   }
 }
 </script>
@@ -164,6 +209,24 @@ a {
   justify-content: center;
 }
 
+.resend__code {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .link {
+    text-decoration: none;
+    background: none;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    padding: 0;
+    outline: inherit;
+  }
+}
+
 @media (min-width: 768px) {
   .resend__code {
     flex-direction: row;
@@ -183,6 +246,13 @@ a {
     width: 66px;
     height: 66px;
     font-size: 24px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .reminder-message {
+    font-size: 16px;
   }
 }
 </style>

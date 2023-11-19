@@ -3,29 +3,22 @@
     <TitleSample>{{ $t('login.title') }}</TitleSample>
     <div class="sample__phone-input">
 
-      <vue-tel-input
-          v-model="phoneNumber"
-          v-bind="bindProps"
-          @country-changed="countryChanged"
-      >
-      </vue-tel-input>
+      <div :class="['input-wrapper', { error: hasError }]">
+        <div class="phone__field-section">
+          <vue-tel-input
+              ref="vueTelInput"
+              v-model="phoneNumber"
+              v-bind="bindProps"
+              @country-changed="countryChanged"
+          >
+          </vue-tel-input>
 
-      {{ responseErrorText }}
-      <!--      <div :class="['input-wrapper', { error: hasError }]">
-              <div class="phone__field-section">
-                <input
-                    type="tel"
-                    class="base-input"
-                    name="phone"
-                    v-model="phoneNumber"
-                    :placeholder="$t('login.placeholders.phone')"
-                />
-              </div>
-              <small v-if="hasError" class="error-message">
-                {{ $t('register.validation.incorrect_phone_number') }}
-              </small>
-            </div>-->
-
+          <span v-if="responseErrorText" class="error-message">{{ responseErrorText }}</span>
+        </div>
+        <small v-if="hasError" class="error-message">
+          {{ $t('register.validation.incorrect_phone_number') }}
+        </small>
+      </div>
     </div>
     <div class="login-button__section">
       <SampleButton
@@ -59,8 +52,7 @@ import TitleSample from '@/components/ui/TitleSample.vue'
 import FormAuth from '@/components/ui/FormAuth.vue'
 import axios from 'axios'
 import {VueTelInput} from 'vue-tel-input'
-import 'vue-tel-input/vue-tel-input.css'
-import DropdownIcon from "@/components/icons/DropdownIcon.vue";
+import DropdownIcon from '@/components/icons/DropdownIcon.vue'
 
 export default {
   components: {
@@ -81,40 +73,31 @@ export default {
         inputOptions: {
           placeholder: this.$t('login.placeholders.phone'),
           name: 'phone',
-          styleClasses: 'base-input',
+          styleClasses: 'base-input'
         },
         dropdownOptions: {
           showFlags: true,
           showDialCodeInList: true,
-          showDialCodeInSelection: true,
+          showDialCodeInSelection: true
         },
-        styleClasses: 'input-wrapper'
       },
       country: null,
-      responseErrorText: ''
+      responseErrorText: null
     }
   },
   methods: {
     async handleSubmit() {
-      if (!this.phoneNumber || !this.selectedCountryCode) {
-        console.error('Phone number or country code is missing');
-        return;
-      }
-
       try {
         const response = await this.sendLoginRequest();
 
         if (response.data.api_status === 200) {
           this.$router.push({name: 'LoginByPhoneStep2View'});
-          console.log(response.data)
         } else {
-          this.responseErrorText = response.data.errors
+          this.responseErrorText = response.data.errors.error_text
           console.error(response.data);
-          // Обработка других кодов состояния, если нужно
         }
       } catch (error) {
         console.error('Error sending request:', error);
-        // Обработка ошибки, если нужно
       }
     },
     sendLoginRequest() {
@@ -140,8 +123,12 @@ export default {
       return this.$i18n.locale === 'ar'
     }
   },
-  mounted() {
-    console.log(this.country)
+  watch: {
+    phoneNumber(newPhoneNumber) {
+      if (newPhoneNumber.trim() !== '') {
+        this.hasError = false
+      }
+    }
   }
 }
 </script>
@@ -199,6 +186,7 @@ export default {
 .phone__field-section {
   display: flex;
   justify-content: center;
+  flex-direction: column;
 
   .base-input {
     width: 100%;
@@ -221,6 +209,56 @@ export default {
 
   .base-input {
     border-radius: 10px 0 0 10px;
+  }
+}
+
+.vue-tel-input {
+  width: 100%;
+  border: none;
+
+  &:focus-within {
+    box-shadow: none;
+  }
+
+  &::v-deep(.vti__dropdown) {
+    background-color: var(--color-seashell);
+    border-radius: 10px 0 0 10px;
+
+    .vti__selection {
+      .vti__country-code {
+        font-size: 16px;
+        color: var(--color-mine-shaft);
+      }
+
+      .vti__flag {
+        width: 16px;
+      }
+
+      //.vti__dropdown-arrow {
+      //  background-image: url('data:image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.3707 6.5L8.06035 9.81035L4.75 6.5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+      //  width: 16px;
+      //  height: 16px;
+      //
+      //  font-size: 0;
+      //  color: transparent;
+      //  text-indent: -9999px;
+      //}
+    }
+  }
+
+  &::v-deep(.base-input) {
+    width: 100%;
+    border-radius: 0 10px 10px 0;
+    background-color: var(--color-seashell);
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding: 16px;
+    color: var(--color-mine-shaft);
+
+    &::placeholder {
+      color: var(--color-silver-chalice);
+    }
   }
 }
 

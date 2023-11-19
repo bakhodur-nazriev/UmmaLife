@@ -1,5 +1,5 @@
 <template>
-  <form-auth @submit="submit">
+  <form-auth @submit="handleSubmit">
     <title-sample>{{ $t('register.title') }}</title-sample>
 
     <div class="subtitles__text-fields">
@@ -8,20 +8,20 @@
     </div>
 
     <div class="sample__inputs-section">
-      <div :class="['input-wrapper', { error: hasError.name }]">
+      <div :class="['input-wrapper', { error: hasError.firstName }]">
         <input
-            v-model="name"
+            v-model="firstName"
             class="base-input"
             :placeholder="$t('register.placeholders.name')"
         />
-        <small v-if="hasError.name" class="error-message">
+        <small v-if="hasError.firstName" class="error-message">
           {{ $t('register.validation.empty_name') }}
         </small>
       </div>
 
       <div :class="['input-wrapper', { error: hasError.lastName }]">
         <input
-            v-model="last_name"
+            v-model="lastName"
             class="base-input"
             :placeholder="$t('register.placeholders.last_name')"
         />
@@ -37,13 +37,19 @@
               class="genders__button"
               @click="handleButtonClick"
           >
-            <span :class="{'genders-title': !selectedGender, 'selected-gender': selectedGender}">{{ selectedGender || $t('register.placeholders.gender.title') }}</span>
+            <span :class="{'genders-title': !selectedGender, 'selected-gender': selectedGender}">
+              {{ selectedGender || $t('register.placeholders.gender.title') }}
+            </span>
             <dropdown-icon class="genders__icon genders__icon--dropdown"/>
           </button>
 
           <ul class="genders__list" :data-genders="$t('languages.title')" ref="list">
-            <li class="genders__item" @click="selectGender(`${$t('register.placeholders.gender.male')}`)">{{ $t('register.placeholders.gender.male') }}</li>
-            <li class="genders__item" @click="selectGender(`${$t('register.placeholders.gender.female')}`)">{{ $t('register.placeholders.gender.female') }}</li>
+            <li class="genders__item" @click="selectGender(`${$t('register.placeholders.gender.male')}`)">
+              {{ $t('register.placeholders.gender.male') }}
+            </li>
+            <li class="genders__item" @click="selectGender(`${$t('register.placeholders.gender.female')}`)">
+              {{ $t('register.placeholders.gender.female') }}
+            </li>
           </ul>
         </div>
         <small v-if="hasError.gender" class="error-message">
@@ -63,10 +69,12 @@
 </template>
 
 <script>
+/* eslint-disable */
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import DropdownIcon from '@/components/icons/DropdownIcon.vue'
+import axios from "axios";
 
 export default {
   components: {
@@ -75,13 +83,13 @@ export default {
     FormAuth,
     SampleButton
   },
-  data () {
+  data() {
     return {
-      name: '',
-      last_name: '',
+      firstName: '',
+      lastName: '',
       gender: true,
       hasError: {
-        name: false,
+        firstName: false,
         lastName: false,
         gender: false
       },
@@ -89,29 +97,29 @@ export default {
     }
   },
   watch: {
-    name (newName) {
+    name(newName) {
       if (newName.trim() !== '') {
-        this.hasError.name = false
+        this.hasError.firstName = false
       }
     },
-    last_name (newLastName) {
+    last_name(newLastName) {
       if (newLastName.trim() !== '') {
         this.hasError.lastName = false
       }
     },
-    gender (newGender) {
+    gender(newGender) {
       this.hasError.gender = newGender === null
     }
   },
   methods: {
-    handleSubmit () {
+    handleSubmit() {
       // Проверка на пустые поля
-      this.hasError.name = this.name.trim() === ''
-      this.hasError.lastName = this.last_name.trim() === ''
+      this.hasError.firstName = this.firstName.trim() === ''
+      this.hasError.lastName = this.lastName.trim() === ''
       this.hasError.gender = this.selectedGender === null
 
       // Проверка на наличие ошибок
-      if (this.hasError.name || this.hasError.lastName || this.hasError.gender) {
+      if (this.hasError.firstName || this.hasError.lastName || this.hasError.gender) {
         return // Прекратить отправку формы в случае ошибок
       }
       // Выполнить остальную логику отправки формы
@@ -119,11 +127,25 @@ export default {
 
       this.$emit('next-step')
     },
-    submit (event) {
-      event.preventDefault()
-      this.handleSubmit()
+    async sendRequest() {
+      const formData = new FormData()
+      formData.append('server_key', process.env.VUE_APP_SERVER_KEY)
+      formData.append('first_name', this.firstName)
+      formData.append('last_name', this.lastName)
+      formData.append('gender', this.gender)
+
+      const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'multipart/form-data'
+      }
+
+      try {
+        return await axios.post('https://ummalife.com/api/create-account-more?access_token=aa036c9b78b256f51131b2463d4751bfda02383956fc6f0971876f0522f064fe1139021c73854371b9b852ac7bd1776bc5ac5ce3b41d8af7', formData, {headers})
+      } catch (error) {
+        throw error
+      }
     },
-    handleButtonClick () {
+    handleButtonClick() {
       const list = this.$refs.list
       if (!list) {
         return
@@ -135,13 +157,13 @@ export default {
       }
       !this.$refs.container.classList.contains('genders--shown') ? this.openDropdown() : this.closeDropdown()
     },
-    openDropdown () {
+    openDropdown() {
       this.$refs.container.classList.add('genders--shown')
       this.$refs.list.style.display = 'flex'
       document.addEventListener('click', this.handleDocumentClick)
       document.addEventListener('keydown', this.handleEscapeKeydown)
     },
-    closeDropdown () {
+    closeDropdown() {
       const container = this.$refs.container
       if (!container) {
         return
@@ -151,13 +173,13 @@ export default {
       document.removeEventListener('click', this.handleDocumentClick)
       document.removeEventListener('keydown', this.handleEscapeKeydown)
     },
-    handleDocumentClick (evt) {
+    handleDocumentClick(evt) {
       return !evt.target.closest('.genders') && this.closeDropdown()
     },
-    handleEscapeKeydown (evt) {
+    handleEscapeKeydown(evt) {
       return (evt.keyCode === 27) && this.closeDropdown()
     },
-    selectGender (gender) {
+    selectGender(gender) {
       this.selectedGender = gender
       this.closeDropdown()
     }

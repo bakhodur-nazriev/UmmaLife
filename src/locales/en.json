@@ -44,7 +44,7 @@
       "hashtags": "Hashtags"
     },
     "show_article": "",
-    "preview_article": ""
+    "reset_password": "Reset Password"
   },
   "login": {
     "title": "Login",
@@ -138,6 +138,29 @@
       "empty_password": "The field must not be empty",
       "empty_gender": "The field must not be empty",
       "incorrect_phone_number": "Incorrect phone number"
+    },
+    "category_interests": {
+      "religion": "Religion",
+      "family": "Family",
+      "health": "Health",
+      "fitness": "Fitness",
+      "books": "Books",
+      "traveling": "Traveling",
+      "auto": "Auto",
+      "science": "Science",
+      "nature": "Nature",
+      "food": "Food",
+      "fashion": "Fashion",
+      "architecture": "Architecture",
+      "beauty": "Beauty",
+      "job": "Job",
+      "studies": "Studies",
+      "art": "Art",
+      "sport": "Sport",
+      "positive": "Positive",
+      "history": "History",
+      "psychology": "Psychology",
+      "upbringing": "Upbringing"
     }
   },
   "forgot_password": {
@@ -146,7 +169,13 @@
       "incorrect_email": "Incorrect email"
     }
   },
+  "reset_password": {
+    "title": "Reset password",
+    "placeholder": "New password",
+    "succeed_text": "The E-mail has been sent successfully."
+  },
   "buttons": {
+    "reset": "Reset",
     "login": "Login",
     "ready": "Ready",
     "get_code_by_email": "Get code by email",

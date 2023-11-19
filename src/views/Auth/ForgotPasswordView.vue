@@ -2,7 +2,7 @@
   <FormAuth @submit="handleSubmit">
     <TitleSample>{{ $t('login.forgot_password') }}</TitleSample>
 
-    <h5 class="text-1 roman reminder-message">{{ $t('login.messages.reset_password') }}</h5>
+    <h5 class="reminder-message">{{ $t('login.messages.reset_password') }}</h5>
 
     <div :class="['input-wrapper', { error: hasError || isInvalidEmail }]">
       <input
@@ -16,6 +16,13 @@
           $t(isInvalidEmail ? 'forgot_password.validation.incorrect_email' : 'forgot_password.validation.empty_email')
         }}
       </small>
+
+      <span class="error-message" v-if="errorText">
+        {{ errorText }}
+      </span>
+      <span class="succeed-message" v-if="succeedText">
+        {{ succeedText }}
+      </span>
     </div>
 
     <div class="login-button-section">
@@ -52,7 +59,9 @@ export default {
   data() {
     return {
       email: '',
-      hasError: false
+      hasError: false,
+      errorText: null,
+      succeedText: null
     }
   },
   watch: {
@@ -70,8 +79,24 @@ export default {
   },
   methods: {
     async handleSubmit(event) {
+      event.preventDefault()
+
       if (this.email.trim() === '' || this.isInvalidEmail) {
-        this.hasError = true
+        this.hasError = true;
+        return
+      }
+
+      try {
+        const response = await this.sendRequest()
+
+        if (response.data.api_status === 200) {
+          this.succeedText = this.$t('reset_password.succeed_text')
+        } else {
+          console.error('Response status is not 200');
+          this.errorText = response.data.errors.error_text
+        }
+      } catch (error) {
+        console.error('Error sending request:', error);
       }
     },
 
@@ -91,7 +116,16 @@ export default {
         throw error
       }
     }
-  }
+  },
+  mounted() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const link1Param = urlParams.get('link1');
+    console.log('Значение параметра link1:', link1Param);
+
+    if (link1Param === 'reset-password') {
+      this.$router.push({name: 'ResetPasswordView'});
+    }
+  },
 }
 </script>
 
@@ -124,6 +158,12 @@ export default {
   margin-top: 4px;
 }
 
+.succeed-message {
+  font-size: 12px;
+  margin-top: 4px;
+  color: var(--color-hippie-blue);
+}
+
 .base-input {
   background-color: var(--color-seashell);
   border: none;
@@ -144,6 +184,7 @@ export default {
   color: var(--color-mine-shaft);
   font-size: 20px;
   line-height: 1.5;
+  margin-top: 0;
 }
 
 .login-button-section {
@@ -158,6 +199,12 @@ export default {
 @media (min-width: 768px) {
   .login-button-section button {
     max-width: 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  .reminder-message {
+    font-size: 14px;
   }
 }
 </style>

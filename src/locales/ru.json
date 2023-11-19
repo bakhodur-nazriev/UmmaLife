@@ -44,7 +44,8 @@
       "hashtags": "Хештеги"
     },
     "show_article": "",
-    "preview_article": ""
+    "preview_article": "",
+    "reset_password": "Сброс пароля"
   },
   "login": {
     "title": "Вход",
@@ -140,6 +141,29 @@
       "empty_last_name": "Поле не должно быть пустым",
       "empty_gender": "Поле не должно быть пустым",
       "incorrect_phone_number": "Неверный номер телефона"
+    },
+    "category_interests": {
+      "religion": "Религия",
+      "family": "Семья",
+      "health": "Здоровье",
+      "fitness": "Фитнес",
+      "books": "Книги",
+      "traveling": "Путешествия",
+      "auto": "Авто",
+      "science": "Наука",
+      "nature": "Природа",
+      "food": "Еда",
+      "fashion": "Мода",
+      "architecture": "Архитектура",
+      "beauty": "Красота",
+      "job": "Работа",
+      "studies": "Учеба",
+      "art": "Искусство",
+      "sport": "Спорт",
+      "positive": "Позитив",
+      "history": "История",
+      "psychology": "Психология",
+      "upbringing": "Воспитание"
     }
   },
   "forgot_password": {
@@ -148,7 +172,13 @@
       "incorrect_email": "Неверный email"
     }
   },
+  "reset_password": {
+    "title": "Сброс пароля",
+    "placeholder": "Новый пароль",
+    "succeed_text": "Электронное письмо было успешно отправлено."
+  },
   "buttons": {
+    "reset": "Сброс",
     "add": "Добавить",
     "login": "Войти",
     "ready": "Готово",
