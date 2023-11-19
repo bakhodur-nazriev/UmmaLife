@@ -1,10 +1,10 @@
 <template>
   <div class="muvi__wrapper">
-    <template v-for="muvi in viewedMovies" :key="muvi.id">
+    <template v-for="(muvi, index) in viewedMovies" :key="muvi.id">
       <MuviCard
         :muvi="muvi"
         v-if="muvi && !Array.isArray(muvi)"
-        @cardClickHandler="isDetailOpen = true"
+        @cardClickHandler="cardClickHandler(index)"
       />
     </template>
   </div>
@@ -17,6 +17,7 @@
     v-if="isDetailOpen"
     @handleClickOutside="isDetailOpen = false"
     :muvies="viewedMovies"
+    :initialSlideIndex="initialSlideIndex"
   />
 </template>
 
@@ -36,8 +37,14 @@ const countElements = ref(0)
 const isDetailOpen = ref(false)
 
 const computedLastId = ref(null)
+const initialSlideIndex = ref(0)
 
-const fetchViewedMovies = async (last_id = 18543) => {
+const cardClickHandler = (index) => {
+  isDetailOpen.value = true
+  initialSlideIndex.value = index
+}
+
+const fetchViewedMovies = async (last_id = null) => {
   isLoading.value = true
   try {
     const payload = getFormData({

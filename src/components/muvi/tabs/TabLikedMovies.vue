@@ -1,17 +1,23 @@
 <template>
   <div class="muvi__wrapper">
-    <template v-for="muvi in likedMovies" :key="muvi.id">
+    <template v-for="(muvi, index) in likedMovies" :key="muvi.id">
       <MuviCard
         :muvi="muvi"
         v-if="muvi && !Array.isArray(muvi)"
-        @cardClickHandler="isDetailOpen = true"
+        @cardClickHandler="cardClickHandler(index)"
       />
     </template>
   </div>
+  <div
+    v-intersection-observer="loadMore"
+    v-if="!isLoading && countElements >= 20"
+    class="observer"
+  ></div>
   <MuviDetailSlider
     v-if="isDetailOpen"
     @handleClickOutside="isDetailOpen = false"
     :muvies="likedMovies"
+    :initialSlideIndex="initialSlideIndex"
   />
 </template>
 
@@ -27,13 +33,21 @@ import MuviDetailSlider from '@/components/muvi/MuviDetailSlider.vue'
 const likedMovies = ref([])
 const isLoading = ref(false)
 const isDetailOpen = ref(false)
+const initialSlideIndex = ref(0)
+const computedLastId = ref(null)
+const countElements = ref(0)
 
-const fetchLikedMovies = async () => {
+const cardClickHandler = (index) => {
+  isDetailOpen.value = true
+  initialSlideIndex.value = index
+}
+
+const fetchLikedMovies = async (last_id = null) => {
   try {
     isLoading.value = true
     const payload = getFormData({
       server_key: process.env.VUE_APP_SERVER_KEY,
-      last_id: null
+      last_id
     })
     const { data } = await axios.post('/muvi-liked-videos', payload, {
       headers: {
@@ -43,7 +57,9 @@ const fetchLikedMovies = async () => {
         access_token: localStorage.getItem('access_token')
       }
     })
-    likedMovies.value = data.data
+    countElements.value = data.countElements
+    likedMovies.value = [...likedMovies.value, ...data.data]
+    computedLastId.value = likedMovies.value[likedMovies.value.length - 1].id
   } catch (err) {
     console.log(err)
   } finally {
@@ -53,8 +69,7 @@ const fetchLikedMovies = async () => {
 
 const loadMore = async ([{ isIntersecting }]) => {
   if (isIntersecting) {
-    page.value += 1
-    await fetchFeeds(page.value)
+    await fetchLikedMovies(computedLastId.value)
   }
 }
 

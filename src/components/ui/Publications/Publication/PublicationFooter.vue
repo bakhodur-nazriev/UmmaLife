@@ -5,21 +5,14 @@
         <div class="reactions__buttons" v-if="isReactionWindowOpen">
           <div class="reaction__window">
             <ul class="reaction__menu">
-              <li
-                v-for="(reaction, index) in reactionsIcon"
-                :key="index"
-                class="reaction__item"
-              >
+              <li v-for="(reaction, index) in reactionsIcon" :key="index" class="reaction__item">
                 <span class="reaction__item--tooltip">{{ reaction.tooltip }}</span>
-                <component :is="reaction.icon"/>
+                <component :is="reaction.icon" />
               </li>
             </ul>
           </div>
         </div>
-        <div
-          class="like__button open-reaction-button"
-          @click="openReactionWindow"
-        >
+        <div class="like__button open-reaction-button" @click="openReactionWindow">
           <HeartIcon />
           <span>{{ $t('buttons.like') }}</span>
         </div>
@@ -39,17 +32,17 @@
                 <span>{{ $t('buttons.open_like_message') }}</span>
               </li>
 
-              <SampleDivider class="share__item--divider"/>
+              <SampleDivider class="share__item--divider" />
 
               <li class="share__item">
                 <ShareMenuIcon />
                 <span>{{ $t('buttons.share_on_my_page') }}</span>
               </li>
 
-              <SampleDivider class="share__item--divider"/>
+              <SampleDivider class="share__item--divider" />
 
               <li class="share__item">
-                <MyGroupIcon/>
+                <MyGroupIcon />
                 <span>{{ $t('buttons.share_in_group') }}</span>
               </li>
             </ul>
@@ -103,7 +96,7 @@ export default {
     CommentForm,
     ShareMenuIcon
   },
-  data () {
+  data() {
     return {
       reactionsIcon: [
         { id: 1, icon: BigLikeIcon, tooltip: this.$t('reaction_tooltip.like') },
@@ -122,25 +115,29 @@ export default {
     }
   },
   methods: {
-    toggleForm () {
+    toggleForm() {
       this.isFormOpen = !this.isFormOpen
       this.$emit('toggle-menu')
     },
-    openReactionWindow () {
+    openReactionWindow() {
       this.isReactionWindowOpen = !this.isReactionWindowOpen
     },
-    openShareWindow () {
+    openShareWindow() {
       this.isShareWindowOpen = !this.isShareWindowOpen
     },
-    closeReactionWindow (event) {
+    closeReactionWindow(event) {
       const reactionWindow = this.$refs.reactionWindow
       const openReactionButton = document.querySelector('.open-reaction-button')
 
-      if (reactionWindow && !reactionWindow.contains(event.target) && event.target !== openReactionButton) {
+      if (
+        reactionWindow &&
+        !reactionWindow.contains(event.target) &&
+        event.target !== openReactionButton
+      ) {
         this.isReactionWindowOpen = false
       }
     },
-    closeShareWindow (event) {
+    closeShareWindow(event) {
       const shareWindow = this.$refs.shareWindow
       const openShareButton = document.querySelector('.open-share-button')
 
@@ -149,30 +146,30 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     document.addEventListener('click', this.closeReactionWindow)
     document.addEventListener('click', this.closeShareWindow)
   },
-  beforeUnmount () {
+  beforeUnmount() {
     document.removeEventListener('click', this.closeReactionWindow)
     document.removeEventListener('click', this.closeShareWindow)
   }
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .share__buttons {
   animation: share__buttons 0.2s;
 }
 
 @keyframes share__buttons {
   0% {
-    transform:scale(.5);
-    transform-origin:center bottom;
+    transform: scale(0.5);
+    transform-origin: center bottom;
   }
   100% {
-    transform:scale(1);
-    transform-origin:center bottom
+    transform: scale(1);
+    transform-origin: center bottom;
   }
 }
 
@@ -182,12 +179,12 @@ export default {
 
 @keyframes reactions__buttons {
   0% {
-    transform:scale(.5);
-    transform-origin:left bottom;
+    transform: scale(0.5);
+    transform-origin: left bottom;
   }
   100% {
-    transform:scale(1);
-    transform-origin:left bottom;
+    transform: scale(1);
+    transform-origin: left bottom;
   }
 }
 
@@ -247,7 +244,7 @@ export default {
 
   &:hover {
     background-color: var(--color-seashell);
-    transition: all .15s ease-in-out;
+    transition: all 0.15s ease-in-out;
   }
 
   span {
@@ -325,7 +322,7 @@ export default {
 
   &:hover {
     background-color: var(--color-seashell);
-    transition: all .15s ease-in-out;
+    transition: all 0.15s ease-in-out;
   }
 }
 

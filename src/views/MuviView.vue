@@ -7,7 +7,6 @@
 
 <script setup>
 import axios from 'axios'
-import { onMounted } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 import MainLayout from '@/components/layouts/MainLayout.vue'
 import MuviDesktopView from '@/components/muvi/views/MuviDesktopView.vue'
@@ -36,11 +35,35 @@ const login = async () => {
     })
     if (data?.api_status === 200) {
       localStorage.setItem('access_token', data.access_token)
+      localStorage.setItem('user_id', data.user_id)
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+const getUserInfo = async () => {
+  try {
+    if (!localStorage.getItem('user_id') || localStorage.getItem('user')) return
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      user_id: localStorage.getItem('user_id')
+    })
+    const { data } = await axios.post('/get-user-data', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    if (data?.api_status === 200) {
+      localStorage.setItem('user', JSON.stringify(data.data))
     }
   } catch (err) {
     console.log(err)
   }
 }
 
-onMounted(login)
+login()
+getUserInfo()
 </script>

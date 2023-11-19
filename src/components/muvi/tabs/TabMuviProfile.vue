@@ -1,36 +1,36 @@
 <template>
   <div class="muvi__profile">
     <div class="muvi__profile--top">
-      <img src="/images/users/jeff.png" alt="jeff" class="muvi__profile--img" />
+      <img :src="user.avatar" :alt="user.username" class="muvi__profile--img" />
       <div class="muvi__profile--info">
-        <div class="muvi__profile--name">Ibragim Ibragimov</div>
+        <div class="muvi__profile--name">{{ user.name }}</div>
         <ul class="muvi__profile--list">
           <li>
             <p>{{ shortNum(13) }}</p>
-            <span>MUVI</span>
+            <span>{{ $t('tabs.profile_tabs.muvi') }}</span>
           </li>
           <li>
             <p>{{ shortNum(252000) }}</p>
-            <span>views</span>
+            <span>{{ $t('video.views') }}</span>
           </li>
           <li>
             <p>{{ shortNum(45200) }}</p>
-            <span>reactions</span>
+            <span>{{ $t('video.reactions') }}</span>
           </li>
           <li>
             <p>{{ shortNum(210) }}</p>
-            <span>followers</span>
+            <span>{{ $t('muvi.followers') }}</span>
           </li>
         </ul>
       </div>
     </div>
     <MuviTabSwitch
-      :tabs="tabs"
+      :tabs="[$t('muvi.my_muvi'), $t('muvi.saved')]"
       :activeIndex="activeIndex"
       @handleTabClick="handleTabClick"
       class="muvi__profile--tab"
     />
-    <div class="muvi__wrapper" v-if="activeIndex === 0">
+    <!-- <div class="muvi__wrapper" v-if="activeIndex === 0">
       <MuviCard
         v-for="muvi in likedMovies"
         :key="muvi.id"
@@ -45,7 +45,7 @@
         :muvi="muvi"
         @cardClickHandler="isDetailOpen = true"
       />
-    </div>
+    </div> -->
   </div>
   <teleport to="body">
     <MuviDetailSlider v-if="isDetailOpen" @handleClickOutside="isDetailOpen = false" />
@@ -53,6 +53,7 @@
 </template>
 
 <script setup>
+/* eslint-disable */
 import { ref, computed } from 'vue'
 import { muvies as allMuvies } from '@/dummy.js'
 import shortNum from 'number-shortener'
@@ -61,12 +62,10 @@ import MuviTabSwitch from '@/components/muvi/MuviTabSwitch.vue'
 import MuviDetailSlider from '@/components/muvi/MuviDetailSlider.vue'
 
 const isDetailOpen = ref(false)
-const likedMovies = computed(() => allMuvies.slice(0, 6))
-const viewedMovies = computed(() => allMuvies.slice(6, 12))
+
+const user = ref(JSON.parse(localStorage.getItem('user') || '{}'))
 
 const activeIndex = ref(0)
-
-const tabs = ref(['My MUVI', 'Saved'])
 
 const handleTabClick = (index) => {
   activeIndex.value = index

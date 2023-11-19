@@ -3,7 +3,7 @@
     <div class="muvi__detail" v-on-click-outside="handleClickOutside">
       <div class="muvi__detail--thumb">
         <div class="muvi__detail--more" ref="detailMore" :style="`--more-height: ${moreHeight}px`">
-          Другие MUVI<span>{{ muvies.length }}</span>
+          {{ $t('muvi.other_muvi') }}<span>{{ muvies.length }}</span>
         </div>
         <swiper
           :modules="[Thumbs, Mousewheel]"
@@ -12,6 +12,7 @@
           :direction="'vertical'"
           :mousewheel="true"
           @swiper="setThumbsSwiper"
+          :initialSlide="initialSlideIndex"
         >
           <swiper-slide v-for="muvi in muvies" :key="muvi.id" class="thumb-slider-item">
             <img :src="muvi.preview" :alt="muvi.description" loading="lazy" />
@@ -20,15 +21,19 @@
         </swiper>
       </div>
       <swiper
-        :modules="[Thumbs, Navigation]"
+        :modules="[Thumbs, Navigation, EffectFade]"
         :slides-per-view="1"
         :watch-slides-progress="true"
         :watch-overflow="true"
         :space-between="6"
-        :direction="'horizontal'"
+        :simulate-touch="false"
+        :direction="'vertical'"
+        :slides="2"
+        :initialSlide="initialSlideIndex"
         :thumbs="{ swiper: thumbsSwiper }"
         navigation
         :resistance-ratio="0"
+        effect="fade"
         class="muvi__detail--main"
       >
         <swiper-slide v-for="muvi in muvies" :key="muvi.id" v-slot="{ isActive }">
@@ -36,76 +41,7 @@
             <div class="shorts__video video">
               <ShortsCard class="isModal" :muvi="muvi" v-if="isActive" />
             </div>
-            <div class="shorts__content">
-              <div class="shorts__info content">
-                <div class="shorts__info--top top">
-                  <div class="shorts__user--wrapper">
-                    <div class="shorts__user">
-                      <img src="/images/users/jeff.png" alt="jeff" class="shorts__user--img" />
-                      <div class="shorts__user--name">arabman</div>
-                      <div class="shorts__user--bage">
-                        <BageIcon />
-                      </div>
-                    </div>
-                    <button class="shorts__info--details">
-                      <MenuBlackDetailsIcon />
-                    </button>
-                  </div>
-
-                  <div class="shorts__info--text">
-                    Небольшой влог о самом высокоразвитом городе мира - Дубае. Почему мы выбрали
-                    этот город для...
-                  </div>
-                  <div class="shorts__bottom">
-                    <div class="shorts__bottom--views">1 тыс. просмотров</div>
-                    <span>|</span>
-                    <div class="shorts__bottom--date">20.08.2022</div>
-                  </div>
-                  <div class="shorts__bottom--comments">
-                    <p>Комментарии</p>
-                    <span>415</span>
-                  </div>
-                </div>
-                <div class="shorts__comments comment">
-                  <ShortsBlockComments v-for="i in 10" :key="i" />
-                </div>
-                <div class="shorts__info--bottom bottom">
-                  <div class="shorts__info--reactions">
-                    <div class="reaction active">
-                      <like-icon></like-icon>
-                      <span>1550</span>
-                    </div>
-                    <div class="reaction">
-                      <dislike-icon></dislike-icon>
-                      <span>1550</span>
-                    </div>
-                    <div class="reaction">
-                      <love-icon></love-icon>
-                      <span>1935</span>
-                    </div>
-                  </div>
-                  <div class="shorts__comments--actions">
-                    <div class="actions__btn">
-                      <HeartIcon />
-                      <span>{{ $t('buttons.like') }}</span>
-                    </div>
-                    <div class="actions__btn">
-                      <ShareIcon />
-                      <span>{{ $t('buttons.share') }}</span>
-                    </div>
-                  </div>
-                  <form class="shorts__comments--form">
-                    <div class="form__input">
-                      <img src="/images/users/jeff.png" alt="jeff" />
-                      <input type="text" placeholder="Комментарий..." />
-                    </div>
-                    <button class="form__btn" type="submit">
-                      <SendIcon />
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </div>
+            <MuviDetailContent :muvi="muvi" v-if="isActive" />
           </div>
         </swiper-slide>
       </swiper>
@@ -115,26 +51,25 @@
 
 <script setup>
 /* eslint-disable */
+import 'swiper/css/effect-fade'
+
 import { Navigation, Thumbs, Mousewheel, EffectFade } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { vOnClickOutside } from '@vueuse/components'
 import ShortsCard from '@/components/ui/Shorts/ShortsCard.vue'
-import ShortsBlockComments from '@/components/ui/Shorts/ShortsBlockComments.vue'
-import BageIcon from '@/components/icons/BageIcon.vue'
-import MenuBlackDetailsIcon from '@/components/icons/MenuBlackDetailsIcon.vue'
-import LoveIcon from '@/components/icons/reactions/men/small/SmallLoveIcon.vue'
-import LikeIcon from '@/components/icons/reactions/men/small/SmallLikeIcon.vue'
-import DislikeIcon from '@/components/icons/reactions/men/small/SmallDislikeIcon.vue'
-import HeartIcon from '@/components/icons/shorts/HeartIcon.vue'
-import ShareIcon from '@/components/icons/shorts/ShareIcon.vue'
-import SendIcon from '@/components/icons/shorts/SendIcon.vue'
+
 import ShortsPlay from '@/components/icons/shorts/ShortsPlay.vue'
 import { ref, computed } from 'vue'
+import MuviDetailContent from '@/components/muvi/MuviDetailContent.vue'
 
 const props = defineProps({
   muvies: {
     type: Array,
     default: () => []
+  },
+  initialSlideIndex: {
+    type: Number,
+    default: 0
   }
 })
 const emit = defineEmits(['handleClickOutside'])
@@ -252,7 +187,8 @@ const handleClickOutside = () => {
       width: 64px;
       height: 64px;
       border-radius: 50%;
-      background-color: var(--color-white);
+      background-color: var(--color-gallery-first);
+      color: var(--color-mine-shaft);
       &.swiper-button-disabled {
         pointer-events: all;
       }
@@ -273,15 +209,9 @@ const handleClickOutside = () => {
     }
     .swiper-button-prev {
       left: 100px;
-      &::before {
-        content: url("data:image/svg+xml, %3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Icon'%3E%3Cpath id='Vector' d='M19.0001 22.7414L12.3794 16.1207L19.0001 9.5' stroke='currentColor' stroke-width='2' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round' /%3E%3C/g%3E%3C/svg%3E");
-      }
     }
     .swiper-button-next {
       right: 100px;
-      &::before {
-        content: url("data:image/svg+xml, %3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Icon'%3E%3Cpath id='Vector' d='M13 9.25879L19.6207 15.8795L13 22.5002' stroke='currentColor' stroke-width='2' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round' /%3E%3C/g%3E%3C/svg%3E");
-      }
     }
   }
 
@@ -305,5 +235,37 @@ const handleClickOutside = () => {
 .shorts__video {
   position: relative;
   z-index: 100;
+}
+.shorts__info--details svg {
+  color: var(--color-mine-shaft);
+}
+
+.light {
+  .muvi__detail {
+    .swiper-button-prev {
+      &::before {
+        content: url("data:image/svg+xml, %3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Icon'%3E%3Cpath id='Vector' d='M19.0001 22.7414L12.3794 16.1207L19.0001 9.5' stroke='%23000' stroke-width='2' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round' /%3E%3C/g%3E%3C/svg%3E");
+      }
+    }
+    .swiper-button-next {
+      &::before {
+        content: url("data:image/svg+xml, %3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Icon'%3E%3Cpath id='Vector' d='M13 9.25879L19.6207 15.8795L13 22.5002' stroke='%23000' stroke-width='2' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round' /%3E%3C/g%3E%3C/svg%3E");
+      }
+    }
+  }
+}
+.dark {
+  .muvi__detail {
+    .swiper-button-prev {
+      &::before {
+        content: url("data:image/svg+xml, %3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Icon'%3E%3Cpath id='Vector' d='M19.0001 22.7414L12.3794 16.1207L19.0001 9.5' stroke='%23fff' stroke-width='2' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round' /%3E%3C/g%3E%3C/svg%3E");
+      }
+    }
+    .swiper-button-next {
+      &::before {
+        content: url("data:image/svg+xml, %3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Icon'%3E%3Cpath id='Vector' d='M13 9.25879L19.6207 15.8795L13 22.5002' stroke='%23fff' stroke-width='2' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round' /%3E%3C/g%3E%3C/svg%3E");
+      }
+    }
+  }
 }
 </style>

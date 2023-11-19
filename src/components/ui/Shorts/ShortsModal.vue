@@ -65,7 +65,11 @@
             <form class="shorts__comments--form">
               <div class="form__input">
                 <img src="/images/users/jeff.png" alt="jeff" />
-                <input type="text" placeholder="Комментарий..." />
+                <textarea
+                  type="text"
+                  :placeholder="$t('labels.comments.plural') + '...'"
+                  rows="1"
+                />
               </div>
               <button class="form__btn" type="submit">
                 <SendIcon />
@@ -122,223 +126,16 @@ const closeDropdown = () => {
       z-index: 100;
     }
   }
-  &__content {
-    padding: 28px 20px 0;
-    position: relative;
-  }
-  &__user {
-    display: flex;
-    align-items: center;
 
+  &__user {
     &--wrapper {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 12px;
     }
-    &--img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      overflow: hidden;
-      object-fit: cover;
-      object-position: center;
-      margin-right: 12px;
-    }
-    &--name {
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 550;
-      line-height: normal;
-      color: var(--color-mine-shaft);
-      margin-right: 4px;
-    }
-    &--bage {
-      margin-top: 1px;
-      svg {
-        display: block;
-        width: 14px;
-        height: 14px;
-      }
-    }
-  }
-  &__info {
-    height: 100%;
-    &--details {
-      background: none;
-      border: none;
-      outline: none;
-      cursor: pointer;
-      svg {
-        width: 24px;
-        height: 24px;
-        display: block;
-      }
-    }
-    &--text {
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 120%;
-      color: var(--color-mine-shaft);
-      margin-bottom: 12px;
-    }
-    &--top {
-    }
-    &--bottom {
-      position: sticky;
-      bottom: 0;
-      left: 0;
-      height: 203px;
-      background: var(--color-white);
-      width: 100%;
-      padding-top: 3px;
-    }
-    &--reactions {
-      border-top: 1px solid var(--color-gallery-first);
-      padding: 20px 0;
-      display: flex;
-      gap: 4px;
-      flex-wrap: wrap;
-
-      .reaction {
-        padding: 7px 12px;
-        border-radius: 8px;
-        background: var(--color-gallery-second);
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        cursor: pointer;
-        svg {
-          width: 16px;
-          height: 16px;
-          display: block;
-        }
-        span {
-          font-size: 14px;
-          font-style: normal;
-          font-weight: 400;
-          line-height: normal;
-          color: var(--color-silver-chalice);
-        }
-      }
-    }
-  }
-  &__bottom {
-    display: flex;
-    gap: 4px;
-    span,
-    &--date,
-    &--views {
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      color: var(--color-secondary);
-    }
-    &--comments {
-      padding: 16px 0 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      p {
-        margin: 0;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 550;
-        line-height: normal;
-        color: var(--color-mine-shaft);
-      }
-      span {
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 550;
-        line-height: normal;
-        color: var(--color-secondary);
-      }
-    }
-  }
-  &__comments {
-    overflow-y: scroll;
-    height: 513px;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-
-    &--form {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      display: flex;
-      padding: 6px;
-      .form {
-        &__input {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          width: calc(100% - 34px);
-
-          img {
-            width: 28px;
-            height: 28px;
-            display: block;
-            object-fit: cover;
-            object-position: center;
-            border-radius: 50%;
-            overflow: hidden;
-          }
-          input {
-            width: 100%;
-            border: none;
-            outline: none;
-            padding: 6px;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-            color: var(--color-mine-shaft);
-            background-color: transparent;
-            &::placeholder {
-              font-family: 'HelveticaNeueCyr', sans-serif;
-              color: var(--color-secondary);
-            }
-          }
-        }
-        &__btn {
-          width: 28px;
-          height: 28px;
-          border: none;
-          outline: none;
-          background: transparent;
-          cursor: pointer;
-        }
-      }
-    }
-
-    &--actions {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      .actions {
-        &__btn {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          cursor: pointer;
-          span {
-            color: var(--color-gray);
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-          }
-        }
-      }
-    }
   }
 }
-
 @media (max-width: 1850px) {
   .parent {
     max-height: 95vh;
@@ -346,9 +143,7 @@ const closeDropdown = () => {
     .video {
       max-height: 95vh;
     }
-    .comment {
-      max-height: calc(88vh - 360px);
-    }
+
     .bottom {
       position: static;
       .shorts__comment--form {

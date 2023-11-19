@@ -14,10 +14,10 @@
       </swiper-slide>
     </swiper>
     <div class="muvi__wrapper">
-      <template v-for="muvi in muvies" :key="muvi.id">
+      <template v-for="(muvi, index) in muvies" :key="muvi.id">
         <MuviCard
           :muvi="muvi"
-          @cardClickHandler="isDetailOpen = true"
+          @cardClickHandler="cardClickHandler(index)"
           v-if="muvi && !Array.isArray(muvi)"
         />
       </template>
@@ -26,7 +26,8 @@
   <MuviDetailSlider
     v-if="isDetailOpen"
     @handleClickOutside="isDetailOpen = false"
-    :movies="muvies"
+    :muvies="muvies"
+    :initialSlideIndex="initialSlideIndex"
   />
 </template>
 <script setup>
@@ -57,6 +58,13 @@ const categories = ref([
     id: 9992132
   }
 ])
+
+const initialSlideIndex = ref(0)
+
+const cardClickHandler = (index) => {
+  isDetailOpen.value = true
+  initialSlideIndex.value = index
+}
 
 const handleSelect = async (index, category) => {
   activeIndex.value = index

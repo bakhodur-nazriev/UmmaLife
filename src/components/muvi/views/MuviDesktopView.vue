@@ -52,6 +52,9 @@ const clickNavHandler = (index) => {
 </script>
 
 <style lang="scss">
+html {
+  scroll-behavior: smooth;
+}
 .muvi {
   &__container {
     max-width: 1510px;
@@ -61,9 +64,10 @@ const clickNavHandler = (index) => {
   }
   &__wrapper {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(6, calc(15% + 8px));
     gap: 68px 16px;
     padding-bottom: 20px;
+    transition: all 0.3s;
 
     @media (max-width: 1580px) {
       grid-template-columns: repeat(5, 1fr);

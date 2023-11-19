@@ -1,6 +1,7 @@
 {
   "lang": "en",
   "meta_title": {
+    "preview_article": "Preview Article",
     "home": "Home",
     "login": "Login",
     "register": "Register",
@@ -734,6 +735,28 @@
       "activity": "Activity",
       "profile": "Profile",
       "add_muvi": "+ Add MUVI"
-    }
+    },
+    "followers": "followers",
+    "my_muvi": "My Muvi",
+    "saved": "Saved",
+    "other_muvi": "Other MUVI",
+    "view_reply": "View replys",
+    "hide_reply": "Hide replys",
+    "like": "Like",
+    "reply": "Reply"
+  },
+  "time": {
+    "day_ago": "day ago",
+    "days_ago": "days ago",
+    "hour_ago": "hour ago",
+    "hours_ago": "hours ago",
+    "minute_ago": "minute ago",
+    "minutes_ago": "minutes ago",
+    "just_now": "Just now"
+  },
+  "report_comment": {
+    "title": "Thank you for letting us know!",
+    "text": "All posts are analyzed and reviewed by our moderators and deleted if they violate the rules of Umma Life!",
+    "ok": "Ok"
   }
 }

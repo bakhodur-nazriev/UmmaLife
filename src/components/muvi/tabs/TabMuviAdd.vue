@@ -36,24 +36,9 @@
 
     <form class="muvi__add--form" @submit.prevent v-else>
       <div class="muvi__add--player">
-        <VideoPlayer controls :volume="1" :sources="videoSrc" :poster="posterSrc" preload="auto">
-          <template v-slot="{ player, state }">
-            <div class="custom-player-controls">
-              <div
-                v-if="!state.playing"
-                @click="state.playing ? player.pause() : player.play()"
-                class="play-button"
-              >
-                <VideoPlayIcon class="play-icon__button-icon-big" />
-                <SmallVideoPlayIcon class="play-icon__button-icon-small" />
-              </div>
-            </div>
-            <button type="button" class="muvi__add--player-btn" v-if="!state.playing">
-              <img src="@/assets/images/AiIcon.png" alt="AiIcon" />
-              <p>Delete music <span>using AI</span></p>
-            </button>
-          </template>
-        </VideoPlayer>
+        <video class="video" autoplay="true" controls preload="none">
+          <source :src="videoSrc[0]?.src" type="video/mp4" />
+        </video>
       </div>
 
       <div class="muvi__add--right">
@@ -104,6 +89,7 @@
 </template>
 
 <script setup>
+/* eslint-disable */
 import { ref } from 'vue'
 import { VideoPlayer } from '@videojs-player/vue'
 
@@ -297,6 +283,7 @@ const posterHandler = (e) => {
       font-weight: 400;
       line-height: 130%;
       color: var(--color-mine-shaft);
+      background-color: transparent;
     }
   }
   &--right {
@@ -419,5 +406,12 @@ const posterHandler = (e) => {
     display: flex;
     gap: 20px;
   }
+}
+.video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 </style>

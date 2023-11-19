@@ -1,5 +1,5 @@
 <template>
-  <div class="premium__icon">
+  <div class="premium__icon" :class="{ investor: is_investor }">
     <div class="premium__icon--inner">
       <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
         <g clip-path="url(#clip0_384_19941)">
@@ -22,26 +22,45 @@
   </div>
 </template>
 
+<script>
+export default {
+  props: {
+    is_investor: {
+      type: Boolean,
+      default: false
+    }
+  }
+}
+</script>
+
 <style lang="scss">
 .premium__icon {
-  width: 16px;
+  max-width: 16px;
+  width: 100%;
   height: 16px;
   background: var(--color-white);
   border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  place-items: center;
+  &.investor {
+    .premium__icon--inner {
+      border-radius: 4px 0 4px 0;
+      max-width: 100%;
+    }
+  }
   &--inner {
-    width: 14px;
+    max-width: 14px;
+    width: 100%;
     height: 14px;
     background: var(--color-green);
     border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     svg {
       width: 8px;
       height: 8px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 }

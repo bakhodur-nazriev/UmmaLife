@@ -1,16 +1,24 @@
 <template>
-  <div class="muvi__card" @click="emit('cardClickHandler')">
+  <div class="muvi__card" @click="clickMuvieHandler(muvi.id)">
     <div class="muvi__card--top">
       <img :src="muvi.preview" :alt="muvi.description" class="muvi__card--img" loading="lazy" />
       <div class="muvi__card--seen">
         <SeenIcon /><span>{{ shortNum(Number(muvi.videoViews || 0)) }}</span>
       </div>
     </div>
-    <div class="muvi__card--title">{{ muvi.description }}</div>
-    <a href="#" class="muvi__card--profile">
-      <img :src="muvi.user_avatar" :alt="muvi.username" loading="lazy" />
-      <span>{{ muvi.username }}</span>
-    </a>
+    <div class="muvi__card--title">
+      {{ extractHashtagsAndText(muvi.description).textWithoutHashtags }}
+    </div>
+    <UserInfo
+      :avatar="muvi.publisher.avatar || muvi.user_avatar"
+      :username="muvi.publisher.name || muvi.name"
+      :status="{
+        is_investor: muvi?.publisher?.isInvestor || false,
+        verified: muvi?.publisher?.verified || '0',
+        is_premium: muvi?.publisher?.is_premium || '0'
+      }"
+      size="small"
+    />
   </div>
 </template>
 
@@ -18,10 +26,36 @@
 /* eslint-disable */
 import shortNum from 'number-shortener'
 import SeenIcon from '@/components/icons/SeenIcon.vue'
+import UserInfo from '@/components/ui/UserInfo.vue'
+import { getFormData, extractHashtagsAndText } from '@/utils'
+import axios from 'axios'
 const props = defineProps({
   muvi: Object
 })
 const emit = defineEmits(['cardClickHandler'])
+const clickMuvieHandler = async (video_id) => {
+  emit('cardClickHandler')
+  await setMuvieViewed(video_id)
+}
+
+const setMuvieViewed = async (video_id) => {
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      video_id
+    })
+    await axios.post('/set-view-short-video', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+  } catch (err) {
+    console.log(err)
+  }
+}
 </script>
 
 <style lang="scss" scoped>
