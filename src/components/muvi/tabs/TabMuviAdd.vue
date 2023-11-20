@@ -1,24 +1,24 @@
 <template>
   <div class="muvi__add">
-    <div class="muvi__add--title">Add MUVI</div>
+    <div class="muvi__add--title">{{ $t('add_muvi.title') }}</div>
     <!-- If file does'n exists -->
     <div
       class="muvi__add--video"
       @dragover.prevent
       @dragleave.prevent
       @drop.prevent="drop"
-      v-if="!file"
+      v-if="!file || !videoStatus || videoStatus === 404"
     >
       <MuviUploadIcon />
-      <p>Select a video to download or drag and drop a file</p>
-      <p>Allowable extensions: mp4</p>
-      <p>Resolution 1280*720</p>
-      <p>No more than 5 minutes</p>
-      <p>Less than 50 mB</p>
+      <p>{{ $t('add_muvi.file_text1') }}</p>
+      <p>{{ $t('add_muvi.file_text2') }}</p>
+      <p>{{ $t('add_muvi.file_text3') }}</p>
+      <p>{{ $t('add_muvi.file_text4') }}</p>
+      <p>{{ $t('add_muvi.file_text5') }}</p>
 
       <div class="muvi__add--label">
         <SampleButton
-          title="Select a file"
+          :title="$t('add_muvi.select_file')"
           padding="13px"
           width="100%"
           @click="$refs.filesInput.click()"
@@ -31,10 +31,10 @@
           @change="handleChange"
         />
       </div>
+      <div class="error" v-if="error">{{ $t(error) }}</div>
     </div>
     <!-- If file exist -->
-
-    <form class="muvi__add--form" @submit.prevent v-else>
+    <form class="muvi__add--form" @submit.prevent="submitHandler" v-else-if="videoStatus === 200">
       <div class="muvi__add--player">
         <video class="video" autoplay="true" controls preload="none">
           <source :src="videoSrc[0]?.src" type="video/mp4" />
@@ -44,17 +44,17 @@
       <div class="muvi__add--right">
         <div class="muvi__add--description">
           <div class="muvi__add--description-top">
-            <h2>Description</h2>
-            <span>{{ description.length }}/5000</span>
+            <h2>{{ $t('add_muvi.description') }}</h2>
+            <span>{{ description.length }}/{{ $t('add_muvi.max_length') }}</span>
           </div>
           <textarea v-model="description" :maxlength="5000" />
         </div>
-        <div class="muvi__add--right-title">Cover</div>
+        <div class="muvi__add--right-title">{{ $t('add_muvi.cover') }}</div>
         <div class="muvi__add--right-wrapper">
           <div class="muvi__add--cover" :class="{ blackCover: !posterSrc }">
             <img :src="posterSrc" alt="poster" v-if="posterSrc" />
             <label class="muvi__add--cover-change">
-              {{ posterSrc ? 'Change cover' : 'Add cover' }}
+              {{ posterSrc ? $t('add_muvi.change_cover') : $t('add_muvi.add_cover') }}
               <input
                 @change="posterHandler"
                 type="file"
@@ -63,23 +63,35 @@
             </label>
           </div>
           <ul class="muvi__add--menu">
-            <MuviTagPeopleList />
-            <MuviAddLocationList />
-            <MuviViewList />
+            <MuviTagPeopleList @passTaggedUsers="passTaggedUsers" />
+            <MuviAddLocationList @passLocationDetails="passLocationDetails" />
+            <MuviViewList @passSelectedOption="(option) => (payload.privacy_type = option)" />
             <li class="muvi__add--list">
-              <p><AllowCommentIcon /> Allow comments</p>
+              <p><AllowCommentIcon />{{ $t('add_muvi.allow_comment') }}</p>
               <BaseToggle :checked="true" />
             </li>
-            <MuviChooseCategory />
+            <MuviChooseCategory
+              @passSelectedCategories="(category_id) => (payload.category_id = category_id)"
+            />
             <li class="muvi__add--actions">
               <SampleButton
                 type="button"
-                title="Delete"
+                :title="$t('add_muvi.delete')"
                 color="default"
                 padding="13px"
                 width="200px"
+                @click="(file = null), (posterSrc = null)"
               />
-              <SampleButton type="submit" title="Publish" padding="13px" width="200px" />
+              <SampleButton
+                type="submit"
+                :title="$t('add_muvi.publish')"
+                padding="13px"
+                width="200px"
+                :disabled="isLoading"
+                :icon="isLoading"
+              >
+                <SpinnerGif v-if="isLoading" class="spinner" />
+              </SampleButton>
             </li>
           </ul>
         </div>
@@ -90,36 +102,74 @@
 
 <script setup>
 /* eslint-disable */
-import { ref } from 'vue'
-import { VideoPlayer } from '@videojs-player/vue'
+import { ref, reactive } from 'vue'
+import axios from 'axios'
+import { getFormData, validateVideoFile } from '@/utils'
 
 // Components
 import MuviUploadIcon from '@/components/icons/shorts/MuviUploadIcon.vue'
 import MuviTagPeopleList from '@/components/muvi/lists/MuviTagPeopleList.vue'
 import MuviAddLocationList from '@/components/muvi/lists/MuviAddLocationList.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
-import VideoPlayIcon from '@/components/icons/VideoPlayIcon.vue'
-import SmallVideoPlayIcon from '@/components/icons/SmallVideoPlayIcon.vue'
 import AllowCommentIcon from '@/components/icons/shorts/AllowCommentIcon.vue'
 import BaseToggle from '@/components/ui/BaseToggle.vue'
 import MuviViewList from '@/components/muvi/lists/MuviViewList.vue'
 import MuviChooseCategory from '@/components/muvi/lists/MuviChooseCategory.vue'
+import SpinnerGif from '@/components/icons/SpinnerGif.vue'
 
 const filesInput = ref()
 const file = ref(null)
 const description = ref('')
 const videoSrc = ref([])
+const error = ref('')
+const videoStatus = ref(null)
+const isLoading = ref(false)
 
 const posterSrc = ref(null)
 
+const emit = defineEmits(['getBack'])
+
+const payload = reactive({
+  server_key: process.env.VUE_APP_SERVER_KEY,
+  video: null, // video file
+  description: '',
+  privacy_type: 0, //0 - Available to everyone * 1 - Who is following me * 2 - Who am I following
+  tagged_users: [],
+  preview: null, //preview file
+  category_id: null,
+  latitude: null, //number
+  longitude: null, //number
+  location_name: null
+})
+
 const drop = (event) => {
   file.value = event.dataTransfer.files[0]
-  handleFile(file.value)
+  validateVideo(file.value)
+  payload.video = file.value
+}
+
+const validateVideo = async (file) => {
+  try {
+    const { status, message } = await validateVideoFile(file)
+    if (status === 404) {
+      error.value = message
+      videoStatus.value = status
+      return
+    }
+    error.value = ''
+    videoStatus.value = status
+    handleFile(file)
+  } catch (err) {
+    error.value = err?.message
+    videoStatus.value = err?.status
+    return
+  }
 }
 
 const handleChange = (event) => {
   file.value = event.target.files[0]
-  handleFile(file.value)
+  validateVideo(file.value)
+  payload.video = file.value
 }
 
 const handleFile = (file) => {
@@ -133,7 +183,41 @@ const handleFile = (file) => {
 
 const posterHandler = (e) => {
   const file = e.target.files[0]
+  if (!file) return
   posterSrc.value = URL.createObjectURL(file)
+  payload.preview = file
+}
+
+const passTaggedUsers = (users) => {
+  payload.tagged_users = users.map((user) => user.user_id)
+}
+
+const passLocationDetails = ({ location_name, latitude, longitude }) => {
+  payload.latitude = latitude
+  payload.longitude = longitude
+  payload.location_name = location_name
+}
+
+const submitHandler = async () => {
+  try {
+    isLoading.value = true
+    const submitPayload = getFormData({ ...payload, description: description.value })
+
+    await axios.post('/add-short-video', submitPayload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+
+    emit('getBack', 0)
+  } catch (err) {
+    console.log(err)
+  } finally {
+    isLoading.value = false
+  }
 }
 </script>
 
@@ -247,6 +331,16 @@ const posterHandler = (e) => {
       display: none !important;
     }
   }
+  &--poster {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
   &--description {
     margin-bottom: 20px;
     &-top {
@@ -310,7 +404,7 @@ const posterHandler = (e) => {
     background-color: var(--color-seashell);
     &.blackCover {
       .muvi__add--cover-change {
-        color: var(--color-mine-shaft);
+        color: var(--color-stable-white);
       }
     }
     img {
@@ -336,7 +430,7 @@ const posterHandler = (e) => {
       font-style: normal;
       font-weight: 400;
       line-height: normal;
-      color: var(--color-white);
+      color: var(--color-stable-white);
       input {
         opacity: 0;
         position: absolute;
@@ -413,5 +507,11 @@ const posterHandler = (e) => {
   height: 100%;
   object-fit: cover;
   object-position: center;
+}
+
+.spinner {
+  width: 20px !important;
+  height: 20px !important;
+  scale: 2.2;
 }
 </style>

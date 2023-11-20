@@ -5,21 +5,22 @@
     v-on-click-outside="() => (isDropdownOpen = false)"
   >
     <div class="muvi__add--list">
-      <p><ChooseCategoryIcon /> Choose a category</p>
+      <p><ChooseCategoryIcon /> {{ $t('add_muvi.choose_categories') }}</p>
 
       <ArrowDownIcon class="arrow" />
     </div>
     <ul v-if="selectedOptions.length > 0" class="muvi__add--selection">
       <li v-for="option in selectedOptions" :key="option.id" class="muvi__add--selection-li">
-        {{ option.title }}
+        <span>{{ option.emoji }}</span> <span>{{ option.description }}</span>
       </li>
     </ul>
+
     <div class="muvi__add--dropdown" v-if="isDropdownOpen" @click.stop>
       <div class="muvi__mobile--nav white">
         <button @click="isDropdownOpen = false" class="muvi__mobile--nav-btn">
           <ArrowLeftIcon />
         </button>
-        <div class="muvi__mobile--nav-title">Choose a category</div>
+        <div class="muvi__mobile--nav-title">{{ $t('add_muvi.choose_categories') }}</div>
         <div class="left"></div>
       </div>
       <div
@@ -29,41 +30,84 @@
         @click="handleSelect(index)"
       >
         <div class="muvi__add--dropdown-left">
-          <img :src="option.img" :alt="option.title" />
-          <span>{{ option.title }}</span>
+          <span>{{ option.emoji }}</span>
+          <span>{{ option.description }}</span>
         </div>
         <CustomRadio :is-selected="option.isSelected" />
       </div>
+      <div
+        v-intersection-observer="loadMore"
+        v-if="!isLoading && countElements >= 18"
+        class="observer"
+      ></div>
     </div>
   </li>
 </template>
 
 <script setup>
+/* eslint-disable */
 import { ref, computed } from 'vue'
-import { vOnClickOutside } from '@vueuse/components'
+import { vIntersectionObserver, vOnClickOutside } from '@vueuse/components'
+
+import { getFormData } from '@/utils'
+import axios from 'axios'
 
 import ChooseCategoryIcon from '@/components/icons/shorts/ChooseCategoryIcon.vue'
 import ArrowDownIcon from '@/components/icons/shorts/ArrowDownIcon.vue'
 import CustomRadio from '@/components/ui/CustomRadio.vue'
-import ArrowLeftIcon from '../../icons/shorts/ArrowLeftIcon.vue'
+import ArrowLeftIcon from '@/components/icons/shorts/ArrowLeftIcon.vue'
 
 const isDropdownOpen = ref(false)
 
-const options = ref([
-  { id: 1, img: '/images/categories/religion.png', title: 'Religion', isSelected: false },
-  { id: 2, img: '/images/categories/family.png', title: 'Family', isSelected: false },
-  { id: 3, img: '/images/categories/health.png', title: 'Health', isSelected: false },
-  { id: 4, img: '/images/categories/fitness.png', title: 'Fitness', isSelected: false },
-  { id: 5, img: '/images/categories/books.png', title: 'Books', isSelected: false }
-])
+const options = ref([])
+const page = ref(1)
 
 const selectedOptions = computed(() => {
   return options.value.filter((option) => option.isSelected)
 })
 
 const handleSelect = (index) => {
+  options.value.forEach((option) => (option.isSelected = false))
   options.value[index].isSelected = !options.value[index].isSelected
+  emit('passSelectedCategories', selectedOptions.value[0]?.id || null)
 }
+
+const emit = defineEmits(['passSelectedCategories'])
+const isLoading = ref(false)
+const countElements = ref(0)
+
+const getAllCategories = async (page) => {
+  try {
+    isLoading.value = true
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      page
+    })
+    const { data } = await axios.post('/categories', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    countElements.value = data.countElements
+    options.value = [...options.value, ...data.data]
+  } catch (err) {
+    console.error(err)
+  } finally {
+    isLoading.value = false
+  }
+}
+
+const loadMore = async ([{ isIntersecting }]) => {
+  if (isIntersecting) {
+    page.value += 1
+    await getAllCategories(page.value)
+  }
+}
+
+getAllCategories(page.value)
 </script>
 
 <style lang="scss" scoped>
@@ -142,7 +186,7 @@ const handleSelect = (index) => {
       padding: 9px 12px;
       background-color: var(--color-hippie-blue);
       border-radius: 8px;
-      color: var(--color-white);
+      color: var(--color-stable-white);
       font-size: 16px;
       font-style: normal;
       font-weight: 400;

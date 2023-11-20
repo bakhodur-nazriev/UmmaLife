@@ -41,3 +41,57 @@ export function extractNumericKeys(obj) {
 
   return numericKeys
 }
+
+export function validateVideoFile(file) {
+  // Check if the file is a video
+  const allowedVideoTypes = ['video/mp4']
+  if (!allowedVideoTypes.includes(file.type)) {
+    return {
+      status: 404,
+      message: 'add_muvi.errors.invalid_type'
+    }
+  }
+
+  // Check video size (in megabytes)
+  const maxSizeMB = 50
+  const maxSizeBytes = maxSizeMB * 1024 * 1024
+  if (file.size > maxSizeBytes) {
+    return {
+      status: 404,
+      message: 'add_muvi.errors.size_error'
+    }
+  }
+
+  // Check video duration (in seconds)
+  const maxDurationSeconds = 300 // 5 minutes
+  return new Promise((resolve, reject) => {
+    const video = document.createElement('video')
+    video.preload = 'metadata'
+
+    video.onloadedmetadata = function () {
+      const duration = video.duration
+      if (duration > maxDurationSeconds) {
+        // eslint-disable-next-line
+        reject({
+          status: 404,
+          message: 'add_muvi.errors.duration'
+        })
+      } else {
+        resolve({
+          status: 200,
+          message: 'add_muvi.success'
+        })
+      }
+    }
+
+    video.onerror = function () {
+      // eslint-disable-next-line
+      reject({
+        status: 200,
+        message: 'add_muvi.errors.loading_error'
+      })
+    }
+
+    video.src = URL.createObjectURL(file)
+  })
+}

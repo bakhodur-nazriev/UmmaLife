@@ -6,7 +6,7 @@
       <TabMuviPopular v-else-if="links[1].isActive" />
       <TabMuviActivity v-else-if="links[2].isActive" />
       <TabMuviProfile v-else-if="links[3].isActive" />
-      <TabMuviAdd v-else-if="links[4].isActive" />
+      <TabMuviAdd v-else-if="links[4].isActive" @getBack="(index) => clickNavHandler(index)" />
     </div>
   </div>
 </template>

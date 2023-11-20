@@ -1,7 +1,7 @@
 <template>
   <li class="muvi__add--list" @click="isMapOpen = !isMapOpen">
     <div class="muvi__add--list-parent">
-      <p><AddLocationIcon /> Add location</p>
+      <p><AddLocationIcon /> {{ $t('add_muvi.add_location') }}</p>
       <div class="muvi__add--selected" v-if="selectedValues.length > 0">
         {{ selectedValues[0].formatted_address }}
       </div>
@@ -13,11 +13,11 @@
         <button @click="isMapOpen = false" class="muvi__mobile--nav-btn">
           <ArrowLeftIcon />
         </button>
-        <div class="muvi__mobile--nav-title">Add location</div>
+        <div class="muvi__mobile--nav-title">{{ $t('add_muvi.add_location') }}</div>
         <div class="left"></div>
       </div>
       <div class="muvi__location" v-on-click-outside="() => (isMapOpen = false)">
-        <div class="muvi__location--title">Add location</div>
+        <div class="muvi__location--title">{{ $t('add_muvi.add_location') }}</div>
         <div class="muvi__location--search">
           <LoupeIcon />
           <GoogleAutocomplete
@@ -27,7 +27,7 @@
             :api-key="apiKey"
             :isFullPayload="true"
             type="search"
-            placeholder="Search"
+            :placeholder="$t('add_muvi.search')"
           />
         </div>
         <div class="muvi__location--map">
@@ -48,7 +48,7 @@
           </GoogleMap>
         </div>
         <button class="muvi__location--current" @click="getCoordinates">
-          <AddLocationIcon /> <span>Current location</span>
+          <AddLocationIcon /> <span>{{ $t('add_muvi.current_location') }}</span>
         </button>
         <ul class="muvi__location--menu" v-if="selectedValues.length > 0">
           <li
@@ -92,10 +92,18 @@ const isMapOpen = ref(false)
 const inputValue = ref('')
 const selectedValues = ref([])
 
+const emit = defineEmits(['passLocationDetails'])
+
 const getPayload = (value, state = 'push') => {
   state === 'push' && selectedValues.value.unshift(value)
   center.value = { lat: value.geometry.location.lat(), lng: value.geometry.location.lng() }
   inputValue.value = ''
+
+  emit('passLocationDetails', {
+    location_name: value?.address_components[1]?.long_name,
+    latitude: center.value.lat,
+    longitude: center.value.lng
+  })
 }
 
 const getCoordinates = () => {

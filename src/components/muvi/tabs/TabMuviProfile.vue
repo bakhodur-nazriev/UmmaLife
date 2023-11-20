@@ -31,7 +31,7 @@
       class="muvi__profile--tab"
     />
 
-    <TabMyMuvies :user="user" v-if="activeIndex === 0" />
+    <TabMyMuvies :user="user" v-if="activeIndex === 0 && Object.values(user).length > 0" />
     <TabSavedMuvies :user="user" v-else />
   </div>
 </template>

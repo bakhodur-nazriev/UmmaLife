@@ -44,10 +44,10 @@ const fetchMyMuvies = async () => {
   try {
     const payload = getFormData({
       server_key: process.env.VUE_APP_SERVER_KEY,
-      user_id: props.user.value?.user_id,
+      user_id: props.user?.user_id,
       page: page.value
     })
-    const { data } = await axios.post('/muvi-recommendations', payload, {
+    const { data } = await axios.post('/get-user-short-videos', payload, {
       headers: {
         'Content-Type': 'multipart/form-data'
       },

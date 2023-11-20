@@ -8,7 +8,7 @@ const props = defineProps({
     default: ''
   },
   icon: {
-    type: String,
+    type: [String, Boolean],
     default: ''
   },
   size: {
