@@ -15,10 +15,9 @@ const props = defineProps({
   textSize: {
     type: String
   },
-  isChecked: {
-    type: Boolean
-  }
 })
+
+const isChecked = ref(false)
 const updateChecked = (event) => {
   this.$emit('update:checked', event.target.checked)
 }
@@ -27,11 +26,11 @@ const updateChecked = (event) => {
 <template>
   <label :class="['checkbox', `checkbox__${textSize}`]">
     <input
-      class="checkbox__input visually-hidden"
-      type="checkbox"
-      :name="name"
-      v-model="isChecked"
-      @change="updateChecked"
+        class="checkbox__input visually-hidden"
+        type="checkbox"
+        :name="name"
+        v-model="isChecked"
+        @change="updateChecked"
     />
     <span :class="['checkbox__icon', `checkbox__${color}`]">
       <CheckMarkIcon/>
