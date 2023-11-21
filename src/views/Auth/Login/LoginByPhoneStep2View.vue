@@ -57,7 +57,7 @@ import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import SampleCodeNumberInput from '@/components/ui/SampleCodeNumberInput.vue'
-import axios from "axios";
+import axios from 'axios'
 
 export default {
   components: {

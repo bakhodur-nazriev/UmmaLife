@@ -55,13 +55,17 @@
         <small v-if="hasError.gender" class="error-message">
           {{ $t('register.validation.empty_gender') }}
         </small>
+
+        <small v-if="errorText" class="error-message">
+          {{ errorText }}
+        </small>
       </div>
     </div>
 
     <div class="login-button__section">
       <SampleButton
+          type="submit"
           class="login-button__section-next"
-          @click="handleSubmit"
           :title="`${ $t('buttons.next') }`"
       />
     </div>
@@ -93,7 +97,8 @@ export default {
         lastName: false,
         gender: false
       },
-      selectedGender: null
+      selectedGender: null,
+      errorText: null
     }
   },
   watch: {
@@ -112,18 +117,27 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {
-      // Проверка на пустые поля
+    async handleSubmit(event) {
+      event.preventDefault()
       this.hasError.firstName = this.firstName.trim() === ''
       this.hasError.lastName = this.lastName.trim() === ''
       this.hasError.gender = this.selectedGender === null
 
-      // Проверка на наличие ошибок
       if (this.hasError.firstName || this.hasError.lastName || this.hasError.gender) {
-        return // Прекратить отправку формы в случае ошибок
+        return
       }
-      // Выполнить остальную логику отправки формы
-      // ...
+
+      try {
+        const response = await this.sendRequest()
+
+        if (response.data.api_status === 200) {
+          console.log(response.data)
+        } else {
+          this.errorText = response.data.errors.error_text
+        }
+      } catch (error) {
+        console.error('Error occurred:', error)
+      }
 
       this.$emit('next-step')
     },

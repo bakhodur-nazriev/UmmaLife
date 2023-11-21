@@ -4,33 +4,37 @@
 
     <div :class="['input-wrapper', { error: hasError || isInvalidEmail }]">
       <input
-          type="email"
-          v-model="email"
-          class="base-input"
-          :placeholder="$t('register.placeholders.email')"
+        type="email"
+        v-model="email"
+        class="base-input"
+        :placeholder="$t('register.placeholders.email')"
       />
       <small v-if="hasError || isInvalidEmail" class="error-message">
         {{ $t(isInvalidEmail ? 'register.validation.incorrect_email' : 'register.validation.empty_email') }}
       </small>
+      <small v-if="errorText" class="error-message">
+        {{ errorText }}
+      </small>
     </div>
 
     <CheckBox
-        class="register-checkbox"
-        name="agreement"
-        color="secondary"
-        text-size="small"
+      class="register-checkbox"
+      color="secondary"
+      text-size="small"
+      :isChecked="isAgreementChecked"
+      @update:checked="handleCheckBoxUpdate"
     >
       {{ $t('register.messages.agreement_to_creating_account') }} <br>
       <router-link
-          class="link register-checkbox__link"
-          :to="`/${$i18n.locale}/terms`"
+        class="link register-checkbox__link"
+        :to="`/${$i18n.locale}/terms`"
       >
         {{ $t('links.terms') }}
       </router-link>
       <span class="symbol__ampersand">&</span>
       <router-link
-          class="link register-checkbox__link"
-          :to="`/${$i18n.locale}/privacy-policy`"
+        class="link register-checkbox__link"
+        :to="`/${$i18n.locale}/privacy-policy`"
       >
         {{ $t('links.privacy_policy') }}
       </router-link>
@@ -38,9 +42,9 @@
 
     <div class="login-button-section">
       <SampleButton
-          :title="$t('buttons.get_code_by_email')"
-          :type="submitting ? 'button' : 'submit'"
-          :disabled="submitting"
+        :title="$t('buttons.get_code_by_email')"
+        :type="submitting ? 'button' : 'submit'"
+        :disabled="submitting"
       >
       </SampleButton>
     </div>
@@ -48,8 +52,8 @@
     <div class="login-section">
       <label class="login-section__label">{{ $t('register.label') }}</label>
       <router-link
-          class="login-section__link"
-          :to="`/${$i18n.locale}/login-by-email`"
+        class="login-section__link"
+        :to="`/${$i18n.locale}/login-by-email`"
       >
         {{ $t('login.title') }}
       </router-link>
@@ -78,7 +82,9 @@ export default {
       email: '',
       hasError: false,
       loading: false,
-      submitting: false
+      submitting: false,
+      errorText: null,
+      isAgreementChecked: false
     }
   },
   computed: {
@@ -96,6 +102,9 @@ export default {
     }
   },
   methods: {
+    handleCheckBoxUpdate(value) {
+      this.isAgreementChecked = value;
+    },
     async sendRequest() {
       const formData = new FormData()
       formData.append('server_key', process.env.VUE_APP_SERVER_KEY)
@@ -112,11 +121,31 @@ export default {
         throw error
       }
     },
-
-    async handleSubmit() {
+    async handleSubmit(event) {
+      event.preventDefault()
       this.$store.commit('setEmail', this.email)
-      // Здесь можете выполнить дополнительную "логику отправки формы" или другие действия
-      this.$emit('next-step')
+
+      if (!this.email.trim()) {
+        this.hasError = true
+        return
+      }
+
+      if (!this.isAgreementChecked) {
+        this.errorText = 'Вы должны согласиться с условиями'
+        return
+      }
+
+      try {
+        const response = await this.sendRequest()
+
+        if (response.data.api_status === 200) {
+          this.$emit('next-step')
+        } else {
+          this.errorText = response.data.errors.error_text
+        }
+      } catch (error) {
+        console.error('Error occurred:', error)
+      }
     }
   }
 }
@@ -137,6 +166,12 @@ export default {
       margin-top: 4px;
     }
   }
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
 }
 
 .base-input {
@@ -179,6 +214,7 @@ export default {
   margin-top: 24px;
   margin-bottom: 64px;
   text-decoration: none;
+  user-select: none;
 
   &__link {
     text-decoration: underline;

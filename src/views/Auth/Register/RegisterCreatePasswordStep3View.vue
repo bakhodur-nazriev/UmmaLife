@@ -1,5 +1,5 @@
 <template>
-  <form-auth @submit="submit">
+  <form-auth @submit="handleSubmit">
     <title-sample>{{ $t('register.title') }}</title-sample>
 
     <h5 class="title medium reminder-message">{{ $t('register.messages.create_password') }}</h5>
@@ -23,11 +23,14 @@
       <small v-if="hasError" class="error-message">
         {{ $t('register.validation.empty_password') }}
       </small>
+      <small v-if="errorText" class="error-message">
+        {{ errorText }}
+      </small>
     </div>
 
     <div class="login-button__section">
       <SampleButton
-          @click="handleSubmit"
+          type="submit"
           class="login-button__section-next"
           :title="`${$t('buttons.next')}`"
       />
@@ -57,7 +60,8 @@ export default {
       password: '',
       hasError: false,
       isPasswordVisible: false,
-      passwordError: false
+      passwordError: false,
+      errorText: null
     }
   },
   watch: {
@@ -73,16 +77,23 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {
-      // Выполните обработку данных формы
+    async handleSubmit(event) {
+      event.preventDefault()
+
       if (this.password.trim() === '') {
         this.hasError = true
-      } else {
-        // Perform form submission logic here
-        // ...
+      }
 
-        this.$emit('next-step')
-        // Переключитесь на следующий шаг
+      try {
+        const response = await this.sendRequest()
+
+        if (response.data.api_status === 200) {
+          console.log(response.data)
+        } else {
+          this.errorText = response.data.errors.error_text
+        }
+      } catch (error) {
+        console.error('Error occurred:', error)
       }
     },
     async sendRequest() {

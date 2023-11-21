@@ -172,7 +172,7 @@ export default {
         this.loading = true;
         const response = await this.sendLoginRequest();
 
-        if (response.status === 200) {
+        if (response.api_status === 200) {
           this.handleSuccessfulLogin(response.data);
         } else {
           this.handleFailedLogin(response.data);

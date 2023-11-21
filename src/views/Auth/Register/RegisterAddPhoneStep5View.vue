@@ -1,5 +1,5 @@
 <template>
-  <FormAuth @submit="submit">
+  <FormAuth @submit="handleSubmit">
     <TitleSample>{{ $t('register.title') }}</TitleSample>
 
     <h5 class="subhead medium">{{ $t('register.messages.enter_your_phone') }}</h5>
@@ -18,12 +18,15 @@
       <small v-if="hasError" class="error-message">
         {{ $t('register.validation.incorrect_phone_number') }}
       </small>
+      <small v-if="errorText" class="error-message">
+        {{ errorText }}
+      </small>
     </div>
 
     <div class="login-button__section">
       <SampleButton
+          type="submit"
           class="login-button__section-button"
-          @click="handleSubmit"
           :title="`${ $t('buttons.login') }`"
       />
     </div>
@@ -74,7 +77,8 @@ export default {
         },
       },
       country: null,
-      responseErrorText: null
+      responseErrorText: null,
+      errorText: null
     }
   },
   computed: {
@@ -90,8 +94,21 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {
+    async handleSubmit(event) {
+      event.preventDefault()
       this.hasError = this.phoneNumber.trim() === ''
+
+      try {
+        const response = await this.sendRequest()
+
+        if (response.data.api_status === 200) {
+          console.log(response.data)
+        } else {
+          this.errorText = response.data.errors.error_text
+        }
+      } catch (error) {
+        console.error('Error occurred:', error)
+      }
     },
     async sendRequest() {
       const formData = new FormData()

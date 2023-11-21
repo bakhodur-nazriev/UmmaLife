@@ -19,6 +19,9 @@
       <small v-if="hasError" class="error-message">
         {{ $t('register.validation.incorrect_code') }}
       </small>
+      <small v-if="errorText" class="error-message">
+        {{ errorText }}
+      </small>
     </div>
 
     <div class="login__button-section">
@@ -57,7 +60,8 @@ export default {
     return {
       code: ['', '', '', '', '', ''],
       hasError: false,
-      countDown: 60
+      countDown: 60,
+      errorText: null
     }
   },
   computed: {
@@ -69,16 +73,27 @@ export default {
     }
   },
   methods: {
-    async handleSubmit() {
+    async handleSubmit(event) {
+      event.preventDefault()
+
       if (this.code.some((val) => val.trim() === '')) {
         this.hasError = true
-      } else {
-        const fullCode = this.code.join('')
-        console.log(fullCode)
-
-        this.$emit('next-step')
       }
 
+      try {
+        const response = await this.sendRequest()
+
+        if (response.data.api_status === 200) {
+          console.log(response.data)
+        } else {
+          this.errorText = response.data.errors.error_text
+        }
+      } catch (error) {
+        console.error('Error occurred:', error)
+      }
+    },
+
+    async sendRequest() {
       const formData = new FormData()
       formData.append('server_key', process.env.VUE_APP_SERVER_KEY)
       formData.append('email', this.email)
@@ -94,11 +109,6 @@ export default {
       } catch (error) {
         throw error
       }
-    },
-
-    submit(event) {
-      event.preventDefault()
-      this.handleSubmit()
     },
     focusNextInput() {
       const inputs = this.$el.querySelectorAll('.verify__number-section input')
