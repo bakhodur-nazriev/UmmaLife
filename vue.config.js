@@ -2,13 +2,12 @@ const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
   devServer: {
-    // port: '8081',
-    // headers: { "Access-Control-Allow-Origin": "*" },
+    headers: { "Access-Control-Allow-Origin": "*" },
     webSocketServer: false,
     historyApiFallback: true,
     proxy: {
       '/api': {
-        target: 'https://preview.ummalife.com',
+        target: 'https://ummalife.com',
         changeOrigin: true
       }
     }
