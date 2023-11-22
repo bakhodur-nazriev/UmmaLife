@@ -139,14 +139,6 @@ export default {
   }
 }
 
-video::-webkit-media-controls {
-  display: none !important;
-}
-
-video::-webkit-media-controls-enclosure {
-  display: none !important;
-}
-
 .article-content {
   &__details-block {
     line-height: 1;

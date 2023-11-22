@@ -6,16 +6,14 @@
       <TabMuviPopular v-else-if="links[1].isActive" />
       <TabMuviActivity v-else-if="links[2].isActive" />
       <TabMuviProfile v-else-if="links[3].isActive" />
-      <TabMuviAdd v-else-if="links[4].isActive" />
+      <TabMuviAdd v-else-if="links[4].isActive" @getBack="(index) => clickNavHandler(index)" />
     </div>
   </div>
 </template>
 
 <script setup>
 /* eslint-disable */
-import { ref, watch, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { useWindowSize } from '@vueuse/core'
+import { ref } from 'vue'
 
 import GroupsNav from '@/components/groups/GroupsNav.vue'
 import TabMuviFeeds from '@/components/muvi/tabs/TabMuviFeeds.vue'
@@ -24,39 +22,25 @@ import TabMuviActivity from '@/components/muvi/tabs/TabMuviActivity.vue'
 import TabMuviProfile from '@/components/muvi/tabs/TabMuviProfile.vue'
 import TabMuviAdd from '@/components/muvi/tabs/TabMuviAdd.vue'
 
-const router = useRouter()
-const { width } = useWindowSize()
-
-watch(
-    () => width.value,
-    (val) => checkRouter(val)
-)
-
-const checkRouter = (width) => {
-  if (width < 767) {
-    router.push('/muvi-mobile')
-  }
-}
-
 const links = ref([
   {
-    name: 'Feed',
+    name: 'muvi.tabs.feed',
     isActive: true
   },
   {
-    name: 'Popular',
+    name: 'muvi.tabs.popular',
     isActive: false
   },
   {
-    name: 'Activity',
+    name: 'muvi.tabs.activity',
     isActive: false
   },
   {
-    name: 'Profile',
+    name: 'muvi.tabs.profile',
     isActive: false
   },
   {
-    name: '+ Add MUVI',
+    name: 'muvi.tabs.add_muvi',
     isActive: false
   }
 ])
@@ -65,13 +49,12 @@ const clickNavHandler = (index) => {
   links.value.forEach((link) => (link.isActive = false))
   links.value[index].isActive = true
 }
-
-onMounted(() => {
-  checkRouter(width.value)
-})
 </script>
 
 <style lang="scss">
+html {
+  scroll-behavior: smooth;
+}
 .muvi {
   &__container {
     max-width: 1510px;
@@ -81,8 +64,23 @@ onMounted(() => {
   }
   &__wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(233px, 1fr));
-    gap: 28px 16px;
+    grid-template-columns: repeat(6, calc(15% + 8px));
+    gap: 68px 16px;
+    padding-bottom: 20px;
+    transition: all 0.3s;
+
+    @media (max-width: 1580px) {
+      grid-template-columns: repeat(5, 1fr);
+    }
+    @media (max-width: 1380px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    @media (max-width: 1127px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 910px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 }
 </style>

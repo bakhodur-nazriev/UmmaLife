@@ -5,9 +5,9 @@
     v-on-click-outside="() => (isDropdownOpen = false)"
   >
     <div class="muvi__add--list-parent">
-      <p><LockIcon /> Who can view this MUVI</p>
+      <p><LockIcon /> {{ $t('add_muvi.can_view') }}</p>
       <div class="muvi__add--selected" v-if="selectedOption">
-        {{ selectedOption.name }}
+        {{ $t(selectedOption.name) }}
       </div>
     </div>
     <ArrowDownIcon class="arrow" :class="{ open: isDropdownOpen }" />
@@ -17,7 +17,7 @@
         <button @click="isDropdownOpen = false" class="muvi__mobile--nav-btn">
           <ArrowLeftIcon />
         </button>
-        <div class="muvi__mobile--nav-title">Who can view this MUVI</div>
+        <div class="muvi__mobile--nav-title">{{ $t('add_muvi.can_view') }}</div>
         <div class="left"></div>
       </div>
       <div
@@ -28,9 +28,9 @@
       >
         <div class="muvi__add--dropdown-left">
           <div class="muvi__add--dropdown-top">
-            <component :is="option.icon" /> <span>{{ option.name }}</span>
+            <component :is="option.icon" /> <span>{{ $t(option.name) }}</span>
           </div>
-          <div class="muvi__add--dropdown-text">{{ option.text }}</div>
+          <div class="muvi__add--dropdown-text">{{ $t(option.text) }}</div>
         </div>
         <CustomRadio :isSelected="option.isSelected" />
       </div>
@@ -39,6 +39,7 @@
 </template>
 
 <script setup>
+/* eslint-disable */
 import { ref } from 'vue'
 import { vOnClickOutside } from '@vueuse/components'
 import LockIcon from '@/components/icons/shorts/LockIcon.vue'
@@ -49,27 +50,29 @@ import SubscribesOnlyIcon from '@/components/icons/shorts/SubscribesOnlyIcon.vue
 import SubscriptionsOnlyIcon from '@/components/icons/shorts/SubscriptionsOnlyIcon.vue'
 import ArrowLeftIcon from '@/components/icons/shorts/ArrowLeftIcon.vue'
 
+const emit = defineEmits(['passSelectedOption'])
+
 const isDropdownOpen = ref(false)
 const options = ref([
   {
     id: 1,
     isSelected: true,
-    name: 'Available to all',
-    text: 'In Umma Life and beyond.',
+    name: 'add_muvi.views_options.name1',
+    text: 'add_muvi.views_options.text1',
     icon: 'available-all-icon'
   },
   {
     id: 2,
     isSelected: false,
-    name: 'Subscribers only',
-    text: 'Your subscribers to Umma Life',
+    name: 'add_muvi.views_options.name2',
+    text: 'add_muvi.views_options.text2',
     icon: 'subscribes-only-icon'
   },
   {
     id: 3,
     isSelected: false,
-    name: 'Subscriptions only',
-    text: 'Your subscriptions to Umma Life',
+    name: 'add_muvi.views_options.name3',
+    text: 'add_muvi.views_options.text3',
     icon: 'subscriptions-only-icon'
   }
 ])
@@ -80,6 +83,7 @@ const handleSelect = (index) => {
   options.value.forEach((option) => (option.isSelected = false))
   options.value[index].isSelected = true
   selectedOption.value = options.value[index]
+  emit('passSelectedOption', index)
 }
 </script>
 
@@ -136,6 +140,7 @@ export default {
       align-items: center;
       gap: 12px;
       margin-bottom: 9px;
+      color: var(--color-mine-shaft);
       svg {
         width: 16px;
         height: 16px;

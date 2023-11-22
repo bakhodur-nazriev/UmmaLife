@@ -5,10 +5,10 @@
     v-on-click-outside="() => (isTagPeopleOpen = false)"
   >
     <div class="muvi__add--list-parent">
-      <p><TagPeopleIcon /> Tag people</p>
+      <p><TagPeopleIcon /> {{ $t('add_muvi.tag_people') }}</p>
       <div class="muvi__add--selected" v-if="selectedUsers.length > 0">
         <div v-for="(user, index) in selectedUsers" :key="user.id">
-          {{ user.name }}{{ selectedUsers.length - 1 !== index ? ', ' : '' }}
+          {{ user.name.trim() }}{{ selectedUsers.length - 1 !== index ? ', ' : '' }}
         </div>
       </div>
     </div>
@@ -18,14 +18,14 @@
         <button @click="isTagPeopleOpen = false" class="muvi__mobile--nav-btn">
           <ArrowLeftIcon />
         </button>
-        <div class="muvi__mobile--nav-title">Tag people</div>
+        <div class="muvi__mobile--nav-title">{{ $t('add_muvi.tag_people') }}</div>
         <div class="left"></div>
       </div>
       <div class="search__container--inner">
         <div class="search__container">
           <div class="search__container--wrapper">
             <LoupeIcon />
-            <input type="text" placeholder="Search" @input="handleSearch" />
+            <input type="text" :placeholder="$t('add_muvi.search')" @input="searchHandler" />
           </div>
         </div>
       </div>
@@ -36,10 +36,15 @@
         @click="handleClick(user)"
         :class="{ first: index === 0 }"
       >
-        <div class="muvi__add--dropdown-info">
-          <img :src="user.image" :alt="user.name" />
-          <p>{{ user.name }}</p>
-        </div>
+        <UserInfo
+          :avatar="user.avatar"
+          :username="user.name"
+          :status="{
+            is_investor: user?.isInvestor || false,
+            verified: user?.verified || '0',
+            is_premium: user?.is_premium || '0'
+          }"
+        />
         <div class="selected__option--wrapper">
           <div class="selected__option--checkbox" :class="{ checked: user.isChecked }">
             <transition name="scale">
@@ -48,6 +53,11 @@
           </div>
         </div>
       </div>
+      <div
+        v-intersection-observer="loadMore"
+        v-if="!isLoading && countElements >= 18"
+        class="observer"
+      ></div>
       <div class="selected__option--action">
         <SampleButton :size="14" width="100%" :title="`Done (${selectedUsers.length})`" />
       </div>
@@ -56,32 +66,75 @@
 </template>
 
 <script setup>
+/* eslint-disable */
 import { ref } from 'vue'
-import { users as allUsers } from '@/dummy.js'
-import { vOnClickOutside } from '@vueuse/components'
+import { getFormData } from '@/utils'
+import axios from 'axios'
+import { useDebounceFn } from '@vueuse/core'
+import { vIntersectionObserver, vOnClickOutside } from '@vueuse/components'
+
 import LoupeIcon from '@/components/icons/LoupeIcon.vue'
 import TagPeopleIcon from '@/components/icons/shorts/TagPeopleIcon.vue'
 import CheckMarkIcon from '@/components/icons/CheckMarkIcon.vue'
 import ArrowDownIcon from '@/components/icons/shorts/ArrowDownIcon.vue'
 import ArrowLeftIcon from '@/components/icons/shorts/ArrowLeftIcon.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
+import UserInfo from '@/components/ui/UserInfo.vue'
 
-const users = ref(allUsers)
-const selectedUsers = ref(users.value.filter((u) => u.isChecked))
+const emit = defineEmits(['passTaggedUsers'])
+
+const users = ref([])
+const selectedUsers = ref(users.value.map((u) => u.isChecked))
 const isTagPeopleOpen = ref(false)
+const page = ref(1)
+const user_id = ref(localStorage.getItem('user_id') || null)
+const isLoading = ref(false)
+const countElements = ref(0)
 
-const handleSearch = (event) => {
-  const value = event.target.value.trim().toLowerCase()
-  if (value) {
-    users.value = users.value.filter((user) => user.name.toLowerCase().includes(value))
-  } else {
-    users.value = allUsers
-  }
-}
 const handleClick = (user) => {
   user.isChecked = !user.isChecked
   selectedUsers.value = users.value.filter((u) => u.isChecked)
+  emit('passTaggedUsers', selectedUsers.value)
 }
+
+const searchHandler = useDebounceFn((e) => {
+  getUserFollowers(page.value, e.target.value)
+}, 500)
+
+const getUserFollowers = async (page, search = '') => {
+  try {
+    isLoading.value = true
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      page,
+      search,
+      user_id: user_id.value
+    })
+    const { data } = await axios.post('/get-user-followers', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    countElements.value = data.countElements
+    users.value = [...users.value, ...data.data]
+  } catch (err) {
+    console.error(err)
+  } finally {
+    isLoading.value = false
+  }
+}
+
+const loadMore = async ([{ isIntersecting }]) => {
+  if (isIntersecting) {
+    page.value += 1
+    await getUserFollowers(page.value)
+  }
+}
+
+getUserFollowers(page.value)
 </script>
 
 <style lang="scss">
@@ -126,6 +179,7 @@ const handleClick = (user) => {
         left: 0;
         top: 0;
         background-color: var(--color-white);
+        z-index: 50;
       }
       &--wrapper {
         display: flex;

@@ -8,61 +8,135 @@
         v-for="(category, index) in categories"
         :key="category"
         :class="{ active: activeIndex === index }"
-        @click="handleSelect(index)"
+        @click="handleSelect(index, category)"
       >
-        <span>{{ $t(category) }}</span>
+        <span>{{ category.description }} {{ category.emoji }}</span>
       </swiper-slide>
     </swiper>
     <div class="muvi__wrapper">
-      <MuviCard
-        v-for="muvi in muvies"
-        :key="muvi.id"
-        :muvi="muvi"
-        @cardClickHandler="isDetailOpen = true"
-      />
+      <template v-for="(muvi, index) in muvies" :key="muvi.id">
+        <MuviCard
+          :muvi="muvi"
+          @cardClickHandler="cardClickHandler(index)"
+          v-if="muvi && !Array.isArray(muvi)"
+        />
+      </template>
     </div>
   </div>
-  <teleport to="body">
-    <MuviDetailSlider v-if="isDetailOpen" @handleClickOutside="isDetailOpen = false" />
-  </teleport>
+  <MuviDetailSlider
+    v-if="isDetailOpen"
+    @handleClickOutside="isDetailOpen = false"
+    :muvies="muvies"
+    :initialSlideIndex="initialSlideIndex"
+  />
 </template>
 <script setup>
 /* eslint-disable */
-import { computed, ref } from 'vue'
+import axios from 'axios'
+import { ref } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { muvies as allMuvies } from '@/dummy.js'
 import MuviCard from '@/components/muvi/MuviCard.vue'
 import GroupsSearch from '@/components/groups/ui/GroupsSearch.vue'
 import MuviDetailSlider from '@/components/muvi/MuviDetailSlider.vue'
-const muvies = computed(() => allMuvies)
+import { getFormData } from '@/utils'
+
+const muvies = ref([])
 const activeIndex = ref(0)
 const isDetailOpen = ref(false)
+
 const categories = ref([
-  'settings.main.categories.religion',
-  'settings.main.categories.psychology',
-  'settings.main.categories.family',
-  'settings.main.categories.work',
-  'settings.main.categories.education',
-  'settings.main.categories.travel',
-  'settings.main.categories.books',
-  'settings.main.categories.science',
-  'settings.main.categories.sport',
-  'settings.main.categories.art',
-  'settings.main.categories.auto',
-  'settings.main.categories.food',
-  'settings.main.categories.positive',
-  'settings.main.categories.fitness',
-  'settings.main.categories.history',
-  'settings.main.categories.fashion',
-  'settings.main.categories.architecture',
-  'settings.main.categories.beauty',
-  'settings.main.categories.parenting',
-  'settings.main.categories.nature'
+  {
+    code: 'top',
+    description: 'Top',
+    emoji: '🔝',
+    id: 999999
+  },
+  {
+    code: 'new',
+    description: 'New',
+    emoji: '🆕',
+    id: 9992132
+  }
 ])
 
-const handleSelect = (index) => {
-  activeIndex.value = index
+const initialSlideIndex = ref(0)
+
+const cardClickHandler = (index) => {
+  isDetailOpen.value = true
+  initialSlideIndex.value = index
 }
+
+const handleSelect = async (index, category) => {
+  activeIndex.value = index
+  if (category.code === 'top' || category.code === 'new') {
+    await fetchRecommendations(category.code)
+  } else {
+    await fetchCategorieVideos(category.id)
+  }
+}
+
+const fetchRecommendations = async (category_code) => {
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      last_id: null,
+      filter: category_code
+    })
+    const { data } = await axios.post('/muvi-recommendations', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    muvies.value = data.data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+const fetchCategories = async () => {
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      page: 1
+    })
+    const { data } = await axios.post('/categories', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    categories.value = [...categories.value, ...data.data]
+  } catch (err) {
+    console.log(err)
+  }
+}
+const fetchCategorieVideos = async (category_id) => {
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      last_id: null,
+      category_id
+    })
+    const { data } = await axios.post('/muvi-category-videos', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    muvies.value = data.data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+Promise.all([fetchRecommendations(categories.value[0].code), fetchCategories()])
 </script>
 
 <style lang="scss" scoped>
@@ -87,14 +161,24 @@ const handleSelect = (index) => {
       user-select: none;
       &:not(.active):hover {
         background-color: var(--color-hippie-blue);
-        color: var(--color-white);
+        color: var(--color-stable-white);
         opacity: 0.5;
       }
       &.active {
         background-color: var(--color-hippie-blue);
-        color: var(--color-white);
+        color: var(--color-stable-white) !important;
       }
     }
+  }
+}
+.light .muvi__popular--swiper {
+  .swiper-slide {
+    color: var(--color-mine-shaft);
+  }
+}
+.dark .muvi__popular--swiper {
+  .swiper-slide {
+    color: var(--color-stable-white);
   }
 }
 </style>

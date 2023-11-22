@@ -1,76 +1,81 @@
 <template>
   <div class="muvi__profile">
     <div class="muvi__profile--top">
-      <img src="/images/users/jeff.png" alt="jeff" class="muvi__profile--img" />
+      <img :src="user.avatar" :alt="user.username" class="muvi__profile--img" />
       <div class="muvi__profile--info">
-        <div class="muvi__profile--name">Ibragim Ibragimov</div>
+        <div class="muvi__profile--name">{{ user?.first_name }} {{ user?.last_name }}</div>
         <ul class="muvi__profile--list">
           <li>
-            <p>{{ shortNum(13) }}</p>
-            <span>MUVI</span>
+            <p>{{ shortNum(user?.stats?.muvi || 0) }}</p>
+            <span>{{ $t('tabs.profile_tabs.muvi') }}</span>
           </li>
           <li>
-            <p>{{ shortNum(252000) }}</p>
-            <span>views</span>
+            <p>{{ shortNum(user?.stats?.views || 0) }}</p>
+            <span>{{ $t('video.views') }}</span>
           </li>
           <li>
-            <p>{{ shortNum(45200) }}</p>
-            <span>reactions</span>
+            <p>{{ shortNum(user?.stats?.reactions || 0) }}</p>
+            <span>{{ $t('video.reactions') }}</span>
           </li>
           <li>
-            <p>{{ shortNum(210) }}</p>
-            <span>followers</span>
+            <p>{{ shortNum(user?.stats?.followers || 0) }}</p>
+            <span>{{ $t('muvi.followers') }}</span>
           </li>
         </ul>
       </div>
     </div>
     <MuviTabSwitch
-      :tabs="tabs"
+      :tabs="[$t('muvi.my_muvi'), $t('muvi.saved')]"
       :activeIndex="activeIndex"
       @handleTabClick="handleTabClick"
       class="muvi__profile--tab"
     />
-    <div class="muvi__wrapper" v-if="activeIndex === 0">
-      <MuviCard
-        v-for="muvi in likedMovies"
-        :key="muvi.id"
-        :muvi="muvi"
-        @cardClickHandler="isDetailOpen = true"
-      />
-    </div>
-    <div class="muvi__wrapper" v-else-if="activeIndex === 1">
-      <MuviCard
-        v-for="muvi in viewedMovies"
-        :key="muvi.id"
-        :muvi="muvi"
-        @cardClickHandler="isDetailOpen = true"
-      />
-    </div>
+
+    <TabMyMuvies :user="user" v-if="activeIndex === 0 && Object.values(user).length > 0" />
+    <TabSavedMuvies :user="user" v-else />
   </div>
-  <teleport to="body">
-    <MuviDetailSlider v-if="isDetailOpen" @handleClickOutside="isDetailOpen = false" />
-  </teleport>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { muvies as allMuvies } from '@/dummy.js'
+/* eslint-disable */
+import { ref } from 'vue'
 import shortNum from 'number-shortener'
-import MuviCard from '@/components/muvi/MuviCard.vue'
-import MuviTabSwitch from '@/components/muvi/MuviTabSwitch.vue'
-import MuviDetailSlider from '@/components/muvi/MuviDetailSlider.vue'
 
-const isDetailOpen = ref(false)
-const likedMovies = computed(() => allMuvies.slice(0, 6))
-const viewedMovies = computed(() => allMuvies.slice(6, 12))
+import MuviTabSwitch from '@/components/muvi/MuviTabSwitch.vue'
+
+import { getFormData } from '@/utils'
+import axios from 'axios'
+import TabMyMuvies from '@/components/muvi/tabs/TabMyMuvies.vue'
+import TabSavedMuvies from '@/components/muvi/tabs/TabSavedMuvies.vue'
+
+const user = ref({})
 
 const activeIndex = ref(0)
-
-const tabs = ref(['My MUVI', 'Saved'])
 
 const handleTabClick = (index) => {
   activeIndex.value = index
 }
+
+const getUserProfile = async () => {
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY
+    })
+    const { data } = await axios.post('/muvi-user-profile', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    user.value = data.data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+getUserProfile()
 </script>
 
 <style lang="scss" scoped>

@@ -129,7 +129,9 @@
         <section class="recent-section">
           <div class="recent-section__labels">
             <h3>{{ $t('labels.search.recent') }}</h3>
-            <router-link :to="`/${$i18n.locale}/search-article`">{{ $t('labels.search.see_all') }}</router-link>
+            <router-link :to="`/${$i18n.locale}/search-article`">{{
+              $t('labels.search.see_all')
+            }}</router-link>
           </div>
           <ul class="recent-list">
             <li class="recent-list__item">
@@ -168,7 +170,9 @@
         <section class="people-section">
           <div class="people-section__labels">
             <h3>{{ $t('labels.search.people') }}</h3>
-            <router-link :to="`/${$i18n.locale}/search-people`">{{ $t('labels.search.see_all') }}</router-link>
+            <router-link :to="`/${$i18n.locale}/search-people`">{{
+              $t('labels.search.see_all')
+            }}</router-link>
           </div>
           <ul class="people-list">
             <li class="people-list__item">
@@ -207,7 +211,9 @@
         <section class="groups-section">
           <div class="groups-section__labels">
             <h3>{{ $t('tabs.search.groups') }}</h3>
-            <router-link :to="`/${$i18n.locale}/search-groups`">{{ $t('labels.search.see_all') }}</router-link>
+            <router-link :to="`/${$i18n.locale}/search-groups`">{{
+              $t('labels.search.see_all')
+            }}</router-link>
           </div>
           <ul class="groups-list">
             <li class="groups-list__item">
@@ -299,6 +305,7 @@ import MuviNavIcon from '@/components/icons/shorts/MuviNavIcon.vue'
 import NotificationContainer from '@/components/notification/NotificationContainer.vue'
 
 export default {
+  emits: ['toggle-sidebar'],
   components: {
     SampleDivider,
     TabVideo,

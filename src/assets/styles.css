@@ -231,3 +231,13 @@ img {
 .p-0 {
   padding: 0 !important;
 }
+.observer {
+  display: block;
+  width: 100%;
+  padding: 20px 0;
+}
+.error {
+  font-size: 16px;
+  color: var(--color-valencia);
+  margin: 10px;
+}

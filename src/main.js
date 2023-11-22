@@ -13,7 +13,7 @@ import draggable from 'vuedraggable'
 import Vue3TouchEvents from 'vue3-touch-events'
 import VueStickyDirective from '@renatodeleao/vue-sticky-directive'
 import AudioPlayer from '@liripeng/vue-audio-player'
-import PrimeVue from 'primevue/config'
+import './interceptors/axios'
 
 import 'primevue/resources/themes/lara-light-indigo/theme.css'
 import 'video.js/dist/video-js.css'

@@ -20,6 +20,7 @@
     "axios": "^1.4.0",
     "chart.js": "^4.3.3",
     "core-js": "^3.8.3",
+    "moment-timezone": "^0.5.43",
     "number-shortener": "^1.0.1",
     "primevue": "^3.37.0",
     "resize-sensor": "^0.0.6",

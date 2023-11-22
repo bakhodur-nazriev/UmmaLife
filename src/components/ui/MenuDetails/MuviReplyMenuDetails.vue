@@ -6,22 +6,22 @@
     </div>
 
     <div class="menu__overlay" v-show="isReplyMenuOpen">
-      <ul class="dropdown__menu">
-        <li class="dropdown__item">
+      <ul class="dropdown__menu" v-if="owner">
+        <li class="dropdown__item" @click="$emit('updateComment')">
           <EditIcon />
           <span>{{ $t('buttons.edit') }}</span>
         </li>
-        <SampleDivider class="dropdown__item--divider" />
-
-        <li class="dropdown__item">
-          <CopyLinkIcon />
-          <span>{{ $t('buttons.copy_link') }}</span>
-        </li>
 
         <SampleDivider class="dropdown__item--divider" />
-        <li class="dropdown__item">
+        <li class="dropdown__item" @click="$emit('deleteComment')">
           <DeleteIcon />
           <span>{{ $t('buttons.delete') }}</span>
+        </li>
+      </ul>
+      <ul class="dropdown__menu" v-else>
+        <li class="dropdown__item" @click="$emit('reportComment')">
+          <ComplainIcon />
+          <span>{{ $t('buttons.complain') }}</span>
         </li>
       </ul>
     </div>
@@ -32,23 +32,28 @@ import MenuDetailsIcon from '@/components/icons/MenuDetailsIcon.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
 import EditIcon from '@/components/icons/MenuDetails/EditIcon.vue'
 import DeleteIcon from '@/components/icons/MenuDetails/DeleteIcon.vue'
-import CopyLinkIcon from '@/components/icons/MenuDetails/CopyLinkIcon.vue'
 import VerticalMenuIcon from '@/components/icons/shorts/VerticalMenuIcon.vue'
+import ComplainIcon from '@/components/icons/MenuDetails/ComplainIcon.vue'
 export default {
   components: {
-    CopyLinkIcon,
     DeleteIcon,
     EditIcon,
     SampleDivider,
     MenuDetailsIcon,
-    VerticalMenuIcon
+    VerticalMenuIcon,
+    ComplainIcon
   },
+  emits: ['deleteComment', 'updateComment', 'reportComment', 'toggle-reply-menu'],
   props: {
     isReplyMenuOpen: {
       type: Boolean,
       required: true
     },
     vertical: {
+      type: Boolean,
+      default: false
+    },
+    owner: {
       type: Boolean,
       default: false
     }

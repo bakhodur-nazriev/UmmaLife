@@ -1,6 +1,7 @@
 {
   "lang": "en",
   "meta_title": {
+    "preview_article": "Preview Article",
     "home": "Home",
     "login": {
       "by_email": "Login with Email",
@@ -768,5 +769,74 @@
     "yesterday": "Yesterday",
     "week": "This week",
     "month": "This month"
+  },
+  "muvi": {
+    "tabs": {
+      "feed": "Feed",
+      "popular": "Popular",
+      "activity": "Activity",
+      "profile": "Profile",
+      "add_muvi": "+ Add MUVI"
+    },
+    "followers": "followers",
+    "my_muvi": "My Muvi",
+    "saved": "Saved",
+    "other_muvi": "Other MUVI",
+    "view_reply": "View replys",
+    "hide_reply": "Hide replys",
+    "like": "Like",
+    "reply": "Reply"
+  },
+  "time": {
+    "day_ago": "day ago",
+    "days_ago": "days ago",
+    "hour_ago": "hour ago",
+    "hours_ago": "hours ago",
+    "minute_ago": "minute ago",
+    "minutes_ago": "minutes ago",
+    "just_now": "Just now"
+  },
+  "report_comment": {
+    "title": "Thank you for letting us know!",
+    "text": "All posts are analyzed and reviewed by our moderators and deleted if they violate the rules of Umma Life!",
+    "ok": "Ok"
+  },
+  "add_muvi": {
+    "title": "Add MUVI",
+    "file_text1": "Select a video to download or drag and drop a file",
+    "file_text2": "Allowable extensions: mp4",
+    "file_text3": "Resolution 1280*720",
+    "file_text4": "No more than 5 minutes",
+    "file_text5": "Less than 50 mb",
+    "select_file": "Select a file",
+    "errors": {
+      "size_error": "File size exceeds the maximum limit of 50 mb",
+      "duration": "Video duration exceeds the maximum limit of 5 minutes",
+      "invalid_type": "Invalid file type. Please select a valid video file",
+      "loading_error": "Error loading video metadata"
+    },
+    "success": "Video successfully added",
+    "description": "Description",
+    "max_length": "5000",
+    "cover": "Cover",
+    "change_cover": "Change cover",
+    "add_cover": "Add cover",
+    "allow_comment": "Allow comments",
+    "delete": "Delete",
+    "publish": "Publish",
+    "tag_people": "Tag people",
+    "add_location": "Add location",
+    "search": "Search",
+    "current_location": "Current Location",
+    "can_view": "Who can view this MUVI",
+    "views_options": {
+      "name1": "Available to all",
+      "text1": "In Umma Life and beyond",
+      "name2": "Subscribers only",
+      "text2": "Your subscribers to Umma Life",
+      "name3": "Subscriptions only",
+      "text3": "Your subscriptions to Umma Life"
+    },
+    "choose_categories": "Choose a category"
   }
 }

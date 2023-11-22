@@ -3,31 +3,21 @@
     <div class="footer__buttons">
       <div class="reaction__buttons--block" ref="reactionWindow">
         <div class="reactions__buttons">
-          <div v-if="isReactionWindowOpen" class="reaction__window" >
+          <div v-if="isReactionWindowOpen" class="reaction__window">
             <ul class="reaction__menu">
-              <li
-                v-for="(icon, index) in iconReactions"
-                :key="index"
-                class="reaction__item"
-              >
+              <li v-for="(icon, index) in iconReactions" :key="index" class="reaction__item">
                 <component :is="icon.name" />
               </li>
             </ul>
           </div>
         </div>
-        <div
-          class="like__button open-reaction-button"
-          @click="openReactionWindow"
-        >
+        <div class="like__button open-reaction-button" @click="openReactionWindow">
           <HeartIcon />
           <span>{{ $t('buttons.like') }}</span>
         </div>
       </div>
 
-      <div
-        class="comment__button"
-        @click="toggleForm"
-      >
+      <div class="comment__button" @click="toggleForm">
         <CommentIcon />
         <span>{{ $t('buttons.comment') }}</span>
       </div>
@@ -37,17 +27,17 @@
           <div v-if="isShareWindowOpen" class="share__window">
             <ul class="share__menu">
               <li class="share__item">
-                <SendMenuIcon class="share__item--divider"/>
+                <SendMenuIcon class="share__item--divider" />
                 <span>{{ $t('buttons.open_like_message') }}</span>
               </li>
-              <sample-divider class="share__item--divider"/>
+              <sample-divider class="share__item--divider" />
               <li class="share__item">
                 <ShareMenuIcon />
                 <span>{{ $t('buttons.share_on_my_page') }}</span>
               </li>
-              <sample-divider class="share__item--divider"/>
+              <sample-divider class="share__item--divider" />
               <li class="share__item">
-                <MyGroupIcon/>
+                <MyGroupIcon />
                 <span>{{ $t('buttons.share_in_group') }}</span>
               </li>
             </ul>
@@ -71,7 +61,6 @@
         <CommentForm />
       </Transition>
     </div>
-
   </footer>
 </template>
 <script>
@@ -106,7 +95,7 @@ export default {
     CommentForm,
     ShareMenuIcon
   },
-  data () {
+  data() {
     return {
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
@@ -126,34 +115,38 @@ export default {
       ]
     }
   },
-  mounted () {
+  mounted() {
     document.addEventListener('click', this.closeReactionWindow)
     document.addEventListener('click', this.closeShareWindow)
   },
-  beforeUnmount () {
+  beforeUnmount() {
     document.removeEventListener('click', this.closeReactionWindow)
     document.removeEventListener('click', this.closeShareWindow)
   },
   methods: {
-    toggleForm () {
+    toggleForm() {
       this.isFormOpen = !this.isFormOpen
       this.$emit('toggle-menu')
     },
-    openReactionWindow () {
+    openReactionWindow() {
       this.isReactionWindowOpen = !this.isReactionWindowOpen
     },
-    openShareWindow () {
+    openShareWindow() {
       this.isShareWindowOpen = !this.isShareWindowOpen
     },
-    closeReactionWindow (event) {
+    closeReactionWindow(event) {
       const reactionWindow = this.$refs.reactionWindow
       const openReactionButton = document.querySelector('.open-reaction-button')
 
-      if (reactionWindow && !reactionWindow.contains(event.target) && event.target !== openReactionButton) {
+      if (
+        reactionWindow &&
+        !reactionWindow.contains(event.target) &&
+        event.target !== openReactionButton
+      ) {
         this.isReactionWindowOpen = false
       }
     },
-    closeShareWindow (event) {
+    closeShareWindow(event) {
       const shareWindow = this.$refs.shareWindow
       const openShareButton = document.querySelector('.open-share-button')
 
@@ -165,7 +158,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .share__item--divider {
   margin: 8px 0;
 }
@@ -299,15 +292,14 @@ export default {
 }
 
 @media (min-width: 1280px) {
-  .comment__button,
-  .share__button,
-  .like__button {
-    width: 210px;
-    height: 43px;
-  }
-
   .share__item {
     width: 220px;
   }
+}
+.comment__button,
+.share__button,
+.like__button {
+  width: 210px;
+  height: 43px;
 }
 </style>

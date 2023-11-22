@@ -1,16 +1,24 @@
 <template>
-  <div class="muvi__card" @click="emit('cardClickHandler')">
+  <div class="muvi__card" @click="clickMuvieHandler(muvi.id)">
     <div class="muvi__card--top">
-      <img :src="muvi.img" :alt="muvi.title" class="muvi__card--img" />
+      <img :src="muvi.preview" :alt="muvi.description" class="muvi__card--img" loading="lazy" />
       <div class="muvi__card--seen">
-        <SeenIcon /><span>{{ shortNum(muvi.seen) }}</span>
+        <SeenIcon /><span>{{ shortNum(Number(muvi.videoViews || 0)) }}</span>
       </div>
     </div>
-    <div class="muvi__card--title">{{ muvi.title }}</div>
-    <a href="#" class="muvi__card--profile">
-      <img :src="muvi.user.img" :alt="muvi.user.name" />
-      <span>{{ muvi.user.name }}</span>
-    </a>
+    <div class="muvi__card--title">
+      {{ extractHashtagsAndText(muvi.description).textWithoutHashtags }}
+    </div>
+    <UserInfo
+      :avatar="muvi.publisher.avatar || muvi.user_avatar"
+      :username="muvi.publisher.name || muvi.name"
+      :status="{
+        is_investor: muvi?.publisher?.isInvestor || false,
+        verified: muvi?.publisher?.verified || '0',
+        is_premium: muvi?.publisher?.is_premium || '0'
+      }"
+      size="small"
+    />
   </div>
 </template>
 
@@ -18,18 +26,44 @@
 /* eslint-disable */
 import shortNum from 'number-shortener'
 import SeenIcon from '@/components/icons/SeenIcon.vue'
+import UserInfo from '@/components/ui/UserInfo.vue'
+import { getFormData, extractHashtagsAndText } from '@/utils'
+import axios from 'axios'
 const props = defineProps({
   muvi: Object
 })
 const emit = defineEmits(['cardClickHandler'])
+const clickMuvieHandler = async (video_id) => {
+  emit('cardClickHandler')
+  await setMuvieViewed(video_id)
+}
+
+const setMuvieViewed = async (video_id) => {
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      video_id
+    })
+    await axios.post('/set-view-short-video', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+  } catch (err) {
+    console.log(err)
+  }
+}
 </script>
 
 <style lang="scss" scoped>
 .muvi__card {
   width: 100%;
-  min-height: 474px;
+  height: 474px;
   &--top {
-    max-height: 415px;
+    height: 415px;
     width: 100%;
     position: relative;
     overflow: hidden;
@@ -51,7 +85,7 @@ const emit = defineEmits(['cardClickHandler'])
   &--img {
     display: block;
     width: 100%;
-    height: 100%;
+    min-height: 415px;
     object-fit: cover;
     object-position: center;
   }
@@ -59,7 +93,7 @@ const emit = defineEmits(['cardClickHandler'])
     position: absolute;
     bottom: 17px;
     left: 16px;
-    color: var(--color-white);
+    color: var(--color-stable-white);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -83,12 +117,13 @@ const emit = defineEmits(['cardClickHandler'])
     color: var(--color-mine-shaft);
     margin-bottom: 5px;
     display: -webkit-box;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
     overflow-wrap: break-word;
     cursor: pointer;
+    word-break: break-all;
   }
   &--profile {
     display: flex;
@@ -99,7 +134,7 @@ const emit = defineEmits(['cardClickHandler'])
     img {
       width: 24px;
       height: 24px;
-      border: 50%;
+      border-radius: 50%;
       overflow: hidden;
       object-fit: cover;
       object-position: center;
