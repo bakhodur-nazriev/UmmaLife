@@ -1,33 +1,31 @@
 <script setup>
 /* eslint-disable */
 import FormAuth from '@/components/ui/FormAuth.vue'
-import {ref} from 'vue'
+import {ref, onMounted} from 'vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import axios from 'axios'
-import i18n from '@/i18n'
+import {getFormData} from '@/utils'
+import * as events from "events";
+import router from "@/router";
 
-const categoryItems = ref([
-  i18n.global.t('register.category_interests.religion'),
-  i18n.global.t('register.category_interests.family'),
-  i18n.global.t('register.category_interests.health'),
-  i18n.global.t('register.category_interests.fitness'),
-  i18n.global.t('register.category_interests.books'),
-  i18n.global.t('register.category_interests.traveling'),
-  i18n.global.t('register.category_interests.auto'),
-  i18n.global.t('register.category_interests.science'),
-  i18n.global.t('register.category_interests.nature'),
-  i18n.global.t('register.category_interests.food'),
-  i18n.global.t('register.category_interests.architecture'),
-  i18n.global.t('register.category_interests.beauty'),
-  i18n.global.t('register.category_interests.job'),
-  i18n.global.t('register.category_interests.art'),
-  i18n.global.t('register.category_interests.sport'),
-  i18n.global.t('register.category_interests.positive'),
-  i18n.global.t('register.category_interests.history'),
-  i18n.global.t('register.category_interests.psychology'),
-  i18n.global.t('register.category_interests.upbringing')
-])
+const categoryItems = ref([])
 const selectedCategories = ref([])
+const fetchCategories = async () => {
+  const payload = getFormData({
+    server_key: process.env.VUE_APP_SERVER_KEY,
+    page: ''
+  })
+
+  const accessToken = localStorage.getItem('access_token')
+  const params = {access_token: accessToken}
+
+  try {
+    const response = await axios.post('https://ummalife.com/api/categories', payload, {params})
+    categoryItems.value = response.data.data
+  } catch (error) {
+    console.error('Error fetching categories:', error)
+  }
+};
 
 const toggleCategory = (category) => {
   if (isSelected(category)) {
@@ -40,26 +38,40 @@ const toggleCategory = (category) => {
 const isSelected = (category) => {
   return selectedCategories.value.includes(category)
 }
+const handleSubmit = async () => {
+  event.preventDefault()
 
-const sendRequest = () => {
-  const formData = new FormData()
-  formData.append('server_key', process.env.VUE_APP_SERVER_KEY)
-  formData.append('', '')
+  const categoryIds = selectedCategories.value.map(category => category.id);
+  const payload = new FormData()
+  payload.append('server_key', process.env.VUE_APP_SERVER_KEY)
+  categoryIds.forEach(categoryId => {
+    payload.append('category_ids[]', categoryId);
+  });
 
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Content-Type': 'multipart/form-data'
   }
 
+  const accessToken = localStorage.getItem('access_token')
+  const params = {access_token: accessToken}
+
   try {
-    return axios.post('', formData, {headers})
+    const response = await axios.post('https://ummalife.com//api/set-user-interests', payload, {headers, params})
+    if (response.data.api_status === 200) {
+      await router.push({name: 'news'})
+    } else {
+      console.log(response.data)
+    }
+
   } catch (error) {
-    throw error
+    console.error('Error occurred:', error)
   }
 }
-const handleSubmit = () => {
-  console.log('test')
-}
+
+onMounted(() => {
+  fetchCategories()
+})
 </script>
 
 <template>
@@ -77,13 +89,18 @@ const handleSubmit = () => {
             @click="toggleCategory(item)"
             :class="{ 'interest-selected': isSelected(item) }"
         >
-          {{ item }}
+          {{ item.description }}
         </li>
       </ul>
     </div>
 
     <div class="ready-button__block">
-      <SampleButton class="ready-button" :title="`${ $t('buttons.ready') }`"></SampleButton>
+      <SampleButton
+          type="submit"
+          class="ready-button"
+          :title="`${ $t('buttons.ready') }`"
+
+      ></SampleButton>
     </div>
   </FormAuth>
 </template>

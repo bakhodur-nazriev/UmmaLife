@@ -44,9 +44,9 @@
       {{ $t('login.forgot_password') }}
     </router-link>
 
-    <div class="error-message" v-if="errorText">
+    <small v-if="errorText" class="error-message">
       {{ errorText }}
-    </div>
+    </small>
 
     <div class="login-button-section">
       <SampleButton
@@ -82,6 +82,7 @@ import TitleSample from '@/components/ui/TitleSample.vue'
 import EyeIcon from '@/components/icons/EyeIcon.vue'
 import EyeSlashIcon from '@/components/icons/EyeSlashIcon.vue'
 import axios from 'axios'
+import {getFormData} from '@/utils'
 
 export default {
   components: {
@@ -144,11 +145,10 @@ export default {
       return errors;
     },
     handleSuccessfulLogin(data) {
-      console.log(data.errors.error_text);
-      this.errorText = data.errors.error_text;
+      localStorage.setItem('access_token', data.access_token)
+      this.$router.push({name: 'news'})
     },
     handleFailedLogin(data) {
-      console.error('Response status is not 200');
       this.errorText = data.errors ? data.errors.error_text : 'Login failed. Please check your credentials.';
     },
     handleError(error) {
@@ -170,10 +170,13 @@ export default {
         }
 
         this.loading = true;
-        const response = await this.sendLoginRequest();
+        const response = await this.sendRequest();
 
-        if (response.api_status === 200) {
+        if (response.data.api_status === 200) {
           this.handleSuccessfulLogin(response.data);
+        } else if (response.data.api_status === 300 && response.data.access_token) {
+          localStorage.setItem('access_token', response.data.access_token)
+          this.$router.push({name: 'RegisterAddInfoStep4View'})
         } else {
           this.handleFailedLogin(response.data);
         }
@@ -183,24 +186,24 @@ export default {
         this.loading = false;
       }
     },
-    async sendLoginRequest() {
-      const formData = new FormData();
-      formData.append('server_key', process.env.VUE_APP_SERVER_KEY);
-      formData.append('username', this.email);
-      formData.append('password', this.password);
+    async sendRequest() {
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        username: this.email,
+        password: this.password
+      })
 
       const headers = {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'multipart/form-data'
-      };
+      }
 
       try {
-        return await axios.post('https://ummalife.com/api/auth', formData, {headers});
+        return await axios.post('https://ummalife.com/api/auth', payload, {headers})
       } catch (error) {
-        throw error;
+        throw error
       }
     },
-
     togglePasswordVisibility() {
       this.isPasswordVisible = !this.isPasswordVisible
     }

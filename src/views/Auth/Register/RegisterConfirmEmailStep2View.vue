@@ -1,6 +1,6 @@
 <template>
-  <form-auth @submit="submit">
-    <title-sample>{{ $t('register.title') }}</title-sample>
+  <FormAuth @submit="handleSubmit">
+    <TitleSample>{{ $t('register.title') }}</TitleSample>
 
     <h5 class="subhead roman reminder-message">{{ $t('register.messages.verify_with_email') }}</h5>
 
@@ -8,13 +8,13 @@
 
     <div :class="['input-wrapper', { error: hasError }]">
       <div class="verify__number-section">
-        <sample-code-number-input
+        <SampleCodeNumberInput
             v-for="index in 6"
             :key="index"
             v-model="code[index - 1]"
             @next="focusNextInput"
             @backspace="handleBackspace"
-        ></sample-code-number-input>
+        />
       </div>
       <small v-if="hasError" class="error-message">
         {{ $t('register.validation.incorrect_code') }}
@@ -25,20 +25,21 @@
     </div>
 
     <div class="login__button-section">
-      <SampleButton @click="handleSubmit" :title="`${$t('buttons.next')}`"/>
+      <SampleButton type="submit" :title="`${$t('buttons.next')}`"/>
     </div>
 
     <div class="resend__code">
       <label>{{ $t('login.messages.didnt_receive_code') }}</label>
       <button
           class="link"
-          @click="handleSubmit"
+          type="button"
+          @click="resendRequest"
           :disabled="isResendDisabled"
       >
         {{ $t('links.resend') }} {{ formatTime(countDown) }}
       </button>
     </div>
-  </form-auth>
+  </FormAuth>
 </template>
 
 <script>
@@ -48,6 +49,7 @@ import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import SampleCodeNumberInput from '@/components/ui/SampleCodeNumberInput.vue'
 import axios from 'axios'
+import {getFormData} from '@/utils'
 
 export default {
   components: {
@@ -66,7 +68,7 @@ export default {
   },
   computed: {
     mainEmail() {
-      return this.$store.getters.getEmail
+      return localStorage.getItem('email')
     },
     isResendDisabled() {
       return this.countDown > 0
@@ -84,7 +86,7 @@ export default {
         const response = await this.sendRequest()
 
         if (response.data.api_status === 200) {
-          console.log(response.data)
+          this.$router.push({name: 'RegisterCreatePasswordStep3View'})
         } else {
           this.errorText = response.data.errors.error_text
         }
@@ -92,12 +94,12 @@ export default {
         console.error('Error occurred:', error)
       }
     },
-
     async sendRequest() {
-      const formData = new FormData()
-      formData.append('server_key', process.env.VUE_APP_SERVER_KEY)
-      formData.append('email', this.email)
-      formData.append('code', this.code)
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        email: this.mainEmail,
+        code: this.code.join('')
+      })
 
       const headers = {
         'Access-Control-Allow-Origin': '*',
@@ -105,9 +107,29 @@ export default {
       }
 
       try {
-        return await axios.post('https://ummalife.com/api/confirm-email', formData, {headers})
+        return await axios.post('https://ummalife.com/api/confirm-email', payload, {headers})
       } catch (error) {
         throw error
+      }
+    },
+    async resendRequest() {
+      try {
+        const formData = new FormData()
+        formData.append('server_key', process.env.VUE_APP_SERVER_KEY)
+        formData.append('email', localStorage.getItem('email'))
+
+        const headers = {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'multipart/form-data',
+        }
+
+        const response = await axios.post('https://ummalife.com/api/check-email', formData, {headers})
+
+        if (!response.data.api_status === 200) {
+          this.errorText = response.data.errors.error_text
+        }
+      } catch (error) {
+        console.error('Error occurred:', error)
       }
     },
     focusNextInput() {
@@ -138,7 +160,10 @@ export default {
       const minutes = Math.floor(seconds / 60)
       const reminderSeconds = seconds % 60
 
-      return `${minutes.toString().padStart(2, '0')}:${reminderSeconds.toString().padEnd(2, '0')}`
+      const formattedMinutes = minutes.toString().padStart(2, '0')
+      const formattedSeconds = reminderSeconds.toString().padStart(2, '0')
+
+      return `${formattedMinutes}:${formattedSeconds}`
     }
   },
   created() {
@@ -169,6 +194,7 @@ export default {
   margin-top: 0;
   margin-bottom: 24px;
   color: var(--color-mine-shaft);
+  line-height: 1.5;
 }
 
 .reply__phone-number {
@@ -253,8 +279,8 @@ a {
   }
 
   .verify__number-section input {
-    width: 66px;
-    height: 66px;
+    width: 100%;
+    height: 100%;
     font-size: 24px;
   }
 }

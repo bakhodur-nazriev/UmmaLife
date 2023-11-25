@@ -78,7 +78,8 @@ import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import DropdownIcon from '@/components/icons/DropdownIcon.vue'
-import axios from "axios";
+import axios from 'axios'
+import {getFormData} from '@/utils'
 
 export default {
   components: {
@@ -91,7 +92,6 @@ export default {
     return {
       firstName: '',
       lastName: '',
-      gender: true,
       hasError: {
         firstName: false,
         lastName: false,
@@ -111,9 +111,6 @@ export default {
       if (newLastName.trim() !== '') {
         this.hasError.lastName = false
       }
-    },
-    gender(newGender) {
-      this.hasError.gender = newGender === null
     }
   },
   methods: {
@@ -131,7 +128,7 @@ export default {
         const response = await this.sendRequest()
 
         if (response.data.api_status === 200) {
-          console.log(response.data)
+          this.$router.push({name: 'RegisterAddPhoneStep5View'})
         } else {
           this.errorText = response.data.errors.error_text
         }
@@ -142,19 +139,23 @@ export default {
       this.$emit('next-step')
     },
     async sendRequest() {
-      const formData = new FormData()
-      formData.append('server_key', process.env.VUE_APP_SERVER_KEY)
-      formData.append('first_name', this.firstName)
-      formData.append('last_name', this.lastName)
-      formData.append('gender', this.gender)
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        first_name: this.firstName,
+        last_name: this.lastName,
+        gender: this.selectedGender
+      })
 
       const headers = {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'multipart/form-data'
       }
 
+      const accessToken = localStorage.getItem('access_token')
+      const params = {access_token: accessToken}
+
       try {
-        return await axios.post('https://ummalife.com/api/create-account-more?access_token=aa036c9b78b256f51131b2463d4751bfda02383956fc6f0971876f0522f064fe1139021c73854371b9b852ac7bd1776bc5ac5ce3b41d8af7', formData, {headers})
+        return await axios.post('https://ummalife.com/api/create-account-more', payload, {params, headers})
       } catch (error) {
         throw error
       }
@@ -194,8 +195,12 @@ export default {
       return (evt.keyCode === 27) && this.closeDropdown()
     },
     selectGender(gender) {
-      this.selectedGender = gender
-      this.closeDropdown()
+      if (gender === this.$t('register.placeholders.gender.male')) {
+        this.selectedGender = 'male';
+      } else if (gender === this.$t('register.placeholders.gender.female')) {
+        this.selectedGender = 'female';
+      }
+      this.closeDropdown();
     }
   }
 }
@@ -217,6 +222,12 @@ export default {
       margin-top: 4px;
     }
   }
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
 }
 
 .base-input {

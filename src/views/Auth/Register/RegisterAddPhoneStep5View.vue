@@ -49,6 +49,7 @@ import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import axios from 'axios'
 import {VueTelInput} from 'vue-tel-input'
+import {getFormData} from '@/utils'
 
 export default {
   components: {
@@ -111,17 +112,22 @@ export default {
       }
     },
     async sendRequest() {
-      const formData = new FormData()
-      formData.append('server_key', process.env.VUE_APP_SERVER_KEY)
-      formData.append('phone', this.phoneNumber)
+      const phoneNumberWithCountryCode = `+${this.selectedCountryCode + this.phoneNumber}`
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        phone: phoneNumberWithCountryCode
+      })
 
       const headers = {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'multipart/form-data'
       }
 
+      const accessToken = localStorage.getItem('access_token')
+      const params = {access_token: accessToken}
+
       try {
-        return axios.post('https://ummalife.com/api/check-phone?access_token=68f5567c12ccb5448d6c2f89b5975ae97fb0acb7ce4fecacaddf667b80aea66e7f32a98322750872c75e10ef9ef6d295d4ceba8335d93bdd', formData, {headers})
+        return axios.post('https://ummalife.com/api/check-phone', payload, {params, headers})
       } catch (error) {
         throw error
       }
@@ -130,11 +136,11 @@ export default {
       this.selectedCountryCode = countryCode
     },
     countryChanged(country) {
-      this.selectedCountryCode = '+' + country.dialCode
+      this.selectedCountryCode = country.dialCode
     },
     skipPhoneStep() {
-      console.log()
-    }
+      this.$router.push({name: 'RegisterCategoryInterestsStep6View'})
+    },
   },
   mounted() {
     this.handleCountrySelected()
@@ -160,6 +166,12 @@ export default {
   }
 }
 
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
 .vue-tel-input {
   width: 100%;
   border: none;
@@ -182,15 +194,9 @@ export default {
         width: 16px;
       }
 
-      //.vti__dropdown-arrow {
-      //  background-image: url('data:image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.3707 6.5L8.06035 9.81035L4.75 6.5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>');
-      //  width: 16px;
-      //  height: 16px;
-      //
-      //  font-size: 0;
-      //  color: transparent;
-      //  text-indent: -9999px;
-      //}
+      .vti__country-code {
+        user-select: none;
+      }
     }
   }
 

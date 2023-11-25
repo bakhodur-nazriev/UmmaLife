@@ -1,7 +1,7 @@
 <script setup>
 /* eslint-disable */
 import CheckMarkIcon from '@/components/icons/CheckMarkIcon.vue'
-import {ref} from 'vue'
+import {ref, defineProps, defineEmits} from 'vue'
 
 const props = defineProps({
   name: {
@@ -15,11 +15,16 @@ const props = defineProps({
   textSize: {
     type: String
   },
+  isChecked: {
+    type: Boolean
+  }
 })
 
-const isChecked = ref(false)
+const emit = defineEmits(['update:checked'])
+const isChecked = ref(props.isChecked)
 const updateChecked = (event) => {
-  this.$emit('update:checked', event.target.checked)
+  isChecked.value = event.target.checked
+  emit('update:checked', event.target.checked)
 }
 </script>
 
@@ -29,7 +34,7 @@ const updateChecked = (event) => {
         class="checkbox__input visually-hidden"
         type="checkbox"
         :name="name"
-        v-model="isChecked"
+        :checked="isChecked"
         @change="updateChecked"
     />
     <span :class="['checkbox__icon', `checkbox__${color}`]">

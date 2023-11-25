@@ -1,6 +1,6 @@
 <template>
-  <form-auth @submit="handleSubmit">
-    <title-sample>{{ $t('register.title') }}</title-sample>
+  <FormAuth @submit="handleSubmit">
+    <TitleSample>{{ $t('register.title') }}</TitleSample>
 
     <h5 class="title medium reminder-message">{{ $t('register.messages.create_password') }}</h5>
 
@@ -16,14 +16,14 @@
         />
 
         <button type="button" class="eye-button" @click="togglePasswordVisibility">
-          <eye-slash-icon class="eye-button__icon" v-if="isPasswordVisible"></eye-slash-icon>
-          <eye-icon class="eye-button__icon" v-else></eye-icon>
+          <EyeSlashIcon class="eye-button__icon" v-if="isPasswordVisible"/>
+          <EyeIcon class="eye-button__icon" v-else/>
         </button>
       </div>
       <small v-if="hasError" class="error-message">
         {{ $t('register.validation.empty_password') }}
       </small>
-      <small v-if="errorText" class="error-message">
+      <small v-else-if="errorText" class="error-message">
         {{ errorText }}
       </small>
     </div>
@@ -35,7 +35,7 @@
           :title="`${$t('buttons.next')}`"
       />
     </div>
-  </form-auth>
+  </FormAuth>
 </template>
 
 <script>
@@ -45,7 +45,7 @@ import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import EyeSlashIcon from '@/components/icons/EyeSlashIcon.vue'
 import EyeIcon from '@/components/icons/EyeIcon.vue'
-import axios from "axios";
+import axios from 'axios'
 
 export default {
   components: {
@@ -88,7 +88,8 @@ export default {
         const response = await this.sendRequest()
 
         if (response.data.api_status === 200) {
-          console.log(response.data)
+          localStorage.setItem('access_token', response.data.access_token)
+          this.$router.push({name: 'RegisterAddInfoStep4View'})
         } else {
           this.errorText = response.data.errors.error_text
         }
@@ -99,7 +100,7 @@ export default {
     async sendRequest() {
       const formData = new FormData()
       formData.append('server_key', process.env.VUE_APP_SERVER_KEY)
-      formData.append('email', this.email)
+      formData.append('email', localStorage.getItem('email'))
       formData.append('password', this.password)
 
       const headers = {
@@ -123,6 +124,7 @@ export default {
 <style scoped lang="scss">
 .input-wrapper {
   position: relative;
+  margin: 0 auto;
 
   &.error .base-input {
     border: 1.4px solid red;

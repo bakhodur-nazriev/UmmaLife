@@ -4,10 +4,10 @@
 
     <div :class="['input-wrapper', { error: hasError || isInvalidEmail }]">
       <input
-        type="email"
-        v-model="email"
-        class="base-input"
-        :placeholder="$t('register.placeholders.email')"
+          type="email"
+          v-model="email"
+          class="base-input"
+          :placeholder="$t('register.placeholders.email')"
       />
       <small v-if="hasError || isInvalidEmail" class="error-message">
         {{ $t(isInvalidEmail ? 'register.validation.incorrect_email' : 'register.validation.empty_email') }}
@@ -18,23 +18,23 @@
     </div>
 
     <CheckBox
-      class="register-checkbox"
-      color="secondary"
-      text-size="small"
-      :isChecked="isAgreementChecked"
-      @update:checked="handleCheckBoxUpdate"
+        class="register-checkbox"
+        color="secondary"
+        text-size="small"
+        :isChecked="isAgreementChecked"
+        @update:checked="handleCheckBoxUpdate"
     >
       {{ $t('register.messages.agreement_to_creating_account') }} <br>
       <router-link
-        class="link register-checkbox__link"
-        :to="`/${$i18n.locale}/terms`"
+          class="link register-checkbox__link"
+          :to="`/${$i18n.locale}/terms`"
       >
         {{ $t('links.terms') }}
       </router-link>
       <span class="symbol__ampersand">&</span>
       <router-link
-        class="link register-checkbox__link"
-        :to="`/${$i18n.locale}/privacy-policy`"
+          class="link register-checkbox__link"
+          :to="`/${$i18n.locale}/privacy-policy`"
       >
         {{ $t('links.privacy_policy') }}
       </router-link>
@@ -42,9 +42,9 @@
 
     <div class="login-button-section">
       <SampleButton
-        :title="$t('buttons.get_code_by_email')"
-        :type="submitting ? 'button' : 'submit'"
-        :disabled="submitting"
+          :title="$t('buttons.get_code_by_email')"
+          :type="submitting ? 'button' : 'submit'"
+          :disabled="submitting"
       >
       </SampleButton>
     </div>
@@ -52,8 +52,8 @@
     <div class="login-section">
       <label class="login-section__label">{{ $t('register.label') }}</label>
       <router-link
-        class="login-section__link"
-        :to="`/${$i18n.locale}/login-by-email`"
+          class="login-section__link"
+          :to="`/${$i18n.locale}/login-by-email`"
       >
         {{ $t('login.title') }}
       </router-link>
@@ -68,7 +68,6 @@ import FormAuth from '@/components/ui/FormAuth.vue'
 import CheckBox from '@/components/ui/CheckBox.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import axios from 'axios'
-import albumsAdd from "@/components/albums/AlbumsAdd.vue";
 
 export default {
   components: {
@@ -83,7 +82,7 @@ export default {
       hasError: false,
       loading: false,
       submitting: false,
-      errorText: null,
+      errorText: '',
       isAgreementChecked: false
     }
   },
@@ -103,16 +102,20 @@ export default {
   },
   methods: {
     handleCheckBoxUpdate(value) {
-      this.isAgreementChecked = value;
+      this.isAgreementChecked = value
     },
     async sendRequest() {
+      // const username = 'dev'
+      // const password = 'Vtlysq29Pfyfdtc'
+
       const formData = new FormData()
       formData.append('server_key', process.env.VUE_APP_SERVER_KEY)
       formData.append('email', this.email)
 
       const headers = {
         'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'multipart/form-data',
+        // 'Authorization': `Basic ${btoa(username + ":" + password)}`
       }
 
       try {
@@ -123,7 +126,7 @@ export default {
     },
     async handleSubmit(event) {
       event.preventDefault()
-      this.$store.commit('setEmail', this.email)
+      localStorage.setItem('email', this.email);
 
       if (!this.email.trim()) {
         this.hasError = true
@@ -139,7 +142,7 @@ export default {
         const response = await this.sendRequest()
 
         if (response.data.api_status === 200) {
-          this.$emit('next-step')
+          this.$router.push({name: 'RegisterConfirmEmailStep2View'})
         } else {
           this.errorText = response.data.errors.error_text
         }
