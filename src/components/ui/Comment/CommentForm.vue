@@ -1,9 +1,5 @@
 <template>
-  <form
-    action=""
-    method="post"
-    class="comment__form"
-  >
+  <form action="" method="post" class="comment__form">
     <div class="text__field-section">
       <div class="comment__avatar">
         <img
@@ -12,70 +8,69 @@
           width="48"
           height="48"
           alt=""
-        >
+        />
       </div>
 
       <SampleTextarea
         class="form__textarea"
-        :placeholder="`${ $t('placeholders.comment_input') }`"
+        :placeholder="`${$t('placeholders.comment_input')}`"
         @input="adjustTextareaHeight"
       />
 
       <div class="textarea__right--buttons">
         <FileUpload class="attach__file" label="file">
-          <SmallClipFileIcon class="small-clip__icon"/>
-          <ClipIcon class="big-clip__icon"/>
+          <SmallClipFileIcon class="small-clip__icon" />
+          <ClipIcon class="big-clip__icon" />
         </FileUpload>
 
         <div class="sticker__button" @click="isOpenStickerWindow">
-          <StickerButtonIcon class="sticker-icon"/>
+          <StickerButtonIcon class="sticker-icon" />
         </div>
 
         <SampleDivider class="textarea__right--buttons--divider" />
 
         <button class="send__button" type="button">
           <SubmitIcon class="small-submit__icon" />
-          <SendIcon class="big-submit__icon"/>
+          <SendIcon class="big-submit__icon" />
         </button>
       </div>
 
       <div class="main-sticker__window" v-if="stickerWindow">
         <div class="main-sticker__window-header">
           <FileUpload class="attach__file" label="file">
-            <SmallClipFileIcon class="small-clip__header-icon"/>
+            <SmallClipFileIcon class="small-clip__header-icon" />
           </FileUpload>
 
           <SampleTextarea
             class="main-sticker__window-header-textarea"
-            :placeholder="`${ $t('placeholders.message')}`"
+            :placeholder="`${$t('placeholders.message')}`"
           />
 
-          <SampleButton
-            size="12"
-            color="tertiary"
-            icon="keyboard"
-            class="keyboard-button"
-          >
+          <SampleButton size="12" color="tertiary" icon="keyboard" class="keyboard-button">
             <KeyboardIcon />
           </SampleButton>
         </div>
 
         <SampleDivider />
 
-        <StickerComponent v-if="selectedTab === 'stickers'" :is="currentComponent"/>
-        <GifComponent v-if="selectedTab === 'gifs'" :is="currentComponent"/>
+        <StickerComponent v-if="selectedTab === 'stickers'" :is="currentComponent" />
+        <GifComponent v-if="selectedTab === 'gifs'" :is="currentComponent" />
 
         <div class="main-sticker__window-footer">
           <button
-            :class="['sticker-button', { 'active': selectedTab === 'stickers' }]"
+            :class="['sticker-button', { active: selectedTab === 'stickers' }]"
             type="button"
             @click="selectedTab = 'stickers'"
-          >{{ $t('tabs.stickers.title') }}</button>
+          >
+            {{ $t('tabs.stickers.title') }}
+          </button>
           <button
-            :class="['gif-button', { 'active': selectedTab === 'gifs' }]"
+            :class="['gif-button', { active: selectedTab === 'gifs' }]"
             type="button"
             @click="selectedTab = 'gifs'"
-          >GIF</button>
+          >
+            GIF
+          </button>
         </div>
       </div>
     </div>
@@ -122,7 +117,7 @@ export default {
     selectedTab: 'stickers'
   }),
   methods: {
-    adjustTextareaHeight () {
+    adjustTextareaHeight() {
       const textarea = this.$el.querySelector('.form__textarea')
       textarea.style.height = 'auto'
       textarea.style.height = `${textarea.scrollHeight}px`
@@ -215,7 +210,7 @@ export default {
 }
 
 .dropdown__button {
-  span  {
+  span {
     color: var(--color-hippie-blue);
   }
 }
@@ -246,7 +241,7 @@ export default {
   flex-direction: column;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 8px;
     width: 100%;
@@ -303,9 +298,9 @@ export default {
   display: none;
 }
 
- .small-clip__header-icon {
-   display: flex;
- }
+.small-clip__header-icon {
+  display: flex;
+}
 
 @media (max-width: 576px) {
   .main-sticker__window {

@@ -64,6 +64,10 @@
     }
   },
   "links": {
+    "copy_link": "Copy link",
+    "link_copied": "Link successfully copied",
+    "link_copied_error": "Something went wrong while copying the link",
+    "share": "Share",
     "terms": "Terms of Use",
     "privacy_policy": "Privacy Policy",
     "contacts": "Contacts",
@@ -739,6 +743,8 @@
     "followers": "followers",
     "my_muvi": "My Muvi",
     "saved": "Saved",
+    "liked": "Liked",
+    "viewed": "Viewed",
     "other_muvi": "Other MUVI",
     "view_reply": "View replys",
     "hide_reply": "Hide replys",
@@ -767,6 +773,7 @@
     "file_text4": "No more than 5 minutes",
     "file_text5": "Less than 50 mb",
     "select_file": "Select a file",
+    "done": "Done",
     "errors": {
       "size_error": "File size exceeds the maximum limit of 50 mb",
       "duration": "Video duration exceeds the maximum limit of 5 minutes",
@@ -787,6 +794,11 @@
     "search": "Search",
     "current_location": "Current Location",
     "can_view": "Who can view this MUVI",
+    "change_view": "Change the visibility of MUVI",
+    "delete_muvi": "Delete MUVI",
+    "edit_muvi": "Edit description",
+    "disable_comments": "Disable comments",
+    "playback_speed": "Playback speed",
     "views_options": {
       "name1": "Available to all",
       "text1": "In Umma Life and beyond",
@@ -796,5 +808,11 @@
       "text3": "Your subscriptions to Umma Life"
     },
     "choose_categories": "Choose a category"
+  },
+  "muvi_mobile": {
+    "subscriptions": "Subscriptions",
+    "recommendations": "Recommendations",
+    "no_comments": "No Comments",
+    "no_users": "No users found"
   }
 }

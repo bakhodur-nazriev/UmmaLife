@@ -87,7 +87,7 @@
           <TabHashtags v-if="i === 7" />
         </template>
       </SearchTab>
-      <div class="bottom__nav" v-if="$route.name !== 'muvi'">
+      <div class="bottom__nav">
         <ul class="bottom__nav--list">
           <li class="bottom__nav--item">
             <router-link to="to">

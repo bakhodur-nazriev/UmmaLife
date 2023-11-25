@@ -7,120 +7,51 @@
         v-on-click-outside="handleClose"
       >
         <div class="mobile-select--header">
-          <div class="mobile-select--title">Comments <span>415</span></div>
+          <div class="mobile-select--title">
+            {{ $t('labels.comments.plural') }} <span>{{ comments.length }}</span>
+          </div>
           <div class="close-form__button" @click="handleClose">
             <CloseFormIcon />
           </div>
         </div>
 
-        <div class="session__modal--block">
-          <div class="muvi__comments--block" v-for="i in 5" :key="i">
-            <div class="pin-section" v-if="i === 1">
-              <SampleButton
-                color="secondary"
-                :title="`${$t('buttons.pinned_message')}`"
-                size="12"
-                icon="pin"
-              >
-                <PinIcon />
-              </SampleButton>
-            </div>
-            <div class="author__avatar--section">
-              <img src="@/assets/images/reply_avatar.png" alt="" />
-            </div>
-            <div class="reply__field--section">
-              <div class="reply-header">
-                <div class="reply__author--section">
-                  <div class="author__avatar--section-small">
-                    <img src="@/assets/images/reply_avatar.png" alt="" />
-                  </div>
-                  <span class="author__name">{{ replyAuthorName }}</span>
-                  <span class="author__time">2 часа назад</span>
-                </div>
-
-                <div class="reply__detail--menu--section-small">
-                  <ReplyMenuDetails
-                    :is-reply-menu-open="isReplyMenuOpen"
-                    @toggle-reply-menu="toggleReplyMenu"
-                  />
-                </div>
-              </div>
-
-              <div class="reply__textarea--and--button--section">
-                <div class="reply__textarea--block">
-                  <SampleTextarea
-                    :placeholder="`${$t('placeholders.comment_input')}`"
-                    @input="adjustTextareaHeight"
-                    v-model="textareaValue"
-                    :value="textareaValue"
-                    class="reply__textarea"
-                    ref="replyTextarea"
-                  />
-
-                  <div class="reply__reactions-small" ref="replyReactions">
-                    <div class="reply__icon" v-for="(reaction, i) in reactions" :key="i">
-                      <component :is="reaction.icon" />
-                      <span>{{ reaction.count }}</span>
-                    </div>
-                  </div>
-
-                  <div class="textarea__right--buttons">
-                    <FileUpload class="attach__file" label="file">
-                      <TextareaClipIcon />
-                    </FileUpload>
-                    <SampleDivider class="textarea__right--buttons--divider" />
-                    <button class="send__button" type="button">
-                      <SendIcon />
-                    </button>
-                  </div>
-                </div>
-
-                <div class="reply__detail--menu--section">
-                  <ReplyMenuDetails
-                    :is-reply-menu-open="isReplyMenuOpen"
-                    @toggle-reply-menu="toggleReplyMenu"
-                  />
-                </div>
-              </div>
-
-              <div class="reply__buttons--section">
-                <div class="reply__buttons">
-                  <button type="button" class="reply__buttons--favourite">
-                    {{ $t('buttons.favourite') }}
-                  </button>
-                  <button type="button" @click="answerComment" class="reply__buttons--answer">
-                    <SmallCommentIcon />
-                    {{ $t('buttons.answer') }}
-                  </button>
-                </div>
-
-                <div class="reply__reactions" ref="replyReactions">
-                  <div class="reply__icon" v-for="(reaction, i) in reactions" :key="i">
-                    <component :is="reaction.icon" />
-                    <span class="reply__icon--count">{{ reaction.count }}</span>
-                  </div>
-                </div>
-                <div class="reply__reactions--count--block">
-                  <span class="reply__reactions--count">999К</span>
-                </div>
-              </div>
-
-              <div v-if="isActiveAnswer" class="active__reply--field">
-                <img src="@/assets/images/comment_avatar.png" width="48" height="48" alt="" />
-
-                <TextareaField :reply-author-name="replyAuthorName + ', '" />
-              </div>
-
-              <div v-if="true" class="load__more--reply-answers">
-                <SampleDropDown
-                  color="primary"
-                  :drop-down-title="`${$t('dropdown.reply_answer')}`"
-                />
-              </div>
-            </div>
+        <div class="comment--block">
+          <div class="comment--block-inner" ref="room">
+            <template v-if="comments.length > 0">
+              <ShortsBlockComments
+                v-for="comment in comments"
+                :key="comment.id"
+                :comment="comment"
+                :user="user"
+                @clickReactionHandler="clickReactionHandler"
+                @updateMessages="updateMessages"
+                @updateComment="updateComment"
+              />
+            </template>
+            <span class="comment-empty" v-else-if="!isLoading && comments.length === 0">{{
+              $t('muvi_mobile.no_comments')
+            }}</span>
           </div>
           <div class="muvi__comments--form">
-            <CommentForm />
+            <form
+              class="shorts__comments--form"
+              @submit.prevent.enter="
+                actionType === 'create' ? submitComment(muvi.id) : submitUpdateComment(muvi.id)
+              "
+            >
+              <div class="form__input">
+                <img :src="user.avatar" :alt="user.username" />
+                <textarea
+                  type="text"
+                  :placeholder="$t('labels.comments.plural') + '...'"
+                  v-model="commentText"
+                  rows="1"
+                />
+              </div>
+              <button class="form__btn" type="submit">
+                <SendIcon />
+              </button>
+            </form>
           </div>
         </div>
       </div>
@@ -130,58 +61,115 @@
 
 <script setup>
 /* eslint-disable */
-import { ref } from 'vue'
+import { ref, nextTick } from 'vue'
 import { vOnClickOutside } from '@vueuse/components'
-import CommentForm from '@/components/ui/Comment/CommentForm.vue'
-import SampleButton from '@/components/ui/SampleButton.vue'
-import PinIcon from '@/components/icons/comment/PinIcon.vue'
-import ReplyMenuDetails from '@/components/ui/MenuDetails/ReplyMenuDetails.vue'
-import LikeIcon from '@/components/icons/reactions/men/reply-reactions/LikeIcon.vue'
-import LoveIcon from '@/components/icons/reactions/men/reply-reactions/LoveIcon.vue'
-import FireIcon from '@/components/icons/reactions/men/reply-reactions/FireIcon.vue'
-import SadIcon from '@/components/icons/reactions/men/reply-reactions/SadIcon.vue'
-import DislikeIcon from '@/components/icons/reactions/men/reply-reactions/DislikeIcon.vue'
-import LaughIcon from '@/components/icons/reactions/men/reply-reactions/LaughIcon.vue'
-import ThinkIcon from '@/components/icons/reactions/men/reply-reactions/ThinkIcon.vue'
-import AngryIcon from '@/components/icons/reactions/men/reply-reactions/AngryIcon.vue'
-import ScaredIcon from '@/components/icons/reactions/men/reply-reactions/ScaredIcon.vue'
-import TextareaField from '@/components/ui/Fields/TextareaField.vue'
-import SmallCommentIcon from '@/components/icons/comment/SmallCommentIcon.vue'
-import SampleDivider from '@/components/ui/SampleDivider.vue'
-import TextareaClipIcon from '@/components/icons/TextareaClipIcon.vue'
-import FileUpload from '@/components/ui/FileUpload.vue'
-import SampleTextarea from '@/components/ui/Fields/SampleTextarea.vue'
-import SampleDropDown from '@/components/ui/SampleDropDown.vue'
+
 import CloseFormIcon from '@/components/icons/comment/CloseFormIcon.vue'
+import ShortsBlockComments from '@/components/ui/Shorts/ShortsBlockComments.vue'
+import { getFormData } from '@/utils'
+import axios from 'axios'
+import SendIcon from '@/components/icons/shorts/SendIcon.vue'
+
+const emit = defineEmits(['closeComment'])
 
 const props = defineProps({
   isCommentsOpen: {
     type: Boolean,
     default: false
-  }
+  },
+  muvi: Object
 })
-const emit = defineEmits(['closeComment'])
 
+const user = ref(JSON.parse(localStorage.getItem('user') || '{}'))
+const comments = ref([])
 const className = ref(false)
-const reactions = ref([
-  { id: 1, icon: LikeIcon, count: 1.7 },
-  { id: 2, icon: DislikeIcon, count: 123 },
-  { id: 3, icon: LoveIcon, count: 354 },
-  { id: 4, icon: LaughIcon, count: 2.5 },
-  { id: 5, icon: FireIcon, count: 867 },
-  { id: 6, icon: ThinkIcon, count: 52 },
-  { id: 7, icon: AngryIcon, count: 96 },
-  { id: 8, icon: SadIcon, count: 78 },
-  { id: 8, icon: ScaredIcon, count: 125 }
-])
-const replyTextarea = ref()
-const textareaValue = ref(
-  'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur assumenda blanditiis corporis deserunt doloribus ea eaque eos esse eveniet exercitationem, fuga iure laudantium libero maiores maxime natus nemo nostrum optio perferendis porro quas, qui, quia quod rerum saepe soluta sunt tenetur? Ab aut, dignissimos dolores esse excepturi expedita facilis fuga iusto modi nesciunt possimus quasi quos reiciendis.'
-)
+const commentText = ref('')
+const passedComment = ref({})
+const room = ref()
+const isLoading = ref(false)
 
-const isReplyMenuOpen = ref(false)
-const replyAuthorName = ref('Courtney Henry')
-const isActiveAnswer = ref(false)
+const scrollToBottom = () => {
+  nextTick(() => {
+    room.value?.scrollIntoView({ block: 'end', inline: 'nearest' })
+  })
+}
+const clickReactionHandler = async (reactionPayload) => {
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      ...reactionPayload
+    })
+
+    await axios.post('/muvi-comments-add-reaction', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    getComments(props.muvi.id)
+  } catch (err) {
+    console.log(err)
+  }
+}
+const updateComment = (comment) => {
+  actionType.value = 'update'
+  passedComment.value = comment
+  commentText.value = comment.text
+}
+const updateMessages = () => getComments(props.muvi.id)
+
+const actionType = ref('create')
+const submitComment = async (video_id) => {
+  if (!commentText.value) return
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      video_id,
+      text: commentText.value.trim()
+    })
+    commentText.value = ''
+    await axios.post('/muvi-comments-add', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+
+    await getComments(video_id)
+    scrollToBottom()
+  } catch (err) {
+    console.log(err)
+  }
+}
+const submitUpdateComment = async (video_id) => {
+  if (!commentText.value) return
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      comment_id: passedComment.value.id,
+      text: commentText.value.trim()
+    })
+    commentText.value = ''
+    await axios.post('/muvi-comments-edit', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+
+    await getComments(video_id)
+  } catch (err) {
+    console.log(err)
+  } finally {
+    actionType.value = 'create'
+  }
+}
 
 const handleClose = () => {
   className.value = true
@@ -190,26 +178,30 @@ const handleClose = () => {
     className.value = false
   }, 100)
 }
-
-const adjustTextareaHeight = () => {
-  const textarea = replyTextarea.value
-
-  if (textarea.value.trim() !== '') {
-    textareaValue.value = textarea.value
-    textarea.style.height = 'auto'
-    textarea.style.height = `${textarea.scrollHeight}px`
-  } else {
-    textareaValue.value = ''
-    textarea.style.height = '48px'
+const getComments = async (video_id) => {
+  try {
+    isLoading.value = true
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      video_id,
+      reaction: '1'
+    })
+    const { data } = await axios.post('/muvi-comments', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    comments.value = data.data
+  } catch (err) {
+    console.log(err)
+  } finally {
+    isLoading.value = false
   }
 }
-const toggleReplyMenu = () => {
-  isReplyMenuOpen.value = !isReplyMenuOpen.value
-}
-
-const answerComment = () => {
-  isActiveAnswer.value = !isActiveAnswer.value
-}
+getComments(props.muvi.id)
 </script>
 
 <style lang="scss">
@@ -218,12 +210,7 @@ const answerComment = () => {
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-  .mobile-select--inner {
-    position: absolute;
-  }
-  .muvi__comments {
-    max-height: 80dvh;
+    border-color: var(--color-secondary);
   }
   .mobile-select--title {
     display: flex;
@@ -245,6 +232,22 @@ const answerComment = () => {
     left: 0;
     width: 100%;
     background-color: var(--color-white);
+  }
+  .comment--block {
+    &-inner {
+      padding: 0 16px 16px;
+      min-height: 40dvh;
+    }
+    .muvi__comments--form {
+      border-top: 1px solid var(--color-secondary);
+    }
+  }
+  .comment-empty {
+    color: var(--color-mine-shaft);
+    font-size: 20px;
+    padding-top: 50px;
+    text-align: center;
+    display: block;
   }
 }
 </style>
