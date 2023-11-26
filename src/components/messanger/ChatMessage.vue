@@ -81,7 +81,7 @@ export default {
     .message__inner {
       background-color: var(--color-purple);
       margin-left: auto;
-      color: var(--color-white);
+      color: var(--color-stable-white);
     }
   }
   &.recieve {
