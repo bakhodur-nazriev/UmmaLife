@@ -173,7 +173,7 @@ export default {
         const response = await this.sendRequest();
 
         if (response.data.api_status === 200) {
-          this.handleSuccessfulLogin(response.data);
+          this.handleSuccessfulLogin(response.data)
         } else if (response.data.api_status === 300 && response.data.access_token) {
           localStorage.setItem('access_token', response.data.access_token)
           this.$router.push({name: 'RegisterAddInfoStep4View'})

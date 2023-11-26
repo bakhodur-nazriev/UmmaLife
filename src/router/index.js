@@ -612,64 +612,49 @@ const router = createRouter({
 	routes
 })
 
-function isUserAuthenticated() {
-	// Здесь проверяйте, аутентифицирован ли пользователь
-	// Возвращайте true, если пользователь аутентифицирован, иначе false
-}
+const isUserAuthenticated = () => {
+	const accessToken = localStorage.getItem('access_token');
+	return !!accessToken;
+};
 
 router.beforeEach((to, from, next) => {
-	const lang = to.params.lang || i18n.global.locale.value
-	const requiresAuth = to.matched.some((route) => route.meta.requiresAuth)
+	const lang = to.params.lang || i18n.global.locale.value;
+	const requiresAuth = to.matched.some((route) => route.meta.requiresAuth);
 
 	if (supportedLanguages.includes(lang)) {
-		i18n.global.locale = lang
+		i18n.global.locale = lang;
 	} else {
-		const defaultLang = i18n.global.locale || 'ru'
-		return next(`/${defaultLang}${to.path}`)
+		const defaultLang = i18n.global.locale || 'ru';
+		return next(`/${defaultLang}${to.path}`);
 	}
 
 	if (to.params.lang !== lang) {
-		const pathWithoutLang = to.path.replace(`/${to.params.lang}`, `/${lang}`)
+		const pathWithoutLang = to.path.replace(`/${to.params.lang}`, `/${lang}`);
 		return next({
 			path: `/${lang}${pathWithoutLang}`,
-			params: {
-				lang
-			}
-		})
+			params: { lang },
+		});
 	}
 
-	document.title = `${to.meta.title} | ${process.env.VUE_APP_TITLE}`
+	document.title = `${to.meta.title} | ${process.env.VUE_APP_TITLE}`;
 
-	// if (requiresAuth && !isUserAuthenticated()) {
-	//   // Если маршрут требует авторизации и пользователь не аутентифицирован, перенаправляем на страницу авторизации
-	//   return next({ name: 'login-by-email' })
-	// }
+	const isAuthenticated = isUserAuthenticated(); // Проверка авторизации в localStorage
 
-	// Проверка статуса авторизации
-	/*const isAuthenticated = store.getters.getAuthenticated
+	const allowedRoutes = ['login-by-email', 'register', 'forgot-password'];
 
-	// Роуты, на которых разрешено продолжить навигацию для неавторизованных пользователей
-	const allowedRoutes = ['Login', 'register', 'forgot-password']
-
-	// Если пользователь авторизован, перенаправляем на главную страницу
-	if (isAuthenticated) {
-		return next('/')
+	if (requiresAuth && !isAuthenticated) {
+		return next({ name: 'LoginByEmailView' });
 	}
 
-	// Если пользователь не авторизован и находится на разрешенных роутах, разрешаем продолжить навигацию
+	if (isAuthenticated && to.name === 'home') {
+		return next({ name: 'news' });
+	}
+
 	if (!isAuthenticated && allowedRoutes.includes(to.name)) {
-		return next()
+		return next();
 	}
 
-	// Если пользователь не авторизован и находится на других роутах, перенаправляем на страницу входа
-	return next('/Login')*/
-
-	if (to.name === 'home') {
-		return next({
-			name: 'news'
-		})
-	}
-	return next()
-})
+	return next();
+});
 
 export default router
