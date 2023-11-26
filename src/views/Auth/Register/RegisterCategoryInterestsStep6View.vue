@@ -59,7 +59,7 @@ const handleSubmit = async () => {
   try {
     const response = await axios.post('https://ummalife.com//api/set-user-interests', payload, {headers, params})
     if (response.data.api_status === 200) {
-      await router.push({name: 'news'})
+      await router.push({name: 'LoginByEmailView'})
     } else {
       console.log(response.data)
     }

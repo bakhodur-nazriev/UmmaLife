@@ -70,7 +70,7 @@ const routes = [
 	},
 	{
 		path: '/:lang?/login-by-email',
-		name: 'login-by-email',
+		name: 'LoginByEmailView',
 		component: LoginByEmailView,
 		meta: {
 			title: i18n.global.t('meta_title.login.by_email'),

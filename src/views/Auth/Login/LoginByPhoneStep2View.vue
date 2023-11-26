@@ -42,7 +42,7 @@
       <label>{{ $t('login.messages.didnt_receive_code') }}</label>
       <button
           class="link"
-          @click="handleSubmit"
+          @click="resendRequest"
           :disabled="isResendDisabled"
       >
         {{ $t('links.resend') }} {{ formatTime(countDown) }}
@@ -58,6 +58,7 @@ import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import SampleCodeNumberInput from '@/components/ui/SampleCodeNumberInput.vue'
 import axios from 'axios'
+import {getFormData} from '@/utils'
 
 export default {
   components: {
@@ -73,12 +74,12 @@ export default {
       hasError: false,
       countDown: 60,
       timer: null,
-      notificationMessage: null
+      notificationMessage: ''
     }
   },
   computed: {
     phoneNumber() {
-      return this.$store.getters.getPhoneNumber
+      return localStorage.getItem('phone_number')
     },
     isResendDisabled() {
       return this.countDown > 0
@@ -96,14 +97,17 @@ export default {
       if (response.status === 200) {
         console.log(response.data)
         this.notificationMessage = response.data.message
+        this.$router.push({name: 'news'})
       }
     },
     async sendRequest() {
       const fullCode = this.code.join('')
-      const formData = new FormData()
-      formData.append('server_key', process.env.VUE_APP_SERVER_KEY)
-      formData.append('phone', this.phoneNumber)
-      formData.append('code', fullCode)
+
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        phone: this.phoneNumber,
+        code: fullCode
+      })
 
       const headers = {
         'Access-Control-Allow-Origin': '*',
@@ -111,9 +115,26 @@ export default {
       }
 
       try {
-        return await axios.post('https://ummalife.com/api/confirm-phone', formData, {headers})
+        return await axios.post('https://ummalife.com/api/confirm-phone', payload, {headers})
       } catch (error) {
         throw error
+      }
+    },
+    resendRequest() {
+      try {
+        const payload = getFormData({
+          server_key: process.env.VUE_APP_SERVER_KEY,
+          phone: localStorage.getItem('phone_number')
+        })
+
+        const headers = {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'multipart/form-data'
+        }
+
+        return axios.post('https://ummalife.com/api/auth-phone', payload, {headers})
+      } catch (error) {
+        console.error('Error occurred:', error)
       }
     },
     checkCodeFilled() {
@@ -148,7 +169,10 @@ export default {
       const minutes = Math.floor(seconds / 60)
       const reminderSeconds = seconds % 60
 
-      return `${minutes.toString().padStart(2, '0')}:${reminderSeconds.toString().padEnd(2, '0')}`
+      const formattedMinutes = minutes.toString().padStart(2, '0')
+      const formattedSeconds = reminderSeconds.toString().padStart(2, '0')
+
+      return `${formattedMinutes}:${formattedSeconds}`
     }
   },
   created() {

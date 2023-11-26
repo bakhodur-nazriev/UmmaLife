@@ -53,6 +53,7 @@ import FormAuth from '@/components/ui/FormAuth.vue'
 import axios from 'axios'
 import {VueTelInput} from 'vue-tel-input'
 import DropdownIcon from '@/components/icons/DropdownIcon.vue'
+import {getFormData} from '@/utils'
 
 export default {
   components: {
@@ -82,37 +83,63 @@ export default {
         },
       },
       country: null,
-      responseErrorText: null
+      responseErrorText: ''
     }
   },
   methods: {
     async handleSubmit() {
       try {
-        const response = await this.sendLoginRequest();
+        const response = await this.sendLoginRequest()
 
         if (response.data.api_status === 200) {
-          this.$router.push({name: 'LoginByPhoneStep2View'});
+          // Отправить запрос на /api/auth-phone
+          const authPhoneResponse = await this.sendAuthPhoneRequest()
+
+          if (authPhoneResponse.data.api_status === 200) {
+            this.$router.push({ name: 'LoginByPhoneStep2View' });
+          } else {
+            this.responseErrorText = authPhoneResponse.data.errors.error_text
+            console.error(authPhoneResponse.data)
+          }
         } else {
           this.responseErrorText = response.data.errors.error_text
-          console.error(response.data);
+          console.error(response.data)
         }
       } catch (error) {
-        console.error('Error sending request:', error);
+        console.error('Error sending request:', error)
       }
     },
     sendLoginRequest() {
-      const fullPhoneNumber = this.selectedCountryCode + this.phoneNumber;
-      this.$store.commit('setPhoneNumber', fullPhoneNumber)
-      const formData = new FormData();
-      formData.append('server_key', process.env.VUE_APP_SERVER_KEY);
-      formData.append('phone', fullPhoneNumber);
+      const fullPhoneNumber = this.selectedCountryCode + this.phoneNumber
+      localStorage.setItem('phone_number', fullPhoneNumber)
+
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        phone: fullPhoneNumber
+      })
 
       const headers = {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'multipart/form-data'
-      };
+      }
 
-      return axios.post('https://ummalife.com/api/auth-phone', formData, {headers});
+      return axios.post('https://ummalife.com/api/check-user-phone', payload, {headers})
+    },
+    sendAuthPhoneRequest() {
+      const fullPhoneNumber = this.selectedCountryCode + this.phoneNumber
+      localStorage.setItem('phone_number', fullPhoneNumber)
+
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        phone: fullPhoneNumber
+      })
+
+      const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'multipart/form-data'
+      }
+
+      return axios.post('https://ummalife.com/api/auth-phone', payload, {headers})
     },
     countryChanged(country) {
       this.selectedCountryCode = '+' + country.dialCode

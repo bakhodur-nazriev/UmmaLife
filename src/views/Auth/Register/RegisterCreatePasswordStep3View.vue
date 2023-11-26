@@ -46,6 +46,7 @@ import SampleButton from '@/components/ui/SampleButton.vue'
 import EyeSlashIcon from '@/components/icons/EyeSlashIcon.vue'
 import EyeIcon from '@/components/icons/EyeIcon.vue'
 import axios from 'axios'
+import {getFormData} from '@/utils'
 
 export default {
   components: {
@@ -98,10 +99,11 @@ export default {
       }
     },
     async sendRequest() {
-      const formData = new FormData()
-      formData.append('server_key', process.env.VUE_APP_SERVER_KEY)
-      formData.append('email', localStorage.getItem('email'))
-      formData.append('password', this.password)
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        email: localStorage.getItem('email'),
+        password: this.password
+      })
 
       const headers = {
         'Access-Control-Allow-Origin': '*',
@@ -109,7 +111,7 @@ export default {
       }
 
       try {
-        return await axios.post('https://ummalife.com/api/create-account', formData, {headers})
+        return await axios.post('https://ummalife.com/api/create-account', payload, {headers})
       } catch (error) {
         throw error
       }

@@ -114,16 +114,17 @@ export default {
     },
     async resendRequest() {
       try {
-        const formData = new FormData()
-        formData.append('server_key', process.env.VUE_APP_SERVER_KEY)
-        formData.append('email', localStorage.getItem('email'))
+        const payload = getFormData({
+          server_key: process.env.VUE_APP_SERVER_KEY,
+          email: localStorage.getItem('email')
+        })
 
         const headers = {
           'Access-Control-Allow-Origin': '*',
           'Content-Type': 'multipart/form-data',
         }
 
-        const response = await axios.post('https://ummalife.com/api/check-email', formData, {headers})
+        const response = await axios.post('https://ummalife.com/api/check-email', payload, {headers})
 
         if (!response.data.api_status === 200) {
           this.errorText = response.data.errors.error_text

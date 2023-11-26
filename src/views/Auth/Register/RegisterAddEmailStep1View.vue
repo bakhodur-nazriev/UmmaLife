@@ -68,6 +68,7 @@ import FormAuth from '@/components/ui/FormAuth.vue'
 import CheckBox from '@/components/ui/CheckBox.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import axios from 'axios'
+import {getFormData} from '@/utils'
 
 export default {
   components: {
@@ -105,21 +106,18 @@ export default {
       this.isAgreementChecked = value
     },
     async sendRequest() {
-      // const username = 'dev'
-      // const password = 'Vtlysq29Pfyfdtc'
-
-      const formData = new FormData()
-      formData.append('server_key', process.env.VUE_APP_SERVER_KEY)
-      formData.append('email', this.email)
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        email: this.email
+      })
 
       const headers = {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'multipart/form-data',
-        // 'Authorization': `Basic ${btoa(username + ":" + password)}`
       }
 
       try {
-        return await axios.post('https://ummalife.com/api/check-email', formData, {headers})
+        return await axios.post('https://ummalife.com/api/check-email', payload, {headers})
       } catch (error) {
         throw error
       }
