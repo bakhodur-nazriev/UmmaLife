@@ -30,7 +30,7 @@ export default {
 			formData.append('email', email)
 
 			const headers = {
-				'Access-Control-Allow-Origin': '*',
+
 				'Content-Type': 'multipart/form-data',
 			}
 

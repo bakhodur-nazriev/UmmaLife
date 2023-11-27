@@ -43,6 +43,7 @@ import SampleButton from '@/components/ui/SampleButton.vue'
 import EyeSlashIcon from '@/components/icons/EyeSlashIcon.vue'
 import EyeIcon from '@/components/icons/EyeIcon.vue'
 import axios from 'axios'
+import {getFormData} from '@/utils'
 
 export default {
   components: {
@@ -73,28 +74,24 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {
-
-    },
+    handleSubmit() {},
     async sendRequest() {
       const urlParams = new URLSearchParams(window.location.search);
       const code = urlParams.get('code')
       const email = urlParams.get('email')
 
-      const formData = new FormData();
-      formData.append('server_key', process.env.VUE_APP_SERVER_KEY);
-      formData.append('new_password', this.password);
-      formData.append('email', email);
-      formData.append('code', code)
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        new_password: this.password,
+        email: email,
+        code: code
+      })
 
-      const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'multipart/form-data'
-      }
+      const headers = {'Content-Type': 'multipart/form-data'}
 
       try {
         return await axios
-            .post('https://preview.ummalife.com/api/reset-password', formData, {headers})
+            .post('https://preview.ummalife.com/api/reset-password', payload, {headers})
             .then(this.$router.push({name: 'LoginByEmailView'}))
       } catch (error) {
         throw error

@@ -101,10 +101,7 @@ export default {
         code: this.code.join('')
       })
 
-      const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'multipart/form-data'
-      }
+      const headers = {'Content-Type': 'multipart/form-data'}
 
       try {
         return await axios.post('https://preview.ummalife.com/api/confirm-email', payload, {headers})
@@ -119,10 +116,7 @@ export default {
           email: localStorage.getItem('email')
         })
 
-        const headers = {
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'multipart/form-data',
-        }
+        const headers = {'Content-Type': 'multipart/form-data'}
 
         const response = await axios.post('https://preview.ummalife.com/api/check-email', payload, {headers})
 

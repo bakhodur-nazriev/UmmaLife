@@ -118,10 +118,7 @@ export default {
         phone: fullPhoneNumber
       })
 
-      const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'multipart/form-data'
-      }
+      const headers = {'Content-Type': 'multipart/form-data'}
 
       return axios.post('https://preview.ummalife.com/api/check-user-phone', payload, {headers})
     },
@@ -135,7 +132,7 @@ export default {
       })
 
       const headers = {
-        'Access-Control-Allow-Origin': '*',
+
         'Content-Type': 'multipart/form-data'
       }
 

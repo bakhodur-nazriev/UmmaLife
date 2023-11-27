@@ -111,10 +111,7 @@ export default {
         email: this.email
       })
 
-      const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'multipart/form-data',
-      }
+      const headers = {'Content-Type': 'multipart/form-data',}
 
       try {
         return await axios.post('https://preview.ummalife.com/api/check-email', payload, {headers})

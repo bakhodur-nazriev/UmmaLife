@@ -194,10 +194,7 @@ export default {
         password: this.password
       })
 
-      const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'multipart/form-data',
-      }
+      const headers = {'Content-Type': 'multipart/form-data'}
 
       try {
         return await axios.post('https://preview.ummalife.com/api/auth', payload, {headers})
