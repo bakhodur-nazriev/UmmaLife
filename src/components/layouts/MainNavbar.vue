@@ -42,7 +42,7 @@
           <ArrowIcon class="dropdown__icon"/>
         </div>
       </div>
-      <div class="modal-profile scale-up-top-right">
+<!--      <div class="modal-profile scale-up-top-right">
         <ul class="menu-list">
           <li class="menu-list__item">
             <a href="#">
@@ -62,7 +62,7 @@
           <li class="menu-list__item"></li>
         </ul>
         {{ user.username }}
-      </div>
+      </div>-->
     </nav>
     <nav class="small-nav">
       <div class="top__nav">
