@@ -83,8 +83,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .reply__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &:hover {
     scale: 1.3;
     svg {

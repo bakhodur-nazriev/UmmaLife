@@ -34,6 +34,15 @@
         </div>
         <CustomRadio :isSelected="option.isSelected" />
       </div>
+      <div class="selected__option--action">
+        <SampleButton
+          :size="14"
+          width="100%"
+          :title="`${$t('add_muvi.done')}`"
+          type="button"
+          @click="isDropdownOpen = false"
+        />
+      </div>
     </div>
   </li>
 </template>
@@ -49,6 +58,7 @@ import AvailableAllIcon from '@/components/icons/shorts/AvailableAllIcon.vue'
 import SubscribesOnlyIcon from '@/components/icons/shorts/SubscribesOnlyIcon.vue'
 import SubscriptionsOnlyIcon from '@/components/icons/shorts/SubscriptionsOnlyIcon.vue'
 import ArrowLeftIcon from '@/components/icons/shorts/ArrowLeftIcon.vue'
+import SampleButton from '@/components/ui/SampleButton.vue'
 
 const emit = defineEmits(['passSelectedOption'])
 

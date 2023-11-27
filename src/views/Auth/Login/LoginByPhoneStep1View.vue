@@ -118,12 +118,9 @@ export default {
         phone: fullPhoneNumber
       })
 
-      const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'multipart/form-data'
-      }
+      const headers = {'Content-Type': 'multipart/form-data'}
 
-      return axios.post('https://ummalife.com/api/check-user-phone', payload, {headers})
+      return axios.post('https://preview.ummalife.com/api/check-user-phone', payload, {headers})
     },
     sendAuthPhoneRequest() {
       const fullPhoneNumber = this.selectedCountryCode + this.phoneNumber
@@ -135,11 +132,11 @@ export default {
       })
 
       const headers = {
-        'Access-Control-Allow-Origin': '*',
+
         'Content-Type': 'multipart/form-data'
       }
 
-      return axios.post('https://ummalife.com/api/auth-phone', payload, {headers})
+      return axios.post('https://preview.ummalife.com/api/auth-phone', payload, {headers})
     },
     countryChanged(country) {
       this.selectedCountryCode = '+' + country.dialCode

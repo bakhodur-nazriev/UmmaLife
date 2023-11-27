@@ -6,7 +6,7 @@
     <swiper :slides-per-view="'auto'" :space-between="8" class="muvi__popular--swiper">
       <swiper-slide
         v-for="(category, index) in categories"
-        :key="category"
+        :key="category.code"
         :class="{ active: activeIndex === index }"
         @click="handleSelect(index, category)"
       >

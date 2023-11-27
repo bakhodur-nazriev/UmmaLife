@@ -469,21 +469,21 @@ export default {
     }
   }
 
-  .reply__icon {
-    border-radius: 8px;
-    background-color: var(--color-white);
-    display: flex;
-    gap: 4px;
-    padding: 4px 8px;
+  // .reply__icon {
+  //   border-radius: 8px;
+  //   background-color: var(--color-white);
+  //   display: flex;
+  //   gap: 4px;
+  //   padding: 4px 8px;
 
-    span {
-      font-size: 12px;
-    }
+  //   span {
+  //     font-size: 12px;
+  //   }
 
-    svg {
-      transform: scale(1.3);
-    }
-  }
+  //   svg {
+  //     transform: scale(1.3);
+  //   }
+  // }
 
   .reply__reactions--count--block {
     display: none;
@@ -598,12 +598,12 @@ export default {
     display: none;
   }
 
-  .reply__reactions {
-    display: none;
-    position: absolute;
-    bottom: 35px;
-    left: 56px;
-  }
+  // .reply__reactions {
+  //   display: none;
+  //   position: absolute;
+  //   bottom: 35px;
+  //   left: 56px;
+  // }
 
   .reply__detail--menu--section {
     display: none;

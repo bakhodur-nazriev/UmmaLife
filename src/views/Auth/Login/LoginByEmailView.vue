@@ -146,6 +146,7 @@ export default {
     },
     handleSuccessfulLogin(data) {
       localStorage.setItem('access_token', data.access_token)
+      localStorage.setItem('user_id', data.user_id)
       this.$router.push({name: 'news'})
     },
     handleFailedLogin(data) {
@@ -193,13 +194,10 @@ export default {
         password: this.password
       })
 
-      const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'multipart/form-data'
-      }
+      const headers = {'Content-Type': 'multipart/form-data'}
 
       try {
-        return await axios.post('https://ummalife.com/api/auth', payload, {headers})
+        return await axios.post('https://preview.ummalife.com/api/auth', payload, {headers})
       } catch (error) {
         throw error
       }

@@ -10,8 +10,8 @@
       <div class="main__nav--side">
         <SampleButton class="create__button" :title="`${$t('buttons.create')}`"/>
         <SearchInput
-          @open-search-input="isSearchInputOpen = true"
-          :placeholder="$t('placeholders.search_input')"
+            @open-search-input="isSearchInputOpen = true"
+            :placeholder="$t('placeholders.search_input')"
         />
       </div>
       <div class="left__nav--side">
@@ -23,9 +23,9 @@
             <EmailIcon/>
           </li>
           <li
-            class="notification__button"
-            @click="isNotificationOpen = !isNotificationOpen"
-            :class="{ active: isNotificationOpen }"
+              class="notification__button"
+              @click="isNotificationOpen = !isNotificationOpen"
+              :class="{ active: isNotificationOpen }"
           >
             <NotificationIcon/>
           </li>
@@ -42,6 +42,27 @@
           <ArrowIcon class="dropdown__icon"/>
         </div>
       </div>
+<!--      <div class="modal-profile scale-up-top-right">
+        <ul class="menu-list">
+          <li class="menu-list__item">
+            <a href="#">
+              <span class="user-name">{{ user.username }}</span>
+              <img class="user-avatar" :src="user.avatar" :alt="user.name">
+            </a>
+          </li>
+          <li class="menu-list__item">
+            <a href="/settings">{{ $t('links.requests') }}</a>
+          </li>
+          <li class="menu-list__item">
+            <a href="">{{ $t('links.settings') }}</a>
+          </li>
+          <li class="menu-list__item">
+            <a href="">{{ $t('links.logout') }}</a>
+          </li>
+          <li class="menu-list__item"></li>
+        </ul>
+        {{ user.username }}
+      </div>-->
     </nav>
     <nav class="small-nav">
       <div class="top__nav">
@@ -51,10 +72,10 @@
               <SmallLogo/>
             </router-link>
             <button
-              v-if="isSearchForm"
-              type="button"
-              @click="isSearchFormClose"
-              class="close-search__form"
+                v-if="isSearchForm"
+                type="button"
+                @click="isSearchFormClose"
+                class="close-search__form"
             >
               <ArrowLeftIcon/>
             </button>
@@ -87,7 +108,7 @@
           <TabHashtags v-if="i === 7"/>
         </template>
       </SearchTab>
-      <div class="bottom__nav" v-if="$route.name !== 'muvi'">
+      <div class="bottom__nav">
         <ul class="bottom__nav--list">
           <li class="bottom__nav--item">
             <router-link to="to">
@@ -126,12 +147,11 @@
           </router-link>
         </section>
         <SampleDivider/>
+
         <section class="recent-section">
           <div class="recent-section__labels">
             <h3>{{ $t('labels.search.recent') }}</h3>
-            <router-link :to="`/${$i18n.locale}/search-article`">{{
-              $t('labels.search.see_all')
-            }}</router-link>
+            <router-link :to="`/${$i18n.locale}/search-article`">{{ $t('labels.search.see_all') }}</router-link>
           </div>
           <ul class="recent-list">
             <li class="recent-list__item">
@@ -167,12 +187,11 @@
           </ul>
         </section>
         <SampleDivider/>
+
         <section class="people-section">
           <div class="people-section__labels">
             <h3>{{ $t('labels.search.people') }}</h3>
-            <router-link :to="`/${$i18n.locale}/search-people`">{{
-              $t('labels.search.see_all')
-            }}</router-link>
+            <router-link :to="`/${$i18n.locale}/search-people`">{{ $t('labels.search.see_all') }}</router-link>
           </div>
           <ul class="people-list">
             <li class="people-list__item">
@@ -208,12 +227,11 @@
           </ul>
         </section>
         <SampleDivider/>
+
         <section class="groups-section">
           <div class="groups-section__labels">
             <h3>{{ $t('tabs.search.groups') }}</h3>
-            <router-link :to="`/${$i18n.locale}/search-groups`">{{
-              $t('labels.search.see_all')
-            }}</router-link>
+            <router-link :to="`/${$i18n.locale}/search-groups`">{{ $t('labels.search.see_all') }}</router-link>
           </div>
           <ul class="groups-list">
             <li class="groups-list__item">
@@ -249,6 +267,7 @@
           </ul>
         </section>
         <SampleDivider/>
+
         <section class="advanced-search__section">
           <router-link to="/search-all-recommendations">
             <div class="advanced-search__section-left">
@@ -263,14 +282,15 @@
   </header>
   <teleport to="body">
     <NotificationContainer
-      v-if="isNotificationOpen"
-      @closeHandler="isNotificationOpen = false"
-      :modal="true"
+        v-if="isNotificationOpen"
+        @closeHandler="isNotificationOpen = false"
+        :modal="true"
     />
   </teleport>
 </template>
 
 <script>
+/* eslint-disable */
 import SearchInput from '@/components/ui/SearchInput.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import MainPageLogo from '@/components/ui/Logo/MainPageLogo.vue'
@@ -298,15 +318,18 @@ import TabArticle from '@/components/layouts/SearchComponents/TabArticle.vue'
 import TabVideo from '@/components/layouts/SearchComponents/TabVideo.vue'
 import TabAudio from '@/components/layouts/SearchComponents/TabAudio.vue'
 import TabHashtags from '@/components/layouts/SearchComponents/TabHashtags.vue'
-import { mapState, mapMutations } from 'vuex'
-import { audios } from '@/dummy'
+import {mapState, mapMutations} from 'vuex'
+import {audios} from '@/dummy'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
-import MuviNavIcon from '@/components/icons/shorts/MuviNavIcon.vue'
 import NotificationContainer from '@/components/notification/NotificationContainer.vue'
+import MuviNavIcon from '@/components/icons/shorts/MuviNavIcon.vue'
+import {getFormData} from '@/utils'
+import axios from "axios";
 
 export default {
   emits: ['toggle-sidebar'],
   components: {
+    MuviNavIcon,
     SampleDivider,
     TabVideo,
     TabAudio,
@@ -335,7 +358,6 @@ export default {
     SearchInput,
     SampleButton,
     MainPageLogo,
-    MuviNavIcon,
     NotificationContainer
   },
   data() {
@@ -378,7 +400,9 @@ export default {
         }
       ],
       dummyAudios: audios,
-      isSearchInputOpen: false
+      isSearchInputOpen: false,
+      userId: localStorage.getItem('user_id'),
+      user: localStorage.getItem('user')
     }
   },
   computed: {
@@ -409,11 +433,76 @@ export default {
         this.setPlayerMargin(0)
       }
       this.setIsPlayerOpen(!this.isPlayerOpen)
-    }
+    },
+    async getUser() {
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        user_id: this.userId
+      })
+
+      const headers = {'Content-Type': 'multipart/form-data'}
+
+      const accessToken = localStorage.getItem('access_token')
+      const params = {access_token: accessToken}
+
+      try {
+        const response = await axios.post('https://preview.ummalife.com/api/get-user-data', payload, {params, headers})
+        if (response.data.api_status === 200) {
+          localStorage.setItem('user', JSON.stringify(response.data))
+        }
+        this.user = response.data.data
+        console.log(response.data.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+  },
+  mounted() {
+    this.getUser()
   }
 }
 </script>
 <style lang="scss">
+.modal-profile {
+  width: 260px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.15);
+  background-color: var(--color-white);
+
+  .menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    &__item {
+
+      .user-avatar {
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+}
+
+.scale-up-top-right {
+  animation: scale-up-top-right 0.5s;
+}
+
+@keyframes scale-up-top-right {
+  0% {
+    transform: scale(.5);
+    transform-origin: top right
+  }
+  100% {
+    transform: scale(1);
+    transform-origin: top right
+  }
+}
+
 .navbar-header {
   position: relative;
 }
@@ -625,7 +714,7 @@ export default {
 }
 
 .right__nav--side {
- gap: 20px;
+  gap: 20px;
   padding-left: 20px;
 }
 

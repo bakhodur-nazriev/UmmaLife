@@ -135,8 +135,6 @@ export default {
       } catch (error) {
         console.error('Error occurred:', error)
       }
-
-      this.$emit('next-step')
     },
     async sendRequest() {
       const payload = getFormData({
@@ -146,16 +144,13 @@ export default {
         gender: this.selectedGender
       })
 
-      const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'multipart/form-data'
-      }
+      const headers = {'Content-Type': 'multipart/form-data'}
 
       const accessToken = localStorage.getItem('access_token')
       const params = {access_token: accessToken}
 
       try {
-        return await axios.post('https://ummalife.com/api/create-account-more', payload, {params, headers})
+        return await axios.post('https://preview.ummalife.com/api/create-account-more', payload, {params, headers})
       } catch (error) {
         throw error
       }
@@ -196,11 +191,11 @@ export default {
     },
     selectGender(gender) {
       if (gender === this.$t('register.placeholders.gender.male')) {
-        this.selectedGender = 'male';
+        this.selectedGender = 'male'
       } else if (gender === this.$t('register.placeholders.gender.female')) {
-        this.selectedGender = 'female';
+        this.selectedGender = 'female'
       }
-      this.closeDropdown();
+      this.closeDropdown()
     }
   }
 }

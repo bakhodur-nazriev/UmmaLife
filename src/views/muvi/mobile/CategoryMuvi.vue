@@ -131,6 +131,7 @@ const emit = defineEmits(['backToMain'])
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 7px;
+    min-height: 80dvh;
   }
 }
 </style>

@@ -10,7 +10,7 @@
                 :key="index"
                 class="reaction__item"
               >
-                <component :is="reaction.icon"/>
+                <component :is="reaction.icon" />
               </li>
             </ul>
           </div>
@@ -22,7 +22,7 @@
       </div>
 
       <div class="comment__button" @click="toggleForm">
-        <CommentIcon/>
+        <CommentIcon />
         <span>{{ $t('buttons.comment') }}</span>
       </div>
 
@@ -31,18 +31,18 @@
           <div class="share__window">
             <ul class="share__menu">
               <li class="share__item">
-                <SendMenuIcon/>
+                <SendMenuIcon />
                 <span>{{ $t('buttons.open_like_message') }}</span>
               </li>
 
-              <SampleDivider class="share__item--divider"/>
+              <SampleDivider class="share__item--divider" />
 
               <li class="share__item">
                 <ShareMenuIcon />
                 <span>{{ $t('buttons.share_on_my_page') }}</span>
               </li>
 
-              <SampleDivider class="share__item--divider"/>
+              <SampleDivider class="share__item--divider" />
 
               <li class="share__item">
                 <MyGroupIcon />
@@ -58,7 +58,7 @@
       </div>
     </div>
 
-    <SampleDivider v-if="isFormOpen"/>
+    <SampleDivider v-if="isFormOpen" />
 
     <div class="main__comment--form" v-if="isFormOpen">
       <ReplyCommentForm />
@@ -99,7 +99,7 @@ export default {
     ReplyCommentForm,
     CommentForm
   },
-  data () {
+  data() {
     return {
       footerReactsIcons: [
         { icon: BigLikeIcon },
@@ -118,25 +118,29 @@ export default {
     }
   },
   methods: {
-    toggleForm () {
+    toggleForm() {
       this.isFormOpen = !this.isFormOpen
       this.$emit('toggle-menu')
     },
-    openReactionWindow () {
+    openReactionWindow() {
       this.isReactionWindowOpen = !this.isReactionWindowOpen
     },
-    openShareWindow () {
+    openShareWindow() {
       this.isShareWindowOpen = !this.isShareWindowOpen
     },
-    closeReactionWindow (event) {
+    closeReactionWindow(event) {
       const reactionWindow = this.$refs.reactionWindow
       const openReactionButton = document.querySelector('.open-reaction-button')
 
-      if (reactionWindow && !reactionWindow.contains(event.target) && event.target !== openReactionButton) {
+      if (
+        reactionWindow &&
+        !reactionWindow.contains(event.target) &&
+        event.target !== openReactionButton
+      ) {
         this.isReactionWindowOpen = false
       }
     },
-    closeShareWindow (event) {
+    closeShareWindow(event) {
       const shareWindow = this.$refs.shareWindow
       const openShareButton = document.querySelector('.open-share-button')
 
@@ -145,30 +149,30 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     document.addEventListener('click', this.closeReactionWindow)
     document.addEventListener('click', this.closeShareWindow)
   },
-  beforeUnmount () {
+  beforeUnmount() {
     document.removeEventListener('click', this.closeReactionWindow)
     document.removeEventListener('click', this.closeShareWindow)
   }
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .share__buttons {
   animation: share__buttons 0.2s;
 }
 
 @keyframes share__buttons {
   0% {
-    transform:scale(.5);
-    transform-origin:center bottom;
+    transform: scale(0.5);
+    transform-origin: center bottom;
   }
   100% {
-    transform:scale(1);
-    transform-origin:center bottom
+    transform: scale(1);
+    transform-origin: center bottom;
   }
 }
 
@@ -177,12 +181,12 @@ export default {
 }
 @keyframes reactions__buttons {
   0% {
-    transform: scale(.5);
-    transform-origin: left bottom
+    transform: scale(0.5);
+    transform-origin: left bottom;
   }
   100% {
-    transform:scale(1);
-    transform-origin:left bottom
+    transform: scale(1);
+    transform-origin: left bottom;
   }
 }
 
@@ -252,7 +256,7 @@ export default {
 
   &:hover {
     background-color: var(--color-seashell);
-    transition: all .15s ease-in-out;
+    transition: all 0.15s ease-in-out;
   }
 }
 

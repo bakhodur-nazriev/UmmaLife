@@ -9,12 +9,12 @@
           v-if="status.is_investor || status.is_premium === '1'"
         />
       </div>
-      <div class="user__info--info">
+      <div class="user__info--info" v-if="!noName">
         <div class="user__info--name">{{ username }}</div>
         <slot name="time" />
       </div>
     </div>
-    <div class="user__info--bage" v-if="status.verified === '1'">
+    <div class="user__info--bage" v-if="status.verified === '1' && !noName">
       <BageIcon />
     </div>
   </router-link>
@@ -49,6 +49,10 @@ const props = defineProps({
   size: {
     type: String,
     default: 'normal' //small | normal | large | extra_large
+  },
+  noName: {
+    type: Boolean,
+    default: false
   }
 })
 </script>

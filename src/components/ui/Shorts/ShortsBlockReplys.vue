@@ -151,6 +151,9 @@ export default {
 .reply__comments {
   width: calc(100% - 52px);
   margin-left: auto;
+  @media (max-width: 767px) {
+    width: calc(100% - 16px);
+  }
 }
 .comments {
   padding: 10px 0;

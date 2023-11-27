@@ -109,13 +109,10 @@ export default {
         code: fullCode
       })
 
-      const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'multipart/form-data'
-      }
+      const headers = {'Content-Type': 'multipart/form-data'}
 
       try {
-        return await axios.post('https://ummalife.com/api/confirm-phone', payload, {headers})
+        return await axios.post('https://preview.ummalife.com/api/confirm-phone', payload, {headers})
       } catch (error) {
         throw error
       }
@@ -128,11 +125,11 @@ export default {
         })
 
         const headers = {
-          'Access-Control-Allow-Origin': '*',
+
           'Content-Type': 'multipart/form-data'
         }
 
-        return axios.post('https://ummalife.com/api/auth-phone', payload, {headers})
+        return axios.post('https://preview.ummalife.com/api/auth-phone', payload, {headers})
       } catch (error) {
         console.error('Error occurred:', error)
       }

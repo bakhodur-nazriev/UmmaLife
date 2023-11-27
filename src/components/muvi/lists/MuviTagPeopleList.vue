@@ -59,7 +59,13 @@
         class="observer"
       ></div>
       <div class="selected__option--action">
-        <SampleButton :size="14" width="100%" :title="`Done (${selectedUsers.length})`" />
+        <SampleButton
+          :size="14"
+          width="100%"
+          :title="`${$t('add_muvi.done')} (${selectedUsers.length})`"
+          type="button"
+          @click="emit('passTaggedUsers', selectedUsers), (isTagPeopleOpen = false)"
+        />
       </div>
     </div>
   </li>
@@ -119,7 +125,11 @@ const getUserFollowers = async (page, search = '') => {
       }
     })
     countElements.value = data.countElements
-    users.value = [...users.value, ...data.data]
+    if (search || page === 1) {
+      users.value = data.data
+    } else {
+      users.value = [...users.value, ...data.data]
+    }
   } catch (err) {
     console.error(err)
   } finally {
@@ -229,7 +239,7 @@ getUserFollowers(page.value)
         justify-content: center;
         align-items: center;
         transition: 0.3s ease-in-out;
-        color: var(--color-white);
+        color: var(--color-stable-white);
         cursor: pointer;
         &.checked {
           border: 1px solid var(--color-hippie-blue);

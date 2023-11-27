@@ -20,7 +20,7 @@ const fetchCategories = async () => {
   const params = {access_token: accessToken}
 
   try {
-    const response = await axios.post('https://ummalife.com/api/categories', payload, {params})
+    const response = await axios.post('https://preview.ummalife.com/api/categories', payload, {params})
     categoryItems.value = response.data.data
   } catch (error) {
     console.error('Error fetching categories:', error)
@@ -48,16 +48,13 @@ const handleSubmit = async () => {
     payload.append('category_ids[]', categoryId);
   });
 
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Content-Type': 'multipart/form-data'
-  }
+  const headers = {'Content-Type': 'multipart/form-data'}
 
   const accessToken = localStorage.getItem('access_token')
   const params = {access_token: accessToken}
 
   try {
-    const response = await axios.post('https://ummalife.com//api/set-user-interests', payload, {headers, params})
+    const response = await axios.post('https://preview.ummalife.com//api/set-user-interests', payload, {headers, params})
     if (response.data.api_status === 200) {
       await router.push({name: 'LoginByEmailView'})
     } else {

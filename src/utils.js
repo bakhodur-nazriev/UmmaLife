@@ -95,3 +95,16 @@ export function validateVideoFile(file) {
     video.src = URL.createObjectURL(file)
   })
 }
+
+export const copyClipboard = async (link) => {
+  if (navigator.clipboard) {
+    try {
+      await navigator.clipboard.writeText(link)
+      return 'links.link_copied'
+    } catch (error) {
+      console.error('Error sharing link:', error)
+      return 'links.link_copy_error'
+    }
+  }
+  return 'link_copy_error'
+}
