@@ -110,7 +110,7 @@ const fetchLikedMovies = async (last_id = null) => {
     })
     countElements.value = data.countElements
     likedMovies.value = [...likedMovies.value, ...data.data]
-    computedLastId.value = likedMovies.value[likedMovies.value.length - 1].id
+    computedLastId.value = likedMovies.value[likedMovies.value.length - 1]?.id || 0
     muvies.value = likedMovies.value
   } catch (err) {
     console.log(err)
