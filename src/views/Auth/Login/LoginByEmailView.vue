@@ -194,15 +194,9 @@ export default {
         password: this.password
       })
 
-      const username = 'dev'
-      const password = 'Vtlysq29Pfyfdtc'
-      const credentials = `${username}:${password}`;
-      const encodedCredentials = btoa(credentials);
-
       const headers = {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'multipart/form-data',
-        'Authorization': `Basic ${encodedCredentials}`
       }
 
       try {

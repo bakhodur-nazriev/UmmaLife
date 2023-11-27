@@ -155,7 +155,7 @@ export default {
       const params = {access_token: accessToken}
 
       try {
-        return await axios.post('https://ummalife.com/api/create-account-more', payload, {params, headers})
+        return await axios.post('https://preview.ummalife.com/api/create-account-more', payload, {params, headers})
       } catch (error) {
         throw error
       }

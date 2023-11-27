@@ -107,7 +107,7 @@ export default {
       }
 
       try {
-        return await axios.post('https://ummalife.com/api/confirm-email', payload, {headers})
+        return await axios.post('https://preview.ummalife.com/api/confirm-email', payload, {headers})
       } catch (error) {
         throw error
       }
@@ -124,7 +124,7 @@ export default {
           'Content-Type': 'multipart/form-data',
         }
 
-        const response = await axios.post('https://ummalife.com/api/check-email', payload, {headers})
+        const response = await axios.post('https://preview.ummalife.com/api/check-email', payload, {headers})
 
         if (!response.data.api_status === 200) {
           this.errorText = response.data.errors.error_text
