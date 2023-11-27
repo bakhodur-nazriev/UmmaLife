@@ -40,7 +40,7 @@ const handleClick = () => {
     justify-content: center;
     align-items: center;
     transition: 0.3s ease-in-out;
-    color: var(--color-white);
+    color: var(--color-stable-white);
     cursor: pointer;
     &.checked {
       border: 1px solid var(--color-hippie-blue);

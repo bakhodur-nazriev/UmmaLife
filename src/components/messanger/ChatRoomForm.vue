@@ -277,6 +277,7 @@ export default {
       gap: 8px;
       cursor: pointer;
       height: 56px;
+      background-color: transparent;
       svg {
         width: 18px;
         height: 18px;

@@ -1,13 +1,21 @@
 <template>
   <div class="muvi__card">
-    <img :src="card.img" :alt="card.title" />
-    <div class="muvi__card--profile" v-if="!profile">
-      <img :src="card.user.img" :alt="card.user.name" />
-      <span>{{ card.user.name }}</span>
+    <img :src="muvi?.preview" :alt="muvi?.username" />
+    <div class="muvi__card--profile" v-if="!muvi?.owner">
+      <UserInfo
+        :avatar="muvi.publisher.avatar || muvi.user_avatar"
+        :username="muvi.publisher.name || muvi.name"
+        :status="{
+          is_investor: muvi?.publisher?.isInvestor || false,
+          verified: muvi?.publisher?.verified || '0',
+          is_premium: muvi?.publisher?.is_premium || '0'
+        }"
+        size="small"
+      />
     </div>
     <div class="muvi__card--seen" v-else>
       <MuviPlayIcon />
-      <span>{{ shortNum(card.seen) }}</span>
+      <span>{{ shortNum(muvi?.videoViews || 0) }}</span>
     </div>
   </div>
 </template>
@@ -16,14 +24,11 @@
 /* eslint-disable */
 import shortNum from 'number-shortener'
 import MuviPlayIcon from '@/components/icons/shorts/mobile/MuviPlayIcon.vue'
+import UserInfo from '@/components/ui/UserInfo.vue'
 
 const props = defineProps({
-  card: {
+  muvi: {
     type: Object
-  },
-  profile: {
-    type: Boolean,
-    default: false
   }
 })
 </script>
@@ -69,7 +74,7 @@ const props = defineProps({
     left: 50%;
     transform: translateX(-50%);
     bottom: 10px;
-    color: var(--color-white);
+    color: var(--color-stable-white);
     display: flex;
     align-items: center;
     gap: 4px;

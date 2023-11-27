@@ -1,20 +1,27 @@
 <template>
   <div class="muvi__feeds--reactions">
-    <div class="profile">
-      <img src="/images/users/jeff.png" alt="jeff" />
-    </div>
-    <div class="reaction like" @click="isLiked = !isLiked">
+    <UserInfo
+      :noName="true"
+      :avatar="muvi?.publisher?.avatar || muvi?.user_avatar"
+      :username="muvi?.publisher?.name || muvi?.name"
+      :status="{
+        is_investor: muvi?.publisher?.isInvestor || false,
+        verified: muvi?.publisher?.verified || '0',
+        is_premium: muvi?.publisher?.is_premium || '0'
+      }"
+    />
+    <div class="reaction like" @click="setReaction(muvi?.id)">
       <HeartFilledIcon v-if="isLiked" />
       <HeartIcon v-else />
-      <p>280</p>
+      <p>{{ shortNum(singleMuvi?.reaction?.count || 0) }}</p>
     </div>
     <div class="reaction" @click="emit('commentClicked')">
       <MessageBlackIcon />
-      <p>280</p>
+      <p>{{ shortNum(muvi?.comments || 0) }}</p>
     </div>
     <div class="reaction" @click="emit('shareClicked')">
       <ForwardIcon />
-      <p>280</p>
+      <p>{{ shortNum(muvi?.shares || 0) }}</p>
     </div>
     <div class="reaction" @click="emit('menuClicked')">
       <MenuBlackDetailsIcon />
@@ -24,16 +31,73 @@
 
 <script setup>
 /* eslint-disable */
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import shortNum from 'number-shortener'
 import HeartIcon from '@/components/icons/HeartIcon.vue'
 import HeartFilledIcon from '@/components/icons/HeartFilledIcon.vue'
 import MessageBlackIcon from '@/components/icons/MessageBlackIcon.vue'
 import ForwardIcon from '@/components/icons/ForwardIcon.vue'
 import MenuBlackDetailsIcon from '@/components/icons/MenuBlackDetailsIcon.vue'
+import UserInfo from '@/components/ui/UserInfo.vue'
+import { getFormData } from '@/utils'
+import axios from 'axios'
 
 const isLiked = ref(false)
 
-const emit = defineEmits(['modalClicked', 'shareClicked', 'menuClicked'])
+const emit = defineEmits(['modalClicked', 'shareClicked', 'menuClicked', 'commentClicked'])
+const props = defineProps({
+  muvi: Object
+})
+
+const singleMuvi = ref({})
+
+const setReaction = async (video_id) => {
+  isLiked.value = !isLiked.value
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      video_id,
+      reaction: '1'
+    })
+    await axios.post('/set-reaction-short-video', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    getSingleMovi(props.muvi.id)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+const getSingleMovi = async (video_id) => {
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      video_id
+    })
+    const { data } = await axios.post('/get-short-video', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    singleMuvi.value = data.data
+    isLiked.value = data.data?.reaction?.type === '1' || data.data?.reaction?.type === '2'
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+getSingleMovi(props.muvi.id)
+onMounted(() => {
+  isLiked.value = singleMuvi?.reaction?.type === '1' || singleMuvi?.reaction?.type === '2'
+})
 </script>
 
 <style lang="scss" scoped>
@@ -61,7 +125,7 @@ const emit = defineEmits(['modalClicked', 'shareClicked', 'menuClicked'])
       }
     }
     .reaction {
-      color: var(--color-white);
+      color: var(--color-stable-white);
       display: flex;
       flex-direction: column;
       gap: 3px;

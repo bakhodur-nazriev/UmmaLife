@@ -40,6 +40,15 @@
         v-if="!isLoading && countElements >= 18"
         class="observer"
       ></div>
+      <div class="selected__option--action">
+        <SampleButton
+          :size="14"
+          width="100%"
+          :title="`${$t('add_muvi.done')}`"
+          type="button"
+          @click="isDropdownOpen = false"
+        />
+      </div>
     </div>
   </li>
 </template>
@@ -56,6 +65,7 @@ import ChooseCategoryIcon from '@/components/icons/shorts/ChooseCategoryIcon.vue
 import ArrowDownIcon from '@/components/icons/shorts/ArrowDownIcon.vue'
 import CustomRadio from '@/components/ui/CustomRadio.vue'
 import ArrowLeftIcon from '@/components/icons/shorts/ArrowLeftIcon.vue'
+import SampleButton from '@/components/ui/SampleButton.vue'
 
 const isDropdownOpen = ref(false)
 
