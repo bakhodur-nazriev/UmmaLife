@@ -12,6 +12,7 @@
 import MainLayout from '@/components/layouts/MainLayout.vue'
 import AuthLayout from '@/components/layouts/LayoutAuth.vue'
 import AudioPlayerComponent from '@/components/audio/AudioPlayerComponent.vue'
+import MuviMobileLayout from '@/components/layouts/MuviMobileLayout.vue'
 import AudioPlayList from '@/components/audio/AudioPlayList.vue'
 import { mapMutations, mapState, useStore } from 'vuex'
 
@@ -20,7 +21,8 @@ export default {
     AudioPlayerComponent,
     AuthLayout,
     MainLayout,
-    AudioPlayList
+    AudioPlayList,
+    MuviMobileLayout
   },
   computed: {
     layout() {

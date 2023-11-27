@@ -1,7 +1,12 @@
 <template>
   <div class="main__search--block" :class="{ full }">
     <LoupeIcon class="search__icon" />
-    <input class="base__search--input" :placeholder="placeholder" @click="openSearchInput" />
+    <input
+      class="base__search--input"
+      :placeholder="placeholder"
+      @click="openSearchInput"
+      @input="$emit('input', $event)"
+    />
   </div>
 </template>
 
@@ -17,7 +22,7 @@ export default {
       default: false
     }
   },
-
+  emits: ['input'],
   methods: {
     openSearchInput() {
       this.$emit('open-search-input')

@@ -109,10 +109,7 @@ export default {
         code: fullCode
       })
 
-      const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'multipart/form-data'
-      }
+      const headers = {'Content-Type': 'multipart/form-data'}
 
       try {
         return await axios.post('/confirm-phone', payload, {headers})
@@ -128,7 +125,7 @@ export default {
         })
 
         const headers = {
-          'Access-Control-Allow-Origin': '*',
+
           'Content-Type': 'multipart/form-data'
         }
 

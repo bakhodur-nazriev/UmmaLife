@@ -1,27 +1,24 @@
 <template>
-  <div class="muvi__feeds--info">
+  <div class="muvi__feeds--info" v-if="muvi?.description">
     <div
       class="muvi__feeds--info-text"
       :class="{ 'not-active': isTextClicked }"
       @click="isTextClicked = !isTextClicked"
+      v-on-click-outside="() => (isTextClicked = true)"
     >
-      Небольшой влог о самом высокоразвитом городе мира - Дубае. Дубай – крупнейший город
-      Объединенных Арабских Эмиратов, столица одноименного княжества, которое является вторым по
-      величине в стране. Город расположен на берегу южной части Персидского залива и занимает
-      площадь около 1114 кв.км. Численность населения Дубая – более 2,2 миллионов человек. Дубай –
-      крупнейший город Объединенных Арабских Эмиратов, столица одноименного княжества, которое
-      является вторым по величине в стране. Город расположен на берегу южной части Персидского
-      залива и занимает площадь около 1114 кв.км. Численность населения Дубая – более 2,2 миллионов
-      человек. Дубай – крупнейший город Объединенных Арабских Эмиратов, столица одноименного
-      княжества, которое является вторым по величине в стране. Город расположен на берегу южной
-      части Персидского залива и занимает площадь около 1114 кв.км. Численность населения Дубая –
-      более 2,2 миллионов человек.
+      {{ extractHashtagsAndText(muvi?.description).textWithoutHashtags }}
     </div>
     <div class="muvi__feeds--info-tags">
-      <div class="muvi__feeds--info-tags-list" @click="emit('categoryHandler')">Travel</div>
-      <div class="muvi__feeds--info-tags-list" @click="emit('audioHandler')">
-        <MusicIcon />Halal beats - Ramadan
+      <div
+        class="muvi__feeds--info-tags-list"
+        v-for="hashtag in extractHashtagsAndText(muvi?.description).hashtags"
+        :key="hashtag"
+      >
+        {{ hashtag }}
       </div>
+      <!-- <div class="muvi__feeds--info-tags-list" @click="emit('audioHandler')">
+        <MusicIcon />Halal beats - Ramadan
+      </div> -->
     </div>
   </div>
 </template>
@@ -29,9 +26,15 @@
 <script setup>
 /* eslint-disable */
 import { ref } from 'vue'
-import MusicIcon from '@/components/icons/shorts/MusicIcon.vue'
+import { extractHashtagsAndText } from '@/utils'
+// import MusicIcon from '@/components/icons/shorts/MusicIcon.vue'
+import { vOnClickOutside } from '@vueuse/components'
 const isTextClicked = ref(true)
 const emit = defineEmits(['categoryHandler', 'audioHandler'])
+
+const props = defineProps({
+  muvi: Object
+})
 </script>
 
 <style lang="scss" scoped>

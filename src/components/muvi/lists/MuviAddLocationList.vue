@@ -47,27 +47,38 @@
             <Marker :options="{ position: center }"></Marker>
           </GoogleMap>
         </div>
-        <button class="muvi__location--current" @click="getCoordinates">
-          <AddLocationIcon /> <span>{{ $t('add_muvi.current_location') }}</span>
-        </button>
-        <ul class="muvi__location--menu" v-if="selectedValues.length > 0">
-          <li
-            class="muvi__location--list"
-            v-for="(location, index) in selectedValues"
-            :key="`${location.name}_${index}`"
-            @click="getPayload(location, 'no-push')"
-          >
-            <div class="muvi__location--icon">
-              <AddLocationIcon />
-            </div>
-            <div class="muvi__location--info">
-              <div class="muvi__location--name">{{ location.name }}</div>
-              <div class="muvi__location--address">
-                {{ location.formatted_address }}
+        <div class="muvi__location--middle">
+          <button class="muvi__location--current" @click="getCoordinates">
+            <AddLocationIcon /> <span>{{ $t('add_muvi.current_location') }}</span>
+          </button>
+          <ul class="muvi__location--menu" v-if="selectedValues.length > 0">
+            <li
+              class="muvi__location--list"
+              v-for="(location, index) in selectedValues"
+              :key="`${location.name}_${index}`"
+              @click="getPayload(location, 'no-push')"
+            >
+              <div class="muvi__location--icon">
+                <AddLocationIcon />
               </div>
-            </div>
-          </li>
-        </ul>
+              <div class="muvi__location--info">
+                <div class="muvi__location--name">{{ location.name }}</div>
+                <div class="muvi__location--address">
+                  {{ location.formatted_address }}
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="selected__option--action">
+          <SampleButton
+            :size="14"
+            width="100%"
+            :title="`${$t('add_muvi.done')}`"
+            type="button"
+            @click="isMapOpen = false"
+          />
+        </div>
       </div>
     </div>
   </teleport>
@@ -83,6 +94,7 @@ import { vOnClickOutside } from '@vueuse/components'
 import AddLocationIcon from '@/components/icons/shorts/AddLocationIcon.vue'
 import LoupeIcon from '@/components/icons/LoupeIcon.vue'
 import ArrowLeftIcon from '@/components/icons/shorts/ArrowLeftIcon.vue'
+import SampleButton from '@/components/ui/SampleButton.vue'
 
 const apiKey = process.env.VUE_APP_GAPI_KEY
 const center = ref({ lat: 41.015137, lng: 28.97953 })
@@ -161,6 +173,8 @@ $black: var(--color-mine-shaft);
   position: absolute;
   top: 50%;
   left: 50%;
+  display: flex;
+  flex-direction: column;
   @media (max-width: 767px) {
     max-width: 100%;
     height: 100dvh;
@@ -177,8 +191,17 @@ $black: var(--color-mine-shaft);
     z-index: 100;
     .muvi__mobile--nav {
       display: none;
+      .muvi__mobile--nav-btn {
+        color: var(--color-mine-shaft);
+      }
       @media (max-width: 767px) {
         display: flex;
+      }
+    }
+    .selected__option--action {
+      display: none;
+      @media (max-width: 767px) {
+        display: block;
       }
     }
   }
@@ -193,6 +216,10 @@ $black: var(--color-mine-shaft);
     @media (max-width: 767px) {
       display: none;
     }
+  }
+  &--middle {
+    flex-grow: 1;
+    flex-shrink: 1;
   }
   &--search {
     width: 100%;

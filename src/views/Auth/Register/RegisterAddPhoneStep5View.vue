@@ -118,10 +118,7 @@ export default {
         phone: phoneNumberWithCountryCode
       })
 
-      const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'multipart/form-data'
-      }
+      const headers = {'Content-Type': 'multipart/form-data'}
 
       const accessToken = localStorage.getItem('access_token')
       const params = {access_token: accessToken}

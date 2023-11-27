@@ -1,87 +1,159 @@
 <template>
-  <FeedsTab
-    v-if="links[0].isSelected"
-    @categoryHandler="categoryHandler"
-    @audioHandler="audioHandler"
-  />
-  <SearchTab v-else-if="links[1].isSelected" @backToMain="backToMain(0)" />
-  <AddMuvi v-else-if="links[2].isSelected" @backToMain="fileBackHandler" :file="file" />
-  <ActivityMuvi v-else-if="links[3].isSelected" @backToMain="backToMain(0)" />
-  <ProfileTab v-else-if="links[4].isSelected" @backToMain="backToMain(0)" />
-  <CategoryTab v-else-if="isCategoryOpen" @backToMain="backToMain(0)" />
-  <AudioTab v-else-if="isAudioOpen" @backToMain="backToMain(0)" />
-  <MuviMobileNav :links="links" @linkHandler="linkHandler" @fileClicked="fileClickedHandler" />
-  <input
-    type="file"
-    accept="video/mp4"
-    ref="filesInput"
-    @change="changeHandler"
-    style="display: none"
-  />
+  <div class="muvi__feeds">
+    <div class="muvi__feeds--top">
+      <button class="muvi__feeds--top-left" @click="$router.go(-1)"><ArrowLeftIcon /></button>
+      <div class="muvi__feeds--tab">
+        <div
+          class="muvi__feeds--tab-list"
+          v-for="tab in tabs"
+          :key="tab.id"
+          @click="clickTabHandler(tab.id)"
+          :class="{ active: tab.isActive }"
+        >
+          {{ $t(tab.name) }}
+        </div>
+      </div>
+      <div class="left"></div>
+    </div>
+    <MainMuviTab v-if="tabs[0].isActive" filter="subscription" />
+    <MainMuviTab v-else-if="tabs[1].isActive" filter="recomendation" />
+  </div>
 </template>
 
 <script setup>
 /* eslint-disable */
 import { ref } from 'vue'
+import ArrowLeftIcon from '@/components/icons/shorts/ArrowLeftIcon.vue'
+import MainMuviTab from '@/components/muvi/mobile/tabs/MainMuviTab.vue'
 
-import MuviMobileNav from '@/components/muvi/mobile/MuviMobileNav.vue'
-import FeedsTab from '@/components/muvi/mobile/tabs/FeedsTab.vue'
-import SearchTab from '@/components/muvi/mobile/tabs/SearchTab.vue'
-import AddMuvi from '@/components/muvi/mobile/tabs/AddMuvi.vue'
-import ActivityMuvi from '@/components/muvi/mobile/tabs/ActivityMuvi.vue'
-import ProfileTab from '@/components/muvi/mobile/tabs/ProfileTab.vue'
-import CategoryTab from '@/components/muvi/mobile/tabs/CategoryTab.vue'
-import AudioTab from '@/components/muvi/mobile/tabs/AudioTab.vue'
-
-const isCategoryOpen = ref(false)
-const isAudioOpen = ref(false)
-const file = ref(null)
-const filesInput = ref()
-
-const links = ref([
-  { icon: 'home', isSelected: true },
-  { icon: 'search', isSelected: false },
-  { icon: 'add-circle', isSelected: false },
-  { icon: 'comment', isSelected: false },
-  { icon: 'profile', isSelected: false }
+const tabs = ref([
+  { id: 0, name: 'muvi_mobile.subscriptions', isActive: false },
+  { id: 1, name: 'muvi_mobile.recommendations', isActive: true }
 ])
 
-const linkHandler = (index) => {
-  links.value.forEach((l) => (l.isSelected = false))
-  links.value[index].isSelected = true
-}
-
-const categoryHandler = () => {
-  links.value.forEach((l) => (l.isSelected = false))
-  isCategoryOpen.value = true
-  isAudioOpen.value = false
-}
-const audioHandler = () => {
-  links.value.forEach((l) => (l.isSelected = false))
-  isAudioOpen.value = true
-  isCategoryOpen.value = false
-}
-
-const backToMain = (index) => {
-  isAudioOpen.value = false
-  isCategoryOpen.value = false
-  linkHandler(index)
-}
-
-const changeHandler = (event) => {
-  file.value = event.target.files[0]
-  if (file.value) {
-    linkHandler(2)
-  }
-}
-
-const fileClickedHandler = () => {
-  file.value = null
-  filesInput.value.click()
-}
-
-const fileBackHandler = () => {
-  backToMain(0)
-  file.value = null
+const clickTabHandler = (id) => {
+  tabs.value.forEach((tab) => (tab.isActive = false))
+  tabs.value[id].isActive = true
 }
 </script>
+
+<style lang="scss">
+.muvi__feeds {
+  width: 100%;
+  height: calc(100dvh - 64px);
+  &--wrapper {
+    height: 100%;
+  }
+  &--card {
+    user-select: none;
+    font-size: 25px;
+    text-transform: uppercase;
+    font-weight: 700;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    .video-js {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .vjs-poster {
+      img {
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+    .vjs-tech {
+      object-fit: cover !important;
+      object-position: center !important;
+      overflow: hidden;
+    }
+    .vjs-load-progress {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+    }
+    .vjs-big-play-button {
+      display: none !important;
+    }
+    .vjs-control-bar {
+      background-color: transparent !important;
+      margin-bottom: 12px;
+    }
+
+    .vjs-remaining-time {
+      display: none !important;
+    }
+    .vjs-picture-in-picture-control {
+      display: none !important;
+    }
+    .vjs-fullscreen-control {
+      display: none !important;
+    }
+    .vjs-volume-panel {
+      order: 3;
+    }
+    .vjs-progress-control {
+      order: 2;
+    }
+    .vjs-play-control {
+      order: 1;
+    }
+    .video-js .vjs-slider {
+      background-color: rgba($color: #fff, $alpha: 0.2);
+    }
+  }
+  &--top {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    width: calc(100% - 32px);
+    z-index: 15;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: space-between;
+    .left {
+      width: 28px;
+      height: 28px;
+    }
+    &-left {
+      padding: 0;
+      border: none;
+      width: 40px;
+      height: 40px;
+      background-color: var(--gray-rgba);
+      backdrop-filter: blur(5px);
+      color: var(--color-stable-white);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      svg {
+        width: 28px;
+        height: 28px;
+        display: block;
+      }
+    }
+  }
+  &--tab {
+    display: flex;
+    align-items: center;
+    &-list {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      text-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+      color: var(--color-stable-white);
+      &.active {
+        font-weight: 700;
+        text-shadow: 0px 5px 8px rgba(0, 0, 0, 0.8);
+      }
+      &:not(:last-child) {
+        padding-right: 12px;
+        border-right: 1px solid var(--color-stable-white);
+        margin-right: 12px;
+      }
+    }
+  }
+}
+</style>

@@ -1,8 +1,8 @@
 <template>
   <div class="muvi__mobile">
     <div class="muvi__mobile--nav white">
-      <button @click="emit('backToMain')" class="muvi__mobile--nav-btn"><ArrowLeftIcon /></button>
-      <div class="muvi__mobile--nav-title">Profile</div>
+      <button @click="$router.go(-1)" class="muvi__mobile--nav-btn"><ArrowLeftIcon /></button>
+      <div class="muvi__mobile--nav-title">{{ $t('muvi.tabs.profile') }}</div>
       <div class="left share__icon">
         <ShareLinkIcon />
       </div>
@@ -10,49 +10,116 @@
     <div class="muvi__mobile--profile">
       <div class="muvi__mobile--profile-block">
         <div class="muvi__mobile--profile-top">
-          <img src="/images/users/jeff.png" alt="jeff" />
+          <img :src="user.avatar" :alt="user.username" />
           <div class="muvi__mobile--profile-info">
-            <div class="muvi__mobile--profile-name">Ibragim Ibragimov</div>
-            <a href="#" class="muvi__mobile--profile-link">Go to UMMA LIFE profile</a>
+            <div class="muvi__mobile--profile-name">
+              {{ user?.first_name }} {{ user?.last_name }}
+            </div>
           </div>
         </div>
         <div class="muvi__mobile--profile-middle">
           <div class="muvi__mobile--profile-list">
-            <p>{{ shortNum(13) }}</p>
-            <span>MUVI</span>
+            <p>{{ shortNum(user?.stats?.muvi || 0) }}</p>
+            <span>{{ $t('tabs.profile_tabs.muvi') }}</span>
           </div>
           <div class="muvi__mobile--profile-list">
-            <p>{{ shortNum(252000) }}</p>
-            <span>views</span>
+            <p>{{ shortNum(user?.stats?.views || 0) }}</p>
+            <span>{{ $t('video.views') }}</span>
           </div>
           <div class="muvi__mobile--profile-list">
-            <p>{{ shortNum(45200) }}</p>
-            <span>reactions</span>
+            <p>{{ shortNum(user?.stats?.reactions || 0) }}</p>
+            <span>{{ $t('video.reactions') }}</span>
           </div>
           <div class="muvi__mobile--profile-list">
-            <p>{{ shortNum(210) }}</p>
-            <span>followers</span>
+            <p>{{ shortNum(user?.stats?.followers || 0) }}</p>
+            <span>{{ $t('muvi.followers') }}</span>
           </div>
         </div>
-        <SampleButton title="Follow" padding="8px 12px" width="100%" :size="14" />
       </div>
     </div>
     <div class="muvi__mobile--wrapper">
-      <MuviCard v-for="card in muvies" :key="card.id" :card="card" :profile="true" />
+      <MuviCard
+        v-for="(muvi, index) in muvies"
+        :key="muvi.id"
+        :muvi="muvi"
+        @click="handleMuvieOpen(index)"
+      />
     </div>
+    <MuviesTab
+      :muvies="muvies"
+      :initialSlideIndex="initialSlideIndex"
+      v-if="isMuviesOpen"
+      @backTo="isMuviesOpen = false"
+    />
   </div>
 </template>
 
 <script setup>
 /* eslint-disable */
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
+import { getFormData } from '@/utils'
+
 import shortNum from 'number-shortener'
 import ArrowLeftIcon from '@/components/icons/shorts/ArrowLeftIcon.vue'
 import MuviCard from '@/components/muvi/mobile/MuviCard.vue'
-import { muvies } from '@/dummy'
 import ShareLinkIcon from '@/components/icons/ShareLinkIcon.vue'
-import SampleButton from '@/components/ui/SampleButton.vue'
+import MuviesTab from '@/components/muvi/mobile/tabs/MuviesTab.vue'
 
-const emit = defineEmits(['backToMain'])
+const user = ref({})
+const page = ref(1)
+const initialSlideIndex = ref(0)
+const isMuviesOpen = ref(false)
+const muvies = ref([])
+
+const handleMuvieOpen = (index) => {
+  initialSlideIndex.value = index
+  isMuviesOpen.value = true
+}
+
+const getUserProfile = async () => {
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY
+    })
+    const { data } = await axios.post('/muvi-user-profile', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    user.value = data.data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+const fetchMyMuvies = async () => {
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      user_id: user.value?.user_id,
+      page: page.value
+    })
+    const { data } = await axios.post('/get-user-short-videos', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    muvies.value = data.data
+  } catch (err) {
+    console.log(err)
+  }
+}
+onMounted(async () => {
+  await getUserProfile()
+  await fetchMyMuvies()
+})
 </script>
 
 <style lang="scss" scoped>

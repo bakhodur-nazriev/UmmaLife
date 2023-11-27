@@ -8,7 +8,7 @@
               <UnmuteIcon v-if="!state.muted" />
               <MuteIcon v-else />
             </button>
-            <div class="info">
+            <!-- <div class="info">
               <div class="info__user">
                 <div class="info__user--info">
                   <img src="/images/users/jeff.png" alt="user" class="info__user--img" />
@@ -21,7 +21,7 @@
                 Небольшой влог о самом высокоразвитом городе мира - Дубае. Почему мы выбрали этот
                 город для...
               </div>
-            </div>
+            </div> -->
           </div>
         </template>
       </video-player>

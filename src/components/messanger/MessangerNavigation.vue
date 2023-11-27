@@ -54,6 +54,7 @@ export default {
     border: none;
     outline: none;
     background-color: var(--color-seashell);
+    color: var(--color-mine-shaft);
   }
   &__menu {
     list-style: none;
