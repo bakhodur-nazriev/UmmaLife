@@ -20,7 +20,7 @@ const fetchCategories = async () => {
   const params = {access_token: accessToken}
 
   try {
-    const response = await axios.post('https://preview.ummalife.com/api/categories', payload, {params})
+    const response = await axios.post('/categories', payload, {params})
     categoryItems.value = response.data.data
   } catch (error) {
     console.error('Error fetching categories:', error)

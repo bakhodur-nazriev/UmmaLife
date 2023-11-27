@@ -123,7 +123,7 @@ export default {
         'Content-Type': 'multipart/form-data'
       }
 
-      return axios.post('https://preview.ummalife.com/api/check-user-phone', payload, {headers})
+      return axios.post('/check-user-phone', payload, {headers})
     },
     sendAuthPhoneRequest() {
       const fullPhoneNumber = this.selectedCountryCode + this.phoneNumber
@@ -139,7 +139,7 @@ export default {
         'Content-Type': 'multipart/form-data'
       }
 
-      return axios.post('https://preview.ummalife.com/api/auth-phone', payload, {headers})
+      return axios.post('/auth-phone', payload, {headers})
     },
     countryChanged(country) {
       this.selectedCountryCode = '+' + country.dialCode

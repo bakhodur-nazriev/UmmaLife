@@ -446,12 +446,12 @@ export default {
       const params = {access_token: accessToken}
 
       try {
-        const response = await axios.post('https://preview.ummalife.com/api/get-user-data', payload, {params, headers})
+        const response = await axios.post('/get-user-data', payload, {params, headers})
         if (response.data.api_status === 200) {
           localStorage.setItem('user', JSON.stringify(response.data))
         }
-        this.user = response.data.data
-        console.log(response.data.data)
+        this.user = response.data?.data
+        console.log(response.data?.data)
       } catch (error) {
         console.error(error)
       }

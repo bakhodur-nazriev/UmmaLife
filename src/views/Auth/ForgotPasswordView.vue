@@ -111,7 +111,7 @@ export default {
       }
 
       try {
-        return await axios.post('https://preview.ummalife.com/api/send-reset-password-email', formData, {headers});
+        return await axios.post('/send-reset-password-email', formData, {headers});
       } catch (error) {
         throw error
       }

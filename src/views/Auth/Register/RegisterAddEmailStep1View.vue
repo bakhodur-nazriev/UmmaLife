@@ -117,7 +117,7 @@ export default {
       }
 
       try {
-        return await axios.post('https://preview.ummalife.com/api/check-email', payload, {headers})
+        return await axios.post('/check-email', payload, {headers})
       } catch (error) {
         throw error
       }
