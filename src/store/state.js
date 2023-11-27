@@ -8,5 +8,6 @@ export default {
   playerMargin: 0,
   isShareOpen: false,
   isProfileTabsOpen: true,
-  isSavedTabsOpen: true
+  isSavedTabsOpen: true,
+  accessToken: null
 }

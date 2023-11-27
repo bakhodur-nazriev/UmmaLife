@@ -1,36 +1,40 @@
 <template>
-  <FormAuth @submit="submitForm">
+  <FormAuth @submit="handleSubmit">
     <TitleSample>{{ $t('register.title') }}</TitleSample>
 
     <div :class="['input-wrapper', { error: hasError || isInvalidEmail }]">
       <input
-        type="email"
-        v-model="email"
-        class="base-input"
-        :placeholder="$t('register.placeholders.email')"
+          type="email"
+          v-model="email"
+          class="base-input"
+          :placeholder="$t('register.placeholders.email')"
       />
       <small v-if="hasError || isInvalidEmail" class="error-message">
         {{ $t(isInvalidEmail ? 'register.validation.incorrect_email' : 'register.validation.empty_email') }}
       </small>
+      <small v-if="errorText" class="error-message">
+        {{ errorText }}
+      </small>
     </div>
 
     <CheckBox
-      class="register-checkbox"
-      name="agreement"
-      color="secondary"
-      text-size="small"
+        class="register-checkbox"
+        color="secondary"
+        text-size="small"
+        :isChecked="isAgreementChecked"
+        @update:checked="handleCheckBoxUpdate"
     >
       {{ $t('register.messages.agreement_to_creating_account') }} <br>
       <router-link
-        class="link register-checkbox__link"
-        :to="`/${$i18n.locale}/terms`"
+          class="link register-checkbox__link"
+          :to="`/${$i18n.locale}/terms`"
       >
         {{ $t('links.terms') }}
       </router-link>
       <span class="symbol__ampersand">&</span>
       <router-link
-        class="link register-checkbox__link"
-        :to="`/${$i18n.locale}/privacy-policy`"
+          class="link register-checkbox__link"
+          :to="`/${$i18n.locale}/privacy-policy`"
       >
         {{ $t('links.privacy_policy') }}
       </router-link>
@@ -38,27 +42,33 @@
 
     <div class="login-button-section">
       <SampleButton
-        :title="$t('buttons.get_code_by_email')"
-        :type="submitting ? 'button' : 'submit'"
-        :disabled="submitting"
-        @click="submitForm"
+          :title="$t('buttons.get_code_by_email')"
+          :type="submitting ? 'button' : 'submit'"
+          :disabled="submitting"
       >
       </SampleButton>
     </div>
 
     <div class="login-section">
       <label class="login-section__label">{{ $t('register.label') }}</label>
-      <router-link class="login-section__link" :to="`/${$i18n.locale}/login`">{{ $t('login.title') }}</router-link>
+      <router-link
+          class="login-section__link"
+          :to="`/${$i18n.locale}/login-by-email`"
+      >
+        {{ $t('login.title') }}
+      </router-link>
     </div>
   </FormAuth>
 </template>
 
 <script>
+/* eslint-disable */
 import SampleButton from '@/components/ui/SampleButton.vue'
 import FormAuth from '@/components/ui/FormAuth.vue'
 import CheckBox from '@/components/ui/CheckBox.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import axios from 'axios'
+import {getFormData} from '@/utils'
 
 export default {
   components: {
@@ -72,7 +82,9 @@ export default {
       email: '',
       hasError: false,
       loading: false,
-      submitting: false
+      submitting: false,
+      errorText: '',
+      isAgreementChecked: false
     }
   },
   computed: {
@@ -90,39 +102,48 @@ export default {
     }
   },
   methods: {
-    async submitForm(event) {
-      console.log('submit button called')
-      if (this.submitting) return
-      this.submitting = true
+    handleCheckBoxUpdate(value) {
+      this.isAgreementChecked = value
+    },
+    async sendRequest() {
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        email: this.email
+      })
 
-      if (this.email.trim() === '' || this.isInvalidEmail) {
-        this.hasError = true
-      } else {
-        try {
-          this.loading = true
-          const response = await axios.post('https://ummalife.com/api/check-email', {
-            email: this.email,
-            server_key: '7c5940661c603657d973782cfdff94c2'
-          })
-          // Здесь вы можете обработать ответ от сервера
-          console.log('Ответ от сервера:', response.data)
+      const headers = {'Content-Type': 'multipart/form-data',}
 
-          // После успешного получения ответа, вызывайте метод handleSubmit
-          this.submitting = false
-          await this.handleSubmit()
-        } catch (error) {
-          console.error('Ошибка при отправке POST-запроса:', error)
-          this.submitting = false
-        } finally {
-          this.loading = false
-        }
+      try {
+        return await axios.post('https://preview.ummalife.com/api/check-email', payload, {headers})
+      } catch (error) {
+        throw error
       }
     },
+    async handleSubmit(event) {
+      event.preventDefault()
+      localStorage.setItem('email', this.email);
 
-    async handleSubmit() {
-      this.$store.commit('setEmail', this.email)
-      // Здесь можете выполнить дополнительную "логику отправки формы" или другие действия
-      this.$emit('next-step')
+      if (!this.email.trim()) {
+        this.hasError = true
+        return
+      }
+
+      if (!this.isAgreementChecked) {
+        this.errorText = 'Вы должны согласиться с условиями'
+        return
+      }
+
+      try {
+        const response = await this.sendRequest()
+
+        if (response.data.api_status === 200) {
+          this.$router.push({name: 'RegisterConfirmEmailStep2View'})
+        } else {
+          this.errorText = response.data.errors.error_text
+        }
+      } catch (error) {
+        console.error('Error occurred:', error)
+      }
     }
   }
 }
@@ -143,6 +164,12 @@ export default {
       margin-top: 4px;
     }
   }
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
 }
 
 .base-input {
@@ -185,6 +212,7 @@ export default {
   margin-top: 24px;
   margin-bottom: 64px;
   text-decoration: none;
+  user-select: none;
 
   &__link {
     text-decoration: underline;

@@ -1,9 +1,9 @@
 <template>
   <div class="layout">
     <LocalesDropdown class="layout__locales" />
-    <MainLogo class="layout__logo" />
 
     <div class="layout__inner">
+      <MainLogo class="layout__logo" />
       <slot></slot>
     </div>
 
@@ -43,11 +43,10 @@ export default {
 
   &__locales {
     order: 3;
-    margin: 24px auto;
+    margin: 24px auto 0;
   }
 
   &__logo {
-    order: 1;
     display: flex;
     justify-content: center;
     margin-top: 64px;
@@ -58,9 +57,11 @@ export default {
     order: 2;
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-grow: 1;
     flex-direction: column;
     z-index: 0;
+    padding-bottom: 40px;
   }
 
   &__footer {
@@ -87,12 +88,17 @@ export default {
 
     &__locales {
       margin-right: 0;
-      margin-bottom: 54px;
     }
 
     &__logo {
       margin-top: 0;
     }
+  }
+}
+
+@media (max-width: 576px) {
+  .layout__locales {
+    margin-bottom: 24px;
   }
 }
 </style>

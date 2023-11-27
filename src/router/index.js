@@ -2,14 +2,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import i18n from '@/i18n'
 import { supportedLanguages } from '@/constants'
-import HomeView from '../views/HomeView.vue'
-import LoginView from '../views/Auth/LoginView.vue'
-import RegisterView from '../views/Auth/RegisterView.vue'
-import ForgotPasswordView from '../views/Auth/ForgotPasswordView.vue'
-import TermsView from '../views/TermsView.vue'
-import PrivacyPolicyView from '../views/PrivacyPolicyView.vue'
-import ContactsView from '../views/ContactsView.vue'
-import AboutUs from '../views/AboutUsView.vue'
+import HomeView from '@/views/HomeView.vue'
+import LoginByEmailView from '@/views/Auth/Login/LoginByEmailView.vue'
+import LoginByPhoneStep1View from '@/views/Auth/Login/LoginByPhoneStep1View.vue'
+import ForgotPasswordView from '@/views/Auth/ForgotPasswordView.vue'
+import ResetPasswordView from '@/views/Auth/ResetPasswordView.vue'
+import TermsView from '@/views/TermsView.vue'
+import PrivacyPolicyView from '@/views/PrivacyPolicyView.vue'
+import ContactsView from '@/views/ContactsView.vue'
+import AboutUs from '@/views/AboutUsView.vue'
 import MessengerView from '@/views/MessengerView.vue'
 import MessengerChatView from '@/views/MessengerChatView.vue'
 import MessengerEmptyView from '@/views/MessengerEmptyView.vue'
@@ -52,6 +53,13 @@ import CategoryMuvi from '@/views/muvi/mobile/CategoryMuvi.vue'
 import VideoSingleViewVue from '@/views/VideoSingleView.vue'
 import PreviewArticleView from '@/views/PreviewArticleView.vue'
 import NotificationsView from '@/views/NotificationsView.vue'
+import LoginByPhoneStep2View from '@/views/Auth/Login/LoginByPhoneStep2View.vue'
+import RegisterAddEmailStep1View from '@/views/Auth/Register/RegisterAddEmailStep1View.vue'
+import RegisterConfirmEmailStep2View from '@/views/Auth/Register/RegisterConfirmEmailStep2View.vue'
+import RegisterCreatePasswordStep3View from '@/views/Auth/Register/RegisterCreatePasswordStep3View.vue'
+import RegisterAddInfoStep4View from '@/views/Auth/Register/RegisterAddInfoStep4View.vue'
+import RegisterAddPhoneStep5View from '@/views/Auth/Register/RegisterAddPhoneStep5View.vue'
+import RegisterCategoryInterestsStep6View from '@/views/Auth/Register/RegisterCategoryInterestsStep6View.vue'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const baseDomain = isProduction ? 'front1.ummalife.dev' : 'localhost'
@@ -68,24 +76,233 @@ const routes = [
     }
   },
   {
-    path: '/:lang?/login',
-    name: 'login',
-    component: LoginView,
+    path: '/:lang?/login-by-email',
+    name: 'LoginByEmailView',
+    component: LoginByEmailView,
     meta: {
-      title: i18n.global.t('meta_title.login'),
+      title: i18n.global.t('meta_title.login.by_email'),
       requiresAuth: false,
       layout: 'auth'
     }
   },
   {
+    path: '/:lang?/login-by-phone',
+    children: [
+      {
+        path: '',
+        name: 'LoginByPhoneStep1View',
+        component: LoginByPhoneStep1View,
+        meta: {
+          title: i18n.global.t('meta_title.login.by_phone_step1'),
+          requiresAuth: false,
+          layout: 'auth'
+        }
+      },
+      {
+        path: 'step2',
+        name: 'LoginByPhoneStep2View',
+        component: LoginByPhoneStep2View,
+        meta: {
+          title: i18n.global.t('meta_title.login.confirm_phone_step2'),
+          requiresAuth: false,
+          layout: 'auth'
+        }
+      }
+    ]
+  },
+  {
     path: '/:lang?/register',
-    name: 'register',
-    component: RegisterView,
-    meta: {
-      title: i18n.global.t('meta_title.register'),
-      requiresAuth: false,
-      layout: 'auth'
-    }
+    children: [
+      {
+        path: '',
+        name: 'RegisterAddEmailStep1View',
+        component: RegisterAddEmailStep1View,
+        meta: {
+          title: i18n.global.t('meta_title.register.add_email_step1'),
+          requiresAuth: false,
+          layout: 'auth'
+        }
+      },
+      {
+        path: 'step2',
+        name: 'RegisterConfirmEmailStep2View',
+        component: RegisterConfirmEmailStep2View,
+        meta: {
+          title: i18n.global.t('meta_title.register.confirm_email_step2'),
+          requiresAuth: false,
+          layout: 'auth'
+        }
+      },
+      {
+        path: 'step3',
+        name: 'RegisterCreatePasswordStep3View',
+        component: RegisterCreatePasswordStep3View,
+        beforeEnter: (to, from, next) => {
+          const userEmail = localStorage.getItem('email')
+          if (!userEmail) {
+            next('/register')
+          } else {
+            next()
+          }
+        },
+        meta: {
+          title: i18n.global.t('meta_title.register.create_password_step3'),
+          requiresAuth: false,
+          layout: 'auth'
+        }
+      },
+
+      {
+        path: '/:lang?/news',
+        name: 'news',
+        component: NewsView,
+        meta: {
+          title: i18n.global.t('meta_title.news'),
+          requiresAuth: true,
+          layout: 'main'
+        }
+      },
+      {
+        path: '/:lang?/saved',
+        name: 'saved',
+        component: SavedView,
+        meta: {
+          title: i18n.global.t('meta_title.saved'),
+          requiresAuth: true,
+          layout: 'main'
+        }
+      },
+      {
+        path: '/:lang?/video',
+        name: 'video',
+        component: VideoView,
+        meta: {
+          title: i18n.global.t('meta_title.video'),
+          requiresAuth: true,
+          layout: 'main'
+        }
+      },
+      {
+        path: '/:lang?/settings',
+        name: 'settings',
+        component: SettingsView,
+        meta: {
+          title: i18n.global.t('meta_title.settings'),
+          requiresAuth: true,
+          layout: 'main'
+        }
+      },
+      {
+        path: '/:lang?/muvi',
+        name: 'muvi',
+        component: MuviView,
+        meta: {
+          title: i18n.global.t('meta_title.muvi'),
+          requiresAuth: true,
+          layout: 'another'
+        }
+      },
+      {
+        path: '/:lang?/muvi/:id',
+        name: 'muvi-detail',
+        component: MuviMobileDetail,
+        meta: {
+          title: i18n.global.t('meta_title.muvi'),
+          requiresAuth: true,
+          layout: 'muvi-mobile'
+        }
+      },
+      {
+        path: '/:lang?/muvi/popular',
+        name: 'muvi-popular',
+        component: PopularMuvi,
+        meta: {
+          title: i18n.global.t('meta_title.muvi'),
+          requiresAuth: true,
+          layout: 'muvi-mobile'
+        }
+      },
+      {
+        path: '/:lang?/muvi/add',
+        name: 'muvi-add',
+        component: AddMuvi,
+        meta: {
+          title: i18n.global.t('meta_title.muvi'),
+          requiresAuth: true,
+          layout: 'muvi-mobile'
+        }
+      },
+      {
+        path: '/:lang?/muvi/activity',
+        name: 'muvi-activity',
+        component: ActivityMuvi,
+        meta: {
+          title: i18n.global.t('meta_title.muvi'),
+          requiresAuth: true,
+          layout: 'muvi-mobile'
+        }
+      },
+      {
+        path: '/:lang?/muvi/profile',
+        name: 'muvi-profile',
+        component: ProfileMuvi,
+        meta: {
+          title: i18n.global.t('meta_title.muvi'),
+          requiresAuth: true,
+          layout: 'muvi-mobile'
+        }
+      },
+      {
+        path: '/:lang?/muvi/audio/:id',
+        name: 'muvi-audio',
+        component: AudioMuvi,
+        meta: {
+          title: i18n.global.t('meta_title.muvi'),
+          requiresAuth: true,
+          layout: 'muvi-mobile'
+        }
+      },
+      {
+        path: '/:lang?/muvi/category/:id',
+        name: 'muvi-category',
+        component: CategoryMuvi,
+        meta: {
+          title: i18n.global.t('meta_title.muvi'),
+          requiresAuth: true,
+          layout: 'muvi-mobile'
+        }
+      },
+      {
+        path: 'step4',
+        name: 'RegisterAddInfoStep4View',
+        component: RegisterAddInfoStep4View,
+        meta: {
+          title: i18n.global.t('meta_title.register.add_info_step4'),
+          requiresAuth: false,
+          layout: 'auth'
+        }
+      },
+      {
+        path: 'step5',
+        name: 'RegisterAddPhoneStep5View',
+        component: RegisterAddPhoneStep5View,
+        meta: {
+          title: i18n.global.t('meta_title.register.add_phone_step5'),
+          requiresAuth: false,
+          layout: 'auth'
+        }
+      },
+      {
+        path: 'step6',
+        name: 'RegisterCategoryInterestsStep6View',
+        component: RegisterCategoryInterestsStep6View,
+        meta: {
+          title: i18n.global.t('meta_title.register.category_interests_step6'),
+          requiresAuth: false,
+          layout: 'auth'
+        }
+      }
+    ]
   },
   {
     path: '/:lang?/forgot-password',
@@ -435,7 +652,6 @@ const routes = [
       layout: 'main'
     }
   },
-
   {
     path: '/:lang?/news',
     name: 'news',
@@ -486,76 +702,6 @@ const routes = [
       layout: 'another'
     }
   },
-  {
-    path: '/:lang?/muvi/:id',
-    name: 'muvi-detail',
-    component: MuviMobileDetail,
-    meta: {
-      title: i18n.global.t('meta_title.muvi'),
-      requiresAuth: true,
-      layout: 'muvi-mobile'
-    }
-  },
-  {
-    path: '/:lang?/muvi/popular',
-    name: 'muvi-popular',
-    component: PopularMuvi,
-    meta: {
-      title: i18n.global.t('meta_title.muvi'),
-      requiresAuth: true,
-      layout: 'muvi-mobile'
-    }
-  },
-  {
-    path: '/:lang?/muvi/add',
-    name: 'muvi-add',
-    component: AddMuvi,
-    meta: {
-      title: i18n.global.t('meta_title.muvi'),
-      requiresAuth: true,
-      layout: 'muvi-mobile'
-    }
-  },
-  {
-    path: '/:lang?/muvi/activity',
-    name: 'muvi-activity',
-    component: ActivityMuvi,
-    meta: {
-      title: i18n.global.t('meta_title.muvi'),
-      requiresAuth: true,
-      layout: 'muvi-mobile'
-    }
-  },
-  {
-    path: '/:lang?/muvi/profile',
-    name: 'muvi-profile',
-    component: ProfileMuvi,
-    meta: {
-      title: i18n.global.t('meta_title.muvi'),
-      requiresAuth: true,
-      layout: 'muvi-mobile'
-    }
-  },
-  {
-    path: '/:lang?/muvi/audio/:id',
-    name: 'muvi-audio',
-    component: AudioMuvi,
-    meta: {
-      title: i18n.global.t('meta_title.muvi'),
-      requiresAuth: true,
-      layout: 'muvi-mobile'
-    }
-  },
-  {
-    path: '/:lang?/muvi/category/:id',
-    name: 'muvi-category',
-    component: CategoryMuvi,
-    meta: {
-      title: i18n.global.t('meta_title.muvi'),
-      requiresAuth: true,
-      layout: 'muvi-mobile'
-    }
-  },
 
   {
     path: '/:lang?/notifications',
@@ -593,9 +739,9 @@ const router = createRouter({
   routes
 })
 
-function isUserAuthenticated() {
-  // Здесь проверяйте, аутентифицирован ли пользователь
-  // Возвращайте true, если пользователь аутентифицирован, иначе false
+const isUserAuthenticated = () => {
+  const accessToken = localStorage.getItem('access_token')
+  return !!accessToken
 }
 
 router.beforeEach((to, from, next) => {
@@ -603,56 +749,38 @@ router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some((route) => route.meta.requiresAuth)
 
   if (supportedLanguages.includes(lang)) {
-    // Установка языка для i18n
     i18n.global.locale = lang
   } else {
-    // Если указанный язык не поддерживается, перенаправляем на язык по умолчанию
     const defaultLang = i18n.global.locale || 'ru'
     return next(`/${defaultLang}${to.path}`)
   }
 
-  // Если язык в URL не совпадает с текущим языком, перенаправляем на правильный URL
   if (to.params.lang !== lang) {
     const pathWithoutLang = to.path.replace(`/${to.params.lang}`, `/${lang}`)
     return next({
       path: `/${lang}${pathWithoutLang}`,
-      params: {
-        lang
-      }
+      params: { lang }
     })
   }
 
   document.title = `${to.meta.title} | ${process.env.VUE_APP_TITLE}`
 
-  // if (requiresAuth && !isUserAuthenticated()) {
-  //   // Если маршрут требует авторизации и пользователь не аутентифицирован, перенаправляем на страницу авторизации
-  //   return next({ name: 'login' })
-  // }
+  const isAuthenticated = isUserAuthenticated() // Проверка авторизации в localStorage
 
-  // Проверка статуса авторизации
-  /*const isAuthenticated = store.getters.getAuthenticated
+  const allowedRoutes = ['login-by-email', 'register', 'forgot-password']
 
-  // Роуты, на которых разрешено продолжить навигацию для неавторизованных пользователей
-  const allowedRoutes = ['login', 'register', 'forgot-password']
-
-  // Если пользователь авторизован, перенаправляем на главную страницу
-  if (isAuthenticated) {
-    return next('/')
+  if (requiresAuth && !isAuthenticated) {
+    return next({ name: 'LoginByEmailView' })
   }
 
-  // Если пользователь не авторизован и находится на разрешенных роутах, разрешаем продолжить навигацию
+  if (isAuthenticated && to.name === 'home') {
+    return next({ name: 'news' })
+  }
+
   if (!isAuthenticated && allowedRoutes.includes(to.name)) {
     return next()
   }
 
-  // Если пользователь не авторизован и находится на других роутах, перенаправляем на страницу входа
-  return next('/login')*/
-
-  if (to.name === 'home') {
-    return next({
-      name: 'news'
-    })
-  }
   return next()
 })
 

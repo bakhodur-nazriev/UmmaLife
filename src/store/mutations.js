@@ -28,5 +28,8 @@ export default {
   },
   setIsSavedTabsOpen(state, isSavedTabsOpen) {
     state.isSavedTabsOpen = isSavedTabsOpen
+  },
+  setAccessToken(state, token) {
+    state.accessToken = token
   }
 }

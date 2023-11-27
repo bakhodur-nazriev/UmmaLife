@@ -1,5 +1,4 @@
 <template>
-  <MainLayout>
     <SearchMainLayout>
       <div class="article-block">
         <article v-for="i in 5" :key="i" class="article-block__article">
@@ -19,7 +18,6 @@
         </article>
       </div>
     </SearchMainLayout>
-  </MainLayout>
 </template>
 
 <script>
@@ -27,13 +25,11 @@ import PostFooter from '@/components/ui/Post/PostFooter.vue'
 import ArticleContent from '@/components/ui/Publications/Article/ArticleContent.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
 import PostHeader from '@/components/ui/Post/PostHeader.vue'
-import MainLayout from '@/components/layouts/MainLayout.vue'
 import SearchMainLayout from '@/components/layouts/SearchMainLayout.vue'
 
 export default {
   components: {
     SearchMainLayout,
-    MainLayout,
     PostHeader,
     SampleDivider,
     ArticleContent,

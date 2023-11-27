@@ -1,5 +1,5 @@
 <template>
-  <form-auth @submit="submit">
+  <form-auth @submit="handleSubmit">
     <title-sample>{{ $t('register.title') }}</title-sample>
 
     <div class="subtitles__text-fields">
@@ -8,22 +8,22 @@
     </div>
 
     <div class="sample__inputs-section">
-      <div :class="['input-wrapper', { error: hasError.name }]">
+      <div :class="['input-wrapper', { error: hasError.firstName }]">
         <input
-          v-model="name"
-          class="base-input"
-          :placeholder="$t('register.placeholders.name')"
+            v-model="firstName"
+            class="base-input"
+            :placeholder="$t('register.placeholders.name')"
         />
-        <small v-if="hasError.name" class="error-message">
+        <small v-if="hasError.firstName" class="error-message">
           {{ $t('register.validation.empty_name') }}
         </small>
       </div>
 
       <div :class="['input-wrapper', { error: hasError.lastName }]">
         <input
-          v-model="last_name"
-          class="base-input"
-          :placeholder="$t('register.placeholders.last_name')"
+            v-model="lastName"
+            class="base-input"
+            :placeholder="$t('register.placeholders.last_name')"
         />
         <small v-if="hasError.lastName" class="error-message">
           {{ $t('register.validation.empty_last_name') }}
@@ -33,40 +33,53 @@
       <div :class="['input-wrapper', { error: hasError.gender }]">
         <div class="genders" ref="container">
           <button
-            type="button"
-            class="genders__button"
-            @click="handleButtonClick"
+              type="button"
+              class="genders__button"
+              @click="handleButtonClick"
           >
-            <span :class="{'genders-title': !selectedGender, 'selected-gender': selectedGender}">{{ selectedGender || $t('register.placeholders.gender.title') }}</span>
+            <span :class="{'genders-title': !selectedGender, 'selected-gender': selectedGender}">
+              {{ selectedGender || $t('register.placeholders.gender.title') }}
+            </span>
             <dropdown-icon class="genders__icon genders__icon--dropdown"/>
           </button>
 
           <ul class="genders__list" :data-genders="$t('languages.title')" ref="list">
-            <li class="genders__item" @click="selectGender(`${$t('register.placeholders.gender.male')}`)">{{ $t('register.placeholders.gender.male') }}</li>
-            <li class="genders__item" @click="selectGender(`${$t('register.placeholders.gender.female')}`)">{{ $t('register.placeholders.gender.female') }}</li>
+            <li class="genders__item" @click="selectGender(`${$t('register.placeholders.gender.male')}`)">
+              {{ $t('register.placeholders.gender.male') }}
+            </li>
+            <li class="genders__item" @click="selectGender(`${$t('register.placeholders.gender.female')}`)">
+              {{ $t('register.placeholders.gender.female') }}
+            </li>
           </ul>
         </div>
         <small v-if="hasError.gender" class="error-message">
           {{ $t('register.validation.empty_gender') }}
+        </small>
+
+        <small v-if="errorText" class="error-message">
+          {{ errorText }}
         </small>
       </div>
     </div>
 
     <div class="login-button__section">
       <SampleButton
-        class="login-button__section-next"
-        @click="handleSubmit"
-        :title="`${ $t('buttons.next') }`"
+          type="submit"
+          class="login-button__section-next"
+          :title="`${ $t('buttons.next') }`"
       />
     </div>
   </form-auth>
 </template>
 
 <script>
+/* eslint-disable */
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import DropdownIcon from '@/components/icons/DropdownIcon.vue'
+import axios from 'axios'
+import {getFormData} from '@/utils'
 
 export default {
   components: {
@@ -75,55 +88,74 @@ export default {
     FormAuth,
     SampleButton
   },
-  data () {
+  data() {
     return {
-      name: '',
-      last_name: '',
-      gender: true,
+      firstName: '',
+      lastName: '',
       hasError: {
-        name: false,
+        firstName: false,
         lastName: false,
         gender: false
       },
-      selectedGender: null
+      selectedGender: null,
+      errorText: null
     }
   },
   watch: {
-    name (newName) {
+    name(newName) {
       if (newName.trim() !== '') {
-        this.hasError.name = false
+        this.hasError.firstName = false
       }
     },
-    last_name (newLastName) {
+    last_name(newLastName) {
       if (newLastName.trim() !== '') {
         this.hasError.lastName = false
       }
-    },
-    gender (newGender) {
-      this.hasError.gender = newGender === null
     }
   },
   methods: {
-    handleSubmit () {
-      // Проверка на пустые поля
-      this.hasError.name = this.name.trim() === ''
-      this.hasError.lastName = this.last_name.trim() === ''
+    async handleSubmit(event) {
+      event.preventDefault()
+      this.hasError.firstName = this.firstName.trim() === ''
+      this.hasError.lastName = this.lastName.trim() === ''
       this.hasError.gender = this.selectedGender === null
 
-      // Проверка на наличие ошибок
-      if (this.hasError.name || this.hasError.lastName || this.hasError.gender) {
-        return // Прекратить отправку формы в случае ошибок
+      if (this.hasError.firstName || this.hasError.lastName || this.hasError.gender) {
+        return
       }
-      // Выполнить остальную логику отправки формы
-      // ...
 
-      this.$emit('next-step')
+      try {
+        const response = await this.sendRequest()
+
+        if (response.data.api_status === 200) {
+          this.$router.push({name: 'RegisterAddPhoneStep5View'})
+        } else {
+          this.errorText = response.data.errors.error_text
+        }
+      } catch (error) {
+        console.error('Error occurred:', error)
+      }
     },
-    submit (event) {
-      event.preventDefault()
-      this.handleSubmit()
+    async sendRequest() {
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        first_name: this.firstName,
+        last_name: this.lastName,
+        gender: this.selectedGender
+      })
+
+      const headers = {'Content-Type': 'multipart/form-data'}
+
+      const accessToken = localStorage.getItem('access_token')
+      const params = {access_token: accessToken}
+
+      try {
+        return await axios.post('https://preview.ummalife.com/api/create-account-more', payload, {params, headers})
+      } catch (error) {
+        throw error
+      }
     },
-    handleButtonClick () {
+    handleButtonClick() {
       const list = this.$refs.list
       if (!list) {
         return
@@ -135,13 +167,13 @@ export default {
       }
       !this.$refs.container.classList.contains('genders--shown') ? this.openDropdown() : this.closeDropdown()
     },
-    openDropdown () {
+    openDropdown() {
       this.$refs.container.classList.add('genders--shown')
       this.$refs.list.style.display = 'flex'
       document.addEventListener('click', this.handleDocumentClick)
       document.addEventListener('keydown', this.handleEscapeKeydown)
     },
-    closeDropdown () {
+    closeDropdown() {
       const container = this.$refs.container
       if (!container) {
         return
@@ -151,14 +183,18 @@ export default {
       document.removeEventListener('click', this.handleDocumentClick)
       document.removeEventListener('keydown', this.handleEscapeKeydown)
     },
-    handleDocumentClick (evt) {
+    handleDocumentClick(evt) {
       return !evt.target.closest('.genders') && this.closeDropdown()
     },
-    handleEscapeKeydown (evt) {
+    handleEscapeKeydown(evt) {
       return (evt.keyCode === 27) && this.closeDropdown()
     },
-    selectGender (gender) {
-      this.selectedGender = gender
+    selectGender(gender) {
+      if (gender === this.$t('register.placeholders.gender.male')) {
+        this.selectedGender = 'male'
+      } else if (gender === this.$t('register.placeholders.gender.female')) {
+        this.selectedGender = 'female'
+      }
       this.closeDropdown()
     }
   }
@@ -181,6 +217,12 @@ export default {
       margin-top: 4px;
     }
   }
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
 }
 
 .base-input {

@@ -2,22 +2,22 @@
   <div class="country-select">
     <div class="country-select-button" @click="toggleDropdown">
       <img
-        :src="selectedCountry.flag"
-        :alt="selectedCountry.name"
-        class="country-dropdown__flag-icon"
+          :src="selectedCountry.flag"
+          :alt="selectedCountry.name"
+          class="country-dropdown__flag-icon"
       />
       <span class="country-code">{{ selectedCountry.code }}</span>
-      <DropdownIcon class="locales__icon locales__icon--dropdown" />
+      <DropdownIcon class="locales__icon locales__icon--dropdown"/>
     </div>
     <div v-if="isDropdownOpen" class="country-dropdown">
       <ul class="country-dropdown__list">
         <li
-          v-for="country in countries"
-          :key="country.code"
-          @click="selectCountry(country)"
-          class="country-dropdown__list-item"
+            v-for="country in countries"
+            :key="country.code"
+            @click="selectCountry(country)"
+            class="country-dropdown__list-item"
         >
-          <img :src="country.flag" :alt="country.name" class="country-dropdown__flag-icon" />
+          <img :src="country.flag" :alt="country.name" class="country-dropdown__flag-icon"/>
           <span class="country-code">{{ country.name }}</span>
           <span class="country-code">{{ country.code }}</span>
         </li>
@@ -27,33 +27,34 @@
 </template>
 
 <script>
+/* eslint-disable */
 import DropdownIcon from '@/components/icons/DropdownIcon.vue'
 import axios from 'axios'
 
 export default {
-  components: { DropdownIcon },
+  components: {DropdownIcon},
   data() {
     return {
       countries: [],
-      selectedCountry: { name: '', code: '', flag: '' },
+      selectedCountry: {name: '', code: '', flag: ''},
       isDropdownOpen: false
     }
   },
   methods: {
     getCountries() {
       axios
-        .get('https://restcountries.com/v2/all')
-        .then((response) => {
-          this.countries = response.data.map((country) => ({
-            name: country.name,
-            code: '+' + country.callingCodes[0],
-            flag: country.flags.png
-          }))
-          this.selectedCountry = this.countries[1] // Set the initial selected country
-        })
-        .catch((error) => {
-          console.error('Error fetching countries:', error)
-        })
+          .get('https://restcountries.com/v2/all')
+          .then((response) => {
+            this.countries = response.data.map((country) => ({
+              name: country.name,
+              code: '+' + country.callingCodes[0],
+              flag: country.flags.png
+            }))
+            this.selectedCountry = this.countries[1]
+          })
+          .catch((error) => {
+            console.error('Error fetching countries:', error)
+          })
     },
     toggleDropdown() {
       this.isDropdownOpen = !this.isDropdownOpen
@@ -80,6 +81,7 @@ export default {
   &-code {
     font-size: 16px;
     margin: 0 8px;
+    color: var(--color-mine-shaft);
   }
 
   &-select {
@@ -120,6 +122,7 @@ export default {
         padding: 5px;
         cursor: pointer;
       }
+
       &-item:hover {
         background-color: #ddd;
       }
@@ -136,7 +139,7 @@ export default {
     align-items: center;
     background-color: var(--color-seashell);
     border-radius: 10px 0 0 10px;
-    padding: 15px;
+    padding: 16px;
     cursor: pointer;
   }
 }

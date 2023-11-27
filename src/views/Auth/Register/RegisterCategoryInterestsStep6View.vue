@@ -1,33 +1,31 @@
 <script setup>
 /* eslint-disable */
 import FormAuth from '@/components/ui/FormAuth.vue'
-import {ref} from 'vue'
+import {ref, onMounted} from 'vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
+import axios from 'axios'
+import {getFormData} from '@/utils'
+import * as events from "events";
+import router from "@/router";
 
-const categoryItems = ref([
-  'Религия',
-  'Семья',
-  'Здоровье',
-  'Фитнес',
-  'Книги',
-  'Путешествия',
-  'Авто',
-  'Наука',
-  'Природа',
-  'Еда',
-  'Мода',
-  'Архитектура',
-  'Красота',
-  'Работа',
-  'Учеба',
-  'Искусство',
-  'Спорт',
-  'Позитив',
-  'История',
-  'Психология',
-  'Воспитание'
-])
+const categoryItems = ref([])
 const selectedCategories = ref([])
+const fetchCategories = async () => {
+  const payload = getFormData({
+    server_key: process.env.VUE_APP_SERVER_KEY,
+    page: ''
+  })
+
+  const accessToken = localStorage.getItem('access_token')
+  const params = {access_token: accessToken}
+
+  try {
+    const response = await axios.post('https://preview.ummalife.com/api/categories', payload, {params})
+    categoryItems.value = response.data.data
+  } catch (error) {
+    console.error('Error fetching categories:', error)
+  }
+};
 
 const toggleCategory = (category) => {
   if (isSelected(category)) {
@@ -40,10 +38,41 @@ const toggleCategory = (category) => {
 const isSelected = (category) => {
   return selectedCategories.value.includes(category)
 }
+const handleSubmit = async () => {
+  event.preventDefault()
+
+  const categoryIds = selectedCategories.value.map(category => category.id);
+  const payload = new FormData()
+  payload.append('server_key', process.env.VUE_APP_SERVER_KEY)
+  categoryIds.forEach(categoryId => {
+    payload.append('category_ids[]', categoryId);
+  });
+
+  const headers = {'Content-Type': 'multipart/form-data'}
+
+  const accessToken = localStorage.getItem('access_token')
+  const params = {access_token: accessToken}
+
+  try {
+    const response = await axios.post('https://preview.ummalife.com//api/set-user-interests', payload, {headers, params})
+    if (response.data.api_status === 200) {
+      await router.push({name: 'LoginByEmailView'})
+    } else {
+      console.log(response.data)
+    }
+
+  } catch (error) {
+    console.error('Error occurred:', error)
+  }
+}
+
+onMounted(() => {
+  fetchCategories()
+})
 </script>
 
 <template>
-  <FormAuth>
+  <FormAuth @submit="handleSubmit">
     <h3 class="form-title">{{ $t('login.interests_category.title') }}</h3>
     <p class="form-subtitle">{{ $t('login.interests_category.subtitle') }}</p>
     <span class="category-count">{{ selectedCategories.length }}/5</span>
@@ -57,13 +86,18 @@ const isSelected = (category) => {
             @click="toggleCategory(item)"
             :class="{ 'interest-selected': isSelected(item) }"
         >
-          {{ item }}
+          {{ item.description }}
         </li>
       </ul>
     </div>
 
     <div class="ready-button__block">
-      <SampleButton class="ready-button" :title="`${ $t('buttons.ready') }`"></SampleButton>
+      <SampleButton
+          type="submit"
+          class="ready-button"
+          :title="`${ $t('buttons.ready') }`"
+
+      ></SampleButton>
     </div>
   </FormAuth>
 </template>

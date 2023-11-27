@@ -5,10 +5,10 @@
     <div class="main__input-email-block">
       <div :class="['input-wrapper', { error: hasError.email || isInvalidEmail }]">
         <input
-          name="username"
-          v-model="email"
-          class="base-input"
-          :placeholder="$t('login.placeholders.email')"
+            name="username"
+            v-model="email"
+            class="base-input"
+            :placeholder="$t('login.placeholders.email')"
         />
         <small v-if="hasError.email || isInvalidEmail" class="error-message">
           {{ $t(isInvalidEmail ? 'login.validation.incorrect_email' : 'login.validation.empty_email') }}
@@ -19,12 +19,12 @@
     <div class="main__input-password-block">
       <div class="input-with-eye" :class="['input-wrapper', { error: hasError.password }]">
         <input
-          name="password"
-          :type="isPasswordVisible ? 'text' : 'password'"
-          v-model="password"
-          class="base-input"
-          :class="{'input-field': true, 'error': passwordError}"
-          :placeholder="$t('login.placeholders.password')"
+            name="password"
+            :type="isPasswordVisible ? 'text' : 'password'"
+            v-model="password"
+            class="base-input"
+            :class="{'input-field': true, 'error': passwordError}"
+            :placeholder="$t('login.placeholders.password')"
         />
 
         <button type="button" class="eye-button" @click="togglePasswordVisibility">
@@ -38,36 +38,51 @@
     </div>
 
     <router-link
-      :to="`/${$i18n.locale}/forgot-password`"
-      class="forgot-password-link link"
+        :to="`/${$i18n.locale}/forgot-password`"
+        class="forgot-password-link link"
     >
       {{ $t('login.forgot_password') }}
     </router-link>
 
+    <small v-if="errorText" class="error-message">
+      {{ errorText }}
+    </small>
+
     <div class="login-button-section">
       <SampleButton
-        type="submit"
-        :title="$t('buttons.login')"
-        :disabled="loading"
+          type="submit"
+          :title="$t('buttons.login')"
+          :disabled="loading"
       />
     </div>
 
     <router-link
-      class="link create-account-link"
-      :to="`/${$i18n.locale}/register`"
+        class="link create-account-link"
+        :to="`/${$i18n.locale}/register`"
     >
       {{ $t('login.create_account') }}
     </router-link>
   </FormAuth>
+
+  <div class="login-with-phone-section">
+    <router-link
+        :to="`/${$i18n.locale}/login-by-phone`"
+        class="link-with-phone-number"
+    >
+      {{ $t('login.with_phone_number') }}
+    </router-link>
+  </div>
 </template>
 
 <script>
+/* eslint-disable */
 import SampleButton from '@/components/ui/SampleButton.vue'
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import EyeIcon from '@/components/icons/EyeIcon.vue'
 import EyeSlashIcon from '@/components/icons/EyeSlashIcon.vue'
 import axios from 'axios'
+import {getFormData} from '@/utils'
 
 export default {
   components: {
@@ -77,7 +92,7 @@ export default {
     FormAuth,
     SampleButton
   },
-  data () {
+  data() {
     return {
       email: '',
       password: '',
@@ -87,73 +102,127 @@ export default {
         email: false,
         password: false
       },
-      loading: false
+      loading: false,
+      errorText: null
     }
   },
   computed: {
-    isInvalidEmail () {
+    isInvalidEmail() {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       return this.email.trim() !== '' && !emailRegex.test(this.email)
     }
   },
   watch: {
-    email (newEmail) {
+    email(newEmail) {
       if (newEmail.trim() !== '') {
         this.hasError.email = false
       }
     },
-    password (newPassword) {
+    password(newPassword) {
       if (newPassword.trim() !== '') {
         this.hasError.password = false
       }
     }
   },
   methods: {
-    async handleSubmit(event) {
-      event.preventDefault()
+    validateForm() {
+      const errors = [];
 
-      this.hasError.email = this.email.trim() === ''
-      this.hasError.password = this.password.trim() === ''
-
-      if (this.hasError.email || this.hasError.password) {
-        return
+      if (this.email.trim() === '') {
+        this.hasError.email = true;
+        errors.push('Email is required');
+      } else {
+        this.hasError.email = false;
       }
 
-      try {
-        this.loading = true // Set loading state
-        const response = await this.sendLoginRequest()
+      if (this.password.trim() === '') {
+        this.hasError.password = true;
+        errors.push('Password is required');
+      } else {
+        this.hasError.password = false;
+      }
 
-        if (response.status === 200) {
-          // Process the response data here
-          console.log(response.data)
+      return errors;
+    },
+    handleSuccessfulLogin(data) {
+      localStorage.setItem('access_token', data.access_token)
+      localStorage.setItem('user_id', data.user_id)
+      this.$router.push({name: 'news'})
+    },
+    handleFailedLogin(data) {
+      this.errorText = data.errors ? data.errors.error_text : 'Login failed. Please check your credentials.';
+    },
+    handleError(error) {
+      console.error('Error fetching data:', error);
+
+      if (error.response && error.response.data && error.response.data.errors && error.response.data.errors.error_text) {
+        this.errorText = error.response.data.errors.error_text;
+      } else {
+        this.errorText = 'An error occurred while processing your request. Please try again later.';
+      }
+    },
+    async handleSubmit(event) {
+      try {
+        event.preventDefault();
+
+        const errors = this.validateForm();
+        if (errors.length > 0) {
+          return;
+        }
+
+        this.loading = true;
+        const response = await this.sendRequest();
+
+        if (response.data.api_status === 200) {
+          this.handleSuccessfulLogin(response.data)
+        } else if (response.data.api_status === 300 && response.data.access_token) {
+          localStorage.setItem('access_token', response.data.access_token)
+          this.$router.push({name: 'RegisterAddInfoStep4View'})
         } else {
-          console.error('Response status is not 200')
+          this.handleFailedLogin(response.data);
         }
       } catch (error) {
-        // Handle errors
-        console.error('Error fetching data:', error)
+        this.handleError(error);
       } finally {
-        this.loading = false // Reset loading state
+        this.loading = false;
       }
     },
-
-    async sendLoginRequest() {
-      const loginData = {
-        server_key: '7c5940661c603657d973782cfdff94c2',
+    async sendRequest() {
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
         username: this.email,
         password: this.password
-      }
+      })
 
-      return axios.post('https://ummalife.com/api/auth', loginData)
+      const headers = {'Content-Type': 'multipart/form-data'}
+
+      try {
+        return await axios.post('https://preview.ummalife.com/api/auth', payload, {headers})
+      } catch (error) {
+        throw error
+      }
     },
-    togglePasswordVisibility () {
+    togglePasswordVisibility() {
       this.isPasswordVisible = !this.isPasswordVisible
     }
-  }
+  },
 }
 </script>
 
 <style scoped lang="scss">
+.link-with-phone-number {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-mine-shaft);
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+
+.login-with-phone-section {
+  margin-top: 32px;
+}
+
 .create-account-link {
   text-decoration: none;
   text-align: center;
@@ -161,7 +230,7 @@ export default {
 }
 
 .forgot-password-link {
-  margin-bottom: 64px;
+  margin-bottom: 5px;
   font-size: 14px;
   width: max-content;
 }
@@ -169,6 +238,7 @@ export default {
 .login-button-section {
   display: flex;
   justify-content: center;
+  margin-top: 64px;
 
   button {
     width: 100%;
@@ -185,6 +255,10 @@ export default {
   margin-bottom: 8px;
 }
 
+.error-message {
+  color: var(--color-valencia);
+}
+
 .input-wrapper {
   position: relative;
 
@@ -194,7 +268,7 @@ export default {
   }
 
   .error-message {
-    color: red;
+    color: var(--color-valencia);
     font-size: 12px;
     margin-top: 4px;
   }

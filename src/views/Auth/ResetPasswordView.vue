@@ -1,18 +1,18 @@
 <template>
-  <form-auth @submit="submit">
-    <title-sample>{{ $t('register.title') }}</title-sample>
+  <FormAuth @submit="sendRequest">
+    <TitleSample>{{ $t('reset_password.title') }}</TitleSample>
 
     <h5 class="title medium reminder-message">{{ $t('register.messages.create_password') }}</h5>
 
     <div class="main-input__block">
       <div class="main-input__block-with-eye" :class="['input-wrapper', { error: hasError }]">
         <input
-          name="password"
-          :type="isPasswordVisible ? 'text' : 'password'"
-          v-model="password"
-          class="base-input"
-          :class="{ 'input-field': true, error: passwordError }"
-          :placeholder="$t('register.placeholders.your_password')"
+            name="password"
+            :type="isPasswordVisible ? 'text' : 'password'"
+            v-model="password"
+            class="base-input"
+            :class="{ 'input-field': true, error: passwordError }"
+            :placeholder="$t('reset_password.placeholder')"
         />
 
         <button type="button" class="eye-button" @click="togglePasswordVisibility">
@@ -27,20 +27,23 @@
 
     <div class="login-button__section">
       <SampleButton
-        @click="handleSubmit"
-        class="login-button__section-next"
-        :title="`${$t('buttons.next')}`"
+          type="submit"
+          class="login-button__section-next"
+          :title="`${$t('buttons.reset')}`"
       />
     </div>
-  </form-auth>
+  </FormAuth>
 </template>
 
 <script>
+/* eslint-disable */
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import EyeSlashIcon from '@/components/icons/EyeSlashIcon.vue'
 import EyeIcon from '@/components/icons/EyeIcon.vue'
+import axios from 'axios'
+import {getFormData} from '@/utils'
 
 export default {
   components: {
@@ -71,21 +74,28 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {
-      // Выполните обработку данных формы
-      if (this.password.trim() === '') {
-        this.hasError = true
-      } else {
-        // Perform form submission logic here
-        // ...
+    handleSubmit() {},
+    async sendRequest() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get('code')
+      const email = urlParams.get('email')
 
-        this.$emit('next-step')
-        // Переключитесь на следующий шаг
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        new_password: this.password,
+        email: email,
+        code: code
+      })
+
+      const headers = {'Content-Type': 'multipart/form-data'}
+
+      try {
+        return await axios
+            .post('https://preview.ummalife.com/api/reset-password', payload, {headers})
+            .then(this.$router.push({name: 'LoginByEmailView'}))
+      } catch (error) {
+        throw error
       }
-    },
-    submit(event) {
-      event.preventDefault()
-      this.handleSubmit()
     },
     togglePasswordVisibility() {
       this.isPasswordVisible = !this.isPasswordVisible
