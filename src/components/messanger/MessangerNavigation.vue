@@ -7,21 +7,47 @@
       </button>
     </div>
     <div class="navigation__menu">
-      <ChatUser v-for="user in users" :user="user" :key="user.id" />
+      <ChatUser v-for="user in dummyUsers" :user="user" :key="user.id" />
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
+/* eslint-disable */
+import { ref } from 'vue'
+import axios from 'axios'
+import { getFormData } from '@/utils'
+
 import SearchInput from '@/components/ui/SearchInput.vue'
 import AddUserIcon from '@/components/icons/AddUserIcon.vue'
 import ChatUser from '@/components/messanger/ChatUser.vue'
-export default {
-  components: { SearchInput, AddUserIcon, ChatUser },
-  props: {
-    users: Array
+const props = defineProps({
+  dummyUsers: Array
+})
+
+const chats = ref([])
+
+const getChats = async (video_id) => {
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY
+    })
+
+    const { data } = await axios.post('/get-chats', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    chats.value = data.data
+    console.log(chats.value[0])
+  } catch (err) {
+    console.log(err)
   }
 }
+getChats()
 </script>
 
 <style scoped lang="scss">

@@ -50,15 +50,14 @@
   </router-link>
 </template>
 
-<script>
+<script setup>
+/* eslint-disable */
 import DoubleCheckIcon from '@/components/icons/DoubleCheckIcon.vue'
 import SingleCheckIcon from '@/components/icons/SingleCheckIcon.vue'
-export default {
-  props: {
-    user: Object
-  },
-  components: { DoubleCheckIcon, SingleCheckIcon }
-}
+
+const props = defineProps({
+  chat: Object
+})
 </script>
 
 <style scoped lang="scss">

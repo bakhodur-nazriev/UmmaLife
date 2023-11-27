@@ -1,8 +1,8 @@
 <template>
   <div class="messenger">
     <div class="messenger__wrapper">
-      <MessangerNavigation :users="users"/>
-      <router-view/>
+      <MessangerNavigation :dummyUsers="users" />
+      <router-view />
     </div>
   </div>
 </template>
