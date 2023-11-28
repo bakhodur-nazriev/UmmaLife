@@ -42,31 +42,31 @@
           <ArrowIcon class="dropdown__icon"/>
         </div>
       </div>
-      <div class="modal-profile scale-up-top-right">
-        <ul class="menu-list">
-          <li class="menu-list__item">
-            <a href="#">
-              <!--<span class="user-name">{{ user.username }}</span>-->
-              <!--<img class="user-avatar" :src="user.avatar" :alt="user.name">-->
-            </a>
-          </li>
-          <li class="menu-list__item">
-            <a href="/profile">{{ $t('links.requests') }}</a>
-          </li>
-          <li class="menu-list__item">
-            <a href="/settings">{{ $t('links.settings') }}</a>
-          </li>
-          <li class="menu-list__item">
-            <button
-                class="logout-button"
-                @click="logout"
-            >
-              {{ $t('links.logout') }}
-            </button>
-          </li>
-          <li class="menu-list__item"></li>
-        </ul>
-      </div>
+<!--      <div class="modal-profile scale-up-top-right">-->
+<!--        <ul class="menu-list">-->
+<!--          <li class="menu-list__item">-->
+<!--            <a href="#">-->
+<!--              &lt;!&ndash;<span class="user-name">{{ user.username }}</span>&ndash;&gt;-->
+<!--              &lt;!&ndash;<img class="user-avatar" :src="user.avatar" :alt="user.name">&ndash;&gt;-->
+<!--            </a>-->
+<!--          </li>-->
+<!--          <li class="menu-list__item">-->
+<!--            <a href="/profile">{{ $t('links.requests') }}</a>-->
+<!--          </li>-->
+<!--          <li class="menu-list__item">-->
+<!--            <a href="/settings">{{ $t('links.settings') }}</a>-->
+<!--          </li>-->
+<!--          <li class="menu-list__item">-->
+<!--            <button-->
+<!--                class="logout-button"-->
+<!--                @click="logout"-->
+<!--            >-->
+<!--              {{ $t('links.logout') }}-->
+<!--            </button>-->
+<!--          </li>-->
+<!--          <li class="menu-list__item"></li>-->
+<!--        </ul>-->
+<!--      </div>-->
     </nav>
     <nav class="small-nav">
       <div class="top__nav">
