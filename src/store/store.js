@@ -7,6 +7,7 @@ import actions from '@/store/actions'
 
 // Modules
 import audioModule from './modules/audio.module'
+import messengerModule from './modules/messenger.module'
 
 const store = createStore({
   state,
@@ -14,7 +15,8 @@ const store = createStore({
   mutations,
   actions,
   modules: {
-    audio: audioModule
+    audio: audioModule,
+    messenger: messengerModule
   }
 })
 export default store

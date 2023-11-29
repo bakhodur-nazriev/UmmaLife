@@ -1,38 +1,21 @@
 <template>
-  <router-link :to="`/${$i18n.locale}/messenger/${user.id}`" class="list">
+  <router-link :to="`/${$i18n.locale}/messenger/${chat?.chatId}`" class="list">
     <div class="list__img">
-      <img :src="user.image" :alt="user.name" />
+      <img :src="chat?.chatImage" :alt="chat?.chatName" loading="lazy" />
     </div>
     <div class="list__info">
       <div class="list__info--top">
-        <div class="list__info--name">{{ user.name }}</div>
-        <div class="list__info--date" :class="{ online: user.online || user.typing }">
-          {{ user.last_seen }}
+        <div class="list__info--name">{{ chat?.chatName }}</div>
+        <div class="list__info--date">
+          <!-- :class="online"   -->
+          {{ multiFormatDateString(chat?.message?.messageDate) }}
         </div>
       </div>
       <div class="list__info--bottom">
         <div class="list__info--text">
-          {{
-            typeof user.messages[user.messages.length - 1].message === 'string'
-              ? user.messages[user.messages.length - 1].message
-              : user.messages[user.messages.length - 1].message.text
-          }}
-          {{
-            typeof user.messages[user.messages.length - 1].message === 'string' &&
-            typeof user.messages[user.messages.length - 1].message.length === 0 &&
-            user.messages[user.messages.length - 1].video
-              ? ''
-              : user.messages[user.messages.length - 1].video?.alt
-          }}
-          {{
-            typeof user.messages[user.messages.length - 1].message === 'string' &&
-            typeof user.messages[user.messages.length - 1].message.length === 0 &&
-            user.messages[user.messages.length - 1].image
-              ? ''
-              : user.messages[user.messages.length - 1].image?.alt
-          }}
+          {{ chat?.message?.message }}
         </div>
-        <div
+        <!-- <div
           class="list__info--status"
           v-if="user.messages[user.messages.length - 1].state === 'send'"
         >
@@ -44,7 +27,7 @@
             v-if="user.messages[user.messages.length - 1].status === 'notread'"
             color="#49A399"
           />
-        </div>
+        </div> -->
       </div>
     </div>
   </router-link>
@@ -52,12 +35,20 @@
 
 <script setup>
 /* eslint-disable */
+import { timeFormat } from '@/mixins/timeFormat.js'
+
 import DoubleCheckIcon from '@/components/icons/DoubleCheckIcon.vue'
 import SingleCheckIcon from '@/components/icons/SingleCheckIcon.vue'
 
 const props = defineProps({
   chat: Object
 })
+</script>
+
+<script>
+export default {
+  mixins: [timeFormat]
+}
 </script>
 
 <style scoped lang="scss">

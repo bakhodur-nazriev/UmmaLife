@@ -28,11 +28,11 @@ import PremiumIcon from '@/components/icons/PremiumIcon.vue'
 const props = defineProps({
   username: {
     type: String,
-    default: 'jeff'
+    default: ''
   },
   avatar: {
     type: String,
-    default: '/images/users/jeff.png'
+    default: ''
   },
   status: {
     type: Object,

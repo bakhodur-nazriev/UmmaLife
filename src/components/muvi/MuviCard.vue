@@ -11,7 +11,7 @@
     </div>
     <UserInfo
       :avatar="muvi.publisher.avatar || muvi.user_avatar"
-      :username="muvi.publisher.name || muvi.name"
+      :username="muvi?.publisher?.username || muvi.name"
       :status="{
         is_investor: muvi?.publisher?.isInvestor || false,
         verified: muvi?.publisher?.verified || '0',

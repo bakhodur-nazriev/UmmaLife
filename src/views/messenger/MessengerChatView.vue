@@ -1,12 +1,12 @@
 <template>
-  <div class="room" v-if="user">
+  <div class="room">
     <div class="room__top">
       <div class="room__profile">
-        <img :src="user.image" :alt="user.name" class="room__profile--img" />
+        <img :src="chat?.chatImage" :alt="chat?.chatName" class="room__profile--img" />
         <router-link to="#" class="room__profile--info">
-          <div class="room__profile--name">{{ user.name }}</div>
-          <div class="room__profile--account" :class="{ online: user.online || user.typing }">
-            {{ user.last_seen }}
+          <div class="room__profile--name">{{ chat?.chatName }}</div>
+          <div class="room__profile--account">
+            {{ multiFormatDateString(chat?.userLastSeen) }}
           </div>
         </router-link>
       </div>
@@ -21,18 +21,16 @@
     </div>
     <div class="room__messages">
       <div class="room__messages--inner" ref="room">
-        <ChatMessage
-          v-for="message in user.messages"
-          :state="message.state"
-          :key="message.id"
-          :status="message.status"
-          :message="message.message"
-          :video="message?.video"
-          :image="message?.image"
-          :data-id="message.id"
-          :isLoading="isLoading"
-          @contextmenu.prevent="($event) => openContextMenu($event, message.id)"
-        />
+        <div v-for="block in messages" :key="block.date">
+          <div style="color: var(--color-mine-shaft)">{{ multiFormatDateString(block.date) }}</div>
+          <ChatMessage
+            v-for="message in block.block"
+            :message="message"
+            :key="message.messageId"
+            :isLoading="isLoading"
+            @contextmenu.prevent="($event) => openContextMenu($event, message.messageId)"
+          />
+        </div>
       </div>
       <ContextMenu
         v-show="isContextMenuOpen"
@@ -48,7 +46,6 @@
       :value="value"
       :share="share"
       :edit="edit"
-      :selectedMessage="selectedMessage"
       :user="user"
       :isLoading="isLoading"
       @submitHandler="submitHandler"
@@ -63,6 +60,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import DeleteDropdown from '@/components/messanger/dropdowns/DeleteDropdown.vue'
 import MenuDetailsIcon from '@/components/icons/MenuDetailsIcon.vue'
 import ChatRoomForm from '@/components/messanger/ChatRoomForm.vue'
@@ -70,7 +68,12 @@ import ChatMessage from '@/components/messanger/ChatMessage.vue'
 import ContextMenu from '@/components/messanger/dropdowns/ContextMenu.vue'
 import DeleteConfirm from '@/components/messanger/modal/DeleteConfirm.vue'
 import { users } from '@/dummy'
-import { sleep } from '@/utils.js'
+import { sleep, getFormData } from '@/utils.js'
+import { useRoute } from 'vue-router'
+import { ref, onMounted, watch } from 'vue'
+import axios from 'axios'
+import { useStore } from 'vuex'
+import { timeFormat } from '@/mixins/timeFormat'
 
 export default {
   components: {
@@ -81,6 +84,7 @@ export default {
     ContextMenu,
     DeleteConfirm
   },
+  mixins: [timeFormat],
   data() {
     return {
       showDeleteDropdown: false,
@@ -97,9 +101,9 @@ export default {
     }
   },
   computed: {
-    selectedMessage() {
-      return this.user.messages.find((message) => message.id === this.messageId)
-    }
+    // selectedMessage() {
+    //   return this.user.messages.find((message) => message.id === this.messageId)
+    // }
   },
   watch: {
     user: {
@@ -202,6 +206,49 @@ export default {
     this.scrollToBottom()
   }
 }
+</script>
+
+<script setup>
+const messages = ref([])
+const route = useRoute()
+const store = useStore()
+
+const chat = ref({})
+const isLoading = ref(false)
+
+const getChatMessages = async (chat_id) => {
+  try {
+    isLoading.value = true
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      chat_id,
+      chat_type: 'user'
+    })
+
+    const { data } = await axios.post('/get-chat-messages', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+
+    messages.value = data.data
+  } catch (err) {
+    console.log(err)
+  } finally {
+    isLoading.value = false
+  }
+}
+const getMessagesData = async () => {
+  await getChatMessages(route.params?.id)
+  store.commit('messenger/setSingleChat', +route.params?.id)
+  chat.value = store.getters['messenger/getSingleChat']
+}
+onMounted(getMessagesData)
+
+watch(() => route.params?.id, getMessagesData)
 </script>
 
 <style lang="scss" scoped>

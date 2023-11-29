@@ -4,7 +4,7 @@
       <div class="shorts__user--wrapper">
         <UserInfo
           :avatar="muvi.publisher.avatar"
-          :username="muvi.publisher.name"
+          :username="muvi?.publisher?.username || muvi?.publisher?.name"
           :status="{
             is_investor: muvi?.publisher?.isInvestor || false,
             verified: muvi?.publisher?.verified || '0',

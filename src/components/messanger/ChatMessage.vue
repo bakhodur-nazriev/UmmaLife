@@ -1,33 +1,36 @@
 <template>
-  <div class="message" :class="`${state} ${typeof message === 'object' ? 'forward' : ''}`">
-    <div class="message__inner" :class="{ 'video-message': (video || image) && !message }">
-      <template v-if="video">
+  <div class="message" :class="message?.messageOwner ? 'send' : 'recieve'">
+    <div class="message__inner">
+      <!-- <template v-if="video">
+        :class="`${state} ${typeof message === 'object' ? 'forward' : ''}`"
+        :class="{ 'video-message': (video || image) && !message }"
         <video-message :src="video.src" :poster="video.poster" />
       </template>
       <template v-if="image">
         <image-message :image="image" />
-      </template>
-      <div class="message__text" v-if="typeof message === 'string'">
-        {{ message }}
+      </template> -->
+      <div class="message__text" v-if="message?.messageType === 'text'">
+        {{ message?.message }}
       </div>
-      <div class="message__text" v-if="typeof message === 'object'">
+      <!-- <div class="message__text" v-if="typeof message === 'object'">
         <div class="message__text--top">
           <span>{{ message.user_name }}</span>
           {{ message.user_message }}
         </div>
         {{ message.text }}
-      </div>
+      </div> -->
       <div class="message__bottom">
         <span>15:52</span>
-        <double-check-icon v-if="state === 'send' && status === 'read' && !isLoading" />
-        <single-check-icon v-if="state === 'send' && status === 'notread' && !isLoading" />
-        <preloader-icon v-if="state === 'send' && isLoading" />
+        <double-check-icon v-if="message?.messageOwner && message?.messageSeen && !isLoading" />
+        <single-check-icon v-if="message?.messageOwner && !message?.messageSeen && !isLoading" />
+        <preloader-icon v-if="message?.messageOwner && isLoading" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 import DoubleCheckIcon from '@/components/icons/DoubleCheckIcon.vue'
 import SingleCheckIcon from '@/components/icons/SingleCheckIcon.vue'
 import PreloaderIcon from '@/components/icons/PreloaderIcon.vue'
@@ -38,15 +41,7 @@ import ImageMessage from '@/components/messanger/ImageMessage.vue'
 export default {
   components: { DoubleCheckIcon, SingleCheckIcon, PreloaderIcon, VideoMessage, ImageMessage },
   props: {
-    state: {
-      type: String,
-      validator: (value) => ['send', 'recieve'].includes(value),
-      default: () => 'send'
-    },
-    status: String,
-    message: [String, Object],
-    video: [Object, null],
-    image: [Object, null],
+    message: Object,
     isLoading: Boolean
   }
 }
