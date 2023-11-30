@@ -43,13 +43,13 @@ import SearchHashtagsView from '@/views/SearchViews/HashtagsView.vue'
 import ShowArticlesView from '@/views/ShowArticlesView.vue'
 import UmmaVideoDetailVue from '@/views/UmmaVideoDetail.vue'
 import MuviView from '@/views/muvi/MuviView.vue'
-import MuviMobileDetail from '@/views/muvi/mobile/MuviMobileDetail.vue'
-import PopularMuvi from '@/views/muvi/mobile/PopularMuvi.vue'
-import AddMuvi from '@/views/muvi/mobile/AddMuvi.vue'
-import AudioMuvi from '@/views/muvi/mobile/AudioMuvi.vue'
-import ProfileMuvi from '@/views/muvi/mobile/ProfileMuvi.vue'
-import ActivityMuvi from '@/views/muvi/mobile/ActivityMuvi.vue'
-import CategoryMuvi from '@/views/muvi/mobile/CategoryMuvi.vue'
+import MuviDetail from '@/views/muvi/MuviDetail.vue'
+import PopularMuvi from '@/views/muvi/PopularMuvi.vue'
+import AddMuvi from '@/views/muvi/AddMuvi.vue'
+import AudioMuvi from '@/views/muvi/AudioMuvi.vue'
+import ProfileMuvi from '@/views/muvi/ProfileMuvi.vue'
+import ActivityMuvi from '@/views/muvi/ActivityMuvi.vue'
+import CategoryMuvi from '@/views/muvi/CategoryMuvi.vue'
 import VideoSingleViewVue from '@/views/VideoSingleView.vue'
 import PreviewArticleView from '@/views/PreviewArticleView.vue'
 import NotificationsView from '@/views/NotificationsView.vue'
@@ -199,17 +199,17 @@ const routes = [
         meta: {
           title: i18n.global.t('meta_title.muvi'),
           requiresAuth: true,
-          layout: 'another'
+          layout: 'muvi'
         }
       },
       {
         path: '/:lang?/muvi/:id',
         name: 'muvi-detail',
-        component: MuviMobileDetail,
+        component: MuviDetail,
         meta: {
           title: i18n.global.t('meta_title.muvi'),
           requiresAuth: true,
-          layout: 'muvi-mobile'
+          layout: 'muvi'
         }
       },
       {
@@ -219,7 +219,7 @@ const routes = [
         meta: {
           title: i18n.global.t('meta_title.muvi'),
           requiresAuth: true,
-          layout: 'muvi-mobile'
+          layout: 'muvi'
         }
       },
       {
@@ -229,7 +229,7 @@ const routes = [
         meta: {
           title: i18n.global.t('meta_title.muvi'),
           requiresAuth: true,
-          layout: 'muvi-mobile'
+          layout: 'muvi'
         }
       },
       {
@@ -239,7 +239,7 @@ const routes = [
         meta: {
           title: i18n.global.t('meta_title.muvi'),
           requiresAuth: true,
-          layout: 'muvi-mobile'
+          layout: 'muvi'
         }
       },
       {
@@ -249,7 +249,7 @@ const routes = [
         meta: {
           title: i18n.global.t('meta_title.muvi'),
           requiresAuth: true,
-          layout: 'muvi-mobile'
+          layout: 'muvi'
         }
       },
       {
@@ -259,7 +259,7 @@ const routes = [
         meta: {
           title: i18n.global.t('meta_title.muvi'),
           requiresAuth: true,
-          layout: 'muvi-mobile'
+          layout: 'muvi'
         }
       },
       {
@@ -269,7 +269,7 @@ const routes = [
         meta: {
           title: i18n.global.t('meta_title.muvi'),
           requiresAuth: true,
-          layout: 'muvi-mobile'
+          layout: 'muvi'
         }
       },
       {
@@ -690,16 +690,6 @@ const routes = [
       title: i18n.global.t('meta_title.settings'),
       requiresAuth: true,
       layout: 'main'
-    }
-  },
-  {
-    path: '/:lang?/muvi',
-    name: 'muvi',
-    component: MuviView,
-    meta: {
-      title: i18n.global.t('meta_title.muvi'),
-      requiresAuth: true,
-      layout: 'another'
     }
   },
 

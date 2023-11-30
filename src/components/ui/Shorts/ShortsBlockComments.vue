@@ -2,8 +2,8 @@
   <div class="comments">
     <div class="comments__top">
       <UserInfo
-        :username="comment.publisher.username"
-        :avatar="comment.publisher.avatar"
+        :username="comment?.publisher?.username"
+        :avatar="comment?.publisher?.avatar"
         :status="{
           is_investor: comment?.publisher?.isInvestor || false,
           verified: comment?.publisher?.verified || '0',

@@ -3,15 +3,27 @@
     <div class="groups__nav--wrapper" :class="className">
       <div class="groups__nav--inner">
         <div class="groups__nav--menu">
-          <div
-            class="groups__nav--link"
-            v-for="(link, index) in links"
-            :key="link.name"
-            :class="{ active: link.isActive }"
-            @click="$emit('clickNavHandler', index)"
-          >
-            {{ $t(link.name) }}
-          </div>
+          <template v-if="routes">
+            <RouterLink
+              class="groups__nav--link"
+              v-for="link in links"
+              :key="link.name"
+              :to="`/${$i18n.locale + link.page}`"
+            >
+              {{ $t(link.name) }}
+            </RouterLink>
+          </template>
+          <template v-else>
+            <div
+              class="groups__nav--link"
+              v-for="(link, index) in links"
+              :key="link.name"
+              :class="{ active: link.isActive }"
+              @click="$emit('clickNavHandler', index)"
+            >
+              {{ $t(link.name) }}
+            </div>
+          </template>
         </div>
       </div>
       <div class="groups__nav--hidden"></div>
@@ -22,17 +34,24 @@
 <script>
 export default {
   props: {
-    links: Array,
+    links: {
+      type: Array,
+      default: () => []
+    },
     className: {
       type: String,
       default: ''
+    },
+    routes: {
+      type: Boolean,
+      default: false
     }
   },
   emits: ['clickNavHandler']
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .groups__settings--nav {
   .groups__nav--menu {
     margin-left: -20px;
@@ -138,9 +157,11 @@ export default {
     border-bottom: 3px solid transparent;
     padding-bottom: 14px;
     user-select: none;
+    text-decoration: none;
     @media (max-width: 767px) {
       white-space: nowrap;
     }
+    &.router-link-active,
     &.active {
       color: var(--color-mine-shaft);
       border-color: var(--color-deep-cerulean);
