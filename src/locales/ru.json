@@ -526,7 +526,10 @@
     "umma_video": "Umma Video",
     "umma_shorts": "Umma Shorts",
     "audio": "Подписчики",
-    "posts": "Посты"
+    "posts": "Посты",
+    "wallet": {
+      "title": "Мой кошелёк"
+    }
   },
   "chat": {
     "placeholder": "Напишите ваше сообщение",

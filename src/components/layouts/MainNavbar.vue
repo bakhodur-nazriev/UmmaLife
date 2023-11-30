@@ -42,31 +42,34 @@
           <ArrowIcon class="dropdown__icon"/>
         </div>
       </div>
-<!--      <div class="modal-profile scale-up-top-right">-->
-<!--        <ul class="menu-list">-->
-<!--          <li class="menu-list__item">-->
-<!--            <a href="#">-->
-<!--              &lt;!&ndash;<span class="user-name">{{ user.username }}</span>&ndash;&gt;-->
-<!--              &lt;!&ndash;<img class="user-avatar" :src="user.avatar" :alt="user.name">&ndash;&gt;-->
-<!--            </a>-->
-<!--          </li>-->
-<!--          <li class="menu-list__item">-->
-<!--            <a href="/profile">{{ $t('links.requests') }}</a>-->
-<!--          </li>-->
-<!--          <li class="menu-list__item">-->
-<!--            <a href="/settings">{{ $t('links.settings') }}</a>-->
-<!--          </li>-->
-<!--          <li class="menu-list__item">-->
-<!--            <button-->
-<!--                class="logout-button"-->
-<!--                @click="logout"-->
-<!--            >-->
-<!--              {{ $t('links.logout') }}-->
-<!--            </button>-->
-<!--          </li>-->
-<!--          <li class="menu-list__item"></li>-->
-<!--        </ul>-->
-<!--      </div>-->
+      <div class="modal-profile scale-up-top-right">
+        <ul class="menu-list">
+          <li class="menu-list__item">
+            <a href="#">
+              <span class="user-name">{{ user && user.name }}</span>
+              <img class="user-avatar" :src="user && user.avatar" :alt="user && user.name" />
+            </a>
+          </li>
+          <li class="menu-list__item">
+            <a href="/profile">{{ $t('links.requests') }}</a>
+          </li>
+          <li class="menu-list__item">
+            <a href="/settings">{{ $t('links.settings') }}</a>
+          </li>
+          <li class="menu-list__item">
+            <button
+                type="submit"
+                class="logout-button"
+                @click="logout"
+            >
+              {{ $t('links.logout') }}
+            </button>
+          </li>
+          <li class="menu-list__item profile-wallet">
+            <span>{{ $t('profile.wallet.title') }}</span>
+          </li>
+        </ul>
+      </div>
     </nav>
     <nav class="small-nav">
       <div class="top__nav">
@@ -329,10 +332,12 @@ import NotificationContainer from '@/components/notification/NotificationContain
 import MuviNavIcon from '@/components/icons/shorts/MuviNavIcon.vue'
 import {getFormData} from '@/utils'
 import axios from "axios";
+import NavbarBGWalletIcon from "@/components/icons/NavbarBGWalletIcon.vue";
 
 export default {
   emits: ['toggle-sidebar'],
   components: {
+    NavbarBGWalletIcon,
     MuviNavIcon,
     SampleDivider,
     TabVideo,
@@ -406,6 +411,7 @@ export default {
       dummyAudios: audios,
       isSearchInputOpen: false,
       userId: localStorage.getItem('user_id'),
+      user: null
     }
   },
   computed: {
@@ -459,7 +465,7 @@ export default {
     },
     async logout() {
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: process.env.VUE_APP_SERVER_KEY
       })
 
       const accessToken = localStorage.getItem('access_token')
@@ -468,7 +474,7 @@ export default {
       const headers = {'Content-Type': 'multipart/form-data'}
 
       try {
-        const response = await axios.post('/delete-access-token', payload, {headers, params})
+        const response = await axios.post('/delete-access-token', payload, {params, headers})
         if (response.data.api_status === 200) {
           localStorage.removeItem('access_token')
           this.$router.push({name: 'LoginByEmailView'})
@@ -519,6 +525,11 @@ export default {
         font-size: 16px;
         cursor: pointer;
       }
+    }
+
+    .profile-wallet {
+      background: linear-gradient(84deg, #0085A5 24.97%, #00A9CF 92.15%);
+      border-radius: 10px;
     }
   }
 }

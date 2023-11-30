@@ -1,21 +1,17 @@
 <template>
   <footer class="footer">
     <nav class="footer__navigation">
-      <router-link class="footer__link" :to="`/${$i18n.locale}/terms`">{{
-          $t('links.terms')
-        }}
+      <router-link class="footer__link" to="/terms">
+        {{ $t('links.terms') }}
       </router-link>
-      <router-link class="footer__link" :to="`/${$i18n.locale}/privacy-policy`">{{
-          $t('links.privacy_policy')
-        }}
+      <router-link class="footer__link" to="/privacy-policy">
+        {{ $t('links.privacy_policy') }}
       </router-link>
-      <router-link class="footer__link" :to="`/${$i18n.locale}/contacts`">{{
-          $t('links.contacts')
-        }}
+      <router-link class="footer__link" to="/contacts">
+        {{ $t('links.contacts') }}
       </router-link>
-      <router-link class="footer__link" :to="`/${$i18n.locale}/about-us`">{{
-          $t('links.about_us')
-        }}
+      <router-link class="footer__link" to="/about-us">
+        {{ $t('links.about_us') }}
       </router-link>
     </nav>
 
@@ -37,6 +33,11 @@
     text-decoration: none;
     font-size: 14px;
     color: var(--color-mine-shaft);
+
+    &:hover {
+      text-decoration: underline;
+      transition: all 0.15s ease-in-out;
+    }
   }
 
   &__navigation {

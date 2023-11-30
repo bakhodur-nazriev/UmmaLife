@@ -5,6 +5,8 @@
     @input="handleInput"
     @keydown="handleKeyDown"
     class="base-input"
+    maxlength="1"
+    inputmode="numeric"
   />
 </template>
 
@@ -39,8 +41,6 @@ export default {
     },
     handleKeyDown(event) {
       if (event.key === 'Backspace' && this.inputValue.length === 0) {
-        // Если нажата клавиша Backspace и поле ввода пустое
-        // Эмитировать событие 'backspace' для удаления предыдущего поля
         this.$emit('backspace')
       }
     }

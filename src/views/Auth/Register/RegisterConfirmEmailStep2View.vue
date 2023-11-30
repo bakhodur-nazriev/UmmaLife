@@ -1,5 +1,11 @@
 <template>
   <FormAuth @submit="handleSubmit">
+    <div class="buttons-back__section">
+      <SampleButton @click="goBack" icon="back" :size="20" color="none" :title="`${ $t('buttons.prev') }`">
+        <ArrowLeftIcon/>
+      </SampleButton>
+    </div>
+
     <TitleSample>{{ $t('register.title') }}</TitleSample>
 
     <h5 class="subhead roman reminder-message">{{ $t('register.messages.verify_with_email') }}</h5>
@@ -9,32 +15,39 @@
     <div :class="['input-wrapper', { error: hasError }]">
       <div class="verify__number-section">
         <SampleCodeNumberInput
-            v-for="index in 6"
-            :key="index"
-            v-model="code[index - 1]"
-            @next="focusNextInput"
-            @backspace="handleBackspace"
+          v-for="index in 6"
+          :key="index"
+          v-model="code[index - 1]"
+          @next="focusNextInput"
+          @backspace="handleBackspace"
         />
       </div>
-      <small v-if="hasError" class="error-message">
-        {{ $t('register.validation.incorrect_code') }}
-      </small>
-      <small v-if="errorText" class="error-message">
-        {{ errorText }}
-      </small>
+      <div class="error-message__block">
+        <small v-if="hasError" class="error-message">
+          {{ $t('register.validation.incorrect_code') }}
+        </small>
+        <small v-if="errorText" class="error-message">
+          {{ errorText }}
+        </small>
+      </div>
     </div>
 
     <div class="login__button-section">
-      <SampleButton type="submit" :title="`${$t('buttons.next')}`"/>
+      <SampleButton
+        type="submit"
+        :title="`${$t('buttons.next')}`"
+        :disabled="isSubmitDisabled"
+        :class="{ 'disabled-submit__button': isSubmitDisabled }"
+      />
     </div>
 
     <div class="resend__code">
       <label>{{ $t('login.messages.didnt_receive_code') }}</label>
       <button
-          class="link"
-          type="button"
-          @click="resendRequest"
-          :disabled="isResendDisabled"
+        type="button"
+        @click="resendRequest"
+        :disabled="isResendDisabled"
+        :class="{ 'disabled-button': isResendDisabled, 'active-button':  !  isResendDisabled}"
       >
         {{ $t('links.resend') }} {{ formatTime(countDown) }}
       </button>
@@ -50,9 +63,11 @@ import SampleButton from '@/components/ui/SampleButton.vue'
 import SampleCodeNumberInput from '@/components/ui/SampleCodeNumberInput.vue'
 import axios from 'axios'
 import {getFormData} from '@/utils'
+import ArrowLeftIcon from "@/components/icons/shorts/ArrowLeftIcon.vue";
 
 export default {
   components: {
+    ArrowLeftIcon,
     SampleButton,
     SampleCodeNumberInput,
     FormAuth,
@@ -60,10 +75,11 @@ export default {
   },
   data() {
     return {
+      isCodeFilled: false,
       code: ['', '', '', '', '', ''],
       hasError: false,
-      countDown: 60,
-      errorText: null
+      countDown: 2,
+      errorText: null,
     }
   },
   computed: {
@@ -72,6 +88,9 @@ export default {
     },
     isResendDisabled() {
       return this.countDown > 0
+    },
+    isSubmitDisabled() {
+      return this.code.some((val) => val.trim() === '')
     }
   },
   methods: {
@@ -120,9 +139,14 @@ export default {
 
         const response = await axios.post('/check-email', payload, {headers})
 
-        if (!response.data.api_status === 200) {
+        if (response.data.api_status === 200) {
+          this.countDown = 60
+          this.startCountdown()
+          this.$router.push({name: 'RegisterCreatePasswordStep3View'})
+        } else {
           this.errorText = response.data.errors.error_text
         }
+
       } catch (error) {
         console.error('Error occurred:', error)
       }
@@ -148,6 +172,7 @@ export default {
           this.countDown--
         } else {
           clearInterval(this.timer)
+          this.isResendDisabled = false
         }
       }, 1000)
     },
@@ -159,6 +184,9 @@ export default {
       const formattedSeconds = reminderSeconds.toString().padStart(2, '0')
 
       return `${formattedMinutes}:${formattedSeconds}`
+    },
+    goBack() {
+      return this.$router.push({name: 'RegisterAddEmailStep1View'})
     }
   },
   created() {
@@ -170,19 +198,91 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.disabled-submit__button {
+  background-color: var(--color-silver-chalice);
+
+  &:hover {
+    background-color: var(--color-silver-chalice);
+    cursor: not-allowed;
+  }
+}
+
+.disabled-button {
+  color: var(--color-silver-chalice);
+  background: none;
+  border: none;
+  cursor: not-allowed;
+  font-size: 16px;
+
+  &:hover {
+    color: var(--color-silver-chalice);
+    cursor: not-allowed;
+  }
+}
+
+.active-button {
+  color: var(--color-hippie-blue);
+  font-size: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.buttons-back__section {
+  width: 100%;
+  margin-bottom: 22px;
+
+  button {
+    cursor: pointer;
+    color: var(--color-hippie-blue);
+  }
+}
+
+.resend__code {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.error-message__block {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+  gap: 3px;
+}
+
 .input-wrapper {
   position: relative;
-  margin-bottom: 48px;
-}
+  height: 60px;
+  margin: 0 0 48px;
 
-.input-wrapper.error .base-input {
-  border: 1.4px solid red;
-}
+  &.error {
+    .base-input {
+      border: 1.4px solid red;
+    }
+  }
 
-.input-wrapper .error-message {
-  color: red;
-  font-size: 12px;
+  .error-message {
+    color: red;
+    font-size: 12px;
+  }
+
+  .verify__number-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 0;
+
+    input {
+      width: 65px;
+      height: 65px;
+      font-size: 20px;
+      text-align: center;
+    }
+  }
 }
 
 .reminder-message {
@@ -197,14 +297,6 @@ export default {
   color: var(--color-mine-shaft);
 }
 
-.resend__code {
-  margin-top: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
 .resend__code > label,
 a {
   margin: 0 4px;
@@ -212,49 +304,17 @@ a {
 }
 
 .resend__code > label {
-  color: #b0b0b0;
-}
-
-.verify__number-section {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-
-.verify__number-section input {
-  width: 45px;
-  height: 45px;
-  font-size: 20px;
-  text-align: center;
+  color: var(--color-silver-chalice);
 }
 
 .login__button-section {
   display: flex;
   justify-content: center;
-}
 
-.login__button-section button {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.resend__code {
-  margin-top: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  .link {
-    text-decoration: none;
-    background: none;
-    cursor: pointer;
-    border: none;
-    font-size: 16px;
-    padding: 0;
-    outline: inherit;
+  button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 }
 
@@ -281,9 +341,21 @@ a {
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .reminder-message {
     font-size: 16px;
+  }
+
+  .input-wrapper {
+    .verify__number-section {
+      justify-content: center;
+
+      input {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+    }
   }
 }
 </style>

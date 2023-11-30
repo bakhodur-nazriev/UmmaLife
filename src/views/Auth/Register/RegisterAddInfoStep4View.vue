@@ -1,6 +1,6 @@
 <template>
-  <form-auth @submit="handleSubmit">
-    <title-sample>{{ $t('register.title') }}</title-sample>
+  <FormAuth @submit="handleSubmit">
+    <TitleSample>{{ $t('register.title') }}</TitleSample>
 
     <div class="subtitles__text-fields">
       <h5 class="title medium">{{ $t('register.messages.fill_your_information') }}</h5>
@@ -10,9 +10,9 @@
     <div class="sample__inputs-section">
       <div :class="['input-wrapper', { error: hasError.firstName }]">
         <input
-            v-model="firstName"
-            class="base-input"
-            :placeholder="$t('register.placeholders.name')"
+          v-model="firstName"
+          class="base-input"
+          :placeholder="$t('register.placeholders.name')"
         />
         <small v-if="hasError.firstName" class="error-message">
           {{ $t('register.validation.empty_name') }}
@@ -21,9 +21,9 @@
 
       <div :class="['input-wrapper', { error: hasError.lastName }]">
         <input
-            v-model="lastName"
-            class="base-input"
-            :placeholder="$t('register.placeholders.last_name')"
+          v-model="lastName"
+          class="base-input"
+          :placeholder="$t('register.placeholders.last_name')"
         />
         <small v-if="hasError.lastName" class="error-message">
           {{ $t('register.validation.empty_last_name') }}
@@ -33,12 +33,12 @@
       <div :class="['input-wrapper', { error: hasError.gender }]">
         <div class="genders" ref="container">
           <button
-              type="button"
-              class="genders__button"
-              @click="handleButtonClick"
+            type="button"
+            class="genders__button"
+            @click="handleButtonClick"
           >
             <span :class="{'genders-title': !selectedGender, 'selected-gender': selectedGender}">
-              {{ selectedGender || $t('register.placeholders.gender.title') }}
+              {{ displayGender || $t('register.placeholders.gender.title') }}
             </span>
             <dropdown-icon class="genders__icon genders__icon--dropdown"/>
           </button>
@@ -52,24 +52,27 @@
             </li>
           </ul>
         </div>
-        <small v-if="hasError.gender" class="error-message">
-          {{ $t('register.validation.empty_gender') }}
-        </small>
-
-        <small v-if="errorText" class="error-message">
-          {{ errorText }}
-        </small>
+        <div class="error-message__block">
+          <small v-if="hasError.gender" class="error-message">
+            {{ $t('register.validation.empty_gender') }}
+          </small>
+          <small v-if="errorText" class="error-message">
+            {{ errorText }}
+          </small>
+        </div>
       </div>
     </div>
 
     <div class="login-button__section">
       <SampleButton
-          type="submit"
-          class="login-button__section-next"
-          :title="`${ $t('buttons.next') }`"
+        type="submit"
+        class="login-button__section-next"
+        :title="`${ $t('buttons.next') }`"
+        :disabled="isSubmitDisabled"
+        :class="{'disabled-button': isSubmitDisabled}"
       />
     </div>
-  </form-auth>
+  </FormAuth>
 </template>
 
 <script>
@@ -112,6 +115,24 @@ export default {
         this.hasError.lastName = false
       }
     }
+  },
+  computed: {
+    isSubmitDisabled() {
+      return (
+        this.firstName.trim() === '' ||
+        this.lastName.trim() === '' ||
+        this.selectedGender === null
+      )
+    },
+    displayGender() {
+      if (this.selectedGender === 'male') {
+        return this.$t('register.placeholders.gender.male');
+      } else if (this.selectedGender === 'female') {
+        return this.$t('register.placeholders.gender.female');
+      }
+      return null;
+    }
+
   },
   methods: {
     async handleSubmit(event) {
@@ -202,6 +223,22 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.disabled-button {
+  background-color: var(--color-silver-chalice);
+
+  &:hover {
+    background-color: var(--color-silver-chalice);
+    cursor: not-allowed;
+  }
+}
+
+.error-message__block {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+  gap: 3px;
+}
+
 .input-wrapper {
   position: relative;
 

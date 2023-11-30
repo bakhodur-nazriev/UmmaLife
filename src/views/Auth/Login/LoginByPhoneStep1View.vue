@@ -25,6 +25,8 @@
           class="login-button__section-button"
           @click="handleSubmit"
           :title="`${ $t('buttons.login') }`"
+          :disabled="isSubmitDisabled"
+          :class="{ 'disabled-button': isSubmitDisabled }"
       />
     </div>
     <router-link
@@ -96,7 +98,7 @@ export default {
           const authPhoneResponse = await this.sendAuthPhoneRequest()
 
           if (authPhoneResponse.data.api_status === 200) {
-            this.$router.push({ name: 'LoginByPhoneStep2View' });
+            this.$router.push({name: 'LoginByPhoneStep2View'});
           } else {
             this.responseErrorText = authPhoneResponse.data.errors.error_text
             console.error(authPhoneResponse.data)
@@ -143,6 +145,9 @@ export default {
     },
   },
   computed: {
+    isSubmitDisabled() {
+      return this.phoneNumber.trim() === ''
+    },
     isRTL() {
       return this.$i18n.locale === 'ar'
     }
@@ -158,6 +163,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.disabled-button {
+  background-color: var(--color-silver-chalice);
+
+  &:hover {
+    background-color: var(--color-silver-chalice);
+    cursor: not-allowed;
+  }
+}
+
 .link-with-phone-number {
   font-size: 16px;
   font-weight: 500;
@@ -173,6 +187,7 @@ export default {
 
 .input-wrapper {
   position: relative;
+  height: 50px;
 
   &.error .phone__field-section {
     border: 1.4px solid red;
