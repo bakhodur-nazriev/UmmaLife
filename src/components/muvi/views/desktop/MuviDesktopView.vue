@@ -2,16 +2,33 @@
   <div class="muvi__page">
     <GroupsNav :links="muvieLinks" className="muvi__nav" :routes="true" />
     <div class="muvi__container">
-      <TabMuviFeeds />
+      <MuviTabSwitch
+        :tabs="[$t('muvi_mobile.subscriptions'), $t('muvi_mobile.recommendations')]"
+        :activeIndex="activeIndex"
+        @handleTabClick="handleTabClick"
+      />
+      <TabMuviFeeds filter="subscription" v-if="activeIndex === 0" />
+      <TabMuviFeeds filter="recomendation" v-else />
     </div>
   </div>
+  <teleport to="body">
+    <router-view />
+  </teleport>
 </template>
 
 <script setup>
 /* eslint-disable */
+import { ref } from 'vue'
 import { muvieLinks } from '@/constants.js'
 import GroupsNav from '@/components/groups/GroupsNav.vue'
 import TabMuviFeeds from '@/components/muvi/tabs/TabMuviFeeds.vue'
+import MuviTabSwitch from '@/components/muvi/MuviTabSwitch.vue'
+
+const activeIndex = ref(1)
+
+const handleTabClick = async (index) => {
+  activeIndex.value = index
+}
 </script>
 
 <style lang="scss">

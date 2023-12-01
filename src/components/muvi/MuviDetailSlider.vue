@@ -35,6 +35,8 @@
         :resistance-ratio="0"
         effect="fade"
         class="muvi__detail--main"
+        @reachEnd="reachEnd"
+        @slideChange="onSlideChange"
       >
         <swiper-slide v-for="muvi in muvies" :key="muvi.id" v-slot="{ isActive }">
           <div class="shorts__modal parent">
@@ -52,15 +54,18 @@
 <script setup>
 /* eslint-disable */
 import 'swiper/css/effect-fade'
-
+import axios from 'axios'
+import { ref, computed } from 'vue'
+import { useStore } from 'vuex'
+import { getFormData } from '@/utils'
 import { Navigation, Thumbs, Mousewheel, EffectFade } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { vOnClickOutside } from '@vueuse/components'
-import ShortsCard from '@/components/ui/Shorts/ShortsCard.vue'
 
+import ShortsCard from '@/components/ui/Shorts/ShortsCard.vue'
 import ShortsPlay from '@/components/icons/shorts/ShortsPlay.vue'
-import { ref, computed } from 'vue'
 import MuviDetailContent from '@/components/muvi/MuviDetailContent.vue'
+import { useRoute, useRouter } from 'vue-router'
 
 const props = defineProps({
   muvies: {
@@ -86,6 +91,83 @@ const setThumbsSwiper = (swiper) => {
 
 const handleClickOutside = () => {
   emit('handleClickOutside')
+}
+const countElements = ref(0)
+const isLoading = ref(false)
+const page = ref(1)
+
+const store = useStore()
+const router = useRouter()
+const route = useRoute()
+
+const onSlideChange = async (swiper) => {
+  store.commit('muvi/setInitialIndex', swiper.activeIndex)
+  router.replace(
+    `/${route.params?.lang || 'ru'}/muvi/${store.getters['muvi/getMuvies'][swiper.activeIndex]?.id}`
+  )
+  await setMuvieViewed(store.getters['muvi/getMuvies'][swiper.activeIndex]?.id)
+}
+
+const reachEnd = () => {
+  if (!isLoading.value && countElements.value >= 18) {
+    loadMore()
+  }
+}
+const setMuvieViewed = async (video_id) => {
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      video_id
+    })
+    await axios.post('/set-view-short-video', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+const fetchFeeds = async (page) => {
+  isLoading.value = true
+
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      page,
+      filter: props.filter
+    })
+    const { data } = await axios.post('/get-short-videos', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    store.commit('muvi/setMuvies', [...store.getters['muvi/getMuvies'], ...data.data])
+    countElements.value = data.countElements
+  } catch (err) {
+    console.log(err)
+  } finally {
+    isLoading.value = false
+  }
+}
+
+const loadMore = async () => {
+  page.value += 1
+  countElements.value = 0
+  if (store.getters['muvi/getMuvies'].length > 50) {
+    store.commit('muvi/setMuvies', store.getters['muvi/getMuvies'].splice(0, 20))
+  }
+  await fetchFeeds(page.value)
+}
+if (store.getters['muvi/getMuvies'].length === 1) {
+  fetchFeeds(page.value)
 }
 </script>
 

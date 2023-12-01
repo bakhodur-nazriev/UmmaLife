@@ -24,6 +24,7 @@
 
 <script setup>
 /* eslint-disable */
+import { useRoute, useRouter } from 'vue-router'
 import shortNum from 'number-shortener'
 import SeenIcon from '@/components/icons/SeenIcon.vue'
 import UserInfo from '@/components/ui/UserInfo.vue'
@@ -33,8 +34,11 @@ const props = defineProps({
   muvi: Object
 })
 const emit = defineEmits(['cardClickHandler'])
+const router = useRouter()
+const route = useRoute()
+
 const clickMuvieHandler = async (video_id) => {
-  emit('cardClickHandler')
+  router.push(`/${route.params?.lang || 'ru'}/muvi/${video_id}`)
   await setMuvieViewed(video_id)
 }
 

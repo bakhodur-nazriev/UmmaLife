@@ -102,6 +102,7 @@
 
 <script setup>
 /* eslint-disable */
+import { useRouter } from 'vue-router'
 import { ref, reactive } from 'vue'
 import axios from 'axios'
 import { getFormData, validateVideoFile } from '@/utils'
@@ -124,10 +125,9 @@ const videoSrc = ref([])
 const error = ref('')
 const videoStatus = ref(null)
 const isLoading = ref(false)
+const router = useRouter()
 
 const posterSrc = ref(null)
-
-const emit = defineEmits(['getBack'])
 
 const payload = reactive({
   server_key: process.env.VUE_APP_SERVER_KEY,
@@ -212,7 +212,7 @@ const submitHandler = async () => {
       }
     })
 
-    emit('getBack', 0)
+    router.push({ name: 'muvi' })
   } catch (err) {
     console.log(err)
   } finally {

@@ -7,6 +7,7 @@ import actions from '@/store/actions'
 
 // Modules
 import audioModule from './modules/audio.module'
+import muviModule from './modules/muvi.module'
 
 const store = createStore({
   state,
@@ -14,7 +15,8 @@ const store = createStore({
   mutations,
   actions,
   modules: {
-    audio: audioModule
+    audio: audioModule,
+    muvi: muviModule
   }
 })
 export default store
