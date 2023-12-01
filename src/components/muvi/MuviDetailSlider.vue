@@ -55,7 +55,7 @@
 /* eslint-disable */
 import 'swiper/css/effect-fade'
 import axios from 'axios'
-import { ref, computed } from 'vue'
+import { ref, computed, onUnmounted, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { getFormData } from '@/utils'
 import { Navigation, Thumbs, Mousewheel, EffectFade } from 'swiper/modules'
@@ -139,7 +139,7 @@ const fetchFeeds = async (page) => {
     const payload = getFormData({
       server_key: process.env.VUE_APP_SERVER_KEY,
       page,
-      filter: props.filter
+      filter: localStorage.getItem('filter') || 'recomendation'
     })
     const { data } = await axios.post('/get-short-videos', payload, {
       headers: {
@@ -166,9 +166,18 @@ const loadMore = async () => {
   }
   await fetchFeeds(page.value)
 }
-if (store.getters['muvi/getMuvies'].length === 1) {
-  fetchFeeds(page.value)
-}
+
+onMounted(async () => {
+  if (store.getters['muvi/getMuvies'].length === 1) {
+    await fetchFeeds(page.value)
+  }
+})
+
+onUnmounted(() => {
+  store.commit('muvi/setMuvies', [])
+  store.commit('muvi/setInitialIndex', 0)
+  store.commit('muvi/setFrom', 'feeds')
+})
 </script>
 
 <style lang="scss">

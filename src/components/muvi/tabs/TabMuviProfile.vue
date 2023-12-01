@@ -50,9 +50,10 @@ import TabSavedMuvies from '@/components/muvi/tabs/TabSavedMuvies.vue'
 
 const user = ref({})
 
-const activeIndex = ref(0)
+const activeIndex = ref(+localStorage.getItem('profileIndex') || 0)
 
 const handleTabClick = (index) => {
+  localStorage.setItem('profileIndex', index)
   activeIndex.value = index
 }
 

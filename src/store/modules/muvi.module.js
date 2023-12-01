@@ -3,7 +3,8 @@ export default {
   state() {
     return {
       muvies: [],
-      initialIndex: 0
+      initialIndex: 0,
+      from: 'feeds'
     }
   },
   mutations: {
@@ -12,6 +13,9 @@ export default {
     },
     setInitialIndex(state, initialIndex) {
       state.initialIndex = initialIndex
+    },
+    setFrom(state, from) {
+      state.from = from
     }
   },
   getters: {
@@ -20,6 +24,9 @@ export default {
     },
     getInitialIndex(state) {
       return state.initialIndex
+    },
+    getFrom(state) {
+      return state.from
     }
   }
 }

@@ -11,9 +11,6 @@
       <TabMuviFeeds filter="recomendation" v-else />
     </div>
   </div>
-  <teleport to="body">
-    <router-view />
-  </teleport>
 </template>
 
 <script setup>
@@ -24,11 +21,23 @@ import GroupsNav from '@/components/groups/GroupsNav.vue'
 import TabMuviFeeds from '@/components/muvi/tabs/TabMuviFeeds.vue'
 import MuviTabSwitch from '@/components/muvi/MuviTabSwitch.vue'
 
-const activeIndex = ref(1)
+const activeIndex = ref(
+  localStorage.getItem('mainMuviIndex') ? +localStorage.getItem('mainMuviIndex') : 1
+)
 
 const handleTabClick = async (index) => {
+  localStorage.setItem('mainMuviIndex', index)
   activeIndex.value = index
+  setFilter()
 }
+function setFilter() {
+  if (activeIndex.value === 1) {
+    localStorage.setItem('filter', 'recomendation')
+  } else {
+    localStorage.setItem('filter', 'subscription')
+  }
+}
+setFilter()
 </script>
 
 <style lang="scss">

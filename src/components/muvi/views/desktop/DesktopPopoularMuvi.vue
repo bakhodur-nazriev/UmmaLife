@@ -13,4 +13,5 @@ import { muvieLinks } from '@/constants.js'
 import GroupsNav from '@/components/groups/GroupsNav.vue'
 
 import TabMuviPopular from '@/components/muvi/tabs/TabMuviPopular.vue'
+localStorage.setItem('filter', 'recomendation')
 </script>

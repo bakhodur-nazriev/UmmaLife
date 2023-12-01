@@ -25,9 +25,9 @@ const route = useRoute()
 const store = useStore()
 
 const fetchSingleMovie = async (video_id) => {
-  isLoading.value = true
-
+  if (store.getters['muvi/getFrom'] !== 'feeds') return
   try {
+    isLoading.value = true
     const payload = getFormData({
       server_key: process.env.VUE_APP_SERVER_KEY,
       video_id
@@ -41,7 +41,7 @@ const fetchSingleMovie = async (video_id) => {
         access_token: localStorage.getItem('access_token')
       }
     })
-    store.commit('muvi/setMuvies', [data.data])
+    store.commit('muvi/setMuvies', [data.data, ...store.getters['muvi/getMuvies']])
   } catch (err) {
     console.log(err)
   } finally {

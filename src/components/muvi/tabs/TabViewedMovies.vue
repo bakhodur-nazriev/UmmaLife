@@ -13,35 +13,28 @@
     v-if="!isLoading && countElements >= 20"
     class="observer"
   ></div>
-  <MuviDetailSlider
-    v-if="isDetailOpen"
-    @handleClickOutside="isDetailOpen = false"
-    :muvies="viewedMovies"
-    :initialSlideIndex="initialSlideIndex"
-  />
 </template>
 
 <script setup>
 /* eslint-disable */
+import axios from 'axios'
 import { ref } from 'vue'
 import { vIntersectionObserver } from '@vueuse/components'
-import axios from 'axios'
 import { getFormData } from '@/utils'
+import { useStore } from 'vuex'
 
 import MuviCard from '@/components/muvi/MuviCard.vue'
-import MuviDetailSlider from '@/components/muvi/MuviDetailSlider.vue'
 
 const viewedMovies = ref([])
 const isLoading = ref(false)
 const countElements = ref(0)
-const isDetailOpen = ref(false)
 
 const computedLastId = ref(null)
-const initialSlideIndex = ref(0)
+const store = useStore()
 
 const cardClickHandler = (index) => {
-  isDetailOpen.value = true
-  initialSlideIndex.value = index
+  store.commit('muvi/setInitialIndex', index)
+  store.commit('muvi/setFrom', 'viewed')
 }
 
 const fetchViewedMovies = async (last_id = null) => {
@@ -61,6 +54,7 @@ const fetchViewedMovies = async (last_id = null) => {
     })
     countElements.value = data.countElements
     viewedMovies.value = [...viewedMovies.value, ...data.data]
+    store.commit('muvi/setMuvies', viewedMovies.value)
     computedLastId.value = viewedMovies.value[viewedMovies.value.length - 1]?.id || -1
   } catch (err) {
     console.log(err)

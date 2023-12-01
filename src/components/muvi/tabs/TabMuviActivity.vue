@@ -19,9 +19,10 @@ import MuviTabSwitch from '@/components/muvi/MuviTabSwitch.vue'
 import TabLikedMovies from '@/components/muvi/tabs/TabLikedMovies.vue'
 import TabViewedMovies from '@/components/muvi/tabs/TabViewedMovies.vue'
 
-const activeIndex = ref(0)
+const activeIndex = ref(+localStorage.getItem('activity') || 0)
 
 const handleTabClick = async (index) => {
+  localStorage.setItem('activity', index)
   activeIndex.value = index
 }
 </script>

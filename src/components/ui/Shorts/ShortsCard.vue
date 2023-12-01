@@ -1,7 +1,13 @@
 <template>
   <div ref="shortsCard" class="shorts__card" :style="{ '--shorts-offset': `${offset}px` }">
     <div class="shorts__card--inner">
-      <video-player :src="muvi.src" controls :volume="1" autoplay="play" :poster="muvi.preview">
+      <video-player
+        :src="muvi?.src"
+        controls
+        :volume="1"
+        autoplay="play"
+        :poster="muvi?.preview ? muvi?.preview : null"
+      >
         <template v-slot="{ player, state }">
           <div class="custom-player-controls">
             <button class="mute" @click="player.muted(!state.muted)">
@@ -19,7 +25,7 @@
 <script setup>
 /* eslint-disable */
 import { useElementSize } from '@vueuse/core'
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 
 import { VideoPlayer } from '@videojs-player/vue'
 import UnmuteIcon from '@/components/icons/shorts/UnmuteIcon.vue'

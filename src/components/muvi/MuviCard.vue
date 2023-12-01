@@ -11,7 +11,7 @@
     </div>
     <UserInfo
       :avatar="muvi?.publisher?.avatar"
-      :username="muvi?.publisher?.username"
+      :username="`${muvi?.publisher?.first_name} ${muvi?.publisher?.last_name}`"
       :status="{
         is_investor: muvi?.publisher?.isInvestor || false,
         verified: muvi?.publisher?.verified || '0',
@@ -39,6 +39,7 @@ const route = useRoute()
 
 const clickMuvieHandler = async (video_id) => {
   router.push(`/${route.params?.lang || 'ru'}/muvi/${video_id}`)
+  emit('cardClickHandler')
   await setMuvieViewed(video_id)
 }
 
