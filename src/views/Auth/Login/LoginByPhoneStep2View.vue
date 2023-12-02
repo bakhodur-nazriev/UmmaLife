@@ -20,7 +20,6 @@
           v-model="code[index - 1]"
           @next="focusNextInput"
           @backspace="handleBackspace"
-          @input="checkCodeFilled"
         />
       </div>
       <div class="error-message__block">
@@ -49,11 +48,10 @@
     <div class="resend__code">
       <label>{{ $t('login.messages.didnt_receive_code') }}</label>
       <button
-        class="link"
         type="button"
         @click="resendRequest"
         :disabled="isResendDisabled"
-        :class="{ 'disabled-button': isResendDisabled, 'active-button': isResendDisabled }"
+        :class="{ 'disabled-button': isResendDisabled, 'active-button': !isResendDisabled }"
       >
         {{ $t('links.resend') }} {{ formatTime(countDown) }}
       </button>
@@ -147,7 +145,6 @@ export default {
         if (response.data.api_status === 200) {
           this.countDown = 60
           this.startCountdown()
-          this.$router.push({name: 'news'})
         } else {
           this.errorText = response.data.errors.error_text.error
         }
@@ -159,8 +156,16 @@ export default {
       const inputs = this.$el.querySelectorAll('.verify__number-section input')
       const currentIndex = Array.from(inputs).findIndex((input) => input === document.activeElement)
 
-      if (currentIndex > 0) {
-        inputs[currentIndex - 1].focus()
+      if (Array.isArray(this.code) && this.code.length > 0) {
+        if (currentIndex >= 0 && currentIndex < this.code.length) {
+          if (this.code[currentIndex] !== '') {
+            this.$set(this.code, currentIndex, '')
+          } else if (currentIndex > 0) {
+            inputs[currentIndex - 1].focus()
+          }
+        } else if (currentIndex === -1 && this.code[this.code.length - 1] === '') {
+          inputs[this.code.length - 1].focus()
+        }
       }
     },
     focusNextInput() {
@@ -212,14 +217,6 @@ export default {
   }
 }
 
-.active-button {
-  color: var(--color-hippie-blue);
-  font-size: 16px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
 .disabled-button {
   color: var(--color-silver-chalice);
   background: none;
@@ -233,22 +230,20 @@ export default {
   }
 }
 
+.active-button {
+  color: var(--color-hippie-blue);
+  font-size: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 .resend__code {
   margin-top: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
-  .active-button {
-    text-decoration: none;
-    background: none;
-    cursor: pointer;
-    border: none;
-    font-size: 16px;
-    padding: 0;
-    outline: inherit;
-  }
 }
 
 .buttons-back__section {

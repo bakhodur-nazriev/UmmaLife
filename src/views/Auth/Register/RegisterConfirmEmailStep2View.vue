@@ -47,7 +47,7 @@
         type="button"
         @click="resendRequest"
         :disabled="isResendDisabled"
-        :class="{ 'disabled-button': isResendDisabled, 'active-button':  !  isResendDisabled}"
+        :class="{ 'disabled-button': isResendDisabled, 'active-button':  !isResendDisabled}"
       >
         {{ $t('links.resend') }} {{ formatTime(countDown) }}
       </button>
@@ -76,9 +76,9 @@ export default {
   data() {
     return {
       isCodeFilled: false,
-      code: ['', '', '', '', '', ''],
+      code: Array(6).fill(''),
       hasError: false,
-      countDown: 2,
+      countDown: 60,
       errorText: null,
     }
   },
@@ -142,7 +142,6 @@ export default {
         if (response.data.api_status === 200) {
           this.countDown = 60
           this.startCountdown()
-          this.$router.push({name: 'RegisterCreatePasswordStep3View'})
         } else {
           this.errorText = response.data.errors.error_text
         }
@@ -162,8 +161,16 @@ export default {
       const inputs = this.$el.querySelectorAll('.verify__number-section input')
       const currentIndex = Array.from(inputs).findIndex((input) => input === document.activeElement)
 
-      if (currentIndex > 0) {
-        inputs[currentIndex - 1].focus()
+      if (Array.isArray(this.code) && this.code.length > 0) {
+        if (currentIndex >= 0 && currentIndex < this.code.length) {
+          if (this.code[currentIndex] !== '') {
+            this.$set(this.code, currentIndex, '')
+          } else if (currentIndex > 0) {
+            inputs[currentIndex - 1].focus()
+          }
+        } else if (currentIndex === -1 && this.code[this.code.length - 1] === '') {
+          inputs[this.code.length - 1].focus()
+        }
       }
     },
     startCountdown() {

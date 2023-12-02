@@ -1,12 +1,11 @@
 <template>
   <input
-    type="text"
-    v-model="inputValue"
-    @input="handleInput"
-    @keydown="handleKeyDown"
-    class="base-input"
-    maxlength="1"
-    inputmode="numeric"
+      type="text"
+      v-model="inputValue"
+      @input="handleInput"
+      @keydown="handleKeyDown"
+      class="base-input"
+      maxlength="1"
   />
 </template>
 
@@ -16,7 +15,7 @@ export default {
     error: Boolean,
     errorMessage: String,
     value: {
-      type: Number
+      type: String
     }
   },
   data() {
@@ -33,14 +32,14 @@ export default {
     handleInput() {
       const value = this.inputValue
       this.$emit('input', this.inputValue)
-      if (value.length === 1) {
+      if (value && value.length === 1) {
         this.$emit('next')
-      } else if (value.length > 1) {
+      } else if (value && value.length > 1) {
         this.inputValue = value.slice(0, 1)
       }
     },
     handleKeyDown(event) {
-      if (event.key === 'Backspace' && this.inputValue.length === 0) {
+      if (event.key === 'Backspace' && (!this.inputValue || this.inputValue.length === 0)) {
         this.$emit('backspace')
       }
     }
