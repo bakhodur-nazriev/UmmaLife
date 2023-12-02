@@ -76,14 +76,14 @@ const setMuvieViewed = async (video_id) => {
       server_key: process.env.VUE_APP_SERVER_KEY,
       video_id
     })
-    // await axios.post('/set-view-short-video', payload, {
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data'
-    //   },
-    //   params: {
-    //     access_token: localStorage.getItem('access_token')
-    //   }
-    // })
+    await axios.post('/set-view-short-video', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
   } catch (err) {
     console.log(err)
   }

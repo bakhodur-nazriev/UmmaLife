@@ -7,6 +7,7 @@
         :volume="1"
         autoplay="play"
         :poster="muvi?.preview ? muvi?.preview : null"
+        :playbackRate="store.getters['muvi/getPlaybackSpeed'] || 1"
       >
         <template v-slot="{ player, state }">
           <div class="custom-player-controls">
@@ -25,12 +26,13 @@
 <script setup>
 /* eslint-disable */
 import { useElementSize } from '@vueuse/core'
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch } from 'vue'
 
 import { VideoPlayer } from '@videojs-player/vue'
 import UnmuteIcon from '@/components/icons/shorts/UnmuteIcon.vue'
 import MuteIcon from '@/components/icons/shorts/MuteIcon.vue'
 import ShortsReactions from '@/components/ui/Shorts/ShortsReactions.vue'
+import { useStore } from 'vuex'
 
 const emit = defineEmits(['openModal', 'eleHeight'])
 const props = defineProps({
@@ -49,6 +51,7 @@ const props = defineProps({
     })
   }
 })
+const store = useStore()
 
 const shortsCard = ref(null)
 const { height: eleHeight } = useElementSize(shortsCard)

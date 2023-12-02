@@ -10,6 +10,7 @@
       <TabMuviFeeds filter="subscription" v-if="activeIndex === 0" />
       <TabMuviFeeds filter="recomendation" v-else />
     </div>
+    <router-view />
   </div>
 </template>
 

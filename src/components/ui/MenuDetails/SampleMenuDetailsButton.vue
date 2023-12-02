@@ -1,104 +1,193 @@
 <template>
   <div class="menu__details">
-    <div class="menu__toggle--button open__menu--details--button" @click="toggleMenu">
+    <div class="menu__toggle--button open__menu--details--button" @click="emit('toggle-menu')">
       <MenuDetailsIcon class="dropdown__toggle" />
     </div>
 
     <Transition name="bounce">
-      <div class="menu__overlay" v-if="isMenuOpen" @click="handleOverlayClick">
+      <div class="menu__overlay" v-if="isMenuOpen">
         <ul class="dropdown__menu">
-          <li class="dropdown-item">
-            <ShareIcon />
-            <span>{{ $t('buttons.share') }}</span>
-          </li>
-          <SampleDivider class="dropdown-item__divider" />
-          <li class="dropdown-item">
-            <CopyLinkIcon />
-            <span>{{ $t('buttons.copy_link') }}</span>
-          </li>
-          <SampleDivider class="dropdown-item__divider" />
-          <li class="dropdown-item">
-            <SaveIcon />
-            <span>{{ $t('buttons.save') }}</span>
-          </li>
-          <SampleDivider class="dropdown-item__divider" />
-          <li class="dropdown-item">
-            <BlankIcon />
-            <span>{{ $t('buttons.open_in_new_tab') }}</span>
-          </li>
-          <SampleDivider class="dropdown-item__divider" />
-          <li class="dropdown-item">
-            <ComplainIcon />
-            <span>{{ $t('buttons.complain') }}</span>
-          </li>
-          <SampleDivider class="dropdown-item__divider" />
-          <li class="dropdown-item">
-            <HideIcon />
-            <span>{{ $t('buttons.hide') }}</span>
-          </li>
+          <div class="muvi__menu--list playback">
+            <PlaybackIcon />
+            <div class="muvi__menu--wrapper">
+              <div class="muvi__menu--list-text">{{ $t('add_muvi.playback_speed') }}</div>
+              <ul class="muvi__menu--list-speed">
+                <li
+                  v-for="speed in playbackSpeeds"
+                  :key="speed"
+                  :class="{ active: speed === store.getters['muvi/getPlaybackSpeed'] }"
+                  @click="handleSpeedSelect(speed)"
+                >
+                  {{ speed }}x
+                </li>
+              </ul>
+            </div>
+          </div>
+          <template v-if="!muvi?.owner">
+            <li class="muvi__menu--list download" @click="downloadRef?.click()">
+              <AudioDownloadIcon />
+              <span>{{ $t('library.download') }}</span>
+              <a :href="muvi?.src" download hidden ref="downloadRef"></a>
+            </li>
+
+            <li class="muvi__menu--list hide" @click="hideMovieHandler">
+              <HideIcon />
+              <span>{{ $t('muvi.hide_muvi') }}</span>
+            </li>
+
+            <li class="muvi__menu--list" @click="blockUserHandler">
+              <BlockIcon />
+              <span>{{ $t('muvi.block_user') }}</span>
+            </li>
+
+            <li class="muvi__menu--list delete complain" @click="reportMuvi">
+              <ComplainIcon />
+              <span>{{ $t('buttons.complain') }}</span>
+            </li>
+          </template>
+          <template v-else>
+            <li class="muvi__menu--list download" @click="emit('editHandle'), emit('toggle-menu')">
+              <EditIcon />
+              <span>{{ $t('add_muvi.edit_muvi') }}</span>
+            </li>
+            <MuviViewList
+              :menu="true"
+              @passSelectedOption="(index) => emit('setPrivacyType', index)"
+              :selectedIndex="+muvi?.privacy || 0"
+            />
+            <li class="muvi__add--list">
+              <p><AllowCommentIcon />{{ $t('add_muvi.disable_comments') }}</p>
+              <BaseToggle
+                :checked="muvi?.comments_status === '0'"
+                @update:isChecked="changeStatusCommentHandler"
+              />
+            </li>
+            <li class="muvi__menu--list delete" @click="emit('deleteHandler')">
+              <DeleteIcon />
+              <div class="muvi__menu--list-text">{{ $t('add_muvi.delete_muvi') }}</div>
+            </li>
+          </template>
         </ul>
       </div>
     </Transition>
   </div>
 </template>
-<script>
+<script setup>
+/* eslint-disable */
+import { ref } from 'vue'
+import { useStore } from 'vuex'
+
 import MenuDetailsIcon from '@/components/icons/MenuDetailsIcon.vue'
-import ShareIcon from '@/components/icons/MenuDetails/SendMenuIcon.vue'
-import CopyLinkIcon from '@/components/icons/MenuDetails/CopyLinkIcon.vue'
-import SaveIcon from '@/components/icons/MenuDetails/SaveIcon.vue'
-import BlankIcon from '@/components/icons/MenuDetails/BlankIcon.vue'
 import HideIcon from '@/components/icons/MenuDetails/HideIcon.vue'
+import BlockIcon from '@/components/icons/BlockIcon.vue'
 import ComplainIcon from '@/components/icons/MenuDetails/ComplainIcon.vue'
-import SampleDivider from '@/components/ui/SampleDivider.vue'
+import EditIcon from '@/components/icons/shorts/mobile/EditIcon.vue'
+import PlaybackIcon from '@/components/icons/shorts/mobile/PlaybackIcon.vue'
+import AudioDownloadIcon from '@/components/icons/audio/AudioDownloadIcon.vue'
+import MuviViewList from '@/components/muvi/lists/MuviViewList.vue'
+import AllowCommentIcon from '@/components/icons/shorts/AllowCommentIcon.vue'
+import BaseToggle from '@/components/ui/BaseToggle.vue'
+import DeleteIcon from '@/components/icons/MenuDetails/DeleteIcon.vue'
+import { getFormData } from '@/utils'
+import axios from 'axios'
+import { useRouter } from 'vue-router'
 
-export default {
-  components: {
-    SampleDivider,
-    ComplainIcon,
-    HideIcon,
-    BlankIcon,
-    SaveIcon,
-    CopyLinkIcon,
-    MenuDetailsIcon,
-    ShareIcon
+const props = defineProps({
+  isMenuOpen: {
+    type: Boolean,
+    required: true
   },
-  props: {
-    isMenuOpen: {
-      type: Boolean,
-      required: true
-    }
-  },
-  data() {
-    return {
-      test: this.isMenuOpen
-    }
-  },
-  methods: {
-    toggleMenu() {
-      this.$emit('toggle-menu')
-    },
-    handleOverlayClick() {
-      this.$emit('toggle-menu')
-    },
-    closeMenuDetailsWindow(event) {
-      const menuDetailsWWindow = this.$refs.menuDetailsWindow
-      const openMenuDetailsButton = document.querySelector('.open__menu--details--button')
-
-      if (
-        menuDetailsWWindow &&
-        !menuDetailsWWindow.contains(event.target) &&
-        event.target !== openMenuDetailsButton
-      ) {
-        this.test = false
-      }
-    }
-  },
-  mounted() {
-    document.addEventListener('click', this.closeMenuDetailsWindow)
-  },
-  beforeUnmount() {
-    document.removeEventListener('click', this.closeMenuDetailsWindow)
+  muvi: {
+    type: Object,
+    default: () => ({})
   }
+})
+
+const emit = defineEmits([
+  'setPlaybackSpeed',
+  'toggle-menu',
+  'closeMenu',
+  'reported',
+  'commentStatus',
+  'setPrivacyType',
+  'deleteHandler',
+  'editHandle'
+])
+const store = useStore()
+const downloadRef = ref()
+const router = useRouter()
+const playbackSpeeds = ref([1, 1.25, 1.75, 2])
+
+const handleSpeedSelect = (speed) => {
+  store.commit('muvi/setPlaybackSpeed', speed)
+}
+
+const hideMovieHandler = async () => {
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      video_id: props.muvi?.id
+    })
+    await axios.post('/hide-short-video', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    router.go(-1)
+  } catch (err) {
+    console.log(err)
+  }
+}
+const blockUserHandler = async () => {
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      user_id: props.muvi?.publisher?.user_id,
+      block_action: 'add_block'
+    })
+    await axios.post('/block-user', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    router.go(-1)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+const reportMuvi = async () => {
+  try {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      video_id: props.muvi?.id,
+      text: '',
+      type: 'spam'
+    })
+
+    await axios.post('/report-short-video', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+  } catch (err) {
+    console.log(err)
+  } finally {
+    emit('reported')
+  }
+}
+
+const changeStatusCommentHandler = (status) => {
+  emit('commentStatus', { isDisabled: status })
 }
 </script>
 
@@ -149,8 +238,8 @@ export default {
 
 .dropdown__menu {
   list-style: none;
-  padding: 8px;
   margin: 0;
+  padding: 0;
   width: max-content;
   display: flex;
   flex-direction: column;
@@ -175,6 +264,117 @@ export default {
   &__divider {
     width: 92%;
     margin: 1px auto;
+  }
+}
+
+.muvi__add--list {
+  background-color: transparent;
+  &:hover {
+    background-color: var(--color-seashell);
+  }
+}
+.muvi__menu {
+  max-height: 70dvh !important;
+  &--block {
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  &--list {
+    padding: 16px 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: var(--color-mine-shaft);
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--color-seashell);
+    }
+    &:not(.playback) {
+      align-items: center;
+      cursor: pointer;
+    }
+    &:hover {
+      background-color: var(--color-seashell);
+    }
+    &.download svg {
+      scale: 0.8;
+    }
+    &.hide svg {
+      scale: 1.1;
+    }
+    &.complain {
+      svg {
+        scale: 1.1;
+        color: var(--color-valencia) !important;
+      }
+    }
+    svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+    &-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: space-between;
+      width: 100%;
+    }
+    &.selecttion {
+      justify-content: space-between;
+      align-items: center;
+      .muvi__add--dropdown-top {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+    }
+    &-text {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      color: var(--color-mine-shaft);
+    }
+    &-speed {
+      margin: 0;
+      padding: 0;
+      padding-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+      li {
+        padding: 8px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        color: var(--color-mine-shaft);
+        cursor: pointer;
+        &.active {
+          background-color: var(--color-hippie-blue);
+          color: var(--color-stable-white);
+        }
+      }
+    }
+    &-visible {
+      margin-top: 8px;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      color: var(--color-secondary);
+    }
+    &.delete {
+      color: var(--color-valencia);
+      .muvi__menu--list-text {
+        color: var(--color-valencia);
+      }
+    }
   }
 }
 </style>

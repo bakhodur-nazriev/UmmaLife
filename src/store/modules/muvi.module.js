@@ -4,7 +4,8 @@ export default {
     return {
       muvies: [],
       initialIndex: 0,
-      from: 'feeds'
+      from: 'feeds',
+      playbackSpeed: 1
     }
   },
   mutations: {
@@ -16,6 +17,9 @@ export default {
     },
     setFrom(state, from) {
       state.from = from
+    },
+    setPlaybackSpeed(state, playbackSpeed) {
+      state.playbackSpeed = playbackSpeed
     }
   },
   getters: {
@@ -27,6 +31,9 @@ export default {
     },
     getFrom(state) {
       return state.from
+    },
+    getPlaybackSpeed(state) {
+      return state.playbackSpeed
     }
   }
 }

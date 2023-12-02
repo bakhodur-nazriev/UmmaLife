@@ -3,9 +3,10 @@
     class="muvi__add--list"
     @click="isDropdownOpen = !isDropdownOpen"
     v-on-click-outside="() => (isDropdownOpen = false)"
+    :class="{ 'menu-list': menu }"
   >
     <div class="muvi__add--list-parent">
-      <p><LockIcon /> {{ $t('add_muvi.can_view') }}</p>
+      <p><LockIcon /> {{ menu ? $t('add_muvi.change_view') : $t('add_muvi.can_view') }}</p>
       <div class="muvi__add--selected" v-if="selectedOption">
         {{ $t(selectedOption.name) }}
       </div>
@@ -17,7 +18,9 @@
         <button @click="isDropdownOpen = false" class="muvi__mobile--nav-btn">
           <ArrowLeftIcon />
         </button>
-        <div class="muvi__mobile--nav-title">{{ $t('add_muvi.can_view') }}</div>
+        <div class="muvi__mobile--nav-title">
+          {{ menu ? $t('add_muvi.change_view') : $t('add_muvi.can_view') }}
+        </div>
         <div class="left"></div>
       </div>
       <div
@@ -61,6 +64,16 @@ import ArrowLeftIcon from '@/components/icons/shorts/ArrowLeftIcon.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 
 const emit = defineEmits(['passSelectedOption'])
+const props = defineProps({
+  menu: {
+    type: Boolean,
+    default: false
+  },
+  selectedIndex: {
+    type: Number,
+    default: 0
+  }
+})
 
 const isDropdownOpen = ref(false)
 const options = ref([
@@ -87,13 +100,14 @@ const options = ref([
   }
 ])
 
-const selectedOption = ref(options.value[0])
+const selectedOption = ref(options.value[props.selectedIndex])
 
 const handleSelect = (index) => {
   options.value.forEach((option) => (option.isSelected = false))
   options.value[index].isSelected = true
   selectedOption.value = options.value[index]
   emit('passSelectedOption', index)
+  isDropdownOpen.value = false
 }
 </script>
 
@@ -141,9 +155,13 @@ export default {
       background-color: var(--color-seashell);
       padding: 16px 20px;
       border-radius: 8px;
+
       @media (max-width: 767px) {
         margin: 0 16px;
       }
+    }
+    &-left {
+      width: calc(100% - 36px);
     }
     &-top {
       display: flex;
@@ -185,6 +203,18 @@ export default {
     align-items: center;
     justify-content: space-between;
     width: 100%;
+  }
+  &--list {
+    &.menu-list {
+      &:hover {
+        background-color: var(--color-seashell);
+      }
+      background: transparent;
+      border-bottom: 1px solid var(--color-seashell);
+      .muvi__add--selected {
+        padding-left: 0;
+      }
+    }
   }
 }
 </style>

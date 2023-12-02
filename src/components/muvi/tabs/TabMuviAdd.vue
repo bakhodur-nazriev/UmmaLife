@@ -68,7 +68,7 @@
             <MuviViewList @passSelectedOption="(option) => (payload.privacy_type = option)" />
             <li class="muvi__add--list">
               <p><AllowCommentIcon />{{ $t('add_muvi.allow_comment') }}</p>
-              <BaseToggle :checked="true" />
+              <BaseToggle :checked="commentStatus" @update:isChecked="changeStatusCommentHandler" />
             </li>
             <MuviChooseCategory
               @passSelectedCategories="(category_id) => (payload.category_id = category_id)"
@@ -125,6 +125,7 @@ const videoSrc = ref([])
 const error = ref('')
 const videoStatus = ref(null)
 const isLoading = ref(false)
+const commentStatus = ref(true)
 const router = useRouter()
 
 const posterSrc = ref(null)
@@ -139,8 +140,17 @@ const payload = reactive({
   category_id: null,
   latitude: null, //number
   longitude: null, //number
-  location_name: null
+  location_name: null,
+  comments_status: '1'
 })
+
+const changeStatusCommentHandler = ({ isDisabled }) => {
+  if (isDisabled) {
+    payload.comments_status = '0'
+  } else {
+    payload.comments_status = '1'
+  }
+}
 
 const drop = (event) => {
   file.value = event.dataTransfer.files[0]

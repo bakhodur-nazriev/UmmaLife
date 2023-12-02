@@ -61,6 +61,9 @@ const changeHandler = () => {
 
 input:checked + .slider {
   background-color: var(--color-hippie-blue);
+  &::before {
+    background-color: var(--color-stable-white);
+  }
 }
 
 input:focus + .slider {
