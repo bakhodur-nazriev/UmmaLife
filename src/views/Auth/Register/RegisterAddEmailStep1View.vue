@@ -9,12 +9,14 @@
           class="base-input"
           :placeholder="$t('register.placeholders.email')"
       />
-      <small v-if="hasError || isInvalidEmail" class="error-message">
-        {{ $t(isInvalidEmail ? 'register.validation.incorrect_email' : 'register.validation.empty_email') }}
-      </small>
-      <small v-if="errorText" class="error-message">
-        {{ errorText }}
-      </small>
+      <div class="error-message__block">
+        <small v-if="hasError || isInvalidEmail" class="error-message">
+          {{ $t(isInvalidEmail ? 'register.validation.incorrect_email' : 'register.validation.empty_email') }}
+        </small>
+        <small v-if="errorText" class="error-message">
+          {{ errorText }}
+        </small>
+      </div>
     </div>
 
     <CheckBox
@@ -42,9 +44,10 @@
 
     <div class="login-button-section">
       <SampleButton
+          type="submit"
           :title="$t('buttons.get_code_by_email')"
-          :type="submitting ? 'button' : 'submit'"
-          :disabled="submitting"
+          :disabled="isSubmitDisabled"
+          :class="{ 'disabled-button': isSubmitDisabled }"
       >
       </SampleButton>
     </div>
@@ -88,6 +91,9 @@ export default {
     }
   },
   computed: {
+    isSubmitDisabled() {
+      return this.email.trim() === ''
+    },
     isInvalidEmail() {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       return this.email.trim() !== '' && !emailRegex.test(this.email)
@@ -111,10 +117,10 @@ export default {
         email: this.email
       })
 
-      const headers = {'Content-Type': 'multipart/form-data',}
+      const headers = {'Content-Type': 'multipart/form-data'}
 
       try {
-        return await axios.post('https://preview.ummalife.com/api/check-email', payload, {headers})
+        return await axios.post('/check-email', payload, {headers})
       } catch (error) {
         throw error
       }
@@ -150,8 +156,26 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.disabled-button {
+  background-color: var(--color-silver-chalice);
+
+  &:hover {
+    background-color: var(--color-silver-chalice);
+    cursor: not-allowed;
+  }
+}
+
+.error-message__block {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+  gap: 3px;
+}
+
 .input-wrapper {
   position: relative;
+  height: 67px;
+  margin: 0;
 
   &.error {
     .base-input {
@@ -161,7 +185,7 @@ export default {
     .error-message {
       color: red;
       font-size: 12px;
-      margin-top: 4px;
+      margin-top: 3px;
     }
   }
 }

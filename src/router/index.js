@@ -151,7 +151,6 @@ const routes = [
           layout: 'auth'
         }
       },
-
       {
         path: 'step4',
         name: 'RegisterAddInfoStep4View',
@@ -183,6 +182,126 @@ const routes = [
         }
       }
     ]
+  },
+  {
+    path: '/:lang?/news',
+    name: 'news',
+    component: NewsView,
+    meta: {
+      title: i18n.global.t('meta_title.news'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/saved',
+    name: 'saved',
+    component: SavedView,
+    meta: {
+      title: i18n.global.t('meta_title.saved'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/video',
+    name: 'video',
+    component: VideoView,
+    meta: {
+      title: i18n.global.t('meta_title.video'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/settings',
+    name: 'settings',
+    component: SettingsView,
+    meta: {
+      title: i18n.global.t('meta_title.settings'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/muvi',
+    name: 'muvi',
+    component: MuviView,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'another'
+    }
+  },
+  {
+    path: '/:lang?/muvi/:id',
+    name: 'muvi-detail',
+    component: MuviMobileDetail,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'muvi-mobile'
+    }
+  },
+  {
+    path: '/:lang?/muvi/popular',
+    name: 'muvi-popular',
+    component: PopularMuvi,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'muvi-mobile'
+    }
+  },
+  {
+    path: '/:lang?/muvi/add',
+    name: 'muvi-add',
+    component: AddMuvi,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'muvi-mobile'
+    }
+  },
+  {
+    path: '/:lang?/muvi/activity',
+    name: 'muvi-activity',
+    component: ActivityMuvi,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'muvi-mobile'
+    }
+  },
+  {
+    path: '/:lang?/muvi/profile',
+    name: 'muvi-profile',
+    component: ProfileMuvi,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'muvi-mobile'
+    }
+  },
+  {
+    path: '/:lang?/muvi/audio/:id',
+    name: 'muvi-audio',
+    component: AudioMuvi,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'muvi-mobile'
+    }
+  },
+  {
+    path: '/:lang?/muvi/category/:id',
+    name: 'muvi-category',
+    component: CategoryMuvi,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'muvi-mobile'
+    }
   },
   {
     path: '/:lang?/news',

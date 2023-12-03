@@ -42,27 +42,34 @@
           <ArrowIcon class="dropdown__icon"/>
         </div>
       </div>
-<!--      <div class="modal-profile scale-up-top-right">
+      <div class="modal-profile scale-up-top-right">
         <ul class="menu-list">
           <li class="menu-list__item">
             <a href="#">
-              <span class="user-name">{{ user.username }}</span>
-              <img class="user-avatar" :src="user.avatar" :alt="user.name">
+              <span class="user-name">{{ user && user.name }}</span>
+              <img class="user-avatar" :src="user && user.avatar" :alt="user && user.name" />
             </a>
           </li>
           <li class="menu-list__item">
-            <a href="/settings">{{ $t('links.requests') }}</a>
+            <a href="/profile">{{ $t('links.requests') }}</a>
           </li>
           <li class="menu-list__item">
-            <a href="">{{ $t('links.settings') }}</a>
+            <a href="/settings">{{ $t('links.settings') }}</a>
           </li>
           <li class="menu-list__item">
-            <a href="">{{ $t('links.logout') }}</a>
+            <button
+                type="submit"
+                class="logout-button"
+                @click="logout"
+            >
+              {{ $t('links.logout') }}
+            </button>
           </li>
-          <li class="menu-list__item"></li>
+          <li class="menu-list__item profile-wallet">
+            <span>{{ $t('profile.wallet.title') }}</span>
+          </li>
         </ul>
-        {{ user.username }}
-      </div>-->
+      </div>
     </nav>
     <nav class="small-nav">
       <div class="top__nav">
@@ -325,10 +332,12 @@ import NotificationContainer from '@/components/notification/NotificationContain
 import MuviNavIcon from '@/components/icons/shorts/MuviNavIcon.vue'
 import {getFormData} from '@/utils'
 import axios from "axios";
+import NavbarBGWalletIcon from "@/components/icons/NavbarBGWalletIcon.vue";
 
 export default {
   emits: ['toggle-sidebar'],
   components: {
+    NavbarBGWalletIcon,
     MuviNavIcon,
     SampleDivider,
     TabVideo,
@@ -402,7 +411,7 @@ export default {
       dummyAudios: audios,
       isSearchInputOpen: false,
       userId: localStorage.getItem('user_id'),
-      user: localStorage.getItem('user')
+      user: null
     }
   },
   computed: {
@@ -446,16 +455,34 @@ export default {
       const params = {access_token: accessToken}
 
       try {
-        const response = await axios.post('https://preview.ummalife.com/api/get-user-data', payload, {params, headers})
+        const response = await axios.post('/get-user-data', payload, {params, headers})
         if (response.data.api_status === 200) {
-          localStorage.setItem('user', JSON.stringify(response.data))
+          localStorage.setItem('user', JSON.stringify(response.data?.data))
         }
-        this.user = response.data.data
-        console.log(response.data.data)
       } catch (error) {
         console.error(error)
       }
     },
+    async logout() {
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY
+      })
+
+      const accessToken = localStorage.getItem('access_token')
+      const params = {access_token: accessToken}
+
+      const headers = {'Content-Type': 'multipart/form-data'}
+
+      try {
+        const response = await axios.post('/delete-access-token', payload, {params, headers})
+        if (response.data.api_status === 200) {
+          localStorage.removeItem('access_token')
+          this.$router.push({name: 'LoginByEmailView'})
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    }
   },
   mounted() {
     this.getUser()
@@ -478,12 +505,31 @@ export default {
     margin: 0;
 
     &__item {
-
       .user-avatar {
         border-radius: 50%;
         width: 32px;
         height: 32px;
       }
+
+      a {
+        text-decoration: none;
+        color: var(--color-mine-shaft);
+        font-size: 16px;
+      }
+
+      button {
+        border: none;
+        background: none;
+        padding: 0;
+        margin: 0;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    }
+
+    .profile-wallet {
+      background: linear-gradient(84deg, #0085A5 24.97%, #00A9CF 92.15%);
+      border-radius: 10px;
     }
   }
 }

@@ -19,13 +19,15 @@
           <EyeSlashIcon class="eye-button__icon" v-if="isPasswordVisible"/>
           <EyeIcon class="eye-button__icon" v-else/>
         </button>
+        <div class="error-message__block">
+          <small v-if="hasError" class="error-message">
+            {{ $t('register.validation.empty_password') }}
+          </small>
+          <small v-if="errorText" class="error-message">
+            {{ errorText }}
+          </small>
+        </div>
       </div>
-      <small v-if="hasError" class="error-message">
-        {{ $t('register.validation.empty_password') }}
-      </small>
-      <small v-else-if="errorText" class="error-message">
-        {{ errorText }}
-      </small>
     </div>
 
     <div class="login-button__section">
@@ -33,6 +35,8 @@
           type="submit"
           class="login-button__section-next"
           :title="`${$t('buttons.next')}`"
+          :disabled="isSubmitDisabled"
+          :class="{'disabled-button': isSubmitDisabled}"
       />
     </div>
   </FormAuth>
@@ -73,6 +77,9 @@ export default {
     }
   },
   computed: {
+    isSubmitDisabled() {
+      return this.password.trim() === ''
+    },
     isRTL() {
       return this.$i18n.locale === 'ar'
     }
@@ -108,7 +115,7 @@ export default {
       const headers = {'Content-Type': 'multipart/form-data'}
 
       try {
-        return await axios.post('https://preview.ummalife.com/api/create-account', payload, {headers})
+        return await axios.post('/create-account', payload, {headers})
       } catch (error) {
         throw error
       }
@@ -121,9 +128,25 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.error-message__block {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+  gap: 3px;
+}
+
+.disabled-button {
+  background-color: var(--color-silver-chalice);
+  &:hover {
+    background-color: var(--color-silver-chalice);
+    cursor: not-allowed;
+  }
+}
+
 .input-wrapper {
   position: relative;
   margin: 0 auto;
+  height: 50px;
 
   &.error .base-input {
     border: 1.4px solid red;

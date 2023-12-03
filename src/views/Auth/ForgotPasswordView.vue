@@ -110,7 +110,7 @@ export default {
       const headers = {'Content-Type': 'multipart/form-data'}
 
       try {
-        return await axios.post('https://preview.ummalife.com/api/send-reset-password-email', payload, {headers});
+        return await axios.post('/send-reset-password-email', payload, {headers})
       } catch (error) {
         throw error
       }

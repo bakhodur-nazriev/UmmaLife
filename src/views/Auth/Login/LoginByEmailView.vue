@@ -5,12 +5,12 @@
     <div class="main__input-email-block">
       <div :class="['input-wrapper', { error: hasError.email || isInvalidEmail }]">
         <input
-            name="username"
-            v-model="email"
-            class="base-input"
-            :placeholder="$t('login.placeholders.email')"
+          name="username"
+          v-model="email"
+          class="base-input"
+          :placeholder="$t('login.placeholders.email')"
         />
-        <small v-if="hasError.email || isInvalidEmail" class="error-message">
+        <small v-show="hasError.email || isInvalidEmail" class="error-message">
           {{ $t(isInvalidEmail ? 'login.validation.incorrect_email' : 'login.validation.empty_email') }}
         </small>
       </div>
@@ -19,28 +19,24 @@
     <div class="main__input-password-block">
       <div class="input-with-eye" :class="['input-wrapper', { error: hasError.password }]">
         <input
-            name="password"
-            :type="isPasswordVisible ? 'text' : 'password'"
-            v-model="password"
-            class="base-input"
-            :class="{'input-field': true, 'error': passwordError}"
-            :placeholder="$t('login.placeholders.password')"
+          name="password"
+          :type="isPasswordVisible ? 'text' : 'password'"
+          v-model="password"
+          class="base-input"
+          :class="{'input-field': true, 'error': passwordError}"
+          :placeholder="$t('login.placeholders.password')"
         />
 
         <button type="button" class="eye-button" @click="togglePasswordVisibility">
-          <eye-slash-icon v-if="isPasswordVisible"></eye-slash-icon>
-          <eye-icon v-else></eye-icon>
+          <EyeSlashIcon v-if="isPasswordVisible"/>
+          <EyeIcon v-else/>
         </button>
       </div>
       <small v-if="hasError.password" class="error-message">
         {{ $t('register.validation.empty_password') }}
       </small>
     </div>
-
-    <router-link
-        :to="`/${$i18n.locale}/forgot-password`"
-        class="forgot-password-link link"
-    >
+    <router-link to="/forgot-password" class="forgot-password-link link">
       {{ $t('login.forgot_password') }}
     </router-link>
 
@@ -50,15 +46,15 @@
 
     <div class="login-button-section">
       <SampleButton
-          type="submit"
-          :title="$t('buttons.login')"
-          :disabled="loading"
+        type="submit"
+        :title="$t('buttons.login')"
+        :disabled="isSubmitDisabled"
+        :class="{ 'disabled-button': isSubmitDisabled }"
       />
     </div>
-
     <router-link
-        class="link create-account-link"
-        :to="`/${$i18n.locale}/register`"
+      class="link create-account-link"
+      :to="`/${$i18n.locale}/register`"
     >
       {{ $t('login.create_account') }}
     </router-link>
@@ -66,8 +62,8 @@
 
   <div class="login-with-phone-section">
     <router-link
-        :to="`/${$i18n.locale}/login-by-phone`"
-        class="link-with-phone-number"
+      :to="`/${$i18n.locale}/login-by-phone`"
+      class="link-with-phone-number"
     >
       {{ $t('login.with_phone_number') }}
     </router-link>
@@ -107,6 +103,14 @@ export default {
     }
   },
   computed: {
+    isSubmitDisabled() {
+      return (
+        this.hasError.email ||
+        this.hasError.password ||
+        !this.email.trim() ||
+        !this.password.trim()
+      )
+    },
     isInvalidEmail() {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       return this.email.trim() !== '' && !emailRegex.test(this.email)
@@ -197,7 +201,7 @@ export default {
       const headers = {'Content-Type': 'multipart/form-data'}
 
       try {
-        return await axios.post('https://preview.ummalife.com/api/auth', payload, {headers})
+        return await axios.post('/auth', payload, {headers})
       } catch (error) {
         throw error
       }
@@ -210,6 +214,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.disabled-button {
+  background-color: var(--color-silver-chalice);
+
+  &:hover {
+    background-color: var(--color-silver-chalice);
+    cursor: not-allowed;
+  }
+}
+
 .link-with-phone-number {
   font-size: 16px;
   font-weight: 500;
@@ -261,6 +274,8 @@ export default {
 
 .input-wrapper {
   position: relative;
+  margin: 0;
+  height: 50px;
 
   &.error .phone__field-section {
     border: 1.4px solid red;

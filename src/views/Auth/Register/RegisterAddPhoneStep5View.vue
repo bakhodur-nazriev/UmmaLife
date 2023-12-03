@@ -8,33 +8,37 @@
     <div :class="['input-wrapper', { error: hasError }]">
       <div class="phone-field__section">
         <vue-tel-input
-            ref="vueTelInput"
-            v-model="phoneNumber"
-            v-bind="bindProps"
-            @country-changed="countryChanged"
+          ref="vueTelInput"
+          v-model="phoneNumber"
+          v-bind="bindProps"
+          @country-changed="countryChanged"
         >
         </vue-tel-input>
       </div>
-      <small v-if="hasError" class="error-message">
-        {{ $t('register.validation.incorrect_phone_number') }}
-      </small>
-      <small v-if="errorText" class="error-message">
-        {{ errorText }}
-      </small>
+      <div class="error-message__block">
+        <small v-if="hasError" class="error-message">
+          {{ $t('register.validation.incorrect_phone_number') }}
+        </small>
+        <small v-if="errorText" class="error-message">
+          {{ errorText }}
+        </small>
+      </div>
     </div>
 
     <div class="login-button__section">
       <SampleButton
-          type="submit"
-          class="login-button__section-button"
-          :title="`${ $t('buttons.login') }`"
+        type="submit"
+        class="login-button__section-button"
+        :title="`${ $t('buttons.login') }`"
+        :disabled="isSubmitDisabled"
+        :class="{'disabled-button': isSubmitDisabled}"
       />
     </div>
 
     <div class="skip-section">
       <button
-          class="skip-section__link"
-          @click="skipPhoneStep"
+        class="skip-section__link"
+        @click="skipPhoneStep"
       >
         {{ $t('links.skip') }}
       </button>
@@ -83,6 +87,9 @@ export default {
     }
   },
   computed: {
+    isSubmitDisabled() {
+      return this.phoneNumber.trim() === ''
+    },
     isRTL() {
       return this.$i18n.locale === 'ar'
     }
@@ -124,7 +131,7 @@ export default {
       const params = {access_token: accessToken}
 
       try {
-        return axios.post('https://preview.ummalife.com/api/check-phone', payload, {params, headers})
+        return axios.post('/check-phone', payload, {params, headers})
       } catch (error) {
         throw error
       }
@@ -161,6 +168,13 @@ export default {
       margin-top: 4px;
     }
   }
+}
+
+.error-message__block {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+  gap: 3px;
 }
 
 .error-message {

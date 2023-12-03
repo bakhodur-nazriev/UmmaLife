@@ -1,12 +1,11 @@
 <script setup>
 /* eslint-disable */
 import FormAuth from '@/components/ui/FormAuth.vue'
-import {ref, onMounted} from 'vue'
+import {ref, onMounted, computed} from 'vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import axios from 'axios'
 import {getFormData} from '@/utils'
-import * as events from "events";
-import router from "@/router";
+import router from '@/router'
 
 const categoryItems = ref([])
 const selectedCategories = ref([])
@@ -20,7 +19,7 @@ const fetchCategories = async () => {
   const params = {access_token: accessToken}
 
   try {
-    const response = await axios.post('https://preview.ummalife.com/api/categories', payload, {params})
+    const response = await axios.post('/categories', payload, {params})
     categoryItems.value = response.data.data
   } catch (error) {
     console.error('Error fetching categories:', error)
@@ -38,15 +37,15 @@ const toggleCategory = (category) => {
 const isSelected = (category) => {
   return selectedCategories.value.includes(category)
 }
-const handleSubmit = async () => {
+const handleSubmit = async (event) => {
   event.preventDefault()
 
-  const categoryIds = selectedCategories.value.map(category => category.id);
+  const categoryIds = selectedCategories.value.map(category => category.id)
   const payload = new FormData()
   payload.append('server_key', process.env.VUE_APP_SERVER_KEY)
   categoryIds.forEach(categoryId => {
-    payload.append('category_ids[]', categoryId);
-  });
+    payload.append('category_ids[]', categoryId)
+  })
 
   const headers = {'Content-Type': 'multipart/form-data'}
 
@@ -54,9 +53,12 @@ const handleSubmit = async () => {
   const params = {access_token: accessToken}
 
   try {
-    const response = await axios.post('https://preview.ummalife.com//api/set-user-interests', payload, {headers, params})
+    const response = await axios.post('https://preview.ummalife.com//api/set-user-interests', payload, {
+      headers,
+      params
+    })
     if (response.data.api_status === 200) {
-      await router.push({name: 'LoginByEmailView'})
+      await router.push({name: 'news'})
     } else {
       console.log(response.data)
     }
@@ -68,6 +70,10 @@ const handleSubmit = async () => {
 
 onMounted(() => {
   fetchCategories()
+})
+
+const isSubmitDisabled = computed(() => {
+  return selectedCategories.value.length !== 5
 })
 </script>
 
@@ -96,13 +102,24 @@ onMounted(() => {
           type="submit"
           class="ready-button"
           :title="`${ $t('buttons.ready') }`"
-
-      ></SampleButton>
+          :disabled="isSubmitDisabled"
+          :class="{'disabled-button': isSubmitDisabled}"
+      />
     </div>
   </FormAuth>
 </template>
 
 <style lang="scss" scoped>
+.disabled-button {
+  background-color: var(--color-silver-chalice);
+
+  &:hover {
+    background-color: var(--color-silver-chalice);
+    cursor: not-allowed;
+  }
+}
+
+
 .form-title {
   font-size: 28px;
   margin: 0 0 12px;

@@ -1,20 +1,31 @@
 <template>
   <input
-    type="text"
-    v-model="inputValue"
-    @input="handleInput"
-    @keydown="handleKeyDown"
-    class="base-input"
+      type="text"
+      :value="code[index]"
+      @input="handleInput($event.target.value)"
+      @keydown="handleKeyDown"
+      @paste="handlePaste"
+      class="base-input"
+      maxlength="1"
   />
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   props: {
     error: Boolean,
     errorMessage: String,
     value: {
-      type: Number
+      type: String
+    },
+    code: {
+      type: Array,
+      default: () => []
+    },
+    index: {
+      type: Number,
+      required: true
     }
   },
   data() {
@@ -28,20 +39,34 @@ export default {
     }
   },
   methods: {
-    handleInput() {
-      const value = this.inputValue
-      this.$emit('input', this.inputValue)
-      if (value.length === 1) {
-        this.$emit('next')
-      } else if (value.length > 1) {
-        this.inputValue = value.slice(0, 1)
+    handleInput(value) {
+      if (value.length <= 1) {
+        this.$emit('update:code', { index: this.index, value })
+        if (value && value.length === 1) {
+          this.$emit('next')
+        }
       }
     },
     handleKeyDown(event) {
-      if (event.key === 'Backspace' && this.inputValue.length === 0) {
-        // Если нажата клавиша Backspace и поле ввода пустое
-        // Эмитировать событие 'backspace' для удаления предыдущего поля
+      const key = event.key
+      if (key === 'Backspace' && (!this.inputValue || this.inputValue.length === 0)) {
         this.$emit('backspace')
+      }
+    },
+    handlePaste(event) {
+      const clipboardData = event.clipboardData || window.clipboardData;
+      const pastedText = clipboardData.getData('text').replace(/\s/g, '');
+      let currentIndex = this.code.findIndex(val => val === '');
+
+      if (currentIndex === -1) return;
+
+      for (let i = 0; i < pastedText.length; i++) {
+        if (currentIndex < this.code.length) {
+          this.$emit('update:code', {index: currentIndex, value: pastedText.charAt(i)});
+          currentIndex = this.code.findIndex((val, index) => index > currentIndex && val === '');
+        } else {
+          break;
+        }
       }
     }
   }

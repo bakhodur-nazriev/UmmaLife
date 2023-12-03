@@ -91,7 +91,7 @@ export default {
 
       try {
         return await axios
-            .post('https://preview.ummalife.com/api/reset-password', payload, {headers})
+            .post('/reset-password', payload, {headers})
             .then(this.$router.push({name: 'LoginByEmailView'}))
       } catch (error) {
         throw error
