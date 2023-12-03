@@ -15,11 +15,13 @@
     <div :class="['input-wrapper', { error: hasError }]">
       <div class="verify__number-section">
         <SampleCodeNumberInput
-          v-for="index in 6"
-          :key="index"
-          v-model="code[index - 1]"
-          @next="focusNextInput"
-          @backspace="handleBackspace"
+            v-for="(inputValue, index) in code"
+            :key="index"
+            :code="code"
+            :index="index"
+            @next="focusNextInput"
+            @backspace="handleBackspace"
+            @update:code="updateCode"
         />
       </div>
       <div class="error-message__block">
@@ -34,20 +36,20 @@
 
     <div class="login__button-section">
       <SampleButton
-        type="submit"
-        :title="`${$t('buttons.next')}`"
-        :disabled="isSubmitDisabled"
-        :class="{ 'disabled-submit__button': isSubmitDisabled }"
+          type="submit"
+          :title="`${$t('buttons.next')}`"
+          :disabled="isSubmitDisabled"
+          :class="{ 'disabled-submit__button': isSubmitDisabled }"
       />
     </div>
 
     <div class="resend__code">
       <label>{{ $t('login.messages.didnt_receive_code') }}</label>
       <button
-        type="button"
-        @click="resendRequest"
-        :disabled="isResendDisabled"
-        :class="{ 'disabled-button': isResendDisabled, 'active-button':  !isResendDisabled}"
+          type="button"
+          @click="resendRequest"
+          :disabled="isResendDisabled"
+          :class="{ 'disabled-button': isResendDisabled, 'active-button':  !isResendDisabled}"
       >
         {{ $t('links.resend') }} {{ formatTime(countDown) }}
       </button>
@@ -164,7 +166,7 @@ export default {
       if (Array.isArray(this.code) && this.code.length > 0) {
         if (currentIndex >= 0 && currentIndex < this.code.length) {
           if (this.code[currentIndex] !== '') {
-            this.$set(this.code, currentIndex, '')
+            this.code[currentIndex] = ''
           } else if (currentIndex > 0) {
             inputs[currentIndex - 1].focus()
           }
@@ -194,6 +196,12 @@ export default {
     },
     goBack() {
       return this.$router.push({name: 'RegisterAddEmailStep1View'})
+    },
+    updateCode(payload) {
+      const { index, value } = payload
+      if (index >= 0 && index < this.code.length) {
+        this.code[index] = value
+      }
     }
   },
   created() {
