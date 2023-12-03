@@ -239,6 +239,10 @@ const submitHandler = async () => {
   border-radius: 15px;
   padding: 24px;
   margin: 0 auto;
+  min-height: calc(100dvh - 192px);
+  max-height: calc(100dvh - 192px);
+  display: flex;
+  flex-direction: column;
   &--title {
     font-size: 24px;
     font-style: normal;
@@ -250,8 +254,14 @@ const submitHandler = async () => {
   &--video {
     border: 2px dashed var(--color-silver-chalice);
     border-radius: 15px;
-    padding: 144px 20px 143px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    flex-shrink: 1;
     text-align: center;
+    padding: 20px;
     @media (max-width: 900px) {
       padding: 60px 20px 60px;
     }

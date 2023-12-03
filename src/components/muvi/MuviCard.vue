@@ -67,6 +67,9 @@ const setMuvieViewed = async (video_id) => {
 .muvi__card {
   width: 100%;
   height: 474px;
+  @media (max-width: 1440.999px) {
+    height: 395px;
+  }
   &--top {
     height: 415px;
     width: 100%;
@@ -77,6 +80,9 @@ const setMuvieViewed = async (video_id) => {
     margin-bottom: 12px;
     display: block;
     cursor: pointer;
+    @media (max-width: 1440.999px) {
+      height: 365px;
+    }
     &::before {
       content: '';
       position: absolute;

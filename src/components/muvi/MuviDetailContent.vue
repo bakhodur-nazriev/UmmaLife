@@ -135,8 +135,12 @@
             <textarea
               type="text"
               :placeholder="$t('labels.comments.plural') + '...'"
-              v-model="commentText"
-              rows="1"
+              ref="commentTextareaRef"
+              :value="commentText"
+              @input="inputHandler"
+              @focus="resize"
+              @keydown="resize"
+              :rows="1"
             />
           </div>
           <button class="form__btn" type="submit">
@@ -191,6 +195,8 @@ const passedComment = ref({})
 const isReportModalOpen = ref(false)
 const textareaValue = ref('')
 const isEditOpen = ref(false)
+const commentTextareaRef = ref()
+
 const router = useRouter()
 
 const payload = reactive({
@@ -206,7 +212,6 @@ const scrollToBottom = () => {
     room.value.scrollIntoView({ block: 'end', inline: 'nearest' })
   })
 }
-
 const submitComment = async (video_id) => {
   if (!commentText.value) return
   try {
@@ -229,9 +234,10 @@ const submitComment = async (video_id) => {
     scrollToBottom()
   } catch (err) {
     console.log(err)
+  } finally {
+    clearTextarea()
   }
 }
-
 const getSingleMovi = async (video_id) => {
   try {
     const payload = getFormData({
@@ -315,7 +321,6 @@ const clickReactionHandler = async (reactionPayload) => {
     console.log(err)
   }
 }
-
 const submitUpdateComment = async (video_id) => {
   if (!commentText.value) return
   try {
@@ -339,9 +344,9 @@ const submitUpdateComment = async (video_id) => {
     console.log(err)
   } finally {
     actionType.value = 'create'
+    clearTextarea()
   }
 }
-
 const commentStatus = async ({ isDisabled }) => {
   if (isDisabled) {
     payload.comments_status = '0'
@@ -350,12 +355,10 @@ const commentStatus = async ({ isDisabled }) => {
   }
   await editShortVideo()
 }
-
 const setPrivacyType = async (type) => {
   payload.privacy_type = type
   await editShortVideo()
 }
-
 const editShortVideo = async () => {
   try {
     isLoading.value = true
@@ -400,21 +403,50 @@ const deleteShortVideo = async () => {
     router.go(-1)
   }
 }
-
 const updateComment = (comment) => {
   actionType.value = 'update'
   passedComment.value = comment
   commentText.value = comment.text
 }
-
 watch(
   () => textareaValue.value,
   (val) => {
     payload.description = val
   }
 )
-
 const updateMessages = () => getComments(props.muvi.id)
+
+const resize = (e) => {
+  const textarea = commentTextareaRef.value
+  if (e?.keyCode && e.keyCode === 13 && !e.shiftKey) {
+    submitComment(props.muvi?.id)
+  }
+
+  setTimeout(() => {
+    if (commentText.value.length === 0) {
+      textarea.style.height = 28 + 'px'
+    }
+  }, 1)
+  const taLineHeight = 28
+  const taHeight = textarea.scrollHeight
+  textarea.style.height = taHeight
+  const numberOfLines = Math.floor(taHeight / taLineHeight)
+  if (numberOfLines >= 3) {
+    textarea.style.overflowY = 'scroll'
+  } else {
+    textarea.style.height = textarea.scrollHeight - 2 + 'px'
+    textarea.style.overflowY = 'hidden'
+  }
+}
+const inputHandler = (e) => {
+  commentText.value = e.target.value
+}
+const clearTextarea = () => {
+  const textarea = commentTextareaRef.value
+  textarea.style.height = 28 + 'px'
+  textarea.style.overflowY = 'hidden'
+  commentText.value = ''
+}
 
 Promise.all([getSingleMovi(props.muvi.id), getComments(props.muvi.id)])
 

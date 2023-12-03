@@ -214,6 +214,16 @@ export default {
       .muvi__add--selected {
         padding-left: 0;
       }
+      .muvi__add--dropdown {
+        padding: 2px;
+        gap: 5px;
+        .muvi__add--dropdown-list {
+          background-color: transparent;
+          &:hover {
+            background-color: var(--color-seashell);
+          }
+        }
+      }
     }
   }
 }

@@ -108,3 +108,25 @@ export const copyClipboard = async (link) => {
   }
   return 'link_copy_error'
 }
+
+export function addLinksToTaggedUsers(text, taggedUsers = [], lang = 'ru') {
+  // Create a regular expression to match any tagged username
+  const regex = /@\w+/g
+
+  // Replace each tagged username with an HTML link
+  const newText = text.replace(regex, (match) => {
+    const username = match.substring(1) // Remove "@" symbol
+
+    // Find the user object in the array based on the username
+    const user = taggedUsers.find((user) => user.username === username)
+
+    if (user) {
+      // Replace the username with an HTML link using user properties
+      return `<router-link to="/${lang}/${user?.user_id}">@${user?.username}</router-link>`
+    } else {
+      return match // If the username is not in the array, keep it unchanged
+    }
+  })
+
+  return newText
+}
