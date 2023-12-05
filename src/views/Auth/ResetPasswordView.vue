@@ -74,7 +74,9 @@ export default {
     }
   },
   methods: {
-    async sendRequest() {
+    async sendRequest(event) {
+      event.preventDefault()
+
       const payload = getFormData({
         server_key: process.env.VUE_APP_SERVER_KEY,
         new_password: this.password,
@@ -85,8 +87,12 @@ export default {
       const headers = {'Content-Type': 'multipart/form-data'}
 
       try {
-        await axios.post('/reset-password', payload, {headers})
-        this.$router.push({name: 'LoginByEmailView'})
+        const response = await axios.post('/reset-password', payload, {headers})
+        if (response.data.api_status === 200) {
+          this.$router.push({name: 'LoginByEmailView'})
+        } else {
+          console.log(response.data)
+        }
       } catch (error) {
         throw error
       }
