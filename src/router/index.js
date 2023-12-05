@@ -321,7 +321,11 @@ const routes = [
       title: i18n.global.t('meta_title.reset_password'),
       requiresAuth: false,
       layout: 'auth'
-    }
+    },
+    props: (route) => ({
+      email: route.query.email || '',
+      code: route.query.code || ''
+    })
   },
   {
     path: '/:lang?/terms',
