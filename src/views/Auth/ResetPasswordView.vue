@@ -7,12 +7,12 @@
     <div class="main-input__block">
       <div class="main-input__block-with-eye" :class="['input-wrapper', { error: hasError }]">
         <input
-          name="password"
-          :type="isPasswordVisible ? 'text' : 'password'"
-          v-model="password"
-          class="base-input"
-          :class="{ 'input-field': true, error: passwordError }"
-          :placeholder="$t('reset_password.placeholder')"
+            name="password"
+            :type="isPasswordVisible ? 'text' : 'password'"
+            v-model="password"
+            class="base-input"
+            :class="{ 'input-field': true, error: passwordError }"
+            :placeholder="$t('reset_password.placeholder')"
         />
 
         <button type="button" class="eye-button" @click="togglePasswordVisibility">
@@ -27,9 +27,9 @@
 
     <div class="login-button__section">
       <SampleButton
-        type="submit"
-        class="login-button__section-next"
-        :title="`${$t('buttons.reset')}`"
+          type="submit"
+          class="login-button__section-next"
+          :title="`${$t('buttons.reset')}`"
       />
     </div>
   </FormAuth>
@@ -77,9 +77,12 @@ export default {
     handleSubmit() {
     },
     async sendRequest() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const code = urlParams.get('code')
+      const urlParams = new URLSearchParams(window.location.search)
       const email = urlParams.get('email')
+      const code = urlParams.get('code')
+
+      console.log(email)
+      console.log(code)
 
       const payload = getFormData({
         server_key: process.env.VUE_APP_SERVER_KEY,
