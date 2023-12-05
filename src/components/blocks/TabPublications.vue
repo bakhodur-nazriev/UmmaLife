@@ -20,6 +20,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import MainPublicationsTab from '@/components/ui/Publications/MainPublicationsTab.vue'
 import PublicationTabSide from '@/components/blocks/PublicationTabSide.vue'
 import PublicationForm from '@/components/forms/PublicationForm.vue'
@@ -91,7 +92,6 @@ export default {
     }
   },
   mounted() {
-    /* eslint-disable */
     new StickySidebar('#sidebar', {
       topSpacing: 20,
       bottomSpacing: 20,
@@ -103,7 +103,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .publication-top__layer {
   display: flex;
   justify-content: center;

@@ -1,57 +1,94 @@
 <template>
   <div class="publication-content">
-    <p class="publication-content__paragraph">
-      The 29-year-old took more than a tenth of a second off a record that had stood for 16 years,
-      clocking 52.20 seconds to beat Russian Yuliya<br />
-      Pechonkina's previous mark of 52.34.<br />
-      "I'm just shocked," said Muhammad.<br />
-      "I've been kind of hitting that time in practice and my coach was like 'there's no way you
-      can't do it'."
+    <p
+      class="publication-content__paragraph"
+      :class="{ 'show-all-content': isOpenReadMore }"
+      ref="content"
+    >
+      {{ postContent }}
     </p>
+    <button
+      v-if="isOverflown"
+      class="read-more__button"
+      type="button"
+      @click="toggleReadMore"
+    >
+      {{ isOpenReadMore ? $t('buttons.read_less_post') : $t('buttons.read_more_post') }}
+    </button>
     <div class="publication-content__reactions">
-      <PostReactions />
+      <PostReactions/>
     </div>
   </div>
 </template>
 
 <script>
 import PostReactions from '@/components/ui/Post/PostReactions.vue'
+
 export default {
   components: {
     PostReactions
   },
-  data: () => ({})
+  props: ['postContent'],
+  data: () => ({
+    isOpenReadMore: false,
+    isOverflown: false
+  }),
+  methods: {
+    toggleReadMore() {
+      this.isOpenReadMore = !this.isOpenReadMore
+    },
+    checkOverflow() {
+      const content = this.$refs.content;
+      if (content) {
+        this.isOverflown = content.scrollHeight > content.clientHeight;
+      }
+    }
+  },
+  mounted() {
+    this.checkOverflow();
+    window.addEventListener('resize', this.checkOverflow);
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.checkOverflow);
+  },
 }
 </script>
 
 <style scoped lang="scss">
-.stats__separator {
-  margin: 0 8px;
+.read-more__button {
+  background: none;
+  color: var(--color-hippie-blue);
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 12px 0 0;
 }
 
-.publication-content__reactions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 12px 0 0 0;
-}
+.publication-content {
+  &__reactions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 12px 0 0 0;
+  }
 
-.stats__reposts {
-  color: var(--color-silver-chalice);
-  display: flex;
-  font-size: 14px;
-}
+  &__paragraph {
+    margin: 0;
+    color: var(--color-mine-shaft);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 15;
+  }
 
-.publication-content__paragraph {
-  margin: 0;
-  color: var(--color-mine-shaft);
+  &__paragraph.show-all-content {
+    -webkit-line-clamp: initial;
+    max-height: none;
+  }
 }
 
 @media (max-width: 576px) {
-  .stats__reposts {
-    display: none;
-  }
-
   .publication-content__paragraph {
     font-size: 14px;
   }

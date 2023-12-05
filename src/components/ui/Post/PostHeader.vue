@@ -1,14 +1,26 @@
 <template>
   <header class="post__header">
-    <router-link class="post__author" to="#">
-      <img width="56" height="56" src="@/assets/images/Article_Author.png" alt="" />
+    <router-link
+      v-if="author"
+      class="post__author"
+      to="#"
+    >
+      <img
+        width="56"
+        height="56"
+        :src="author.avatar"
+        :alt="author.name"
+      />
       <div class="author-info">
-        <span class="author-info__name">Абрахам Арахамович</span>
-        <span class="author-info__time">15 минут назад</span>
+        <span class="author-info__name">{{ author.name }}</span>
+        <span class="author-info__time">{{ formattedDate }}</span>
       </div>
     </router-link>
     <div class="menu__button">
-      <SampleMenuDetailsButton :is-menu-open="isMenuOpen" @toggle-menu="$emit('toggle-menu')" />
+      <SampleMenuDetailsButton
+        :is-menu-open="isMenuOpen"
+        @toggle-menu="$emit('toggle-menu')"
+      />
     </div>
   </header>
 </template>
@@ -23,21 +35,79 @@ export default {
     isMenuOpen: {
       type: Boolean,
       required: true
+    },
+    author: {
+      type: Object,
+      required: true
+    },
+    time: {
+      type: String,
+      required: true
+    }
+  },
+  data() {
+    return {
+      timestamp: this.time,
+      formattedDate: '',
+      timeAgo: ''
+    }
+  },
+  mounted() {
+    if (this.time && this.author && this.author.name) {
+      this.convertTimestamp()
+      this.calculateTimeAgo()
+    }
+  },
+  methods: {
+    convertTimestamp() {
+      const date = new Date(this.timestamp * 1000)
+
+      const year = date.getFullYear()
+      const month = String(date.getMonth() + 1).padStart(2, '0')
+      const day = String(date.getDate()).padStart(2, '0')
+
+      this.formattedDate = `${year}-${month}-${day}`
+    },
+    calculateTimeAgo() {
+      const currentTime = Math.floor(Date.now() / 1000);
+      const difference = currentTime - this.timestamp;
+
+      const intervals = {
+        year: 31536000,
+        month: 2592000,
+        week: 604800,
+        day: 86400,
+        hour: 3600,
+        minute: 60
+      };
+
+      let timeAgo = ''
+
+      for (const interval in intervals) {
+        const value = Math.floor(difference / intervals[interval]);
+        if (value > 0) {
+          timeAgo += `${value} ${interval}${value > 1 ? 's' : ''} ago`
+          break
+        }
+      }
+
+      if (timeAgo === '') {
+        timeAgo = 'Just now'
+      }
+
+      this.timeAgo = timeAgo
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-.menu__button svg {
-  color: var(--color-silver-chalice);
-}
-
 .post__author {
   display: flex;
   text-decoration: none;
 
   img {
+    border-radius: 50%;
     margin-right: 8px;
   }
 }
@@ -51,7 +121,13 @@ export default {
 
 .menu__button {
   cursor: pointer;
-  height: 27px;
+  height: 20px;
+  width: 35px;
+  border-radius: 20px;
+
+  svg {
+    color: var(--color-silver-chalice);
+  }
 }
 
 .author-info {
