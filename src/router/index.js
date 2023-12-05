@@ -766,8 +766,11 @@ router.beforeEach((to, from, next) => {
 		const email = to.query.email || ''
 		const code = to.query.code || ''
 
+		// Сохраняем параметры email и code в localStorage
 		localStorage.setItem('resetPasswordEmail', email)
 		localStorage.setItem('resetPasswordCode', code)
+
+    return next({name: 'ResetPasswordView'})
 	}
 
 	if (supportedLanguages.includes(lang)) {
