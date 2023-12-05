@@ -7,12 +7,12 @@
     <div class="main-input__block">
       <div class="main-input__block-with-eye" :class="['input-wrapper', { error: hasError }]">
         <input
-            name="password"
-            :type="isPasswordVisible ? 'text' : 'password'"
-            v-model="password"
-            class="base-input"
-            :class="{ 'input-field': true, error: passwordError }"
-            :placeholder="$t('reset_password.placeholder')"
+          name="password"
+          :type="isPasswordVisible ? 'text' : 'password'"
+          v-model="password"
+          class="base-input"
+          :class="{ 'input-field': true, error: passwordError }"
+          :placeholder="$t('reset_password.placeholder')"
         />
 
         <button type="button" class="eye-button" @click="togglePasswordVisibility">
@@ -27,9 +27,9 @@
 
     <div class="login-button__section">
       <SampleButton
-          type="submit"
-          class="login-button__section-next"
-          :title="`${$t('buttons.reset')}`"
+        type="submit"
+        class="login-button__section-next"
+        :title="`${$t('buttons.reset')}`"
       />
     </div>
   </FormAuth>
@@ -74,7 +74,8 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {},
+    handleSubmit() {
+    },
     async sendRequest() {
       const urlParams = new URLSearchParams(window.location.search);
       const code = urlParams.get('code')
@@ -90,9 +91,10 @@ export default {
       const headers = {'Content-Type': 'multipart/form-data'}
 
       try {
-        return await axios
-            .post('/reset-password', payload, {headers})
-            .then(this.$router.push({name: 'LoginByEmailView'}))
+        const response = await axios.post('/reset-password', payload, {headers})
+        if (response.data.api_status === 200) {
+          this.$router.push({name: 'LoginByEmailView'})
+        }
       } catch (error) {
         throw error
       }

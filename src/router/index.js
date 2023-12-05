@@ -1,7 +1,7 @@
 /* eslint-disable */
-import { createRouter, createWebHistory } from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 import i18n from '@/i18n'
-import { supportedLanguages } from '@/constants'
+import {supportedLanguages} from '@/constants'
 import HomeView from '@/views/HomeView.vue'
 import LoginByEmailView from '@/views/Auth/Login/LoginByEmailView.vue'
 import LoginByPhoneStep1View from '@/views/Auth/Login/LoginByPhoneStep1View.vue'
@@ -151,164 +151,174 @@ const routes = [
           layout: 'auth'
         }
       },
-	    {
-		    path: 'step4',
-		    name: 'RegisterAddInfoStep4View',
-		    component: RegisterAddInfoStep4View,
-		    meta: {
-			    title: i18n.global.t('meta_title.register.add_info_step4'),
-			    requiresAuth: false,
-			    layout: 'auth'
-		    }
-	    },
-	    {
-		    path: 'step5',
-		    name: 'RegisterAddPhoneStep5View',
-		    component: RegisterAddPhoneStep5View,
-		    meta: {
-			    title: i18n.global.t('meta_title.register.add_phone_step5'),
-			    requiresAuth: false,
-			    layout: 'auth'
-		    }
-	    },
-	    {
-		    path: 'step6',
-		    name: 'RegisterCategoryInterestsStep6View',
-		    component: RegisterCategoryInterestsStep6View,
-		    meta: {
-			    title: i18n.global.t('meta_title.register.category_interests_step6'),
-			    requiresAuth: false,
-			    layout: 'auth'
-		    }
-	    }
+      {
+        path: 'step4',
+        name: 'RegisterAddInfoStep4View',
+        component: RegisterAddInfoStep4View,
+        meta: {
+          title: i18n.global.t('meta_title.register.add_info_step4'),
+          requiresAuth: false,
+          layout: 'auth'
+        }
+      },
+      {
+        path: 'step5',
+        name: 'RegisterAddPhoneStep5View',
+        component: RegisterAddPhoneStep5View,
+        meta: {
+          title: i18n.global.t('meta_title.register.add_phone_step5'),
+          requiresAuth: false,
+          layout: 'auth'
+        }
+      },
+      {
+        path: 'step6',
+        name: 'RegisterCategoryInterestsStep6View',
+        component: RegisterCategoryInterestsStep6View,
+        meta: {
+          title: i18n.global.t('meta_title.register.category_interests_step6'),
+          requiresAuth: false,
+          layout: 'auth'
+        }
+      }
     ]
   },
-	{
-		path: '/:lang?/news',
-		name: 'news',
-		component: NewsView,
-		meta: {
-			title: i18n.global.t('meta_title.news'),
-			requiresAuth: true,
-			layout: 'main'
-		}
-	},
-	{
-		path: '/:lang?/saved',
-		name: 'saved',
-		component: SavedView,
-		meta: {
-			title: i18n.global.t('meta_title.saved'),
-			requiresAuth: true,
-			layout: 'main'
-		}
-	},
-	{
-		path: '/:lang?/video',
-		name: 'video',
-		component: VideoView,
-		meta: {
-			title: i18n.global.t('meta_title.video'),
-			requiresAuth: true,
-			layout: 'main'
-		}
-	},
-	{
-		path: '/:lang?/settings',
-		name: 'settings',
-		component: SettingsView,
-		meta: {
-			title: i18n.global.t('meta_title.settings'),
-			requiresAuth: true,
-			layout: 'main'
-		}
-	},
-	{
-		path: '/:lang?/muvi',
-		name: 'muvi',
-		component: MuviView,
-		meta: {
-			title: i18n.global.t('meta_title.muvi'),
-			requiresAuth: true,
-			layout: 'another'
-		}
-	},
-	{
-		path: '/:lang?/muvi/:id',
-		name: 'muvi-detail',
-		component: MuviMobileDetail,
-		meta: {
-			title: i18n.global.t('meta_title.muvi'),
-			requiresAuth: true,
-			layout: 'muvi-mobile'
-		}
-	},
-	{
-		path: '/:lang?/muvi/popular',
-		name: 'muvi-popular',
-		component: PopularMuvi,
-		meta: {
-			title: i18n.global.t('meta_title.muvi'),
-			requiresAuth: true,
-			layout: 'muvi-mobile'
-		}
-	},
-	{
-		path: '/:lang?/muvi/add',
-		name: 'muvi-add',
-		component: AddMuvi,
-		meta: {
-			title: i18n.global.t('meta_title.muvi'),
-			requiresAuth: true,
-			layout: 'muvi-mobile'
-		}
-	},
-	{
-		path: '/:lang?/muvi/activity',
-		name: 'muvi-activity',
-		component: ActivityMuvi,
-		meta: {
-			title: i18n.global.t('meta_title.muvi'),
-			requiresAuth: true,
-			layout: 'muvi-mobile'
-		}
-	},
-	{
-		path: '/:lang?/muvi/profile',
-		name: 'muvi-profile',
-		component: ProfileMuvi,
-		meta: {
-			title: i18n.global.t('meta_title.muvi'),
-			requiresAuth: true,
-			layout: 'muvi-mobile'
-		}
-	},
-	{
-		path: '/:lang?/muvi/audio/:id',
-		name: 'muvi-audio',
-		component: AudioMuvi,
-		meta: {
-			title: i18n.global.t('meta_title.muvi'),
-			requiresAuth: true,
-			layout: 'muvi-mobile'
-		}
-	},
-	{
-		path: '/:lang?/muvi/category/:id',
-		name: 'muvi-category',
-		component: CategoryMuvi,
-		meta: {
-			title: i18n.global.t('meta_title.muvi'),
-			requiresAuth: true,
-			layout: 'muvi-mobile'
-		}
-	},
+  {
+    path: '/:lang?/news',
+    name: 'news',
+    component: NewsView,
+    meta: {
+      title: i18n.global.t('meta_title.news'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/saved',
+    name: 'saved',
+    component: SavedView,
+    meta: {
+      title: i18n.global.t('meta_title.saved'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/video',
+    name: 'video',
+    component: VideoView,
+    meta: {
+      title: i18n.global.t('meta_title.video'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/settings',
+    name: 'settings',
+    component: SettingsView,
+    meta: {
+      title: i18n.global.t('meta_title.settings'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:lang?/muvi',
+    name: 'muvi',
+    component: MuviView,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'another'
+    }
+  },
+  {
+    path: '/:lang?/muvi/:id',
+    name: 'muvi-detail',
+    component: MuviMobileDetail,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'muvi-mobile'
+    }
+  },
+  {
+    path: '/:lang?/muvi/popular',
+    name: 'muvi-popular',
+    component: PopularMuvi,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'muvi-mobile'
+    }
+  },
+  {
+    path: '/:lang?/muvi/add',
+    name: 'muvi-add',
+    component: AddMuvi,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'muvi-mobile'
+    }
+  },
+  {
+    path: '/:lang?/muvi/activity',
+    name: 'muvi-activity',
+    component: ActivityMuvi,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'muvi-mobile'
+    }
+  },
+  {
+    path: '/:lang?/muvi/profile',
+    name: 'muvi-profile',
+    component: ProfileMuvi,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'muvi-mobile'
+    }
+  },
+  {
+    path: '/:lang?/muvi/audio/:id',
+    name: 'muvi-audio',
+    component: AudioMuvi,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'muvi-mobile'
+    }
+  },
+  {
+    path: '/:lang?/muvi/category/:id',
+    name: 'muvi-category',
+    component: CategoryMuvi,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'muvi-mobile'
+    }
+  },
   {
     path: '/:lang?/forgot-password',
     name: 'forgot-password',
     component: ForgotPasswordView,
     meta: {
       title: i18n.global.t('meta_title.forgot_password'),
+      requiresAuth: false,
+      layout: 'auth'
+    }
+  },
+  {
+    path: '/:lang?/reset-password',
+    name: 'ResetPasswordView',
+    component: ResetPasswordView,
+    meta: {
+      title: i18n.global.t('meta_title.reset_password'),
       requiresAuth: false,
       layout: 'auth'
     }
@@ -723,7 +733,24 @@ const routes = [
         }
       }
     }
-  }
+  },
+  {
+    path: '/:lang?',
+    name: 'redirect-reset-password',
+    beforeEnter: (to, from, next) => {
+      const linkParam = to.query.link
+      if (linkParam === 'reset-password') {
+        next({name: 'ResetPasswordView', params: to.params})
+      } else {
+        next({ name: 'forgot-password', params: to.params })
+      }
+    },
+    meta: {
+      title: 'Redirect to Reset Password',
+      requiresAuth: false,
+      layout: 'auth'
+    }
+  },
 ]
 
 if (isProduction) {
@@ -758,7 +785,7 @@ router.beforeEach((to, from, next) => {
     const pathWithoutLang = to.path.replace(`/${to.params.lang}`, `/${lang}`)
     return next({
       path: `/${lang}${pathWithoutLang}`,
-      params: { lang }
+      params: {lang}
     })
   }
 
@@ -769,11 +796,11 @@ router.beforeEach((to, from, next) => {
   const allowedRoutes = ['login-by-email', 'register', 'forgot-password']
 
   if (requiresAuth && !isAuthenticated) {
-    return next({ name: 'LoginByEmailView' })
+    return next({name: 'LoginByEmailView'})
   }
 
   if (isAuthenticated && to.name === 'home') {
-    return next({ name: 'news' })
+    return next({name: 'news'})
   }
 
   if (!isAuthenticated && allowedRoutes.includes(to.name)) {

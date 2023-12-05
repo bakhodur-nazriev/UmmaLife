@@ -6,10 +6,10 @@
 
     <div :class="['input-wrapper', { error: hasError || isInvalidEmail }]">
       <input
-          type="email"
-          v-model="email"
-          class="base-input"
-          :placeholder="$t('login.placeholders.email')"
+        type="email"
+        v-model="email"
+        class="base-input"
+        :placeholder="$t('login.placeholders.email')"
       />
       <small v-if="hasError || isInvalidEmail" class="error-message">
         {{
@@ -27,16 +27,16 @@
 
     <div class="login-button-section">
       <SampleButton
-          type="submit"
-          :title="`${$t('buttons.submit')}`"
+        type="submit"
+        :title="`${$t('buttons.submit')}`"
       />
     </div>
   </FormAuth>
 
   <div class="link-register__block">
     <router-link
-        :to="`/${$i18n.locale}/register`"
-        class="link-register"
+      :to="`/${$i18n.locale}/register`"
+      class="link-register"
     >
       {{ $t('login.create_account') }}
     </router-link>
@@ -83,7 +83,7 @@ export default {
       event.preventDefault()
 
       if (this.email.trim() === '' || this.isInvalidEmail) {
-        this.hasError = true;
+        this.hasError = true
         return
       }
 
@@ -93,7 +93,6 @@ export default {
         if (response.data.api_status === 200) {
           this.succeedText = this.$t('reset_password.succeed_text')
         } else {
-          console.error('Response status is not 200');
           this.errorText = response.data.errors.error_text
         }
       } catch (error) {

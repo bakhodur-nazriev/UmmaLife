@@ -3,8 +3,8 @@
     <PostHeader
       :is-menu-open="isMenuOpen"
       @toggle-menu="toggleMenu"
-      :author="item.blog.author"
-      :time="item.time"
+      :publisher="item.publisher"
+      :time="item.post_time"
     />
 
     <PublicationContent
@@ -53,7 +53,6 @@ export default {
     async getPost() {
       const payload = getFormData({
         server_key: process.env.VUE_APP_SERVER_KEY,
-        post_type: 'text',
         page: 1
       })
 

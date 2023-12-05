@@ -1,19 +1,19 @@
 <template>
   <header class="post__header">
     <router-link
-      v-if="author"
+      v-if="publisher"
       class="post__author"
       to="#"
     >
       <img
         width="56"
         height="56"
-        :src="author.avatar"
-        :alt="author.name"
+        :src="publisher.avatar"
+        :alt="publisher.name"
       />
       <div class="author-info">
-        <span class="author-info__name">{{ author.name }}</span>
-        <span class="author-info__time">{{ formattedDate }}</span>
+        <span class="author-info__name">{{ publisher.name }}</span>
+        <span class="author-info__time">{{ time }}</span>
       </div>
     </router-link>
     <div class="menu__button">
@@ -36,7 +36,7 @@ export default {
       type: Boolean,
       required: true
     },
-    author: {
+    publisher: {
       type: Object,
       required: true
     },
@@ -46,58 +46,10 @@ export default {
     }
   },
   data() {
-    return {
-      timestamp: this.time,
-      formattedDate: '',
-      timeAgo: ''
-    }
+    return {}
   },
-  mounted() {
-    if (this.time && this.author && this.author.name) {
-      this.convertTimestamp()
-      this.calculateTimeAgo()
-    }
-  },
-  methods: {
-    convertTimestamp() {
-      const date = new Date(this.timestamp * 1000)
-
-      const year = date.getFullYear()
-      const month = String(date.getMonth() + 1).padStart(2, '0')
-      const day = String(date.getDate()).padStart(2, '0')
-
-      this.formattedDate = `${year}-${month}-${day}`
-    },
-    calculateTimeAgo() {
-      const currentTime = Math.floor(Date.now() / 1000);
-      const difference = currentTime - this.timestamp;
-
-      const intervals = {
-        year: 31536000,
-        month: 2592000,
-        week: 604800,
-        day: 86400,
-        hour: 3600,
-        minute: 60
-      };
-
-      let timeAgo = ''
-
-      for (const interval in intervals) {
-        const value = Math.floor(difference / intervals[interval]);
-        if (value > 0) {
-          timeAgo += `${value} ${interval}${value > 1 ? 's' : ''} ago`
-          break
-        }
-      }
-
-      if (timeAgo === '') {
-        timeAgo = 'Just now'
-      }
-
-      this.timeAgo = timeAgo
-    }
-  }
+  mounted() {},
+  methods: {}
 }
 </script>
 
