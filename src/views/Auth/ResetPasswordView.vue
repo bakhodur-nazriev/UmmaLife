@@ -74,21 +74,14 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {
-    },
     async sendRequest() {
       const urlParams = new URLSearchParams(window.location.search)
-      const email = urlParams.get('email')
-      const code = urlParams.get('code')
-
-      console.log(email)
-      console.log(code)
 
       const payload = getFormData({
         server_key: process.env.VUE_APP_SERVER_KEY,
         new_password: this.password,
-        email: email,
-        code: code
+        email: localStorage.getItem('resetPasswordEmail'),
+        code: localStorage.getItem('resetPasswordCode')
       })
 
       const headers = {'Content-Type': 'multipart/form-data'}
