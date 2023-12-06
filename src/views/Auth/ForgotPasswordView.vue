@@ -6,10 +6,10 @@
 
     <div :class="['input-wrapper', { error: hasError || isInvalidEmail }]">
       <input
-        type="email"
-        v-model="email"
-        class="base-input"
-        :placeholder="$t('login.placeholders.email')"
+          type="email"
+          v-model="email"
+          class="base-input"
+          :placeholder="$t('login.placeholders.email')"
       />
       <small v-if="hasError || isInvalidEmail" class="error-message">
         {{
@@ -27,16 +27,17 @@
 
     <div class="login-button-section">
       <SampleButton
-        type="submit"
-        :title="`${$t('buttons.submit')}`"
+          type="submit"
+          :title="`${$t('buttons.submit')}`"
+          :class="{'disabled': loading }"
       />
     </div>
   </FormAuth>
 
   <div class="link-register__block">
     <router-link
-      :to="`/${$i18n.locale}/register`"
-      class="link-register"
+        :to="`/${$i18n.locale}/register`"
+        class="link-register"
     >
       {{ $t('login.create_account') }}
     </router-link>
@@ -62,7 +63,8 @@ export default {
       email: '',
       hasError: false,
       errorText: null,
-      succeedText: null
+      succeedText: null,
+      loading: false
     }
   },
   watch: {
@@ -88,6 +90,7 @@ export default {
       }
 
       try {
+        this.loading = true
         const response = await this.sendRequest()
 
         if (response.data.api_status === 200) {
@@ -97,6 +100,8 @@ export default {
         }
       } catch (error) {
         console.error('Error sending request:', error);
+      } finally {
+        this.loading = false
       }
     },
     async sendRequest() {
@@ -118,6 +123,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.disabled {
+  background-color: var(--color-silver-chalice);
+  cursor: not-allowed;
+}
+
 .link-register {
   font-size: 16px;
   font-weight: 500;
