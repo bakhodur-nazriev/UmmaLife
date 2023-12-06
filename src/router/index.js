@@ -60,6 +60,8 @@ import RegisterCreatePasswordStep3View from '@/views/Auth/Register/RegisterCreat
 import RegisterAddInfoStep4View from '@/views/Auth/Register/RegisterAddInfoStep4View.vue'
 import RegisterAddPhoneStep5View from '@/views/Auth/Register/RegisterAddPhoneStep5View.vue'
 import RegisterCategoryInterestsStep6View from '@/views/Auth/Register/RegisterCategoryInterestsStep6View.vue'
+import {getFormData} from "@/utils";
+import axios from "axios";
 
 const isProduction = process.env.NODE_ENV === 'production'
 const baseDomain = isProduction ? 'front1.ummalife.dev' : 'localhost'
@@ -756,8 +758,25 @@ const isUserAuthenticated = () => {
 	const accessToken = localStorage.getItem('access_token')
 	return !!accessToken
 }
+const checkResetPasswordLink = async (email, code) => {
+	const payload = getFormData({
+		server_key: process.env.VUE_APP_SERVER_KEY,
+		email: email,
+		code: code
+	})
 
-router.beforeEach((to, from, next) => {
+	const headers = {'Content-Type': 'multipart/form-data'}
+
+	try {
+		const response = await axios.post('/check-reset-password-link', payload, {headers})
+		console.log(response)
+
+	} catch (error) {
+		console.error(error)
+	}
+}
+
+router.beforeEach(async (to, from, next) => {
 	const lang = to.params.lang || i18n.global.locale.value
 	const requiresAuth = to.matched.some((route) => route.meta.requiresAuth)
 
@@ -766,11 +785,20 @@ router.beforeEach((to, from, next) => {
 		const email = to.query.email || ''
 		const code = to.query.code || ''
 
-		// Сохраняем параметры email и code в localStorage
 		localStorage.setItem('resetPasswordEmail', email)
 		localStorage.setItem('resetPasswordCode', code)
 
-    return next({name: 'ResetPasswordView'})
+		try {
+			const response = await checkResetPasswordLink(email, code)
+
+			if (response.data.api_status === 200) {
+				return next({name: 'ResetPasswordView', query: {email, code}})
+			} else {
+				return next({name: 'LoginByEmailView'})
+			}
+		} catch (error) {
+			console.error(error)
+		}
 	}
 
 	if (supportedLanguages.includes(lang)) {

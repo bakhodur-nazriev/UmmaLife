@@ -6,10 +6,10 @@
 
     <div :class="['input-wrapper', { error: hasError || isInvalidEmail }]">
       <input
-          type="email"
-          v-model="email"
-          class="base-input"
-          :placeholder="$t('login.placeholders.email')"
+        type="email"
+        v-model="email"
+        class="base-input"
+        :placeholder="$t('login.placeholders.email')"
       />
       <small v-if="hasError || isInvalidEmail" class="error-message">
         {{
@@ -27,16 +27,16 @@
 
     <div class="login-button-section">
       <SampleButton
-          type="submit"
-          :title="`${$t('buttons.submit')}`"
+        type="submit"
+        :title="`${$t('buttons.submit')}`"
       />
     </div>
   </FormAuth>
 
   <div class="link-register__block">
     <router-link
-        :to="`/${$i18n.locale}/register`"
-        class="link-register"
+      :to="`/${$i18n.locale}/register`"
+      class="link-register"
     >
       {{ $t('login.create_account') }}
     </router-link>
@@ -99,7 +99,6 @@ export default {
         console.error('Error sending request:', error);
       }
     },
-
     async sendRequest() {
       const payload = getFormData({
         server_key: process.env.VUE_APP_SERVER_KEY,
@@ -118,7 +117,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .link-register {
   font-size: 16px;
   font-weight: 500;
@@ -134,17 +133,24 @@ export default {
 
 .input-wrapper {
   position: relative;
-  margin-bottom: 24px;
+  margin-bottom: 40px;
+  height: 50px;
+
+  &.error {
+    margin: 0 0 40px;
+
+    .base-input {
+      border: 1.4px solid var(--color-valencia);
+    }
+  }
 }
 
-.input-wrapper.error .base-input {
-  border: 1.4px solid var(--color-valencia);
-}
-
-.input-wrapper .error-message {
-  color: var(--color-valencia);
-  font-size: 12px;
-  margin-top: 4px;
+.input-wrapper {
+  .error-message {
+    color: var(--color-valencia);
+    font-size: 12px;
+    margin-top: 4px;
+  }
 }
 
 .succeed-message {
@@ -162,10 +168,10 @@ export default {
   padding: 16px;
   color: var(--color-mine-shaft);
   width: 100%;
-}
 
-.base-input::placeholder {
-  color: var(--color-silver-chalice);
+  &::placeholder {
+    color: var(--color-silver-chalice);
+  }
 }
 
 .reminder-message {
@@ -179,10 +185,10 @@ export default {
 .login-button-section {
   display: flex;
   justify-content: center;
-}
 
-.login-button-section button {
-  width: 100%;
+  button {
+    width: 100%;
+  }
 }
 
 @media (min-width: 768px) {

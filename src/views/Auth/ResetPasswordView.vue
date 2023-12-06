@@ -7,12 +7,12 @@
     <div class="main-input__block">
       <div class="main-input__block-with-eye" :class="['input-wrapper', { error: hasError }]">
         <input
-            name="password"
-            :type="isPasswordVisible ? 'text' : 'password'"
-            v-model="password"
-            class="base-input"
-            :class="{ 'input-field': true, error: passwordError }"
-            :placeholder="$t('reset_password.placeholder')"
+          name="password"
+          :type="isPasswordVisible ? 'text' : 'password'"
+          v-model="password"
+          class="base-input"
+          :class="{ 'input-field': true, error: passwordError }"
+          :placeholder="$t('reset_password.placeholder')"
         />
 
         <button type="button" class="eye-button" @click="togglePasswordVisibility">
@@ -27,9 +27,9 @@
 
     <div class="login-button__section">
       <SampleButton
-          type="submit"
-          class="login-button__section-next"
-          :title="`${$t('buttons.reset')}`"
+        type="submit"
+        class="login-button__section-next"
+        :title="`${$t('buttons.reset')}`"
       />
     </div>
   </FormAuth>
