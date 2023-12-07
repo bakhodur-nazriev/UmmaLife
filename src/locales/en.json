@@ -795,7 +795,10 @@
     "hide_reply": "Hide replys",
     "like": "Like",
     "reply": "Reply",
-    "no_muvi": "Upload a video please"
+    "no_muvi": "Upload a video please",
+    "hide_muvi": "Hide MUVI",
+    "block_user": "Block a user",
+    "comments_disabled": "Comments disabled"
   },
   "time": {
     "day_ago": "day ago",

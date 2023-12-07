@@ -1,18 +1,22 @@
 <template>
   <div class="article-block">
-    <article v-for="i in 5" :key="i" class="article-block__article">
+    <article class="article-block__article" v-for="(item, i) in articles" :key="i">
       <PostHeader
-        :is-menu-open="isMenuOpen"
-        @toggle-menu="toggleMenu"
+          :is-menu-open="isMenuOpen"
+          @toggle-menu="toggleMenu"
+          :publisher="item.publisher"
+          :time="item.post_time"
       />
 
-      <ArticleContent />
+      <ArticleContent
+          :post-content="item.Orginaltext"
+      />
 
       <SampleDivider class="divider"/>
 
       <PostFooter
-        :is-reaction-window-open="isReactionWindowOpen"
-        :is-share-window-open="isShareWindowOpen"
+          :is-reaction-window-open="isReactionWindowOpen"
+          :is-share-window-open="isShareWindowOpen"
       />
     </article>
   </div>
@@ -23,6 +27,8 @@ import SampleDivider from '@/components/ui/SampleDivider.vue'
 import ArticleContent from '@/components/ui/Publications/Article/ArticleContent.vue'
 import PostHeader from '@/components/ui/Post/PostHeader.vue'
 import PostFooter from '@/components/ui/Post/PostFooter.vue'
+import {getFormData} from '@/utils'
+import axios from 'axios'
 
 export default {
   components: {
@@ -35,13 +41,41 @@ export default {
     return {
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
-      isMenuOpen: false
+      isMenuOpen: false,
+      articles: []
     }
   },
   methods: {
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen
+    },
+    async getArticles() {
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        post_type: 'text',
+        page: 1
+      })
+
+      const headers = {'Content-Type': 'multipart/form-data'}
+
+      const accessToken = localStorage.getItem('access_token')
+      const params = {access_token: accessToken}
+
+      try {
+        const response = await axios.post('/posts', payload, {params, headers})
+        if (response.data.api_status === 200) {
+          // console.log(response.data?.data)
+          this.articles = response.data?.data
+        } else {
+          console.log(response.data)
+        }
+      } catch (error) {
+        console.error(error)
+      }
     }
+  },
+  mounted() {
+    this.getArticles()
   }
 }
 </script>

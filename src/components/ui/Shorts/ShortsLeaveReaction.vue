@@ -1,23 +1,27 @@
 <template>
   <div class="reactions__buttons">
-    <div class="reply__reactions" v-if="user?.gender === 'male'">
-      <div
-        class="reply__icon reaction__item"
-        v-for="reaction in maleReactions"
-        :key="reaction.id"
-        @click="$emit('clickReaction', reaction.code)"
-      >
-        <component :is="reaction.icon" />
+    <div class="reaction__window">
+      <div class="reaction__menu" v-if="user?.gender === 'male'">
+        <div
+          class="reaction__item"
+          v-for="reaction in maleReactions"
+          :key="reaction.id"
+          @click="$emit('clickReaction', reaction.code)"
+        >
+          <span class="reaction__item--tooltip">{{ reaction.tooltip }}</span>
+          <component :is="reaction.icon" />
+        </div>
       </div>
-    </div>
-    <div class="reply__reactions" v-else-if="user?.gender === 'female'">
-      <div
-        class="reply__icon reaction__item"
-        v-for="reaction in femaleReactions"
-        :key="reaction.id"
-        @click="$emit('clickReaction', reaction.code)"
-      >
-        <component :is="reaction.icon" />
+      <div class="reaction__menu" v-else-if="user?.gender === 'female'">
+        <div
+          class="reaction__item"
+          v-for="reaction in femaleReactions"
+          :key="reaction.id"
+          @click="$emit('clickReaction', reaction.code)"
+        >
+          <span class="reaction__item--tooltip">{{ reaction.tooltip }}</span>
+          <component :is="reaction.icon" />
+        </div>
       </div>
     </div>
   </div>
@@ -36,6 +40,16 @@ import ScaredIcon from '@/components/icons/reactions/men/reply-reactions/ScaredI
 import FemaleLikeIcon from '@/components/icons/reactions/women/small/LikeIcon.vue'
 import FemaleDislikeIcon from '@/components/icons/reactions/women/small/DislikeIcon.vue'
 
+// { id: 1, icon: BigLikeIcon, tooltip: this.$t('reaction_tooltip.like') },
+// { id: 2, icon: BigDislikeIcon, tooltip: this.$t('reaction_tooltip.dislike') },
+// { id: 3, icon: BigLoveIcon, tooltip: this.$t('reaction_tooltip.love') },
+// { id: 4, icon: BigFireIcon, tooltip: this.$t('reaction_tooltip.fire') },
+// { id: 5, icon: BigAngryIcon, tooltip: this.$t('reaction_tooltip.angry') },
+// { id: 6, icon: BigScaredIcon, tooltip: this.$t('reaction_tooltip.scared') },
+// { id: 7, icon: BigLaughIcon, tooltip: this.$t('reaction_tooltip.laugh') },
+// { id: 8, icon: BigThinkIcon, tooltip: this.$t('reaction_tooltip.think') },
+// { id: 9, icon: BigSadIcon, tooltip: this.$t('reaction_tooltip.sad') }
+
 export default {
   props: {
     user: Object
@@ -44,26 +58,31 @@ export default {
   data() {
     return {
       maleReactions: [
-        { id: 1, icon: 'LikeIcon', code: 1 },
-        { id: 2, icon: 'DislikeIcon', code: 13 },
-        { id: 3, icon: 'LoveIcon', code: 2 },
-        { id: 4, icon: 'FireIcon', code: 14 },
-        { id: 5, icon: 'AngryIcon', code: 6 },
-        { id: 6, icon: 'ScaredIcon', code: 12 },
-        { id: 7, icon: 'LaughIcon', code: 3 },
-        { id: 8, icon: 'ThinkIcon', code: 4 },
-        { id: 8, icon: 'SadIcon', code: 5 }
+        { id: 1, icon: 'LikeIcon', code: 1, tooltip: this.$t('reaction_tooltip.like') },
+        { id: 2, icon: 'DislikeIcon', code: 13, tooltip: this.$t('reaction_tooltip.dislike') },
+        { id: 3, icon: 'LoveIcon', code: 2, tooltip: this.$t('reaction_tooltip.love') },
+        { id: 4, icon: 'FireIcon', code: 14, tooltip: this.$t('reaction_tooltip.fire') },
+        { id: 5, icon: 'AngryIcon', code: 6, tooltip: this.$t('reaction_tooltip.angry') },
+        { id: 6, icon: 'ScaredIcon', code: 12, tooltip: this.$t('reaction_tooltip.scared') },
+        { id: 7, icon: 'LaughIcon', code: 3, tooltip: this.$t('reaction_tooltip.laugh') },
+        { id: 8, icon: 'ThinkIcon', code: 4, tooltip: this.$t('reaction_tooltip.think') },
+        { id: 8, icon: 'SadIcon', code: 5, tooltip: this.$t('reaction_tooltip.sad') }
       ],
       femaleReactions: [
-        { id: 1, icon: 'FemaleLikeIcon', code: 7 },
-        { id: 2, icon: 'FemaleDislikeIcon', code: 17 },
-        { id: 3, icon: 'LoveIcon', code: 8 },
-        { id: 4, icon: 'FireIcon', code: 18 },
-        { id: 5, icon: 'AngryIcon', code: 11 },
-        { id: 6, icon: 'ScaredIcon', code: 16 },
-        { id: 7, icon: 'LaughIcon', code: 9 },
-        { id: 8, icon: 'ThinkIcon', code: 10 },
-        { id: 8, icon: 'SadIcon', code: 19 }
+        { id: 1, icon: 'FemaleLikeIcon', code: 7, tooltip: this.$t('reaction_tooltip.like') },
+        {
+          id: 2,
+          icon: 'FemaleDislikeIcon',
+          code: 17,
+          tooltip: this.$t('reaction_tooltip.dislike')
+        },
+        { id: 3, icon: 'LoveIcon', code: 8, tooltip: this.$t('reaction_tooltip.love') },
+        { id: 4, icon: 'FireIcon', code: 18, tooltip: this.$t('reaction_tooltip.fire') },
+        { id: 5, icon: 'AngryIcon', code: 11, tooltip: this.$t('reaction_tooltip.angry') },
+        { id: 6, icon: 'ScaredIcon', code: 16, tooltip: this.$t('reaction_tooltip.scared') },
+        { id: 7, icon: 'LaughIcon', code: 9, tooltip: this.$t('reaction_tooltip.laugh') },
+        { id: 8, icon: 'ThinkIcon', code: 10, tooltip: this.$t('reaction_tooltip.think') },
+        { id: 8, icon: 'SadIcon', code: 19, tooltip: this.$t('reaction_tooltip.sad') }
       ]
     }
   },
@@ -83,24 +102,23 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.reply__icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  &:hover {
-    scale: 1.3;
-    svg {
-      transform: unset !important;
-    }
-    .reaction__item--tooltip {
-      scale: 0.8;
-      bottom: 25px;
-    }
+<style lang="scss" scoped>
+.reaction__item {
+  svg {
+    scale: 1.5;
   }
+}
+.reaction__window {
+  padding: 12px 17px;
+}
+.reaction__menu {
+  gap: 20px;
 }
 .reactions__buttons {
   bottom: 25px;
-  left: 5px;
+  left: 28px;
+  @media (max-width: 767px) {
+    left: 5px;
+  }
 }
 </style>

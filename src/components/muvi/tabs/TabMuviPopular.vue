@@ -23,12 +23,6 @@
       </template>
     </div>
   </div>
-  <MuviDetailSlider
-    v-if="isDetailOpen"
-    @handleClickOutside="isDetailOpen = false"
-    :muvies="muvies"
-    :initialSlideIndex="initialSlideIndex"
-  />
 </template>
 <script setup>
 /* eslint-disable */
@@ -37,12 +31,13 @@ import { ref } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import MuviCard from '@/components/muvi/MuviCard.vue'
 import GroupsSearch from '@/components/groups/ui/GroupsSearch.vue'
-import MuviDetailSlider from '@/components/muvi/MuviDetailSlider.vue'
 import { getFormData } from '@/utils'
+import { useStore } from 'vuex'
 
 const muvies = ref([])
 const activeIndex = ref(0)
-const isDetailOpen = ref(false)
+
+const store = useStore()
 
 const categories = ref([
   {
@@ -59,11 +54,9 @@ const categories = ref([
   }
 ])
 
-const initialSlideIndex = ref(0)
-
 const cardClickHandler = (index) => {
-  isDetailOpen.value = true
-  initialSlideIndex.value = index
+  store.commit('muvi/setInitialIndex', index)
+  store.commit('muvi/setFrom', 'popular')
 }
 
 const handleSelect = async (index, category) => {
@@ -91,6 +84,7 @@ const fetchRecommendations = async (category_code) => {
       }
     })
     muvies.value = data.data
+    store.commit('muvi/setMuvies', muvies.value)
   } catch (err) {
     console.log(err)
   }
@@ -131,6 +125,7 @@ const fetchCategorieVideos = async (category_id) => {
       }
     })
     muvies.value = data.data
+    store.commit('muvi/setMuvies', muvies.value)
   } catch (err) {
     console.log(err)
   }

@@ -19,13 +19,6 @@
       v-if="!isLoading && countElements >= 18"
       class="observer"
     ></div>
-
-    <MuviDetailSlider
-      v-if="isDetailOpen"
-      @handleClickOutside="isDetailOpen = false"
-      :muvies="muvies"
-      :initialSlideIndex="initialSlideIndex"
-    />
   </div>
 </template>
 
@@ -35,8 +28,14 @@ import { ref } from 'vue'
 import axios from 'axios'
 import { vIntersectionObserver } from '@vueuse/components'
 import MuviCard from '@/components/muvi/MuviCard.vue'
-import MuviDetailSlider from '@/components/muvi/MuviDetailSlider.vue'
 import { getFormData } from '@/utils'
+
+const props = defineProps({
+  filter: {
+    type: String,
+    default: 'recomendation'
+  }
+})
 
 const muvies = ref([])
 const isDetailOpen = ref(false)
@@ -58,7 +57,7 @@ const fetchFeeds = async (page, action = 'down') => {
     const payload = getFormData({
       server_key: process.env.VUE_APP_SERVER_KEY,
       page,
-      filter: 'recomendation'
+      filter: props.filter
     })
     const { data } = await axios.post('/get-short-videos', payload, {
       headers: {

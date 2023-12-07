@@ -10,12 +10,14 @@
         />
       </div>
       <div class="user__info--info" v-if="!noName">
-        <div class="user__info--name">{{ username }}</div>
+        <div class="user__info--name">
+          <span>{{ username }}</span>
+          <div class="user__info--bage" v-if="status.verified === '1' && !noName">
+            <BageIcon />
+          </div>
+        </div>
         <slot name="time" />
       </div>
-    </div>
-    <div class="user__info--bage" v-if="status.verified === '1' && !noName">
-      <BageIcon />
     </div>
   </router-link>
 </template>
@@ -134,6 +136,9 @@ const props = defineProps({
       line-height: normal;
       color: var(--color-mine-shaft);
       margin-right: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
     &--bage {
       margin-top: 1px;

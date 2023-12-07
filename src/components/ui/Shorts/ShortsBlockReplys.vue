@@ -2,8 +2,8 @@
   <div class="comments reply__comments" v-on-click-outside="() => (isReplyMenuOpen = false)">
     <div class="comments__top">
       <UserInfo
-        :username="comment.publisher.username"
-        :avatar="comment.publisher.avatar"
+        :username="`${comment?.publisher?.first_name} ${comment?.publisher?.last_name}`"
+        :avatar="comment?.publisher?.avatar"
         :status="{
           is_investor: comment?.publisher?.isInvestor || false,
           verified: comment?.publisher?.verified || '0',
@@ -28,7 +28,9 @@
         />
       </div>
     </div>
-    <div class="comments__text">{{ comment.text }}</div>
+    <div class="comments__text">
+      <TaggedUserLinks :text="comment?.text" :taggedUsers="comment?.mentionUsers" />
+    </div>
     <ShortsCommentReactions :comment="comment" @unlikeHandler="unlikeHandler" />
     <div class="comments__bottom">
       <div class="comments__bottom--wrapper">
@@ -63,6 +65,7 @@ import UserInfo from '@/components/ui/UserInfo.vue'
 import MuviReplyMenuDetails from '@/components/ui/MenuDetails/MuviReplyMenuDetails.vue'
 import ShortsLeaveReaction from '@/components/ui/Shorts/ShortsLeaveReaction.vue'
 import ShortsCommentReactions from '@/components/ui/Shorts/ShortsCommentReactions.vue'
+import TaggedUserLinks from '@/components/ui/TaggedUserLinks.vue'
 
 const props = defineProps({
   comment: Object,

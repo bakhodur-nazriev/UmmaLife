@@ -1,28 +1,23 @@
 <template>
-  <section class="photo-block__article" v-for="photo in items" :key="photo.id">
-    <a :href="photo.image" data-fancybox class="image__item">
-      <img :src="photo.image" :alt="photo.desc" />
+  <section class="photo-block__article">
+    <a :href="photoContent.postFile_full" data-fancybox class="image__item">
+      <img :src="photoContent.postFile_full" alt="image"/>
     </a>
   </section>
   <section class="article-content__reactions">
-    <PostReactions />
+    <PostReactions/>
   </section>
 </template>
 
 <script>
 import PostReactions from '@/components/ui/Post/PostReactions.vue'
-import { Fancybox } from '@fancyapps/ui'
+import {Fancybox} from '@fancyapps/ui'
 
 export default {
   components: {
     PostReactions
   },
-  props: {
-    items: {
-      type: Array,
-      required: true
-    }
-  },
+  props: ['photoContent'],
   mounted() {
     Fancybox.bind('[data-fancybox]', {
       wheel: 'zoom'

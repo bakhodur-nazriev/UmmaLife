@@ -1,27 +1,20 @@
 <template>
   <div ref="shortsCard" class="shorts__card" :style="{ '--shorts-offset': `${offset}px` }">
     <div class="shorts__card--inner">
-      <video-player :src="muvi.src" controls :volume="1" autoplay="play" :poster="muvi.preview">
+      <video-player
+        :src="muvi?.src"
+        controls
+        :volume="1"
+        autoplay="play"
+        :poster="muvi?.preview ? muvi?.preview : null"
+        :playbackRate="store.getters['muvi/getPlaybackSpeed'] || 1"
+      >
         <template v-slot="{ player, state }">
           <div class="custom-player-controls">
             <button class="mute" @click="player.muted(!state.muted)">
               <UnmuteIcon v-if="!state.muted" />
               <MuteIcon v-else />
             </button>
-            <!-- <div class="info">
-              <div class="info__user">
-                <div class="info__user--info">
-                  <img src="/images/users/jeff.png" alt="user" class="info__user--img" />
-                  <p>arabman</p>
-                </div>
-
-                <button class="info__user--btn">Подписаться</button>
-              </div>
-              <div class="info__text">
-                Небольшой влог о самом высокоразвитом городе мира - Дубае. Почему мы выбрали этот
-                город для...
-              </div>
-            </div> -->
           </div>
         </template>
       </video-player>
@@ -39,6 +32,7 @@ import { VideoPlayer } from '@videojs-player/vue'
 import UnmuteIcon from '@/components/icons/shorts/UnmuteIcon.vue'
 import MuteIcon from '@/components/icons/shorts/MuteIcon.vue'
 import ShortsReactions from '@/components/ui/Shorts/ShortsReactions.vue'
+import { useStore } from 'vuex'
 
 const emit = defineEmits(['openModal', 'eleHeight'])
 const props = defineProps({
@@ -57,6 +51,7 @@ const props = defineProps({
     })
   }
 })
+const store = useStore()
 
 const shortsCard = ref(null)
 const { height: eleHeight } = useElementSize(shortsCard)

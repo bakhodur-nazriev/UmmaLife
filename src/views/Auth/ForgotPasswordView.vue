@@ -29,6 +29,7 @@
       <SampleButton
           type="submit"
           :title="`${$t('buttons.submit')}`"
+          :class="{'disabled': loading }"
       />
     </div>
   </FormAuth>
@@ -44,7 +45,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
@@ -62,7 +62,8 @@ export default {
       email: '',
       hasError: false,
       errorText: null,
-      succeedText: null
+      succeedText: null,
+      loading: false
     }
   },
   watch: {
@@ -83,24 +84,25 @@ export default {
       event.preventDefault()
 
       if (this.email.trim() === '' || this.isInvalidEmail) {
-        this.hasError = true;
+        this.hasError = true
         return
       }
 
       try {
+        this.loading = true
         const response = await this.sendRequest()
 
         if (response.data.api_status === 200) {
           this.succeedText = this.$t('reset_password.succeed_text')
         } else {
-          console.error('Response status is not 200');
           this.errorText = response.data.errors.error_text
         }
       } catch (error) {
         console.error('Error sending request:', error);
+      } finally {
+        this.loading = false
       }
     },
-
     async sendRequest() {
       const payload = getFormData({
         server_key: process.env.VUE_APP_SERVER_KEY,
@@ -116,19 +118,31 @@ export default {
       }
     }
   },
-  mounted() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const link1Param = urlParams.get('link1');
-    console.log('Значение параметра link1:', link1Param);
+  async mounted() {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      email: 'bakhodur.naziev@yandex.ru',
+      code: '41530_%242y%2410%24udpCF7AuTQN7QBMPQn65i.MJytKPBZepJJv8rELTqUHG9DT8Vxvaa'
+    });
 
-    if (link1Param === 'reset-password') {
-      this.$router.push({name: 'ResetPasswordView'});
+    const headers = {'Content-Type': 'multipart/form-data'};
+
+    try {
+      const res = await axios.post('/check-reset-password-link', payload, {headers});
+      console.log(res.data);
+    } catch (error) {
+      console.error('Error checking reset password link:', error);
     }
-  },
+  }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.disabled {
+  background-color: var(--color-silver-chalice);
+  cursor: not-allowed;
+}
+
 .link-register {
   font-size: 16px;
   font-weight: 500;
@@ -144,17 +158,24 @@ export default {
 
 .input-wrapper {
   position: relative;
-  margin-bottom: 24px;
+  margin-bottom: 40px;
+  height: 50px;
+
+  &.error {
+    margin: 0 0 40px;
+
+    .base-input {
+      border: 1.4px solid var(--color-valencia);
+    }
+  }
 }
 
-.input-wrapper.error .base-input {
-  border: 1.4px solid var(--color-valencia);
-}
-
-.input-wrapper .error-message {
-  color: var(--color-valencia);
-  font-size: 12px;
-  margin-top: 4px;
+.input-wrapper {
+  .error-message {
+    color: var(--color-valencia);
+    font-size: 12px;
+    margin-top: 4px;
+  }
 }
 
 .succeed-message {
@@ -172,10 +193,10 @@ export default {
   padding: 16px;
   color: var(--color-mine-shaft);
   width: 100%;
-}
 
-.base-input::placeholder {
-  color: var(--color-silver-chalice);
+  &::placeholder {
+    color: var(--color-silver-chalice);
+  }
 }
 
 .reminder-message {
@@ -189,10 +210,10 @@ export default {
 .login-button-section {
   display: flex;
   justify-content: center;
-}
 
-.login-button-section button {
-  width: 100%;
+  button {
+    width: 100%;
+  }
 }
 
 @media (min-width: 768px) {

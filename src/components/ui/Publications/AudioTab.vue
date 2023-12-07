@@ -1,18 +1,24 @@
 <template>
   <div class="audio-block">
-    <article class="audio-block__article" v-for="i in 5" :key="i">
+    <article
+        class="audio-block__article"
+        v-for="(item, i) in audio"
+        :key="i"
+    >
       <PostHeader
-        :is-menu-open="isMenuOpen"
-        @toggle-menu="toggleMenu"
+          :is-menu-open="isMenuOpen"
+          @toggle-menu="toggleMenu"
+          :publisher="item.publisher"
+          :time="item.post_time"
       />
 
-      <AudioContent />
+      <AudioContent/>
 
-      <SampleDivider class="divider" />
+      <SampleDivider class="divider"/>
 
       <PostFooter
-        :is-reaction-window-open="isReactionWindowOpen"
-        :is-share-window-open="isShareWindowOpen"
+          :is-reaction-window-open="isReactionWindowOpen"
+          :is-share-window-open="isShareWindowOpen"
       />
     </article>
   </div>
@@ -23,6 +29,8 @@ import AudioContent from '@/components/ui/Publications/Audio/AudioContent.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
 import PostHeader from '@/components/ui/Post/PostHeader.vue'
 import PostFooter from '@/components/ui/Post/PostFooter.vue'
+import {getFormData} from '@/utils'
+import axios from 'axios'
 
 export default {
   components: {
@@ -31,17 +39,44 @@ export default {
     SampleDivider,
     AudioContent
   },
-  data () {
+  data() {
     return {
       isMenuOpen: false,
       isReactionWindowOpen: false,
-      isShareWindowOpen: false
+      isShareWindowOpen: false,
+      audio: []
     }
   },
   methods: {
-    toggleMenu () {
+    toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen
+    },
+    async getAudio() {
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        post_type: 'music',
+        page: 1
+      })
+
+      const headers = {'Content-Type': 'multipart/form-data'}
+
+      const accessToken = localStorage.getItem('access_token')
+      const params = {access_token: accessToken}
+
+      try {
+        const response = await axios.post('/posts', payload, {params, headers})
+        if (response.data.api_status === 200) {
+          this.audio = response.data?.data
+        } else {
+          console.log(response.data)
+        }
+      } catch (error) {
+        console.error(error)
+      }
     }
+  },
+  mounted() {
+    this.getAudio()
   }
 }
 </script>

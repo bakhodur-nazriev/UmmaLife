@@ -13,18 +13,17 @@
       </div>
     </div>
 
-    <div class="tabs-content">
-      <div
-        v-for="(tab, index) in tabs"
-        :key="index"
-        v-show="activeTab === index"
-      >
-        <PublicationTab v-if="index === 0"/>
-        <ArticleTab v-if="index === 1"/>
-        <PhotoTab v-if="index === 2"/>
-        <VideoTab v-if="index === 3"/>
-        <AudioTab v-if="index === 4"/>
-      </div>
+    <div
+      class="tabs-content"
+      v-for="(tab, i) in tabs"
+      :key="i"
+      v-show="activeTab === i"
+    >
+      <PublicationTab v-if="i === 0"/>
+      <ArticleTab v-if="i === 1"/>
+      <PhotoTab v-if="i === 2"/>
+      <VideoTab v-if="i === 3"/>
+      <AudioTab v-if="i === 4"/>
     </div>
   </div>
 </template>
@@ -113,6 +112,7 @@ export default {
     border-radius: 15px;
     overflow: hidden;
     padding: 0 32px;
+
     &__title {
       &:hover {
         color: var(--color-mine-shaft);
@@ -157,6 +157,12 @@ export default {
       color: var(--color-silver-chalice);
       font-weight: 500;
     }
+  }
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 }
 
@@ -221,7 +227,9 @@ export default {
   }
 }
 
-@media (min-width: 768px) {}
+@media (min-width: 768px) {
+}
 
-@media (min-width: 1280px) {}
+@media (min-width: 1280px) {
+}
 </style>

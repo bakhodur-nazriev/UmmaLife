@@ -5,21 +5,25 @@
         <div class="reactions__buttons" v-if="isReactionWindowOpen">
           <div class="reaction__window">
             <ul class="reaction__menu">
-              <li v-for="(reaction, index) in reactionsIcon" :key="index" class="reaction__item">
+              <li
+                v-for="(reaction, index) in reactionsIcon"
+                :key="index"
+                class="reaction__item"
+              >
                 <span class="reaction__item--tooltip">{{ reaction.tooltip }}</span>
-                <component :is="reaction.icon" />
+                <component :is="reaction.icon"/>
               </li>
             </ul>
           </div>
         </div>
         <div class="like__button open-reaction-button" @click="openReactionWindow">
-          <HeartIcon />
+          <HeartIcon/>
           <span>{{ $t('buttons.like') }}</span>
         </div>
       </div>
 
       <div class="comment__button" @click="toggleForm">
-        <CommentIcon />
+        <CommentIcon/>
         <span>{{ $t('buttons.comment') }}</span>
       </div>
 
@@ -28,44 +32,44 @@
           <div class="share__window">
             <ul class="share__menu">
               <li class="share__item">
-                <SendMenuIcon />
+                <SendMenuIcon/>
                 <span>{{ $t('buttons.open_like_message') }}</span>
               </li>
 
-              <SampleDivider class="share__item--divider" />
+              <SampleDivider class="share__item--divider"/>
 
               <li class="share__item">
-                <ShareMenuIcon />
+                <ShareMenuIcon/>
                 <span>{{ $t('buttons.share_on_my_page') }}</span>
               </li>
 
-              <SampleDivider class="share__item--divider" />
+              <SampleDivider class="share__item--divider"/>
 
               <li class="share__item">
-                <MyGroupIcon />
+                <MyGroupIcon/>
                 <span>{{ $t('buttons.share_in_group') }}</span>
               </li>
             </ul>
           </div>
         </div>
         <div class="share__button open-share-button" @click="openShareWindow">
-          <ShareIcon />
+          <ShareIcon/>
           <span>{{ $t('buttons.share') }}</span>
         </div>
       </div>
     </div>
 
-    <SampleDivider v-if="isFormOpen" />
+    <SampleDivider v-if="isFormOpen"/>
 
     <div
       ref="commentForm"
       v-if="isFormOpen"
       :class="['main__comment--form', isFormOpen ? 'main__comment--form--shown' : '']"
     >
-      <ReplyCommentForm @close-comment-window="toggleForm" />
+      <ReplyCommentForm @close-comment-window="toggleForm"/>
 
       <div class="enter-comment__form">
-        <CommentForm />
+        <CommentForm/>
       </div>
     </div>
   </footer>
@@ -102,18 +106,23 @@ export default {
     CommentForm,
     ShareMenuIcon
   },
+  props: {
+    reactions: {
+      type: Object
+    }
+  },
   data() {
     return {
       reactionsIcon: [
-        { id: 1, icon: BigLikeIcon, tooltip: this.$t('reaction_tooltip.like') },
-        { id: 2, icon: BigDislikeIcon, tooltip: this.$t('reaction_tooltip.dislike') },
-        { id: 3, icon: BigLoveIcon, tooltip: this.$t('reaction_tooltip.love') },
-        { id: 4, icon: BigFireIcon, tooltip: this.$t('reaction_tooltip.fire') },
-        { id: 5, icon: BigAngryIcon, tooltip: this.$t('reaction_tooltip.angry') },
-        { id: 6, icon: BigScaredIcon, tooltip: this.$t('reaction_tooltip.scared') },
-        { id: 7, icon: BigLaughIcon, tooltip: this.$t('reaction_tooltip.laugh') },
-        { id: 8, icon: BigThinkIcon, tooltip: this.$t('reaction_tooltip.think') },
-        { id: 9, icon: BigSadIcon, tooltip: this.$t('reaction_tooltip.sad') }
+        {id: 1, icon: BigLikeIcon, tooltip: this.$t('reaction_tooltip.like')},
+        {id: 2, icon: BigDislikeIcon, tooltip: this.$t('reaction_tooltip.dislike')},
+        {id: 3, icon: BigLoveIcon, tooltip: this.$t('reaction_tooltip.love')},
+        {id: 4, icon: BigFireIcon, tooltip: this.$t('reaction_tooltip.fire')},
+        {id: 5, icon: BigAngryIcon, tooltip: this.$t('reaction_tooltip.angry')},
+        {id: 6, icon: BigScaredIcon, tooltip: this.$t('reaction_tooltip.scared')},
+        {id: 7, icon: BigLaughIcon, tooltip: this.$t('reaction_tooltip.laugh')},
+        {id: 8, icon: BigThinkIcon, tooltip: this.$t('reaction_tooltip.think')},
+        {id: 9, icon: BigSadIcon, tooltip: this.$t('reaction_tooltip.sad')}
       ],
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
@@ -153,6 +162,7 @@ export default {
     }
   },
   mounted() {
+    // console.log(this.reactions)
     document.addEventListener('click', this.closeReactionWindow)
     document.addEventListener('click', this.closeShareWindow)
   },
@@ -439,6 +449,7 @@ export default {
     bottom: 45px;
   }
 }
+
 .comment__button,
 .share__button,
 .like__button {

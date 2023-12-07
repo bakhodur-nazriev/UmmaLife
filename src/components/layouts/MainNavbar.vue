@@ -10,8 +10,8 @@
       <div class="main__nav--side">
         <SampleButton class="create__button" :title="`${$t('buttons.create')}`"/>
         <SearchInput
-            @open-search-input="isSearchInputOpen = true"
-            :placeholder="$t('placeholders.search_input')"
+          @open-search-input="isSearchInputOpen = true"
+          :placeholder="$t('placeholders.search_input')"
         />
       </div>
       <div class="left__nav--side">
@@ -23,9 +23,9 @@
             <EmailIcon/>
           </li>
           <li
-              class="notification__button"
-              @click="isNotificationOpen = !isNotificationOpen"
-              :class="{ active: isNotificationOpen }"
+            class="notification__button"
+            @click="isNotificationOpen = !isNotificationOpen"
+            :class="{ active: isNotificationOpen }"
           >
             <NotificationIcon/>
           </li>
@@ -36,40 +36,59 @@
           </router-link>
         </ul>
         <div class="user__menu--block">
-          <div class="profile__image">
+          <div class="profile__image" @click="toggleProfile">
             <img src="@/assets/images/Article_Author.png" alt="avatar-logo"/>
           </div>
           <ArrowIcon class="dropdown__icon"/>
         </div>
       </div>
-      <div class="modal-profile scale-up-top-right">
-        <ul class="menu-list">
-          <li class="menu-list__item">
-            <a href="#">
-              <span class="user-name">{{ user && user.name }}</span>
-              <img class="user-avatar" :src="user && user.avatar" :alt="user && user.name" />
-            </a>
-          </li>
-          <li class="menu-list__item">
-            <a href="/profile">{{ $t('links.requests') }}</a>
-          </li>
-          <li class="menu-list__item">
-            <a href="/settings">{{ $t('links.settings') }}</a>
-          </li>
-          <li class="menu-list__item">
-            <button
+
+      <Transition name="bounce">
+        <div class="modal-profile" v-if="isProfileOpen">
+          <ul class="menu-list">
+            <li class="menu-list__item">
+              <a href="#" class="user-item">
+                <span class="user-name">Bakhodur Nazriev</span>
+                <img src="@/assets/images/Article_Author.png" alt="">
+              </a>
+            </li>
+            <li class="menu-list__item">
+              <a href="/profile">{{ $t('links.requests') }}</a>
+            </li>
+            <li class="menu-list__item">
+              <a href="/settings">{{ $t('links.settings') }}</a>
+            </li>
+            <li class="menu-list__item">
+              <button
                 type="submit"
                 class="logout-button"
                 @click="logout"
-            >
-              {{ $t('links.logout') }}
-            </button>
-          </li>
-          <li class="menu-list__item profile-wallet">
-            <span>{{ $t('profile.wallet.title') }}</span>
-          </li>
-        </ul>
-      </div>
+              >
+                {{ $t('links.logout') }}
+              </button>
+            </li>
+          </ul>
+          <div class="profile-wallet">
+            <div class="profile-wallet__first-item">
+              <WalletSmallIcon/>
+              <span>{{ $t('profile.wallet.title') }}</span>
+              <span>$0.00</span>
+            </div>
+            <div class="profile-wallet__second-item">
+              <span>0x1276...5c9c</span>
+              <CopyWalletIcon/>
+            </div>
+            <div class="profile-wallet__third-item">
+              <span>0.00</span>
+              <span>umma</span>
+            </div>
+            <div class="bg-wallet">
+              <WalletBgIcon/>
+            </div>
+          </div>
+        </div>
+      </Transition>
+
     </nav>
     <nav class="small-nav">
       <div class="top__nav">
@@ -79,10 +98,10 @@
               <SmallLogo/>
             </router-link>
             <button
-                v-if="isSearchForm"
-                type="button"
-                @click="isSearchFormClose"
-                class="close-search__form"
+              v-if="isSearchForm"
+              type="button"
+              @click="isSearchFormClose"
+              class="close-search__form"
             >
               <ArrowLeftIcon/>
             </button>
@@ -289,9 +308,9 @@
   </header>
   <teleport to="body">
     <NotificationContainer
-        v-if="isNotificationOpen"
-        @closeHandler="isNotificationOpen = false"
-        :modal="true"
+      v-if="isNotificationOpen"
+      @closeHandler="isNotificationOpen = false"
+      :modal="true"
     />
   </teleport>
 </template>
@@ -331,13 +350,17 @@ import SampleDivider from '@/components/ui/SampleDivider.vue'
 import NotificationContainer from '@/components/notification/NotificationContainer.vue'
 import MuviNavIcon from '@/components/icons/shorts/MuviNavIcon.vue'
 import {getFormData} from '@/utils'
-import axios from "axios";
-import NavbarBGWalletIcon from "@/components/icons/NavbarBGWalletIcon.vue";
+import axios from 'axios'
+import CopyWalletIcon from '@/components/icons/profile/CopyWalletIcon.vue'
+import WalletSmallIcon from '@/components/icons/profile/WalletSmallIcon.vue'
+import WalletBgIcon from '@/components/icons/profile/WalletBgIcon.vue'
 
 export default {
   emits: ['toggle-sidebar'],
   components: {
-    NavbarBGWalletIcon,
+    WalletBgIcon,
+    WalletSmallIcon,
+    CopyWalletIcon,
     MuviNavIcon,
     SampleDivider,
     TabVideo,
@@ -411,7 +434,8 @@ export default {
       dummyAudios: audios,
       isSearchInputOpen: false,
       userId: localStorage.getItem('user_id'),
-      user: null
+      user: null,
+      isProfileOpen: false
     }
   },
   computed: {
@@ -457,7 +481,9 @@ export default {
       try {
         const response = await axios.post('/get-user-data', payload, {params, headers})
         if (response.data.api_status === 200) {
-          localStorage.setItem('user', JSON.stringify(response.data?.data))
+          // this.user = JSON.stringify(response.data?.data)
+          // console.log(this.user)
+          // localStorage.setItem('user', JSON.stringify(response.data?.data))
         }
       } catch (error) {
         console.error(error)
@@ -482,6 +508,9 @@ export default {
       } catch (error) {
         console.error(error)
       }
+    },
+    toggleProfile() {
+      this.isProfileOpen = !this.isProfileOpen
     }
   },
   mounted() {
@@ -493,8 +522,9 @@ export default {
 .modal-profile {
   width: 260px;
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 70px;
+  right: 45px;
+  padding: 4px;
   border-radius: 10px;
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.15);
   background-color: var(--color-white);
@@ -505,10 +535,22 @@ export default {
     margin: 0;
 
     &__item {
-      .user-avatar {
-        border-radius: 50%;
-        width: 32px;
-        height: 32px;
+      padding: 12px;
+      line-height: 1;
+
+      .user-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        img {
+          width: 32px;
+          height: 32px;
+        }
+
+        .user-name {
+          font-weight: 600;
+        }
       }
 
       a {
@@ -517,35 +559,74 @@ export default {
         font-size: 16px;
       }
 
-      button {
+      .logout-button {
         border: none;
         background: none;
         padding: 0;
         margin: 0;
         font-size: 16px;
         cursor: pointer;
+        color: var(--color-valencia);
       }
     }
+  }
 
-    .profile-wallet {
-      background: linear-gradient(84deg, #0085A5 24.97%, #00A9CF 92.15%);
-      border-radius: 10px;
+  .profile-wallet {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(84deg, #0085A5 24.97%, #00A9CF 92.15%);
+    border-radius: 10px;
+    color: var(--color-white);
+    padding: 12px;
+    row-gap: 12px;
+    line-height: 1;
+
+    &__first-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    &__second-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    &__third-item {
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      gap: 5px;
+    }
+
+    .bg-wallet {
+      position: absolute;
+      right: 0;
+      top: 0;
     }
   }
 }
 
-.scale-up-top-right {
-  animation: scale-up-top-right 0.5s;
+.bounce-enter-active {
+  animation: scale-up-top-right 0.2s;
+}
+
+.bounce-leave-active {
+  animation: scale-up-top-right 0.2s reverse;
 }
 
 @keyframes scale-up-top-right {
   0% {
-    transform: scale(.5);
-    transform-origin: top right
+    transform: scale(0.5);
+    transform-origin: top right;
   }
   100% {
     transform: scale(1);
-    transform-origin: top right
+    transform-origin: top right;
   }
 }
 

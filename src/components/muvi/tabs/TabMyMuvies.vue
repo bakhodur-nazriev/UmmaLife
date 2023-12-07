@@ -8,12 +8,6 @@
         @cardClickHandler="cardClickHandler(i)"
       />
     </div>
-    <MuviDetailSlider
-      v-if="isDetailOpen"
-      @handleClickOutside="isDetailOpen = false"
-      :muvies="myMuvies"
-      :initialSlideIndex="initialSlideIndex"
-    />
   </div>
 </template>
 
@@ -24,20 +18,19 @@ import axios from 'axios'
 import { getFormData } from '@/utils'
 
 import MuviCard from '@/components/muvi/MuviCard.vue'
-import MuviDetailSlider from '@/components/muvi/MuviDetailSlider.vue'
+import { useStore } from 'vuex'
+const store = useStore()
 
 const props = defineProps({
   user: Object
 })
 
 const myMuvies = ref([])
-const isDetailOpen = ref(false)
 const page = ref(1)
-const initialSlideIndex = ref(0)
 
 const cardClickHandler = (index) => {
-  isDetailOpen.value = true
-  initialSlideIndex.value = index
+  store.commit('muvi/setInitialIndex', index)
+  store.commit('muvi/setFrom', 'myMuvi')
 }
 
 const fetchMyMuvies = async () => {
@@ -56,6 +49,7 @@ const fetchMyMuvies = async () => {
       }
     })
     myMuvies.value = data.data
+    store.commit('muvi/setMuvies', myMuvies.value)
   } catch (err) {
     console.log(err)
   }

@@ -3,8 +3,8 @@
     <img :src="muvi?.preview" :alt="muvi?.username" />
     <div class="muvi__card--profile" v-if="!muvi?.owner">
       <UserInfo
-        :avatar="muvi.publisher.avatar || muvi.user_avatar"
-        :username="muvi.publisher.name || muvi.name"
+        :avatar="muvi?.publisher?.avatar"
+        :username="muvi?.publisher?.username"
         :status="{
           is_investor: muvi?.publisher?.isInvestor || false,
           verified: muvi?.publisher?.verified || '0',

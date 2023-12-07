@@ -68,7 +68,7 @@
             <MuviViewList @passSelectedOption="(option) => (payload.privacy_type = option)" />
             <li class="muvi__add--list">
               <p><AllowCommentIcon />{{ $t('add_muvi.allow_comment') }}</p>
-              <BaseToggle :checked="true" />
+              <BaseToggle :checked="commentStatus" @update:isChecked="changeStatusCommentHandler" />
             </li>
             <MuviChooseCategory
               @passSelectedCategories="(category_id) => (payload.category_id = category_id)"
@@ -102,6 +102,7 @@
 
 <script setup>
 /* eslint-disable */
+import { useRouter } from 'vue-router'
 import { ref, reactive } from 'vue'
 import axios from 'axios'
 import { getFormData, validateVideoFile } from '@/utils'
@@ -124,10 +125,10 @@ const videoSrc = ref([])
 const error = ref('')
 const videoStatus = ref(null)
 const isLoading = ref(false)
+const commentStatus = ref(true)
+const router = useRouter()
 
 const posterSrc = ref(null)
-
-const emit = defineEmits(['getBack'])
 
 const payload = reactive({
   server_key: process.env.VUE_APP_SERVER_KEY,
@@ -139,8 +140,17 @@ const payload = reactive({
   category_id: null,
   latitude: null, //number
   longitude: null, //number
-  location_name: null
+  location_name: null,
+  comments_status: '1'
 })
+
+const changeStatusCommentHandler = ({ isDisabled }) => {
+  if (isDisabled) {
+    payload.comments_status = '0'
+  } else {
+    payload.comments_status = '1'
+  }
+}
 
 const drop = (event) => {
   file.value = event.dataTransfer.files[0]
@@ -212,7 +222,7 @@ const submitHandler = async () => {
       }
     })
 
-    emit('getBack', 0)
+    router.push({ name: 'muvi' })
   } catch (err) {
     console.log(err)
   } finally {
@@ -229,6 +239,10 @@ const submitHandler = async () => {
   border-radius: 15px;
   padding: 24px;
   margin: 0 auto;
+  min-height: calc(100dvh - 192px);
+  max-height: calc(100dvh - 192px);
+  display: flex;
+  flex-direction: column;
   &--title {
     font-size: 24px;
     font-style: normal;
@@ -240,8 +254,14 @@ const submitHandler = async () => {
   &--video {
     border: 2px dashed var(--color-silver-chalice);
     border-radius: 15px;
-    padding: 144px 20px 143px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    flex-shrink: 1;
     text-align: center;
+    padding: 20px;
     @media (max-width: 900px) {
       padding: 60px 20px 60px;
     }

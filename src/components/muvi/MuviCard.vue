@@ -10,8 +10,8 @@
       {{ extractHashtagsAndText(muvi.description).textWithoutHashtags }}
     </div>
     <UserInfo
-      :avatar="muvi.publisher.avatar || muvi.user_avatar"
-      :username="muvi?.publisher?.username || muvi.name"
+      :avatar="muvi?.publisher?.avatar"
+      :username="`${muvi?.publisher?.first_name} ${muvi?.publisher?.last_name}`"
       :status="{
         is_investor: muvi?.publisher?.isInvestor || false,
         verified: muvi?.publisher?.verified || '0',
@@ -24,6 +24,7 @@
 
 <script setup>
 /* eslint-disable */
+import { useRoute, useRouter } from 'vue-router'
 import shortNum from 'number-shortener'
 import SeenIcon from '@/components/icons/SeenIcon.vue'
 import UserInfo from '@/components/ui/UserInfo.vue'
@@ -33,7 +34,11 @@ const props = defineProps({
   muvi: Object
 })
 const emit = defineEmits(['cardClickHandler'])
+const router = useRouter()
+const route = useRoute()
+
 const clickMuvieHandler = async (video_id) => {
+  router.push(`/${route.params?.lang || 'ru'}/muvi/${video_id}`)
   emit('cardClickHandler')
   await setMuvieViewed(video_id)
 }
@@ -62,6 +67,9 @@ const setMuvieViewed = async (video_id) => {
 .muvi__card {
   width: 100%;
   height: 474px;
+  @media (max-width: 1440.999px) {
+    height: 395px;
+  }
   &--top {
     height: 415px;
     width: 100%;
@@ -72,6 +80,9 @@ const setMuvieViewed = async (video_id) => {
     margin-bottom: 12px;
     display: block;
     cursor: pointer;
+    @media (max-width: 1440.999px) {
+      height: 365px;
+    }
     &::before {
       content: '';
       position: absolute;

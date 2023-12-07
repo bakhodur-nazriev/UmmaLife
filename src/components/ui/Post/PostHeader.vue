@@ -1,14 +1,26 @@
 <template>
   <header class="post__header">
-    <router-link class="post__author" to="#">
-      <img width="56" height="56" src="@/assets/images/Article_Author.png" alt="" />
+    <router-link
+      v-if="publisher"
+      class="post__author"
+      to="#"
+    >
+      <img
+        width="56"
+        height="56"
+        :src="publisher.avatar"
+        :alt="publisher.name"
+      />
       <div class="author-info">
-        <span class="author-info__name">Абрахам Арахамович</span>
-        <span class="author-info__time">15 минут назад</span>
+        <span class="author-info__name">{{ publisher.name }}</span>
+        <span class="author-info__time">{{ time }}</span>
       </div>
     </router-link>
     <div class="menu__button">
-      <SampleMenuDetailsButton :is-menu-open="isMenuOpen" @toggle-menu="$emit('toggle-menu')" />
+      <SampleMenuDetailsButton
+        :is-menu-open="isMenuOpen"
+        @toggle-menu="$emit('toggle-menu')"
+      />
     </div>
   </header>
 </template>
@@ -23,21 +35,31 @@ export default {
     isMenuOpen: {
       type: Boolean,
       required: true
+    },
+    publisher: {
+      type: Object,
+      required: true
+    },
+    time: {
+      type: String,
+      required: true
     }
-  }
+  },
+  data() {
+    return {}
+  },
+  mounted() {},
+  methods: {}
 }
 </script>
 
 <style scoped lang="scss">
-.menu__button svg {
-  color: var(--color-silver-chalice);
-}
-
 .post__author {
   display: flex;
   text-decoration: none;
 
   img {
+    border-radius: 50%;
     margin-right: 8px;
   }
 }
@@ -51,7 +73,13 @@ export default {
 
 .menu__button {
   cursor: pointer;
-  height: 27px;
+  height: 20px;
+  width: 35px;
+  border-radius: 20px;
+
+  svg {
+    color: var(--color-silver-chalice);
+  }
 }
 
 .author-info {
