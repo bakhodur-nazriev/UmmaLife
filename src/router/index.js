@@ -202,19 +202,7 @@ const routes = [
           title: i18n.global.t('meta_title.muvi'),
           requiresAuth: true,
           layout: 'muvi'
-        },
-        children: [
-          {
-            path: ':id',
-            name: 'muvi-detail',
-            component: MuviDetail,
-            meta: {
-              title: i18n.global.t('meta_title.muvi'),
-              requiresAuth: true,
-              layout: 'muvi'
-            }
-          }
-        ]
+        }
       },
       {
         path: '/:lang?/muvi/:id',
