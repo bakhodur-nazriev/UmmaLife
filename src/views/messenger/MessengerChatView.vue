@@ -21,8 +21,8 @@
     </div>
     <div class="room__messages">
       <div class="room__messages--inner" ref="room">
-        <div v-for="block in messages" :key="block.date">
-          <div style="color: var(--color-mine-shaft)">{{ multiFormatDateString(block.date) }}</div>
+        <div v-for="block in store.getters['messenger/getRoomChatMessages']" :key="block.date">
+          <div class="room__messages--date">{{ formatDate(block?.date) }}</div>
           <ChatMessage
             v-for="message in block.block"
             :message="message"
@@ -43,13 +43,9 @@
       />
     </div>
     <ChatRoomForm
-      :value="value"
-      :share="share"
-      :edit="edit"
-      :user="user"
-      :isLoading="isLoading"
+      :value="textValue"
       @submitHandler="submitHandler"
-      @setValue="setValue"
+      @setValue="(value) => (textValue = value)"
       @clearValues="clearValues"
     />
   </div>
@@ -67,11 +63,9 @@ import ChatRoomForm from '@/components/messanger/ChatRoomForm.vue'
 import ChatMessage from '@/components/messanger/ChatMessage.vue'
 import ContextMenu from '@/components/messanger/dropdowns/ContextMenu.vue'
 import DeleteConfirm from '@/components/messanger/modal/DeleteConfirm.vue'
-import { users } from '@/dummy'
-import { sleep, getFormData } from '@/utils.js'
+
 import { useRoute } from 'vue-router'
-import { ref, onMounted, watch } from 'vue'
-import axios from 'axios'
+import { ref, watch, nextTick, onUpdated } from 'vue'
 import { useStore } from 'vuex'
 import { timeFormat } from '@/mixins/timeFormat'
 
@@ -90,14 +84,12 @@ export default {
       showDeleteDropdown: false,
       isContextMenuOpen: false,
       isDeleteModalOpen: false,
-      value: '',
       messageId: null,
       edit: false,
       share: false,
       user: null,
       isLoading: false,
-      users,
-      sleep
+      users: []
     }
   },
   computed: {
@@ -105,23 +97,7 @@ export default {
     //   return this.user.messages.find((message) => message.id === this.messageId)
     // }
   },
-  watch: {
-    user: {
-      handler() {
-        this.scrollToBottom()
-      },
-      deep: true
-    },
-    '$route.params'() {
-      this.renderPage()
-    }
-  },
   methods: {
-    scrollToBottom() {
-      this.$nextTick(() => {
-        this.$refs.room.scrollIntoView({ block: 'end', inline: 'nearest' })
-      })
-    },
     openContextMenu(e, id) {
       const target = e.target
       if (target.closest('.message__inner')) {
@@ -129,42 +105,41 @@ export default {
         this.messageId = id
       }
     },
-    async submitHandler(value, type) {
-      const index = this.users.findIndex((u) => u.id === this.user.id)
-      if (type.state === 'noedit') {
-        this.users[index].messages.push({
-          id: Date.now(),
-          message: value,
-          status: 'notread',
-          state: 'send'
-        })
-      }
-      if (type.state === 'edit') {
-        const messageIndex = this.users[index].messages.findIndex(
-          (message) => message.id === type.data.id
-        )
+    // async submitHandler(value, type) {
+    //   const index = this.users.findIndex((u) => u.id === this.user.id)
+    //   if (type.state === 'noedit') {
+    //     this.users[index].messages.push({
+    //       id: Date.now(),
+    //       message: value,
+    //       status: 'notread',
+    //       state: 'send'
+    //     })
+    //   }
+    //   if (type.state === 'edit') {
+    //     const messageIndex = this.users[index].messages.findIndex(
+    //       (message) => message.id === type.data.id
+    //     )
 
-        this.users[index].messages[messageIndex].message = value
-      }
-      if (type.state === 'share') {
-        this.users[index].messages.push({
-          id: Date.now(),
-          message: {
-            user_name: type.data.user_name,
-            user_message:
-              typeof type.data.user_message === 'string'
-                ? type.data.user_message
-                : type.data.user_message.text,
-            text: value
-          },
-          state: 'send',
-          status: 'notread'
-        })
-      }
-      this.isLoading = true
-      await sleep(300)
-      this.isLoading = false
-    },
+    //     this.users[index].messages[messageIndex].message = value
+    //   }
+    //   if (type.state === 'share') {
+    //     this.users[index].messages.push({
+    //       id: Date.now(),
+    //       message: {
+    //         user_name: type.data.user_name,
+    //         user_message:
+    //           typeof type.data.user_message === 'string'
+    //             ? type.data.user_message
+    //             : type.data.user_message.text,
+    //         text: value
+    //       },
+    //       state: 'send',
+    //       status: 'notread'
+    //     })
+    //   }
+    //   this.isLoading = true
+    //   this.isLoading = false
+    // },
     setValue(value) {
       this.value = value
     },
@@ -187,68 +162,80 @@ export default {
     deleteMessage() {
       this.isDeleteModalOpen = true
       this.isContextMenuOpen = false
-    },
-    clearValues() {
-      this.share = false
-      this.edit = false
-    },
-    renderPage() {
-      if (this.$route.params.id) {
-        this.user = this.users.find((user) => user.id === +this.$route.params.id)
-      }
     }
-  },
-  mounted() {
-    this.renderPage()
-  },
-  updated() {
-    this.renderPage()
-    this.scrollToBottom()
   }
 }
 </script>
 
 <script setup>
-const messages = ref([])
+import io from 'socket.io-client'
+
 const route = useRoute()
 const store = useStore()
-
+const room = ref()
 const chat = ref({})
-const isLoading = ref(false)
+const textValue = ref('')
 
-const getChatMessages = async (chat_id) => {
-  try {
-    isLoading.value = true
-    const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
-      chat_id,
-      chat_type: 'user'
-    })
+const clearValues = () => {
+  textValue.value = ''
+}
 
-    const { data } = await axios.post('/get-chat-messages', payload, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      },
-      params: {
-        access_token: localStorage.getItem('access_token')
-      }
-    })
-
-    messages.value = data.data
-  } catch (err) {
-    console.log(err)
-  } finally {
-    isLoading.value = false
+const socket = io(`${process.env.VUE_APP_SOCKET_URL}`, {
+  query: {
+    hash: localStorage.getItem('hash')
   }
-}
-const getMessagesData = async () => {
-  await getChatMessages(route.params?.id)
-  store.commit('messenger/setSingleChat', +route.params?.id)
-  chat.value = store.getters['messenger/getSingleChat']
-}
-onMounted(getMessagesData)
+})
 
-watch(() => route.params?.id, getMessagesData)
+const scrollToBottom = () => {
+  nextTick(() => {
+    room.value.scrollIntoView({ block: 'end', inline: 'nearest' })
+  })
+}
+const user = JSON.parse(localStorage.getItem('user') || '{}')
+
+const submitHandler = () => {
+  const privateMessageData = {
+    chatId: chat.value?.chatId,
+    chatType: chat.value?.chatType,
+    chatName: chat.value?.chatName,
+    chatImage: chat.value?.chatImage,
+    message: textValue.value,
+    messageAuthor: user?.name,
+    messageAuthorId: localStorage.getItem('access_token'),
+    messageAuthorImage: user?.avatar,
+    messageAuthorIsPolice: user?.is_investor,
+    messageAuthorIsVerified: user?.verified === '1',
+    messageAuthorIsPremium: user?.is_premium === '1',
+    messageAuthorPrivacy: '0',
+    mediaData: [],
+    fetchUrlData: {},
+    replyId: 0,
+    localId: Date.now()
+  }
+
+  store.commit('messenger/pushMessage', privateMessageData)
+
+  socket.emit('private_message_umma', privateMessageData, (data) => {
+    store.commit('messenger/setSingleChat', data)
+  })
+
+  textValue.value = ''
+}
+
+const getMessagesData = async () => {
+  store.commit('messenger/setSingleChatByChatId', +route.params?.id)
+  chat.value = store.getters['messenger/getSingleChat']
+  await store.dispatch('messenger/getChatMessages', route.params?.id)
+}
+watch(
+  () => route.params?.id,
+  () => {
+    getMessagesData()
+  }
+)
+
+getMessagesData()
+onUpdated(scrollToBottom)
 </script>
 
 <style lang="scss" scoped>
@@ -331,6 +318,24 @@ watch(() => route.params?.id, getMessagesData)
     flex-grow: 1;
     overflow-y: auto;
     position: relative;
+    &--date {
+      display: block;
+      position: sticky;
+      z-index: 2;
+      background-color: var(--color-white);
+      backdrop-filter: blur(6px);
+      width: fit-content;
+      margin: 0px auto 8px;
+      border-radius: 10px;
+      padding: 0px 8px;
+      top: 4px;
+      bottom: 0px;
+      font-size: 12px;
+      color: var(--color-mine-shaft);
+      line-height: 20px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba($color: #000000, $alpha: 0.05);
+    }
   }
 }
 </style>

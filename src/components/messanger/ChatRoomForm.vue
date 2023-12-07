@@ -1,6 +1,6 @@
 <template>
   <div class="parent">
-    <div class="parent__edit" v-if="edit">
+    <!-- <div class="parent__edit" v-if="edit">
       <div class="parent__edit--icon">
         <edit-gray-icon />
       </div>
@@ -31,8 +31,8 @@
             : selectedMessage.message.text
         }}
       </div>
-    </div>
-    <form class="form" @submit.prevent="submitHandler">
+    </div> -->
+    <form class="form" @submit.prevent="submitHandler" ref="formRef">
       <div class="form__input">
         <div class="form__file">
           <attach-icon />
@@ -59,6 +59,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import SendIcon from '@/components/icons/SendIcon.vue'
 import AttachIcon from '@/components/icons/AttachIcon.vue'
 import EditGrayIcon from '@/components/icons/MenuDetails/EditGrayIcon.vue'
@@ -82,6 +83,8 @@ export default {
       const { textarea } = this.$refs
       if (e?.keyCode && e.keyCode === 13 && !e.shiftKey) {
         this.submitHandler()
+        textarea?.value?.replace(/\n/g, '')
+        console.dir(textarea)
       }
       if (e?.keyCode && e.keyCode === 13 && e.shiftKey) {
         this.$emit('setValue', this.value)
@@ -109,26 +112,7 @@ export default {
     },
     async submitHandler() {
       /* eslint-disable */
-      this.$emit(
-        'submitHandler',
-        this.value,
-        this.edit
-          ? { state: 'edit', data: this.selectedMessage }
-          : this.share
-          ? {
-              state: 'share',
-              data: {
-                user_name: this.user.name,
-                user_message: this.selectedMessage.message,
-                text: ''
-              }
-            }
-          : { state: 'noedit' }
-      )
-      setTimeout(() => {
-        this.$emit('setValue', '')
-        this.$emit('clearValues')
-      }, 0)
+      this.$emit('submitHandler')
     }
   },
   mounted() {

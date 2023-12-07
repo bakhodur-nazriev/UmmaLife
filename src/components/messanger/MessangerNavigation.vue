@@ -7,7 +7,7 @@
       </button>
     </div>
     <div class="navigation__menu">
-      <ChatUser v-for="chat in getters['messenger/getAllChats']" :chat="chat" :key="chat.chatId" />
+      <ChatUser v-for="chat in chats" :chat="chat" :key="chat.chatId" />
     </div>
   </div>
 </template>
@@ -17,10 +17,13 @@
 import SearchInput from '@/components/ui/SearchInput.vue'
 import AddUserIcon from '@/components/icons/AddUserIcon.vue'
 import ChatUser from '@/components/messanger/ChatUser.vue'
-import { useStore } from 'vuex'
 
-const { getters, dispatch } = useStore()
-dispatch('messenger/getChats')
+const props = defineProps({
+  chats: {
+    type: Array,
+    default: () => []
+  }
+})
 </script>
 
 <style scoped lang="scss">

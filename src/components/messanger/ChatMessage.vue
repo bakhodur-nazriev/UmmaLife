@@ -20,7 +20,7 @@
         {{ message.text }}
       </div> -->
       <div class="message__bottom">
-        <span>15:52</span>
+        <span>{{ formatTime(message?.messageDate) }}</span>
         <double-check-icon v-if="message?.messageOwner && message?.messageSeen && !isLoading" />
         <single-check-icon v-if="message?.messageOwner && !message?.messageSeen && !isLoading" />
         <preloader-icon v-if="message?.messageOwner && isLoading" />
@@ -31,6 +31,7 @@
 
 <script>
 /* eslint-disable */
+import { timeFormat } from '@/mixins/timeFormat'
 import DoubleCheckIcon from '@/components/icons/DoubleCheckIcon.vue'
 import SingleCheckIcon from '@/components/icons/SingleCheckIcon.vue'
 import PreloaderIcon from '@/components/icons/PreloaderIcon.vue'
@@ -43,7 +44,8 @@ export default {
   props: {
     message: Object,
     isLoading: Boolean
-  }
+  },
+  mixins: [timeFormat]
 }
 </script>
 

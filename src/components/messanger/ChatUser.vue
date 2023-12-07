@@ -8,7 +8,7 @@
         <div class="list__info--name">{{ chat?.chatName }}</div>
         <div class="list__info--date">
           <!-- :class="online"   -->
-          {{ multiFormatDateString(chat?.message?.messageDate) }}
+          {{ formatCustomDate(chat?.message?.messageDate) }}
         </div>
       </div>
       <div class="list__info--bottom">

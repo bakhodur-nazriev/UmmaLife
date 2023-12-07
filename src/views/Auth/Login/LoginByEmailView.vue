@@ -151,6 +151,7 @@ export default {
     handleSuccessfulLogin(data) {
       localStorage.setItem('access_token', data.access_token)
       localStorage.setItem('user_id', data.user_id)
+      localStorage.setItem('hash', data.hash)
       this.$router.push({name: 'news'})
     },
     handleFailedLogin(data) {
@@ -181,6 +182,7 @@ export default {
           this.handleSuccessfulLogin(response.data)
         } else if (response.data.api_status === 300 && response.data.access_token) {
           localStorage.setItem('access_token', response.data.access_token)
+          localStorage.setItem('hash', data.hash)
           this.$router.push({name: 'RegisterAddInfoStep4View'})
         } else {
           this.handleFailedLogin(response.data);

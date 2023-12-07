@@ -1,24 +1,35 @@
 <template>
-  <div class="messenger">
+  <div class="messenger" v-if="getters['messenger/getAllChats'].length > 0">
     <div class="messenger__wrapper">
-      <MessangerNavigation :dummyUsers="users" />
+      <MessangerNavigation :chats="getters['messenger/getAllChats']" />
       <router-view />
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 import MessangerNavigation from '@/components/messanger/MessangerNavigation.vue'
-import { users } from '@/dummy.js'
+import { useStore } from 'vuex'
+import io from 'socket.io-client'
+import { useRoute } from 'vue-router'
+const { getters, dispatch, commit } = useStore()
+dispatch('messenger/getChats')
 
-export default {
-  components: { MessangerNavigation },
-  data() {
-    return {
-      users
-    }
+const route = useRoute()
+const socket = io(`${process.env.VUE_APP_SOCKET_URL}`, {
+  query: {
+    hash: localStorage.getItem('hash')
   }
-}
+})
+socket.emit('join', { user_id: localStorage.getItem('access_token') })
+
+socket.on('on_new_message_chatroom', (data) => {
+  dispatch('messenger/getChats')
+  if (route.params?.id) {
+    commit('messenger/setSingleChatByChatId', +route.params?.id)
+    dispatch('messenger/getChatMessages', route.params?.id)
+  }
+})
 </script>
 
 <style scoped lang="scss">
