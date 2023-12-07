@@ -3,20 +3,20 @@
     <div class="article-content__section-item">
       <div class="custom-video__container">
         <VideoPlayer
-          src="/video/video.mp4"
-          poster="/images/message/video-poster.jpg"
-          controls
-          :volume="1"
+            src="/video/video.mp4"
+            poster="/images/message/video-poster.jpg"
+            controls
+            :volume="1"
         >
           <template v-slot="{ player, state }">
             <div class="custom-player-controls">
               <div
-                v-if="!state.playing"
-                @click="state.playing ? player.pause() : player.play()"
-                class="play-button"
+                  v-if="!state.playing"
+                  @click="state.playing ? player.pause() : player.play()"
+                  class="play-button"
               >
-                <VideoPlayIcon class="play-icon__button-icon-big" />
-                <SmallVideoPlayIcon class="play-icon__button-icon-small" />
+                <VideoPlayIcon class="play-icon__button-icon-big"/>
+                <SmallVideoPlayIcon class="play-icon__button-icon-small"/>
               </div>
             </div>
           </template>
@@ -24,14 +24,12 @@
       </div>
       <div class="article-content__details-block">
         <h3 class="article-content__details-block-title">Как я принял ислам. Все от А до Я</h3>
-        <span class="article-content__details-block-views"
-          >20.08.2022 - 1 тыс.{{ $t('video.views') }}</span
-        >
+        <span class="article-content__details-block-views">20.08.2022 - 1 тыс.{{ $t('video.views') }}</span>
       </div>
     </div>
 
     <div class="article-content__reactions">
-      <PostReactions />
+      <PostReactions/>
     </div>
   </section>
 </template>
@@ -40,7 +38,7 @@
 import VideoPlayIcon from '@/components/icons/VideoPlayIcon.vue'
 import SmallVideoPlayIcon from '@/components/icons/SmallVideoPlayIcon.vue'
 import PostReactions from '@/components/ui/Post/PostReactions.vue'
-import { VideoPlayer } from '@videojs-player/vue'
+import {VideoPlayer} from '@videojs-player/vue'
 
 export default {
   components: {
@@ -48,6 +46,10 @@ export default {
     SmallVideoPlayIcon,
     VideoPlayIcon,
     VideoPlayer
+  },
+  props: ['videoContent'],
+  mounted() {
+    console.log(this.videoContent)
   }
 }
 </script>
@@ -60,24 +62,29 @@ export default {
   overflow: hidden;
   width: 100%;
   height: 400px;
+
   .video-js {
     width: 100% !important;
     height: 100% !important;
     display: block;
     background: transparent;
+
     .vjs-poster img {
       object-fit: cover;
     }
+
     .vjs-tech {
       object-fit: cover !important;
       object-position: center !important;
       overflow: hidden;
     }
+
     .vjs-big-play-button {
       display: none !important;
     }
   }
 }
+
 .custom-player-controls {
   .remaining-time {
     position: absolute;
@@ -96,6 +103,7 @@ export default {
     min-width: 50px;
     text-align: center;
   }
+
   .play-button {
     position: absolute;
     top: 50%;

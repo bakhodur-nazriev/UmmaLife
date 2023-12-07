@@ -45,7 +45,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
@@ -117,6 +116,22 @@ export default {
       } catch (error) {
         throw error
       }
+    }
+  },
+  async mounted() {
+    const payload = getFormData({
+      server_key: process.env.VUE_APP_SERVER_KEY,
+      email: 'bakhodur.naziev@yandex.ru',
+      code: '41530_%242y%2410%24udpCF7AuTQN7QBMPQn65i.MJytKPBZepJJv8rELTqUHG9DT8Vxvaa'
+    });
+
+    const headers = {'Content-Type': 'multipart/form-data'};
+
+    try {
+      const res = await axios.post('/check-reset-password-link', payload, {headers});
+      console.log(res.data);
+    } catch (error) {
+      console.error('Error checking reset password link:', error);
     }
   }
 }

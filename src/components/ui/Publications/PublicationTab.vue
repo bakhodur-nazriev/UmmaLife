@@ -64,7 +64,7 @@ export default {
       try {
         const response = await axios.post('/posts', payload, {params, headers})
         if (response.data.api_status === 200) {
-          console.log(response.data?.data)
+          // console.log(response.data?.data)
           this.posts = response.data?.data
         } else {
           console.log('error')
