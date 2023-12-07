@@ -1,7 +1,8 @@
 <template>
-  <component :is="layout">
+  <component :is="layout" v-if="this.$route.meta.layout !== 'muvi'">
     <router-view></router-view>
   </component>
+  <router-view v-else />
   <div class="player" v-on-click-outside="closeHandler">
     <AudioPlayList v-if="isListOpen" :playerHeight="playerMargin" />
     <AudioPlayerComponent @playerHeight="setPlayerMargin" v-if="isPlayerOpen" />

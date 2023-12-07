@@ -28,8 +28,8 @@
             :class="{ first: index === 0 }"
           >
             <UserInfo
-              :avatar="user.avatar"
-              :username="user.name"
+              :avatar="user?.avatar"
+              :username="user?.username"
               :status="{
                 is_investor: user?.isInvestor || false,
                 verified: user?.verified || '0',

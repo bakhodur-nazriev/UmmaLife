@@ -1,9 +1,9 @@
 <template>
   <MainLayout v-if="width > 767">
-    <MuviDesktopView />
+    <DesktopAddMuvi />
   </MainLayout>
   <MuviMobileLayout v-else>
-    <MuviMobileView />
+    <MobileAddMuvi />
   </MuviMobileLayout>
 </template>
 
@@ -13,7 +13,7 @@
 import { useWindowSize } from '@vueuse/core'
 import MainLayout from '@/components/layouts/MainLayout.vue'
 import MuviMobileLayout from '@/components/layouts/MuviMobileLayout.vue'
-import MuviDesktopView from '@/components/muvi/views/desktop/MuviDesktopView.vue'
-import MuviMobileView from '@/components/muvi/views/mobile/MuviMobileView.vue'
+import DesktopAddMuvi from '@/components/muvi/views/desktop/DesktopAddMuvi.vue'
+import MobileAddMuvi from '@/components/muvi/views/mobile/MobileAddMuvi.vue'
 const { width } = useWindowSize()
 </script>
