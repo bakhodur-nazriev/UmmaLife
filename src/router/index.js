@@ -60,7 +60,7 @@ import RegisterCreatePasswordStep3View from '@/views/Auth/Register/RegisterCreat
 import RegisterAddInfoStep4View from '@/views/Auth/Register/RegisterAddInfoStep4View.vue'
 import RegisterAddPhoneStep5View from '@/views/Auth/Register/RegisterAddPhoneStep5View.vue'
 import RegisterCategoryInterestsStep6View from '@/views/Auth/Register/RegisterCategoryInterestsStep6View.vue'
-import {getFormData} from '@/utils'
+import { getFormData } from '@/utils'
 import axios from 'axios'
 
 const isProduction = process.env.NODE_ENV === 'production'
@@ -201,19 +201,32 @@ const routes = [
         meta: {
           title: i18n.global.t('meta_title.muvi'),
           requiresAuth: true,
-          layout: 'another'
-        }
+          layout: 'muvi'
+        },
+        children: [
+          {
+            path: ':id',
+            name: 'muvi-detail',
+            component: MuviDetail,
+            meta: {
+              title: i18n.global.t('meta_title.muvi'),
+              requiresAuth: true,
+              layout: 'muvi'
+            }
+          }
+        ]
       },
       {
         path: '/:lang?/muvi/:id',
         name: 'muvi-detail',
-        component: MuviMobileDetail,
+        component: MuviDetail,
         meta: {
           title: i18n.global.t('meta_title.muvi'),
           requiresAuth: true,
-          layout: 'muvi-mobile'
+          layout: 'muvi'
         }
       },
+
       {
         path: '/:lang?/muvi/popular',
         name: 'muvi-popular',
@@ -221,7 +234,7 @@ const routes = [
         meta: {
           title: i18n.global.t('meta_title.muvi'),
           requiresAuth: true,
-          layout: 'muvi-mobile'
+          layout: 'muvi'
         }
       },
       {
@@ -231,7 +244,7 @@ const routes = [
         meta: {
           title: i18n.global.t('meta_title.muvi'),
           requiresAuth: true,
-          layout: 'muvi-mobile'
+          layout: 'muvi'
         }
       },
       {
@@ -241,7 +254,7 @@ const routes = [
         meta: {
           title: i18n.global.t('meta_title.muvi'),
           requiresAuth: true,
-          layout: 'muvi-mobile'
+          layout: 'muvi'
         }
       },
       {
@@ -251,7 +264,7 @@ const routes = [
         meta: {
           title: i18n.global.t('meta_title.muvi'),
           requiresAuth: true,
-          layout: 'muvi-mobile'
+          layout: 'muvi'
         }
       },
       {
@@ -261,7 +274,7 @@ const routes = [
         meta: {
           title: i18n.global.t('meta_title.muvi'),
           requiresAuth: true,
-          layout: 'muvi-mobile'
+          layout: 'muvi'
         }
       },
       {
@@ -271,9 +284,10 @@ const routes = [
         meta: {
           title: i18n.global.t('meta_title.muvi'),
           requiresAuth: true,
-          layout: 'muvi-mobile'
+          layout: 'muvi'
         }
       },
+
       {
         path: 'step4',
         name: 'RegisterAddInfoStep4View',
@@ -704,123 +718,122 @@ const routes = [
       layout: 'another'
     }
   },
-	{
-		path: '/:lang?/notifications',
-		name: 'notifications',
-		component: NotificationsView,
-		meta: {
-			title: i18n.global.t('meta_title.muvi'),
-			requiresAuth: true,
-			layout: 'main'
-		}
-	},
-	{
-		path: '/:pathMatch(.*)*',
-		redirect: (to) => {
-			// Перенаправляем пользователя на текущую страницу
-			return {
-				name: router.currentRoute.value.name,
-				params: {
-					lang: router.currentRoute.value.params.lang
-				}
-			}
-		}
-	}
+  {
+    path: '/:lang?/notifications',
+    name: 'notifications',
+    component: NotificationsView,
+    meta: {
+      title: i18n.global.t('meta_title.muvi'),
+      requiresAuth: true,
+      layout: 'main'
+    }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: (to) => {
+      // Перенаправляем пользователя на текущую страницу
+      return {
+        name: router.currentRoute.value.name,
+        params: {
+          lang: router.currentRoute.value.params.lang
+        }
+      }
+    }
+  }
 ]
 
 if (isProduction) {
-	routes.forEach((route) => {
-		route.path = `/${baseDomain}${route.path}`
-	})
+  routes.forEach((route) => {
+    route.path = `/${baseDomain}${route.path}`
+  })
 }
 
 const router = createRouter({
-	history: createWebHistory(process.env.BASE_URL),
-	mode: 'history',
-	routes
+  history: createWebHistory(process.env.BASE_URL),
+  mode: 'history',
+  routes
 })
 
 const isUserAuthenticated = () => {
-	const accessToken = localStorage.getItem('access_token')
-	return !!accessToken
+  const accessToken = localStorage.getItem('access_token')
+  return !!accessToken
 }
 const checkResetPasswordLink = async (email, code) => {
-	const payload = getFormData({
-		server_key: process.env.VUE_APP_SERVER_KEY,
-		email: email,
-		code: code
-	})
+  const payload = getFormData({
+    server_key: process.env.VUE_APP_SERVER_KEY,
+    email: email,
+    code: code
+  })
 
-	const headers = {'Content-Type': 'multipart/form-data'}
+  const headers = { 'Content-Type': 'multipart/form-data' }
 
-	try {
-		const response = await axios.post('/check-reset-password-link', payload, {headers})
-		console.log(response)
-
-	} catch (error) {
-		console.error(error)
-	}
+  try {
+    const response = await axios.post('/check-reset-password-link', payload, { headers })
+    console.log(response)
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 router.beforeEach(async (to, from, next) => {
-	const lang = to.params.lang || i18n.global.locale.value
-	const requiresAuth = to.matched.some((route) => route.meta.requiresAuth)
+  const lang = to.params.lang || i18n.global.locale.value
+  const requiresAuth = to.matched.some((route) => route.meta.requiresAuth)
 
-	const link1Param = to.query.link1
-	if (link1Param === 'reset-password') {
-		const email = to.query.email || ''
-		const code = to.query.code || ''
+  const link1Param = to.query.link1
+  if (link1Param === 'reset-password') {
+    const email = to.query.email || ''
+    const code = to.query.code || ''
 
-		localStorage.setItem('resetPasswordEmail', email)
-		localStorage.setItem('resetPasswordCode', code)
+    localStorage.setItem('resetPasswordEmail', email)
+    localStorage.setItem('resetPasswordCode', code)
 
-		try {
-			const response = await checkResetPasswordLink(email, code)
+    try {
+      const response = await checkResetPasswordLink(email, code)
 
-			if (response.data.api_status === 200) {
-				return next({name: 'ResetPasswordView', query: {email, code}})
-			} else {
-				return next({name: 'LoginByEmailView'})
-			}
-		} catch (error) {
-			console.error(error)
-		}
-	}
+      if (response.data.api_status === 200) {
+        return next({ name: 'ResetPasswordView', query: { email, code } })
+      } else {
+        return next({ name: 'LoginByEmailView' })
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
-	if (supportedLanguages.includes(lang)) {
-		i18n.global.locale = lang
-	} else {
-		const defaultLang = i18n.global.locale || 'ru'
-		return next(`/${defaultLang}${to.path}`)
-	}
+  if (supportedLanguages.includes(lang)) {
+    i18n.global.locale = lang
+  } else {
+    const defaultLang = i18n.global.locale || 'ru'
+    return next(`/${defaultLang}${to.path}`)
+  }
 
-	if (to.params.lang !== lang) {
-		const pathWithoutLang = to.path.replace(`/${to.params.lang}`, `/${lang}`)
-		return next({
-			path: `/${lang}${pathWithoutLang}`,
-			params: {lang}
-		})
-	}
+  if (to.params.lang !== lang) {
+    const pathWithoutLang = to.path.replace(`/${to.params.lang}`, `/${lang}`)
+    return next({
+      path: `/${lang}${pathWithoutLang}`,
+      params: { lang }
+    })
+  }
 
-	document.title = `${to.meta.title} | ${process.env.VUE_APP_TITLE}`
+  document.title = `${to.meta.title} | ${process.env.VUE_APP_TITLE}`
 
-	const isAuthenticated = isUserAuthenticated() // Проверка авторизации в localStorage
+  const isAuthenticated = isUserAuthenticated() // Проверка авторизации в localStorage
 
-	const allowedRoutes = ['login-by-email', 'register', 'forgot-password']
+  const allowedRoutes = ['login-by-email', 'register', 'forgot-password']
 
-	if (requiresAuth && !isAuthenticated) {
-		return next({name: 'LoginByEmailView'})
-	}
+  if (requiresAuth && !isAuthenticated) {
+    return next({ name: 'LoginByEmailView' })
+  }
 
-	if (isAuthenticated && to.name === 'home') {
-		return next({name: 'news'})
-	}
+  if (isAuthenticated && to.name === 'home') {
+    return next({ name: 'news' })
+  }
 
-	if (!isAuthenticated && allowedRoutes.includes(to.name)) {
-		return next()
-	}
+  if (!isAuthenticated && allowedRoutes.includes(to.name)) {
+    return next()
+  }
 
-	return next()
+  return next()
 })
 
 export default router
