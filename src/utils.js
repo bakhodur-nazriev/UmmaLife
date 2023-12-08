@@ -106,7 +106,7 @@ export const copyClipboard = async (link) => {
       return 'links.link_copy_error'
     }
   }
-  return 'link_copy_error'
+  return 'links.link_copy_error'
 }
 
 export const convertDate = (inputDateString) => {

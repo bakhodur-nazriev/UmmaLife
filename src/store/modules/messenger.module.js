@@ -1,4 +1,4 @@
-import { getFormData, convertDate } from '@/utils'
+import { getFormData } from '@/utils'
 import axios from 'axios'
 /* eslint-disable */
 
@@ -8,7 +8,10 @@ export default {
     return {
       chats: [],
       chat: {},
-      chatMessages: []
+      chatMessages: [],
+      isLoading: false,
+      newMessage: {},
+      newMessages: []
     }
   },
   mutations: {
@@ -25,26 +28,29 @@ export default {
       state.chatMessages = chatMessages
     },
     pushMessage(state, message) {
-      const user = JSON.parse(localStorage.getItem('user') || '{}')
-      const messageToPush = {
-        message: message?.message,
-        messageId: Date.now(),
-        messageDate: convertDate(new Date()),
-        messageAuthor: message.messageAuthor,
-        messageAuthorId: user?.user_id,
-        messageAuthorImage: message?.messageAuthorImage,
-        messageType: 'text',
-        messageSeen: false,
-        messageOwner: true,
-        messageEdited: false,
-        mediaData: [],
-        mentionUsers: [],
-        fetchUrlData: [],
-        replyMessage: null
-      }
       if (Array.isArray(state?.chatMessages[0]?.block)) {
-        state.chatMessages[0]?.block.push(messageToPush)
+        state.chatMessages[0]?.block.push(message)
       }
+    },
+    setIsLoading(state, isLoading) {
+      state.isLoading = isLoading
+    },
+    setUnreadMessages(state, newMessages) {
+      state.newMessages = newMessages
+    },
+    setNewMessages(state, data) {
+      const index = state.newMessages.findIndex((message) => message.chatid === data.chatid)
+      if (index === -1) {
+        state.newMessages.push(data)
+      } else {
+        state.newMessages[index] = data
+      }
+
+      localStorage.setItem('newMessages', JSON.stringify(state.newMessages))
+    },
+    clearNewMessage(state, message) {
+      state.newMessages = state.newMessages.filter((m) => m.chatId !== message.chatId)
+      localStorage.setItem('newMessages', JSON.stringify(state.newMessages))
     }
   },
   actions: {
@@ -67,7 +73,7 @@ export default {
         console.log(err)
       }
     },
-    async getChatMessages({ commit }, chat_id) {
+    async getChatMessages({ state, commit }, chat_id) {
       try {
         const payload = getFormData({
           server_key: process.env.VUE_APP_SERVER_KEY,
@@ -87,6 +93,8 @@ export default {
         commit('setChatMessages', data.data)
       } catch (err) {
         console.log(err)
+      } finally {
+        state.isLoading = false
       }
     }
   },
@@ -99,6 +107,9 @@ export default {
     },
     getRoomChatMessages(state) {
       return state.chatMessages
+    },
+    getIsLoading(state) {
+      return state.isLoading
     }
   }
 }

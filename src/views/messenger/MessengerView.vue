@@ -8,12 +8,13 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 import MessangerNavigation from '@/components/messanger/MessangerNavigation.vue'
 import { useStore } from 'vuex'
 import io from 'socket.io-client'
 import { useRoute } from 'vue-router'
+import store from '../../store/store'
 const { getters, dispatch, commit } = useStore()
-dispatch('messenger/getChats')
 
 const route = useRoute()
 const socket = io(`${process.env.VUE_APP_SOCKET_URL}`, {
@@ -24,11 +25,17 @@ const socket = io(`${process.env.VUE_APP_SOCKET_URL}`, {
 socket.emit('join', { user_id: localStorage.getItem('access_token') })
 
 socket.on('on_new_message_chatroom', (data) => {
+  commit('messenger/setNewMessages', data)
   dispatch('messenger/getChats')
   if (route.params?.id) {
     commit('messenger/setSingleChatByChatId', +route.params?.id)
     dispatch('messenger/getChatMessages', route.params?.id)
   }
+})
+
+dispatch('messenger/getChats')
+onMounted(() => {
+  commit('messenger/setUnreadMessages', JSON.parse(localStorage.getItem('newMessages') || '[]'))
 })
 </script>
 

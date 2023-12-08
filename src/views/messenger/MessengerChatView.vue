@@ -27,8 +27,9 @@
             v-for="message in block.block"
             :message="message"
             :key="message.messageId"
-            :isLoading="isLoading"
+            :isLoading="store.getters['messenger/getIsLoading']"
             @contextmenu.prevent="($event) => openContextMenu($event, message.messageId)"
+            :isLastMessage="message === block.block[block.block.length - 1]"
           />
         </div>
       </div>
@@ -43,10 +44,8 @@
       />
     </div>
     <ChatRoomForm
-      :value="textValue"
       @submitHandler="submitHandler"
-      @setValue="(value) => (textValue = value)"
-      @clearValues="clearValues"
+      :isLoading="store.getters['messenger/getIsLoading']"
     />
   </div>
 
@@ -57,17 +56,19 @@
 
 <script>
 /* eslint-disable */
+import { useRoute } from 'vue-router'
+import { ref, watch, nextTick, onUpdated, onMounted } from 'vue'
+import { useStore } from 'vuex'
+import { timeFormat } from '@/mixins/timeFormat'
+import io from 'socket.io-client'
+import { convertDate } from '@/utils'
+
 import DeleteDropdown from '@/components/messanger/dropdowns/DeleteDropdown.vue'
 import MenuDetailsIcon from '@/components/icons/MenuDetailsIcon.vue'
 import ChatRoomForm from '@/components/messanger/ChatRoomForm.vue'
 import ChatMessage from '@/components/messanger/ChatMessage.vue'
 import ContextMenu from '@/components/messanger/dropdowns/ContextMenu.vue'
 import DeleteConfirm from '@/components/messanger/modal/DeleteConfirm.vue'
-
-import { useRoute } from 'vue-router'
-import { ref, watch, nextTick, onUpdated } from 'vue'
-import { useStore } from 'vuex'
-import { timeFormat } from '@/mixins/timeFormat'
 
 export default {
   components: {
@@ -86,10 +87,7 @@ export default {
       isDeleteModalOpen: false,
       messageId: null,
       edit: false,
-      share: false,
-      user: null,
-      isLoading: false,
-      users: []
+      share: false
     }
   },
   computed: {
@@ -168,17 +166,10 @@ export default {
 </script>
 
 <script setup>
-import io from 'socket.io-client'
-
 const route = useRoute()
 const store = useStore()
 const room = ref()
 const chat = ref({})
-const textValue = ref('')
-
-const clearValues = () => {
-  textValue.value = ''
-}
 
 const socket = io(`${process.env.VUE_APP_SOCKET_URL}`, {
   query: {
@@ -193,13 +184,13 @@ const scrollToBottom = () => {
 }
 const user = JSON.parse(localStorage.getItem('user') || '{}')
 
-const submitHandler = () => {
+const submitHandler = (textValue) => {
   const privateMessageData = {
     chatId: chat.value?.chatId,
     chatType: chat.value?.chatType,
     chatName: chat.value?.chatName,
     chatImage: chat.value?.chatImage,
-    message: textValue.value,
+    message: textValue,
     messageAuthor: user?.name,
     messageAuthorId: localStorage.getItem('access_token'),
     messageAuthorImage: user?.avatar,
@@ -212,14 +203,30 @@ const submitHandler = () => {
     replyId: 0,
     localId: Date.now()
   }
+  tempMessagePush(textValue)
+  store.commit('messenger/setSingleChat', privateMessageData)
+  socket.emit('private_message_umma', privateMessageData)
+}
 
-  store.commit('messenger/pushMessage', privateMessageData)
-
-  socket.emit('private_message_umma', privateMessageData, (data) => {
-    store.commit('messenger/setSingleChat', data)
-  })
-
-  textValue.value = ''
+const tempMessagePush = (textValue) => {
+  const messageToPush = {
+    message: textValue,
+    messageId: Date.now(),
+    messageDate: convertDate(new Date()),
+    messageAuthor: user?.name,
+    messageAuthorId: user?.user_id,
+    messageAuthorImage: user?.avatar,
+    messageType: 'text',
+    messageSeen: false,
+    messageOwner: true,
+    messageEdited: false,
+    mediaData: [],
+    mentionUsers: [],
+    fetchUrlData: [],
+    replyMessage: null
+  }
+  store.commit('messenger/setIsLoading', true)
+  store.commit('messenger/pushMessage', messageToPush)
 }
 
 const getMessagesData = async () => {
@@ -233,9 +240,15 @@ watch(
     getMessagesData()
   }
 )
-
 getMessagesData()
-onUpdated(scrollToBottom)
+onMounted(() => {
+  store.commit('messenger/clearNewMessage', chat.value)
+})
+
+onUpdated(() => {
+  scrollToBottom()
+  store.commit('messenger/clearNewMessage', chat.value)
+})
 </script>
 
 <style lang="scss" scoped>

@@ -1,5 +1,9 @@
 <template>
-  <router-link :to="`/${$i18n.locale}/messenger/${chat?.chatId}`" class="list">
+  <router-link
+    :to="`/${$i18n.locale}/messenger/${chat?.chatId}`"
+    class="list"
+    @click="store.commit('messenger/clearNewMessage', chat)"
+  >
     <div class="list__img">
       <img :src="chat?.chatImage" :alt="chat?.chatName" loading="lazy" />
     </div>
@@ -7,6 +11,13 @@
       <div class="list__info--top">
         <div class="list__info--name">{{ chat?.chatName }}</div>
         <div class="list__info--date">
+          <div class="list__info--status" v-if="chat?.message.messageOwner">
+            <PreloaderIcon
+              v-if="store.getters['messenger/getIsLoading'] && chat?.chatId === +route.params?.id"
+            />
+            <double-check-icon v-else-if="chat?.message?.messageSeen" color="#49A399" />
+            <single-check-icon v-else color="#49A399" />
+          </div>
           <!-- :class="online"   -->
           {{ formatCustomDate(chat?.message?.messageDate) }}
         </div>
@@ -15,19 +26,12 @@
         <div class="list__info--text">
           {{ chat?.message?.message }}
         </div>
-        <!-- <div
-          class="list__info--status"
-          v-if="user.messages[user.messages.length - 1].state === 'send'"
+        <div
+          class="list__info--indicator"
+          v-if="getUnreadMessageCount() && getUnreadMessageCount()?.countUnreedMessages > 0"
         >
-          <double-check-icon
-            v-if="user.messages[user.messages.length - 1].status === 'read'"
-            color="#49A399"
-          />
-          <single-check-icon
-            v-if="user.messages[user.messages.length - 1].status === 'notread'"
-            color="#49A399"
-          />
-        </div> -->
+          {{ getUnreadMessageCount()?.countUnreedMessages }}
+        </div>
       </div>
     </div>
   </router-link>
@@ -39,10 +43,20 @@ import { timeFormat } from '@/mixins/timeFormat.js'
 
 import DoubleCheckIcon from '@/components/icons/DoubleCheckIcon.vue'
 import SingleCheckIcon from '@/components/icons/SingleCheckIcon.vue'
-
+import PreloaderIcon from '@/components/icons/PreloaderIcon.vue'
+import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
+const store = useStore()
+const route = useRoute()
 const props = defineProps({
   chat: Object
 })
+
+const getUnreadMessageCount = () => {
+  if (store.state.messenger.newMessages) {
+    return store.state.messenger.newMessages?.find((m) => m?.chatId === props.chat?.chatId)
+  }
+}
 </script>
 
 <script>
@@ -90,11 +104,25 @@ export default {
       margin-bottom: 8px;
       justify-content: space-between;
     }
+    &--indicator {
+      background-color: var(--color-hippie-blue);
+      color: var(--color-stable-white);
+      max-width: 25px;
+      width: 100%;
+      height: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      font-size: 12px;
+      margin: auto 0;
+    }
     &--bottom {
       display: flex;
       gap: 20px;
-      align-items: flex-end;
       justify-content: space-between;
+      min-height: 42px;
+      max-height: 42px;
     }
     &--name {
       width: calc(100% - 112px);
@@ -111,6 +139,9 @@ export default {
       line-height: normal;
       text-align: right;
       color: var(--color-silver-chalice);
+      display: flex;
+      align-items: center;
+      gap: 5px;
       &.online {
         color: var(--color-green);
       }

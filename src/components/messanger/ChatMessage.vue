@@ -21,9 +21,11 @@
       </div> -->
       <div class="message__bottom">
         <span>{{ formatTime(message?.messageDate) }}</span>
-        <double-check-icon v-if="message?.messageOwner && message?.messageSeen && !isLoading" />
-        <single-check-icon v-if="message?.messageOwner && !message?.messageSeen && !isLoading" />
-        <preloader-icon v-if="message?.messageOwner && isLoading" />
+        <preloader-icon v-if="message?.messageOwner && isLoading && isLastMessage" />
+        <template v-else>
+          <double-check-icon v-if="message?.messageOwner && message?.messageSeen" />
+          <single-check-icon v-if="message?.messageOwner && !message?.messageSeen" />
+        </template>
       </div>
     </div>
   </div>
@@ -43,7 +45,8 @@ export default {
   components: { DoubleCheckIcon, SingleCheckIcon, PreloaderIcon, VideoMessage, ImageMessage },
   props: {
     message: Object,
-    isLoading: Boolean
+    isLoading: Boolean,
+    isLastMessage: Boolean
   },
   mixins: [timeFormat]
 }

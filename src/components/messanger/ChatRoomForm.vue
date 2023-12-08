@@ -32,21 +32,20 @@
         }}
       </div>
     </div> -->
-    <form class="form" @submit.prevent="submitHandler" ref="formRef">
+    <form class="form" @submit.prevent="submitForm" ref="formRef">
       <div class="form__input">
         <div class="form__file">
           <attach-icon />
           <input type="file" />
         </div>
-        <textarea
-          :placeholder="`${$t('chat.placeholder')}...`"
+        <Textarea
           class="form__input--text"
-          ref="textarea"
-          rows="5"
-          :value="value"
-          @input="inputHandler"
-          @focus="resize"
-          @keydown="resize"
+          autoResize
+          rows="1"
+          v-model="textareaValue"
+          @keydown="handleKeyDown"
+          :placeholder="`${$t('chat.placeholder')}...`"
+          :style="textareaStyle"
         />
       </div>
       <button type="submit" class="form__btn">
@@ -70,58 +69,44 @@ import SpinnerGif from '@/components/icons/SpinnerGif.vue'
 export default {
   components: { SendIcon, AttachIcon, EditGrayIcon, CloseEditIcon, ShareBigIcon, SpinnerGif },
   props: {
-    value: String,
     edit: Boolean,
     share: Boolean,
-    selectedMessage: Object,
-    user: Object,
     isLoading: Boolean
+  },
+  data() {
+    return {
+      textareaValue: ''
+    }
+  },
+  computed: {
+    textareaStyle() {
+      return {
+        'overflow-y': this.textareaRowCount > 4 ? 'scroll' : 'hidden',
+        'max-height': '120px' // You can adjust the max height as needed
+      }
+    },
+    textareaRowCount() {
+      return this.textareaValue.split('\n').length
+    }
   },
   emits: ['submitHandler', 'setValue', 'clearValues'],
   methods: {
-    resize(e) {
-      const { textarea } = this.$refs
-      if (e?.keyCode && e.keyCode === 13 && !e.shiftKey) {
-        this.submitHandler()
-        textarea?.value?.replace(/\n/g, '')
-        console.dir(textarea)
-      }
-      if (e?.keyCode && e.keyCode === 13 && e.shiftKey) {
-        this.$emit('setValue', this.value)
-      }
-
-      setTimeout(() => {
-        if (typeof this.value === 'string' && this.value.length === 0) {
-          textarea.style.height = 56 + 'px'
-        }
-      }, 1)
-      const taLineHeight = 56
-      const taHeight = textarea.scrollHeight
-      textarea.style.height = taHeight
-      const numberOfLines = Math.floor(taHeight / taLineHeight)
-      if (numberOfLines >= 2) {
-        textarea.style.overflowY = 'scroll'
-      } else {
-        textarea.style.height = textarea.scrollHeight - 4 + 'px'
-        textarea.style.overflowY = 'hidden'
+    handleKeyDown(event) {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault()
+        this.submitForm()
       }
     },
-    inputHandler(e) {
-      this.resize()
-      this.$emit('setValue', e.target.value)
-    },
-    async submitHandler() {
-      /* eslint-disable */
-      this.$emit('submitHandler')
+    submitForm() {
+      this.$emit('submitHandler', this.textareaValue)
+      this.textareaValue = ''
     }
-  },
-  mounted() {
-    this.resize()
-  },
-  updated() {
-    this.resize()
   }
 }
+</script>
+
+<script setup>
+import Textarea from 'primevue/textarea'
 </script>
 
 <style scoped lang="scss">
@@ -209,6 +194,10 @@ export default {
         height: 56px;
         overflow: hidden;
         background-color: var(--color-white);
+        &:focus {
+          outline: none;
+          box-shadow: none;
+        }
         &::placeholder {
           color: var(--color-silver-chalice);
         }
