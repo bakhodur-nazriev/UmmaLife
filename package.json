@@ -25,6 +25,7 @@
     "primevue": "^3.37.0",
     "resize-sensor": "^0.0.6",
     "sass-loader": "^13.3.2",
+    "socket.io-client": "2.3",
     "sticky-sidebar-v2": "^1.1.1",
     "swiper": "^10.1.0",
     "uuid": "^9.0.0",

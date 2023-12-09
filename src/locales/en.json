@@ -863,5 +863,8 @@
     "recommendations": "Recommendations",
     "no_comments": "No Comments",
     "no_users": "No users found"
+  },
+  "date": {
+    "today": "Today"
   }
 }
