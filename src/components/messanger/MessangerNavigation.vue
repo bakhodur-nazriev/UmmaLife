@@ -7,21 +7,23 @@
       </button>
     </div>
     <div class="navigation__menu">
-      <ChatUser v-for="user in users" :user="user" :key="user.id" />
+      <ChatUser v-for="chat in chats" :chat="chat" :key="chat.chatId" />
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
+/* eslint-disable */
 import SearchInput from '@/components/ui/SearchInput.vue'
 import AddUserIcon from '@/components/icons/AddUserIcon.vue'
 import ChatUser from '@/components/messanger/ChatUser.vue'
-export default {
-  components: { SearchInput, AddUserIcon, ChatUser },
-  props: {
-    users: Array
+
+const props = defineProps({
+  chats: {
+    type: Array,
+    default: () => []
   }
-}
+})
 </script>
 
 <style scoped lang="scss">

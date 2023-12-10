@@ -7,6 +7,7 @@ import actions from '@/store/actions'
 
 // Modules
 import audioModule from './modules/audio.module'
+import messengerModule from './modules/messenger.module'
 import muviModule from './modules/muvi.module'
 
 const store = createStore({
@@ -16,6 +17,7 @@ const store = createStore({
   actions,
   modules: {
     audio: audioModule,
+    messenger: messengerModule,
     muvi: muviModule
   }
 })

@@ -34,7 +34,7 @@ const props = defineProps({
   },
   avatar: {
     type: String,
-    default: '/images/users/jeff.png'
+    default: ''
   },
   status: {
     type: Object,

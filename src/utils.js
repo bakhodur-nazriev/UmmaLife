@@ -106,7 +106,23 @@ export const copyClipboard = async (link) => {
       return 'links.link_copy_error'
     }
   }
-  return 'link_copy_error'
+  return 'links.link_copy_error'
+}
+
+export const convertDate = (inputDateString) => {
+  const inputDate = new Date(inputDateString)
+
+  // Extract components of the date
+  const day = inputDate.getUTCDate()
+  const month = inputDate.getUTCMonth() + 1 // Months are zero-based, so add 1
+  const year = inputDate.getUTCFullYear()
+  const hours = inputDate.getUTCHours()
+  const minutes = inputDate.getUTCMinutes()
+  const seconds = inputDate.getUTCSeconds()
+
+  return `${String(day).padStart(2, '0')}.${String(month).padStart(2, '0')}.${year}T${String(
+    hours
+  ).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
 }
 
 export function addLinksToTaggedUsers(text, taggedUsers = [], lang = 'ru') {

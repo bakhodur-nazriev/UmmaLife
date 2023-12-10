@@ -58,6 +58,73 @@ export const timeFormat = {
       } else {
         return inputDate.toLocaleString('ru-RU', { timeZone: targetTimeZone })
       }
+    },
+    formatDate(dateString = '') {
+      const userTimeZone = momentTimezone.tz.guess()
+      const formattedDateString = dateString.replace(
+        /(\d{2})\.(\d{2})\.(\d{4})T(\d{2}:\d{2}:\d{2})/,
+        '$3-$2-$1T$4'
+      )
+
+      const inputDateUTC = new Date(formattedDateString + 'Z')
+      const inputDateString = new Date(
+        inputDateUTC.toLocaleString('en-US', { timeZone: userTimeZone })
+      )
+
+      const today = momentTimezone()
+        .startOf('day')
+        .locale(this.$i18n.locale || 'ru')
+
+      const inputDate = momentTimezone(inputDateString, 'DD.MM.YYYYTHH:mm:ss', userTimeZone).locale(
+        this.$i18n.locale || 'ru'
+      )
+
+      if (today.isSame(inputDate, 'day')) {
+        return this.$t('date.today')
+      } else {
+        return inputDate.format('D MMMM')
+      }
+    },
+    formatTime(dateString) {
+      const userTimeZone = momentTimezone.tz.guess()
+      const formattedDateString = dateString.replace(
+        /(\d{2})\.(\d{2})\.(\d{4})T(\d{2}:\d{2}:\d{2})/,
+        '$3-$2-$1T$4'
+      )
+
+      const inputDateUTC = new Date(formattedDateString + 'Z')
+      const inputDate = new Date(inputDateUTC.toLocaleString('en-US', { timeZone: userTimeZone }))
+
+      return inputDate.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: false,
+        timeZone: userTimeZone
+      })
+    },
+    formatCustomDate(dateString, locale = this.$i18n.locale || 'ru') {
+      const userTimeZone = momentTimezone.tz.guess()
+      const formattedDateString = dateString.replace(
+        /(\d{2})\.(\d{2})\.(\d{4})T(\d{2}:\d{2}:\d{2})/,
+        '$3-$2-$1T$4'
+      )
+
+      const inputDateUTC = new Date(formattedDateString + 'Z')
+      const inputDateString = new Date(
+        inputDateUTC.toLocaleString('en-US', { timeZone: userTimeZone })
+      )
+      const today = momentTimezone().startOf('day').locale(locale)
+      const inputDate = momentTimezone(inputDateString, 'DD.MM.YYYYTHH:mm:ss', userTimeZone).locale(
+        locale
+      )
+
+      if (today.isSame(inputDate, 'day')) {
+        return inputDate.format('HH:mm')
+      } else if (today.isSame(inputDate, 'week')) {
+        return inputDate.format('ddd')
+      } else {
+        return inputDate.format('D MMMM')
+      }
     }
   }
 }
