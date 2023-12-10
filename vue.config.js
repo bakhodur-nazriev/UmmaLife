@@ -8,10 +8,11 @@ module.exports = defineConfig({
 		proxy: {
 			'/api': {
 				target: 'https://ummalife.com',
-				changeOrigin: true
-				// headers: {
-				// 	'X-Forwarded-Host': true
-				// }
+				changeOrigin: true,
+				headers: {
+					'X-Forwarded-Host': true,
+					'Host': 'ummalife.com'
+				}
 			}
 		}
 	},
