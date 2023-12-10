@@ -7,7 +7,7 @@ module.exports = defineConfig({
 		historyApiFallback: true,
 		proxy: {
 			'/api': {
-				target: 'https://preview.ummalife.com',
+				target: 'https://ummalife.com',
 				changeOrigin: true
 				// headers: {
 				// 	'X-Forwarded-Host': true
