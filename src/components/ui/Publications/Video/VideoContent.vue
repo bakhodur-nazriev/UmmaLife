@@ -23,7 +23,7 @@
         </VideoPlayer>
       </div>
       <div class="article-content__details-block">
-        <h3 class="article-content__details-block-title">Как я принял ислам. Все от А до Я</h3>
+        <h3 class="article-content__details-block-title">{{ videoContent.Orginaltext }}</h3>
         <span class="article-content__details-block-views">20.08.2022 - 1 тыс.{{ $t('video.views') }}</span>
       </div>
     </div>
@@ -48,6 +48,9 @@ export default {
     VideoPlayer
   },
   props: ['videoContent'],
+  computed: {
+
+  },
   mounted() {
     console.log(this.videoContent)
   }

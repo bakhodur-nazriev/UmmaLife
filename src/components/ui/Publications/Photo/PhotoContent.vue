@@ -1,6 +1,9 @@
 <template>
   <section class="photo-block__article">
-    <a :href="photoContent.postFile_full" data-fancybox class="image__item">
+    <a
+        :href="photoContent.postFile_full"
+        data-fancybox class="image__item"
+    >
       <img :src="photoContent.postFile_full" alt="image"/>
     </a>
   </section>
@@ -37,6 +40,13 @@ export default {
 
   &__article {
     display: flex;
+    justify-content: center;
+    a {
+      img {
+        height: 400px;
+        border-radius: 15px;
+      }
+    }
   }
 }
 
