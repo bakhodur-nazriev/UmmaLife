@@ -7,11 +7,11 @@ module.exports = defineConfig({
 		historyApiFallback: true,
 		proxy: {
 			'/api': {
-				target: 'https://ummalife.com',
+				target: 'preview.https://ummalife.com',
 				changeOrigin: true,
 				headers: {
-					'X-Forwarded-Host': 'ummalife.com',
-					'Host': 'ummalife.com'
+					'X-Forwarded-Host': 'preview.ummalife.com',
+					'Host': 'preview.ummalife.com'
 				}
 			}
 		}
