@@ -162,7 +162,6 @@ export default {
     }
   },
   mounted() {
-    // console.log(this.reactions)
     document.addEventListener('click', this.closeReactionWindow)
     document.addEventListener('click', this.closeShareWindow)
   },

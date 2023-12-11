@@ -9,7 +9,7 @@
       />
 
       <ArticleContent
-          :post-content="item.Orginaltext"
+          :post-content="item"
       />
 
       <SampleDivider class="divider"/>
@@ -71,7 +71,7 @@ export default {
       } catch (error) {
         console.error(error)
       }
-    }
+    },
   },
   mounted() {
     this.getArticles()

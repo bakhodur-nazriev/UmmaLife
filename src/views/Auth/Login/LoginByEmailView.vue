@@ -151,6 +151,7 @@ export default {
     handleSuccessfulLogin(data) {
       localStorage.setItem('access_token', data.access_token)
       localStorage.setItem('user_id', data.user_id)
+      localStorage.setItem('user', data.user)
       localStorage.setItem('hash', data.hash)
       this.$router.push({name: 'news'})
     },

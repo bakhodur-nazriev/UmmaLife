@@ -10,7 +10,7 @@ module.exports = defineConfig({
 				target: 'https://ummalife.com',
 				changeOrigin: true,
 				headers: {
-					'X-Forwarded-Host': true,
+					'X-Forwarded-Host': 'ummalife.com',
 					'Host': 'ummalife.com'
 				}
 			}

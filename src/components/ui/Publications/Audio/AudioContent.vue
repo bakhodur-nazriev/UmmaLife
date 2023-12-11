@@ -4,10 +4,10 @@
       <div class="audio-content__left-side">
         <div class="play-button">
           <SmallVideoPlayIcon/>
-<!--          <audio controls>-->
-<!--            <source src="" type="">-->
-<!--            <source src="" type="">-->
-<!--          </audio>-->
+          <!--          <audio controls>-->
+          <!--            <source src="" type="">-->
+          <!--            <source src="" type="">-->
+          <!--          </audio>-->
         </div>
         <div class="audio-content__right-side">
           <p class="audio-title">اينما تكونوا يدرككم الماينما تكونوا يدرككم الموت ❤️ تلاوة نديه م ...</p>
@@ -16,12 +16,12 @@
       </div>
 
       <div class="audio-content__audio-time">
-        <span>04:25</span>
+        <span>{{ audioFormattedDuration }}</span>
       </div>
     </div>
 
     <div class="audio-content__reactions">
-      <PostReactions />
+      <PostReactions/>
     </div>
   </section>
 </template>
@@ -33,6 +33,14 @@ export default {
   components: {
     PostReactions,
     SmallVideoPlayIcon
+  },
+  props: ['audioContent'],
+  computed: {
+    audioFormattedDuration() {
+      return this.audioContent.postFileArray[0].duration.split('T')[1]
+    }
+  },
+  mounted() {
   }
 }
 </script>

@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { createRouter, createWebHistory } from 'vue-router'
 import i18n from '@/i18n'
 import { supportedLanguages } from '@/constants'

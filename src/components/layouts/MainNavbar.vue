@@ -10,8 +10,8 @@
       <div class="main__nav--side">
         <SampleButton class="create__button" :title="`${$t('buttons.create')}`"/>
         <SearchInput
-          @open-search-input="isSearchInputOpen = true"
-          :placeholder="$t('placeholders.search_input')"
+            @open-search-input="isSearchInputOpen = true"
+            :placeholder="$t('placeholders.search_input')"
         />
       </div>
       <div class="left__nav--side">
@@ -23,9 +23,9 @@
             <EmailIcon/>
           </li>
           <li
-            class="notification__button"
-            @click="isNotificationOpen = !isNotificationOpen"
-            :class="{ active: isNotificationOpen }"
+              class="notification__button"
+              @click="isNotificationOpen = !isNotificationOpen"
+              :class="{ active: isNotificationOpen }"
           >
             <NotificationIcon/>
           </li>
@@ -37,7 +37,7 @@
         </ul>
         <div class="user__menu--block">
           <div class="profile__image" @click="toggleProfile">
-            <img src="@/assets/images/Article_Author.png" alt="avatar-logo"/>
+            <img :src="user.avatar" alt="avatar-logo"/>
           </div>
           <ArrowIcon class="dropdown__icon"/>
         </div>
@@ -47,9 +47,9 @@
         <div class="modal-profile" v-if="isProfileOpen">
           <ul class="menu-list">
             <li class="menu-list__item">
-              <a href="#" class="user-item">
-                <span class="user-name">Bakhodur Nazriev</span>
-                <img src="@/assets/images/Article_Author.png" alt="">
+              <a href="/profile" class="user-item">
+                <span class="user-name">{{ user.name }}</span>
+                <img :src="user.avatar" alt="">
               </a>
             </li>
             <li class="menu-list__item">
@@ -60,9 +60,9 @@
             </li>
             <li class="menu-list__item">
               <button
-                type="submit"
-                class="logout-button"
-                @click="logout"
+                  type="submit"
+                  class="logout-button"
+                  @click="logout"
               >
                 {{ $t('links.logout') }}
               </button>
@@ -98,10 +98,10 @@
               <SmallLogo/>
             </router-link>
             <button
-              v-if="isSearchForm"
-              type="button"
-              @click="isSearchFormClose"
-              class="close-search__form"
+                v-if="isSearchForm"
+                type="button"
+                @click="isSearchFormClose"
+                class="close-search__form"
             >
               <ArrowLeftIcon/>
             </button>
@@ -308,15 +308,14 @@
   </header>
   <teleport to="body">
     <NotificationContainer
-      v-if="isNotificationOpen"
-      @closeHandler="isNotificationOpen = false"
-      :modal="true"
+        v-if="isNotificationOpen"
+        @closeHandler="isNotificationOpen = false"
+        :modal="true"
     />
   </teleport>
 </template>
 
 <script>
-/* eslint-disable */
 import SearchInput from '@/components/ui/SearchInput.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import MainPageLogo from '@/components/ui/Logo/MainPageLogo.vue'
@@ -434,7 +433,7 @@ export default {
       dummyAudios: audios,
       isSearchInputOpen: false,
       userId: localStorage.getItem('user_id'),
-      user: null,
+      user: JSON.parse(localStorage.getItem('user')) || {},
       isProfileOpen: false
     }
   },
@@ -481,9 +480,9 @@ export default {
       try {
         const response = await axios.post('/get-user-data', payload, {params, headers})
         if (response.data.api_status === 200) {
-          // this.user = JSON.stringify(response.data?.data)
-          // console.log(this.user)
-          // localStorage.setItem('user', JSON.stringify(response.data?.data))
+          localStorage.setItem('user', JSON.stringify(response.data?.data))
+        } else {
+          this.$router.push({name: 'LoginByEmailView'})
         }
       } catch (error) {
         console.error(error)
@@ -546,6 +545,7 @@ export default {
         img {
           width: 32px;
           height: 32px;
+          border-radius: 50%;
         }
 
         .user-name {

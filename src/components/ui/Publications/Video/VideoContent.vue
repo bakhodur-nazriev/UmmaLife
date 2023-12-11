@@ -3,8 +3,8 @@
     <div class="article-content__section-item">
       <div class="custom-video__container">
         <VideoPlayer
-            src="/video/video.mp4"
-            poster="/images/message/video-poster.jpg"
+            :src="videoContent.postFileArray[0].filename"
+            :poster="videoContent.postFileArray[0].thumb"
             controls
             :volume="1"
         >
@@ -24,7 +24,9 @@
       </div>
       <div class="article-content__details-block">
         <h3 class="article-content__details-block-title">{{ videoContent.Orginaltext }}</h3>
-        <span class="article-content__details-block-views">20.08.2022 - 1 тыс.{{ $t('video.views') }}</span>
+        <span class="article-content__details-block-views">
+          {{ formattedDate }} - {{ videoContent.views }} {{ $t('video.views') }}
+        </span>
       </div>
     </div>
 
@@ -49,10 +51,9 @@ export default {
   },
   props: ['videoContent'],
   computed: {
-
-  },
-  mounted() {
-    console.log(this.videoContent)
+    formattedDate() {
+      return this.videoContent.date_create.split('T')[0]
+    }
   }
 }
 </script>
