@@ -7,7 +7,7 @@
       </button>
     </div>
     <div class="navigation__menu">
-      <ChatUser v-for="chat in chats" :chat="chat" :key="chat.chatId" />
+      <ChatUser v-for="(chat, index) in chats" :chat="chat" :key="chat.chatId" :index="index" />
     </div>
   </div>
 </template>

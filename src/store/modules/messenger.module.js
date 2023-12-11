@@ -10,8 +10,8 @@ export default {
       chat: {},
       chatMessages: [],
       isLoading: false,
-      newMessage: {},
-      newMessages: []
+      chatIsLoading: false,
+      countElements: 0
     }
   },
   mutations: {
@@ -28,29 +28,21 @@ export default {
       state.chatMessages = chatMessages
     },
     pushMessage(state, message) {
-      if (Array.isArray(state?.chatMessages[0]?.block)) {
-        state.chatMessages[0]?.block.push(message)
+      if (
+        state?.chatMessages.length > 0 &&
+        Array.isArray(state?.chatMessages[state?.chatMessages.length - 1]?.block)
+      ) {
+        state.chatMessages[state?.chatMessages.length - 1]?.block.push(message)
       }
     },
     setIsLoading(state, isLoading) {
       state.isLoading = isLoading
     },
-    setUnreadMessages(state, newMessages) {
-      state.newMessages = newMessages
+    setChatIsLoading(state, chatIsLoading) {
+      state.chatIsLoading = chatIsLoading
     },
-    setNewMessages(state, data) {
-      const index = state.newMessages.findIndex((message) => message.chatid === data.chatid)
-      if (index === -1) {
-        state.newMessages.push(data)
-      } else {
-        state.newMessages[index] = data
-      }
-
-      localStorage.setItem('newMessages', JSON.stringify(state.newMessages))
-    },
-    clearNewMessage(state, message) {
-      state.newMessages = state.newMessages.filter((m) => m.chatId !== message.chatId)
-      localStorage.setItem('newMessages', JSON.stringify(state.newMessages))
+    setCountElements(state, countElements) {
+      state.countElements = countElements
     }
   },
   actions: {
@@ -73,12 +65,14 @@ export default {
         console.log(err)
       }
     },
-    async getChatMessages({ state, commit }, chat_id) {
+    async getChatMessages({ state, commit }, { chat_id, page, last_message_id, action }) {
       try {
         const payload = getFormData({
           server_key: process.env.VUE_APP_SERVER_KEY,
           chat_id,
-          chat_type: 'user'
+          chat_type: 'user',
+          page,
+          last_message_id: last_message_id || null
         })
 
         const { data } = await axios.post('/get-chat-messages', payload, {
@@ -89,12 +83,18 @@ export default {
             access_token: localStorage.getItem('access_token')
           }
         })
-
-        commit('setChatMessages', data.data)
+        if (action === 'push') {
+          state.chatMessages.push(...data.data)
+        } else {
+          state.chatMessages.unshift(...data.data)
+        }
+        commit('setChatMessages', state.chatMessages)
+        commit('setCountElements', data.countElements)
       } catch (err) {
         console.log(err)
       } finally {
         state.isLoading = false
+        state.chatIsLoading = false
       }
     }
   },
@@ -110,6 +110,12 @@ export default {
     },
     getIsLoading(state) {
       return state.isLoading
+    },
+    getChatIsLoading(state) {
+      return state.chatIsLoading
+    },
+    getCountElements(state) {
+      return state.countElements
     }
   }
 }

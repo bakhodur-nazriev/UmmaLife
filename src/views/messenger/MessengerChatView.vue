@@ -9,6 +9,7 @@
             {{ multiFormatDateString(chat?.userLastSeen) }}
           </div>
         </router-link>
+        <LoadingBar v-if="store.getters['messenger/getChatIsLoading']" />
       </div>
       <div class="room__details" @click="showDeleteDropdown = true">
         <menu-details-icon class="room__details--icon" />
@@ -19,10 +20,24 @@
         v-if="showDeleteDropdown"
       />
     </div>
-    <div class="room__messages">
+    <div class="room__messages" :style="{ opacity: !isMounting ? '1' : '0' }" ref="roomMessagesRef">
       <div class="room__messages--inner" ref="room">
-        <div v-for="block in store.getters['messenger/getRoomChatMessages']" :key="block.date">
-          <div class="room__messages--date">{{ formatDate(block?.date) }}</div>
+        <div
+          v-intersection-observer="loadMore"
+          v-if="
+            !store.getters['messenger/getChatIsLoading'] &&
+            store.getters['messenger/getCountElements'] >= 20
+          "
+          class="observer"
+        ></div>
+        <div
+          v-for="(block, index) in store.getters['messenger/getRoomChatMessages']"
+          :key="block.date"
+          :id="`room_${index + 1}`"
+        >
+          <div class="room__messages--date">
+            {{ formatDate(block?.date) }}
+          </div>
           <ChatMessage
             v-for="message in block.block"
             :message="message"
@@ -54,14 +69,15 @@
   </teleport>
 </template>
 
-<script>
+<script setup>
 /* eslint-disable */
+import io from 'socket.io-client'
 import { useRoute } from 'vue-router'
-import { ref, watch, nextTick, onUpdated, onMounted } from 'vue'
+import { ref, watch, nextTick, onUpdated, onMounted, computed } from 'vue'
+import { vIntersectionObserver } from '@vueuse/components'
 import { useStore } from 'vuex'
 import { timeFormat } from '@/mixins/timeFormat'
-import io from 'socket.io-client'
-import { convertDate } from '@/utils'
+import { convertDate, sleep } from '@/utils'
 
 import DeleteDropdown from '@/components/messanger/dropdowns/DeleteDropdown.vue'
 import MenuDetailsIcon from '@/components/icons/MenuDetailsIcon.vue'
@@ -69,31 +85,140 @@ import ChatRoomForm from '@/components/messanger/ChatRoomForm.vue'
 import ChatMessage from '@/components/messanger/ChatMessage.vue'
 import ContextMenu from '@/components/messanger/dropdowns/ContextMenu.vue'
 import DeleteConfirm from '@/components/messanger/modal/DeleteConfirm.vue'
+import LoadingBar from '@/components/ui/LoadingBar.vue'
 
+const user = JSON.parse(localStorage.getItem('user') || '{}')
+const route = useRoute()
+const store = useStore()
+const room = ref()
+const chat = ref({})
+const page = ref(1)
+const isMounting = ref(false)
+const roomMessagesRef = ref()
+const state = ref('end')
+
+const socket = io(`${process.env.VUE_APP_SOCKET_URL}`, {
+  query: { hash: localStorage.getItem('hash') }
+})
+
+const lastBlockId = computed(() => {
+  const lastElement =
+    store.getters['messenger/getRoomChatMessages'].length > 0
+      ? store.getters['messenger/getRoomChatMessages'][0]
+      : null
+  const lastBlockItem = lastElement ? lastElement.block : null
+  return lastBlockItem && lastBlockItem.length > 0 ? lastBlockItem[0].messageId : null
+})
+
+const scrollToBottom = (state) => {
+  nextTick(() => {
+    room.value.scrollIntoView({ block: state, inline: 'nearest' })
+  })
+}
+
+const submitHandler = (textValue) => {
+  const privateMessageData = {
+    chatId: chat.value?.chatId,
+    chatType: chat.value?.chatType,
+    chatName: chat.value?.chatName,
+    chatImage: chat.value?.chatImage,
+    message: textValue,
+    messageAuthor: user?.name,
+    messageAuthorId: localStorage.getItem('access_token'),
+    messageAuthorImage: user?.avatar,
+    messageAuthorIsPolice: user?.is_investor,
+    messageAuthorIsVerified: user?.verified === '1',
+    messageAuthorIsPremium: user?.is_premium === '1',
+    messageAuthorPrivacy: '0',
+    mediaData: [],
+    fetchUrlData: {},
+    replyId: 0,
+    localId: Date.now()
+  }
+  tempMessagePush(textValue)
+  store.commit('messenger/setSingleChat', privateMessageData)
+  socket.emit('private_message_umma', privateMessageData, (data) => {
+    console.log('private_message_umma')
+  })
+}
+
+const tempMessagePush = (textValue) => {
+  const messageToPush = {
+    message: textValue,
+    messageId: Date.now(),
+    messageDate: convertDate(new Date()),
+    messageAuthor: user?.name,
+    messageAuthorId: user?.user_id,
+    messageAuthorImage: user?.avatar,
+    messageType: 'text',
+    messageSeen: false,
+    messageOwner: true,
+    messageEdited: false,
+    mediaData: [],
+    mentionUsers: [],
+    fetchUrlData: [],
+    replyMessage: null
+  }
+  store.commit('messenger/pushMessage', messageToPush)
+  store.commit('messenger/setIsLoading', true)
+}
+
+const getMessagesData = async () => {
+  isMounting.value = true
+  store.commit('messenger/setSingleChatByChatId', +route.params?.id)
+  chat.value = store.getters['messenger/getSingleChat']
+  await store.dispatch('messenger/getChatMessages', { chat_id: route.params?.id, page: page.value })
+  isMounting.value = false
+}
+
+const loadMore = async ([{ isIntersecting }]) => {
+  if (isIntersecting) {
+    const roomElement = document.querySelector('#room_1')
+    state.value = 'nearest'
+    page.value += 1
+    store.commit('messenger/setChatIsLoading', true)
+    store.commit('messenger/setCountElements', 0)
+    await store.dispatch('messenger/getChatMessages', {
+      chat_id: route.params?.id,
+      page: page.value,
+      last_message_id: lastBlockId.value
+    })
+    roomElement.scrollIntoView({ block: 'start', inline: 'nearest' })
+    await sleep(3000)
+    state.value = 'end'
+  }
+}
+
+watch(
+  () => route.params?.id,
+  () => {
+    store.commit('messenger/setChatIsLoading', true)
+    store.commit('messenger/setChatMessages', [])
+    page.value = 1
+    getMessagesData()
+  }
+)
+getMessagesData()
+
+onUpdated(() => scrollToBottom(state.value))
+onMounted(() => {
+  store.commit('messenger/setChatIsLoading', true)
+  store.commit('messenger/setChatMessages', [])
+  page.value = 1
+})
+</script>
+
+<script>
 export default {
-  components: {
-    MenuDetailsIcon,
-    ChatRoomForm,
-    ChatMessage,
-    DeleteDropdown,
-    ContextMenu,
-    DeleteConfirm
-  },
   mixins: [timeFormat],
   data() {
     return {
       showDeleteDropdown: false,
       isContextMenuOpen: false,
       isDeleteModalOpen: false,
-      messageId: null,
       edit: false,
       share: false
     }
-  },
-  computed: {
-    // selectedMessage() {
-    //   return this.user.messages.find((message) => message.id === this.messageId)
-    // }
   },
   methods: {
     openContextMenu(e, id) {
@@ -102,44 +227,6 @@ export default {
         this.$refs.menu.open(e)
         this.messageId = id
       }
-    },
-    // async submitHandler(value, type) {
-    //   const index = this.users.findIndex((u) => u.id === this.user.id)
-    //   if (type.state === 'noedit') {
-    //     this.users[index].messages.push({
-    //       id: Date.now(),
-    //       message: value,
-    //       status: 'notread',
-    //       state: 'send'
-    //     })
-    //   }
-    //   if (type.state === 'edit') {
-    //     const messageIndex = this.users[index].messages.findIndex(
-    //       (message) => message.id === type.data.id
-    //     )
-
-    //     this.users[index].messages[messageIndex].message = value
-    //   }
-    //   if (type.state === 'share') {
-    //     this.users[index].messages.push({
-    //       id: Date.now(),
-    //       message: {
-    //         user_name: type.data.user_name,
-    //         user_message:
-    //           typeof type.data.user_message === 'string'
-    //             ? type.data.user_message
-    //             : type.data.user_message.text,
-    //         text: value
-    //       },
-    //       state: 'send',
-    //       status: 'notread'
-    //     })
-    //   }
-    //   this.isLoading = true
-    //   this.isLoading = false
-    // },
-    setValue(value) {
-      this.value = value
     },
     shareMessage() {
       this.clearValues()
@@ -163,92 +250,6 @@ export default {
     }
   }
 }
-</script>
-
-<script setup>
-const route = useRoute()
-const store = useStore()
-const room = ref()
-const chat = ref({})
-
-const socket = io(`${process.env.VUE_APP_SOCKET_URL}`, {
-  query: {
-    hash: localStorage.getItem('hash')
-  }
-})
-
-const scrollToBottom = () => {
-  nextTick(() => {
-    room.value.scrollIntoView({ block: 'end', inline: 'nearest' })
-  })
-}
-const user = JSON.parse(localStorage.getItem('user') || '{}')
-
-const submitHandler = (textValue) => {
-  const privateMessageData = {
-    chatId: chat.value?.chatId,
-    chatType: chat.value?.chatType,
-    chatName: chat.value?.chatName,
-    chatImage: chat.value?.chatImage,
-    message: textValue,
-    messageAuthor: user?.name,
-    messageAuthorId: localStorage.getItem('access_token'),
-    messageAuthorImage: user?.avatar,
-    messageAuthorIsPolice: user?.is_investor,
-    messageAuthorIsVerified: user?.verified === '1',
-    messageAuthorIsPremium: user?.is_premium === '1',
-    messageAuthorPrivacy: '0',
-    mediaData: [],
-    fetchUrlData: {},
-    replyId: 0,
-    localId: Date.now()
-  }
-  tempMessagePush(textValue)
-  store.commit('messenger/setSingleChat', privateMessageData)
-  socket.emit('private_message_umma', privateMessageData)
-}
-
-const tempMessagePush = (textValue) => {
-  const messageToPush = {
-    message: textValue,
-    messageId: Date.now(),
-    messageDate: convertDate(new Date()),
-    messageAuthor: user?.name,
-    messageAuthorId: user?.user_id,
-    messageAuthorImage: user?.avatar,
-    messageType: 'text',
-    messageSeen: false,
-    messageOwner: true,
-    messageEdited: false,
-    mediaData: [],
-    mentionUsers: [],
-    fetchUrlData: [],
-    replyMessage: null
-  }
-  store.commit('messenger/setIsLoading', true)
-  store.commit('messenger/pushMessage', messageToPush)
-}
-
-const getMessagesData = async () => {
-  store.commit('messenger/setSingleChatByChatId', +route.params?.id)
-  chat.value = store.getters['messenger/getSingleChat']
-  await store.dispatch('messenger/getChatMessages', route.params?.id)
-}
-watch(
-  () => route.params?.id,
-  () => {
-    getMessagesData()
-  }
-)
-getMessagesData()
-onMounted(() => {
-  store.commit('messenger/clearNewMessage', chat.value)
-})
-
-onUpdated(() => {
-  scrollToBottom()
-  store.commit('messenger/clearNewMessage', chat.value)
-})
 </script>
 
 <style lang="scss" scoped>
