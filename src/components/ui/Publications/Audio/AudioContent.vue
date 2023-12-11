@@ -11,7 +11,7 @@
         </div>
         <div class="audio-content__right-side">
           <p class="audio-title">اينما تكونوا يدرككم الماينما تكونوا يدرككم الموت ❤️ تلاوة نديه م ...</p>
-          <h3 class="author-name">Авраам Тарик Мухаммад</h3>
+          <h3 class="author-name">{{ audioContent.postFileArray[0].name }}</h3>
         </div>
       </div>
 
