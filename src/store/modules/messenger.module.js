@@ -43,6 +43,20 @@ export default {
     },
     setCountElements(state, countElements) {
       state.countElements = countElements
+    },
+    setIsTyping(state, chat) {
+      const index = state.chats.findIndex((ch) => ch?.chatId === chat?.chatId)
+      state.chats[index].isTyping = chat.isTyping
+      if (state.chat.chatId === chat.chatId) {
+        state.chat.isTyping = chat.isTyping
+      }
+    },
+    setUserLastSeen(state, chat) {
+      const index = state.chats.findIndex((ch) => ch?.chatId === chat?.chatId)
+      state.chats[index].userLastSeen = chat.userLastSeen
+      if (state.chat.chatId === chat.chatId) {
+        state.chat.userLastSeen = chat.userLastSeen
+      }
     }
   },
   actions: {

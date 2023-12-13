@@ -10,7 +10,15 @@
     <div class="list__info">
       <div class="list__info--top">
         <div class="list__info--name">{{ chat?.chatName }}</div>
-        <div class="list__info--date">
+        <div
+          class="list__info--date"
+          :class="{
+            online:
+              chat?.isTyping ||
+              (formatCustomDate(chat?.userLastSeen, true) === 'chat.online' &&
+                !store.getters['messenger/getIsLoading'])
+          }"
+        >
           <div class="list__info--status" v-if="chat?.message.messageOwner">
             <PreloaderIcon
               v-if="store.getters['messenger/getIsLoading'] && chat?.chatId === +route.params?.id"
@@ -18,8 +26,17 @@
             <double-check-icon v-else-if="chat?.message?.messageSeen" color="#49A399" />
             <single-check-icon v-else color="#49A399" />
           </div>
-          <!-- :class="online"   -->
-          {{ formatCustomDate(chat?.message?.messageDate) }}
+          <template v-if="chat?.isTyping">
+            {{ $t('chat.typing') }}
+          </template>
+          <template v-else>
+            {{
+              formatCustomDate(chat?.userLastSeen, true) === 'chat.online' &&
+              !store.getters['messenger/getIsLoading']
+                ? $t(formatCustomDate(chat?.userLastSeen, true))
+                : formatCustomDate(chat?.message?.messageDate)
+            }}
+          </template>
         </div>
       </div>
       <div class="list__info--bottom">

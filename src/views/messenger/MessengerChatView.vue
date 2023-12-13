@@ -1,69 +1,105 @@
 <template>
-  <div class="room">
-    <div class="room__top">
-      <div class="room__profile">
-        <img :src="chat?.chatImage" :alt="chat?.chatName" class="room__profile--img" />
-        <router-link to="#" class="room__profile--info">
-          <div class="room__profile--name">{{ chat?.chatName }}</div>
-          <div class="room__profile--account">
-            {{ multiFormatDateString(chat?.userLastSeen) }}
-          </div>
-        </router-link>
-        <LoadingBar v-if="store.getters['messenger/getChatIsLoading']" />
-      </div>
-      <div class="room__details" @click="showDeleteDropdown = true">
-        <menu-details-icon class="room__details--icon" />
-      </div>
-      <delete-dropdown
-        @handleClickOutside="showDeleteDropdown = false"
-        @handleDeleteChat="isDeleteModalOpen = true"
-        v-if="showDeleteDropdown"
-      />
-    </div>
-    <div class="room__messages" :style="{ opacity: !isMounting ? '1' : '0' }" ref="roomMessagesRef">
-      <div class="room__messages--inner" ref="room">
-        <div
-          v-intersection-observer="loadMore"
-          v-if="
-            !store.getters['messenger/getChatIsLoading'] &&
-            store.getters['messenger/getCountElements'] >= 20
-          "
-          class="observer"
-        ></div>
-        <div
-          v-for="(block, index) in store.getters['messenger/getRoomChatMessages']"
-          :key="block.date"
-          :id="`room_${index + 1}`"
-        >
-          <div class="room__messages--date">
-            {{ formatDate(block?.date) }}
-          </div>
-          <ChatMessage
-            v-for="message in block.block"
-            :message="message"
-            :key="message.messageId"
-            :isLoading="store.getters['messenger/getIsLoading']"
-            @contextmenu.prevent="($event) => openContextMenu($event, message.messageId)"
-            :isLastMessage="message === block.block[block.block.length - 1]"
+  <KeepAlive>
+    <div class="room">
+      <div class="room__top">
+        <div class="room__profile">
+          <img
+            :src="store.getters['messenger/getSingleChat']?.chatImage"
+            :alt="store.getters['messenger/getSingleChat']?.chatName"
+            class="room__profile--img"
           />
+          <router-link to="#" class="room__profile--info">
+            <div class="room__profile--name">
+              {{ store.getters['messenger/getSingleChat']?.chatName }}
+            </div>
+            <div
+              class="room__profile--account"
+              :class="{
+                online:
+                  store.getters['messenger/getSingleChat']?.isTyping ||
+                  multiFormatDateString(
+                    store.getters['messenger/getSingleChat']?.userLastSeen,
+                    true
+                  )?.isOnline
+              }"
+            >
+              <template v-if="store.getters['messenger/getSingleChat']?.isTyping">
+                {{ $t('chat.typing') }}
+              </template>
+              <template v-else>
+                {{
+                  multiFormatDateString(
+                    store.getters['messenger/getSingleChat']?.userLastSeen,
+                    true
+                  )?.text
+                    ? multiFormatDateString(
+                        store.getters['messenger/getSingleChat']?.userLastSeen,
+                        true
+                      )?.text
+                    : multiFormatDateString(
+                        store.getters['messenger/getSingleChat']?.userLastSeen,
+                        true
+                      )
+                }}
+              </template>
+            </div>
+          </router-link>
+          <LoadingBar v-if="store.getters['messenger/getChatIsLoading']" />
         </div>
+        <div class="room__details" @click="showDeleteDropdown = true">
+          <menu-details-icon class="room__details--icon" />
+        </div>
+        <delete-dropdown
+          @handleClickOutside="showDeleteDropdown = false"
+          @handleDeleteChat="isDeleteModalOpen = true"
+          v-if="showDeleteDropdown"
+        />
       </div>
-      <ContextMenu
-        v-show="isContextMenuOpen"
-        @open="isContextMenuOpen = true"
-        @close="isContextMenuOpen = false"
-        @shareMessage="shareMessage"
-        @editMessage="editMessage"
-        @deleteMessage="deleteMessage"
-        ref="menu"
+      <div class="room__messages" ref="roomMessagesRef">
+        <div class="room__messages--inner" ref="room">
+          <div
+            v-intersection-observer="loadMore"
+            v-if="
+              !store.getters['messenger/getChatIsLoading'] &&
+              store.getters['messenger/getCountElements'] >= 20
+            "
+            class="observer"
+          ></div>
+          <div
+            v-for="(block, index) in store.getters['messenger/getRoomChatMessages']"
+            :key="block.date"
+            :id="`room_${index + 1}`"
+          >
+            <div class="room__messages--date">
+              {{ formatDate(block?.date) }}
+            </div>
+            <ChatMessage
+              v-for="message in block.block"
+              :message="message"
+              :key="message.messageId"
+              :isLoading="store.getters['messenger/getIsLoading']"
+              @contextmenu.prevent="($event) => openContextMenu($event, message.messageId)"
+              :isLastMessage="message === block.block[block.block.length - 1]"
+            />
+          </div>
+        </div>
+        <ContextMenu
+          v-show="isContextMenuOpen"
+          @open="isContextMenuOpen = true"
+          @close="isContextMenuOpen = false"
+          @shareMessage="shareMessage"
+          @editMessage="editMessage"
+          @deleteMessage="deleteMessage"
+          ref="menu"
+        />
+      </div>
+      <ChatRoomForm
+        @submitHandler="submitHandler"
+        :isLoading="store.getters['messenger/getIsLoading']"
+        @typeHandler="typeHandler"
       />
     </div>
-    <ChatRoomForm
-      @submitHandler="submitHandler"
-      :isLoading="store.getters['messenger/getIsLoading']"
-    />
-  </div>
-
+  </KeepAlive>
   <teleport to="body">
     <delete-confirm v-if="isDeleteModalOpen" :user="user" @close="isDeleteModalOpen = false" />
   </teleport>
@@ -93,7 +129,6 @@ const store = useStore()
 const room = ref()
 const chat = ref({})
 const page = ref(1)
-const isMounting = ref(false)
 const roomMessagesRef = ref()
 const state = ref('end')
 
@@ -164,11 +199,9 @@ const tempMessagePush = (textValue) => {
 }
 
 const getMessagesData = async () => {
-  isMounting.value = true
   store.commit('messenger/setSingleChatByChatId', +route.params?.id)
   chat.value = store.getters['messenger/getSingleChat']
   await store.dispatch('messenger/getChatMessages', { chat_id: route.params?.id, page: page.value })
-  isMounting.value = false
 }
 
 const loadMore = async ([{ isIntersecting }]) => {
@@ -198,6 +231,20 @@ watch(
     getMessagesData()
   }
 )
+// Listen user typing or online
+
+const typeHandler = () => {
+  const payload = {
+    chatId: route.params?.id,
+    chatType: 'user',
+    authorId: localStorage.getItem('access_token'),
+    authorName: user?.name,
+    isTyping: ''
+  }
+
+  socket.emit('typing', payload)
+}
+
 getMessagesData()
 
 onUpdated(() => scrollToBottom(state.value))
@@ -332,6 +379,7 @@ export default {
     flex-grow: 1;
     overflow-y: auto;
     position: relative;
+    scale: 1;
     &--date {
       display: block;
       position: sticky;
@@ -351,5 +399,27 @@ export default {
       box-shadow: 0 0 10px rgba($color: #000000, $alpha: 0.05);
     }
   }
+}
+
+/* we will explain what these classes do next! */
+.v-enter-active,
+.v-leave-active {
+  transition:
+    opacity 0.5s ease,
+    scale 0.15s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+  scale: 0;
+}
+
+.observer {
+  position: absolute;
+  top: 300px;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
 }
 </style>

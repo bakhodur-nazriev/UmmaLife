@@ -89,7 +89,7 @@ export default {
       return this.textareaValue.split('\n').length
     }
   },
-  emits: ['submitHandler', 'setValue', 'clearValues'],
+  emits: ['submitHandler', 'typeHandler', 'clearValues'],
   methods: {
     handleKeyDown(event) {
       if (event.key === 'Enter' && !event.shiftKey) {
@@ -100,6 +100,11 @@ export default {
     submitForm() {
       this.$emit('submitHandler', this.textareaValue)
       this.textareaValue = ''
+    }
+  },
+  watch: {
+    textareaValue() {
+      this.$emit('typeHandler')
     }
   }
 }

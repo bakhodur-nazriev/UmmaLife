@@ -54,7 +54,7 @@ export default {
 
 <style lang="scss" scoped>
 .message {
-  margin-bottom: 8px;
+  margin-bottom: 8px !important;
   width: 100%;
   &__inner {
     padding: 14px 14px 26px;

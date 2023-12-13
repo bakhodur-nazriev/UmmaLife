@@ -481,9 +481,8 @@ export default {
       try {
         const response = await axios.post('/get-user-data', payload, {params, headers})
         if (response.data.api_status === 200) {
-          // this.user = JSON.stringify(response.data?.data)
-          // console.log(this.user)
-          // localStorage.setItem('user', JSON.stringify(response.data?.data))
+          this.user = JSON.stringify(response.data?.data)
+          localStorage.setItem('user', JSON.stringify(response.data?.data))
         }
       } catch (error) {
         console.error(error)

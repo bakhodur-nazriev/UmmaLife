@@ -13,12 +13,14 @@ import draggable from 'vuedraggable'
 import Vue3TouchEvents from 'vue3-touch-events'
 import VueStickyDirective from '@renatodeleao/vue-sticky-directive'
 import AudioPlayer from '@liripeng/vue-audio-player'
+import VueVirtualScroller from 'vue-virtual-scroller'
 import './interceptors/axios'
 
 import 'primevue/resources/themes/lara-light-indigo/theme.css'
 import 'video.js/dist/video-js.css'
 import '@fancyapps/ui/dist/fancybox/fancybox.css'
 import 'vue-multiselect/dist/vue-multiselect.css'
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 import 'swiper/css'
 import 'swiper/css/navigation'
 
@@ -34,5 +36,6 @@ app.use(VueVideoPlayer)
 app.use(Vue3TouchEvents)
 app.use(VueStickyDirective)
 app.use(AudioPlayer)
+app.use(VueVirtualScroller)
 // app.use(metaManager)
 app.mount('#app')
