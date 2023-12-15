@@ -158,14 +158,25 @@
   },
   "languages": {
     "title": "اَلْعَرَبِيَّةُ",
-    "names": {
-      "russian": "Русский",
+    "name": {
       "english": "English",
+      "russian": "Русский",
       "arabic": "اَلْعَرَبِيَّةُ",
       "turkish": "Türk",
       "uzbek": "O'zbek",
       "indonesia": "Bahasa Indonesia",
-      "malay": "Melayu"
+      "malay": "Melayu",
+      "tajik": "Тоҷик",
+      "tabasaran": "Табасаран",
+      "chuvash": "Чӑвашла",
+      "urdu": "اردو",
+      "ingush": "гӏалгӏай",
+      "tatar": "Татар",
+      "lak": "Лакский",
+      "qumuq": "Къумукъ",
+      "balkarian": "Tаулу",
+      "amharic": "አማርኛ",
+      "lezgin": "Лезги"
     }
   },
   "profile": {

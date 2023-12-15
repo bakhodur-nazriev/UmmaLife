@@ -6,9 +6,9 @@
           <div class="reaction__window">
             <ul class="reaction__menu">
               <li
-                v-for="(reaction, index) in reactionsIcon"
-                :key="index"
-                class="reaction__item"
+                  v-for="(reaction, index) in reactionsIcon"
+                  :key="index"
+                  class="reaction__item"
               >
                 <span class="reaction__item--tooltip">{{ reaction.tooltip }}</span>
                 <component :is="reaction.icon"/>
@@ -62,9 +62,9 @@
     <SampleDivider v-if="isFormOpen"/>
 
     <div
-      ref="commentForm"
-      v-if="isFormOpen"
-      :class="['main__comment--form', isFormOpen ? 'main__comment--form--shown' : '']"
+        ref="commentForm"
+        v-if="isFormOpen"
+        :class="['main__comment--form', isFormOpen ? 'main__comment--form--shown' : '']"
     >
       <ReplyCommentForm @close-comment-window="toggleForm"/>
 
@@ -107,7 +107,7 @@ export default {
     ShareMenuIcon
   },
   props: {
-    reactions: {
+    reaction: {
       type: Object
     }
   },
@@ -145,9 +145,9 @@ export default {
       const openReactionButton = document.querySelector('.open-reaction-button')
 
       if (
-        reactionWindow &&
-        !reactionWindow.contains(event.target) &&
-        event.target !== openReactionButton
+          reactionWindow &&
+          !reactionWindow.contains(event.target) &&
+          event.target !== openReactionButton
       ) {
         this.isReactionWindowOpen = false
       }

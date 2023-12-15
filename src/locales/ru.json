@@ -185,6 +185,7 @@
     "succeed_text": "Электронное письмо было успешно отправлено."
   },
   "buttons": {
+    "translate": "Перевести",
     "reset": "Сброс",
     "add": "Добавить",
     "login": "Войти",
@@ -267,14 +268,25 @@
   },
   "languages": {
     "title": "Русский",
-    "names": {
-      "russian": "Русский",
+    "name": {
       "english": "English",
+      "russian": "Русский",
       "arabic": "اَلْعَرَبِيَّةُ",
       "turkish": "Türk",
       "uzbek": "O'zbek",
       "indonesia": "Bahasa Indonesia",
-      "malay": "Melayu"
+      "malay": "Melayu",
+      "tajik": "Тоҷик",
+      "tabasaran": "Табасаран",
+      "chuvash": "Чӑвашла",
+      "urdu": "اردو",
+      "ingush": "гӏалгӏай",
+      "tatar": "Татар",
+      "lak": "Лакский",
+      "qumuq": "Къумукъ",
+      "balkarian": "Tаулу",
+      "amharic": "አማርኛ",
+      "lezgin": "Лезги"
     }
   },
   "placeholders": {

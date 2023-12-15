@@ -1,34 +1,46 @@
 <template>
   <header class="post__header">
     <router-link
-      v-if="publisher"
-      class="post__author"
-      to="#"
+        v-if="publisher"
+        class="post__author"
+        to="#"
     >
-      <img
-        width="56"
-        height="56"
-        :src="publisher.avatar"
-        :alt="publisher.name"
-      />
+      <PremiumIcon :is_investor="publisher.is_premium"/>
+      <div class="author-image__block">
+        <img
+            width="56"
+            height="56"
+            :src="publisher.avatar"
+            :alt="publisher.name"
+        />
+      </div>
+
       <div class="author-info">
-        <span class="author-info__name">{{ publisher.name }}</span>
+        <div class="author-info__inside">
+          <span class="author-info__name">{{ publisher.name }}</span>
+          <VerifyIcon v-if="verifiedUser"/>
+        </div>
         <span class="author-info__time">{{ time }}</span>
+        <button @click="translatePost">{{ $t('buttons.translate') }}</button>
       </div>
     </router-link>
     <div class="menu__button">
       <SampleMenuDetailsButton
-        :is-menu-open="isMenuOpen"
-        @toggle-menu="$emit('toggle-menu')"
+          :is-menu-open="isMenuOpen"
+          @toggle-menu="$emit('toggle-menu')"
       />
     </div>
   </header>
 </template>
 <script>
 import SampleMenuDetailsButton from '@/components/ui/MenuDetails/SampleMenuDetailsButton.vue'
+import VerifyIcon from '@/components/icons/VerifyIcon.vue'
+import PremiumIcon from '@/components/icons/PremiumIcon.vue'
 
 export default {
   components: {
+    PremiumIcon,
+    VerifyIcon,
     SampleMenuDetailsButton
   },
   props: {
@@ -48,12 +60,27 @@ export default {
   data() {
     return {}
   },
-  mounted() {},
-  methods: {}
+  methods: {
+    translatePost() {
+
+    }
+  },
+  computed: {
+    verifiedUser() {
+      return this.publisher && this.publisher.verified === "1";
+    },
+    premiumAccount() {
+      return this.publisher && this.publisher.is_premium === "1";
+    }
+  }
 }
 </script>
 
 <style scoped lang="scss">
+.author-image__block {
+  display: flex;
+}
+
 .post__author {
   display: flex;
   text-decoration: none;
@@ -86,6 +113,12 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  &__inside {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
 
   &__time {
     color: var(--color-silver-chalice);
