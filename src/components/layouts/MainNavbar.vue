@@ -10,8 +10,8 @@
       <div class="main__nav--side">
         <SampleButton class="create__button" :title="`${$t('buttons.create')}`"/>
         <SearchInput
-          @open-search-input="isSearchInputOpen = true"
-          :placeholder="$t('placeholders.search_input')"
+            @open-search-input="isSearchInputOpen = true"
+            :placeholder="$t('placeholders.search_input')"
         />
       </div>
       <div class="left__nav--side">
@@ -23,9 +23,9 @@
             <EmailIcon/>
           </li>
           <li
-            class="notification__button"
-            @click="isNotificationOpen = !isNotificationOpen"
-            :class="{ active: isNotificationOpen }"
+              class="notification__button"
+              @click="isNotificationOpen = !isNotificationOpen"
+              :class="{ active: isNotificationOpen }"
           >
             <NotificationIcon/>
           </li>
@@ -37,7 +37,7 @@
         </ul>
         <div class="user__menu--block">
           <div class="profile__image" @click="toggleProfile">
-            <img :src="user.avatar" alt="avatar-logo"/>
+            <img :src="userData.avatar" alt="avatar-logo"/>
           </div>
           <ArrowIcon class="dropdown__icon"/>
         </div>
@@ -48,8 +48,8 @@
           <ul class="menu-list">
             <li class="menu-list__item">
               <a href="/profile" class="user-item">
-                <span class="user-name">{{ user.name }}</span>
-                <img :src="user.avatar" alt="">
+                <span class="user-name">{{ userData.name }}</span>
+                <img :src="userData.avatar" alt="">
               </a>
             </li>
             <li class="menu-list__item">
@@ -60,9 +60,9 @@
             </li>
             <li class="menu-list__item">
               <button
-                type="submit"
-                class="logout-button"
-                @click="logout"
+                  type="submit"
+                  class="logout-button"
+                  @click="logout"
               >
                 {{ $t('links.logout') }}
               </button>
@@ -98,10 +98,10 @@
               <SmallLogo/>
             </router-link>
             <button
-              v-if="isSearchForm"
-              type="button"
-              @click="isSearchFormClose"
-              class="close-search__form"
+                v-if="isSearchForm"
+                type="button"
+                @click="isSearchFormClose"
+                class="close-search__form"
             >
               <ArrowLeftIcon/>
             </button>
@@ -308,9 +308,9 @@
   </header>
   <teleport to="body">
     <NotificationContainer
-      v-if="isNotificationOpen"
-      @closeHandler="isNotificationOpen = false"
-      :modal="true"
+        v-if="isNotificationOpen"
+        @closeHandler="isNotificationOpen = false"
+        :modal="true"
     />
   </teleport>
 </template>
@@ -433,12 +433,14 @@ export default {
       dummyAudios: audios,
       isSearchInputOpen: false,
       userId: localStorage.getItem('user_id'),
-      user: JSON.parse(localStorage.getItem('user')) || {},
       isProfileOpen: false
     }
   },
   computed: {
-    ...mapState('audio', ['audios', 'isPlayerOpen'])
+    ...mapState('audio', ['audios', 'isPlayerOpen']),
+    userData() {
+      return JSON.parse(localStorage.getItem('user')) || {}
+    }
   },
   methods: {
     ...mapMutations('audio', ['setIsPlayerOpen', 'setAudios', 'setIndex']),
