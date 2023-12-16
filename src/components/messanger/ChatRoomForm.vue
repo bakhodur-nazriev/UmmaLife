@@ -1,38 +1,30 @@
 <template>
   <div class="parent">
-    <!-- <div class="parent__edit" v-if="edit">
+    <div class="parent__edit" v-if="isEditOpen">
       <div class="parent__edit--icon">
         <edit-gray-icon />
       </div>
       <div class="parent__edit--text">
-        <div class="parent__edit--close" @click="$emit('clearValues')">
+        <div class="parent__edit--close" @click="closeEdit">
           <close-edit-icon />
         </div>
         <span>Edit Message</span>
-        {{
-          typeof selectedMessage.message === 'string'
-            ? selectedMessage.message
-            : selectedMessage.message.text
-        }}
+        {{ selectedMessage.message }}
       </div>
     </div>
-    <div class="parent__edit" v-if="share">
+    <div class="parent__edit" v-if="isReplyOpen">
       <div class="parent__edit--icon">
         <share-big-icon />
       </div>
       <div class="parent__edit--text">
-        <div class="parent__edit--close" @click="$emit('clearValues')">
+        <div class="parent__edit--close" @click="emit('closeReply')">
           <close-edit-icon />
         </div>
-        <span class="user">{{ user.name }}</span>
-        {{
-          typeof selectedMessage.message === 'string'
-            ? selectedMessage.message
-            : selectedMessage.message.text
-        }}
+        <span class="user">{{ selectedMessage?.messageAuthor }}</span>
+        {{ selectedMessage?.message }}
       </div>
-    </div> -->
-    <form class="form" @submit.prevent="submitForm" ref="formRef">
+    </div>
+    <form class="form" @submit.prevent="submitForm">
       <div class="form__input">
         <div class="form__file">
           <attach-icon />
@@ -57,8 +49,11 @@
   </div>
 </template>
 
-<script>
+<script setup>
 /* eslint-disable */
+import { ref, computed, watch } from 'vue'
+
+import Textarea from 'primevue/textarea'
 import SendIcon from '@/components/icons/SendIcon.vue'
 import AttachIcon from '@/components/icons/AttachIcon.vue'
 import EditGrayIcon from '@/components/icons/MenuDetails/EditGrayIcon.vue'
@@ -66,52 +61,68 @@ import CloseEditIcon from '@/components/icons/MenuDetails/CloseEditIcon.vue'
 import ShareBigIcon from '@/components/icons/MenuDetails/ShareBigIcon.vue'
 import SpinnerGif from '@/components/icons/SpinnerGif.vue'
 
-export default {
-  components: { SendIcon, AttachIcon, EditGrayIcon, CloseEditIcon, ShareBigIcon, SpinnerGif },
-  props: {
-    edit: Boolean,
-    share: Boolean,
-    isLoading: Boolean
-  },
-  data() {
-    return {
-      textareaValue: ''
-    }
-  },
-  computed: {
-    textareaStyle() {
-      return {
-        'overflow-y': this.textareaRowCount > 4 ? 'scroll' : 'hidden',
-        'max-height': '120px' // You can adjust the max height as needed
-      }
-    },
-    textareaRowCount() {
-      return this.textareaValue.split('\n').length
-    }
-  },
-  emits: ['submitHandler', 'typeHandler', 'clearValues'],
-  methods: {
-    handleKeyDown(event) {
-      if (event.key === 'Enter' && !event.shiftKey) {
-        event.preventDefault()
-        this.submitForm()
-      }
-    },
-    submitForm() {
-      this.$emit('submitHandler', this.textareaValue)
-      this.textareaValue = ''
-    }
-  },
-  watch: {
-    textareaValue() {
-      this.$emit('typeHandler')
-    }
+const props = defineProps({
+  selectedMessage: Object,
+  isReplyOpen: Boolean,
+  isLoading: Boolean,
+  isEditOpen: Boolean
+})
+
+const emit = defineEmits(['submitHandler', 'typeHandler', 'closeReply', 'closeEdit'])
+
+const textareaValue = ref('')
+
+const textareaStyle = computed(() => {
+  return {
+    'overflow-y': textareaRowCount.value > 4 ? 'scroll' : 'hidden',
+    'max-height': '120px' // You can adjust the max height as needed
+  }
+})
+const textareaRowCount = computed(() => {
+  return textareaValue.value.split('\n').length
+})
+
+const handleKeyDown = (event) => {
+  if (event.key === 'Enter' && !event.shiftKey) {
+    event.preventDefault()
+    submitForm()
   }
 }
-</script>
+const submitForm = () => {
+  emit('submitHandler', {
+    message: textareaValue.value,
+    replyId: props.selectedMessage ? props.selectedMessage.messageId : null
+  })
+  textareaValue.value = ''
+  emit('closeReply')
+}
 
-<script setup>
-import Textarea from 'primevue/textarea'
+const closeEdit = () => {
+  emit('closeEdit')
+  textareaValue.value = ''
+}
+
+watch(
+  () => textareaValue.value,
+  () => emit('typeHandler')
+)
+watch(
+  () => {
+    return {
+      isReplyOpen: props.isReplyOpen,
+      isEditOpen: props.isEditOpen
+    }
+  },
+  ({ isReplyOpen, isEditOpen }) => {
+    const textarea = document.querySelector('.form__input--text')
+    if (isEditOpen || (isReplyOpen && textarea)) {
+      if (isEditOpen) {
+        textareaValue.value = props.selectedMessage.message
+      }
+      textarea.focus()
+    }
+  }
+)
 </script>
 
 <style scoped lang="scss">
@@ -133,7 +144,7 @@ import Textarea from 'primevue/textarea'
       right: 0;
     }
     &--icon {
-      padding: 14px 16px 13px 0;
+      padding: 14px 16px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -148,7 +159,7 @@ import Textarea from 'primevue/textarea'
       background-color: var(--color-white);
       border-left: 2px solid var(--color-green);
       padding: 12px 12px 8px 14px;
-      width: calc(100% - 235px);
+      width: calc(100% - 250px);
       border-radius: 0px 10px 10px 0px;
       span {
         display: block;

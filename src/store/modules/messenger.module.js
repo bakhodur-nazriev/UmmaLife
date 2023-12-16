@@ -79,14 +79,16 @@ export default {
         console.log(err)
       }
     },
-    async getChatMessages({ state, commit }, { chat_id, page, last_message_id, action }) {
+    async getChatMessages({ state, commit }, { chat_id, direction, page }) {
       try {
         const payload = getFormData({
           server_key: process.env.VUE_APP_SERVER_KEY,
           chat_id,
           chat_type: 'user',
           page,
-          last_message_id: last_message_id || null
+          direction,
+          limit: 20
+          // last_message_id: last_message_id || null
         })
 
         const { data } = await axios.post('/get-chat-messages', payload, {
@@ -97,8 +99,8 @@ export default {
             access_token: localStorage.getItem('access_token')
           }
         })
-        if (action === 'push') {
-          state.chatMessages.push(...data.data)
+        if (direction === 'down') {
+          state.chatMessages = data.data
         } else {
           state.chatMessages.unshift(...data.data)
         }

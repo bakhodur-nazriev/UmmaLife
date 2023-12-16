@@ -24,11 +24,12 @@ const socket = io(`${process.env.VUE_APP_SOCKET_URL}`, {
 socket.emit('join', { user_id: localStorage.getItem('access_token') })
 
 socket.on('on_new_message_chatroom', (data) => {
+  console.log('on_new_message_chatroom')
   storeOrUpdateData(data)
   dispatch('messenger/getChats')
   if (+route.params?.id === data?.chatId) {
     commit('messenger/setSingleChatByChatId', +route.params?.id)
-    dispatch('messenger/getChatMessages', { chat_id: route.params?.id, page: 1, action: 'push' })
+    dispatch('messenger/getChatMessages', { chat_id: route.params?.id, page: 1, direction: 'down' })
   }
 })
 
@@ -38,6 +39,15 @@ socket.on('on_typing', (data) => {
 
 socket.on('on_user_status', (data) => {
   commit('messenger/setUserLastSeen', data)
+})
+
+socket.on('on_edit_message', async (data) => {
+  console.log('on_edit_message')
+  await dispatch('messenger/getChatMessages', {
+    chat_id: route.params?.id,
+    direction: 'down',
+    page: null
+  })
 })
 
 function storeOrUpdateData(data) {

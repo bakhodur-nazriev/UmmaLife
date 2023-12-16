@@ -1,5 +1,9 @@
 <template>
-  <div class="message" :class="message?.messageOwner ? 'send' : 'recieve'">
+  <div
+    class="message"
+    :class="message?.messageOwner ? 'send' : 'recieve'"
+    :data-messageId="message?.messageId"
+  >
     <div class="message__inner">
       <!-- <template v-if="video">
         :class="`${state} ${typeof message === 'object' ? 'forward' : ''}`"
@@ -9,16 +13,26 @@
       <template v-if="image">
         <image-message :image="image" />
       </template> -->
-      <div class="message__text" v-if="message?.messageType === 'text'">
+      <div
+        class="message__text"
+        v-if="
+          message?.messageType === 'text' && Object.keys(message?.replyMessage || {}).length === 0
+        "
+      >
         {{ message?.message }}
       </div>
-      <!-- <div class="message__text" v-if="typeof message === 'object'">
+      <div
+        class="message__text"
+        v-else-if="
+          message?.messageType === 'text' && Object.keys(message?.replyMessage || {}).length > 0
+        "
+      >
         <div class="message__text--top">
-          <span>{{ message.user_name }}</span>
-          {{ message.user_message }}
+          <span>{{ message?.replyMessage?.messageAuthor }}</span>
+          {{ message?.replyMessage?.message }}
         </div>
-        {{ message.text }}
-      </div> -->
+        {{ message.message }}
+      </div>
       <div class="message__bottom">
         <span>{{ formatTime(message?.messageDate) }}</span>
         <preloader-icon v-if="message?.messageOwner && isLoading && isLastMessage" />
@@ -83,6 +97,9 @@ export default {
       margin-left: auto;
       color: var(--color-stable-white);
     }
+    .message__text--top {
+      border-color: var(--color-stable-white);
+    }
   }
   &.recieve {
     .message__inner {
@@ -98,7 +115,7 @@ export default {
     letter-spacing: 0.4px;
     white-space: pre-wrap;
     &--top {
-      border-left: 2px solid var(--color-white);
+      border-left: 2px solid var(--color-mine-shaft);
       padding-left: 8px;
       margin-bottom: 10px;
       span {

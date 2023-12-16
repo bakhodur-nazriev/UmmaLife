@@ -55,7 +55,7 @@
           v-if="showDeleteDropdown"
         />
       </div>
-      <div class="room__messages" ref="roomMessagesRef">
+      <div class="room__messages" ref="roomMessagesRef" @contextmenu.prevent="showContextMenu">
         <div class="room__messages--inner" ref="room">
           <div
             v-intersection-observer="loadMore"
@@ -78,25 +78,29 @@
               :message="message"
               :key="message.messageId"
               :isLoading="store.getters['messenger/getIsLoading']"
-              @contextmenu.prevent="($event) => openContextMenu($event, message.messageId)"
               :isLastMessage="message === block.block[block.block.length - 1]"
             />
           </div>
         </div>
         <ContextMenu
-          v-show="isContextMenuOpen"
-          @open="isContextMenuOpen = true"
+          :contextMenuPosition="contextMenuPosition"
+          :isContextMenuOpen="isContextMenuOpen"
+          :isOwner="messageState.isOwner"
           @close="isContextMenuOpen = false"
-          @shareMessage="shareMessage"
-          @editMessage="editMessage"
-          @deleteMessage="deleteMessage"
-          ref="menu"
+          @replyMessage="replyMessage"
+          @copyClipboard="copyClipboardFunc"
+          @editMessage="editMenuClickHandler"
         />
       </div>
       <ChatRoomForm
-        @submitHandler="submitHandler"
-        :isLoading="store.getters['messenger/getIsLoading']"
+        @submitHandler="(props) => (!isEditOpen ? submitHandler(props) : editHandler(props))"
         @typeHandler="typeHandler"
+        @closeReply="isReplyOpen = false"
+        @closeEdit="isEditOpen = false"
+        :isLoading="store.getters['messenger/getIsLoading']"
+        :isReplyOpen="isReplyOpen"
+        :selectedMessage="selectedMessage"
+        :isEditOpen="isEditOpen"
       />
     </div>
   </KeepAlive>
@@ -109,11 +113,11 @@
 /* eslint-disable */
 import io from 'socket.io-client'
 import { useRoute } from 'vue-router'
-import { ref, watch, nextTick, onUpdated, onMounted, computed } from 'vue'
+import { ref, watch, nextTick, onMounted } from 'vue'
 import { vIntersectionObserver } from '@vueuse/components'
 import { useStore } from 'vuex'
 import { timeFormat } from '@/mixins/timeFormat'
-import { convertDate, sleep } from '@/utils'
+import { convertDate, sleep, copyClipboard } from '@/utils'
 
 import DeleteDropdown from '@/components/messanger/dropdowns/DeleteDropdown.vue'
 import MenuDetailsIcon from '@/components/icons/MenuDetailsIcon.vue'
@@ -131,18 +135,15 @@ const chat = ref({})
 const page = ref(1)
 const roomMessagesRef = ref()
 const state = ref('end')
+const isContextMenuOpen = ref(false)
+const contextMenuPosition = ref({ top: 0, left: 0 })
+const messageState = ref({ isOwner: false, messageId: null })
+const selectedMessage = ref({})
+const isReplyOpen = ref(false)
+const isEditOpen = ref(false)
 
 const socket = io(`${process.env.VUE_APP_SOCKET_URL}`, {
   query: { hash: localStorage.getItem('hash') }
-})
-
-const lastBlockId = computed(() => {
-  const lastElement =
-    store.getters['messenger/getRoomChatMessages'].length > 0
-      ? store.getters['messenger/getRoomChatMessages'][0]
-      : null
-  const lastBlockItem = lastElement ? lastElement.block : null
-  return lastBlockItem && lastBlockItem.length > 0 ? lastBlockItem[0].messageId : null
 })
 
 const scrollToBottom = (state) => {
@@ -151,13 +152,102 @@ const scrollToBottom = (state) => {
   })
 }
 
-const submitHandler = (textValue) => {
+const showContextMenu = (event) => {
+  contextMenuPosition.value = { top: 0, left: 0 }
+  // Get mouse click coordinates
+  const mouseX = event.clientX
+  const mouseY = event.clientY
+
+  // Get parent element and its position
+  const parentElement = room.value
+  const parentRect = parentElement.getBoundingClientRect()
+
+  const contextMenu = document.querySelector('.context-menu')
+
+  // Calculate relative position considering scroll
+  const relativeX = mouseX - parentRect.left + parentElement.scrollLeft
+  const relativeY = mouseY - parentRect.top + parentElement.scrollTop
+
+  // Calculate maximum allowed positions
+  const maxLeft = parentRect.width - contextMenu.clientWidth
+  const maxTop = parentRect.height - contextMenu.clientHeight
+
+  // Set context menu position, ensuring it doesn't go beyond parent edges
+  contextMenuPosition.value = {
+    top: Math.min(relativeY, maxTop) + 'px',
+    left: Math.min(relativeX, maxLeft) + 'px'
+  }
+
+  defineMessageState(event)
+}
+
+const defineMessageState = (event) => {
+  isContextMenuOpen.value = false
+  const target = event.target
+  const messageInner = target.closest('.message__inner')
+  if (messageInner) {
+    const messageInnerParent = messageInner.parentElement
+    messageState.value = {
+      messageId: messageInnerParent.getAttribute('data-messageId'),
+      isOwner: messageInnerParent.classList.contains('send')
+    }
+    isContextMenuOpen.value = true
+  }
+}
+
+const getSelectedMessage = () => {
+  if (messageState.value.messageId) {
+    isContextMenuOpen.value = false
+
+    const combinedArray = store.getters['messenger/getRoomChatMessages'].reduce(
+      (result, current) => {
+        // Extracting block array and date from the current object
+        const { date, block, ...rest } = current
+
+        // Combining block arrays into one array
+        const combinedBlockArray = (result.block || []).concat(block)
+
+        // Updating result object
+        result = {
+          ...rest,
+          block: combinedBlockArray
+        }
+
+        return result
+      },
+      {}
+    )
+    if (combinedArray && combinedArray.block) {
+      const message = combinedArray.block.find(
+        (message) => message.messageId === +messageState.value.messageId
+      )
+      selectedMessage.value = message
+    }
+  }
+}
+
+const replyMessage = () => {
+  getSelectedMessage()
+  isReplyOpen.value = true
+}
+
+const copyClipboardFunc = () => {
+  getSelectedMessage()
+  copyClipboard(selectedMessage.value.message)
+}
+
+const editMenuClickHandler = () => {
+  getSelectedMessage()
+  isEditOpen.value = true
+}
+
+const submitHandler = ({ message, replyId }) => {
   const privateMessageData = {
     chatId: chat.value?.chatId,
     chatType: chat.value?.chatType,
     chatName: chat.value?.chatName,
     chatImage: chat.value?.chatImage,
-    message: textValue,
+    message,
     messageAuthor: user?.name,
     messageAuthorId: localStorage.getItem('access_token'),
     messageAuthorImage: user?.avatar,
@@ -167,19 +257,46 @@ const submitHandler = (textValue) => {
     messageAuthorPrivacy: '0',
     mediaData: [],
     fetchUrlData: {},
-    replyId: 0,
+    replyId: replyId || 0,
     localId: Date.now()
   }
-  tempMessagePush(textValue)
+  tempMessagePush({ message, replyId })
+  scrollToBottom(state.value)
   store.commit('messenger/setSingleChat', privateMessageData)
   socket.emit('private_message_umma', privateMessageData, (data) => {
     console.log('private_message_umma')
   })
 }
+const editHandler = ({ message, replyId }) => {
+  const privateMessageData = {
+    chatId: chat.value?.chatId,
+    chatType: chat.value?.chatType,
+    chatName: chat.value?.chatName,
+    chatImage: chat.value?.chatImage,
+    message,
+    messageAuthor: user?.name,
+    messageAuthorId: localStorage.getItem('access_token'),
+    messageAuthorImage: user?.avatar,
+    messageId: selectedMessage.value?.messageId
+  }
 
-const tempMessagePush = (textValue) => {
+  isEditOpen.value = false
+  contextMenuPosition.value = { top: 0, left: 0 }
+  tempMessagePush({ message, replyId })
+  socket.emit('edit_message', privateMessageData, async (data) => {
+    console.log('edit_message')
+
+    await store.dispatch('messenger/getChatMessages', {
+      chat_id: route.params?.id,
+      page: page.value,
+      direction: 'down'
+    })
+  })
+}
+
+const tempMessagePush = ({ message, replyId }) => {
   const messageToPush = {
-    message: textValue,
+    message: message,
     messageId: Date.now(),
     messageDate: convertDate(new Date()),
     messageAuthor: user?.name,
@@ -192,8 +309,14 @@ const tempMessagePush = (textValue) => {
     mediaData: [],
     mentionUsers: [],
     fetchUrlData: [],
-    replyMessage: null
+    replyMessage: !replyId
+      ? {}
+      : {
+          message: selectedMessage?.value?.message,
+          messageAuthor: selectedMessage?.value?.messageAuthor
+        }
   }
+  contextMenuPosition.value = { top: 0, left: 0 }
   store.commit('messenger/pushMessage', messageToPush)
   store.commit('messenger/setIsLoading', true)
 }
@@ -201,20 +324,27 @@ const tempMessagePush = (textValue) => {
 const getMessagesData = async () => {
   store.commit('messenger/setSingleChatByChatId', +route.params?.id)
   chat.value = store.getters['messenger/getSingleChat']
-  await store.dispatch('messenger/getChatMessages', { chat_id: route.params?.id, page: page.value })
+  await store.dispatch('messenger/getChatMessages', {
+    chat_id: route.params?.id,
+    page: page.value,
+    direction: 'down'
+  })
+  scrollToBottom(state.value)
 }
 
 const loadMore = async ([{ isIntersecting }]) => {
   if (isIntersecting) {
     const roomElement = document.querySelector('#room_1')
     state.value = 'nearest'
+    scrollToBottom(state.value)
     page.value += 1
     store.commit('messenger/setChatIsLoading', true)
     store.commit('messenger/setCountElements', 0)
+
     await store.dispatch('messenger/getChatMessages', {
       chat_id: route.params?.id,
-      page: page.value,
-      last_message_id: lastBlockId.value
+      direction: 'up',
+      page: page.value
     })
     roomElement.scrollIntoView({ block: 'start', inline: 'nearest' })
     await sleep(3000)
@@ -225,14 +355,14 @@ const loadMore = async ([{ isIntersecting }]) => {
 watch(
   () => route.params?.id,
   () => {
+    page.value = 1
     store.commit('messenger/setChatIsLoading', true)
     store.commit('messenger/setChatMessages', [])
-    page.value = 1
+    contextMenuPosition.value = { top: 0, left: 0 }
     getMessagesData()
   }
 )
-// Listen user typing or online
-
+// Listen user typing
 const typeHandler = () => {
   const payload = {
     chatId: route.params?.id,
@@ -245,13 +375,11 @@ const typeHandler = () => {
   socket.emit('typing', payload)
 }
 
-getMessagesData()
-
-onUpdated(() => scrollToBottom(state.value))
 onMounted(() => {
   store.commit('messenger/setChatIsLoading', true)
   store.commit('messenger/setChatMessages', [])
   page.value = 1
+  getMessagesData()
 })
 </script>
 
@@ -261,39 +389,12 @@ export default {
   data() {
     return {
       showDeleteDropdown: false,
-      isContextMenuOpen: false,
-      isDeleteModalOpen: false,
-      edit: false,
-      share: false
+      isDeleteModalOpen: false
     }
   },
   methods: {
-    openContextMenu(e, id) {
-      const target = e.target
-      if (target.closest('.message__inner')) {
-        this.$refs.menu.open(e)
-        this.messageId = id
-      }
-    },
-    shareMessage() {
-      this.clearValues()
-      this.isContextMenuOpen = false
-      this.share = true
-    },
-    editMessage() {
-      this.clearValues()
-      if (this.selectedMessage.state === 'send') {
-        this.isContextMenuOpen = false
-        this.value =
-          typeof this.selectedMessage.message === 'string'
-            ? this.selectedMessage.message
-            : this.selectedMessage.text
-        this.edit = true
-      }
-    },
     deleteMessage() {
       this.isDeleteModalOpen = true
-      this.isContextMenuOpen = false
     }
   }
 }
