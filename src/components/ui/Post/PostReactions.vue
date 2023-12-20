@@ -73,7 +73,7 @@ export default {
   },
   methods: {},
   mounted() {
-    console.log(this.reaction)
+    // console.log(this.reaction)
   }
 }
 </script>

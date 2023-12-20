@@ -14,9 +14,9 @@
     </button>
     <ul class="locales__list" :class="{ active: isSidebarCollapsed }" ref="list">
       <li class="locales__item" v-for="language in supportedLanguages" :key="language.code">
-        <a class="locales__link" :href="getLocalizedLink(language.code)">
+        <router-link class="locales__link" :to="getLocalizedLink(language.code)">
           {{ language.title }}
-        </a>
+        </router-link>
       </li>
     </ul>
   </div>

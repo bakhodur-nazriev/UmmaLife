@@ -31,5 +31,8 @@ export default {
   },
   setAccessToken(state, token) {
     state.accessToken = token
+  },
+  setLanguage(state, language) {
+    state.selectedLanguage = language
   }
 }

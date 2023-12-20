@@ -13,19 +13,19 @@
       </div>
     </div>
     <div>
-      <SampleMenuDetailsButton
-        :is-menu-open="isMenuOpen"
-        @toggleMenu="$emit('toggle-menu')"
-      />
+<!--      <SampleMenuDetailsButton-->
+<!--        :is-menu-open="isMenuOpen"-->
+<!--        @toggleMenu="$emit('toggle-menu')"-->
+<!--      />-->
     </div>
   </section>
 </template>
 
 <script>
-import SampleMenuDetailsButton from '@/components/ui/MenuDetails/SampleMenuDetailsButton.vue'
+// import SampleMenuDetailsButton from '@/components/ui/MenuDetails/MuviMenuDetailsButton.vue'
 export default {
   components: {
-    SampleMenuDetailsButton
+    // SampleMenuDetailsButton
   },
   props: {
     isMenuOpen: {

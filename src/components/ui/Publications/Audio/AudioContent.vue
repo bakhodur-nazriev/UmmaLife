@@ -83,7 +83,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.audioContent)
+    // console.log(this.audioContent)
   }
 }
 </script>

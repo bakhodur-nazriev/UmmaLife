@@ -1,10 +1,10 @@
 <template>
   <div class="locales" ref="container">
     <button
-      type="button"
-      class="locales__button"
-      :class="isRTL ? 'rtl' : 'ltr'"
-      @click="handleButtonClick"
+        type="button"
+        class="locales__button"
+        :class="isRTL ? 'rtl' : 'ltr'"
+        @click="handleButtonClick"
     >
       <global-icon class="locales__icon"/>
       <span class="locales__title">{{ currentLanguageName }}</span>
@@ -13,9 +13,9 @@
 
     <ul :class="isRTL ? 'rtl' : 'ltr'" class="locales__list" :data-locale="$t('languages.title')">
       <li class="locales__item" v-for="language in supportedLanguages" :key="language.code">
-        <a class="locales__link" :href="getLocalizedLink(language.code)">
+        <router-link class="locales__link" :to="getLocalizedLink(language.code)">
           {{ language.title }}
-        </a>
+        </router-link>
       </li>
     </ul>
   </div>
@@ -327,10 +327,10 @@ export default {
 
     &::-webkit-scrollbar-thumb {
       background: linear-gradient(
-          transparent 15%,
-          var(--color-secondary) 15%,
-          var(--color-secondary) 85%,
-          transparent 85%
+              transparent 15%,
+              var(--color-secondary) 15%,
+              var(--color-secondary) 85%,
+              transparent 85%
       );
     }
   }

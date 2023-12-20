@@ -259,7 +259,9 @@
     },
     "back_to_articles": "Return to list of articles",
     "article_preview": "Article preview",
-    "save_as_draft": "Save as draft"
+    "save_as_draft": "Save as draft",
+    "read_more_post": "Read more...",
+    "read_less_post": "Less"
   },
   "languages": {
     "title": "English",
