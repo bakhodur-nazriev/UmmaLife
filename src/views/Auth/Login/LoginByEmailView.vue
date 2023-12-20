@@ -5,10 +5,10 @@
     <div class="main__input-email-block">
       <div :class="['input-wrapper', { error: hasError.email || isInvalidEmail }]">
         <input
-          name="username"
-          v-model="email"
-          class="base-input"
-          :placeholder="$t('login.placeholders.email')"
+            name="username"
+            v-model="email"
+            class="base-input"
+            :placeholder="$t('login.placeholders.email')"
         />
         <small v-show="hasError.email || isInvalidEmail" class="error-message">
           {{ $t(isInvalidEmail ? 'login.validation.incorrect_email' : 'login.validation.empty_email') }}
@@ -19,12 +19,12 @@
     <div class="main__input-password-block">
       <div class="input-with-eye" :class="['input-wrapper', { error: hasError.password }]">
         <input
-          name="password"
-          :type="isPasswordVisible ? 'text' : 'password'"
-          v-model="password"
-          class="base-input"
-          :class="{'input-field': true, 'error': passwordError}"
-          :placeholder="$t('login.placeholders.password')"
+            name="password"
+            :type="isPasswordVisible ? 'text' : 'password'"
+            v-model="password"
+            class="base-input"
+            :class="{'input-field': true, 'error': passwordError}"
+            :placeholder="$t('login.placeholders.password')"
         />
 
         <button type="button" class="eye-button" @click="togglePasswordVisibility">
@@ -46,15 +46,15 @@
 
     <div class="login-button-section">
       <SampleButton
-        type="submit"
-        :title="$t('buttons.login')"
-        :disabled="isSubmitDisabled"
-        :class="{ 'disabled-button': isSubmitDisabled }"
+          type="submit"
+          :title="$t('buttons.login')"
+          :disabled="isSubmitDisabled"
+          :class="{ 'disabled-button': isSubmitDisabled }"
       />
     </div>
     <router-link
-      class="link create-account-link"
-      :to="`/${$i18n.locale}/register`"
+        class="link create-account-link"
+        :to="`/${$i18n.locale}/register`"
     >
       {{ $t('login.create_account') }}
     </router-link>
@@ -62,8 +62,8 @@
 
   <div class="login-with-phone-section">
     <router-link
-      :to="`/${$i18n.locale}/login-by-phone`"
-      class="link-with-phone-number"
+        :to="`/${$i18n.locale}/login-by-phone`"
+        class="link-with-phone-number"
     >
       {{ $t('login.with_phone_number') }}
     </router-link>
@@ -71,14 +71,16 @@
 </template>
 
 <script>
-/* eslint-disable */
 import SampleButton from '@/components/ui/SampleButton.vue'
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import EyeIcon from '@/components/icons/EyeIcon.vue'
 import EyeSlashIcon from '@/components/icons/EyeSlashIcon.vue'
 import axios from 'axios'
-import {getFormData} from '@/utils'
+import {encryptPrivateKey, getFormData} from '@/utils'
+import nacl from 'tweetnacl'
+import {decodeBase64, decodeUTF8, encodeBase64} from 'tweetnacl-util'
+import io from 'socket.io-client'
 
 export default {
   components: {
@@ -105,10 +107,10 @@ export default {
   computed: {
     isSubmitDisabled() {
       return (
-        this.hasError.email ||
-        this.hasError.password ||
-        !this.email.trim() ||
-        !this.password.trim()
+          this.hasError.email ||
+          this.hasError.password ||
+          !this.email.trim() ||
+          !this.password.trim()
       )
     },
     isInvalidEmail() {
@@ -152,7 +154,7 @@ export default {
       localStorage.setItem('access_token', data.access_token)
       localStorage.setItem('user_id', data.user_id)
       localStorage.setItem('hash', data.hash)
-      this.$router.push({name: 'news'})
+      this.generateAndSendKeys()
     },
     handleFailedLogin(data) {
       this.errorText = data.errors ? data.errors.error_text : 'Login failed. Please check your credentials.';
@@ -210,8 +212,42 @@ export default {
     },
     togglePasswordVisibility() {
       this.isPasswordVisible = !this.isPasswordVisible
+    },
+    async generateAndSendKeys() {
+      const keyPair = nacl.box.keyPair()
+      const publicKey = encodeBase64(keyPair.publicKey)
+      const privateKey = encodeBase64(keyPair.secretKey)
+
+      try {
+        const encryptedPrivateKey = encryptPrivateKey(privateKey);
+
+        const data = {
+          userId: localStorage.getItem('access_token'),
+          publicKey,
+          privateKey: encryptedPrivateKey
+        }
+
+        localStorage.setItem('privateKey', encryptedPrivateKey)
+
+        const socket = io(`${process.env.VUE_APP_SOCKET_URL}`, {
+          query: {
+            hash: localStorage.getItem('hash')
+          }
+        })
+        socket.emit('join', {user_id: localStorage.getItem('access_token')})
+
+        socket.emit('update_user_keys', data, (response) => {
+          if (response.status === 200) {
+            this.$router.push({name: 'news'})
+          } else {
+            console.error('Failed to update keys:', response);
+          }
+        })
+      } catch (error) {
+        console.error('Error updating keys and sending via socket:', error)
+      }
     }
-  },
+  }
 }
 </script>
 

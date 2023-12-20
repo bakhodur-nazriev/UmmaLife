@@ -1,33 +1,38 @@
 <template>
   <section class="article-content__section">
     <div class="article-content__section-item">
-      <img src="@/assets/images/Post_1.png" alt="" class="article-content__image" />
+      <div class="article-content__details-image">
+        <img
+            :src="postContent.blog.thumbnail"
+            alt=""
+            class="article-content__image"
+        />
+      </div>
       <div class="article-content__details-block">
         <h3 class="article-content__details-block-title">
-          Название статьи, которое не поместилось на одну строку и переместилось на вторую строчку
+          {{ postContent.blog.title }}
         </h3>
-        <p class="article-content__details-block-paragraph">
-          Аль-Ула - город, полный археологических чудес. Расположенный на северо-западе Саудовской
-          Аравии в провинции Медина, это популярное туристическое направление. Аль-Ула является
-          первым объектом Всемирного наследия ЮНЕСКО в стране. Это место, изве...
-        </p>
+        <p class="article-content__details-block-paragraph">{{ postContent.blog.content }}</p>
         <span class="article-content__details-block-date">20.08.2022</span>
       </div>
     </div>
 
     <div class="article-content__reactions">
-      <PostReactions />
+      <PostReactions/>
     </div>
   </section>
 </template>
 
 <script>
 import PostReactions from '@/components/ui/Post/PostReactions.vue'
+
 export default {
+  props: ['postContent'],
   components: {
     PostReactions
   },
-  data: () => ({})
+  data: () => ({}),
+  mounted() {}
 }
 </script>
 
@@ -59,8 +64,19 @@ export default {
       line-clamp: 3;
       -webkit-box-orient: vertical;
     }
+
     &-date {
       color: var(--color-mine-shaft);
+    }
+  }
+
+  &__details-image {
+    display: flex;
+    justify-content: center;
+
+    .article-content__image {
+      border-radius: 15px;
+      height: 400px;
     }
   }
 
@@ -75,12 +91,6 @@ export default {
       background-color: var(--color-seashell);
       border-radius: 15px;
     }
-  }
-
-  &__image {
-    width: 100%;
-    border-radius: 15px;
-    height: 80%;
   }
 
   &__reactions {

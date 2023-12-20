@@ -5,11 +5,11 @@
           :is-menu-open="isMenuOpen"
           @toggle-menu="toggleMenu"
           :publisher="item.publisher"
-          :time="item.post_time"
+          :time="item.date_create"
       />
 
       <ArticleContent
-          :post-content="item.Orginaltext"
+          :post-content="item"
       />
 
       <SampleDivider class="divider"/>
@@ -64,7 +64,6 @@ export default {
       try {
         const response = await axios.post('/posts', payload, {params, headers})
         if (response.data.api_status === 200) {
-          // console.log(response.data?.data)
           this.articles = response.data?.data
         } else {
           console.log(response.data)
@@ -72,7 +71,7 @@ export default {
       } catch (error) {
         console.error(error)
       }
-    }
+    },
   },
   mounted() {
     this.getArticles()

@@ -3,8 +3,8 @@
     <div class="article-content__section-item">
       <div class="custom-video__container">
         <VideoPlayer
-            src="/video/video.mp4"
-            poster="/images/message/video-poster.jpg"
+            :src="videoContent.postFileArray[0].filename"
+            :poster="videoContent.postFileArray[0].thumb"
             controls
             :volume="1"
         >
@@ -23,8 +23,10 @@
         </VideoPlayer>
       </div>
       <div class="article-content__details-block">
-        <h3 class="article-content__details-block-title">Как я принял ислам. Все от А до Я</h3>
-        <span class="article-content__details-block-views">20.08.2022 - 1 тыс.{{ $t('video.views') }}</span>
+        <h3 class="article-content__details-block-title">{{ videoContent.Orginaltext }}</h3>
+        <span class="article-content__details-block-views">
+          {{ formattedDate }} - {{ videoContent.views }} {{ $t('video.views') }}
+        </span>
       </div>
     </div>
 
@@ -48,8 +50,10 @@ export default {
     VideoPlayer
   },
   props: ['videoContent'],
-  mounted() {
-    console.log(this.videoContent)
+  computed: {
+    formattedDate() {
+      return this.videoContent.date_create.split('T')[0]
+    }
   }
 }
 </script>

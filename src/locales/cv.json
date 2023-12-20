@@ -1,5 +1,5 @@
 {
-  "lang": "en",
+  "lang": "cv",
   "meta_title": {
     "preview_article": "Preview Article",
     "home": "Home",
@@ -259,9 +259,7 @@
     },
     "back_to_articles": "Return to list of articles",
     "article_preview": "Article preview",
-    "save_as_draft": "Save as draft",
-    "read_more_post": "Read more...",
-    "read_less_post": "Less"
+    "save_as_draft": "Save as draft"
   },
   "languages": {
     "title": "English",
@@ -543,18 +541,13 @@
   "chat": {
     "placeholder": "Write your message",
     "send": "Send",
-    "empty_room": "Choose who you'd like to write to",
-    "typing": "typing...",
-    "online": "online"
+    "empty_room": "Choose who you'd like to write to"
   },
   "modal": {
-    "delete_chat": "Delete chat",
-    "sure_delete_chat": "Are you sure you want to delete the chat?",
     "delete_message": "Delete message",
     "sure_delete_message": "Are you sure you want to delete the message?",
     "also_delete_from": "Also remove from",
-    "cancel_delete": "Cancel",
-    "clear_history": "Clear history"
+    "cancel_delete": "Cancel"
   },
   "reaction_tooltip": {
     "like": "Ma sha Allah",

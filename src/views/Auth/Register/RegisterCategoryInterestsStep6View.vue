@@ -1,18 +1,46 @@
 <script setup>
-/* eslint-disable */
 import FormAuth from '@/components/ui/FormAuth.vue'
 import {ref, onMounted, computed} from 'vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import axios from 'axios'
 import {getFormData} from '@/utils'
 import router from '@/router'
+import i18n from "@/i18n";
+
+const locale = i18n.global.locale
+
+const languageMap = {
+  "en": "english",
+  "ar": "arabic",
+  "ru": "russian",
+  "id": "indonesian",
+  "ms": "malay",
+  "tr": "turkish",
+  "uz": "uzbek",
+  "tj": "tajik",
+  "tab": "tabasaran",
+  "cv": "chuvash",
+  "ur": "urdu",
+  "inh": "ingush",
+  "tt": "tatar",
+  "lak": "lak",
+  "kum": "qumuq",
+  "krc": "balkarian",
+  "am": "amharic",
+  "lez": "lezgin"
+};
+
+const getLanguageByLocale = (currentLocale) => {
+  return languageMap[currentLocale] || '';
+};
 
 const categoryItems = ref([])
 const selectedCategories = ref([])
 const fetchCategories = async () => {
   const payload = getFormData({
     server_key: process.env.VUE_APP_SERVER_KEY,
-    page: ''
+    page: '',
+    lang: getLanguageByLocale(locale)
   })
 
   const accessToken = localStorage.getItem('access_token')

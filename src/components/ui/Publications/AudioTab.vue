@@ -1,24 +1,25 @@
 <template>
   <div class="audio-block">
     <article
-        class="audio-block__article"
-        v-for="(item, i) in audio"
-        :key="i"
+      class="audio-block__article"
+      v-for="(item, i) in audio"
+      :key="i"
     >
       <PostHeader
-          :is-menu-open="isMenuOpen"
-          @toggle-menu="toggleMenu"
-          :publisher="item.publisher"
-          :time="item.post_time"
+        :is-menu-open="isMenuOpen"
+        @toggle-menu="toggleMenu"
+        :publisher="item.publisher"
+        :time="item.date_create"
       />
 
-      <AudioContent/>
+      <AudioContent :audio-content="item"/>
 
       <SampleDivider class="divider"/>
 
       <PostFooter
-          :is-reaction-window-open="isReactionWindowOpen"
-          :is-share-window-open="isShareWindowOpen"
+        :gender="item.publisher.gender"
+        :is-reaction-window-open="isReactionWindowOpen"
+        :is-share-window-open="isShareWindowOpen"
       />
     </article>
   </div>

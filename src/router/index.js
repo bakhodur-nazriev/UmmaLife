@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { createRouter, createWebHistory } from 'vue-router'
 import i18n from '@/i18n'
 import { supportedLanguages } from '@/constants'
@@ -275,7 +274,6 @@ const routes = [
           layout: 'muvi'
         }
       },
-
       {
         path: 'step4',
         name: 'RegisterAddInfoStep4View',
@@ -314,6 +312,16 @@ const routes = [
     component: ForgotPasswordView,
     meta: {
       title: i18n.global.t('meta_title.forgot_password'),
+      requiresAuth: false,
+      layout: 'auth'
+    }
+  },
+  {
+    path: '/:lang?/reset-password',
+    name: 'ResetPasswordView',
+    component: ResetPasswordView,
+    meta: {
+      title: i18n.global.t('meta_title.reset_password'),
       requiresAuth: false,
       layout: 'auth'
     }

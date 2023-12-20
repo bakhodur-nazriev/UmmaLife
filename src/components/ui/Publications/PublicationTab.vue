@@ -1,23 +1,24 @@
 <template>
   <article class="post__block" v-for="(item, i) in posts" :key="i">
     <PostHeader
-      :is-menu-open="isMenuOpen"
-      @toggle-menu="toggleMenu"
-      :publisher="item.publisher"
-      :time="item.post_time"
+        :is-menu-open="isMenuOpen"
+        @toggle-menu="toggleMenu"
+        :publisher="item.publisher"
+        :time="item.date_create"
+        @translate-request="handleTranslation(item)"
     />
 
     <PublicationContent
-      :post-content="item.Orginaltext"
-      :reactions="item.reaction"
+        :post-content="item.Orginaltext"
+        :reactions="item.reaction"
     />
 
     <SampleDivider class="divider"/>
 
     <PostFooter
-      :is-reaction-window-open="isReactionWindowOpen"
-      :is-share-window-open="isShareWindowOpen"
-      :reactions="item.reaction"
+        :is-reaction-window-open="isReactionWindowOpen"
+        :is-share-window-open="isShareWindowOpen"
+        :reactions="item.reaction"
     />
   </article>
 </template>
@@ -64,7 +65,6 @@ export default {
       try {
         const response = await axios.post('/posts', payload, {params, headers})
         if (response.data.api_status === 200) {
-          // console.log(response.data?.data)
           this.posts = response.data?.data
         } else {
           console.log('error')
@@ -72,6 +72,31 @@ export default {
       } catch (error) {
         console.error(error)
       }
+    },
+    async translatePost(text) {
+      return await this.fetchTranslation(text);
+    },
+    async fetchTranslation(text) {
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        text: text
+      })
+
+      const headers = {'Content-Type': 'multipart/form-data'}
+      const accessToken = localStorage.getItem('access_token')
+      const params = {access_token: accessToken}
+
+      try {
+        const response = await axios.post('/translate', payload, {params, headers})
+        if (response.data.api_status === 200) {
+          return response.data?.data
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async handleTranslation(item) {
+      item.Orginaltext = await this.translatePost(item.Orginaltext);
     }
   },
   mounted() {

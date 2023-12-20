@@ -87,6 +87,12 @@ const props = defineProps({
         scale: 0.75;
       }
     }
+    &.large {
+      .user__info--avatar {
+        width: 56px;
+        height: 56px;
+      }
+    }
     &--info {
       display: flex;
       flex-direction: column;

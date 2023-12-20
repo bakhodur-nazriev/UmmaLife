@@ -1,37 +1,39 @@
 <template>
   <section class="publications__form--section" ref="formSectionRef">
     <form
-      action=""
-      class="form__section"
-      :style="{ flexDirection: isTextAreaActive ? 'column' : 'row' }"
+        action=""
+        class="form__section"
+        :style="{ flexDirection: isTextAreaActive ? 'column' : 'row' }"
     >
       <div class="form__left--side">
-        <img width="48" height="48" src="@/assets/images/Ellipse.png" alt="" />
+        <a href="/profile">
+          <img :src="user.avatar" alt=""/>
+        </a>
         <textarea
-          rows="1"
-          :placeholder="$t('placeholders.publications_input')"
-          @input="handleTextareaInput"
-          :class="['enter__post--textarea', { active: isTextAreaActive }]"
-          @click="isTextAreaActive = true"
+            rows="1"
+            :placeholder="$t('placeholders.publications_input')"
+            @input="handleTextareaInput"
+            :class="['enter__post--textarea', { active: isTextAreaActive }]"
+            @click="isTextAreaActive = true"
         ></textarea>
       </div>
       <div v-if="!isTextAreaActive" class="form__inputs--block">
         <FileUpload label="image" accept="image/*">
-          <ImageIcon />
+          <ImageIcon/>
         </FileUpload>
 
         <FileUpload label="video" accept="video/*">
-          <VideoPublicationsIcon />
+          <VideoPublicationsIcon/>
         </FileUpload>
 
         <FileUpload label="audio" accept="audio/*">
-          <AudioPublicationIcon />
+          <AudioPublicationIcon/>
         </FileUpload>
 
         <div class="vertical__divider"></div>
 
         <FileUpload label="file">
-          <ClipIcon />
+          <ClipIcon/>
         </FileUpload>
       </div>
       <div v-if="isTextAreaActive" class="textarea__active--buttons">
@@ -40,44 +42,44 @@
 
           <div class="buttons">
             <SampleButton
-              icon="mood"
-              color="tertiary"
-              :title="`${$t('buttons.mood')}`"
-              @click="isMoodActive"
+                icon="mood"
+                color="tertiary"
+                :title="`${$t('buttons.mood')}`"
+                @click="isMoodActive"
             >
-              <SmallSmileIcon />
+              <SmallSmileIcon/>
             </SampleButton>
             <SampleButton
-              icon="traveling"
-              color="tertiary"
-              :title="`${$t('buttons.traveling')}`"
-              @click="isTravelingActive"
+                icon="traveling"
+                color="tertiary"
+                :title="`${$t('buttons.traveling')}`"
+                @click="isTravelingActive"
             >
-              <MapIcon />
+              <MapIcon/>
             </SampleButton>
             <SampleButton
-              icon="watching"
-              color="tertiary"
-              :title="`${$t('buttons.watching')}`"
-              @click="isWatchingActive"
+                icon="watching"
+                color="tertiary"
+                :title="`${$t('buttons.watching')}`"
+                @click="isWatchingActive"
             >
-              <CinemaIcon />
+              <CinemaIcon/>
             </SampleButton>
             <SampleButton
-              icon="playing"
-              color="tertiary"
-              :title="`${$t('buttons.playing')}`"
-              @click="isPlayingActive"
+                icon="playing"
+                color="tertiary"
+                :title="`${$t('buttons.playing')}`"
+                @click="isPlayingActive"
             >
-              <GamingIcon />
+              <GamingIcon/>
             </SampleButton>
             <SampleButton
-              icon="listening"
-              color="tertiary"
-              :title="`${$t('buttons.listening')}`"
-              @click="isListeningActive"
+                icon="listening"
+                color="tertiary"
+                :title="`${$t('buttons.listening')}`"
+                @click="isListeningActive"
             >
-              <ListeningIcon />
+              <ListeningIcon/>
             </SampleButton>
           </div>
         </div>
@@ -85,172 +87,172 @@
         <div class="emotions__buttons--main--section" v-if="showMoodSection">
           <div class="emotions__input--section">
             <span @click="backToMoodSection" class="emotion__label">{{
-              $t('labels.feeling.mood.title')
-            }}</span>
+                $t('labels.feeling.mood.title')
+              }}</span>
             <span class="emotion__input">{{ $t('labels.feeling.mood.placeholder') }}</span>
           </div>
 
           <div class="emotions__section--buttons">
             <SampleButton color="tertiary" icon="happy" :title="`${$t('buttons.emotions.happy')}`">
-              <HappyIcon />
+              <HappyIcon/>
             </SampleButton>
             <SampleButton
-              color="tertiary"
-              icon="in_love"
-              :title="`${$t('buttons.emotions.in_love')}`"
+                color="tertiary"
+                icon="in_love"
+                :title="`${$t('buttons.emotions.in_love')}`"
             >
-              <InLoveIcon />
+              <InLoveIcon/>
             </SampleButton>
             <SampleButton
-              color="tertiary"
-              icon="outraged"
-              :title="`${$t('buttons.emotions.outraged')}`"
+                color="tertiary"
+                icon="outraged"
+                :title="`${$t('buttons.emotions.outraged')}`"
             >
-              <OutragedIcon />
+              <OutragedIcon/>
             </SampleButton>
             <SampleButton
-              color="tertiary"
-              icon="celebrate"
-              :title="`${$t('buttons.emotions.celebrate')}`"
+                color="tertiary"
+                icon="celebrate"
+                :title="`${$t('buttons.emotions.celebrate')}`"
             >
-              <CelebrateIcon />
+              <CelebrateIcon/>
             </SampleButton>
             <SampleButton
-              color="tertiary"
-              icon="giggle"
-              :title="`${$t('buttons.emotions.giggle')}`"
+                color="tertiary"
+                icon="giggle"
+                :title="`${$t('buttons.emotions.giggle')}`"
             >
-              <GiggleIcon />
+              <GiggleIcon/>
             </SampleButton>
             <SampleButton color="tertiary" icon="crazy" :title="`${$t('buttons.emotions.crazy')}`">
-              <CrazyIcon />
+              <CrazyIcon/>
             </SampleButton>
             <SampleButton
-              color="tertiary"
-              icon="falling_asleep"
-              :title="`${$t('buttons.emotions.falling_asleep')}`"
+                color="tertiary"
+                icon="falling_asleep"
+                :title="`${$t('buttons.emotions.falling_asleep')}`"
             >
-              <FallingAsleepIcon />
+              <FallingAsleepIcon/>
             </SampleButton>
             <SampleButton
-              color="tertiary"
-              icon="shocked"
-              :title="`${$t('buttons.emotions.shocked')}`"
+                color="tertiary"
+                icon="shocked"
+                :title="`${$t('buttons.emotions.shocked')}`"
             >
-              <ShockedIcon />
+              <ShockedIcon/>
             </SampleButton>
             <SampleButton
-              color="tertiary"
-              icon="excited"
-              :title="`${$t('buttons.emotions.excited')}`"
+                color="tertiary"
+                icon="excited"
+                :title="`${$t('buttons.emotions.excited')}`"
             >
-              <ExcitedIcon />
+              <ExcitedIcon/>
             </SampleButton>
             <SampleButton color="tertiary" icon="angry" :title="`${$t('buttons.emotions.angry')}`">
-              <AngryIcon />
+              <AngryIcon/>
             </SampleButton>
             <SampleButton
-              color="tertiary"
-              icon="masked"
-              :title="`${$t('buttons.emotions.masked')}`"
+                color="tertiary"
+                icon="masked"
+                :title="`${$t('buttons.emotions.masked')}`"
             >
-              <MaskedIcon />
+              <MaskedIcon/>
             </SampleButton>
             <SampleButton color="tertiary" icon="think" :title="`${$t('buttons.emotions.think')}`">
-              <ThinkIcon />
+              <ThinkIcon/>
             </SampleButton>
             <SampleButton
-              color="tertiary"
-              icon="laughing_out_loud"
-              :title="`${$t('buttons.emotions.laughing_out_loud')}`"
+                color="tertiary"
+                icon="laughing_out_loud"
+                :title="`${$t('buttons.emotions.laughing_out_loud')}`"
             >
-              <LaughingOutLoudIcon />
+              <LaughingOutLoudIcon/>
             </SampleButton>
             <SampleButton
-              color="tertiary"
-              icon="wonder"
-              :title="`${$t('buttons.emotions.wonder')}`"
+                color="tertiary"
+                icon="wonder"
+                :title="`${$t('buttons.emotions.wonder')}`"
             >
-              <WonderIcon />
+              <WonderIcon/>
             </SampleButton>
             <SampleButton color="tertiary" icon="sick" :title="`${$t('buttons.emotions.sick')}`">
-              <SickIcon />
+              <SickIcon/>
             </SampleButton>
             <SampleButton
-              color="tertiary"
-              icon="embarrassed"
-              :title="`${$t('buttons.emotions.embarrassed')}`"
+                color="tertiary"
+                icon="embarrassed"
+                :title="`${$t('buttons.emotions.embarrassed')}`"
             >
-              <EmbarrassedIcon />
+              <EmbarrassedIcon/>
             </SampleButton>
             <SampleButton
-              color="tertiary"
-              icon="ignore"
-              :title="`${$t('buttons.emotions.ignore')}`"
+                color="tertiary"
+                icon="ignore"
+                :title="`${$t('buttons.emotions.ignore')}`"
             >
-              <IgnoreIcon />
+              <IgnoreIcon/>
             </SampleButton>
             <SampleButton
-              color="tertiary"
-              icon="frozen"
-              :title="`${$t('buttons.emotions.frozen')}`"
+                color="tertiary"
+                icon="frozen"
+                :title="`${$t('buttons.emotions.frozen')}`"
             >
-              <FrozenIcon />
+              <FrozenIcon/>
             </SampleButton>
           </div>
         </div>
 
         <div class="emotions__input--section" v-if="showTravelingSection">
           <span @click="backToMoodSection" class="emotion__label">{{
-            $t('labels.feeling.traveling.title')
-          }}</span>
+              $t('labels.feeling.traveling.title')
+            }}</span>
           <input
-            class="emotion__input"
-            :placeholder="`${$t('labels.feeling.traveling.placeholder')}`"
+              class="emotion__input"
+              :placeholder="`${$t('labels.feeling.traveling.placeholder')}`"
           />
         </div>
 
         <div class="emotions__input--section" v-if="showWatchingSection">
           <span @click="backToMoodSection" class="emotion__label">{{
-            $t('labels.feeling.watching.title')
-          }}</span>
+              $t('labels.feeling.watching.title')
+            }}</span>
           <input
-            class="emotion__input"
-            :placeholder="`${$t('labels.feeling.watching.placeholder')}`"
+              class="emotion__input"
+              :placeholder="`${$t('labels.feeling.watching.placeholder')}`"
           />
         </div>
 
         <div class="emotions__input--section" v-if="showPlayingSection">
           <span @click="backToMoodSection" class="emotion__label">{{
-            $t('labels.feeling.playing.title')
-          }}</span>
+              $t('labels.feeling.playing.title')
+            }}</span>
           <input
-            class="emotion__input"
-            :placeholder="`${$t('labels.feeling.playing.placeholder')}`"
+              class="emotion__input"
+              :placeholder="`${$t('labels.feeling.playing.placeholder')}`"
           />
         </div>
 
         <div class="emotions__input--section" v-if="showListeningSection">
           <span @click="backToMoodSection" class="emotion__label">{{
-            $t('labels.feeling.listening.title')
-          }}</span>
+              $t('labels.feeling.listening.title')
+            }}</span>
           <input
-            class="emotion__input"
-            :placeholder="`${$t('labels.feeling.listening.placeholder')}`"
+              class="emotion__input"
+              :placeholder="`${$t('labels.feeling.listening.placeholder')}`"
           />
         </div>
 
         <div class="audio__input--section" v-if="showAudioSection && addedAudioItems.length">
           <div class="audio__input--section--content">
             <div
-              class="audio__input--section--item"
-              v-for="(item, index) in addedAudioItems"
-              :key="index"
+                class="audio__input--section--item"
+                v-for="(item, index) in addedAudioItems"
+                :key="index"
             >
-              <AudioPublicationIcon />
-              <input readonly type="text" class="audio__title" :value="item.title" />
+              <AudioPublicationIcon/>
+              <input readonly type="text" class="audio__title" :value="item.title"/>
               <button type="button" class="remove__audio--button" @click="removeAudioItem(index)">
-                <RemoveAudioIcon />
+                <RemoveAudioIcon/>
               </button>
             </div>
           </div>
@@ -261,14 +263,14 @@
 
           <div class="audio__input--section--content">
             <div
-              class="audio__input--section--item"
-              v-for="(item, index) in audioItems"
-              :key="index"
+                class="audio__input--section--item"
+                v-for="(item, index) in audioItems"
+                :key="index"
             >
-              <AudioPublicationIcon />
-              <input readonly type="text" class="audio__title" :value="item.title" />
+              <AudioPublicationIcon/>
+              <input readonly type="text" class="audio__title" :value="item.title"/>
               <button type="button" class="add__audio--button" @click="addAudioItem">
-                <AddAudioIcon />
+                <AddAudioIcon/>
               </button>
             </div>
           </div>
@@ -277,17 +279,17 @@
         <div class="textarea__active" :class="{ active: isTextAreaActive }">
           <div class="textarea__active--left--side">
             <button class="poll__button" type="button" @click="openPollModal">
-              <PollIcon />
+              <PollIcon/>
             </button>
 
-            <PollModal v-if="showPollModal" @close="closePollModal" />
+            <PollModal v-if="showPollModal" @close="closePollModal"/>
 
             <button class="smile__button" type="button" @click="activeSmileSection">
-              <SmileIcon />
+              <SmileIcon/>
             </button>
 
             <button class="audio__button" type="button" @click="activeAudioSection">
-              <AudioPublicationIcon />
+              <AudioPublicationIcon/>
             </button>
 
             <div class="vertical__divider"></div>
@@ -297,11 +299,11 @@
             </FileUpload>
           </div>
           <div class="textarea__active--right--side">
-            <AccessDropDown />
+            <AccessDropDown/>
             <SampleButton
-              :title="`${$t('buttons.publish')}`"
-              class="publish__button"
-              :class="{ rounded: isTextAreaActive }"
+                :title="`${$t('buttons.publish')}`"
+                class="publish__button"
+                :class="{ rounded: isTextAreaActive }"
             />
           </div>
         </div>
@@ -433,7 +435,8 @@ export default {
         id: 7,
         title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
       }
-    ]
+    ],
+    user: JSON.parse(localStorage.getItem('user')) || {},
   }),
   methods: {
     backToMoodSection() {
@@ -534,11 +537,13 @@ export default {
   transition: all 0.15s ease-in-out;
   overflow: hidden;
 }
+
 .publications__form--section {
   border-radius: 15px;
   padding: 16px 24px;
   background-color: var(--color-white);
 }
+
 .form__section {
   display: flex;
   align-items: center;
@@ -556,8 +561,14 @@ export default {
     align-self: flex-start;
   }
 
-  img {
+  a {
+    width: 48px;
+    height: 48px;
     margin-right: 16px;
+
+    img {
+      border-radius: 50%;
+    }
   }
 
   textarea {
@@ -620,6 +631,7 @@ export default {
       display: flex;
       align-items: center;
       padding: 12px;
+
       svg {
         color: var(--color-hippie-blue);
       }

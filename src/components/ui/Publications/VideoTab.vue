@@ -9,7 +9,7 @@
           :is-menu-open="isMenuOpen"
           @toggle-menu="toggleMenu"
           :publisher="item.publisher"
-          :time="item.post_time"
+          :time="item.date_create"
       />
 
       <VideoContent :video-content="item"/>

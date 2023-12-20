@@ -6,47 +6,17 @@
       :class="{ active: isSidebarCollapsed }"
       @click="handleButtonClick"
     >
-      <global-icon class="locales__icon" />
+      <global-icon class="locales__icon"/>
       <span v-if="!isSidebarCollapsed" class="dropdown__locale-title">{{
-        currentLanguageName
-      }}</span>
-      <dropdown-icon class="locales__icon locales__icon--dropdown" />
+          currentLanguageName
+        }}</span>
+      <dropdown-icon class="locales__icon locales__icon--dropdown"/>
     </button>
     <ul class="locales__list" :class="{ active: isSidebarCollapsed }" ref="list">
-      <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('en')">{{
-          `${isSidebarCollapsed ? 'En' : $t('languages.names.english')}`
-        }}</a>
-      </li>
-      <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('ar')">{{
-          `${isSidebarCollapsed ? 'Ar' : $t('languages.names.arabic')}`
-        }}</a>
-      </li>
-      <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('ru')">{{
-          `${isSidebarCollapsed ? 'Ru' : $t('languages.names.russian')}`
-        }}</a>
-      </li>
-      <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('tr')">{{
-          `${isSidebarCollapsed ? 'Tr' : $t('languages.names.turkish')}`
-        }}</a>
-      </li>
-      <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('uz')">{{
-          `${isSidebarCollapsed ? 'Uz' : $t('languages.names.uzbek')}`
-        }}</a>
-      </li>
-      <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('id')">{{
-          `${isSidebarCollapsed ? 'Id' : $t('languages.names.indonesia')}`
-        }}</a>
-      </li>
-      <li class="locales__item">
-        <a class="locales__link" :href="getLocalizedLink('ms')">{{
-          `${isSidebarCollapsed ? 'Ms' : $t('languages.names.malay')}`
-        }}</a>
+      <li class="locales__item" v-for="language in supportedLanguages" :key="language.code">
+        <router-link class="locales__link" :to="getLocalizedLink(language.code)">
+          {{ language.title }}
+        </router-link>
       </li>
     </ul>
   </div>
@@ -65,6 +35,84 @@ export default {
     isSidebarCollapsed: {
       type: Boolean,
       required: true
+    }
+  },
+  data() {
+    return {
+      supportedLanguages: [
+        {
+          code: 'en',
+          title: this.$t('languages.name.english')
+        },
+        {
+          code: 'ar',
+          title: this.$t('languages.name.arabic')
+        },
+        {
+          code: 'ru',
+          title: this.$t('languages.name.russian')
+        },
+        {
+          code: 'tr',
+          title: this.$t('languages.name.turkish')
+        },
+        {
+          code: 'uz',
+          title: this.$t('languages.name.uzbek')
+        },
+        {
+          code: 'id',
+          title: this.$t('languages.name.indonesia')
+        },
+        {
+          code: 'ms',
+          title: this.$t('languages.name.malay')
+        },
+        {
+          code: 'tj',
+          title: this.$t('languages.name.tajik')
+        },
+        {
+          code: 'tab',
+          title: this.$t('languages.name.tabasaran')
+        },
+        {
+          code: 'cv',
+          title: this.$t('languages.name.chuvash')
+        },
+        {
+          code: 'ur',
+          title: this.$t('languages.name.urdu')
+        },
+        {
+          code: 'inh',
+          title: this.$t('languages.name.ingush')
+        },
+        {
+          code: 'tt',
+          title: this.$t('languages.name.tatar')
+        },
+        {
+          code: 'lak',
+          title: this.$t('languages.name.lak')
+        },
+        {
+          code: 'kum',
+          title: this.$t('languages.name.qumuq')
+        },
+        {
+          code: 'krc',
+          title: this.$t('languages.name.balkarian')
+        },
+        {
+          code: 'am',
+          title: this.$t('languages.name.amharic')
+        },
+        {
+          code: 'lez',
+          title: this.$t('languages.name.lezgin')
+        }
+      ]
     }
   },
   computed: {
@@ -120,31 +168,41 @@ export default {
       return evt.keyCode === 27 && this.closeDropdown()
     },
     getLocalizedLink(lang) {
-      const currentPath = this.$route.path
-      const languagePrefix = '/' + this.$i18n.locale
-      const newPath = currentPath.replace(languagePrefix, '')
-      switch (lang) {
-        case 'en':
-          return '/en' + newPath
-        case 'ar':
-          return '/ar' + newPath
-        case 'ru':
-          return '/ru' + newPath
-        case 'tr':
-          return '/tr' + newPath
-        case 'uz':
-          return '/uz' + newPath
-        case 'id':
-          return '/id' + newPath
-        case 'ms':
-          return '/ms' + newPath
+      const languagePaths = {
+        en: '/en',
+        ar: '/ar',
+        ru: '/ru',
+        tr: '/tr',
+        uz: '/uz',
+        id: '/id',
+        ms: '/ms',
+        tj: '/tj',
+        tab: '/tab',
+        cv: '/cv',
+        ur: '/ur',
+        inh: '/inh',
+        tt: '/tt',
+        lak: '/lak',
+        kum: '/kum',
+        krc: '/krc',
+        am: '/am',
+        lez: '/lez'
+      };
+
+      const currentPath = this.$route.path;
+      const newPath = currentPath.replace(`/${this.$i18n.locale}`, '');
+
+      if (languagePaths.hasOwnProperty(lang)) {
+        return languagePaths[lang] + newPath;
+      } else {
+        return currentPath;
       }
     }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .main__sidebar--locales {
   display: flex;
   justify-content: center;
@@ -153,9 +211,11 @@ export default {
   position: relative;
 }
 
-.locales--shown::before {
-  opacity: 1;
-  z-index: 2;
+.locales--shown {
+  &::before {
+    opacity: 1;
+    z-index: 2;
+  }
 }
 
 .locales__button {
@@ -219,10 +279,12 @@ export default {
   opacity: 1;
 }
 
-.locales__list::before {
-  content: attr(data-locale);
-  font-weight: 500;
-  margin-bottom: 12px;
+.locales__list {
+  &::before {
+    content: attr(data-locale);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
 }
 
 .locales__item {
@@ -230,7 +292,6 @@ export default {
   align-items: center;
   border-radius: 5px;
   background-color: var(--color-white);
-  min-height: 48px;
   padding: 8px 16px;
 }
 
@@ -269,6 +330,25 @@ export default {
     padding: 0 8px;
     border-radius: 20px;
     z-index: 3;
+    max-height: 280px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 3px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: linear-gradient(
+          transparent 15%,
+          var(--color-secondary) 15%,
+          var(--color-secondary) 85%,
+          transparent 85%
+      );
+    }
   }
 
   .locales__list.active {
@@ -295,7 +375,6 @@ export default {
   .locales__item {
     background-color: transparent;
     padding: 12px;
-    min-height: 0;
   }
 
   .locales__item:not(:last-child) {

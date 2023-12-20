@@ -23,11 +23,13 @@ import 'vue-multiselect/dist/vue-multiselect.css'
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 import 'swiper/css'
 import 'swiper/css/navigation'
+import VueVirtualScroller from 'vue-virtual-scroller'
 
 const app = createApp(App)
 // const metaManager = app.use(createMetaManager)
 
 app.config.globalProperties.$route = {}
+app.use(VueVirtualScroller)
 app.use(draggable)
 app.use(i18n)
 app.use(router)

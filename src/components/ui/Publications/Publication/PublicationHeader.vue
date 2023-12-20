@@ -13,7 +13,7 @@
   </header>
 </template>
 <script>
-import SampleMenuDetailsButton from '@/components/ui/MenuDetails/SampleMenuDetailsButton.vue'
+import SampleMenuDetailsButton from '@/components/ui/MenuDetails/MuviMenuDetailsButton.vue'
 
 export default {
   components: {

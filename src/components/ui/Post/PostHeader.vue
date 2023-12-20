@@ -1,35 +1,59 @@
 <template>
   <header class="post__header">
-    <router-link
-      v-if="publisher"
-      class="post__author"
-      to="#"
-    >
-      <img
-        width="56"
-        height="56"
-        :src="publisher.avatar"
-        :alt="publisher.name"
+    <div class="post__header-left">
+      <UserInfo
+          :username="publisher.name"
+          :avatar="publisher.avatar"
+          :status="{
+          is_investor: publisher?.isInvestor || false,
+          verified: publisher?.verified || '0',
+          is_premium: publisher?.is_premium || '0'
+        }"
+          size="large"
+          :no-name="true"
+          :id="publisher.username"
       />
       <div class="author-info">
-        <span class="author-info__name">{{ publisher.name }}</span>
-        <span class="author-info__time">{{ time }}</span>
+      <span class="author-info__name">
+        <router-link :to="publisher.username">
+          {{ publisher.name }}
+        </router-link>
+      </span>
+        <div class="author-info__time-translate">
+          <span class="author-info__time">{{ multiFormatDateString(time) }}</span>
+          <div class="author-info__translate">
+            <GlobeIcon/>
+            <button @click="$emit('translateRequest')">{{ $t('buttons.translate') }}</button>
+          </div>
+        </div>
       </div>
-    </router-link>
+    </div>
     <div class="menu__button">
-      <SampleMenuDetailsButton
-        :is-menu-open="isMenuOpen"
-        @toggle-menu="$emit('toggle-menu')"
+      <PostsMenuDetailsButton
+          :is-menu-open="isMenuOpen"
+          @toggle-menu="$emit('toggle-menu')"
       />
     </div>
   </header>
 </template>
 <script>
-import SampleMenuDetailsButton from '@/components/ui/MenuDetails/SampleMenuDetailsButton.vue'
+import VerifyIcon from '@/components/icons/VerifyIcon.vue'
+import PremiumIcon from '@/components/icons/PremiumIcon.vue'
+import GlobeIcon from '@/components/icons/GlobeIcon.vue'
+import UserInfo from '@/components/ui/UserInfo.vue'
+import {timeFormat} from '@/mixins/timeFormat'
+import {getFormData} from '@/utils'
+import axios from 'axios'
+import PostsMenuDetailsButton from "@/components/ui/MenuDetails/PostsMenuDetailsButton.vue";
 
 export default {
+  mixins: [timeFormat],
   components: {
-    SampleMenuDetailsButton
+    PostsMenuDetailsButton,
+    UserInfo,
+    GlobeIcon,
+    PremiumIcon,
+    VerifyIcon
   },
   props: {
     isMenuOpen: {
@@ -48,27 +72,26 @@ export default {
   data() {
     return {}
   },
-  mounted() {},
-  methods: {}
 }
 </script>
 
 <style scoped lang="scss">
-.post__author {
-  display: flex;
-  text-decoration: none;
-
-  img {
-    border-radius: 50%;
-    margin-right: 8px;
-  }
-}
-
 .post__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0 0 8px 0;
+
+  &-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
 }
 
 .menu__button {
@@ -86,15 +109,37 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  &__time {
-    color: var(--color-silver-chalice);
-    font-size: 14px;
-  }
+  color: var(--color-silver-chalice);
+  font-size: 14px;
 
   &__name {
     color: var(--color-mine-shaft);
     font-size: 18px;
+  }
+
+  &__time-translate {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .author-info__translate {
+      display: flex;
+      align-items: center;
+
+      button {
+        background: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        color: var(--color-silver-chalice);
+
+        &:hover {
+          color: var(--color-deep-cerulean);
+        }
+      }
+    }
   }
 }
 
@@ -109,13 +154,7 @@ export default {
   .author-info {
     gap: 4px;
 
-    &__name {
-      line-height: 1;
-      font-size: 16px;
-      font-weight: 500;
-    }
-
-    &__time {
+    &__time-and-translate {
       line-height: 1;
       font-size: 12px;
     }

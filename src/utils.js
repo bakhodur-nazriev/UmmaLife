@@ -1,3 +1,6 @@
+import nacl from 'tweetnacl'
+import { decodeUTF8, decodeBase64, encodeBase64 } from 'tweetnacl-util'
+
 export const sleep = async (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
@@ -96,10 +99,10 @@ export function validateVideoFile(file) {
   })
 }
 
-export const copyClipboard = async (text) => {
+export const copyClipboard = async (link) => {
   if (navigator.clipboard) {
     try {
-      await navigator.clipboard.writeText(text)
+      await navigator.clipboard.writeText(link)
       return 'links.link_copied'
     } catch (error) {
       console.error('Error sharing link:', error)
@@ -108,7 +111,6 @@ export const copyClipboard = async (text) => {
   }
   return 'links.link_copy_error'
 }
-
 export const convertDate = (inputDateString) => {
   const inputDate = new Date(inputDateString)
 
@@ -145,4 +147,29 @@ export function addLinksToTaggedUsers(text, taggedUsers = [], lang = 'ru') {
   })
 
   return newText
+}
+
+export function encryptPrivateKey(privateKey) {
+  const nonce = nacl.randomBytes(nacl.secretbox.nonceLength)
+  const key = nacl.randomBytes(nacl.secretbox.keyLength)
+
+  const messageUint8 = new TextEncoder().encode(privateKey)
+
+  const box = nacl.secretbox(messageUint8, nonce, key)
+  const fullMessage = new Uint8Array(nonce.length + box.length)
+  fullMessage.set(nonce)
+  fullMessage.set(box, nonce.length)
+  return encodeBase64(fullMessage)
+}
+
+export function decryptPrivateKey(encryptedPrivateKey, key) {
+  const uint8Array = decodeBase64(encryptedPrivateKey)
+  const nonce = uint8Array.slice(0, nacl.secretbox.nonceLength)
+  const message = uint8Array.slice(nacl.secretbox.nonceLength)
+
+  const decrypted = nacl.secretbox.open(message, nonce, key)
+  if (!decrypted) {
+    throw new Error('Could not decrypt private key')
+  }
+  return decodeUTF8(decrypted)
 }

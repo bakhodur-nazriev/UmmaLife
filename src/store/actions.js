@@ -1,5 +1,5 @@
-/* eslint-disable */
 import axios from 'axios'
+import {getFormData} from '@/utils'
 
 export default {
 	toggleTheme({commit, state}) {
@@ -7,13 +7,9 @@ export default {
 		commit('setSelectedTheme', newTheme)
 	},
 	login({commit}) {
-		// Логика для аутентификации пользователя
-		// Установка isAuthenticated в true при успешной аутентификации
 		commit('setAuthenticated', true)
 	},
 	logout({commit}) {
-		// Логика для выхода пользователя
-		// Установка isAuthenticated в false при выходе
 		commit('setAuthenticated', false)
 	},
 	toggleChangeTabStyle({commit, state}) {
@@ -22,29 +18,24 @@ export default {
 	saveAccessToken({commit}, token) {
 		commit('setAccessToken', token)
 	},
+	updateLanguage({commit}, language) {
+		const payload = getFormData({
+			server_key: process.env.VUE_APP_SERVER_KEY,
+			language: language
+		})
 
-	async checkEmail({commit}, email) {
-		try {
-			const formData = new FormData()
-			formData.append('server_key', process.env.VUE_APP_SERVER_KEY)
-			formData.append('email', email)
+		const headers = {'Content-Type': 'multipart/form-data'}
 
-			const headers = {
+		const accessToken = localStorage.getItem('access_token')
+		const params = {access_token: accessToken}
 
-				'Content-Type': 'multipart/form-data',
-			}
-
-			const response = await axios.post('https://ummalife.com/api/check-email', formData, {headers})
-
-			if (response.data.api_status === 200) {
-				// Добавьте нужные мутации или действия, чтобы обработать успешный ответ от сервера
-				commit('response', response.data)
-			} else {
-				// Обработка ошибок при неудачном ответе от сервера
-				commit('HANDLE_ERROR', response.data.errors.error_text)
-			}
-		} catch (error) {
-			console.error('Error occurred:', error)
-		}
-	},
+		axios.post('/update-user-data', payload, {params, headers})
+			.then(() => {
+				commit('setLanguage', language);
+			})
+			.catch(error => {
+				console.error('Ошибка обновления языка:', error);
+			});
+		commit('setLanguage', language);
+	}
 }
