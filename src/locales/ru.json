@@ -541,10 +541,13 @@
     "online": "онлайн"
   },
   "modal": {
+    "delete_chat": "Удалить чат",
+    "sure_delete_chat": "Вы уверенны, что хотите удалить чат?",
     "delete_message": "Удалить сообщение",
     "sure_delete_message": "Вы уверенны, что хотите удалить сообщение?",
     "also_delete_from": "Так же удалить и у",
-    "cancel_delete": "Отменить действие"
+    "cancel_delete": "Отменить действие",
+    "clear_history": "Очистить историю"
   },
   "reaction_tooltip": {
     "like": "Ма шаа Аллах!",

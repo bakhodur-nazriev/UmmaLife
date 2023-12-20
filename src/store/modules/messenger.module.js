@@ -11,10 +11,14 @@ export default {
       chatMessages: [],
       isLoading: false,
       chatIsLoading: false,
-      countElements: 0
+      countElements: 0,
+      isScrolling: false
     }
   },
   mutations: {
+    setIsScrolling(state, isScrolling) {
+      state.isScrolling = isScrolling
+    },
     setChats(state, chats) {
       state.chats = chats
     },
@@ -132,6 +136,9 @@ export default {
     },
     getCountElements(state) {
       return state.countElements
+    },
+    getIsScrolling(state) {
+      return state.isScrolling
     }
   }
 }

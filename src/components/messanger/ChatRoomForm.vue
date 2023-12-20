@@ -28,7 +28,7 @@
       <div class="form__input">
         <div class="form__file">
           <attach-icon />
-          <input type="file" />
+          <input type="file" @input="fileHandler" />
         </div>
         <Textarea
           class="form__input--text"
@@ -68,7 +68,7 @@ const props = defineProps({
   isEditOpen: Boolean
 })
 
-const emit = defineEmits(['submitHandler', 'typeHandler', 'closeReply', 'closeEdit'])
+const emit = defineEmits(['submitHandler', 'typeHandler', 'closeReply', 'closeEdit', 'fileHandler'])
 
 const textareaValue = ref('')
 
@@ -100,6 +100,10 @@ const submitForm = () => {
 const closeEdit = () => {
   emit('closeEdit')
   textareaValue.value = ''
+}
+
+const fileHandler = (event) => {
+  emit('fileHandler', event?.target?.files[0])
 }
 
 watch(

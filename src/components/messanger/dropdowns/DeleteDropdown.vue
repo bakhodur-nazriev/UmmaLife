@@ -1,6 +1,11 @@
 <template>
-  <dropdown-parent v-on-click-outside="closeDropdown" class="delete-dropdown">
-    <div class="drop__list" @click="handleDeleteChat">
+  <dropdown-parent v-on-click-outside="() => emit('handleClickOutside')" class="delete-dropdown">
+    <div class="drop__list clear" @click="emit('clearChat')">
+      <ClearIcon />
+      <span>{{ $t('modal.clear_history') }}</span>
+    </div>
+    <sample-divider />
+    <div class="drop__list" @click="emit('handleDeleteChat')">
       <delete-icon />
       <span>{{ $t('dropdown.delete_dialog') }}</span>
     </div>
@@ -10,17 +15,11 @@
 <script setup>
 import DropdownParent from '@/components/messanger/dropdowns/DropdownParent.vue'
 import DeleteIcon from '@/components/icons/message/DeleteIcon.vue'
+import ClearIcon from '@/components/icons/ClearIcon.vue'
 import { vOnClickOutside } from '@vueuse/components'
+import SampleDivider from '@/components/ui/SampleDivider.vue'
 /* eslint-disable */
-const emit = defineEmits(['handleClickOutside', 'handleDeleteChat'])
-
-const closeDropdown = () => {
-  emit('handleClickOutside')
-}
-
-const handleDeleteChat = () => {
-  emit('handleDeleteChat')
-}
+const emit = defineEmits(['handleClickOutside', 'handleDeleteChat', 'clearChat'])
 </script>
 
 <style scoped lang="scss">
@@ -36,6 +35,13 @@ const handleDeleteChat = () => {
     padding: 5px;
     border-radius: 10px;
     transition: all 0.3s;
+    &.clear {
+      color: var(--color-silver-chalice);
+      span {
+        color: var(--color-mine-shaft);
+        font-weight: 400;
+      }
+    }
     &:hover {
       background-color: var(--color-seashell);
     }

@@ -534,10 +534,13 @@
     "online": "online"
   },
   "modal": {
+    "delete_chat": "Delete chat",
+    "sure_delete_chat": "Are you sure you want to delete the chat?",
     "delete_message": "Delete message",
     "sure_delete_message": "Are you sure you want to delete the message?",
     "also_delete_from": "Also remove from",
-    "cancel_delete": "Cancel"
+    "cancel_delete": "Cancel",
+    "clear_history": "Clear history"
   },
   "reaction_tooltip": {
     "like": "Ma sha Allah",

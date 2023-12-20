@@ -110,6 +110,7 @@ export const timeFormat = {
       })
     },
     formatCustomDate(dateString, isOnline = false, locale = this.$i18n.locale || 'ru') {
+      if (!dateString) return
       const userTimeZone = momentTimezone.tz.guess()
       const formattedDateString = dateString.replace(
         /(\d{2})\.(\d{2})\.(\d{4})T(\d{2}:\d{2}:\d{2})/,

@@ -4,29 +4,22 @@
     :class="message?.messageOwner ? 'send' : 'recieve'"
     :data-messageId="message?.messageId"
   >
-    <div class="message__inner">
+    <div class="message__inner" :class="!message?.message && 'no__message'">
       <!-- <template v-if="video">
         :class="`${state} ${typeof message === 'object' ? 'forward' : ''}`"
         :class="{ 'video-message': (video || image) && !message }"
         <video-message :src="video.src" :poster="video.poster" />
-      </template>
-      <template v-if="image">
-        <image-message :image="image" />
       </template> -->
+      <template v-if="message?.messageType === 'image'">
+        <image-message :image="message?.mediaData[0]" />
+      </template>
       <div
         class="message__text"
-        v-if="
-          message?.messageType === 'text' && Object.keys(message?.replyMessage || {}).length === 0
-        "
+        v-if="message?.message && Object.keys(message?.replyMessage || {}).length === 0"
       >
         {{ message?.message }}
       </div>
-      <div
-        class="message__text"
-        v-else-if="
-          message?.messageType === 'text' && Object.keys(message?.replyMessage || {}).length > 0
-        "
-      >
+      <div class="message__text" v-else-if="Object.keys(message?.replyMessage || {}).length > 0">
         <div class="message__text--top">
           <span>{{ message?.replyMessage?.messageAuthor }}</span>
           {{ message?.replyMessage?.message }}
@@ -79,6 +72,13 @@ export default {
     min-width: 110px;
     overflow-wrap: break-word;
     overflow: hidden;
+
+    &.no__message {
+      padding: 0;
+      .image-component {
+        top: 0;
+      }
+    }
     &.video-message {
       padding: 0;
       border-radius: 10px;
@@ -97,9 +97,6 @@ export default {
       margin-left: auto;
       color: var(--color-stable-white);
     }
-    .message__text--top {
-      border-color: var(--color-stable-white);
-    }
   }
   &.recieve {
     .message__inner {
@@ -115,7 +112,7 @@ export default {
     letter-spacing: 0.4px;
     white-space: pre-wrap;
     &--top {
-      border-left: 2px solid var(--color-mine-shaft);
+      border-left: 2px solid var(--color-hippie-blue);
       padding-left: 8px;
       margin-bottom: 10px;
       span {

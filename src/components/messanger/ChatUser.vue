@@ -19,7 +19,7 @@
                 !store.getters['messenger/getIsLoading'])
           }"
         >
-          <div class="list__info--status" v-if="chat?.message.messageOwner">
+          <div class="list__info--status" v-if="chat?.message?.messageOwner">
             <PreloaderIcon
               v-if="store.getters['messenger/getIsLoading'] && chat?.chatId === +route.params?.id"
             />
@@ -74,7 +74,7 @@ const newMessages = ref([])
 
 const updateIndex = () => {
   newMessages.value = JSON.parse(localStorage.getItem('newMessages') || '[]')
-  index.value = newMessages.value.findIndex((chat) => chat.chatId === props.chat.chatId)
+  index.value = newMessages.value.findIndex((chat) => chat?.chatId === props.chat?.chatId)
 }
 
 const cleatMessage = (chat) => {
