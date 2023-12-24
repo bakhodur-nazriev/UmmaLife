@@ -1,16 +1,23 @@
 <template>
-  <a :href="image.src" data-fancybox class="image-component">
-    <img :src="image.src" :alt="image.alt" />
+  <a
+    :href="image?.src"
+    data-fancybox
+    class="image-component"
+    v-if="!!Object.keys(image || {}).length"
+  >
+    <img :src="image?.src" :alt="image?.title" loading="lazy" />
   </a>
 </template>
 
 <script setup>
 /* eslint-disable */
 import { Fancybox } from '@fancyapps/ui'
-import { onMounted } from 'vue'
-defineProps({
+import { onMounted, ref } from 'vue'
+const props = defineProps({
   image: Object
 })
+
+const storage_url = ref(process.env.VUE_APP_STORAGE_URL)
 
 onMounted(() => {
   Fancybox.bind('[data-fancybox]', {
@@ -42,6 +49,8 @@ onMounted(() => {
     display: block;
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    object-position: center;
   }
 }
 </style>
