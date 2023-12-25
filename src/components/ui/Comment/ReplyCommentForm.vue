@@ -9,16 +9,16 @@
         </div>
         <div class="comment-header__right-buttons">
           <div class="filter-form__button" @click="toggleFilter">
-            <CommentFilter :is-filter-window-open="isFilterOpen" />
+            <CommentFilter :is-filter-window-open="isFilterOpen"/>
           </div>
           <div class="close-form__button" @click="closeCommentWindow">
-            <CloseFormIcon />
+            <CloseFormIcon/>
           </div>
         </div>
       </div>
     </div>
 
-    <SampleDivider class="divider" />
+    <SampleDivider class="divider"/>
 
     <div class="pin-section">
       <SampleButton
@@ -27,21 +27,21 @@
         :size="12"
         icon="pin"
       >
-        <PinIcon />
+        <PinIcon/>
       </SampleButton>
     </div>
 
     <div class="author__avatar--section">
-      <img src="@/assets/images/reply_avatar.png" alt="" />
+      <img :src="postComments[0].publisher.avatar" alt=""/>
     </div>
     <div class="reply__field--section">
       <div class="reply-header">
         <div class="reply__author--section">
           <div class="author__avatar--section-small">
-            <img src="@/assets/images/reply_avatar.png" alt="" />
+            <img :src="postComments" alt=""/>
           </div>
-          <span class="author__name">{{ replyAuthorName }}</span>
-          <span class="author__time">2 часа назад</span>
+          <span class="author__name">{{ postComments[0].publisher.name }}</span>
+          <span class="author__time">{{ multiFormatDateString(postComments[0].time_formatted) }}</span>
         </div>
 
         <div class="reply__detail--menu--section-small">
@@ -58,25 +58,25 @@
             :placeholder="`${$t('placeholders.comment_input')}`"
             @input="adjustTextareaHeight"
             v-model="textareaValue"
-            :value="textareaValue"
+            :value="postComments[0].text"
             class="reply__textarea"
             ref="replyTextarea"
           />
 
           <div class="reply__reactions-small" ref="replyReactions">
             <div class="reply__icon" v-for="(reaction, i) in reactions" :key="i">
-              <component :is="reaction.icon" />
+              <component :is="reaction.icon"/>
               <span>{{ reaction.count }}</span>
             </div>
           </div>
 
           <div class="textarea__right--buttons">
             <FileUpload class="attach__file" label="file">
-              <TextareaClipIcon />
+              <TextareaClipIcon/>
             </FileUpload>
-            <SampleDivider class="textarea__right--buttons--divider" />
+            <SampleDivider class="textarea__right--buttons--divider"/>
             <button class="send__button" type="button">
-              <SendIcon />
+              <SendIcon/>
             </button>
           </div>
         </div>
@@ -95,14 +95,14 @@
             {{ $t('buttons.favourite') }}
           </button>
           <button type="button" @click="answerComment" class="reply__buttons--answer">
-            <SmallCommentIcon />
+            <SmallCommentIcon/>
             {{ $t('buttons.answer') }}
           </button>
         </div>
 
         <div class="reply__reactions" ref="replyReactions">
           <div class="reply__icon" v-for="(reaction, i) in reactions" :key="i">
-            <component :is="reaction.icon" />
+            <component :is="reaction.icon"/>
             <span class="reply__icon--count">{{ reaction.count }}</span>
           </div>
         </div>
@@ -112,13 +112,13 @@
       </div>
 
       <div v-if="isActiveAnswer" class="active__reply--field">
-        <img src="@/assets/images/comment_avatar.png" width="48" height="48" alt="" />
+        <img src="@/assets/images/comment_avatar.png" width="48" height="48" alt=""/>
 
-        <TextareaField :reply-author-name="replyAuthorName + ', '" />
+        <TextareaField :reply-author-name="replyAuthorName + ', '"/>
       </div>
 
       <div v-if="true" class="load__more--reply-answers">
-        <SampleDropDown color="primary" :drop-down-title="`${$t('dropdown.reply_answer')}`" />
+        <SampleDropDown color="primary" :drop-down-title="`${$t('dropdown.reply_answer')}`"/>
       </div>
     </div>
   </form>
@@ -147,8 +147,10 @@ import CommentFilter from '@/components/ui/MenuDetails/CommentFilter.vue'
 import PinIcon from '@/components/icons/comment/PinIcon.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import SmallCommentIcon from '@/components/icons/comment/SmallCommentIcon.vue'
+import {timeFormat} from '@/mixins/timeFormat'
 
 export default {
+  mixins: [timeFormat],
   components: {
     SmallCommentIcon,
     SampleButton,
@@ -173,27 +175,30 @@ export default {
     LikeIcon,
     SampleTextarea
   },
+  props: {
+    postComments: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
-      textareaValue:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur assumenda blanditiis corporis deserunt doloribus ea eaque eos esse eveniet exercitationem, fuga iure laudantium libero maiores maxime natus nemo nostrum optio perferendis porro quas, qui, quia quod rerum saepe soluta sunt tenetur? Ab aut, dignissimos dolores esse excepturi expedita facilis fuga iusto modi nesciunt possimus quasi quos reiciendis.',
       textareaInsideValue:
         'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, possimus!',
       isReplyMenuOpen: false,
       isActiveAnswer: false,
       isActiveInsideAnswer: false,
-      replyAuthorName: 'Courtney Henry',
       isFilterOpen: false,
       reactions: [
-        { id: 1, icon: 'LikeIcon', count: 1.7 },
-        { id: 2, icon: 'DislikeIcon', count: 123 },
-        { id: 3, icon: 'LoveIcon', count: 354 },
-        { id: 4, icon: 'LaughIcon', count: 2.5 },
-        { id: 5, icon: 'FireIcon', count: 867 },
-        { id: 6, icon: 'ThinkIcon', count: 52 },
-        { id: 7, icon: 'AngryIcon', count: 96 },
-        { id: 8, icon: 'SadIcon', count: 78 },
-        { id: 8, icon: 'ScaredIcon', count: 125 }
+        {id: 1, icon: 'LikeIcon', count: 1.7},
+        {id: 2, icon: 'DislikeIcon', count: 123},
+        {id: 3, icon: 'LoveIcon', count: 354},
+        {id: 4, icon: 'LaughIcon', count: 2.5},
+        {id: 5, icon: 'FireIcon', count: 867},
+        {id: 6, icon: 'ThinkIcon', count: 52},
+        {id: 7, icon: 'AngryIcon', count: 96},
+        {id: 8, icon: 'SadIcon', count: 78},
+        {id: 8, icon: 'ScaredIcon', count: 125}
       ]
     }
   },
@@ -201,6 +206,9 @@ export default {
     this.adjustTextareaHeight()
   },
   methods: {
+    post() {
+      return post
+    },
     adjustTextareaHeight() {
       const textarea = this.$el.querySelector('.reply__textarea')
 
@@ -274,9 +282,11 @@ export default {
 
 .author__avatar--section {
   display: flex;
+
   img {
     width: 48px;
     max-height: 48px;
+    border-radius: 50%;
   }
 }
 
@@ -389,6 +399,7 @@ export default {
 
 .close-form__button {
   cursor: pointer;
+
   svg {
     transform: scale(1.2);
     color: var(--color-mine-shaft);
@@ -556,6 +567,7 @@ export default {
 
   .author__avatar--section-small {
     display: flex;
+
     img {
       width: 40px;
       max-height: 40px;
@@ -646,12 +658,14 @@ export default {
     display: none;
   }
 }
+
 .book__comment {
   .comment-header__small {
     @media (max-width: 768px) {
       display: none;
     }
   }
+
   .reply__form {
     @media (max-width: 576px) {
       padding: 0;

@@ -160,7 +160,7 @@ export default {
       try {
         const response = await axios.post('/update-user-data', payload, {params, headers});
         if (response.data.api_status === 200) {
-          console.log('Language updated successfully');
+          // console.log('Language updated successfully');
         }
       } catch (error) {
         console.error(error);
@@ -168,8 +168,6 @@ export default {
     }
   },
   mounted() {
-    this.setUserLanguage()
-    console.log(this.$i18n.locale)
   }
 }
 </script>

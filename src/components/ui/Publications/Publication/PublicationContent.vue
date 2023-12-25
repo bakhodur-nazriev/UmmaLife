@@ -5,8 +5,18 @@
       :class="{ 'show-all-content': isOpenReadMore }"
       ref="content"
     >
-      {{ postContent }}
+      {{ contentWithoutHashtags }}
     </p>
+    <div v-if="hashtags.length > 0" class="hashtags">
+      <a
+        v-for="(tag, index) in hashtags"
+        :key="index"
+        :href="`hashtag/${tag.substring(1)}`"
+        class="hashtag"
+      >
+        {{ tag }}
+      </a>
+    </div>
     <button
       v-if="isOverflown"
       class="read-more__button"
@@ -31,7 +41,9 @@ export default {
   props: ['postContent'],
   data: () => ({
     isOpenReadMore: false,
-    isOverflown: false
+    isOverflown: false,
+    hashtags: [],
+    contentWithoutHashtags: ''
   }),
   methods: {
     toggleReadMore() {
@@ -42,11 +54,17 @@ export default {
       if (content) {
         this.isOverflown = content.scrollHeight > content.clientHeight;
       }
+    },
+    extractHashtags(text) {
+      const regex = /#\w+/g;
+      return text.match(regex) || [];
     }
   },
   mounted() {
     this.checkOverflow();
     window.addEventListener('resize', this.checkOverflow);
+    this.hashtags = this.extractHashtags(this.postContent);
+    this.contentWithoutHashtags = this.postContent.replace(/#\w+/g, '');
   },
   destroyed() {
     window.removeEventListener('resize', this.checkOverflow);
@@ -55,6 +73,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.hashtags {
+  margin-top: 10px;
+
+  .hashtag {
+    text-decoration: none;
+    color: var(--color-hippie-blue);
+    margin-right: 8px;
+  }
+}
+
 .read-more__button {
   background: none;
   color: var(--color-hippie-blue);

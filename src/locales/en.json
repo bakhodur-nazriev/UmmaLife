@@ -184,6 +184,7 @@
   },
   "buttons": {
     "translate": "Translate",
+    "show_original": "Show original",
     "reset": "Reset",
     "login": "Login",
     "ready": "Ready",

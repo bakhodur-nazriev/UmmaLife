@@ -1,15 +1,16 @@
 <template>
   <div class="video-block">
     <article
-        class="video-block__article"
-        v-for="(item, i) in video"
-        :key="i"
+      class="video-block__article"
+      v-for="(item, i) in video"
+      :key="i"
     >
       <PostHeader
-          :is-menu-open="isMenuOpen"
-          @toggle-menu="toggleMenu"
-          :publisher="item.publisher"
-          :time="item.date_create"
+        :is-menu-open="isMenuOpen"
+        @toggle-menu="toggleMenu"
+        :publisher="item.publisher"
+        :time="item.date_create"
+        @translate-request="handleTranslation(item)"
       />
 
       <VideoContent :video-content="item"/>
@@ -17,8 +18,8 @@
       <SampleDivider class="divider"/>
 
       <PostFooter
-          :is-reaction-window-open="isReactionWindowOpen"
-          :is-share-window-open="isShareWindowOpen"
+        :is-reaction-window-open="isReactionWindowOpen"
+        :is-share-window-open="isShareWindowOpen"
       />
     </article>
   </div>
@@ -39,44 +40,48 @@ export default {
     VideoContent,
     SampleDivider
   },
+  props: {
+    video: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       isMenuOpen: false,
       isReactionWindowOpen: false,
-      isShareWindowOpen: false,
-      video: []
+      isShareWindowOpen: false
     }
   },
   methods: {
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen
     },
-    async getVideo() {
+    async translatePost(text) {
+      return await this.fetchTranslation(text);
+    },
+    async fetchTranslation(text) {
       const payload = getFormData({
         server_key: process.env.VUE_APP_SERVER_KEY,
-        post_type: 'video',
-        page: 1
+        text: text
       })
 
       const headers = {'Content-Type': 'multipart/form-data'}
-
       const accessToken = localStorage.getItem('access_token')
       const params = {access_token: accessToken}
 
       try {
-        const response = await axios.post('/posts', payload, {params, headers})
+        const response = await axios.post('/translate', payload, {params, headers})
         if (response.data.api_status === 200) {
-          this.video = response.data?.data
-        } else {
-          console.log(response.data)
+          return response.data?.data
         }
       } catch (error) {
         console.error(error)
       }
+    },
+    async handleTranslation(item) {
+      item.Orginaltext = await this.translatePost(item.Orginaltext);
     }
-  },
-  mounted() {
-    this.getVideo()
   }
 }
 </script>

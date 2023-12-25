@@ -4,13 +4,12 @@
       <div class="comment__avatar">
         <img
           class="comment__author--avatar"
-          src="@/assets/images/comment_avatar.png"
+          :src="user.avatar"
           width="48"
           height="48"
           alt=""
         />
       </div>
-
       <SampleTextarea
         class="form__textarea"
         :placeholder="`${$t('placeholders.comment_input')}`"
@@ -19,26 +18,26 @@
 
       <div class="textarea__right--buttons">
         <FileUpload class="attach__file" label="file">
-          <SmallClipFileIcon class="small-clip__icon" />
-          <ClipIcon class="big-clip__icon" />
+          <SmallClipFileIcon class="small-clip__icon"/>
+          <ClipIcon class="big-clip__icon"/>
         </FileUpload>
 
         <div class="sticker__button" @click="isOpenStickerWindow">
-          <StickerButtonIcon class="sticker-icon" />
+          <StickerButtonIcon class="sticker-icon"/>
         </div>
 
-        <SampleDivider class="textarea__right--buttons--divider" />
+        <SampleDivider class="textarea__right--buttons--divider"/>
 
         <button class="send__button" type="button">
-          <SubmitIcon class="small-submit__icon" />
-          <SendIcon class="big-submit__icon" />
+          <SubmitIcon class="small-submit__icon"/>
+          <SendIcon class="big-submit__icon"/>
         </button>
       </div>
 
       <div class="main-sticker__window" v-if="stickerWindow">
         <div class="main-sticker__window-header">
           <FileUpload class="attach__file" label="file">
-            <SmallClipFileIcon class="small-clip__header-icon" />
+            <SmallClipFileIcon class="small-clip__header-icon"/>
           </FileUpload>
 
           <SampleTextarea
@@ -47,14 +46,14 @@
           />
 
           <SampleButton size="12" color="tertiary" icon="keyboard" class="keyboard-button">
-            <KeyboardIcon />
+            <KeyboardIcon/>
           </SampleButton>
         </div>
 
-        <SampleDivider />
+        <SampleDivider/>
 
-        <StickerComponent v-if="selectedTab === 'stickers'" :is="currentComponent" />
-        <GifComponent v-if="selectedTab === 'gifs'" :is="currentComponent" />
+        <StickerComponent v-if="selectedTab === 'stickers'" :is="currentComponent"/>
+        <GifComponent v-if="selectedTab === 'gifs'" :is="currentComponent"/>
 
         <div class="main-sticker__window-footer">
           <button
@@ -114,7 +113,8 @@ export default {
   },
   data: () => ({
     stickerWindow: false,
-    selectedTab: 'stickers'
+    selectedTab: 'stickers',
+    user: JSON.parse(localStorage.getItem('user')) || {},
   }),
   methods: {
     adjustTextareaHeight() {
@@ -229,6 +229,7 @@ export default {
 
 .comment__author--avatar {
   margin-right: 12px;
+  border-radius: 50%;
 }
 
 .comment__form {
@@ -364,6 +365,7 @@ export default {
 
   .comment__form {
     padding: 8px;
+
     &::before {
       display: none;
     }

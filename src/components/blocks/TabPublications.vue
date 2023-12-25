@@ -20,7 +20,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import MainPublicationsTab from '@/components/ui/Publications/MainPublicationsTab.vue'
 import PublicationTabSide from '@/components/blocks/PublicationTabSide.vue'
 import PublicationForm from '@/components/forms/PublicationForm.vue'

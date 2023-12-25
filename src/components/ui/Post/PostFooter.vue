@@ -6,9 +6,9 @@
           <div class="reaction__window">
             <ul class="reaction__menu">
               <li
-                  v-for="(reaction, index) in reactionsIcon"
-                  :key="index"
-                  class="reaction__item"
+                v-for="(reaction, index) in reactionsIcon"
+                :key="index"
+                class="reaction__item"
               >
                 <span class="reaction__item--tooltip">{{ reaction.tooltip }}</span>
                 <component :is="reaction.icon"/>
@@ -62,11 +62,15 @@
     <SampleDivider v-if="isFormOpen"/>
 
     <div
-        ref="commentForm"
-        v-if="isFormOpen"
-        :class="['main__comment--form', isFormOpen ? 'main__comment--form--shown' : '']"
+      ref="commentForm"
+      v-if="isFormOpen"
+      :class="['main__comment--form', isFormOpen ? 'main__comment--form--shown' : '']"
     >
-      <ReplyCommentForm @close-comment-window="toggleForm"/>
+      <ReplyCommentForm
+        @close-comment-window="toggleForm"
+        v-if="comments.length"
+        :postComments="comments"
+      />
 
       <div class="enter-comment__form">
         <CommentForm/>
@@ -93,6 +97,8 @@ import ShareMenuIcon from '@/components/icons/MenuDetails/ShareMenuIcon.vue'
 import BigScaredIcon from '@/components/icons/reactions/men/big/BigScaredIcon.vue'
 import BigLaughIcon from '@/components/icons/reactions/men/big/BigLaughIcon.vue'
 import ReplyCommentForm from '@/components/ui/Comment/ReplyCommentForm.vue'
+import {getFormData} from '@/utils'
+import axios from "axios";
 
 export default {
   components: {
@@ -108,7 +114,12 @@ export default {
   },
   props: {
     reaction: {
-      type: Object
+      type: Object,
+      // required: true
+    },
+    postsItem: {
+      type: Object,
+      required: true
     }
   },
   data() {
@@ -126,7 +137,8 @@ export default {
       ],
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
-      isFormOpen: false
+      isFormOpen: false,
+      comments: []
     }
   },
   methods: {
@@ -145,9 +157,9 @@ export default {
       const openReactionButton = document.querySelector('.open-reaction-button')
 
       if (
-          reactionWindow &&
-          !reactionWindow.contains(event.target) &&
-          event.target !== openReactionButton
+        reactionWindow &&
+        !reactionWindow.contains(event.target) &&
+        event.target !== openReactionButton
       ) {
         this.isReactionWindowOpen = false
       }
@@ -159,11 +171,32 @@ export default {
       if (shareWindow && !shareWindow.contains(event.target) && event.target !== openShareButton) {
         this.isShareWindowOpen = false
       }
+    },
+    async getComments() {
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        post_id: this.postsItem.id
+      })
+
+      const headers = {'Content-Type': 'multipart/form-data'}
+      const accessToken = localStorage.getItem('access_token')
+      const params = {access_token: accessToken}
+
+      try {
+        const response = await axios.post('/comments', payload, {params, headers})
+        if (response.data.api_status === 200) {
+          this.comments = response.data?.data
+        }
+        console.log(response.data?.data)
+      } catch (error) {
+        console.error(error)
+      }
     }
   },
   mounted() {
     document.addEventListener('click', this.closeReactionWindow)
     document.addEventListener('click', this.closeShareWindow)
+    this.getComments()
   },
   beforeUnmount() {
     document.removeEventListener('click', this.closeReactionWindow)

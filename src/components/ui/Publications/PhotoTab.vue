@@ -2,10 +2,11 @@
   <div class="photo-block">
     <article class="photo-block__article" v-for="(item, i) in photos" :key="i">
       <PostHeader
-          :is-menu-open="isMenuOpen"
-          @toggle-menu="toggleMenu"
-          :publisher="item.publisher"
-          :time="item.date_create"
+        :is-menu-open="isMenuOpen"
+        @toggle-menu="toggleMenu"
+        :publisher="item.publisher"
+        :time="item.date_create"
+        @translate-request="handleTranslation(item)"
       />
 
       <PhotoContent :photo-content="item"/>
@@ -13,8 +14,8 @@
       <SampleDivider class="divider"/>
 
       <PostFooter
-          :is-reaction-window-open="isReactionWindowOpen"
-          :is-share-window-open="isShareWindowOpen"
+        :is-reaction-window-open="isReactionWindowOpen"
+        :is-share-window-open="isShareWindowOpen"
       />
     </article>
   </div>
@@ -35,44 +36,48 @@ export default {
     SampleDivider,
     PhotoContent
   },
+  props: {
+    photos: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
       isMenuOpen: false,
-      photos: []
     }
   },
   methods: {
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen
     },
-    async getPhotos() {
+    async translatePost(text) {
+      return await this.fetchTranslation(text);
+    },
+    async fetchTranslation(text) {
       const payload = getFormData({
         server_key: process.env.VUE_APP_SERVER_KEY,
-        post_type: 'photos',
-        page: 1
+        text: text
       })
 
       const headers = {'Content-Type': 'multipart/form-data'}
-
       const accessToken = localStorage.getItem('access_token')
       const params = {access_token: accessToken}
 
       try {
-        const response = await axios.post('/posts', payload, {params, headers})
+        const response = await axios.post('/translate', payload, {params, headers})
         if (response.data.api_status === 200) {
-          this.photos = response.data?.data
-        } else {
-          console.log(response.data)
+          return response.data?.data
         }
       } catch (error) {
         console.error(error)
       }
+    },
+    async handleTranslation(item) {
+      item.Orginaltext = await this.translatePost(item.Orginaltext);
     }
-  },
-  mounted() {
-    this.getPhotos()
   }
 }
 </script>
