@@ -21,14 +21,15 @@ import '@fancyapps/ui/dist/fancybox/fancybox.css'
 import 'vue-multiselect/dist/vue-multiselect.css'
 import 'swiper/css'
 import 'swiper/css/navigation'
-// import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
-// import VueVirtualScroller from 'vue-virtual-scroller'
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
+import VueVirtualScroller from 'vue-virtual-scroller'
 
 const app = createApp(App)
 // const metaManager = app.use(createMetaManager)
 
 app.config.globalProperties.$route = {}
 app.use(draggable)
+app.use(VueVirtualScroller)
 app.use(i18n)
 app.use(router)
 app.use(store)
@@ -36,6 +37,5 @@ app.use(VueVideoPlayer)
 app.use(Vue3TouchEvents)
 app.use(VueStickyDirective)
 app.use(AudioPlayer)
-// app.use(VueVirtualScroller)
 // app.use(metaManager)
 app.mount('#app')
