@@ -19,16 +19,15 @@ import 'primevue/resources/themes/lara-light-indigo/theme.css'
 import 'video.js/dist/video-js.css'
 import '@fancyapps/ui/dist/fancybox/fancybox.css'
 import 'vue-multiselect/dist/vue-multiselect.css'
-import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 import 'swiper/css'
 import 'swiper/css/navigation'
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 import VueVirtualScroller from 'vue-virtual-scroller'
 
 const app = createApp(App)
 // const metaManager = app.use(createMetaManager)
 
 app.config.globalProperties.$route = {}
-app.use(VueVirtualScroller)
 app.use(draggable)
 app.use(i18n)
 app.use(router)
