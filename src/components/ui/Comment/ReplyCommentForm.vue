@@ -1,5 +1,11 @@
 <template>
-  <form action="" method="post" class="reply__form">
+  <form
+    action=""
+    method="post"
+    class="reply__form"
+    v-for="(comment ,i) in postComments"
+    :key="i"
+  >
     <div class="comment-header__small">
       <div class="horizontal-line"></div>
       <div class="comment-header__section">
@@ -32,16 +38,16 @@
     </div>
 
     <div class="author__avatar--section">
-      <img :src="postComments[0].publisher.avatar" alt=""/>
+      <img :src="comment.publisher.avatar" alt=""/>
     </div>
     <div class="reply__field--section">
       <div class="reply-header">
         <div class="reply__author--section">
           <div class="author__avatar--section-small">
-            <img :src="postComments" alt=""/>
+            <img :src="comment.publisher.avatar" alt=""/>
           </div>
-          <span class="author__name">{{ postComments[0].publisher.name }}</span>
-          <span class="author__time">{{ multiFormatDateString(postComments[0].time_formatted) }}</span>
+          <span class="author__name">{{ comment.publisher.name }}</span>
+          <span class="author__time">{{ multiFormatDateString(comment.time_formatted) }}</span>
         </div>
 
         <div class="reply__detail--menu--section-small">
@@ -58,7 +64,7 @@
             :placeholder="`${$t('placeholders.comment_input')}`"
             @input="adjustTextareaHeight"
             v-model="textareaValue"
-            :value="postComments[0].text"
+            :value="comment.text"
             class="reply__textarea"
             ref="replyTextarea"
           />
@@ -99,25 +105,25 @@
             {{ $t('buttons.answer') }}
           </button>
         </div>
-
         <div class="reply__reactions" ref="replyReactions">
           <div class="reply__icon" v-for="(reaction, i) in reactions" :key="i">
             <component :is="reaction.icon"/>
             <span class="reply__icon--count">{{ reaction.count }}</span>
           </div>
-        </div>
-        <div class="reply__reactions--count--block">
-          <span class="reply__reactions--count">999К</span>
+
+          <div class="reply__reactions-block">
+            <span class="reply__reactions--count">999К</span>
+          </div>
         </div>
       </div>
 
       <div v-if="isActiveAnswer" class="active__reply--field">
-        <img src="@/assets/images/comment_avatar.png" width="48" height="48" alt=""/>
+        <img :src="postComments[0].publisher.avatar" alt=""/>
 
-        <TextareaField :reply-author-name="replyAuthorName + ', '"/>
+        <TextareaField :reply-author-name="postComments[0].publisher.name + ', '"/>
       </div>
 
-      <div v-if="true" class="load__more--reply-answers">
+      <div class="load__more--reply-answers">
         <SampleDropDown color="primary" :drop-down-title="`${$t('dropdown.reply_answer')}`"/>
       </div>
     </div>
@@ -148,10 +154,12 @@ import PinIcon from '@/components/icons/comment/PinIcon.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import SmallCommentIcon from '@/components/icons/comment/SmallCommentIcon.vue'
 import {timeFormat} from '@/mixins/timeFormat'
+import UserInfo from "@/components/ui/UserInfo.vue";
 
 export default {
   mixins: [timeFormat],
   components: {
+    UserInfo,
     SmallCommentIcon,
     SampleButton,
     PinIcon,
@@ -183,8 +191,7 @@ export default {
   },
   data() {
     return {
-      textareaInsideValue:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, possimus!',
+      textareaValue: '',
       isReplyMenuOpen: false,
       isActiveAnswer: false,
       isActiveInsideAnswer: false,
@@ -202,23 +209,18 @@ export default {
       ]
     }
   },
-  mounted() {
-    this.adjustTextareaHeight()
-  },
   methods: {
-    post() {
-      return post
-    },
     adjustTextareaHeight() {
-      const textarea = this.$el.querySelector('.reply__textarea')
-
-      if (textarea.value.trim() !== '') {
-        this.textareaValue = textarea.value
-        textarea.style.height = 'auto'
-        textarea.style.height = `${textarea.scrollHeight}px`
-      } else {
-        this.textareaValue = ''
-        textarea.style.height = '48px'
+      const textarea = this.$el.querySelector('.reply__textarea');
+      if (textarea) {
+        if (textarea.value.trim() !== '') {
+          this.textareaValue = textarea.value;
+          textarea.style.height = 'auto';
+          textarea.style.height = `${textarea.scrollHeight}px`;
+        } else {
+          this.textareaValue = '';
+          textarea.style.height = '48px';
+        }
       }
     },
     toggleReplyMenu() {
@@ -236,6 +238,14 @@ export default {
     answerInsideComment() {
       this.isActiveInsideAnswer = !this.isActiveInsideAnswer
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      const textarea = this.$refs.replyTextarea;
+      if (textarea && textarea.$el) {
+        textarea.$el.addEventListener('input', this.adjustTextareaHeight);
+      }
+    });
   }
 }
 </script>
@@ -264,6 +274,12 @@ export default {
   align-items: center;
   gap: 8px;
   margin: 14px 0;
+
+  img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+  }
 }
 
 .send__button,
@@ -324,9 +340,6 @@ export default {
 .reply__reactions--count {
   color: var(--color-silver-chalice);
 
-  &--block {
-    margin-left: 2px;
-  }
 }
 
 .reply__icon {
@@ -337,6 +350,8 @@ export default {
   background-color: var(--color-gallery-second);
   padding: 5px;
   cursor: pointer;
+  width: 24px;
+  height: 24px;
 
   &--count {
     display: none;
@@ -344,12 +359,16 @@ export default {
 }
 
 .reply__textarea {
-  height: 48px;
+  min-height: 48px;
+  max-height: 120px;
   width: 100%;
   font-size: 16px;
-  padding: 15px 125px 15px 15px;
+  padding: 0 125px 0 15px;
   resize: none;
-  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .reply__textarea--and--button--section {
@@ -378,8 +397,10 @@ export default {
 
   &--section {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     width: 93%;
+    padding-right: 10px;
   }
 
   button {
@@ -389,6 +410,7 @@ export default {
     font-size: 16px;
     cursor: pointer;
     padding: 0;
+    height: fit-content;
   }
 }
 
@@ -478,26 +500,6 @@ export default {
         margin-right: 4px;
       }
     }
-  }
-
-  // .reply__icon {
-  //   border-radius: 8px;
-  //   background-color: var(--color-white);
-  //   display: flex;
-  //   gap: 4px;
-  //   padding: 4px 8px;
-
-  //   span {
-  //     font-size: 12px;
-  //   }
-
-  //   svg {
-  //     transform: scale(1.3);
-  //   }
-  // }
-
-  .reply__reactions--count--block {
-    display: none;
   }
 
   .comment-header {

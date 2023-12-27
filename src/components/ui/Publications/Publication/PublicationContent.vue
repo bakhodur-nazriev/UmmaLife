@@ -63,8 +63,18 @@ export default {
   mounted() {
     this.checkOverflow();
     window.addEventListener('resize', this.checkOverflow);
-    this.hashtags = this.extractHashtags(this.postContent);
-    this.contentWithoutHashtags = this.postContent.replace(/#\w+/g, '');
+
+    if (this.postContent && typeof this.postContent === 'string') {
+      this.hashtags = this.extractHashtags(this.postContent);
+
+      if (this.hashtags && this.hashtags.length > 0) {
+        this.contentWithoutHashtags = this.postContent.replace(/#\w+/g, '');
+      } else {
+        this.contentWithoutHashtags = this.postContent;
+      }
+    } else {
+      this.contentWithoutHashtags = ''; // Если this.postContent не строка, задаем значение по умолчанию
+    }
   },
   destroyed() {
     window.removeEventListener('resize', this.checkOverflow);

@@ -47,8 +47,6 @@ export default {
       default: 'primary'
     }
   },
-  computed: {
-  },
   components: {
     DropdownIcon
   },

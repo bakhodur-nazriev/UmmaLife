@@ -94,7 +94,7 @@ export default {
   bottom: 17%;
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
 }
 
 .form__textarea {

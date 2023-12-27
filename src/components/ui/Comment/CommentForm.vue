@@ -266,14 +266,14 @@ export default {
   bottom: 17px;
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
 }
 
 .form__textarea {
   height: 48px;
   width: 100%;
   font-size: 16px;
-  padding: 15px 125px 15px 15px;
+  padding: 15px 175px 15px 15px;
   resize: none;
   overflow: hidden;
   background-color: var(--color-seashell);

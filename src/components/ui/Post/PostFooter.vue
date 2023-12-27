@@ -59,7 +59,7 @@
       </div>
     </div>
 
-    <SampleDivider v-if="isFormOpen"/>
+    <SampleDivider v-if="isFormOpen && comments.length"/>
 
     <div
       ref="commentForm"

@@ -87,8 +87,6 @@ export default {
       item.Orginaltext = await this.translatePost(item.Orginaltext);
       this.$set(this.translated, item.publisher.id, !!item.Orginaltext);
     }
-  },
-  mounted() {
   }
 }
 </script>
