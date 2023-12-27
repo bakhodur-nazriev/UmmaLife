@@ -13,7 +13,6 @@ import draggable from 'vuedraggable'
 import Vue3TouchEvents from 'vue3-touch-events'
 import VueStickyDirective from '@renatodeleao/vue-sticky-directive'
 import AudioPlayer from '@liripeng/vue-audio-player'
-import VueVirtualScroller from 'vue-virtual-scroller'
 import './interceptors/axios'
 
 import 'primevue/resources/themes/lara-light-indigo/theme.css'
@@ -23,13 +22,13 @@ import 'vue-multiselect/dist/vue-multiselect.css'
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 import 'swiper/css'
 import 'swiper/css/navigation'
-// import VueVirtualScroller from 'vue-virtual-scroller'
+import VueVirtualScroller from 'vue-virtual-scroller'
 
 const app = createApp(App)
 // const metaManager = app.use(createMetaManager)
 
 app.config.globalProperties.$route = {}
-// app.use(VueVirtualScroller)
+app.use(VueVirtualScroller)
 app.use(draggable)
 app.use(i18n)
 app.use(router)

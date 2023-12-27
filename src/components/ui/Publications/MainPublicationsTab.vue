@@ -19,11 +19,16 @@
       :key="i"
       v-show="activeTab === i"
     >
-      <PublicationTab v-if="i === 0" :posts="posts"/>
-      <ArticleTab v-if="i === 1" :articles="articles"/>
-      <PhotoTab v-if="i === 2" :photos="photos"/>
-      <VideoTab v-if="i === 3" :video="video"/>
-      <AudioTab v-if="i === 4" :audio="audio"/>
+      <template v-if="isLoading">
+        <PulseLoader color="#49a399" size="12px" class="speener-block"/>
+      </template>
+      <template v-else>
+        <PublicationTab v-if="i === 0" :posts="posts"/>
+        <ArticleTab v-if="i === 1" :articles="articles"/>
+        <PhotoTab v-if="i === 2" :photos="photos"/>
+        <VideoTab v-if="i === 3" :video="video"/>
+        <AudioTab v-if="i === 4" :audio="audio"/>
+      </template>
     </div>
   </div>
 </template>
@@ -37,6 +42,7 @@ import AudioTab from '@/components/ui/Publications/AudioTab.vue'
 import CheckMarkSmallIcon from '@/components/icons/CheckMarkSmallIcon.vue'
 import {getFormData} from '@/utils'
 import axios from 'axios'
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
 export default {
   components: {
@@ -45,7 +51,8 @@ export default {
     AudioTab,
     VideoTab,
     PhotoTab,
-    ArticleTab
+    ArticleTab,
+    PulseLoader
   },
   props: {
     tabsArray: {
@@ -70,7 +77,8 @@ export default {
       articles: [],
       photos: [],
       video: [],
-      audio: []
+      audio: [],
+      isLoading: true,
     }
   },
   methods: {
@@ -86,7 +94,7 @@ export default {
     async getPublications() {
       const payload = getFormData({
         server_key: process.env.VUE_APP_SERVER_KEY,
-        page: 2
+        page: 1
       })
 
       const headers = {'Content-Type': 'multipart/form-data'}
@@ -95,8 +103,10 @@ export default {
       const params = {access_token: accessToken}
 
       try {
+        this.isLoading = true;
         const response = await axios.post('/posts', payload, {params, headers})
         if (response.data.api_status === 200) {
+          this.isLoading = false;
           this.posts = response.data?.data
         } else {
           console.log('error')
@@ -118,8 +128,10 @@ export default {
       const params = {access_token: accessToken}
 
       try {
+        this.isLoading = true;
         const response = await axios.post('/posts', payload, {params, headers})
         if (response.data.api_status === 200) {
+          this.isLoading = false
           this.articles = response.data?.data
         } else {
           console.log(response.data)
@@ -141,8 +153,10 @@ export default {
       const params = {access_token: accessToken}
 
       try {
+        this.isLoading = true
         const response = await axios.post('/posts', payload, {params, headers})
         if (response.data.api_status === 200) {
+          this.isLoading = false
           this.photos = response.data?.data
         } else {
           console.log(response.data)
@@ -164,8 +178,10 @@ export default {
       const params = {access_token: accessToken}
 
       try {
+        this.isLoading = true;
         const response = await axios.post('/posts', payload, {params, headers})
         if (response.data.api_status === 200) {
+          this.isLoading = false;
           this.video = response.data?.data
         } else {
           console.log(response.data)
@@ -187,8 +203,10 @@ export default {
       const params = {access_token: accessToken}
 
       try {
+        this.isLoading = true;
         const response = await axios.post('/posts', payload, {params, headers})
         if (response.data.api_status === 200) {
+          this.isLoading = false;
           this.audio = response.data?.data
         } else {
           console.log(response.data)
@@ -238,6 +256,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.speener-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
 .tabs {
   display: flex;
   flex-direction: column;
@@ -367,9 +392,7 @@ export default {
   }
 }
 
-@media (min-width: 768px) {
-}
+@media (min-width: 768px) {}
 
-@media (min-width: 1280px) {
-}
+@media (min-width: 1280px) {}
 </style>
