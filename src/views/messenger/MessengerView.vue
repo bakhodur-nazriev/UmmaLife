@@ -8,15 +8,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
 import MessangerNavigation from '@/components/messanger/MessangerNavigation.vue'
 import { useStore } from 'vuex'
 import io from 'socket.io-client'
 import { useRoute } from 'vue-router'
-import store from '../../store/store'
-const { getters, dispatch, commit } = useStore()
+import { sleep } from '../../utils'
 
+const { getters, dispatch, commit } = useStore()
 const route = useRoute()
+
 const socket = io(`${process.env.VUE_APP_SOCKET_URL}`, {
   query: {
     hash: localStorage.getItem('hash')
@@ -24,19 +24,69 @@ const socket = io(`${process.env.VUE_APP_SOCKET_URL}`, {
 })
 socket.emit('join', { user_id: localStorage.getItem('access_token') })
 
-socket.on('on_new_message_chatroom', (data) => {
-  commit('messenger/setNewMessages', data)
+socket.on('on_new_message_chatroom', async (data) => {
+  console.log('on_new_message_chatroom')
+  storeOrUpdateData(data)
   dispatch('messenger/getChats')
-  if (route.params?.id) {
+  if (+route.params?.id === data?.chatId) {
+    commit('messenger/setIsScrolling', true)
     commit('messenger/setSingleChatByChatId', +route.params?.id)
-    dispatch('messenger/getChatMessages', route.params?.id)
+    await dispatch('messenger/getChatMessages', {
+      chat_id: route.params?.id,
+      page: 1,
+      direction: 'down'
+    })
+    await sleep(2000)
+    commit('messenger/setIsScrolling', false)
   }
 })
 
-dispatch('messenger/getChats')
-onMounted(() => {
-  commit('messenger/setUnreadMessages', JSON.parse(localStorage.getItem('newMessages') || '[]'))
+socket.on('on_typing', (data) => {
+  commit('messenger/setIsTyping', data)
 })
+
+socket.on('on_user_status', (data) => {
+  commit('messenger/setUserLastSeen', data)
+})
+
+socket.on('on_edit_message', async (data) => {
+  console.log('on_edit_message')
+  await dispatch('messenger/getChatMessages', {
+    chat_id: route.params?.id,
+    direction: 'down',
+    page: null
+  })
+})
+
+socket.on('on_delete_multiple_messages', async (data) => {
+  console.log('on_delete_multiple_messages')
+  await dispatch('messenger/getChatMessages', {
+    chat_id: route.params?.id,
+    direction: 'down',
+    page: null
+  })
+})
+
+function storeOrUpdateData(data) {
+  // Retrieve existing data from local storage
+  const existingData = JSON.parse(localStorage.getItem('newMessages') || '[]')
+
+  // Find index of the data with the same id
+  const index = existingData.findIndex((item) => item.chatId === data.chatId)
+
+  if (index === -1) {
+    // If the data with the id doesn't exist, push the new data
+    existingData.push(data)
+  } else {
+    // If the data with the id exists, update it
+    existingData[index] = data
+  }
+
+  // Save the updated data back to local storage
+  localStorage.setItem('newMessages', JSON.stringify(existingData))
+}
+
+dispatch('messenger/getChats')
 </script>
 
 <style scoped lang="scss">

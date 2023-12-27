@@ -2,7 +2,7 @@ import momentTimezone from 'moment-timezone'
 
 export const timeFormat = {
   methods: {
-    multiFormatDateString(dateString = '') {
+    multiFormatDateString(dateString = '', isChat = false) {
       const targetTimeZone = momentTimezone.tz.guess()
 
       const formattedDateString = dateString.replace(
@@ -33,7 +33,14 @@ export const timeFormat = {
 
       // Calculate the time ago
       if (seconds < minute) {
-        return this.$t('time.just_now')
+        if (isChat) {
+          return {
+            text: this.$t('chat.online'),
+            isOnline: true
+          }
+        } else {
+          return this.$t('time.just_now')
+        }
       } else if (seconds < hour) {
         const minutes = Math.floor(seconds / minute)
         if (minutes > 1) {
@@ -102,7 +109,8 @@ export const timeFormat = {
         timeZone: userTimeZone
       })
     },
-    formatCustomDate(dateString, locale = this.$i18n.locale || 'ru') {
+    formatCustomDate(dateString, isOnline = false, locale = this.$i18n.locale || 'ru') {
+      if (!dateString) return
       const userTimeZone = momentTimezone.tz.guess()
       const formattedDateString = dateString.replace(
         /(\d{2})\.(\d{2})\.(\d{4})T(\d{2}:\d{2}:\d{2})/,
@@ -118,7 +126,11 @@ export const timeFormat = {
         locale
       )
 
-      if (today.isSame(inputDate, 'day')) {
+      const currentExactTime = momentTimezone().locale(locale)
+
+      if (currentExactTime.isSame(inputDate, 'second') && isOnline) {
+        return 'chat.online'
+      } else if (today.isSame(inputDate, 'day')) {
         return inputDate.format('HH:mm')
       } else if (today.isSame(inputDate, 'week')) {
         return inputDate.format('ddd')

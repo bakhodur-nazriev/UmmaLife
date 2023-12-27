@@ -1,24 +1,31 @@
 <template>
-  <div class="message" :class="message?.messageOwner ? 'send' : 'recieve'">
-    <div class="message__inner">
+  <div
+    class="message"
+    :class="message?.messageOwner ? 'send' : 'recieve'"
+    :data-messageId="message?.messageId"
+  >
+    <div class="message__inner" :class="!message?.message && 'no__message'">
       <!-- <template v-if="video">
         :class="`${state} ${typeof message === 'object' ? 'forward' : ''}`"
         :class="{ 'video-message': (video || image) && !message }"
         <video-message :src="video.src" :poster="video.poster" />
-      </template>
-      <template v-if="image">
-        <image-message :image="image" />
       </template> -->
-      <div class="message__text" v-if="message?.messageType === 'text'">
+      <template v-if="message?.messageType === 'image'">
+        <image-message :image="message?.mediaData[0]" />
+      </template>
+      <div
+        class="message__text"
+        v-if="message?.message && Object.keys(message?.replyMessage || {}).length === 0"
+      >
         {{ message?.message }}
       </div>
-      <!-- <div class="message__text" v-if="typeof message === 'object'">
+      <div class="message__text" v-else-if="Object.keys(message?.replyMessage || {}).length > 0">
         <div class="message__text--top">
-          <span>{{ message.user_name }}</span>
-          {{ message.user_message }}
+          <span>{{ message?.replyMessage?.messageAuthor }}</span>
+          {{ message?.replyMessage?.message }}
         </div>
-        {{ message.text }}
-      </div> -->
+        {{ message.message }}
+      </div>
       <div class="message__bottom">
         <span>{{ formatTime(message?.messageDate) }}</span>
         <preloader-icon v-if="message?.messageOwner && isLoading && isLastMessage" />
@@ -54,7 +61,7 @@ export default {
 
 <style lang="scss" scoped>
 .message {
-  margin-bottom: 8px;
+  margin-bottom: 8px !important;
   width: 100%;
   &__inner {
     padding: 14px 14px 26px;
@@ -65,6 +72,13 @@ export default {
     min-width: 110px;
     overflow-wrap: break-word;
     overflow: hidden;
+
+    &.no__message {
+      padding: 0;
+      .image-component {
+        top: 0;
+      }
+    }
     &.video-message {
       padding: 0;
       border-radius: 10px;
@@ -98,7 +112,7 @@ export default {
     letter-spacing: 0.4px;
     white-space: pre-wrap;
     &--top {
-      border-left: 2px solid var(--color-white);
+      border-left: 2px solid var(--color-hippie-blue);
       padding-left: 8px;
       margin-bottom: 10px;
       span {

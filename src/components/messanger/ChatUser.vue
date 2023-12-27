@@ -2,7 +2,7 @@
   <router-link
     :to="`/${$i18n.locale}/messenger/${chat?.chatId}`"
     class="list"
-    @click="store.commit('messenger/clearNewMessage', chat)"
+    @click="cleatMessage(chat)"
   >
     <div class="list__img">
       <img :src="chat?.chatImage" :alt="chat?.chatName" loading="lazy" />
@@ -10,16 +10,33 @@
     <div class="list__info">
       <div class="list__info--top">
         <div class="list__info--name">{{ chat?.chatName }}</div>
-        <div class="list__info--date">
-          <div class="list__info--status" v-if="chat?.message.messageOwner">
+        <div
+          class="list__info--date"
+          :class="{
+            online:
+              chat?.isTyping ||
+              (formatCustomDate(chat?.userLastSeen, true) === 'chat.online' &&
+                !store.getters['messenger/getIsLoading'])
+          }"
+        >
+          <div class="list__info--status" v-if="chat?.message?.messageOwner">
             <PreloaderIcon
               v-if="store.getters['messenger/getIsLoading'] && chat?.chatId === +route.params?.id"
             />
             <double-check-icon v-else-if="chat?.message?.messageSeen" color="#49A399" />
             <single-check-icon v-else color="#49A399" />
           </div>
-          <!-- :class="online"   -->
-          {{ formatCustomDate(chat?.message?.messageDate) }}
+          <template v-if="chat?.isTyping">
+            {{ $t('chat.typing') }}
+          </template>
+          <template v-else>
+            {{
+              formatCustomDate(chat?.userLastSeen, true) === 'chat.online' &&
+              !store.getters['messenger/getIsLoading']
+                ? $t(formatCustomDate(chat?.userLastSeen, true))
+                : formatCustomDate(chat?.message?.messageDate)
+            }}
+          </template>
         </div>
       </div>
       <div class="list__info--bottom">
@@ -28,9 +45,9 @@
         </div>
         <div
           class="list__info--indicator"
-          v-if="getUnreadMessageCount() && getUnreadMessageCount()?.countUnreedMessages > 0"
+          v-if="newMessages[index] && newMessages[index]?.countUnreedMessages > 0"
         >
-          {{ getUnreadMessageCount()?.countUnreedMessages }}
+          {{ newMessages[index]?.countUnreedMessages }}
         </div>
       </div>
     </div>
@@ -40,7 +57,7 @@
 <script setup>
 /* eslint-disable */
 import { timeFormat } from '@/mixins/timeFormat.js'
-
+import { ref, onUpdated, onMounted } from 'vue'
 import DoubleCheckIcon from '@/components/icons/DoubleCheckIcon.vue'
 import SingleCheckIcon from '@/components/icons/SingleCheckIcon.vue'
 import PreloaderIcon from '@/components/icons/PreloaderIcon.vue'
@@ -52,11 +69,22 @@ const props = defineProps({
   chat: Object
 })
 
-const getUnreadMessageCount = () => {
-  if (store.state.messenger.newMessages) {
-    return store.state.messenger.newMessages?.find((m) => m?.chatId === props.chat?.chatId)
-  }
+const index = ref(-1)
+const newMessages = ref([])
+
+const updateIndex = () => {
+  newMessages.value = JSON.parse(localStorage.getItem('newMessages') || '[]')
+  index.value = newMessages.value.findIndex((chat) => chat?.chatId === props.chat?.chatId)
 }
+
+const cleatMessage = (chat) => {
+  newMessages.value = JSON.parse(localStorage.getItem('newMessages') || '[]')
+  newMessages.value = newMessages.value.filter((m) => m.chatId !== chat?.chatId)
+  localStorage.setItem('newMessages', JSON.stringify(newMessages.value))
+}
+
+onUpdated(updateIndex)
+onMounted(updateIndex)
 </script>
 
 <script>

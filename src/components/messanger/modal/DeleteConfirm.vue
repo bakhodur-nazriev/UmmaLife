@@ -1,38 +1,65 @@
 <template>
   <div class="modal open">
-    <div class="modal__inner" v-on-click-outside="handleClose">
-      <div class="modal__title">{{ $t('modal.delete_message') }}</div>
-      <div class="modal__subtitle">{{ $t('modal.sure_delete_message') }}</div>
-      <label class="modal__confirm">
-        <check-box class="checkbox__gray modal__checkbox" textSize="medium" />
-        <span>{{ $t('modal.also_delete_from') }} {{ user.name }}</span>
+    <div class="modal__inner" v-on-click-outside="() => emit('close')">
+      <div class="modal__title">
+        {{ deleteAction === 'messege' ? $t('modal.delete_message') : $t('modal.delete_chat') }}
+      </div>
+
+      <div class="modal__subtitle">
+        {{
+          deleteAction === 'messege'
+            ? $t('modal.sure_delete_message')
+            : $t('modal.sure_delete_chat')
+        }}
+      </div>
+      <label class="modal__confirm" v-if="deleteAction === 'messege'">
+        <check-box
+          class="checkbox__gray modal__checkbox"
+          textSize="medium"
+          :isChecked="isChecked"
+          @update:checked="checkHandler"
+        />
+        <span>{{ $t('modal.also_delete_from') }} {{ chat?.chatName }}</span>
       </label>
       <SampleButton
         class="btn_rounded modal__btn"
-        :title="$t('modal.delete_message')"
-        @click="handleClose"
+        :title="deleteAction === 'messege' ? $t('modal.delete_message') : $t('modal.delete_chat')"
+        @click="handleDelete"
       />
-      <button class="modal__btn--close" @click="handleClose">
+      <button class="modal__btn--close" @click="emit('close')">
         {{ $t('modal.cancel_delete') }}
       </button>
-      <circle-close class="modal__close-circle" @click="handleClose" />
+      <circle-close class="modal__close-circle" @click="emit('close')" />
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import { vOnClickOutside } from '@vueuse/components'
+
 import SampleButton from '@/components/ui/SampleButton.vue'
 import CheckBox from '@/components/ui/CheckBox.vue'
 import CircleClose from '@/components/icons/CircleClose.vue'
-import { vOnClickOutside } from '@vueuse/components'
 /* eslint-disable */
-const emit = defineEmits(['close'])
-defineProps({
-  user: Object
+const emit = defineEmits(['close', 'handleDelete'])
+const props = defineProps({
+  deleteAction: {
+    type: String,
+    default: 'messege'
+  },
+  chat: Object
 })
 
-const handleClose = () => {
+const isChecked = ref(false)
+
+const handleDelete = () => {
+  emit('handleDelete', { chat: props.chat, isChecked: isChecked.value })
   emit('close')
+}
+
+const checkHandler = (checked) => {
+  isChecked.value = checked
 }
 </script>
 
