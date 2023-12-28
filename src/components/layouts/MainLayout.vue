@@ -1,7 +1,11 @@
 <template>
   <main-navbar @toggle-sidebar="toggleSidebar"></main-navbar>
 
-  <div class="main__container" id="page-container">
+  <div
+    class="main__container"
+    id="page-container"
+    :class="{ 'news-main-container': $route.name.includes('news') }"
+  >
     <main-sidebar class="main__sidebar" :is-sidebar-collapsed="isSidebarCollapsed"></main-sidebar>
 
     <main class="main__content" :style="`margin-bottom: ${playerMargin}px`">
@@ -57,15 +61,16 @@ export default {
 
 @media (max-width: 767px) {
   .main__container {
+    height: 100vh;
+    margin-top: 0;
+  }
+  .news-main-container {
     margin-top: 65px;
+    height: calc(100vh - 65px);
   }
 }
 
 @media (max-width: 576px) {
-  .main__container {
-    height: calc(100vh - 65px);
-  }
-
   .main__content {
     margin-left: 0;
     &::-webkit-scrollbar {

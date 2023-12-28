@@ -12,12 +12,10 @@
 <script setup>
 /* eslint-disable */
 import { Fancybox } from '@fancyapps/ui'
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 const props = defineProps({
   image: Object
 })
-
-const storage_url = ref(process.env.VUE_APP_STORAGE_URL)
 
 onMounted(() => {
   Fancybox.bind('[data-fancybox]', {

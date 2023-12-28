@@ -1,5 +1,6 @@
 import { getFormData } from '@/utils'
 import axios from 'axios'
+
 /* eslint-disable */
 
 export default {
@@ -92,7 +93,6 @@ export default {
           page,
           direction,
           limit: 20
-          // last_message_id: last_message_id || null
         })
 
         const { data } = await axios.post('/get-chat-messages', payload, {

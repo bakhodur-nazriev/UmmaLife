@@ -1,5 +1,9 @@
 <template>
-  <div class="messenger" v-if="getters['messenger/getAllChats'].length > 0">
+  <div
+    class="messenger"
+    v-if="getters['messenger/getAllChats'].length > 0"
+    :class="{ 'messenger-detail': route.params?.id }"
+  >
     <div class="messenger__wrapper">
       <MessangerNavigation :chats="getters['messenger/getAllChats']" />
       <router-view />
@@ -12,7 +16,7 @@ import MessangerNavigation from '@/components/messanger/MessangerNavigation.vue'
 import { useStore } from 'vuex'
 import io from 'socket.io-client'
 import { useRoute } from 'vue-router'
-import { sleep } from '../../utils'
+import { sleep } from '@/utils'
 
 const { getters, dispatch, commit } = useStore()
 const route = useRoute()
@@ -95,12 +99,35 @@ dispatch('messenger/getChats')
   width: 100%;
   padding: 16px;
   height: 100%;
+  @media (max-width: 767px) {
+    padding: 0;
+  }
 
   &__wrapper {
     display: grid;
     gap: 16px;
     grid-template-columns: 480px 1fr;
     height: 100%;
+
+    @media (max-width: 1435px) {
+      grid-template-columns: 350px 1fr;
+    }
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr;
+      .room__empty {
+        display: none;
+      }
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+.messenger-detail {
+  .navigation {
+    @media (max-width: 767px) {
+      display: none !important;
+    }
   }
 }
 </style>

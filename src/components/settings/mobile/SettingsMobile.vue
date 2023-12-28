@@ -76,6 +76,7 @@ const handleSelectNav = (menu) => {
       width: 24px;
       height: 24px;
       cursor: pointer;
+      color: var(--color-mine-shaft);
       svg {
         display: block;
         width: 100%;

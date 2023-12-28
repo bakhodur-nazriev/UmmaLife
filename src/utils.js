@@ -173,3 +173,25 @@ export function decryptPrivateKey(encryptedPrivateKey, key) {
   }
   return decodeUTF8(decrypted)
 }
+
+export function convertAndCompareFileSize(fileSizeInBytes) {
+  const fileSizeInKB = fileSizeInBytes / 1024
+  const fileSizeInMB = fileSizeInKB / 1024
+
+  if (fileSizeInMB >= 1) {
+    return {
+      sizeCategory: 'MB',
+      size: fileSizeInMB.toFixed(2)
+    }
+  } else if (fileSizeInKB >= 1) {
+    return {
+      sizeCategory: 'KB',
+      size: fileSizeInKB.toFixed(2)
+    }
+  } else {
+    return {
+      sizeCategory: 'Bytes',
+      size: fileSizeInBytes.toFixed(2)
+    }
+  }
+}

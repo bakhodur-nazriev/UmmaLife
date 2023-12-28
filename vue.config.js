@@ -4,17 +4,17 @@ module.exports = defineConfig({
   devServer: {
     port: 8082,
     webSocketServer: false,
-    historyApiFallback: true,
-    proxy: {
-      '/api': {
-        target: 'preview.https://ummalife.com',
-        changeOrigin: true,
-        headers: {
-          'X-Forwarded-Host': 'preview.ummalife.com',
-          Host: 'preview.ummalife.com'
-        }
-      }
-    }
+    historyApiFallback: true
+    // proxy: {
+    //   '/api': {
+    //     target: 'preview.https://ummalife.com',
+    //     changeOrigin: true,
+    //     headers: {
+    //       'X-Forwarded-Host': 'preview.ummalife.com',
+    //       Host: 'preview.ummalife.com'
+    //     }
+    //   }
+    // }
   },
   transpileDependencies: true,
 

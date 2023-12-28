@@ -86,7 +86,7 @@
       </Transition>
     </nav>
     <nav class="small-nav">
-      <div class="top__nav">
+      <div class="top__nav" v-if="$route.name.includes('news')">
         <ul class="top__nav--list">
           <li class="top__nav--left-item">
             <router-link v-if="!isSearchForm" to="/news">
@@ -130,14 +130,14 @@
         </template>
       </SearchTab>
       <div class="bottom__nav">
-        <ul class="bottom__nav--list">
+        <ul class="bottom__nav--list" v-if="!$route.name.includes('messenger-chat')">
           <li class="bottom__nav--item">
-            <router-link to="to">
+            <router-link :to="`/${$i18n.locale}/news`">
               <NewsIcon />
             </router-link>
           </li>
           <li class="bottom__nav--item">
-            <router-link to="">
+            <router-link :to="`/${$i18n.locale}/messenger`">
               <MessagesIcon />
             </router-link>
           </li>
@@ -1036,6 +1036,12 @@ export default {
     background-color: var(--color-white);
     margin: 0;
     z-index: 5;
+    a {
+      color: var(--color-silver-chalice);
+      &.router-link-active {
+        color: var(--color-hippie-blue);
+      }
+    }
   }
   .bottom__nav--item {
     display: flex;

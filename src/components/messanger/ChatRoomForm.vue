@@ -36,14 +36,19 @@
           rows="1"
           v-model="textareaValue"
           @keydown="handleKeyDown"
-          :placeholder="`${$t('chat.placeholder')}...`"
+          :placeholder="`${
+            width > 767 ? $t('chat.placeholder') + '...' : $t('placeholders.message')
+          }`"
           :style="textareaStyle"
         />
       </div>
-      <button type="submit" class="form__btn">
-        {{ $t('chat.send') }}
-        <spinner-gif v-if="isLoading" />
-        <send-icon v-else />
+      <button type="submit" class="form__btn" :disabled="isLoading">
+        <template v-if="width > 767">
+          {{ $t('chat.send') }}
+          <spinner-gif v-if="isLoading" />
+          <send-icon v-else />
+        </template>
+        <SendIconMobile v-else />
       </button>
     </form>
   </div>
@@ -52,6 +57,7 @@
 <script setup>
 /* eslint-disable */
 import { ref, computed, watch } from 'vue'
+import { useWindowSize } from '@vueuse/core'
 
 import Textarea from 'primevue/textarea'
 import SendIcon from '@/components/icons/SendIcon.vue'
@@ -60,12 +66,15 @@ import EditGrayIcon from '@/components/icons/MenuDetails/EditGrayIcon.vue'
 import CloseEditIcon from '@/components/icons/MenuDetails/CloseEditIcon.vue'
 import ShareBigIcon from '@/components/icons/MenuDetails/ShareBigIcon.vue'
 import SpinnerGif from '@/components/icons/SpinnerGif.vue'
+import SendIconMobile from '@/components/icons/shorts/SendIcon.vue'
 
+const { width } = useWindowSize()
 const props = defineProps({
   selectedMessage: Object,
   isReplyOpen: Boolean,
   isLoading: Boolean,
-  isEditOpen: Boolean
+  isEditOpen: Boolean,
+  isFileLoading: Boolean
 })
 
 const emit = defineEmits(['submitHandler', 'typeHandler', 'closeReply', 'closeEdit', 'fileHandler'])
@@ -136,6 +145,10 @@ watch(
   left: 0;
   width: 100%;
   padding: 8px 16px 16px;
+  @media (max-width: 767px) {
+    padding: 0;
+    background-color: var(--color-white);
+  }
   &__edit {
     padding: 8px 0 4px;
     border-top: 1px solid var(--color-edit-border);
@@ -165,6 +178,9 @@ watch(
       padding: 12px 12px 8px 14px;
       width: calc(100% - 250px);
       border-radius: 0px 10px 10px 0px;
+      @media (max-width: 767px) {
+        width: 100%;
+      }
       span {
         display: block;
         font-size: 14px;
@@ -195,10 +211,17 @@ watch(
     gap: 16px;
     background-color: var(--color-seashell);
     align-items: flex-end;
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr 40px;
+      gap: 2px;
+      background-color: transparent;
+      align-items: center;
+    }
     &__input {
       background-color: var(--color-white);
       display: flex;
       border-radius: 10px;
+
       &--text {
         width: 100%;
         border: none;
@@ -222,6 +245,13 @@ watch(
           color: var(--color-silver-chalice);
         }
       }
+      @media (max-width: 767px) {
+        background-color: transparent;
+        &--text {
+          font-size: 14px;
+          padding: 22px 2px 20px 0;
+        }
+      }
     }
     &__file {
       padding: 19px 24px;
@@ -232,6 +262,7 @@ watch(
       align-items: center;
       height: 56px;
       margin-top: auto;
+
       svg {
         width: 18px;
         height: 18px;
@@ -253,6 +284,12 @@ watch(
         right: 0;
         transform: translateY(-50%);
         background-color: var(--color-silver-chalice);
+      }
+      @media (max-width: 767px) {
+        padding: 16px;
+        &::after {
+          display: none;
+        }
       }
     }
     &__btn {
@@ -280,6 +317,18 @@ watch(
         width: 45px;
         height: 45px;
         margin-left: -10px;
+      }
+      &--mobile {
+        display: none;
+      }
+      @media (max-width: 767px) {
+        border: none;
+        height: auto;
+        border-radius: 0;
+        svg {
+          width: 28px;
+          height: 28px;
+        }
       }
     }
   }

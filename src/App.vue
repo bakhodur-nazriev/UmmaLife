@@ -1,11 +1,11 @@
 <template>
-  <component :is="layout" v-if="this.$route.meta.layout !== 'muvi'">
+  <component :is="layout" v-if="$route.meta.layout !== 'muvi'">
     <router-view></router-view>
   </component>
-  <router-view v-else/>
+  <router-view v-else />
   <div class="player" v-on-click-outside="closeHandler">
-    <AudioPlayList v-if="isListOpen" :playerHeight="playerMargin"/>
-    <AudioPlayerComponent @playerHeight="setPlayerMargin" v-if="isPlayerOpen"/>
+    <AudioPlayList v-if="isListOpen" :playerHeight="playerMargin" />
+    <AudioPlayerComponent @playerHeight="setPlayerMargin" v-if="isPlayerOpen" />
   </div>
 </template>
 
@@ -14,9 +14,10 @@ import MainLayout from '@/components/layouts/MainLayout.vue'
 import AuthLayout from '@/components/layouts/LayoutAuth.vue'
 import AudioPlayerComponent from '@/components/audio/AudioPlayerComponent.vue'
 import MuviMobileLayout from '@/components/layouts/MuviMobileLayout.vue'
+import MobileMessengerLayout from '@/components/layouts/MobileMessengerLayout.vue'
 import AudioPlayList from '@/components/audio/AudioPlayList.vue'
-import {mapMutations, mapState, useStore} from 'vuex'
-import {getFormData} from '@/utils'
+import { mapMutations, mapState, useStore } from 'vuex'
+import { getFormData } from '@/utils'
 import axios from 'axios'
 
 export default {
@@ -25,7 +26,8 @@ export default {
     AuthLayout,
     MainLayout,
     AudioPlayList,
-    MuviMobileLayout
+    MuviMobileLayout,
+    MobileMessengerLayout
   },
   data() {
     return {
@@ -120,50 +122,50 @@ export default {
       return 'MainLayout'
     },
     ...mapState('audio', ['isPlayerOpen', 'isListOpen']),
-    ...mapState(['playerMargin']),
+    ...mapState(['playerMargin'])
   },
   methods: {
     ...mapMutations(['setPlayerMargin']),
     getUserLanguageTitle(languageCode) {
-      const language = this.supportedLanguages.find(lang => lang.code === languageCode);
-      return language ? language.title : '';
+      const language = this.supportedLanguages.find((lang) => lang.code === languageCode)
+      return language ? language.title : ''
     },
     async setUserLanguage() {
-      let userLanguage = null;
-      const userData = JSON.parse(localStorage.getItem('user') || '{}');
+      let userLanguage = null
+      const userData = JSON.parse(localStorage.getItem('user') || '{}')
 
       if (!userData || userData.language === null || userData.language === undefined) {
-        const currentLocaleCode = this.$i18n.locale.split('-')[0];
-        userLanguage = this.getUserLanguageTitle(currentLocaleCode);
+        const currentLocaleCode = this.$i18n.locale.split('-')[0]
+        userLanguage = this.getUserLanguageTitle(currentLocaleCode)
       } else {
-        userLanguage = userData.language;
+        userLanguage = userData.language
       }
 
-      let userLanguageTitle = userLanguage;
+      let userLanguageTitle = userLanguage
 
       if (userLanguage !== null) {
-        const foundLanguage = this.supportedLanguages.find(lang => lang.code === userLanguage);
+        const foundLanguage = this.supportedLanguages.find((lang) => lang.code === userLanguage)
         if (foundLanguage) {
-          userLanguageTitle = foundLanguage.title;
+          userLanguageTitle = foundLanguage.title
         }
       }
 
       const payload = getFormData({
         server_key: process.env.VUE_APP_SERVER_KEY,
         language: userLanguageTitle
-      });
+      })
 
-      const headers = {'Content-Type': 'multipart/form-data'};
-      const accessToken = localStorage.getItem('access_token');
-      const params = {access_token: accessToken};
+      const headers = { 'Content-Type': 'multipart/form-data' }
+      const accessToken = localStorage.getItem('access_token')
+      const params = { access_token: accessToken }
 
       try {
-        const response = await axios.post('/update-user-data', payload, {params, headers});
+        const response = await axios.post('/update-user-data', payload, { params, headers })
         if (response.data.api_status === 200) {
-          console.log('Language updated successfully');
+          console.log('Language updated successfully')
         }
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
     }
   },
@@ -175,12 +177,14 @@ export default {
 </script>
 
 <script setup>
-import {vOnClickOutside} from '@vueuse/components'
-
+import { vOnClickOutside } from '@vueuse/components'
+import { useWindowSize } from '@vueuse/core'
 const store = useStore()
 const closeHandler = () => {
   store.commit('audio/setListOpen', false)
 }
+
+const { width } = useWindowSize()
 </script>
 
 <style>

@@ -9,6 +9,13 @@
   >
     <div class="room__top">
       <div class="room__profile">
+        <router-link
+          :to="`/${$i18n.locale}/messenger`"
+          class="room__profile--back"
+          v-if="width < 767"
+        >
+          <ArrowLeftIcon />
+        </router-link>
         <img
           :src="store.getters['messenger/getSingleChat']?.chatImage"
           :alt="store.getters['messenger/getSingleChat']?.chatName"
@@ -63,6 +70,7 @@
       ref="roomMessagesRef"
       :style="{ overflowY: isDragging ? 'hidden' : 'auto' }"
       @contextmenu.prevent="showContextMenu"
+      v-touch:longtap="showContextMenu"
     >
       <div class="room__messages--inner" ref="room">
         <div
@@ -87,6 +95,7 @@
             :key="message.messageId"
             :isLoading="store.getters['messenger/getIsLoading']"
             :isLastMessage="message === block.block[block.block.length - 1]"
+            :isFileLoading="isFileLoading"
           />
         </div>
       </div>
@@ -107,8 +116,9 @@
       @typeHandler="typeHandler"
       @closeReply="isReplyOpen = false"
       @closeEdit="isEditOpen = false"
-      @fileHandler="fileHandler"
+      @fileHandler="handleFileSelect"
       :isLoading="store.getters['messenger/getIsLoading']"
+      :isFileLoading="isFileLoading"
       :isReplyOpen="isReplyOpen"
       :selectedMessage="selectedMessage"
       :isEditOpen="isEditOpen"
@@ -125,8 +135,7 @@
     />
     <MediaModal
       v-if="isReviewFileOpen"
-      :isFileLoading="isFileLoading"
-      :uploadedFile="uploadedFile"
+      :objectURL="objectURL"
       @closeModal="closeModal"
       @submitFileUpload="submitFileUpload"
     />
@@ -143,6 +152,7 @@ import { vIntersectionObserver } from '@vueuse/components'
 import { useStore } from 'vuex'
 import { timeFormat } from '@/mixins/timeFormat'
 import { convertDate, sleep, copyClipboard, getFormData } from '@/utils'
+import { useWindowSize } from '@vueuse/core'
 
 import DeleteDropdown from '@/components/messanger/dropdowns/DeleteDropdown.vue'
 import MenuDetailsIcon from '@/components/icons/MenuDetailsIcon.vue'
@@ -152,8 +162,10 @@ import ContextMenu from '@/components/messanger/dropdowns/ContextMenu.vue'
 import DeleteConfirm from '@/components/messanger/modal/DeleteConfirm.vue'
 import LoadingBar from '@/components/ui/LoadingBar.vue'
 import DropImage from '@/components/messanger/dropdowns/DropImage.vue'
+import ArrowLeftIcon from '@/components/icons/shorts/ArrowLeftIcon.vue'
 import MediaModal from '@/components/messanger/modal/MediaModal.vue'
 
+const { width } = useWindowSize()
 const user = JSON.parse(localStorage.getItem('user') || '{}')
 const route = useRoute()
 const store = useStore()
@@ -175,8 +187,8 @@ const isDragging = ref(false)
 const isFileLoading = ref(false)
 const uploadedFile = ref({})
 const isReviewFileOpen = ref(false)
-const storage_url = ref(process.env.VUE_APP_STORAGE_URL)
 const objectURL = ref(null)
+const fileToUpload = ref(null)
 
 const socket = io(`${process.env.VUE_APP_SOCKET_URL}`, {
   query: { hash: localStorage.getItem('hash') }
@@ -191,6 +203,7 @@ const scrollToBottom = (state) => {
 const dragStartHandler = () => {
   isDragging.value = true
 }
+
 const dragEndHandler = (event) => {
   if (!event.target.closest('.room').contains(event.relatedTarget)) {
     isDragging.value = false
@@ -199,26 +212,29 @@ const dragEndHandler = (event) => {
 
 const dropHandler = (event) => {
   isDragging.value = false
-  fileHandler(event?.dataTransfer?.files[0])
   handleFileSelect(event?.dataTransfer?.files[0])
 }
 
-function handleFileSelect(file) {
+const handleFileSelect = (file) => {
   if (file) {
     isReviewFileOpen.value = true
     // Create a Blob from the selected file
     const blob = new Blob([file], { type: file.type })
-
     // Create an object URL from the Blob
-    const fileUrl = URL.createObjectURL(blob)
-    objectURL.value = {}
+    objectURL.value = {
+      src: URL.createObjectURL(blob),
+      type: file.type,
+      name: file.name,
+      size: file.size
+    }
+    fileToUpload.value = file
     setTimeout(() => {
       URL.revokeObjectURL(objectURL)
     }, 5000)
   }
 }
 
-const fileHandler = async (file) => {
+const fileUploadHandler = async (file) => {
   try {
     if (!file) return
     isFileLoading.value = true
@@ -243,18 +259,27 @@ const fileHandler = async (file) => {
   }
 }
 
-const submitFileUpload = ({ message, file }) => {
-  submitHandler({
-    message,
-    replyId: !!Object.keys(selectedMessage.value).length ? selectedMessage.value?.messageId : null,
-    file,
-    type: file?.type
-  })
+const submitFileUpload = async ({ message, file }) => {
+  tempMessagePush({ message, replyId: null, file })
+  scrollToBottom(state.value)
+  await fileUploadHandler(fileToUpload.value)
+  if (!isFileLoading.value && Object.keys(uploadedFile.value).length > 0) {
+    submitHandler({
+      message,
+      replyId: !!Object.keys(selectedMessage.value).length
+        ? selectedMessage.value?.messageId
+        : null,
+      file: uploadedFile.value,
+      type: file?.type.includes('image') ? 'image' : file?.type.includes('video') ? 'video' : 'file'
+    })
+  }
+  // file | video | image
 }
 
 const closeModal = () => {
   isReviewFileOpen.value = false
   uploadedFile.value = {}
+  fileToUpload.value = null
 }
 
 const showContextMenu = (event) => {
@@ -288,7 +313,9 @@ const showContextMenu = (event) => {
 
 const closeContextMenu = () => {
   isContextMenuOpen.value = false
-  contextMenuPosition.value = { top: 0, left: 0 }
+  if (width.value > 767) {
+    contextMenuPosition.value = { top: 0, left: 0 }
+  }
 }
 
 const defineMessageState = (event) => {
@@ -301,7 +328,10 @@ const defineMessageState = (event) => {
       messageId: messageInnerParent.getAttribute('data-messageId'),
       isOwner: messageInnerParent.classList.contains('send')
     }
-    isContextMenuOpen.value = true
+
+    setTimeout(() => {
+      isContextMenuOpen.value = true
+    }, 0)
   }
 }
 
@@ -448,13 +478,19 @@ const submitHandler = ({ message, replyId, file, type }) => {
     replyId: replyId || 0,
     localId: Date.now()
   }
-  tempMessagePush({ message, replyId, file })
+
+  if (!file) {
+    tempMessagePush({ message, replyId, file })
+  }
+
   scrollToBottom(state.value)
   store.commit('messenger/setSingleChat', privateMessageData)
   socket.emit('private_message_umma', privateMessageData, (data) => {
     console.log('private_message_umma')
   })
+  messageState.value = { isOwner: false, messageId: null }
 }
+
 const editHandler = ({ message, replyId }) => {
   const privateMessageData = {
     chatId: chat.value?.chatId,
@@ -479,6 +515,7 @@ const editHandler = ({ message, replyId }) => {
       direction: 'down'
     })
   })
+  messageState.value = { isOwner: false, messageId: null }
 }
 
 const tempMessagePush = ({ message, replyId, file }) => {
@@ -489,17 +526,19 @@ const tempMessagePush = ({ message, replyId, file }) => {
     messageAuthor: user?.name,
     messageAuthorId: user?.user_id,
     messageAuthorImage: user?.avatar,
-    messageType: checkFile(file) ? file?.type : 'text',
+    messageType: file ? file?.type : 'text',
     messageSeen: false,
     messageOwner: true,
     messageEdited: false,
-    mediaData: checkFile(file)
-      ? {
-          src: `${storage_url.value}${file?.src}`,
-          title: file?.name,
-          type: file?.type
-        }
-      : {},
+    mediaData: file
+      ? [
+          {
+            src: file?.src,
+            title: file?.name,
+            type: file?.type
+          }
+        ]
+      : [],
     mentionUsers: [],
     fetchUrlData: [],
     replyMessage: !replyId
@@ -509,10 +548,13 @@ const tempMessagePush = ({ message, replyId, file }) => {
           messageAuthor: selectedMessage?.value?.messageAuthor
         }
   }
-  console.log(messageToPush)
+
   contextMenuPosition.value = { top: 0, left: 0 }
   store.commit('messenger/pushMessage', messageToPush)
-  store.commit('messenger/setIsLoading', true)
+
+  if (!file) {
+    store.commit('messenger/setIsLoading', true)
+  }
 }
 
 const getMessagesData = async () => {
@@ -565,7 +607,7 @@ watch(
     }
   }
 )
-// Listen user typing
+
 const typeHandler = () => {
   const payload = {
     chatId: route.params?.id,
@@ -578,11 +620,13 @@ const typeHandler = () => {
   socket.emit('typing', payload)
 }
 
-onMounted(() => {
+onMounted(async () => {
   store.commit('messenger/setChatIsLoading', true)
   store.commit('messenger/setChatMessages', [])
+
   page.value = 1
-  getMessagesData()
+  await Promise.all([getMessagesData(), store.dispatch('messenger/getChats')])
+  store.commit('messenger/setSingleChatByChatId', +route.params.id)
 })
 </script>
 
@@ -601,6 +645,11 @@ export default {
   flex-direction: column;
   overflow-y: auto;
   position: relative;
+  @media (max-width: 767px) {
+    height: 100dvh;
+    overflow: hidden;
+    border-radius: 0;
+  }
   &.dragging::after {
     content: '';
     background-color: rgba($color: #000000, $alpha: 0);
@@ -621,17 +670,24 @@ export default {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 16px 56px 16px 16px;
+    padding: 16px;
     border-radius: 16px 16px 0 0;
     background-color: var(--color-white);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @media (max-width: 767px) {
+      border-radius: 0;
+      padding: 16px;
+    }
   }
   &__profile {
     display: flex;
     align-items: center;
     gap: 16px;
+    @media (max-width: 767px) {
+      gap: 8px;
+    }
     &--img {
       width: 56px;
       height: 56px;
@@ -639,6 +695,13 @@ export default {
       overflow: hidden;
       object-fit: cover;
       object-position: center;
+      @media (max-width: 767px) {
+        width: 40px;
+        height: 40px;
+      }
+    }
+    &--back {
+      color: var(--color-mine-shaft);
     }
     &--info {
       text-decoration: none;
@@ -650,6 +713,10 @@ export default {
       line-height: normal;
       color: var(--color-mine-shaft);
       margin-bottom: 7px;
+      @media (max-width: 767px) {
+        font-size: 14px;
+        margin-bottom: 2px;
+      }
     }
     &--account {
       font-size: 16px;
@@ -657,6 +724,9 @@ export default {
       font-weight: 400;
       line-height: normal;
       color: var(--color-silver-chalice);
+      @media (max-width: 767px) {
+        font-size: 14px;
+      }
       &.online {
         color: var(--color-green);
       }
@@ -674,18 +744,24 @@ export default {
     border-radius: 12px;
     width: 42px;
     transition: all 0.3s;
+    @media (max-width: 767px) {
+      width: 24px;
+      height: 24px;
+    }
     &:hover {
       background-color: var(--color-gallery-first);
     }
   }
   &__messages {
-    margin: 16px 0 0 16px;
-    padding-right: 16px;
+    padding: 0 16px;
     flex-grow: 1;
     overflow-y: auto;
     position: relative;
     overflow-x: hidden;
     scale: 1;
+    @media (max-width: 767px) {
+      margin-top: 0;
+    }
     &--date {
       display: block;
       position: sticky;

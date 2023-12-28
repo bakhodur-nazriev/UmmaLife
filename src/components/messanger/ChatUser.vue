@@ -66,7 +66,8 @@ import { useRoute } from 'vue-router'
 const store = useStore()
 const route = useRoute()
 const props = defineProps({
-  chat: Object
+  chat: Object,
+  width: Number
 })
 
 const index = ref(-1)
@@ -104,6 +105,11 @@ export default {
   user-select: none;
   cursor: pointer;
   text-decoration: none;
+  border-radius: 0;
+  margin: 0;
+  @media (max-width: 767px) {
+    padding: 10px 16px;
+  }
   &:hover,
   &.router-link-active {
     background-color: var(--color-gallery-first);
@@ -117,6 +123,10 @@ export default {
     height: 72px;
     overflow: hidden;
     border-radius: 50%;
+    @media (max-width: 767px) {
+      width: 60px;
+      height: 60px;
+    }
     img {
       width: 100%;
       height: 100%;
@@ -131,6 +141,9 @@ export default {
       gap: 10px;
       margin-bottom: 8px;
       justify-content: space-between;
+      @media (max-width: 767px) {
+        margin-bottom: 0;
+      }
     }
     &--indicator {
       background-color: var(--color-hippie-blue);

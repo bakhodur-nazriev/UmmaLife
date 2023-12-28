@@ -27,6 +27,9 @@ const emit = defineEmits(['handleClickOutside', 'handleDeleteChat', 'clearChat']
   position: absolute;
   top: 51px;
   right: 69px;
+  @media (max-width: 767px) {
+    right: 8px;
+  }
   .drop__list {
     display: flex;
     align-items: center;

@@ -2,20 +2,23 @@
   <div class="modal__outer" v-on-click-outside="() => emit('closeModal')">
     <div class="modal">
       <div class="modal__title">Отправить фото</div>
-      <div :class="uploadedFile.type === 'file' ? '' : 'modal__wrapper'">
-        <SpinnerGif class="modal__spinner" v-if="isFileLoading" />
-        <img
-          :src="`${storage_url}${uploadedFile?.src}`"
-          :alt="uploadedFile?.name"
-          v-else-if="!isFileLoading && uploadedFile.type === 'image'"
-        />
-        <div class="modal__file" v-else-if="!isFileLoading && uploadedFile.type === 'file'">
+      <div class="modal__wrapper" v-if="objectURL.type.includes('image')">
+        <img :src="objectURL?.src" :alt="objectURL?.name" />
+      </div>
+      <div class="modal__wrapper" v-else-if="objectURL.type.includes('video')">
+        <video :src="objectURL?.src" :title="objectURL?.name" autoplay controls />
+      </div>
+      <div v-else>
+        <div class="modal__file">
           <div class="modal__file--icon">
             <FileIcon />
           </div>
           <div class="modal__file--text">
-            <p>{{ uploadedFile?.name }}</p>
-            <span>123 кб</span>
+            <p>{{ objectURL?.name }}</p>
+            <span
+              >{{ convertAndCompareFileSize(objectURL.size).size }}
+              {{ convertAndCompareFileSize(objectURL.size).sizeCategory }}</span
+            >
           </div>
         </div>
       </div>
@@ -38,22 +41,17 @@
 <script setup>
 import { ref } from 'vue'
 import { vOnClickOutside } from '@vueuse/components'
+import { convertAndCompareFileSize } from '@/utils'
 
 import Textarea from 'primevue/textarea'
 import SampleButton from '@/components/ui/SampleButton.vue'
-import SpinnerGif from '@/components/icons/SpinnerGif.vue'
-import FileIcon from '@/components/icons/FileIcon.vue'
 
-const storage_url = ref(process.env.VUE_APP_STORAGE_URL)
+import FileIcon from '@/components/icons/FileIcon.vue'
 
 const textareaValue = ref('')
 
 const props = defineProps({
-  isFileLoading: {
-    type: Boolean,
-    default: false
-  },
-  uploadedFile: {
+  objectURL: {
     type: Object
   }
 })
@@ -61,7 +59,7 @@ const props = defineProps({
 const emit = defineEmits(['closeModal', 'submitFileUpload'])
 
 const submitHandler = () => {
-  emit('submitFileUpload', { file: props.uploadedFile, message: textareaValue.value })
+  emit('submitFileUpload', { message: textareaValue.value, file: props.objectURL })
   emit('closeModal')
 }
 </script>
@@ -104,7 +102,9 @@ const submitHandler = () => {
     height: 100%;
     position: relative;
     margin-bottom: 20px;
+    & > video,
     & > img {
+      width: 100%;
       position: absolute;
       top: 0;
       bottom: 0;
