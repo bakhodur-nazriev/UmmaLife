@@ -8,7 +8,7 @@
     </a>
   </section>
   <section class="article-content__reactions">
-    <PostReactions/>
+    <PostReactions :reactions="photoReactions"/>
   </section>
 </template>
 
@@ -20,7 +20,14 @@ export default {
   components: {
     PostReactions
   },
-  props: ['photoContent'],
+  props: {
+    photoContent: {
+      type: String
+    },
+    photoReactions: {
+      type: Object
+    }
+  },
   mounted() {
     Fancybox.bind('[data-fancybox]', {
       wheel: 'zoom'

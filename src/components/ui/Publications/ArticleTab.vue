@@ -1,23 +1,30 @@
 <template>
   <div class="article-block">
-    <article class="article-block__article" v-for="(item, i) in articles" :key="i">
+    <article
+      class="article-block__article"
+      v-for="(item, i) in articles"
+      :key="i"
+    >
       <PostHeader
-          :is-menu-open="isMenuOpen"
-          @toggle-menu="toggleMenu"
-          :publisher="item.publisher"
-          :time="item.date_create"
-          @translate-request="handleTranslation(item)"
+        :is-menu-open="isMenuOpen"
+        @toggle-menu="toggleMenu"
+        :publisher="item.publisher"
+        :time="item.date_create"
+        @translate-request="handleTranslation(item)"
+        :post-id="item.post_id"
       />
 
       <ArticleContent
-          :post-content="item"
+        :post-content="item"
+        :article-reactions="item.reaction"
       />
 
       <SampleDivider class="divider"/>
 
       <PostFooter
-          :is-reaction-window-open="isReactionWindowOpen"
-          :is-share-window-open="isShareWindowOpen"
+        :posts-item="item"
+        :is-reaction-window-open="isReactionWindowOpen"
+        :is-share-window-open="isShareWindowOpen"
       />
     </article>
   </div>

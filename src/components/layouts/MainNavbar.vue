@@ -504,6 +504,7 @@ export default {
         const response = await axios.post('/delete-access-token', payload, {params, headers})
         if (response.data.api_status === 200) {
           localStorage.removeItem('access_token')
+          localStorage.removeItem('user')
           this.$router.push({name: 'LoginByEmailView'})
         }
       } catch (error) {

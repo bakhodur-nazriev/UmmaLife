@@ -560,7 +560,8 @@
     "sure_delete_message": "Вы уверенны, что хотите удалить сообщение?",
     "also_delete_from": "Так же удалить и у",
     "cancel_delete": "Отменить действие",
-    "clear_history": "Очистить историю"
+    "clear_history": "Очистить историю",
+    "link_copied": "Ссылка скопирована"
   },
   "reaction_tooltip": {
     "like": "Ма шаа Аллах!",

@@ -1,19 +1,28 @@
 <template>
   <div class="photo-block">
-    <article class="photo-block__article" v-for="(item, i) in photos" :key="i">
+    <article
+      class="photo-block__article"
+      v-for="(item, i) in photos"
+      :key="i"
+    >
       <PostHeader
         :is-menu-open="isMenuOpen"
         @toggle-menu="toggleMenu"
         :publisher="item.publisher"
         :time="item.date_create"
         @translate-request="handleTranslation(item)"
+        :post-id="item.post_id"
       />
 
-      <PhotoContent :photo-content="item"/>
+      <PhotoContent
+        :photo-content="item"
+        :photo-reactions="item.reaction"
+      />
 
       <SampleDivider class="divider"/>
 
       <PostFooter
+        :posts-item="item"
         :is-reaction-window-open="isReactionWindowOpen"
         :is-share-window-open="isShareWindowOpen"
       />

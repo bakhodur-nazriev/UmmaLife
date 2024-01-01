@@ -12,12 +12,13 @@
         <CheckMarkSmallIcon v-if="index === activeTab"/>
       </div>
     </div>
-
     <div
       class="tabs-content"
       v-for="(tab, i) in tabs"
       :key="i"
       v-show="activeTab === i"
+      ref="tabsContent"
+      @scroll="loadMoreData"
     >
       <template v-if="isLoading">
         <PulseLoader color="#49a399" size="12px" class="speener-block"/>
@@ -79,6 +80,8 @@ export default {
       video: [],
       audio: [],
       isLoading: true,
+      page: 1,
+      loadingMore: false
     }
   },
   methods: {
@@ -94,7 +97,7 @@ export default {
     async getPublications() {
       const payload = getFormData({
         server_key: process.env.VUE_APP_SERVER_KEY,
-        page: 1
+        page: this.page
       })
 
       const headers = {'Content-Type': 'multipart/form-data'}
@@ -392,7 +395,9 @@ export default {
   }
 }
 
-@media (min-width: 768px) {}
+@media (min-width: 768px) {
+}
 
-@media (min-width: 1280px) {}
+@media (min-width: 1280px) {
+}
 </style>

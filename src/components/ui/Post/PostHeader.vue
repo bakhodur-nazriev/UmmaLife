@@ -14,11 +14,12 @@
         :id="publisher.username"
       />
       <div class="author-info">
-      <span class="author-info__name">
-        <router-link :to="publisher.username">
-          {{ publisher.name }}
-        </router-link>
-      </span>
+        <span class="author-info__name">
+          <router-link :to="publisher.username">
+            {{ publisher.name }}
+            <BageIcon v-if="publisher.verified === '1'"/>
+          </router-link>
+        </span>
         <div class="author-info__time-translate">
           <span class="author-info__time">{{ multiFormatDateString(time) }}</span>
           <button class="author-info__translate-button" @click="$emit('translateRequest')">
@@ -39,7 +40,8 @@
     <div class="menu__button">
       <PostsMenuDetailsButton
         :is-menu-open="isMenuOpen"
-        @toggle-menu="$emit('toggle-menu')"
+        :post-id="postId"
+        @toggle-menu="toggleMenuHandler"
       />
     </div>
   </header>
@@ -53,10 +55,12 @@ import {timeFormat} from '@/mixins/timeFormat'
 import {getFormData} from '@/utils'
 import axios from 'axios'
 import PostsMenuDetailsButton from "@/components/ui/MenuDetails/PostsMenuDetailsButton.vue";
+import BageIcon from "@/components/icons/BageIcon.vue";
 
 export default {
   mixins: [timeFormat],
   components: {
+    BageIcon,
     PostsMenuDetailsButton,
     UserInfo,
     GlobeIcon,
@@ -64,10 +68,6 @@ export default {
     VerifyIcon
   },
   props: {
-    isMenuOpen: {
-      type: Boolean,
-      required: true
-    },
     publisher: {
       type: Object,
       required: true
@@ -79,12 +79,20 @@ export default {
     translated: {
       type: Boolean,
       required: true
+    },
+    postId: {
+      type: String
     }
   },
   data() {
-    return {}
+    return {
+      isMenuOpen: false
+    }
   },
   methods: {
+    toggleMenuHandler() {
+      this.isMenuOpen = !this.isMenuOpen;
+    },
     showOriginalRequest() {
       if (this.translated) {
         this.$emit('show-original', this.publisher);

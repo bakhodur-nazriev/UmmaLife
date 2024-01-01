@@ -48,6 +48,10 @@
           </div>
           <span class="author__name">{{ comment.publisher.name }}</span>
           <span class="author__time">{{ multiFormatDateString(comment.time_formatted) }}</span>
+          <button class="translate-button" @click="$emit('translateRequest')">
+            <GlobeIcon/>
+            <span>{{ $t('buttons.translate') }}</span>
+          </button>
         </div>
 
         <div class="reply__detail--menu--section-small">
@@ -155,10 +159,12 @@ import SampleButton from '@/components/ui/SampleButton.vue'
 import SmallCommentIcon from '@/components/icons/comment/SmallCommentIcon.vue'
 import {timeFormat} from '@/mixins/timeFormat'
 import UserInfo from "@/components/ui/UserInfo.vue";
+import GlobeIcon from "@/components/icons/GlobeIcon.vue";
 
 export default {
   mixins: [timeFormat],
   components: {
+    GlobeIcon,
     UserInfo,
     SmallCommentIcon,
     SampleButton,
@@ -339,7 +345,6 @@ export default {
 
 .reply__reactions--count {
   color: var(--color-silver-chalice);
-
 }
 
 .reply__icon {
@@ -383,12 +388,36 @@ export default {
   margin: 0 4px;
 }
 
-.author__time {
-  color: var(--color-silver-chalice);
+.author {
+  &__time {
+    color: var(--color-silver-chalice);
+    font-size: 14px;
+  }
+
+  &__name {
+    color: var(--color-mine-shaft);
+  }
 }
 
-.author__name {
-  color: var(--color-mine-shaft);
+.translate-button,
+.original-button {
+  display: flex;
+  align-items: center;
+  line-height: inherit;
+  background: none;
+  margin: 0 0 0 12px;
+  padding: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: var(--color-silver-chalice);
+  gap: 4px;
+  transition: .2s all ease-in-out;
+  font-size: 14px;
+
+  &:hover {
+    color: var(--color-deep-cerulean);
+  }
 }
 
 .reply__buttons {

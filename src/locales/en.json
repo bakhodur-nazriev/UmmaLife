@@ -555,7 +555,8 @@
     "sure_delete_message": "Are you sure you want to delete the message?",
     "also_delete_from": "Also remove from",
     "cancel_delete": "Cancel",
-    "clear_history": "Clear history"
+    "clear_history": "Clear history",
+    "link_copied": "Link copied"
   },
   "reaction_tooltip": {
     "like": "Ma sha Allah",

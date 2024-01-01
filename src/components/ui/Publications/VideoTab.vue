@@ -11,13 +11,18 @@
         :publisher="item.publisher"
         :time="item.date_create"
         @translate-request="handleTranslation(item)"
+        :post-id="item.post_id"
       />
 
-      <VideoContent :video-content="item"/>
+      <VideoContent
+        :video-content="item"
+        :video-reactions="item.reaction"
+      />
 
       <SampleDivider class="divider"/>
 
       <PostFooter
+        :posts-item="item"
         :is-reaction-window-open="isReactionWindowOpen"
         :is-share-window-open="isShareWindowOpen"
       />

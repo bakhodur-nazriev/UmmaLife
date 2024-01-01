@@ -1,24 +1,22 @@
 <template>
   <article class="post__block" v-for="(item, i) in posts" :key="i">
     <PostHeader
-      :is-menu-open="isMenuOpen"
-      @toggle-menu="toggleMenu"
       :publisher="item.publisher"
       :time="item.date_create"
       @translate-request="handleTranslation(item)"
       @show-orignal="item.publisher"
       :translated="translated[item.publisher.id]"
+      :post-id="item.post_id"
     />
 
     <PublicationContent
       :post-content="item.Orginaltext"
-      :reactions="item.reaction"
+      :post-reactions="item.reaction"
     />
-
     <SampleDivider class="divider"/>
 
     <PostFooter
-      :postsItem="item"
+      :posts-item="item"
       :is-reaction-window-open="isReactionWindowOpen"
       :is-share-window-open="isShareWindowOpen"
       :reactions="item.reaction"
@@ -33,7 +31,6 @@ import PostHeader from '@/components/ui/Post/PostHeader.vue'
 import PostFooter from '@/components/ui/Post/PostFooter.vue'
 import {getFormData} from '@/utils'
 import axios from 'axios'
-import { reactive } from 'vue'
 
 export default {
   components: {
@@ -52,15 +49,11 @@ export default {
     return {
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
-      isMenuOpen: false,
       postContent: null,
       translated: {}
     }
   },
   methods: {
-    toggleMenu() {
-      this.isMenuOpen = !this.isMenuOpen
-    },
     async translatePost(text) {
       return await this.fetchTranslation(text);
     },
@@ -86,7 +79,7 @@ export default {
     async handleTranslation(item) {
       item.Orginaltext = await this.translatePost(item.Orginaltext);
       this.$set(this.translated, item.publisher.id, !!item.Orginaltext);
-    }
+    },
   }
 }
 </script>

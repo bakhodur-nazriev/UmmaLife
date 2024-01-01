@@ -11,16 +11,21 @@
         :publisher="item.publisher"
         :time="item.date_create"
         @translate-request="handleTranslation(item)"
+        :post-id="item.post_id"
       />
 
-      <AudioContent :audio-content="item"/>
+      <AudioContent
+        :audio-content="item"
+        :audio-reactions="item.reaction"
+      />
 
       <SampleDivider class="divider"/>
 
       <PostFooter
-        :gender="item.publisher.gender"
+        :posts-item="item"
         :is-reaction-window-open="isReactionWindowOpen"
         :is-share-window-open="isShareWindowOpen"
+        :reactions="item.reaction"
       />
     </article>
   </div>

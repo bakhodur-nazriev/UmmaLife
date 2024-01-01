@@ -1,12 +1,13 @@
 <template>
-  <div class="reactions__block">
+  <div class="reactions__block" v-if="extractNumericKeys(reactions).length > 0">
     <div
-        v-for="(reaction, index) in reactions"
-        :key="index"
-        class="reaction"
+      class="reaction"
+      v-for="reaction in extractNumericKeys(reactions)"
+      :key="reaction.icon_id"
+      :class="{ active: reactions.type === reaction.icon_id }"
     >
-      <component :is="reaction.icon"/>
-      <span>{{ reaction.count }}</span>
+      <component :is="getReaction(reaction.icon_id).icon"/>
+      <span>{{ shortNum(reaction.reaction_count) }}</span>
     </div>
   </div>
 </template>
@@ -33,6 +34,8 @@ import ScaredIconFemale from '@/components/icons/reactions/women/small/ScaredIco
 import LaughIconFemale from '@/components/icons/reactions/women/small/LaughIcon.vue'
 import ThinkIconFemale from '@/components/icons/reactions/women/small/ThinkIcon.vue'
 import SadIconFemale from '@/components/icons/reactions/women/small/SadIcon.vue'
+import {extractNumericKeys} from '@/utils'
+import shortNum from 'number-shortener'
 
 export default {
   components: {
@@ -55,47 +58,88 @@ export default {
     ThinkIconFemale,
     SadIconFemale
   },
-  props: ['reaction'],
-  data() {
-    return {
-      reactions: [
-        {id: 1, icon: 'LikeIconMale', count: 4321},
-        {id: 2, icon: 'DislikeIconMale', count: 5467},
-        {id: 3, icon: 'LoveIconMale', count: 1234},
-        {id: 4, icon: 'FireIconMale', count: 3214},
-        {id: 5, icon: 'AngryIconMale', count: 5463},
-        {id: 6, icon: 'ScaredIconMale', count: 6412},
-        {id: 7, icon: 'LaughIconMale', count: 8521},
-        {id: 8, icon: 'ThinkIconMale', count: 1472},
-        {id: 9, icon: 'SadIconMale', count: 3698}
-      ]
+  props: {
+    reactions: {
+      type: Object
     }
   },
-  methods: {},
-  mounted() {
-    // console.log(this.reaction)
-  }
+  data() {
+    return {}
+  },
+  methods: {
+    shortNum,
+    extractNumericKeys,
+    getReaction(icon_id) {
+      const reactions = [
+        {id: 1, icon: 'LikeIconMale', code: '1'},
+        {id: 2, icon: 'DislikeIconMale', code: '13'},
+        {id: 3, icon: 'LoveIconMale', code: '2'},
+        {id: 4, icon: 'FireIconMale', code: '14'},
+        {id: 5, icon: 'AngryIconMale', code: '6'},
+        {id: 6, icon: 'ScaredIconMale', code: '12'},
+        {id: 7, icon: 'LaughIconMale', code: '3'},
+        {id: 8, icon: 'ThinkIconMale', code: '4'},
+        {id: 8, icon: 'SadIconMale', code: '5'},
+
+        {id: 9, icon: 'LikeIconFemale', code: '7'},
+        {id: 10, icon: 'DislikeIconFemale', code: '17'},
+        {id: 11, icon: 'LoveIconFemale', code: '8'},
+        {id: 12, icon: 'FireIconFemale', code: '18'},
+        {id: 13, icon: 'AngryIconFemale', code: '11'},
+        {id: 14, icon: 'ScaredIconFemale', code: '16'},
+        {id: 15, icon: 'LaughIconFemale', code: '9'},
+        {id: 16, icon: 'ThinkIconFemale', code: '10'},
+        {id: 17, icon: 'SadIconFemale', code: '19'}
+      ]
+      return reactions.find((reaction) => reaction.code === icon_id)
+    }
+  },
+  mounted() {}
 }
 </script>
 
 <style scoped lang="scss">
-.reactions__block {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  cursor: pointer;
-
-  .reaction {
-    height: 32px;
-    background: var(--color-seashell);
-    border-radius: 8px;
-    padding: 8px 12px;
-    color: var(--color-silver-chalice);
-    width: auto;
+.reactions {
+  &__block {
+    margin-bottom: 10px;
     display: flex;
-    gap: 6px;
-    align-items: center;
-    font-size: 14px;
+    gap: 4px;
+    flex-wrap: wrap;
+
+    .reaction {
+      height: 32px;
+      background: var(--color-seashell);
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: var(--color-silver-chalice);
+      width: auto;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      font-size: 14px;
+
+      &.active {
+        background: var(--color-green);
+
+        span {
+          color: var(--color-stable-white);
+        }
+      }
+
+      svg {
+        width: 16px;
+        height: 16px;
+        display: block;
+      }
+
+      span {
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        color: var(--color-mine-shaft);
+      }
+    }
   }
 }
 

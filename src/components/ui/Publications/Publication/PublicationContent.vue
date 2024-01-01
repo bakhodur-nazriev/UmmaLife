@@ -26,7 +26,7 @@
       {{ isOpenReadMore ? $t('buttons.read_less_post') : $t('buttons.read_more_post') }}
     </button>
     <div class="publication-content__reactions">
-      <PostReactions/>
+      <PostReactions :reactions="postReactions"/>
     </div>
   </div>
 </template>
@@ -38,7 +38,14 @@ export default {
   components: {
     PostReactions
   },
-  props: ['postContent'],
+  props: {
+    postContent: {
+      type: String
+    },
+    postReactions: {
+      type: Object
+    }
+  },
   data: () => ({
     isOpenReadMore: false,
     isOverflown: false,
@@ -61,6 +68,7 @@ export default {
     }
   },
   mounted() {
+
     this.checkOverflow();
     window.addEventListener('resize', this.checkOverflow);
 
