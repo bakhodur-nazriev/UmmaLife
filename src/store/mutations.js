@@ -34,5 +34,11 @@ export default {
   },
   setLanguage(state, language) {
     state.selectedLanguage = language
+  },
+  setCallState(state, callState) {
+    state.callState = callState
+  },
+  setCallerId(state, callerId) {
+    state.callerId = callerId
   }
 }

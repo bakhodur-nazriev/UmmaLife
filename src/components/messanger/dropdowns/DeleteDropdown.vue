@@ -26,7 +26,7 @@ const emit = defineEmits(['handleClickOutside', 'handleDeleteChat', 'clearChat']
 .delete-dropdown {
   position: absolute;
   top: 51px;
-  right: 69px;
+  right: 8px;
   @media (max-width: 767px) {
     right: 8px;
   }

@@ -32,18 +32,6 @@ defineProps({
 })
 
 const remainingTime = ref(null)
-const interval = ref(null)
-
-onMounted(() => {
-  const element = document.querySelector('.vjs-remaining-time .vjs-remaining-time-display')
-  interval.value = setInterval(() => {
-    remainingTime.value = element.textContent
-  }, 1000)
-})
-
-onBeforeUnmount(() => {
-  clearInterval(interval.value)
-})
 </script>
 
 <style lang="scss">
@@ -84,6 +72,7 @@ onBeforeUnmount(() => {
       max-height: 440px;
       max-width: 440px;
       position: static;
+      display: block;
     }
     .vjs-big-play-button {
       display: none !important;

@@ -7,27 +7,32 @@
     <div
       class="message__inner"
       :class="{
-        no__message: !message?.message && !message?.messageType.includes('file'),
-        'video-message': message?.messageType.includes('video')
+        no__message:
+          !message?.message &&
+          !message?.messageType.includes('file') &&
+          !Object.keys(message?.callData || {}).length,
+        'video-message': message?.messageType === 'video'
       }"
     >
       <ProgressSpinner
         v-if="isLastMessage && isFileLoading"
         class="progress--spinner"
-        strokeWidth="6"
+        strokeWidth="3"
       />
-      <template v-if="message?.messageType.includes('video')">
+      <template v-if="message?.messageType === 'video'">
         <div class="video-temp" v-if="isLastMessage && isFileLoading">
-          <video :src="message?.mediaData[0].src" />
+          <video :src="message?.mediaData[0]?.src" />
         </div>
-        <video-message :src="message?.mediaData[0].src" v-else />
+        <template v-else>
+          <video-message :src="message?.mediaData[0]?.src" />
+        </template>
       </template>
       <template v-if="message?.messageType.includes('image')">
         <image-message :image="message?.mediaData[0]" />
       </template>
 
       <a
-        :href="message?.mediaData[0].src"
+        :href="message?.mediaData[0]?.src"
         download
         class="message__file"
         target="_blank"
@@ -40,9 +45,12 @@
           <p>{{ message?.mediaData[0]?.title || 'File' }}</p>
         </div>
       </a>
+      <template v-if="message?.messageType === 'videoCall' || message?.messageType === 'audioCall'">
+        <CallMessage :callData="message?.callData" :isOwner="message?.messageOwner" />
+      </template>
       <div
         class="message__text"
-        :class="{ 'video-text': message?.messageType.includes('video') }"
+        :class="{ 'video-text': message?.messageType === 'video' }"
         v-if="message?.message && Object.keys(message?.replyMessage || {}).length === 0"
       >
         {{ message?.message }}
@@ -81,7 +89,7 @@
       <div
         class="message__bottom"
         :class="{
-          'message__bottom--video': message?.messageType.includes('video') && !message?.message
+          'message__bottom--video': message?.messageType === 'video' && !message?.message
         }"
       >
         <span>{{ formatTime(message?.messageDate) }}</span>
@@ -106,9 +114,10 @@ import PreloaderIcon from '@/components/icons/PreloaderIcon.vue'
 
 import VideoMessage from '@/components/messanger/VideoMessage.vue'
 import ImageMessage from '@/components/messanger/ImageMessage.vue'
+import CallMessage from '@/components/messanger/CallMessage.vue'
 import ProgressSpinner from 'primevue/progressspinner'
 import FileIcon from '@/components/icons/FileIcon.vue'
-import VideoPlayIcon from '../icons/VideoPlayIcon.vue'
+import VideoPlayIcon from '@/components/icons/VideoPlayIcon.vue'
 
 export default {
   components: {
@@ -119,13 +128,19 @@ export default {
     ImageMessage,
     ProgressSpinner,
     FileIcon,
-    VideoPlayIcon
+    VideoPlayIcon,
+    CallMessage
   },
   props: {
     message: Object,
     isLoading: Boolean,
     isLastMessage: Boolean,
     isFileLoading: Boolean
+  },
+  computed: {
+    waitFileLoading() {
+      return this.isLastMessage && this.isFileLoading
+    }
   },
   mixins: [timeFormat]
 }
@@ -146,6 +161,7 @@ export default {
     overflow: hidden;
     @media (max-width: 767px) {
       padding: 8px 12px 15px 12px;
+      border-radius: 12px;
     }
 
     &.no__message {

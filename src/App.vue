@@ -7,6 +7,9 @@
     <AudioPlayList v-if="isListOpen" :playerHeight="playerMargin" />
     <AudioPlayerComponent @playerHeight="setPlayerMargin" v-if="isPlayerOpen" />
   </div>
+  <teleport to="body">
+    <VideoCall v-if="$route.meta.layout !== 'auth'" />
+  </teleport>
 </template>
 
 <script>
@@ -19,6 +22,7 @@ import AudioPlayList from '@/components/audio/AudioPlayList.vue'
 import { mapMutations, mapState, useStore } from 'vuex'
 import { getFormData } from '@/utils'
 import axios from 'axios'
+import VideoCall from '@/components/messanger/videoCall/VideoCall.vue'
 
 export default {
   components: {
@@ -171,20 +175,16 @@ export default {
   },
   mounted() {
     this.setUserLanguage()
-    console.log(this.$i18n.locale)
   }
 }
 </script>
 
 <script setup>
 import { vOnClickOutside } from '@vueuse/components'
-import { useWindowSize } from '@vueuse/core'
 const store = useStore()
 const closeHandler = () => {
   store.commit('audio/setListOpen', false)
 }
-
-const { width } = useWindowSize()
 </script>
 
 <style>

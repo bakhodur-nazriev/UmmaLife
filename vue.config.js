@@ -2,19 +2,7 @@ const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
   devServer: {
-    port: 8082,
-    webSocketServer: false,
-    historyApiFallback: true
-    // proxy: {
-    //   '/api': {
-    //     target: 'preview.https://ummalife.com',
-    //     changeOrigin: true,
-    //     headers: {
-    //       'X-Forwarded-Host': 'preview.ummalife.com',
-    //       Host: 'preview.ummalife.com'
-    //     }
-    //   }
-    // }
+    port: 8082
   },
   transpileDependencies: true,
 

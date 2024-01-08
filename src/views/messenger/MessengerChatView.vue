@@ -55,8 +55,34 @@
         </router-link>
         <LoadingBar v-if="store.getters['messenger/getChatIsLoading']" />
       </div>
-      <div class="room__details" @click="showDeleteDropdown = true">
-        <menu-details-icon class="room__details--icon" />
+      <div class="room__details--wrapper">
+        <button
+          class="room__details--btn"
+          @click="
+            store.commit('setCallState', {
+              isCallOpen: true,
+              isVideoCall: false,
+              isInitiator: true
+            })
+          "
+        >
+          <PhoneIcon />
+        </button>
+        <button
+          class="room__details--btn"
+          @click="
+            store.commit('setCallState', {
+              isCallOpen: true,
+              isVideoCall: true,
+              isInitiator: true
+            })
+          "
+        >
+          <CameraOnIcon />
+        </button>
+        <div class="room__details" @click="showDeleteDropdown = true">
+          <menu-details-icon class="room__details--icon" />
+        </div>
       </div>
       <delete-dropdown
         @handleClickOutside="showDeleteDropdown = false"
@@ -164,6 +190,8 @@ import LoadingBar from '@/components/ui/LoadingBar.vue'
 import DropImage from '@/components/messanger/dropdowns/DropImage.vue'
 import ArrowLeftIcon from '@/components/icons/shorts/ArrowLeftIcon.vue'
 import MediaModal from '@/components/messanger/modal/MediaModal.vue'
+import PhoneIcon from '@/components/icons/RTCCall/PhoneIcon.vue'
+import CameraOnIcon from '@/components/icons/RTCCall/CameraOnIcon.vue'
 
 const { width } = useWindowSize()
 const user = JSON.parse(localStorage.getItem('user') || '{}')
@@ -747,6 +775,37 @@ export default {
     @media (max-width: 767px) {
       width: 24px;
       height: 24px;
+    }
+    &--wrapper {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      @media (max-width: 767px) {
+        gap: 12px;
+      }
+    }
+    &--btn {
+      background: none;
+      border: none;
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      outline: none;
+      cursor: pointer;
+      color: var(--color-silver-chalice);
+      transition: all 0.3s;
+      @media (max-width: 767px) {
+        width: 18px;
+        height: 18px;
+      }
+      &:hover {
+        color: var(--color-hippie-blue);
+      }
+      svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
     }
     &:hover {
       background-color: var(--color-gallery-first);

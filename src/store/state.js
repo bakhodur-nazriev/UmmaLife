@@ -9,5 +9,11 @@ export default {
   isShareOpen: false,
   isProfileTabsOpen: true,
   isSavedTabsOpen: true,
-  accessToken: null
+  accessToken: null,
+  callerId: null,
+  callState: {
+    isCallOpen: false,
+    isVideoCall: false,
+    isInitiator: false
+  }
 }
