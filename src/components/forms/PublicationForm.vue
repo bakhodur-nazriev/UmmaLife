@@ -16,6 +16,12 @@
           @click="isTextAreaActive = true"
         ></textarea>
       </div>
+
+      <div class="form__buttons--section" v-if="isTextAreaActive">
+        <AccessDropDown/>
+        <SelectCategory/>
+      </div>
+
       <div v-if="!isTextAreaActive" class="form__inputs--block">
         <FileUpload label="image" accept="image/*">
           <ImageIcon/>
@@ -298,7 +304,6 @@
             </FileUpload>
           </div>
           <div class="textarea__active--right--side">
-            <AccessDropDown/>
             <SampleButton
               :title="`${$t('buttons.publish')}`"
               class="publish__button"
@@ -347,9 +352,12 @@ import MapIcon from '@/components/icons/MapIcon.vue'
 import CinemaIcon from '@/components/icons/CinemaIcon.vue'
 import GamingIcon from '@/components/icons/GamingIcon.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
+import {getFormData} from "@/utils";
+import SelectCategory from "@/components/ui/Post/SelectCategory.vue";
 
 export default {
   components: {
+    SelectCategory,
     GamingIcon,
     CinemaIcon,
     MapIcon,
@@ -387,7 +395,7 @@ export default {
     SampleButton
   },
   data: () => ({
-    isTextAreaActive: false,
+    isTextAreaActive: true,
     showSmileSection: false,
     addedAudioItems: [],
     showPlayingSection: false,
@@ -438,6 +446,13 @@ export default {
     user: JSON.parse(localStorage.getItem('user')) || {},
   }),
   methods: {
+    addPost() {
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        postText: '',
+        postPrivacy: 1,
+      })
+    },
     backToMoodSection() {
       if (this.showMoodSection) {
         this.showMoodSection = false
@@ -779,5 +794,11 @@ export default {
 
 .publish__button {
   padding: 12px 38px;
+}
+
+.form__buttons--section {
+  display: flex;
+  gap: 12px;
+  width: 100%;
 }
 </style>

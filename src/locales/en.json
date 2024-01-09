@@ -219,6 +219,7 @@
     "delete": "Delete",
     "edit": "Edit",
     "publish": "Publish",
+    "only_sisters": "Only sisters",
     "available_everyone": "Available to everyone",
     "who_am_i_following": "Who am I following",
     "who_is_following_me": "Who is following me",
@@ -262,7 +263,10 @@
     "article_preview": "Article preview",
     "save_as_draft": "Save as draft",
     "read_more_post": "Read more...",
-    "read_less_post": "Less"
+    "read_less_post": "Less",
+    "category": "Категория",
+    "exclude": "Exclude...",
+    "only_subscribers": "Only subscribers"
   },
   "languages": {
     "title": "English",

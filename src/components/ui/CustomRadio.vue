@@ -5,7 +5,6 @@
 </template>
 
 <script setup>
-/* eslint-disable */
 const props = defineProps({
   isSelected: Boolean
 })

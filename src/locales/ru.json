@@ -222,6 +222,7 @@
     "delete": "Удалить",
     "edit": "Редактировать",
     "publish": "Опубликовать",
+    "only_sisters": "Только сёстрам",
     "available_everyone": "Доступно всем",
     "who_am_i_following": "На кого я подписан",
     "who_is_following_me": "Кто подписан на меня",
@@ -265,7 +266,10 @@
     "article_preview": "Предпросмотр статьи",
     "save_as_draft": "Сохранить как черновик",
     "read_more_post": "Читать далее...",
-    "read_less_post": "Скрыть"
+    "read_less_post": "Скрыть",
+    "category": "Категория",
+    "exclude": "Исключить...",
+    "only_subscribers": "Только подписчикам"
   },
   "languages": {
     "title": "Русский",

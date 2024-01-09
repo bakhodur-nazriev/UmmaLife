@@ -38,28 +38,28 @@
           <div class="share__comment--title">Ваш комментарий</div>
           <textarea class="share__comment--textarea"></textarea>
         </div>
-        <SampleButton title="Поделиться записью" class="share__btn" />
+        <SampleButton title="Поделиться записью" class="share__btn"/>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-/* eslint-disable */
-import { groups, groupsUsers } from '@/dummy'
+import {groups, groupsUsers} from '@/dummy'
 import SampleRadio from '@/components/ui/SampleRadio.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import SampleMultiselect from '@/components/ui/SampleMultiselect.vue'
-import { vOnClickOutside } from '@vueuse/components'
-import { useStore } from 'vuex'
-import { ref } from 'vue'
+import {vOnClickOutside} from '@vueuse/components'
+import {useStore} from 'vuex'
+import {ref} from 'vue'
+
 const store = useStore()
 const closeHandler = () => {
   store.commit('setShareOpen', false)
 }
 
 const isChecked = ref([true, false, false])
-const changeHandler = ({ target, index }) => {
+const changeHandler = ({target, index}) => {
   isChecked.value.forEach((_, i) => {
     isChecked.value[i] = false
   })
@@ -76,16 +76,18 @@ const changeHandler = ({ target, index }) => {
   height: 100%;
   background: rgba($color: #000000, $alpha: 0.7);
   z-index: 150;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   &__inner {
     width: 450px;
     min-height: 466px;
     border-radius: 20px;
     background-color: var(--color-white);
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     padding: 24px;
+
     @media (max-width: 767px) {
       width: 100%;
       top: unset;
@@ -97,6 +99,7 @@ const changeHandler = ({ target, index }) => {
       min-height: auto;
     }
   }
+
   &__title {
     font-size: 20px;
     font-style: normal;
@@ -110,6 +113,7 @@ const changeHandler = ({ target, index }) => {
       margin-bottom: 0;
     }
   }
+
   &__body {
     border-top: 1px solid var(--color-gallery-first);
     padding: 20px 0 0;
@@ -119,21 +123,26 @@ const changeHandler = ({ target, index }) => {
       padding: 16px;
     }
   }
+
   &__multiselect {
     margin-top: 12px;
+
     .multiselect__tags,
     .multiselect__input {
       background-color: transparent;
       color: var(--color-mine-shaft);
     }
   }
+
   &__radio {
     margin-bottom: 20px;
   }
+
   &__comment {
     @media (max-width: 767px) {
       margin-bottom: 20px;
     }
+
     &--title {
       font-size: 16px;
       font-style: normal;
@@ -142,6 +151,7 @@ const changeHandler = ({ target, index }) => {
       color: var(--color-mine-shaft);
       margin-bottom: 8px;
     }
+
     &--textarea {
       padding: 10px;
       width: 100%;
@@ -155,8 +165,22 @@ const changeHandler = ({ target, index }) => {
       color: var(--color-mine-shaft);
     }
   }
+
   &__btn {
     max-width: 100%;
+  }
+}
+
+.share__inner {
+  animation: share__inner 0.2s;
+}
+
+@keyframes share__inner {
+  0% {
+    transform: scale(.5)
+  }
+  100% {
+    transform: scale(1)
   }
 }
 </style>
