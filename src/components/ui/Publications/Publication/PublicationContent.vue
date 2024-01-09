@@ -5,8 +5,18 @@
       :class="{ 'show-all-content': isOpenReadMore }"
       ref="content"
     >
-      {{ postContent }}
+      {{ contentWithoutHashtags }}
     </p>
+    <div v-if="hashtags.length > 0" class="hashtags">
+      <a
+        v-for="(tag, index) in hashtags"
+        :key="index"
+        :href="`hashtag/${tag.substring(1)}`"
+        class="hashtag"
+      >
+        {{ tag }}
+      </a>
+    </div>
     <button
       v-if="isOverflown"
       class="read-more__button"
@@ -16,7 +26,7 @@
       {{ isOpenReadMore ? $t('buttons.read_less_post') : $t('buttons.read_more_post') }}
     </button>
     <div class="publication-content__reactions">
-      <PostReactions/>
+      <PostReactions :reactions="postReactions"/>
     </div>
   </div>
 </template>
@@ -28,10 +38,19 @@ export default {
   components: {
     PostReactions
   },
-  props: ['postContent'],
+  props: {
+    postContent: {
+      type: String
+    },
+    postReactions: {
+      type: Object
+    }
+  },
   data: () => ({
     isOpenReadMore: false,
-    isOverflown: false
+    isOverflown: false,
+    hashtags: [],
+    contentWithoutHashtags: ''
   }),
   methods: {
     toggleReadMore() {
@@ -42,11 +61,28 @@ export default {
       if (content) {
         this.isOverflown = content.scrollHeight > content.clientHeight;
       }
+    },
+    extractHashtags(text) {
+      const regex = /#\w+/g;
+      return text.match(regex) || [];
     }
   },
   mounted() {
+
     this.checkOverflow();
     window.addEventListener('resize', this.checkOverflow);
+
+    if (this.postContent && typeof this.postContent === 'string') {
+      this.hashtags = this.extractHashtags(this.postContent);
+
+      if (this.hashtags && this.hashtags.length > 0) {
+        this.contentWithoutHashtags = this.postContent.replace(/#\w+/g, '');
+      } else {
+        this.contentWithoutHashtags = this.postContent;
+      }
+    } else {
+      this.contentWithoutHashtags = ''; // Если this.postContent не строка, задаем значение по умолчанию
+    }
   },
   destroyed() {
     window.removeEventListener('resize', this.checkOverflow);
@@ -55,6 +91,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.hashtags {
+  margin-top: 10px;
+
+  .hashtag {
+    text-decoration: none;
+    color: var(--color-hippie-blue);
+    margin-right: 8px;
+  }
+}
+
 .read-more__button {
   background: none;
   color: var(--color-hippie-blue);

@@ -10,13 +10,12 @@
     <span class="radio__icon"></span>
 
     <span class="radio__text">
-      <slot />
+      <slot/>
     </span>
   </label>
 </template>
 
 <script setup>
-/* eslint-disable */
 const props = defineProps({
   name: {
     type: String,
@@ -34,7 +33,7 @@ const props = defineProps({
 
 const emit = defineEmits(['changeHandler'])
 const changeHandler = (e) => {
-  emit('changeHandler', { target: e.target.checked, index: props.index })
+  emit('changeHandler', {target: e.target.checked, index: props.index})
 }
 </script>
 
@@ -42,21 +41,24 @@ const changeHandler = (e) => {
 .radio {
   display: flex;
   position: relative;
+
   &__input {
     opacity: 0;
     width: 0;
     height: 0;
     position: absolute;
   }
+
   &__icon {
     margin-top: -3px;
     max-width: 20px;
-    width: 100%;
+    width: 20px;
     height: 20px;
     border: 1px solid var(--color-hippie-blue);
     position: relative;
     border-radius: 50%;
-    margin-right: 12px;
+    margin-right: 8px;
+
     &::after {
       content: '';
       position: absolute;
@@ -70,11 +72,13 @@ const changeHandler = (e) => {
       opacity: 0;
     }
   }
+
   &__checked {
     .radio__icon::after {
       opacity: 1;
     }
   }
+
   &__text {
     font-size: 16px;
     font-style: normal;

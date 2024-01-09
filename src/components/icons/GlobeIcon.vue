@@ -3,17 +3,17 @@
     <g clip-path="url(#clip0_12015_46227)">
       <path
         d="M9.05344 13.2295C10.3646 12.7974 11.506 11.9625 12.315 10.8438C13.124 9.72515 13.5593 8.3797 13.559 6.99915C13.5593 5.61859 13.124 4.27314 12.315 3.15445C11.506 2.03576 10.3646 1.20089 9.05344 0.768777M9.05344 13.2295C7.72059 13.6712 6.28081 13.6712 4.94796 13.2295C3.63585 12.7982 2.4934 11.9637 1.68347 10.845C0.873547 9.72622 0.4375 8.38031 0.4375 6.99915C0.4375 5.61798 0.873547 4.27208 1.68347 3.15331C2.4934 2.03455 3.63585 1.20005 4.94796 0.768777C6.28081 0.327074 7.72059 0.327074 9.05344 0.768777M9.05344 13.2295C10.3655 12.7982 11.508 11.9637 12.3179 10.845C13.1279 9.72622 13.5639 8.38031 13.5639 6.99915C13.5639 5.61798 13.1279 4.27208 12.3179 3.15331C11.508 2.03455 10.3655 1.20005 9.05344 0.768777"
-        stroke="#B0B0B0" stroke-width="0.666667" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M7.00098 0.769531V13.2303" stroke="#B0B0B0" stroke-width="0.666667" stroke-linecap="round"
+        stroke="currentColor" stroke-width="0.666667" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M7.00098 0.769531V13.2303" stroke="currentColor" stroke-width="0.666667" stroke-linecap="round"
             stroke-linejoin="round"/>
       <path
         d="M2.00977 2.7357C2.62094 3.0445 3.25993 3.29483 3.91823 3.48335C4.91921 3.77803 5.95716 3.9282 7.00062 3.92931C8.01535 3.92877 9.02511 3.78752 10.001 3.50958C10.68 3.3133 11.3387 3.05308 11.9685 2.73242M2.11798 11.3762C2.7201 11.0804 3.34792 10.84 3.99365 10.6581C6.61711 9.92353 9.41937 10.1827 11.8636 11.3861"
-        stroke="#B0B0B0" stroke-width="0.666667" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M0.770508 7H13.2312" stroke="#B0B0B0" stroke-width="0.666667" stroke-linecap="round"
+        stroke="currentColor" stroke-width="0.666667" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M0.770508 7H13.2312" stroke="currentColor" stroke-width="0.666667" stroke-linecap="round"
             stroke-linejoin="round"/>
       <path
         d="M8.80035 0.769531L8.85282 0.861347C9.93917 2.71396 10.5119 4.82275 10.5119 6.97039C10.5119 9.11802 9.93917 11.2268 8.85282 13.0794M5.1146 0.769531L5.06213 0.861347C3.97694 2.71497 3.40631 4.8247 3.40919 6.97262C3.41207 9.12053 3.98836 11.2287 5.07852 13.0794"
-        stroke="#B0B0B0" stroke-width="0.666667" stroke-linecap="round" stroke-linejoin="round"/>
+        stroke="currentColor" stroke-width="0.666667" stroke-linecap="round" stroke-linejoin="round"/>
     </g>
     <defs>
       <clipPath id="clip0_12015_46227">

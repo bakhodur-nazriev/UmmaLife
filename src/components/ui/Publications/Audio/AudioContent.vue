@@ -20,7 +20,7 @@
     </div>
 
     <div class="audio-content__reactions">
-      <PostReactions :reaction="audioContent.reaction"/>
+      <PostReactions :reactions="audioReactions"/>
     </div>
   </section>
 </template>
@@ -35,7 +35,14 @@ export default {
     PostReactions,
     SmallVideoPlayIcon
   },
-  props: ['audioContent'],
+  props: {
+    audioContent: {
+      type: String
+    },
+    audioReactions: {
+      type: Object
+    }
+  },
   computed: {
     audioFormattedDuration() {
       const duration = this.audioContent.postFileArray[0].duration
@@ -82,9 +89,7 @@ export default {
       }
     }
   },
-  mounted() {
-    // console.log(this.audioContent)
-  }
+  mounted() {}
 }
 </script>
 

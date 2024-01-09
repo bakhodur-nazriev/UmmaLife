@@ -109,7 +109,7 @@
       <div class="shorts__info--bottom">
         <div class="shorts__info--reactions" v-if="singleMuvi?.reaction?.count > 0">
           <div class="reaction active">
-            <like-icon></like-icon>
+            <like-icon />
             <span>{{ shortNum(singleMuvi?.reaction?.count) }}</span>
           </div>
         </div>

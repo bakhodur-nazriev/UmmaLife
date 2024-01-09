@@ -1,24 +1,25 @@
 <template>
   <article class="post__block" v-for="(item, i) in posts" :key="i">
     <PostHeader
-        :is-menu-open="isMenuOpen"
-        @toggle-menu="toggleMenu"
-        :publisher="item.publisher"
-        :time="item.date_create"
-        @translate-request="handleTranslation(item)"
+      :publisher="item.publisher"
+      :time="item.date_create"
+      @translate-request="handleTranslation(item)"
+      @show-orignal="item.publisher"
+      :translated="translated[item.publisher.id]"
+      :post-id="item.post_id"
     />
 
     <PublicationContent
-        :post-content="item.Orginaltext"
-        :reactions="item.reaction"
+      :post-content="item.Orginaltext"
+      :post-reactions="item.reaction"
     />
-
     <SampleDivider class="divider"/>
 
     <PostFooter
-        :is-reaction-window-open="isReactionWindowOpen"
-        :is-share-window-open="isShareWindowOpen"
-        :reactions="item.reaction"
+      :posts-item="item"
+      :is-reaction-window-open="isReactionWindowOpen"
+      :is-share-window-open="isShareWindowOpen"
+      :reactions="item.reaction"
     />
   </article>
 </template>
@@ -38,41 +39,21 @@ export default {
     PublicationContent,
     SampleDivider
   },
+  props: {
+    posts: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
-      isMenuOpen: false,
       postContent: null,
-      posts: []
+      translated: {}
     }
   },
   methods: {
-    toggleMenu() {
-      this.isMenuOpen = !this.isMenuOpen
-    },
-    async getPost() {
-      const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
-        page: 1
-      })
-
-      const headers = {'Content-Type': 'multipart/form-data'}
-
-      const accessToken = localStorage.getItem('access_token')
-      const params = {access_token: accessToken}
-
-      try {
-        const response = await axios.post('/posts', payload, {params, headers})
-        if (response.data.api_status === 200) {
-          this.posts = response.data?.data
-        } else {
-          console.log('error')
-        }
-      } catch (error) {
-        console.error(error)
-      }
-    },
     async translatePost(text) {
       return await this.fetchTranslation(text);
     },
@@ -97,10 +78,8 @@ export default {
     },
     async handleTranslation(item) {
       item.Orginaltext = await this.translatePost(item.Orginaltext);
-    }
-  },
-  mounted() {
-    this.getPost()
+      this.$set(this.translated, item.publisher.id, !!item.Orginaltext);
+    },
   }
 }
 </script>

@@ -18,7 +18,7 @@
     </div>
 
     <div class="article-content__reactions">
-      <PostReactions/>
+      <PostReactions :reactions="articleReactions"/>
     </div>
   </section>
 </template>
@@ -27,7 +27,14 @@
 import PostReactions from '@/components/ui/Post/PostReactions.vue'
 
 export default {
-  props: ['postContent'],
+  props: {
+    postContent: {
+      type: String
+    },
+    articleReactions: {
+      type: Object
+    }
+  },
   components: {
     PostReactions
   },

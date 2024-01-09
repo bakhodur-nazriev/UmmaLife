@@ -1,7 +1,6 @@
 <script setup>
-/* eslint-disable */
 import CheckMarkIcon from '@/components/icons/CheckMarkIcon.vue'
-import { ref } from 'vue'
+import {ref} from 'vue'
 
 const props = defineProps({
   name: {
@@ -13,10 +12,15 @@ const props = defineProps({
     default: ''
   },
   textSize: {
-    type: String
+    type: String,
+    default: '16px'
   },
   isChecked: {
     type: Boolean
+  },
+  size: {
+    type: String,
+    default: 'medium'
   }
 })
 
@@ -29,7 +33,7 @@ const updateChecked = (event) => {
 </script>
 
 <template>
-  <label :class="['checkbox', `checkbox__${textSize}`]">
+  <label :class="['checkbox', `text-size__${textSize}`]">
     <input
       class="checkbox__input visually-hidden"
       type="checkbox"
@@ -37,11 +41,11 @@ const updateChecked = (event) => {
       :checked="isChecked"
       @change="updateChecked"
     />
-    <span :class="['checkbox__icon', `checkbox__${color}`]">
-      <CheckMarkIcon />
+    <span :class="['checkbox__icon', `color__${color}`, `size__${size}`]">
+      <CheckMarkIcon/>
     </span>
-    <span>
-      <slot />
+    <span class="checkbox__content">
+      <slot/>
     </span>
   </label>
 </template>
@@ -52,38 +56,63 @@ const updateChecked = (event) => {
   align-items: center;
   gap: 12px;
 
-  &__small {
-    font-size: 14px;
-    color: var(--color-mine-shaft);
-  }
+  &.text-size {
+    &__small {
+      font-size: 14px;
+      color: var(--color-mine-shaft);
+    }
 
-  &__medium {
-    font-size: 16px;
-    color: var(--color-mine-shaft);
+    &__medium {
+      font-size: 16px;
+      color: var(--color-mine-shaft);
+    }
   }
 
   &__icon {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 5px;
     color: transparent;
     transition: 0.3s;
-    padding: 7px;
+
+    &.color {
+      &__primary {
+        background: var(--color-white);
+      }
+
+      &__secondary {
+        background: var(--color-seashell);
+      }
+
+      &__gray {
+        background: var(--color-alto-first);
+      }
+
+      &__transparent {
+        background: transparent;
+        border: 1ps solid var(--color-silver-chalice)
+      }
+    }
+
+    &.size {
+      &__small {
+        width: 16px;
+        height: 16px;
+        padding: 2px;
+        border-radius: 4px;
+      }
+
+      &__medium {
+        width: 32px;
+        height: 32px;
+        border-radius: 5px;
+        padding: 7px;
+      }
+    }
   }
 
-  &__primary {
-    background: var(--color-white);
-  }
-
-  &__secondary {
-    background: var(--color-seashell);
-  }
-
-  &__gray {
-    background: var(--color-alto-first);
+  &__content {
+    line-height: 1;
   }
 }
 

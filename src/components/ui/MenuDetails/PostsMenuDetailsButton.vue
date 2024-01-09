@@ -13,7 +13,7 @@
           </li>
           <SampleDivider class="dropdown-item__divider"/>
 
-          <li class="dropdown-item">
+          <li class="dropdown-item" @click="copyPostLink">
             <CopyLinkIcon/>
             <span>{{ $t('buttons.copy_link') }}</span>
           </li>
@@ -26,13 +26,15 @@
           <SampleDivider class="dropdown-item__divider"/>
 
           <li class="dropdown-item">
-            <BlankIcon/>
-            <span>{{ $t('buttons.open_in_new_tab') }}</span>
+            <router-link :to="`/${$i18n.locale}/post/${postId}`" target="_blank">
+              <BlankPostIcon/>
+              <span>{{ $t('buttons.open_in_new_tab') }}</span>
+            </router-link>
           </li>
           <SampleDivider class="dropdown-item__divider"/>
 
           <li class="dropdown-item">
-            <HideIcon/>
+            <HidePostIcon/>
             <span>{{ $t('buttons.hide') }}</span>
           </li>
           <SampleDivider class="dropdown-item__divider"/>
@@ -45,6 +47,10 @@
       </div>
     </Transition>
   </div>
+
+  <PopupSample :show="showPopup">
+    <span>{{ $t('modal.link_copied') }}</span>
+  </PopupSample>
 </template>
 
 <script>
@@ -53,35 +59,58 @@ import SampleDivider from "@/components/ui/SampleDivider.vue";
 import ShareIcon from "@/components/icons/shorts/ShareIcon.vue";
 import CopyLinkIcon from "@/components/icons/CopyLinkIcon.vue";
 import SaveIcon from "@/components/icons/MenuDetails/SaveIcon.vue";
-import BlankIcon from "@/components/icons/MenuDetails/BlankIcon.vue";
 import ComplainIcon from "@/components/icons/MenuDetails/ComplainIcon.vue";
-import HideIcon from "@/components/icons/MenuDetails/HideIcon.vue";
+import HidePostIcon from "@/components/icons/MenuDetails/HidePostIcon.vue";
+import BlankPostIcon from "@/components/icons/MenuDetails/BlankPostIcon.vue";
+import PopupSample from "@/components/ui/PopupSample.vue";
 
 export default {
   components: {
+    PopupSample,
+    BlankPostIcon,
+    HidePostIcon,
     MenuDetailsIcon,
     SampleDivider,
     ShareIcon,
     CopyLinkIcon,
     SaveIcon,
-    BlankIcon,
-    ComplainIcon,
-    HideIcon
+    ComplainIcon
   },
   props: {
     isMenuOpen: {
       type: Boolean,
       required: true
+    },
+    postId: {
+      type: String
     }
   },
   data() {
     return {
-      test: this.isMenuOpen
+      test: this.isMenuOpen,
+      showPopup: false,
     }
   },
   methods: {
+    openPopup() {
+      this.showPopup = true;
+      setTimeout(() => {
+        this.showPopup = false
+      }, 3000);
+    },
+    async copyPostLink() {
+      const currentUrl = window.location.origin;
+      const postId = 'post/' + this.postId;
+
+      try {
+        await navigator.clipboard.writeText(`${currentUrl}/${postId}`);
+        this.openPopup();
+      } catch (error) {
+        console.error('Не удалось скопировать ссылку', error);
+      }
+    },
     toggleMenu() {
-      this.$emit('toggle-menu')
+      this.$emit('toggle-menu');
     },
     handleOverlayClick() {
       this.$emit('toggle-menu')
@@ -154,48 +183,56 @@ export default {
   color: var(--color-mine-shaft);
 }
 
-.dropdown__menu {
-  list-style: none;
-  padding: 8px;
-  margin: 0;
-  width: max-content;
-  display: flex;
-  flex-direction: column;
-}
+.dropdown {
+  &__menu {
+    list-style: none;
+    padding: 8px;
+    margin: 0;
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    row-gap: 2px;
 
-.dropdown-item {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  font-size: 16px;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 10px;
-  position: relative;
-  color: var(--color-mine-shaft);
+    .dropdown-item, a {
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 9px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 6px;
+      position: relative;
+      color: var(--color-mine-shaft);
+      height: 36px;
+      text-decoration: none;
 
-  &.complain {
-    color: var(--color-valencia);
+      a {
+        padding: 0;
+      }
 
-    svg {
-      color: var(--color-valencia);
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      &.complain {
+        color: var(--color-valencia);
+
+        svg {
+          color: var(--color-valencia);
+        }
+      }
+
+      &:hover {
+        transition: all .2s ease-in-out;
+        background-color: var(--color-seashell);
+      }
+
+      &__divider {
+        width: 94%;
+        margin: 1px auto;
+      }
     }
-  }
-
-  &:hover {
-    transition: all 0.15s ease-in-out;
-    transition: all .15s ease-in-out;
-    background-color: var(--color-seashell);
-  }
-
-  &__divider {
-    width: 92%;
-    margin: 1px auto;
-  }
-
-  svg {
-    width: 16px;
-    height: 16px;
   }
 }
 </style>

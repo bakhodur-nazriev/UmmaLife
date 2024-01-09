@@ -186,6 +186,7 @@
   },
   "buttons": {
     "translate": "Перевести",
+    "show_original": "Показать оригинал",
     "reset": "Сброс",
     "add": "Добавить",
     "login": "Войти",
@@ -221,6 +222,7 @@
     "delete": "Удалить",
     "edit": "Редактировать",
     "publish": "Опубликовать",
+    "only_sisters": "Только сёстрам",
     "available_everyone": "Доступно всем",
     "who_am_i_following": "На кого я подписан",
     "who_is_following_me": "Кто подписан на меня",
@@ -264,7 +266,10 @@
     "article_preview": "Предпросмотр статьи",
     "save_as_draft": "Сохранить как черновик",
     "read_more_post": "Читать далее...",
-    "read_less_post": "Скрыть"
+    "read_less_post": "Скрыть",
+    "category": "Категория",
+    "exclude": "Исключить...",
+    "only_subscribers": "Только подписчикам"
   },
   "languages": {
     "title": "Русский",
@@ -559,7 +564,8 @@
     "sure_delete_message": "Вы уверенны, что хотите удалить сообщение?",
     "also_delete_from": "Так же удалить и у",
     "cancel_delete": "Отменить действие",
-    "clear_history": "Очистить историю"
+    "clear_history": "Очистить историю",
+    "link_copied": "Ссылка скопирована"
   },
   "reaction_tooltip": {
     "like": "Ма шаа Аллах!",

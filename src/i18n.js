@@ -22,7 +22,7 @@ function getUserLanguage() {
 	return null
 }
 
-console.log(getUserLanguage())
+// console.log(getUserLanguage())
 
 const i18n = createI18n({
 	locale: getUserLanguage(),

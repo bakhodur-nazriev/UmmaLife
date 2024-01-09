@@ -31,7 +31,7 @@
     </div>
 
     <div class="article-content__reactions">
-      <PostReactions/>
+      <PostReactions :reactions="videoReactions"/>
     </div>
   </section>
 </template>
@@ -49,7 +49,14 @@ export default {
     VideoPlayIcon,
     VideoPlayer
   },
-  props: ['videoContent'],
+  props: {
+    videoContent: {
+      type: Object
+    },
+    videoReactions: {
+      type: Object
+    }
+  },
   computed: {
     formattedDate() {
       return this.videoContent.date_create.split('T')[0]

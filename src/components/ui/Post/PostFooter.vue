@@ -6,9 +6,9 @@
           <div class="reaction__window">
             <ul class="reaction__menu">
               <li
-                  v-for="(reaction, index) in reactionsIcon"
-                  :key="index"
-                  class="reaction__item"
+                v-for="(reaction, index) in reactionsIcon"
+                :key="index"
+                class="reaction__item"
               >
                 <span class="reaction__item--tooltip">{{ reaction.tooltip }}</span>
                 <component :is="reaction.icon"/>
@@ -27,46 +27,27 @@
         <span>{{ $t('buttons.comment') }}</span>
       </div>
 
-      <div class="share__buttons--block" ref="shareWindow">
-        <div class="share__buttons" v-if="isShareWindowOpen">
-          <div class="share__window">
-            <ul class="share__menu">
-              <li class="share__item">
-                <SendMenuIcon/>
-                <span>{{ $t('buttons.open_like_message') }}</span>
-              </li>
-
-              <SampleDivider class="share__item--divider"/>
-
-              <li class="share__item">
-                <ShareMenuIcon/>
-                <span>{{ $t('buttons.share_on_my_page') }}</span>
-              </li>
-
-              <SampleDivider class="share__item--divider"/>
-
-              <li class="share__item">
-                <MyGroupIcon/>
-                <span>{{ $t('buttons.share_in_group') }}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
+      <div class="share__section" ref="shareWindow">
         <div class="share__button open-share-button" @click="openShareWindow">
           <ShareIcon/>
           <span>{{ $t('buttons.share') }}</span>
         </div>
       </div>
+      <ShareComponent v-if="isShareWindowOpen"/>
     </div>
 
-    <SampleDivider v-if="isFormOpen"/>
+    <SampleDivider v-if="isFormOpen && comments.length"/>
 
     <div
-        ref="commentForm"
-        v-if="isFormOpen"
-        :class="['main__comment--form', isFormOpen ? 'main__comment--form--shown' : '']"
+      ref="commentForm"
+      v-if="isFormOpen"
+      :class="['main__comment--form', isFormOpen ? 'main__comment--form--shown' : '']"
     >
-      <ReplyCommentForm @close-comment-window="toggleForm"/>
+      <ReplyCommentForm
+        @close-comment-window="toggleForm"
+        v-if="comments.length"
+        :postComments="comments"
+      />
 
       <div class="enter-comment__form">
         <CommentForm/>
@@ -93,9 +74,13 @@ import ShareMenuIcon from '@/components/icons/MenuDetails/ShareMenuIcon.vue'
 import BigScaredIcon from '@/components/icons/reactions/men/big/BigScaredIcon.vue'
 import BigLaughIcon from '@/components/icons/reactions/men/big/BigLaughIcon.vue'
 import ReplyCommentForm from '@/components/ui/Comment/ReplyCommentForm.vue'
+import {getFormData} from '@/utils'
+import axios from "axios";
+import ShareComponent from "@/components/share/ShareComponent.vue";
 
 export default {
   components: {
+    ShareComponent,
     SendMenuIcon,
     MyGroupIcon,
     ReplyCommentForm,
@@ -108,7 +93,11 @@ export default {
   },
   props: {
     reaction: {
-      type: Object
+      type: Object,
+    },
+    postsItem: {
+      type: Object,
+      required: true
     }
   },
   data() {
@@ -126,7 +115,8 @@ export default {
       ],
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
-      isFormOpen: false
+      isFormOpen: false,
+      comments: []
     }
   },
   methods: {
@@ -145,9 +135,9 @@ export default {
       const openReactionButton = document.querySelector('.open-reaction-button')
 
       if (
-          reactionWindow &&
-          !reactionWindow.contains(event.target) &&
-          event.target !== openReactionButton
+        reactionWindow &&
+        !reactionWindow.contains(event.target) &&
+        event.target !== openReactionButton
       ) {
         this.isReactionWindowOpen = false
       }
@@ -159,11 +149,31 @@ export default {
       if (shareWindow && !shareWindow.contains(event.target) && event.target !== openShareButton) {
         this.isShareWindowOpen = false
       }
+    },
+    async getComments() {
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        post_id: this.postsItem.id
+      })
+
+      const headers = {'Content-Type': 'multipart/form-data'}
+      const accessToken = localStorage.getItem('access_token')
+      const params = {access_token: accessToken}
+
+      try {
+        const response = await axios.post('/comments', payload, {params, headers})
+        if (response.data.api_status === 200) {
+          this.comments = response.data?.data
+        }
+      } catch (error) {
+        console.error(error)
+      }
     }
   },
   mounted() {
     document.addEventListener('click', this.closeReactionWindow)
     document.addEventListener('click', this.closeShareWindow)
+    this.getComments()
   },
   beforeUnmount() {
     document.removeEventListener('click', this.closeReactionWindow)
@@ -173,21 +183,6 @@ export default {
 </script>
 
 <style lang="scss">
-.share__buttons {
-  animation: share__buttons 0.2s;
-}
-
-@keyframes share__buttons {
-  0% {
-    transform: scale(0.5);
-    transform-origin: center bottom;
-  }
-  100% {
-    transform: scale(1);
-    transform-origin: center bottom;
-  }
-}
-
 .reactions__buttons {
   animation: reactions__buttons 0.2s;
 }
@@ -240,40 +235,6 @@ export default {
   }
 }
 
-.share__item--divider {
-  margin: 2px auto;
-  width: 92%;
-}
-
-.share__item {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  gap: 8px;
-  padding: 5px 10px;
-  border-radius: 10px;
-  color: var(--color-mine-shaft);
-
-  &:hover {
-    background-color: var(--color-seashell);
-    transition: all 0.15s ease-in-out;
-  }
-
-  span {
-    font-size: 14px;
-  }
-}
-
-.share__menu {
-  list-style: none;
-  padding: 10px;
-  margin: 0;
-  width: max-content;
-  display: flex;
-  flex-direction: column;
-}
-
-.share__menu,
 .reaction__menu {
   list-style: none;
   margin: 0;
@@ -285,13 +246,17 @@ export default {
   gap: 16px;
 }
 
-.reaction__buttons--block,
-.share__buttons--block {
+.reaction__buttons--block {
   position: relative;
 }
 
-.reactions__buttons,
-.share__buttons {
+.share {
+  &__section {
+    position: relative;
+  }
+}
+
+.reactions__buttons {
   position: absolute;
   bottom: 35px;
   box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
@@ -300,8 +265,7 @@ export default {
   z-index: 50;
 }
 
-.reaction__window,
-.share__window {
+.reaction__window {
   display: flex;
   gap: 18px;
   padding: 8px;
@@ -344,13 +308,6 @@ export default {
 }
 
 @media (max-width: 576px) {
-  // .reaction__item {
-  //   svg {
-  //     width: 18px;
-  //     height: 18px;
-  //   }
-  // }
-
   .share__item {
     gap: 6px;
   }
@@ -443,8 +400,7 @@ export default {
 }
 
 @media (min-width: 1280px) {
-  .reactions__buttons,
-  .share__buttons {
+  .reactions__buttons {
     bottom: 45px;
   }
 }

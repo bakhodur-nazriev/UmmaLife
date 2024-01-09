@@ -54,7 +54,6 @@
 </template>
 
 <script setup>
-/* eslint-disable */
 import { ref, computed } from 'vue'
 import { vIntersectionObserver, vOnClickOutside } from '@vueuse/components'
 

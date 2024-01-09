@@ -14,7 +14,6 @@
 </template>
 
 <script setup>
-/* eslint-disable */
 import shortNum from 'number-shortener'
 import { extractNumericKeys } from '@/utils.js'
 import LikeIcon from '@/components/icons/reactions/men/reply-reactions/LikeIcon.vue'

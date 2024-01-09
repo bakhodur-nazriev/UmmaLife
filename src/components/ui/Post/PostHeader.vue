@@ -2,36 +2,46 @@
   <header class="post__header">
     <div class="post__header-left">
       <UserInfo
-          :username="publisher.name"
-          :avatar="publisher.avatar"
-          :status="{
+        :username="publisher.name"
+        :avatar="publisher.avatar"
+        :status="{
           is_investor: publisher?.isInvestor || false,
           verified: publisher?.verified || '0',
           is_premium: publisher?.is_premium || '0'
         }"
-          size="large"
-          :no-name="true"
-          :id="publisher.username"
+        size="large"
+        :no-name="true"
+        :id="publisher.username"
       />
       <div class="author-info">
-      <span class="author-info__name">
-        <router-link :to="publisher.username">
-          {{ publisher.name }}
-        </router-link>
-      </span>
+        <span class="author-info__name">
+          <router-link :to="publisher.username">
+            {{ publisher.name }}
+            <BageIcon v-if="publisher.verified === '1'"/>
+          </router-link>
+        </span>
         <div class="author-info__time-translate">
           <span class="author-info__time">{{ multiFormatDateString(time) }}</span>
-          <div class="author-info__translate">
+          <button class="author-info__translate-button" @click="$emit('translateRequest')">
             <GlobeIcon/>
-            <button @click="$emit('translateRequest')">{{ $t('buttons.translate') }}</button>
-          </div>
+            {{ $t('buttons.translate') }}
+          </button>
+          <button
+            v-if="translated"
+            class="author-info__original-button"
+            @click="showOriginalRequest"
+          >
+            <GlobeIcon/>
+            {{ $t('buttons.show_original') }}
+          </button>
         </div>
       </div>
     </div>
     <div class="menu__button">
       <PostsMenuDetailsButton
-          :is-menu-open="isMenuOpen"
-          @toggle-menu="$emit('toggle-menu')"
+        :is-menu-open="isMenuOpen"
+        :post-id="postId"
+        @toggle-menu="toggleMenuHandler"
       />
     </div>
   </header>
@@ -45,10 +55,12 @@ import {timeFormat} from '@/mixins/timeFormat'
 import {getFormData} from '@/utils'
 import axios from 'axios'
 import PostsMenuDetailsButton from "@/components/ui/MenuDetails/PostsMenuDetailsButton.vue";
+import BageIcon from "@/components/icons/BageIcon.vue";
 
 export default {
   mixins: [timeFormat],
   components: {
+    BageIcon,
     PostsMenuDetailsButton,
     UserInfo,
     GlobeIcon,
@@ -56,10 +68,6 @@ export default {
     VerifyIcon
   },
   props: {
-    isMenuOpen: {
-      type: Boolean,
-      required: true
-    },
     publisher: {
       type: Object,
       required: true
@@ -67,11 +75,30 @@ export default {
     time: {
       type: String,
       required: true
+    },
+    translated: {
+      type: Boolean,
+      required: true
+    },
+    postId: {
+      type: String
     }
   },
   data() {
-    return {}
+    return {
+      isMenuOpen: false
+    }
   },
+  methods: {
+    toggleMenuHandler() {
+      this.isMenuOpen = !this.isMenuOpen;
+    },
+    showOriginalRequest() {
+      if (this.translated) {
+        this.$emit('show-original', this.publisher);
+      }
+    }
+  }
 }
 </script>
 
@@ -122,22 +149,22 @@ export default {
     align-items: center;
     gap: 10px;
 
-    .author-info__translate {
+    .author-info__translate-button,
+    .author-info__original-button {
       display: flex;
       align-items: center;
+      background: none;
+      margin: 0;
+      padding: 0;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      color: var(--color-silver-chalice);
+      gap: 4px;
+      transition: .2s all ease-in-out;
 
-      button {
-        background: none;
-        margin: 0;
-        padding: 0;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        color: var(--color-silver-chalice);
-
-        &:hover {
-          color: var(--color-deep-cerulean);
-        }
+      &:hover {
+        color: var(--color-deep-cerulean);
       }
     }
   }

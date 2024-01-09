@@ -1,5 +1,11 @@
 <template>
-  <form action="" method="post" class="reply__form">
+  <form
+    action=""
+    method="post"
+    class="reply__form"
+    v-for="(comment ,i) in postComments"
+    :key="i"
+  >
     <div class="comment-header__small">
       <div class="horizontal-line"></div>
       <div class="comment-header__section">
@@ -9,16 +15,16 @@
         </div>
         <div class="comment-header__right-buttons">
           <div class="filter-form__button" @click="toggleFilter">
-            <CommentFilter :is-filter-window-open="isFilterOpen" />
+            <CommentFilter :is-filter-window-open="isFilterOpen"/>
           </div>
           <div class="close-form__button" @click="closeCommentWindow">
-            <CloseFormIcon />
+            <CloseFormIcon/>
           </div>
         </div>
       </div>
     </div>
 
-    <SampleDivider class="divider" />
+    <SampleDivider class="divider"/>
 
     <div class="pin-section">
       <SampleButton
@@ -27,21 +33,25 @@
         :size="12"
         icon="pin"
       >
-        <PinIcon />
+        <PinIcon/>
       </SampleButton>
     </div>
 
     <div class="author__avatar--section">
-      <img src="@/assets/images/reply_avatar.png" alt="" />
+      <img :src="comment.publisher.avatar" alt=""/>
     </div>
     <div class="reply__field--section">
       <div class="reply-header">
         <div class="reply__author--section">
           <div class="author__avatar--section-small">
-            <img src="@/assets/images/reply_avatar.png" alt="" />
+            <img :src="comment.publisher.avatar" alt=""/>
           </div>
-          <span class="author__name">{{ replyAuthorName }}</span>
-          <span class="author__time">2 часа назад</span>
+          <span class="author__name">{{ comment.publisher.name }}</span>
+          <span class="author__time">{{ multiFormatDateString(comment.time_formatted) }}</span>
+          <button class="translate-button" @click="$emit('translateRequest')">
+            <GlobeIcon/>
+            <span>{{ $t('buttons.translate') }}</span>
+          </button>
         </div>
 
         <div class="reply__detail--menu--section-small">
@@ -58,25 +68,25 @@
             :placeholder="`${$t('placeholders.comment_input')}`"
             @input="adjustTextareaHeight"
             v-model="textareaValue"
-            :value="textareaValue"
+            :value="comment.text"
             class="reply__textarea"
             ref="replyTextarea"
           />
 
           <div class="reply__reactions-small" ref="replyReactions">
             <div class="reply__icon" v-for="(reaction, i) in reactions" :key="i">
-              <component :is="reaction.icon" />
+              <component :is="reaction.icon"/>
               <span>{{ reaction.count }}</span>
             </div>
           </div>
 
           <div class="textarea__right--buttons">
             <FileUpload class="attach__file" label="file">
-              <TextareaClipIcon />
+              <TextareaClipIcon/>
             </FileUpload>
-            <SampleDivider class="textarea__right--buttons--divider" />
+            <SampleDivider class="textarea__right--buttons--divider"/>
             <button class="send__button" type="button">
-              <SendIcon />
+              <SendIcon/>
             </button>
           </div>
         </div>
@@ -95,30 +105,30 @@
             {{ $t('buttons.favourite') }}
           </button>
           <button type="button" @click="answerComment" class="reply__buttons--answer">
-            <SmallCommentIcon />
+            <SmallCommentIcon/>
             {{ $t('buttons.answer') }}
           </button>
         </div>
-
         <div class="reply__reactions" ref="replyReactions">
           <div class="reply__icon" v-for="(reaction, i) in reactions" :key="i">
-            <component :is="reaction.icon" />
+            <component :is="reaction.icon"/>
             <span class="reply__icon--count">{{ reaction.count }}</span>
           </div>
-        </div>
-        <div class="reply__reactions--count--block">
-          <span class="reply__reactions--count">999К</span>
+
+          <div class="reply__reactions-block">
+            <span class="reply__reactions--count">999К</span>
+          </div>
         </div>
       </div>
 
       <div v-if="isActiveAnswer" class="active__reply--field">
-        <img src="@/assets/images/comment_avatar.png" width="48" height="48" alt="" />
+        <img :src="postComments[0].publisher.avatar" alt=""/>
 
-        <TextareaField :reply-author-name="replyAuthorName + ', '" />
+        <TextareaField :reply-author-name="postComments[0].publisher.name + ', '"/>
       </div>
 
-      <div v-if="true" class="load__more--reply-answers">
-        <SampleDropDown color="primary" :drop-down-title="`${$t('dropdown.reply_answer')}`" />
+      <div class="load__more--reply-answers">
+        <SampleDropDown color="primary" :drop-down-title="`${$t('dropdown.reply_answer')}`"/>
       </div>
     </div>
   </form>
@@ -147,9 +157,15 @@ import CommentFilter from '@/components/ui/MenuDetails/CommentFilter.vue'
 import PinIcon from '@/components/icons/comment/PinIcon.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import SmallCommentIcon from '@/components/icons/comment/SmallCommentIcon.vue'
+import {timeFormat} from '@/mixins/timeFormat'
+import UserInfo from "@/components/ui/UserInfo.vue";
+import GlobeIcon from "@/components/icons/GlobeIcon.vue";
 
 export default {
+  mixins: [timeFormat],
   components: {
+    GlobeIcon,
+    UserInfo,
     SmallCommentIcon,
     SampleButton,
     PinIcon,
@@ -173,44 +189,44 @@ export default {
     LikeIcon,
     SampleTextarea
   },
+  props: {
+    postComments: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
-      textareaValue:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur assumenda blanditiis corporis deserunt doloribus ea eaque eos esse eveniet exercitationem, fuga iure laudantium libero maiores maxime natus nemo nostrum optio perferendis porro quas, qui, quia quod rerum saepe soluta sunt tenetur? Ab aut, dignissimos dolores esse excepturi expedita facilis fuga iusto modi nesciunt possimus quasi quos reiciendis.',
-      textareaInsideValue:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, possimus!',
+      textareaValue: '',
       isReplyMenuOpen: false,
       isActiveAnswer: false,
       isActiveInsideAnswer: false,
-      replyAuthorName: 'Courtney Henry',
       isFilterOpen: false,
       reactions: [
-        { id: 1, icon: 'LikeIcon', count: 1.7 },
-        { id: 2, icon: 'DislikeIcon', count: 123 },
-        { id: 3, icon: 'LoveIcon', count: 354 },
-        { id: 4, icon: 'LaughIcon', count: 2.5 },
-        { id: 5, icon: 'FireIcon', count: 867 },
-        { id: 6, icon: 'ThinkIcon', count: 52 },
-        { id: 7, icon: 'AngryIcon', count: 96 },
-        { id: 8, icon: 'SadIcon', count: 78 },
-        { id: 8, icon: 'ScaredIcon', count: 125 }
+        {id: 1, icon: 'LikeIcon', count: 1.7},
+        {id: 2, icon: 'DislikeIcon', count: 123},
+        {id: 3, icon: 'LoveIcon', count: 354},
+        {id: 4, icon: 'LaughIcon', count: 2.5},
+        {id: 5, icon: 'FireIcon', count: 867},
+        {id: 6, icon: 'ThinkIcon', count: 52},
+        {id: 7, icon: 'AngryIcon', count: 96},
+        {id: 8, icon: 'SadIcon', count: 78},
+        {id: 8, icon: 'ScaredIcon', count: 125}
       ]
     }
   },
-  mounted() {
-    this.adjustTextareaHeight()
-  },
   methods: {
     adjustTextareaHeight() {
-      const textarea = this.$el.querySelector('.reply__textarea')
-
-      if (textarea.value.trim() !== '') {
-        this.textareaValue = textarea.value
-        textarea.style.height = 'auto'
-        textarea.style.height = `${textarea.scrollHeight}px`
-      } else {
-        this.textareaValue = ''
-        textarea.style.height = '48px'
+      const textarea = this.$el.querySelector('.reply__textarea');
+      if (textarea) {
+        if (textarea.value.trim() !== '') {
+          this.textareaValue = textarea.value;
+          textarea.style.height = 'auto';
+          textarea.style.height = `${textarea.scrollHeight}px`;
+        } else {
+          this.textareaValue = '';
+          textarea.style.height = '48px';
+        }
       }
     },
     toggleReplyMenu() {
@@ -228,6 +244,14 @@ export default {
     answerInsideComment() {
       this.isActiveInsideAnswer = !this.isActiveInsideAnswer
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      const textarea = this.$refs.replyTextarea;
+      if (textarea && textarea.$el) {
+        textarea.$el.addEventListener('input', this.adjustTextareaHeight);
+      }
+    });
   }
 }
 </script>
@@ -256,6 +280,12 @@ export default {
   align-items: center;
   gap: 8px;
   margin: 14px 0;
+
+  img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+  }
 }
 
 .send__button,
@@ -274,9 +304,11 @@ export default {
 
 .author__avatar--section {
   display: flex;
+
   img {
     width: 48px;
     max-height: 48px;
+    border-radius: 50%;
   }
 }
 
@@ -313,10 +345,6 @@ export default {
 
 .reply__reactions--count {
   color: var(--color-silver-chalice);
-
-  &--block {
-    margin-left: 2px;
-  }
 }
 
 .reply__icon {
@@ -327,6 +355,8 @@ export default {
   background-color: var(--color-gallery-second);
   padding: 5px;
   cursor: pointer;
+  width: 24px;
+  height: 24px;
 
   &--count {
     display: none;
@@ -334,12 +364,16 @@ export default {
 }
 
 .reply__textarea {
-  height: 48px;
+  min-height: 48px;
+  max-height: 120px;
   width: 100%;
   font-size: 16px;
-  padding: 15px 125px 15px 15px;
+  padding: 0 125px 0 15px;
   resize: none;
-  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .reply__textarea--and--button--section {
@@ -354,12 +388,36 @@ export default {
   margin: 0 4px;
 }
 
-.author__time {
-  color: var(--color-silver-chalice);
+.author {
+  &__time {
+    color: var(--color-silver-chalice);
+    font-size: 14px;
+  }
+
+  &__name {
+    color: var(--color-mine-shaft);
+  }
 }
 
-.author__name {
-  color: var(--color-mine-shaft);
+.translate-button,
+.original-button {
+  display: flex;
+  align-items: center;
+  line-height: inherit;
+  background: none;
+  margin: 0 0 0 12px;
+  padding: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: var(--color-silver-chalice);
+  gap: 4px;
+  transition: .2s all ease-in-out;
+  font-size: 14px;
+
+  &:hover {
+    color: var(--color-deep-cerulean);
+  }
 }
 
 .reply__buttons {
@@ -368,8 +426,10 @@ export default {
 
   &--section {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     width: 93%;
+    padding-right: 10px;
   }
 
   button {
@@ -379,6 +439,7 @@ export default {
     font-size: 16px;
     cursor: pointer;
     padding: 0;
+    height: fit-content;
   }
 }
 
@@ -389,6 +450,7 @@ export default {
 
 .close-form__button {
   cursor: pointer;
+
   svg {
     transform: scale(1.2);
     color: var(--color-mine-shaft);
@@ -469,26 +531,6 @@ export default {
     }
   }
 
-  // .reply__icon {
-  //   border-radius: 8px;
-  //   background-color: var(--color-white);
-  //   display: flex;
-  //   gap: 4px;
-  //   padding: 4px 8px;
-
-  //   span {
-  //     font-size: 12px;
-  //   }
-
-  //   svg {
-  //     transform: scale(1.3);
-  //   }
-  // }
-
-  .reply__reactions--count--block {
-    display: none;
-  }
-
   .comment-header {
     &__small {
       width: 100%;
@@ -556,6 +598,7 @@ export default {
 
   .author__avatar--section-small {
     display: flex;
+
     img {
       width: 40px;
       max-height: 40px;
@@ -646,12 +689,14 @@ export default {
     display: none;
   }
 }
+
 .book__comment {
   .comment-header__small {
     @media (max-width: 768px) {
       display: none;
     }
   }
+
   .reply__form {
     @media (max-width: 576px) {
       padding: 0;

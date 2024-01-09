@@ -15,7 +15,6 @@
 </template>
 
 <script setup>
-/* eslint-disable */
 import { ref } from 'vue'
 import { muvieLinks } from '@/constants.js'
 import GroupsNav from '@/components/groups/GroupsNav.vue'

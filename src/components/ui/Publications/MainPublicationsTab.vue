@@ -12,18 +12,24 @@
         <CheckMarkSmallIcon v-if="index === activeTab"/>
       </div>
     </div>
-
     <div
       class="tabs-content"
       v-for="(tab, i) in tabs"
       :key="i"
       v-show="activeTab === i"
+      ref="tabsContent"
+      @scroll="loadMoreData"
     >
-      <PublicationTab v-if="i === 0"/>
-      <ArticleTab v-if="i === 1"/>
-      <PhotoTab v-if="i === 2"/>
-      <VideoTab v-if="i === 3"/>
-      <AudioTab v-if="i === 4"/>
+      <template v-if="isLoading">
+        <PulseLoader color="#49a399" size="12px" class="speener-block"/>
+      </template>
+      <template v-else>
+        <PublicationTab v-if="i === 0" :posts="posts"/>
+        <ArticleTab v-if="i === 1" :articles="articles"/>
+        <PhotoTab v-if="i === 2" :photos="photos"/>
+        <VideoTab v-if="i === 3" :video="video"/>
+        <AudioTab v-if="i === 4" :audio="audio"/>
+      </template>
     </div>
   </div>
 </template>
@@ -35,6 +41,9 @@ import PhotoTab from '@/components/ui/Publications/PhotoTab.vue'
 import VideoTab from '@/components/ui/Publications/VideoTab.vue'
 import AudioTab from '@/components/ui/Publications/AudioTab.vue'
 import CheckMarkSmallIcon from '@/components/icons/CheckMarkSmallIcon.vue'
+import {getFormData} from '@/utils'
+import axios from 'axios'
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
 export default {
   components: {
@@ -43,7 +52,8 @@ export default {
     AudioTab,
     VideoTab,
     PhotoTab,
-    ArticleTab
+    ArticleTab,
+    PulseLoader
   },
   props: {
     tabsArray: {
@@ -53,17 +63,160 @@ export default {
   },
   data() {
     return {
+      tabMethods: {
+        0: 'getPublications',
+        1: 'getArticles',
+        2: 'getPhoto',
+        3: 'getVideo',
+        4: 'getAudio'
+      },
       activeTab: 0,
       tabs: [],
       tabIndex: 0,
-      isMenuOpen: false
+      isMenuOpen: false,
+      posts: [],
+      articles: [],
+      photos: [],
+      video: [],
+      audio: [],
+      isLoading: true,
+      page: 1,
+      loadingMore: false
     }
   },
   methods: {
     changeTab(index) {
       this.$store.commit('setPublicationTabs', this.tabs[index].title)
-      this.activeTab = index
+      this.activeTab = index;
+      const methodName = this.tabMethods[index];
+      if (methodName && typeof this[methodName] === 'function') {
+        this[methodName]();
+      }
       sessionStorage.setItem('activePublicationTab', index.toString())
+    },
+    async getPublications() {
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        page: this.page
+      })
+
+      const headers = {'Content-Type': 'multipart/form-data'}
+
+      const accessToken = localStorage.getItem('access_token')
+      const params = {access_token: accessToken}
+
+      try {
+        this.isLoading = true;
+        const response = await axios.post('/posts', payload, {params, headers})
+        if (response.data.api_status === 200) {
+          this.isLoading = false;
+          this.posts = response.data?.data
+        } else {
+          console.log('error')
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async getArticles() {
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        post_type: 'text',
+        page: 1
+      })
+
+      const headers = {'Content-Type': 'multipart/form-data'}
+
+      const accessToken = localStorage.getItem('access_token')
+      const params = {access_token: accessToken}
+
+      try {
+        this.isLoading = true;
+        const response = await axios.post('/posts', payload, {params, headers})
+        if (response.data.api_status === 200) {
+          this.isLoading = false
+          this.articles = response.data?.data
+        } else {
+          console.log(response.data)
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async getPhoto() {
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        post_type: 'photos',
+        page: 1
+      })
+
+      const headers = {'Content-Type': 'multipart/form-data'}
+
+      const accessToken = localStorage.getItem('access_token')
+      const params = {access_token: accessToken}
+
+      try {
+        this.isLoading = true
+        const response = await axios.post('/posts', payload, {params, headers})
+        if (response.data.api_status === 200) {
+          this.isLoading = false
+          this.photos = response.data?.data
+        } else {
+          console.log(response.data)
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async getVideo() {
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        post_type: 'video',
+        page: 1
+      })
+
+      const headers = {'Content-Type': 'multipart/form-data'}
+
+      const accessToken = localStorage.getItem('access_token')
+      const params = {access_token: accessToken}
+
+      try {
+        this.isLoading = true;
+        const response = await axios.post('/posts', payload, {params, headers})
+        if (response.data.api_status === 200) {
+          this.isLoading = false;
+          this.video = response.data?.data
+        } else {
+          console.log(response.data)
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async getAudio() {
+      const payload = getFormData({
+        server_key: process.env.VUE_APP_SERVER_KEY,
+        post_type: 'music',
+        page: 1
+      })
+
+      const headers = {'Content-Type': 'multipart/form-data'}
+
+      const accessToken = localStorage.getItem('access_token')
+      const params = {access_token: accessToken}
+
+      try {
+        this.isLoading = true;
+        const response = await axios.post('/posts', payload, {params, headers})
+        if (response.data.api_status === 200) {
+          this.isLoading = false;
+          this.audio = response.data?.data
+        } else {
+          console.log(response.data)
+        }
+      } catch (error) {
+        console.error(error)
+      }
     }
   },
   computed: {
@@ -93,11 +246,26 @@ export default {
     this.tabs = this.tabsArray.map((title) => ({
       title
     }))
+
+    if (savedTab) {
+      this.activeTab = parseInt(savedTab);
+      const methodName = this.tabMethods[this.activeTab];
+      if (methodName && typeof this[methodName] === 'function') {
+        this[methodName]();
+      }
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
+.speener-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
 .tabs {
   display: flex;
   flex-direction: column;

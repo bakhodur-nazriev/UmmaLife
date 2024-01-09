@@ -5,10 +5,10 @@
     <div class="main__input-email-block">
       <div :class="['input-wrapper', { error: hasError.email || isInvalidEmail }]">
         <input
-            name="username"
-            v-model="email"
-            class="base-input"
-            :placeholder="$t('login.placeholders.email')"
+          name="username"
+          v-model="email"
+          class="base-input"
+          :placeholder="$t('login.placeholders.email')"
         />
         <small v-show="hasError.email || isInvalidEmail" class="error-message">
           {{ $t(isInvalidEmail ? 'login.validation.incorrect_email' : 'login.validation.empty_email') }}
@@ -19,12 +19,12 @@
     <div class="main__input-password-block">
       <div class="input-with-eye" :class="['input-wrapper', { error: hasError.password }]">
         <input
-            name="password"
-            :type="isPasswordVisible ? 'text' : 'password'"
-            v-model="password"
-            class="base-input"
-            :class="{'input-field': true, 'error': passwordError}"
-            :placeholder="$t('login.placeholders.password')"
+          name="password"
+          :type="isPasswordVisible ? 'text' : 'password'"
+          v-model="password"
+          class="base-input"
+          :class="{'input-field': true, 'error': passwordError}"
+          :placeholder="$t('login.placeholders.password')"
         />
 
         <button type="button" class="eye-button" @click="togglePasswordVisibility">
@@ -46,15 +46,15 @@
 
     <div class="login-button-section">
       <SampleButton
-          type="submit"
-          :title="$t('buttons.login')"
-          :disabled="isSubmitDisabled"
-          :class="{ 'disabled-button': isSubmitDisabled }"
+        type="submit"
+        :title="$t('buttons.login')"
+        :disabled="isSubmitDisabled"
+        :class="{ 'disabled-button': isSubmitDisabled }"
       />
     </div>
     <router-link
-        class="link create-account-link"
-        :to="`/${$i18n.locale}/register`"
+      class="link create-account-link"
+      :to="`/${$i18n.locale}/register`"
     >
       {{ $t('login.create_account') }}
     </router-link>
@@ -62,8 +62,8 @@
 
   <div class="login-with-phone-section">
     <router-link
-        :to="`/${$i18n.locale}/login-by-phone`"
-        class="link-with-phone-number"
+      :to="`/${$i18n.locale}/login-by-phone`"
+      class="link-with-phone-number"
     >
       {{ $t('login.with_phone_number') }}
     </router-link>
@@ -107,10 +107,10 @@ export default {
   computed: {
     isSubmitDisabled() {
       return (
-          this.hasError.email ||
-          this.hasError.password ||
-          !this.email.trim() ||
-          !this.password.trim()
+        this.hasError.email ||
+        this.hasError.password ||
+        !this.email.trim() ||
+        !this.password.trim()
       )
     },
     isInvalidEmail() {

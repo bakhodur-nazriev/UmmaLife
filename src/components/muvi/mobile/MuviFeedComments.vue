@@ -60,7 +60,6 @@
 </template>
 
 <script setup>
-/* eslint-disable */
 import { ref, nextTick } from 'vue'
 import { vOnClickOutside } from '@vueuse/components'
 

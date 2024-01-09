@@ -12,7 +12,7 @@
       <div class="user__info--info" v-if="!noName">
         <div class="user__info--name">
           <span>{{ username }}</span>
-          <div class="user__info--bage" v-if="status.verified === '1' && !noName">
+          <div class="user__info--bage" v-if="status.verified === `1` && !noName">
             <BageIcon />
           </div>
         </div>
@@ -23,7 +23,6 @@
 </template>
 
 <script setup>
-/* eslint-disable */
 import BageIcon from '@/components/icons/BageIcon.vue'
 import PremiumIcon from '@/components/icons/PremiumIcon.vue'
 

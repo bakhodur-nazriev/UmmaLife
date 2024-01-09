@@ -6,7 +6,7 @@
 export default {}
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .sample__textarea {
   border: none;
   resize: none;
@@ -16,9 +16,9 @@ export default {}
   border-radius: 15px;
   padding: 12px;
   color: var(--color-mine-shaft);
-}
 
-.sample__textarea::placeholder {
-  color: var(--color-silver-chalice);
+  &::placeholder {
+    color: var(--color-silver-chalice);
+  }
 }
 </style>

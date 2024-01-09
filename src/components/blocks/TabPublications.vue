@@ -20,7 +20,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import MainPublicationsTab from '@/components/ui/Publications/MainPublicationsTab.vue'
 import PublicationTabSide from '@/components/blocks/PublicationTabSide.vue'
 import PublicationForm from '@/components/forms/PublicationForm.vue'
@@ -33,39 +32,7 @@ export default {
     MainPublicationsTab
   },
   data() {
-    return {
-      addedAudioItems: [],
-      audioItems: [
-        {
-          id: 1,
-          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
-        },
-        {
-          id: 2,
-          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
-        },
-        {
-          id: 3,
-          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
-        },
-        {
-          id: 4,
-          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
-        },
-        {
-          id: 5,
-          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
-        },
-        {
-          id: 6,
-          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
-        },
-        {
-          id: 7,
-          title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
-        }
-      ]
-    }
+    return {}
   },
   computed: {
     tabLabels() {
