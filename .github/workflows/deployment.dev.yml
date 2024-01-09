@@ -33,4 +33,5 @@ jobs:
           script: |
             cd ${{ secrets.DEV_REMOTE_PROJECT_DIR }}
             npm install
+            npm run build --production
             pm2 restart front1
