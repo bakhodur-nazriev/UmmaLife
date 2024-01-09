@@ -395,7 +395,7 @@ export default {
     SampleButton
   },
   data: () => ({
-    isTextAreaActive: true,
+    isTextAreaActive: false,
     showSmileSection: false,
     addedAudioItems: [],
     showPlayingSection: false,
