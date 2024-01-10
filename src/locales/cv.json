@@ -1,0 +1,882 @@
+{
+  "lang": "cv",
+  "meta_title": {
+    "preview_article": "Preview Article",
+    "home": "Home",
+    "login": {
+      "by_email": "Login with Email",
+      "by_phone_step1": "Login with Phone - Step 1",
+      "confirm_phone_step2": "Login with Phone - Step 2"
+    },
+    "register": {
+      "add_email_step1": "Register - Add Email",
+      "confirm_email_step2": "Register - Confirm Email",
+      "create_password_step3": "Register - Create Password",
+      "add_info_step4": "Register - Add Info",
+      "add_phone_step5": "Register - Add Phone",
+      "category_interests_step6": "Register - Category Interests"
+    },
+    "forgot_password": "Forgot Password",
+    "terms": "Terms",
+    "privacy_policy": "Privacy Policy",
+    "contacts": "Contacts",
+    "about_us": "About Us",
+    "articles": "Articles",
+    "library": "Library",
+    "marriage_agency": "Marriage Agency",
+    "my_albums": "My Albums",
+    "messenger": "Messenger",
+    "my_audio": "My Audio",
+    "my_groups": "My Groups",
+    "my_page": "My Page",
+    "news": "News",
+    "saved": "Saved",
+    "video": "video",
+    "settings": "Settings",
+    "muvi": "MUVI",
+    "search": {
+      "all-recommendations": "Show all recommendations",
+      "people": "People",
+      "groups": "Groups",
+      "muvi": "MUVI",
+      "article": "Article",
+      "video": "Video",
+      "audio": "Audio",
+      "hashtags": "Hashtags"
+    },
+    "show_article": "",
+    "reset_password": "Reset Password"
+  },
+  "login": {
+    "title": "Login",
+    "placeholders": {
+      "email": "Enter your email...",
+      "password": "Enter your password...",
+      "phone": "Enter your phone number..."
+    },
+    "code_from_sms": "SMS code",
+    "forgot_password": "Forgot password?",
+    "create_account": "Create an account",
+    "with_phone_number": "Login with phone number",
+    "with_email": "Login with email",
+    "messages": {
+      "reset_password": "We will send you a message to change your password",
+      "verify_with_phone": "A message with a code was sent to your phone number",
+      "didnt_receive_code": "Didn't receive a code?"
+    },
+    "validation": {
+      "empty_email": "The field must not be empty",
+      "empty_password": "The field must not be empty",
+      "incorrect_email": "Invalid email",
+      "incorrect_password": "Invalid password",
+      "incorrect_code": "Invalid code"
+    },
+    "interests_category": {
+      "title": "Last Step!",
+      "subtitle": "Select interest categories so we can show you content that will interest you"
+    }
+  },
+  "links": {
+    "copy_link": "Copy link",
+    "link_copied": "Link successfully copied",
+    "link_copied_error": "Something went wrong while copying the link",
+    "share": "Share",
+    "terms": "Terms of Use",
+    "privacy_policy": "Privacy Policy",
+    "contacts": "Contacts",
+    "about_us": "About Us",
+    "resend": "Resend",
+    "skip": "Skip",
+    "news": "News",
+    "my_page": "My Page",
+    "messenger": "Messenger",
+    "my_groups": "My groups",
+    "my_albums": "My albums",
+    "my_audio": "My audio",
+    "saved": "Saved",
+    "articles": "Articles",
+    "video": "Video",
+    "library": "Library",
+    "marriage_agency": "Marriage agency",
+    "all_groups": "All groups",
+    "all_people": "All people",
+    "read_more": "Read more",
+    "search": {
+      "all": "All",
+      "people": "People",
+      "groups": "Groups",
+      "muvi": "MUVI",
+      "article": "Article",
+      "video": "Video",
+      "audio": "Audio",
+      "hashtags": "Hashtags"
+    },
+    "requests": "Requests",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "register": {
+    "title": "Registration",
+    "placeholders": {
+      "name": "Enter your name...",
+      "email": "Enter your email...",
+      "last_name": "Enter you last name...",
+      "code_from_email": "Enter code from email...",
+      "your_password": "Your registration password...",
+      "gender": {
+        "title": "Choose gender",
+        "male": "Male",
+        "female": "Female"
+      }
+    },
+    "label": "Have an account?",
+    "messages": {
+      "agreement_to_creating_account": "By creating an account, you agree to our",
+      "verify_with_email": "A message with a code has been sent to your email address.",
+      "create_password": "Create a password to log in to the system",
+      "fill_your_information": "Fill out your information to log in to UmmaLife",
+      "required_fields": "(Required fields to fill in)",
+      "enter_your_phone": "Enter your phone number",
+      "can_login_with_phone_number": "You will be able to access the network using your phone number"
+    },
+    "validation": {
+      "empty_email": "The field must not be empty",
+      "incorrect_email": "Incorrect email",
+      "incorrect_code": "Incorrect code",
+      "empty_password": "The field must not be empty",
+      "empty_gender": "The field must not be empty",
+      "incorrect_phone_number": "Incorrect phone number"
+    },
+    "category_interests": {
+      "religion": "Religion",
+      "family": "Family",
+      "health": "Health",
+      "fitness": "Fitness",
+      "books": "Books",
+      "traveling": "Traveling",
+      "auto": "Auto",
+      "science": "Science",
+      "nature": "Nature",
+      "food": "Food",
+      "fashion": "Fashion",
+      "architecture": "Architecture",
+      "beauty": "Beauty",
+      "job": "Job",
+      "studies": "Studies",
+      "art": "Art",
+      "sport": "Sport",
+      "positive": "Positive",
+      "history": "History",
+      "psychology": "Psychology",
+      "upbringing": "Upbringing"
+    }
+  },
+  "forgot_password": {
+    "validation": {
+      "empty_email": "The field must not be empty",
+      "incorrect_email": "Incorrect email"
+    }
+  },
+  "reset_password": {
+    "title": "Reset password",
+    "placeholder": "New password",
+    "succeed_text": "The E-mail has been sent successfully."
+  },
+  "buttons": {
+    "translate": "Translate",
+    "reset": "Reset",
+    "login": "Login",
+    "ready": "Ready",
+    "get_code_by_email": "Get code by email",
+    "next": "Next",
+    "prev": "Back",
+    "accept": "Confirm",
+    "submit": "Submit",
+    "create": "Create",
+    "create_umma_video": "Create Umma Video",
+    "toggle_theme": {
+      "dark": "Dark",
+      "light": "Light"
+    },
+    "join": "Join",
+    "in_group": "In group",
+    "subscribe": "Subscribe",
+    "follow": "I follow",
+    "like": "Like",
+    "comment": "Comment",
+    "share": "Share",
+    "copy_link": "Copy link",
+    "save": "Save",
+    "open_in_new_tab": "Open in new tab",
+    "complain": "Complain",
+    "hide": "Hide",
+    "open_like_message": "Send as message",
+    "share_on_my_page": "Share on my page",
+    "share_in_group": "Share in a group",
+    "answer": "Answer",
+    "favourite": "Favorite",
+    "delete": "Delete",
+    "edit": "Edit",
+    "publish": "Publish",
+    "available_everyone": "Available to everyone",
+    "who_am_i_following": "Who am I following",
+    "who_is_following_me": "Who is following me",
+    "anonymously": "Anonymously",
+    "create_poll": "Create poll",
+    "cancel": "Cancel",
+    "add_answer": "+ Add answer",
+    "mood": "Mood",
+    "traveling": "Traveling",
+    "watching": "I'm watching",
+    "playing": "I'm playing",
+    "listening": "I'm listening",
+    "emotions": {
+      "happy": "Happy",
+      "in_love": "In love",
+      "outraged": "Outraged",
+      "celebrate": "I celebrate",
+      "giggle": "I giggle",
+      "crazy": "Crazy",
+      "falling_asleep": "falling asleep",
+      "shocked": "I'm shocked",
+      "excited": "Excited",
+      "angry": "Angry",
+      "masked": "Masked",
+      "think": "Think",
+      "laughing_out_loud": "Laughing Out Loud",
+      "wonder": "Wonder",
+      "sick": "I'm sick",
+      "embarrassed": "Embarrassed",
+      "ignore": "Ignore",
+      "frozen": "Frozen"
+    },
+    "read_more": "Read",
+    "pinned_message": "Pinned message",
+    "reset_filter": "Reset filter",
+    "image_upload": {
+      "title": "Click or drag the image",
+      "subtitle": "Acceptable extensions jpeg, jpg, png"
+    },
+    "back_to_articles": "Return to list of articles",
+    "article_preview": "Article preview",
+    "save_as_draft": "Save as draft"
+  },
+  "languages": {
+    "title": "English",
+    "name": {
+      "english": "English",
+      "russian": "Русский",
+      "arabic": "اَلْعَرَبِيَّةُ",
+      "turkish": "Türk",
+      "uzbek": "O'zbek",
+      "indonesia": "Bahasa Indonesia",
+      "malay": "Melayu",
+      "tajik": "Тоҷик",
+      "tabasaran": "Табасаран",
+      "chuvash": "Чӑвашла",
+      "urdu": "اردو",
+      "ingush": "гӏалгӏай",
+      "tatar": "Татар",
+      "lak": "Лакский",
+      "qumuq": "Къумукъ",
+      "balkarian": "Tаулу",
+      "amharic": "አማርኛ",
+      "lezgin": "Лезги"
+    }
+  },
+  "placeholders": {
+    "search_input": "Search",
+    "search_articles": "Search articles",
+    "publications_input": "Write good or be silent...",
+    "comment_input": "Your comment...",
+    "question_for_poll": "Poll question or topic... ",
+    "message": "Message...",
+    "article_title": "Article title"
+  },
+  "tabs": {
+    "profile_tabs": {
+      "news": "News",
+      "articles": "Articles",
+      "photo": "Photo",
+      "video": "Video",
+      "audio": "Audio",
+      "muvi": "MUVI",
+      "umma_video": "UmmaVideo"
+    },
+    "my_page": {
+      "publications": "Publications",
+      "umma_shorts": "UmmaShorts",
+      "umma_video": "UmmaVideo",
+      "alboms": "Albums",
+      "saved": "Saved"
+    },
+    "news_page": {
+      "publications": "Publications",
+      "umma_shorts": "UmmaShorts",
+      "umma_video": "UmmaVideo"
+    },
+    "publications_inside": {
+      "publications": "Publications",
+      "articles": "Articles",
+      "photo": "Photo",
+      "video": "Video",
+      "audio": "Audio"
+    },
+    "stickers": {
+      "title": "Stickers"
+    },
+    "search": {
+      "all": "All",
+      "people": "People",
+      "communities": "Communities",
+      "muvi": "MUVI",
+      "article": "Article",
+      "video": "Video",
+      "audio": "Audio",
+      "hashtags": "Hashtags",
+      "groups": "Groups",
+      "age": {
+        "single": "year",
+        "plural": "year"
+      }
+    },
+    "articles_page": {
+      "all_articles": "All articles",
+      "my_articles": "My articles",
+      "saved": "Saved",
+      "drafts": "Drafts",
+      "create_new_article": "Create new article"
+    }
+  },
+  "video": {
+    "reactions": "reactions",
+    "views": "views",
+    "read_more": "read more",
+    "search_video": "Search video",
+    "related_movies": "Related movies",
+    "video_page": "Video page",
+    "tabs": {
+      "all_films": "All movies",
+      "new_films": "News",
+      "recommended_films": "Recommendations",
+      "saved_films": "Saved",
+      "viewed": "Watched"
+    },
+    "parameters": {
+      "title": "Search options",
+      "category": "Category",
+      "year": "Year",
+      "genre": "Genre",
+      "country": "Country",
+      "creator": "Creator",
+      "duration": "Duration",
+      "minute": "minutes",
+      "views": "Number of views"
+    }
+  },
+  "audio": {
+    "tabs": {
+      "review": "Review",
+      "my_audio": "My audios",
+      "playlists": "Playlists",
+      "liked": "Liked",
+      "download_audio": "Download new audio"
+    },
+    "search_audio": "Search for audio",
+    "audio": "Audio",
+    "all_audio": "All audio",
+    "my_playlists": "My playlists",
+    "add_audio": "Add audio",
+    "all_audios_for_download": "All audio for download",
+    "create_album": "Create an album",
+    "files": "files",
+    "drop_title": "Add or drag and drop the audio",
+    "drop_subtitle": "Valid extension is mp3",
+    "status_success": "Upload completed",
+    "status_pending": "Pending",
+    "status_fail": "Loading error",
+    "album_subtitle": "To create an album you need to fill in the fields below",
+    "album_input": "Add album title",
+    "album_textarea": "Add album description",
+    "download_to_playlist": "Upload to playlist",
+    "create_as_album": "Create as album",
+    "cancel": "Cancel",
+    "upload_video": "Upload audio"
+  },
+  "sections_title": {
+    "last_actions": "Last actions",
+    "recommended_groups": "Recommended groups",
+    "recommended_people": "Recommended people",
+    "create_poll": "Create a poll"
+  },
+  "labels": {
+    "subscribers": {
+      "plural": "subscribers",
+      "singular": "subscribe"
+    },
+    "members": {
+      "plural": "members",
+      "singular": "member"
+    },
+    "comments": {
+      "plural": "Comments",
+      "singular": "Comment"
+    },
+    "reposts": {
+      "plural": "reposts",
+      "singular": "repost"
+    },
+    "time": {
+      "year": "year",
+      "month": "month",
+      "week": "week",
+      "day": "day",
+      "hour": "hour",
+      "minute": "minute",
+      "second": "second",
+      "ago": "назад"
+    },
+    "poll": {
+      "question": "Question",
+      "answer_options": "Answer options",
+      "answer": "Answer №",
+      "only_eight_symbol": "You can add up to 8 answer options",
+      "quiz_options_valid_answer": "The options in the Quiz can only have one correct answer.",
+      "anonymous_poll": "Anonymous Poll",
+      "multiple_choice": "Multiple choice",
+      "quiz": "Quiz"
+    },
+    "feeling": {
+      "label": "What are you feeling or what are you doing?",
+      "mood": {
+        "title": "Mood",
+        "placeholder": "What are you feeling?"
+      },
+      "traveling": {
+        "title": "Traveling",
+        "placeholder": "Where are you going?"
+      },
+      "watching": {
+        "title": "Watching",
+        "placeholder": "What are you watching?"
+      },
+      "playing": {
+        "title": "Playing",
+        "placeholder": "What are you playing?"
+      },
+      "listening": {
+        "title": "Listening",
+        "placeholder": "What are you listening"
+      }
+    },
+    "audio": "My audios",
+    "stickers": {
+      "popular_stickers": "Popular stickers",
+      "featured_stickers": "Featured stickers"
+    },
+    "search": {
+      "recent": "Recent",
+      "people": "People",
+      "communities": "Communities",
+      "muvi": "MUVI",
+      "see_all": "See all",
+      "groups": "Groups",
+      "article": "Article",
+      "show_all_recommendation": "Show all recommendations",
+      "advanced_search": "Advanced search"
+    },
+    "choose_article_category": "Choose article category",
+    "tags": "Tags",
+    "article_cover": "Article cover",
+    "articles": {
+      "category": "Category",
+      "popular_articles": "Popular articles",
+      "create_article": {
+        "press_to_select_tool": "Press “+” to select a tool"
+      },
+      "editor": {
+        "header": "Header",
+        "photo_video": "Photo and Video",
+        "link": "Link",
+        "inset": "Inset",
+        "quote": "Quote",
+        "list": "List",
+        "divider": "Divider",
+        "audio": "Audio",
+        "chart": "Chart",
+        "placeholder": "Type your post...",
+        "poll": {
+          "header": "Poll title",
+          "placeholder": "Answer option"
+        }
+      }
+    }
+  },
+  "dropdown": {
+    "reply_answer": "View answers",
+    "download_comment": "Load more",
+    "delete_dialog": "Delete dialog",
+    "answer": "Reply",
+    "change": "Edit",
+    "copy_text": "Copy Text",
+    "select": "Select",
+    "first_news": "Newest",
+    "first_oldest": "Oldest"
+  },
+  "profile": {
+    "edit": "Edit profile",
+    "gender": "Gender",
+    "dob": "Birthday",
+    "country": "Country of residence",
+    "study": "University",
+    "site": "Web site",
+    "about": "About me",
+    "following": "Subscriptions",
+    "subscribes": "Subscribers",
+    "umma_video": "Umma Video",
+    "umma_shorts": "Umma Shorts",
+    "audio": "Audio",
+    "posts": "Posts"
+  },
+  "chat": {
+    "placeholder": "Write your message",
+    "send": "Send",
+    "empty_room": "Choose who you'd like to write to"
+  },
+  "modal": {
+    "delete_message": "Delete message",
+    "sure_delete_message": "Are you sure you want to delete the message?",
+    "also_delete_from": "Also remove from",
+    "cancel_delete": "Cancel"
+  },
+  "reaction_tooltip": {
+    "like": "Ma sha Allah",
+    "dislike": "Outraged",
+    "love": "Love",
+    "fire": "Fire",
+    "angry": "Angry",
+    "scared": "Surprised",
+    "laugh": "HaHa",
+    "think": "Thought",
+    "sad": "Sad"
+  },
+  "settings": {
+    "nav": {
+      "main": "Main settings",
+      "privet_data": "Personal information",
+      "education": "Education",
+      "work": "Work",
+      "confidential": "Privacy",
+      "password": "Password",
+      "control_sessions": "Session management",
+      "restore_contact": "Recovery Contacts",
+      "notifications": "Notification settings",
+      "black_list": "Blacklist",
+      "delete_account": "Delete account"
+    },
+    "main": {
+      "info_title": "Main settings",
+      "info_text": "In the \"Main Settings\" section, you can customize the basic settings of your profile. Update your username, phone number, email address, date of birth and country of residence to keep your Umma Life profile up to date and complete.",
+      "login": "Login",
+      "show_in_profile": "Display in profile",
+      "show_in_profile_text": "Display login in profile instead of first and last name",
+      "phone": "Phone",
+      "phone_placeholder": "Phone number",
+      "email": "Email address",
+      "email_placeholder": "Email address",
+      "country": "Country",
+      "address": "Address",
+      "address_placeholder": "Enter the address",
+      "categories_title": "Categories of interest",
+      "categories": {
+        "religion": "Religion",
+        "psychology": "Psychology",
+        "family": "Family",
+        "health": "Health",
+        "work": "Work",
+        "education": "Study",
+        "travel": "Travel",
+        "books": "Books",
+        "science": "Science",
+        "sport": "Sport",
+        "art": "Art",
+        "auto": "Auto",
+        "food": "Food",
+        "positive": "Positive",
+        "fitness": "Fitness",
+        "history": "History",
+        "fashion": "Fashion",
+        "architecture": "Architecture",
+        "beauty": "Beauty",
+        "parenting": "Parenting",
+        "nature": "Nature"
+      }
+    },
+    "privet_data": {
+      "info_title": "Personal Information",
+      "info_text": "In the \"Personal Information\" section, you can provide additional information about yourself so that other users can get to know you better. Fill in your full name, tell us a little about yourself, and indicate where you live. This will help create a more personal and individualized picture of you in the Umma Life community.",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "about_me": "About me",
+      "about_me_placeholder": "Tell us about yourself...",
+      "marital_status": "Marital status",
+      "married": "Married",
+      "not_selected": "Not selected"
+    },
+    "education": {
+      "info_title": "Education",
+      "info_text": "In the Education and Work section, you can provide information about your education and job title. This will help other users better understand your academic and professional interests.",
+      "completed": "Completed",
+      "school": "School",
+      "school_placeholder": "Enter the name of your school",
+      "school_add": "Add a school",
+      "college": "College",
+      "college_placeholder": "Enter the name of your college",
+      "college_add": "Add a college",
+      "university": "University",
+      "university_placeholder": "Enter the name of your university",
+      "university_add": "Add a university"
+    },
+    "work": {
+      "info_title": "Work",
+      "info_text": "In the \"Work\" section, you can provide information about the organization where you work and the position you hold. This will help other users better understand your area of interest.",
+      "work_address": "Place of work",
+      "work_address_placeholder": "Indicate your place of work",
+      "work_website": "Company website",
+      "self_site": "Personal page"
+    },
+    "privacy": {
+      "info_title": "Privacy",
+      "info_text": "In the \"Privacy\" section, you can set privacy settings for your profile. Here you can restrict what other users can do with your profile, set up notifications, restrict access to certain information, and so on. Customize these settings according to your preferences and desired level of privacy.",
+      "top_text": "You can choose the information you want to show on your page, as well as prohibit or restrict access to your page",
+      "available_all": "Available to all",
+      "only_friends": "Only friends",
+      "yes": "Yes",
+      "no": "No",
+      "question1": "Who can subscribe to me?",
+      "question2": "Who can send me messages?",
+      "question3": "Who can see my friends?",
+      "question4": "Who can leave notes on my personal page?",
+      "question5": "Who can see my birthday?",
+      "question6": "Accepting a subscription request?",
+      "question7": "Who can add me to the group?",
+      "question8": "Send users notifications when I visit their profiles?",
+      "question8_text": "If you disable this notification, you will not receive notifications about who has visited your profile.",
+      "question9": "Show your actions?",
+      "question10": "Show your location to others?",
+      "question11": "Saving and copying materials",
+      "question11_title": "Disable copying",
+      "question11_text": "You can choose the information you want to show on your page, as well as prohibit or restrict access to your page"
+    },
+    "password": {
+      "info_title": "Password",
+      "info_text": "A password is an important element of your account security. It protects against unauthorized access and keeps your personal information private. The right password helps prevent fraud and protects your reputation in the online environment. So remember to create and use strong passwords for your accounts and keep them secure.",
+      "password_placeholder": "Enter your password",
+      "your_password": "Your password",
+      "new_password": "New password",
+      "repeat_new_password": "Repeat the new password",
+      "auth2": "Two-factor authentication",
+      "auth2_text": "For two-factor authentication, you must enter your phone number in your settings to receive a verification code for your UmmaLife account",
+      "on": "Enabled",
+      "off": "Disabled"
+    },
+    "session": {
+      "info_title": "Session management",
+      "info_text": "Session Management is an important feature that allows you to control the active sessions of your account. This gives you an additional opportunity to ensure security and protect your account from unauthorized access. You can view active sessions and terminate them if necessary. This way, you have more control over your account and can be sure that it is secure.",
+      "current_session": "Current session",
+      "recent_sessions": "Recent sessions",
+      "online": "online",
+      "hour_ago": "1 hour ago",
+      "ip_address": "IP address",
+      "quit": "Exit",
+      "auto_quit_title": "Automatic session logout",
+      "if_not_active": "If inactive",
+      "six_month": "6 months",
+      "complete_all_sessions": "End other sessions"
+    },
+    "restore": {
+      "info_title": "Recovery Contacts",
+      "info_text": "If you forget your password, we can help you regain access to your mail within a few minutes: a recovery code will be sent to the cell phone or backup email specified here. Check your contacts and replace them with new ones if necessary.",
+      "mobile_phone": "Mobile Phone",
+      "mobile_phone_add": "Add another mobile phone",
+      "reserve_email": "Backup e-mail",
+      "reserve_email_placeholder": "Enter e-mail address",
+      "reserve_email_add": "Add another backup e-mail",
+      "change": "Edit",
+      "delete": "Delete"
+    },
+    "notifications": {
+      "info_title": "Notification settings",
+      "info_text": "Notification settings allow you to customize the information and alerts you receive from our site.",
+      "system_notifications": "System Notifications",
+      "email_notifications": "E-mail notifications",
+      "like_my_notes": "Like my notes",
+      "comment_my_notes": "Commented on my notes",
+      "share_my_notes": "Share my notes",
+      "subscribed_me": "Subscribed to me",
+      "like_my_page": "Like my page",
+      "mentioned_me": "Mentioned me",
+      "join_my_group": "Join my group",
+      "accept_me": "Subscription request accepted",
+      "post_profile": "Publishing on the profile page"
+    },
+    "black_list": {
+      "info_title": "Blacklist",
+      "info_text": "Blacklisting is a feature that allows you to control and limit your interactions with certain users on our site. You can add users to the blacklist to prevent you from receiving messages, comments or mentions from them."
+    },
+    "delete_account": {
+      "info_title": "Delete account",
+      "info_text": "You always have the option to delete your account on our website. We value your right to control your personal data and respect your choice.",
+      "delete_account_title": "Account Deletion",
+      "delete_account_text": "If you do not log into your account during this time, your account will be automatically deleted from the system permanently",
+      "enter_password": "Enter the password to delete the account",
+      "enter_password_placeholder": "Enter your current password"
+    },
+    "account": {
+      "account_settings": "Account settings",
+      "profile": "Profile",
+      "safety": "Safety",
+      "display": "Display",
+      "theme": "Theme",
+      "notif": "Notifications",
+      "popup_notification": "Pop-up notification",
+      "show_popup_notification": "Show notifications from the application",
+      "help_and_support": "Support and assistance",
+      "to_system_settings": "To system settings",
+      "report_problem": "Report an issue",
+      "quit": "Exit",
+      "profile_settings": "Profile settings",
+      "profile_info": "Personal information",
+      "ready": "Ready",
+      "app": "Application",
+      "location": "Location",
+      "ip": "IP Address",
+      "finish_session": "End session"
+    }
+  },
+  "themes": {
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "library": {
+    "all_books": "All books",
+    "read_now": "Reading now",
+    "bookmarks": "Bookmarks",
+    "liked_books": "Liked books",
+    "category": "Category",
+    "author": "Author",
+    "search_placeholder": "Search by book title",
+    "year": "Year",
+    "back_to_main": "Back to book list",
+    "views": "Views",
+    "share_in": "Share in",
+    "download": "Download",
+    "description": "Description",
+    "read_more": "read more",
+    "comments": "Comments",
+    "sort": "Sort",
+    "read": "Read",
+    "popular_books": "Popular books",
+    "book_page": "Book page"
+  },
+  "notification": {
+    "title": "Notifications",
+    "clear": "Mark it all as read",
+    "show_all": "Show all",
+    "new": "New",
+    "yesterday": "Yesterday",
+    "week": "This week",
+    "month": "This month"
+  },
+  "muvi": {
+    "tabs": {
+      "feed": "Feed",
+      "popular": "Popular",
+      "activity": "Activity",
+      "profile": "Profile",
+      "add_muvi": "+ Add MUVI"
+    },
+    "followers": "followers",
+    "my_muvi": "My Muvi",
+    "saved": "Saved",
+    "liked": "Liked",
+    "viewed": "Viewed",
+    "other_muvi": "Other MUVI",
+    "view_reply": "View replys",
+    "hide_reply": "Hide replys",
+    "like": "Like",
+    "reply": "Reply",
+    "no_muvi": "Upload a video please",
+    "hide_muvi": "Hide MUVI",
+    "block_user": "Block a user",
+    "comments_disabled": "Comments disabled"
+  },
+  "time": {
+    "day_ago": "day ago",
+    "days_ago": "days ago",
+    "hour_ago": "hour ago",
+    "hours_ago": "hours ago",
+    "minute_ago": "minute ago",
+    "minutes_ago": "minutes ago",
+    "just_now": "Just now"
+  },
+  "report_comment": {
+    "title": "Thank you for letting us know!",
+    "text": "All posts are analyzed and reviewed by our moderators and deleted if they violate the rules of Umma Life!",
+    "ok": "Ok"
+  },
+  "add_muvi": {
+    "title": "Add MUVI",
+    "file_text1": "Select a video to download or drag and drop a file",
+    "file_text2": "Allowable extensions: mp4",
+    "file_text3": "Resolution 1280*720",
+    "file_text4": "No more than 5 minutes",
+    "file_text5": "Less than 50 mb",
+    "select_file": "Select a file",
+    "done": "Done",
+    "errors": {
+      "size_error": "File size exceeds the maximum limit of 50 mb",
+      "duration": "Video duration exceeds the maximum limit of 5 minutes",
+      "invalid_type": "Invalid file type. Please select a valid video file",
+      "loading_error": "Error loading video metadata"
+    },
+    "success": "Video successfully added",
+    "description": "Description",
+    "max_length": "5000",
+    "cover": "Cover",
+    "change_cover": "Change cover",
+    "add_cover": "Add cover",
+    "allow_comment": "Allow comments",
+    "delete": "Delete",
+    "publish": "Publish",
+    "tag_people": "Tag people",
+    "add_location": "Add location",
+    "search": "Search",
+    "current_location": "Current Location",
+    "can_view": "Who can view this MUVI",
+    "change_view": "Change the visibility of MUVI",
+    "delete_muvi": "Delete MUVI",
+    "edit_muvi": "Edit description",
+    "disable_comments": "Disable comments",
+    "playback_speed": "Playback speed",
+    "views_options": {
+      "name1": "Available to all",
+      "text1": "In Umma Life and beyond",
+      "name2": "Subscribers only",
+      "text2": "Your subscribers to Umma Life",
+      "name3": "Subscriptions only",
+      "text3": "Your subscriptions to Umma Life"
+    },
+    "choose_categories": "Choose a category"
+  },
+  "muvi_mobile": {
+    "subscriptions": "Subscriptions",
+    "recommendations": "Recommendations",
+    "no_comments": "No Comments",
+    "no_users": "No users found"
+  },
+  "date": {
+    "today": "Today"
+  }
+}

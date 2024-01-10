@@ -1,0 +1,22 @@
+<template>
+  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+    <g clip-path="url(#a)">
+      <path fill="url(#b)" d="M6 11.2c2.795 0 5.06-2.328 5.06-5.2C11.06 3.128 8.795.8 6 .8 3.208.8.942 3.128.942 6c0 2.872 2.266 5.2 5.06 5.2Z"/>
+      <path stroke="#303030" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width=".5" d="M7.2 6s.134.4.8.4c.63 0 .8-.4.8-.4M3.2 6s.134.4.8.4c.63 0 .8-.4.8-.4"/>
+      <path stroke="#5B0600" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M5.2 9.2s.67-.9 1.6 0"/>
+      <path fill="#91B5E6" d="m8.987 6.823.496 1.364a.553.553 0 0 1-.338.71.553.553 0 0 1-.71-.338.528.528 0 0 1 0-.372l.495-1.364c.012-.012.023-.023.046-.023 0 .011.01.011.01.023Z"/>
+    </g>
+    <defs>
+      <linearGradient id="b" x1="1.613" x2="10.5" y1="8.603" y2="3.61" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#EBB34D"/>
+        <stop offset=".033" stop-color="#ECB64D"/>
+        <stop offset=".178" stop-color="#EEC04F"/>
+        <stop offset=".551" stop-color="#F1CC51"/>
+        <stop offset="1" stop-color="#F3D652"/>
+      </linearGradient>
+      <clipPath id="a">
+        <path fill="#fff" d="M0 0h12v12H0z"/>
+      </clipPath>
+    </defs>
+  </svg>
+</template>

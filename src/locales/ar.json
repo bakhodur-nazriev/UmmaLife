@@ -1,0 +1,218 @@
+{
+  "login": {
+    "title": "تسجيل الدخول",
+    "placeholders": {
+      "email": "أدخل بريدك الإلكتروني...",
+      "password": "ادخل رقمك السري...",
+      "phone": "أدخل رقم هاتفك..."
+    },
+    "forgot_password": "هل نسيت كلمة السر؟",
+    "create_account": "إنشاء حساب",
+    "with_phone_number": "تسجيل الدخول برقم الهاتف",
+    "with_email": "تسجيل الدخول بالبريد الإلكتروني",
+    "messages": {
+      "reset_password": "سنرسل لك رسالة لتغيير كلمة المرور الخاصة بك",
+      "verify_with_phone": "تم إرسال رسالة برمز إلى رقم هاتفك",
+      "didnt_receive_code": "لم تتلق رمز؟"
+    },
+    "validation": {
+      "empty_email": "يجب ألا يكون الحقل فارغًا",
+      "empty_password": "يجب ألا يكون الحقل فارغًا",
+      "incorrect_email": "بريد إلكتروني خاطئ",
+      "incorrect_password": "رمز مرور خاطئ",
+      "incorrect_code": "الرمز غير صحيح"
+    }
+  },
+  "links": {
+    "terms": "شروط الاستخدام",
+    "privacy_policy": "سياسة الخصوصية",
+    "contacts": "جهات الاتصال",
+    "about_us": "معلومات عنا",
+    "resend": "معلومات عنا",
+    "skip": "يتخطى",
+    "news": "أخبار",
+    "my_page": "صفحتي",
+    "messenger": "رسول",
+    "my_groups": "مجموعاتي",
+    "my_albums": "ألبوماتي",
+    "my_audio": "الصوت الخاص بي",
+    "saved": "أنقذ",
+    "articles": "مقالات",
+    "video": "فيديو",
+    "library": "مكتبة",
+    "marriage_agency": "وكالة زواج",
+    "all_groups": "كل المجموعات",
+    "all_people": "كل الناس"
+  },
+  "register": {
+    "title": "تسجيل",
+    "placeholders": {
+      "name": "أدخل أسمك...",
+      "email": "أدخل بريدك الإلكتروني...",
+      "last_name": "أدخل اسمك الأخير...",
+      "code_from_email": "أدخل الرمز من البريد الإلكتروني...",
+      "your_password": "كلمة مرور التسجيل الخاصة بك ...",
+      "gender": {
+        "title": "اختر الجنس",
+        "male": "ذكر",
+        "female": "أنثى"
+      }
+    },
+    "label": "هل لديك حساب؟",
+    "messages": {
+      "agreement_to_creating_account": "من خلال إنشاء حساب ، فإنك توافق على",
+      "verify_with_email": "تم إرسال رسالة تحتوي على رمز إلى عنوان بريدك الإلكتروني.",
+      "create_password": "قم بإنشاء كلمة مرور لتسجيل الدخول إلى النظام",
+      "fill_your_information": "املأ معلوماتك لتسجيل الدخول إلى UmmaLife",
+      "required_fields": "(الحقول المطلوبة لملئها)",
+      "enter_your_phone": "أدخل رقم هاتفك",
+      "can_login_with_phone_number": "ستتمكن من الوصول إلى الشبكة باستخدام رقم هاتفك"
+    },
+    "validation": {
+      "empty_email": "يجب ألا يكون الحقل فارغًا",
+      "incorrect_email": "غير صحيح البريد الإلكتروني",
+      "incorrect_code": "شفرة خاطئة",
+      "empty_password": "يجب ألا يكون الحقل فارغًا",
+      "empty_gender": "يجب ألا يكون الحقل فارغًا",
+      "incorrect_phone_number": "رقم الهاتف غير صحيح"
+    }
+  },
+  "forgot_password": {
+    "validation": {
+      "empty_email": "يجب ألا يكون الحقل فارغًا",
+      "incorrect_email": "غير صحيح البريد الإلكتروني"
+    }
+  },
+  "buttons": {
+    "login": "تسجيل الدخول",
+    "get_code_by_email": "احصل على الكود عن طريق البريد الإلكتروني",
+    "next": "التالي",
+    "submit": "يُقدِّم",
+    "create": "يخلق",
+    "create_umma_video": "إنشاء فيديو الأمة",
+    "toggle_theme": {
+      "dark": "مظلم",
+      "light": "ضوء"
+    },
+    "join": "ينضم",
+    "in_group": "في مجموعة",
+    "subscribe": "يشترك",
+    "follow": "I follow",
+    "like": "Like",
+    "comment": "Comment",
+    "share": "Share",
+    "copy_link": "Copy link",
+    "save": "Save",
+    "open_in_new_tab": "Open in new tab",
+    "complain": "Complain",
+    "hide": "Hide",
+    "open_like_message": "Send as message",
+    "share_on_my_page": "Share on my page",
+    "share_in_group": "Share in a group",
+    "answer": "Answer",
+    "favourite": "Favorite",
+    "delete": "Delete",
+    "edit": "Edit",
+    "publish": "Publish",
+    "available_everyone": "Available to everyone",
+    "who_am_i_following": "Who am I following",
+    "who_is_following_me": "Who is following me",
+    "anonymously": "Anonymously",
+    "create_poll": "Create poll",
+    "cancel": "Cancel",
+    "add_answer": "+ Add answer",
+    "mood": "Mood",
+    "traveling": "Traveling",
+    "watching": "I'm watching",
+    "playing": "I'm playing",
+    "listening": "I'm listening",
+    "emotions": {
+      "happy": "Happy",
+      "in_love": "In love",
+      "outraged": "Outraged",
+      "celebrate": "I celebrate",
+      "giggle": "I giggle",
+      "crazy": "Crazy",
+      "falling_asleep": "falling asleep",
+      "shocked": "I'm shocked",
+      "excited": "Excited",
+      "angry": "Angry",
+      "masked": "Masked",
+      "think": "Think",
+      "laughing_out_loud": "Laughing Out Loud",
+      "wonder": "Wonder",
+      "sick": "I'm sick",
+      "embarrassed": "Embarrassed",
+      "ignore": "Ignore",
+      "frozen": "Frozen"
+    },
+    "read_more": "يقرأ"
+  },
+  "footer": {
+    "links": {
+      "terms": "شروط",
+      "privacy_policy": "سياسة الخصوصية",
+      "contacts": "جهات الاتصال",
+      "about_us": "معلومات عنا"
+    }
+  },
+  "languages": {
+    "title": "اَلْعَرَبِيَّةُ",
+    "name": {
+      "english": "English",
+      "russian": "Русский",
+      "arabic": "اَلْعَرَبِيَّةُ",
+      "turkish": "Türk",
+      "uzbek": "O'zbek",
+      "indonesia": "Bahasa Indonesia",
+      "malay": "Melayu",
+      "tajik": "Тоҷик",
+      "tabasaran": "Табасаран",
+      "chuvash": "Чӑвашла",
+      "urdu": "اردو",
+      "ingush": "гӏалгӏай",
+      "tatar": "Татар",
+      "lak": "Лакский",
+      "qumuq": "Къумукъ",
+      "balkarian": "Tаулу",
+      "amharic": "አማርኛ",
+      "lezgin": "Лезги"
+    }
+  },
+  "profile": {
+    "edit": "تعديل الملف الشخصي",
+    "gender": "أرضية",
+    "dob": "عيد ميلاد",
+    "country": "بلد الإقامة",
+    "study": "مؤسسة تعليمية",
+    "site": "موقع العمل",
+    "about": "ْعَنِّي",
+    "following": "الاشتراكات",
+    "subscribes": "مشتركين",
+    "umma_video": "فيديو الأمة",
+    "umma_shorts": "شورت الأمة",
+    "audio": "مشتركين",
+    "posts": "دعامات"
+  },
+  "tabs": {
+    "profile_tabs": {
+      "news": "أخبار",
+      "articles": "مقالات",
+      "photo": "صورة",
+      "video": "فيديو",
+      "audio": "صوتي"
+    },
+    "my_page": {
+      "publications": "المنشورات",
+      "umma_shorts": "شورت الأمة",
+      "umma_video": "فيديو الأمة",
+      "alboms": "ألبومات",
+      "saved": "أنقذ"
+    }
+  },
+  "chat": {
+    "placeholder": "اكتب رسالتك",
+    "send": "يرسل",
+    "empty_room": "اختر من تريد الكتابة إليه"
+  }
+}

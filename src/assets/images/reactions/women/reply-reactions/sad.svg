@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
+  <g clip-path="url(#a)">
+    <path fill="url(#b)" d="M6 11.2c2.795 0 5.06-2.328 5.06-5.2C11.06 3.128 8.795.8 6 .8 3.208.8.942 3.128.942 6c0 2.872 2.266 5.2 5.06 5.2Z"/>
+    <path stroke="#5B0600" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M5.2 9.2s.67-.9 1.6 0"/>
+    <path fill="#91B5E6" d="m8.987 6.823.496 1.364a.553.553 0 0 1-.338.71.553.553 0 0 1-.71-.338.528.528 0 0 1 0-.372l.495-1.364c.012-.012.023-.023.046-.023 0 .011.01.011.01.023Z"/>
+    <path stroke="#303030" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width=".5" d="M3.2 6s.134.4.8.4c.63 0 .8-.4.8-.4"/>
+    <path stroke="#303030" stroke-linecap="round" stroke-width=".2" d="m3.25 6-.5.25M3.25 6.25 3 6.5"/>
+    <path stroke="#303030" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width=".5" d="M8.602 6s-.136.4-.8.4c-.631 0-.8-.4-.8-.4"/>
+    <path stroke="#303030" stroke-linecap="round" stroke-width=".2" d="m8.55 6 .5.25M8.55 6.25l.25.25"/>
+  </g>
+  <defs>
+    <linearGradient id="b" x1="1.613" x2="10.5" y1="8.603" y2="3.61" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EB3E7D"/>
+      <stop offset="0" stop-color="#EB3E7D"/>
+      <stop offset=".033" stop-color="#F84E8C"/>
+      <stop offset=".178" stop-color="#F86399"/>
+      <stop offset=".551" stop-color="#E76493"/>
+      <stop offset="1" stop-color="#FD7FB4"/>
+    </linearGradient>
+    <clipPath id="a">
+      <path fill="#fff" d="M0 0h12v12H0z"/>
+    </clipPath>
+  </defs>
+</svg>
