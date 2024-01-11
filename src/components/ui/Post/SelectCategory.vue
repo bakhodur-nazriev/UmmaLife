@@ -107,10 +107,6 @@ onMounted(() => {
   animation: scale-up-top-left 0.2s reverse;
 }
 
-//.scale-up-top-left {
-//  animation: scale-up-top-left 0.5s;
-//}
-
 @keyframes scale-up-top-left {
   0% {
     transform: scale(0.5);

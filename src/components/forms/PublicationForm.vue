@@ -577,10 +577,12 @@ export default {
 
   a {
     margin-right: 16px;
+    width: 48px;
+    height: 48px;
 
     img {
-      width: 48px;
-      height: 48px;
+      min-width: 48px;
+      min-height: 48px;
       border-radius: 50%;
     }
   }
