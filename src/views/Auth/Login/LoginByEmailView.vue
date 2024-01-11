@@ -11,7 +11,9 @@
           :placeholder="$t('login.placeholders.email')"
         />
         <small v-show="hasError.email || isInvalidEmail" class="error-message">
-          {{ $t(isInvalidEmail ? 'login.validation.incorrect_email' : 'login.validation.empty_email') }}
+          {{
+            $t(isInvalidEmail ? 'login.validation.incorrect_email' : 'login.validation.empty_email')
+          }}
         </small>
       </div>
     </div>
@@ -23,13 +25,13 @@
           :type="isPasswordVisible ? 'text' : 'password'"
           v-model="password"
           class="base-input"
-          :class="{'input-field': true, 'error': passwordError}"
+          :class="{ 'input-field': true, error: passwordError }"
           :placeholder="$t('login.placeholders.password')"
         />
 
         <button type="button" class="eye-button" @click="togglePasswordVisibility">
-          <EyeSlashIcon v-if="isPasswordVisible"/>
-          <EyeIcon v-else/>
+          <EyeSlashIcon v-if="isPasswordVisible" />
+          <EyeIcon v-else />
         </button>
       </div>
       <small v-if="hasError.password" class="error-message">
@@ -52,19 +54,13 @@
         :class="{ 'disabled-button': isSubmitDisabled }"
       />
     </div>
-    <router-link
-      class="link create-account-link"
-      :to="`/${$i18n.locale}/register`"
-    >
+    <router-link class="link create-account-link" :to="`/${$i18n.locale}/register`">
       {{ $t('login.create_account') }}
     </router-link>
   </FormAuth>
 
   <div class="login-with-phone-section">
-    <router-link
-      :to="`/${$i18n.locale}/login-by-phone`"
-      class="link-with-phone-number"
-    >
+    <router-link :to="`/${$i18n.locale}/login-by-phone`" class="link-with-phone-number">
       {{ $t('login.with_phone_number') }}
     </router-link>
   </div>
@@ -77,9 +73,9 @@ import TitleSample from '@/components/ui/TitleSample.vue'
 import EyeIcon from '@/components/icons/EyeIcon.vue'
 import EyeSlashIcon from '@/components/icons/EyeSlashIcon.vue'
 import axios from 'axios'
-import {encryptPrivateKey, getFormData} from '@/utils'
+import { encryptPrivateKey, getFormData } from '@/utils'
 import nacl from 'tweetnacl'
-import {decodeBase64, decodeUTF8, encodeBase64} from 'tweetnacl-util'
+import { decodeBase64, decodeUTF8, encodeBase64 } from 'tweetnacl-util'
 import io from 'socket.io-client'
 
 export default {
@@ -107,10 +103,7 @@ export default {
   computed: {
     isSubmitDisabled() {
       return (
-        this.hasError.email ||
-        this.hasError.password ||
-        !this.email.trim() ||
-        !this.password.trim()
+        this.hasError.email || this.hasError.password || !this.email.trim() || !this.password.trim()
       )
     },
     isInvalidEmail() {
@@ -132,23 +125,23 @@ export default {
   },
   methods: {
     validateForm() {
-      const errors = [];
+      const errors = []
 
       if (this.email.trim() === '') {
-        this.hasError.email = true;
-        errors.push('Email is required');
+        this.hasError.email = true
+        errors.push('Email is required')
       } else {
-        this.hasError.email = false;
+        this.hasError.email = false
       }
 
       if (this.password.trim() === '') {
-        this.hasError.password = true;
-        errors.push('Password is required');
+        this.hasError.password = true
+        errors.push('Password is required')
       } else {
-        this.hasError.password = false;
+        this.hasError.password = false
       }
 
-      return errors;
+      return errors
     },
     handleSuccessfulLogin(data) {
       localStorage.setItem('access_token', data.access_token)
@@ -157,55 +150,62 @@ export default {
       this.generateAndSendKeys()
     },
     handleFailedLogin(data) {
-      this.errorText = data.errors ? data.errors.error_text : 'Login failed. Please check your credentials.';
+      this.errorText = data.errors
+        ? data.errors.error_text
+        : 'Login failed. Please check your credentials.'
     },
     handleError(error) {
-      console.error('Error fetching data:', error);
+      console.error('Error fetching data:', error)
 
-      if (error.response && error.response.data && error.response.data.errors && error.response.data.errors.error_text) {
-        this.errorText = error.response.data.errors.error_text;
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.errors &&
+        error.response.data.errors.error_text
+      ) {
+        this.errorText = error.response.data.errors.error_text
       } else {
-        this.errorText = 'An error occurred while processing your request. Please try again later.';
+        this.errorText = 'An error occurred while processing your request. Please try again later.'
       }
     },
     async handleSubmit(event) {
       try {
-        event.preventDefault();
+        event.preventDefault()
 
-        const errors = this.validateForm();
+        const errors = this.validateForm()
         if (errors.length > 0) {
-          return;
+          return
         }
 
-        this.loading = true;
-        const response = await this.sendRequest();
+        this.loading = true
+        const response = await this.sendRequest()
 
         if (response.data.api_status === 200) {
           this.handleSuccessfulLogin(response.data)
         } else if (response.data.api_status === 300 && response.data.access_token) {
           localStorage.setItem('access_token', response.data.access_token)
           localStorage.setItem('hash', data.hash)
-          this.$router.push({name: 'RegisterAddInfoStep4View'})
+          this.$router.push({ name: 'RegisterAddInfoStep4View' })
         } else {
-          this.handleFailedLogin(response.data);
+          this.handleFailedLogin(response.data)
         }
       } catch (error) {
-        this.handleError(error);
+        this.handleError(error)
       } finally {
-        this.loading = false;
+        this.loading = false
       }
     },
     async sendRequest() {
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         username: this.email,
         password: this.password
       })
 
-      const headers = {'Content-Type': 'multipart/form-data'}
+      const headers = { 'Content-Type': 'multipart/form-data' }
 
       try {
-        return await axios.post('/auth', payload, {headers})
+        return await axios.post('/auth', payload, { headers })
       } catch (error) {
         throw error
       }
@@ -219,7 +219,7 @@ export default {
       const privateKey = encodeBase64(keyPair.secretKey)
 
       try {
-        const encryptedPrivateKey = encryptPrivateKey(privateKey);
+        const encryptedPrivateKey = encryptPrivateKey(privateKey)
 
         const data = {
           userId: localStorage.getItem('access_token'),
@@ -229,18 +229,18 @@ export default {
 
         localStorage.setItem('privateKey', encryptedPrivateKey)
 
-        const socket = io(`${process.env.VUE_APP_SOCKET_URL}`, {
+        const socket = io(`${import.meta.env.VITE_SOCKET_URL}`, {
           query: {
             hash: localStorage.getItem('hash')
           }
         })
-        socket.emit('join', {user_id: localStorage.getItem('access_token')})
+        socket.emit('join', { user_id: localStorage.getItem('access_token') })
 
         socket.emit('update_user_keys', data, (response) => {
           if (response.status === 200) {
-            this.$router.push({name: 'news'})
+            this.$router.push({ name: 'news' })
           } else {
-            console.error('Failed to update keys:', response);
+            console.error('Failed to update keys:', response)
           }
         })
       } catch (error) {

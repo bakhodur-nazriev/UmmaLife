@@ -321,7 +321,7 @@ export default {
   }
   &__edit {
     width: 100%;
-    color: var(--color-white);
+    color: var(--color-stable-white);
     padding: 14px 14px 12px;
     border-radius: 10px;
     background-color: var(--color-green);

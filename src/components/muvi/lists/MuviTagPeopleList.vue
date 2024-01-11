@@ -111,7 +111,7 @@ const getUserFollowers = async (page, search = '') => {
   try {
     isLoading.value = true
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       page,
       search,
       user_id: user_id.value

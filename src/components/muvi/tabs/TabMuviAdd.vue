@@ -131,7 +131,7 @@ const router = useRouter()
 const posterSrc = ref(null)
 
 const payload = reactive({
-  server_key: process.env.VUE_APP_SERVER_KEY,
+  server_key: import.meta.env.VITE_SERVER_KEY,
   video: null, // video file
   description: '',
   privacy_type: 0, //0 - Available to everyone * 1 - Who is following me * 2 - Who am I following

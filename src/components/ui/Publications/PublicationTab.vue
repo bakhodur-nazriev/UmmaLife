@@ -9,11 +9,8 @@
       :post-id="item.post_id"
     />
 
-    <PublicationContent
-      :post-content="item.Orginaltext"
-      :post-reactions="item.reaction"
-    />
-    <SampleDivider class="divider"/>
+    <PublicationContent :post-content="item.Orginaltext" :post-reactions="item.reaction" />
+    <SampleDivider class="divider" />
 
     <PostFooter
       :posts-item="item"
@@ -29,7 +26,7 @@ import SampleDivider from '@/components/ui/SampleDivider.vue'
 import PublicationContent from '@/components/ui/Publications/Publication/PublicationContent.vue'
 import PostHeader from '@/components/ui/Post/PostHeader.vue'
 import PostFooter from '@/components/ui/Post/PostFooter.vue'
-import {getFormData} from '@/utils'
+import { getFormData } from '@/utils'
 import axios from 'axios'
 
 export default {
@@ -55,20 +52,20 @@ export default {
   },
   methods: {
     async translatePost(text) {
-      return await this.fetchTranslation(text);
+      return await this.fetchTranslation(text)
     },
     async fetchTranslation(text) {
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         text: text
       })
 
-      const headers = {'Content-Type': 'multipart/form-data'}
+      const headers = { 'Content-Type': 'multipart/form-data' }
       const accessToken = localStorage.getItem('access_token')
-      const params = {access_token: accessToken}
+      const params = { access_token: accessToken }
 
       try {
-        const response = await axios.post('/translate', payload, {params, headers})
+        const response = await axios.post('/translate', payload, { params, headers })
         if (response.data.api_status === 200) {
           return response.data?.data
         }
@@ -77,9 +74,9 @@ export default {
       }
     },
     async handleTranslation(item) {
-      item.Orginaltext = await this.translatePost(item.Orginaltext);
-      this.$set(this.translated, item.publisher.id, !!item.Orginaltext);
-    },
+      item.Orginaltext = await this.translatePost(item.Orginaltext)
+      this.$set(this.translated, item.publisher.id, !!item.Orginaltext)
+    }
   }
 }
 </script>

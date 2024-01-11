@@ -104,7 +104,7 @@ const fetchFeeds = async (page) => {
 
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       page,
       filter: props.filter
     })

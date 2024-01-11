@@ -155,7 +155,7 @@ export default {
       }
 
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         language: userLanguageTitle
       })
 
@@ -186,7 +186,3 @@ const closeHandler = () => {
   store.commit('audio/setListOpen', false)
 }
 </script>
-
-<style>
-@import 'assets/styles.scss';
-</style>

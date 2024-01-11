@@ -21,7 +21,7 @@ import { sleep } from '@/utils'
 const { getters, dispatch, commit } = useStore()
 const route = useRoute()
 
-const socket = io(`${process.env.VUE_APP_SOCKET_URL}`, {
+const socket = io(`${import.meta.env.VITE_SOCKET_URL}`, {
   query: {
     hash: localStorage.getItem('hash')
   }

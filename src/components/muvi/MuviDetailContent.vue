@@ -200,7 +200,7 @@ const commentTextareaRef = ref()
 const router = useRouter()
 
 const payload = reactive({
-  server_key: process.env.VUE_APP_SERVER_KEY,
+  server_key: import.meta.env.VITE_SERVER_KEY,
   video_id: props.muvi?.id,
   description: '',
   privacy_type: 0, //0 - Available to everyone * 1 - Who is following me * 2 - Who am I
@@ -216,7 +216,7 @@ const submitComment = async (video_id) => {
   if (!commentText.value) return
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       video_id,
       text: commentText.value.trim()
     })
@@ -241,7 +241,7 @@ const submitComment = async (video_id) => {
 const getSingleMovi = async (video_id) => {
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       video_id
     })
     const { data } = await axios.post('/get-short-video', payload, {
@@ -263,7 +263,7 @@ const setReaction = async (video_id) => {
   isLiked.value = !isLiked.value
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       video_id,
       reaction: '1'
     })
@@ -284,7 +284,7 @@ const getComments = async (video_id) => {
   if (props.muvi?.comments_status === '0') return
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       video_id,
       reaction: '1'
     })
@@ -304,7 +304,7 @@ const getComments = async (video_id) => {
 const clickReactionHandler = async (reactionPayload) => {
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       ...reactionPayload
     })
 
@@ -325,7 +325,7 @@ const submitUpdateComment = async (video_id) => {
   if (!commentText.value) return
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       comment_id: passedComment.value.id,
       text: commentText.value.trim()
     })
@@ -384,7 +384,7 @@ const deleteShortVideo = async () => {
   try {
     isLoading.value = true
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       video_id: props.muvi?.id
     })
 

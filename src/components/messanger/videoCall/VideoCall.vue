@@ -88,7 +88,7 @@ import MicOnIcon from '@/components/icons/RTCCall/MicOnIcon.vue'
 import CallEndIcon from '@/components/icons/RTCCall/CallEndIcon.vue'
 import QualityIndicatorIcon from '@/components/icons/RTCCall/QualityIndicatorIcon.vue'
 
-const socket = io(`${process.env.VUE_APP_SOCKET_URL}`, {
+const socket = io(`${import.meta.env.VITE_SOCKET_URL}`, {
   query: { hash: localStorage.getItem('hash') }
 })
 

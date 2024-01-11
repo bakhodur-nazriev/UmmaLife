@@ -3,7 +3,7 @@
     <div class="audio-content__section-item">
       <div class="audio-content__left-side">
         <div class="play-button">
-          <SmallVideoPlayIcon/>
+          <SmallVideoPlayIcon />
           <!--          <audio controls>-->
           <!--            <source :src="audioContent.postFileArray[0].filename" type="">-->
           <!--          </audio>-->
@@ -20,14 +20,14 @@
     </div>
 
     <div class="audio-content__reactions">
-      <PostReactions :reactions="audioReactions"/>
+      <PostReactions :reactions="audioReactions" />
     </div>
   </section>
 </template>
 <script>
 import SmallVideoPlayIcon from '@/components/icons/SmallVideoPlayIcon.vue'
 import PostReactions from '@/components/ui/Post/PostReactions.vue'
-import {getFormData} from '@/utils'
+import { getFormData } from '@/utils'
 import axios from 'axios'
 
 export default {
@@ -47,22 +47,23 @@ export default {
     audioFormattedDuration() {
       const duration = this.audioContent.postFileArray[0].duration
 
-      if (!duration || duration === "") {
-        return ""
+      if (!duration || duration === '') {
+        return ''
       }
 
-      const timeArray = duration.split("T")[1].split(":")
+      const timeArray = duration.split('T')[1].split(':')
       const hours = parseInt(timeArray[0])
       const minutes = parseInt(timeArray[1])
       const seconds = parseInt(timeArray[2])
 
-      let formattedDuration = ""
+      let formattedDuration = ''
 
       if (hours > 0) {
-        formattedDuration += hours.toString().padStart(2, "0") + ":"
+        formattedDuration += hours.toString().padStart(2, '0') + ':'
       }
 
-      formattedDuration += minutes.toString().padStart(2, "0") + ":" + seconds.toString().padStart(2, "0")
+      formattedDuration +=
+        minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0')
 
       return formattedDuration
     }
@@ -70,19 +71,19 @@ export default {
   methods: {
     async toggleReactions() {
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         post_id: '',
         action: 'reaction',
         reaction: 1
       })
 
-      const headers = {'Content-Type': 'multipart/form-data'}
+      const headers = { 'Content-Type': 'multipart/form-data' }
 
       const accessToken = localStorage.getItem('access_token')
-      const params = {access_token: accessToken}
+      const params = { access_token: accessToken }
 
       try {
-        const response = await axios.post('/post-actions', payload, {params, headers})
+        const response = await axios.post('/post-actions', payload, { params, headers })
         console.log(response.data)
       } catch (error) {
         console.error(error)
@@ -150,7 +151,7 @@ export default {
     position: relative;
 
     &::after {
-      content: "...";
+      content: '...';
       position: absolute;
       right: -15px;
       bottom: 0;

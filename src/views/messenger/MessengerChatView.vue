@@ -218,7 +218,7 @@ const isReviewFileOpen = ref(false)
 const objectURL = ref(null)
 const fileToUpload = ref(null)
 
-const socket = io(`${process.env.VUE_APP_SOCKET_URL}`, {
+const socket = io(`${import.meta.env.VITE_SOCKET_URL}`, {
   query: { hash: localStorage.getItem('hash') }
 })
 
@@ -268,7 +268,7 @@ const fileUploadHandler = async (file) => {
     isFileLoading.value = true
     isReviewFileOpen.value = true
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       file
     })
     const { data } = await axios.post('/upload-file', payload, {
@@ -444,7 +444,7 @@ const handleDelete = async ({ chat, isChecked }) => {
     )
   } else {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       chat_id: chat?.chatId,
       chat_type: chat?.chatType
     })

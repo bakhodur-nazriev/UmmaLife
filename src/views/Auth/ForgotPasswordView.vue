@@ -6,10 +6,10 @@
 
     <div :class="['input-wrapper', { error: hasError || isInvalidEmail }]">
       <input
-          type="email"
-          v-model="email"
-          class="base-input"
-          :placeholder="$t('login.placeholders.email')"
+        type="email"
+        v-model="email"
+        class="base-input"
+        :placeholder="$t('login.placeholders.email')"
       />
       <small v-if="hasError || isInvalidEmail" class="error-message">
         {{
@@ -27,18 +27,15 @@
 
     <div class="login-button-section">
       <SampleButton
-          type="submit"
-          :title="`${$t('buttons.submit')}`"
-          :class="{'disabled': loading }"
+        type="submit"
+        :title="`${$t('buttons.submit')}`"
+        :class="{ disabled: loading }"
       />
     </div>
   </FormAuth>
 
   <div class="link-register__block">
-    <router-link
-        :to="`/${$i18n.locale}/register`"
-        class="link-register"
-    >
+    <router-link :to="`/${$i18n.locale}/register`" class="link-register">
       {{ $t('login.create_account') }}
     </router-link>
   </div>
@@ -49,7 +46,7 @@ import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import axios from 'axios'
-import {getFormData} from '@/utils'
+import { getFormData } from '@/utils'
 
 export default {
   components: {
@@ -98,21 +95,21 @@ export default {
           this.errorText = response.data.errors.error_text
         }
       } catch (error) {
-        console.error('Error sending request:', error);
+        console.error('Error sending request:', error)
       } finally {
         this.loading = false
       }
     },
     async sendRequest() {
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         email: this.email
       })
 
-      const headers = {'Content-Type': 'multipart/form-data'}
+      const headers = { 'Content-Type': 'multipart/form-data' }
 
       try {
-        return await axios.post('/send-reset-password-email', payload, {headers})
+        return await axios.post('/send-reset-password-email', payload, { headers })
       } catch (error) {
         throw error
       }
@@ -120,18 +117,18 @@ export default {
   },
   async mounted() {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       email: 'bakhodur.naziev@yandex.ru',
       code: '41530_%242y%2410%24udpCF7AuTQN7QBMPQn65i.MJytKPBZepJJv8rELTqUHG9DT8Vxvaa'
-    });
+    })
 
-    const headers = {'Content-Type': 'multipart/form-data'};
+    const headers = { 'Content-Type': 'multipart/form-data' }
 
     try {
-      const res = await axios.post('/check-reset-password-link', payload, {headers});
-      console.log(res.data);
+      const res = await axios.post('/check-reset-password-link', payload, { headers })
+      console.log(res.data)
     } catch (error) {
-      console.error('Error checking reset password link:', error);
+      console.error('Error checking reset password link:', error)
     }
   }
 }

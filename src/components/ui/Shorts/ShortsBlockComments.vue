@@ -176,7 +176,7 @@ const getReplyComments = async (action) => {
   if (props.comment.replies_count === 0 && action !== 'pass') return
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       comment_id: props.comment?.id
     })
 
@@ -200,13 +200,13 @@ const submitReplyHandler = async () => {
     let payload
     if (actionType.value === 'create') {
       payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         comment_id: props.comment?.id,
         text: replyCommentText.value.trim()
       })
     } else {
       payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         reply_id: replyComment.value?.id,
         text: replyCommentText.value.trim()
       })
@@ -241,7 +241,7 @@ const submitReplyHandler = async () => {
 const clickReplyReactionHandler = async (reactionPayload) => {
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       ...reactionPayload
     })
 
@@ -262,7 +262,7 @@ const clickReplyReactionHandler = async (reactionPayload) => {
 const deleteComment = async () => {
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       comment_id: props.comment?.id
     })
 
@@ -307,7 +307,7 @@ const reportComment = async () => {
   try {
     isReportModalOpen.value = true
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       comment_id: props.comment?.id
     })
 

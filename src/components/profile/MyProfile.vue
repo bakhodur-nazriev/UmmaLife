@@ -4,7 +4,7 @@
       <MobileProfileTopActions v-if="screenWidth < 575" />
       <div class="profile__cover">
         <img
-          :src="coverImage ? coverImage : require('@/assets/images/profile-img.png')"
+          :src="coverImage ? coverImage : import('@/assets/images/profile-img.png')"
           alt="profile-img"
           class="profile__cover--img"
         />
@@ -28,7 +28,7 @@
         <div class="profile__top">
           <div class="profile__top--img" @click="clickImageHandler">
             <img
-              :src="profileImage ? profileImage : require('@/assets/images/ProfilePic.png')"
+              :src="profileImage ? profileImage : import('@/assets/images/ProfilePic.png')"
               alt="Article_Author"
             />
             <CameraIcon :white="true" />
@@ -326,9 +326,10 @@ const closeDropdown = () => {
     border: none;
     font-size: 14px;
     font-style: normal;
-    font-weight: 550;
+    font-weight: 500;
     line-height: normal;
     margin: 0 16px 4px;
+    color: var(--color-stable-white);
     &:hover {
       background-color: var(--color-deep-cerulean);
       color: var(--color-white);

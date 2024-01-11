@@ -98,7 +98,7 @@ const deleteComment = async () => {
   isReplyMenuOpen.value = false
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       reply_id: props.comment?.id
     })
 
@@ -126,7 +126,7 @@ const reportComment = async () => {
   emit('reportReplyComment')
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       reply_id: props.comment?.id
     })
 

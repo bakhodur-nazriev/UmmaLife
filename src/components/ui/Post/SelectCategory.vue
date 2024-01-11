@@ -1,7 +1,7 @@
 <template>
   <div class="category">
     <button type="button" class="category__toggle" @click="toggleDropdown">
-      <ChooseCategoryIcon/>
+      <ChooseCategoryIcon />
       <span>{{ $t('buttons.category') }}</span>
     </button>
 
@@ -22,11 +22,11 @@
 </template>
 
 <script setup>
-import ChooseCategoryIcon from "@/components/icons/shorts/ChooseCategoryIcon.vue";
-import {getFormData} from "@/utils";
-import i18n from "@/i18n";
-import {onMounted, ref} from "vue";
-import axios from "axios";
+import ChooseCategoryIcon from '@/components/icons/shorts/ChooseCategoryIcon.vue'
+import { getFormData } from '@/utils'
+import i18n from '@/i18n'
+import { onMounted, ref } from 'vue'
+import axios from 'axios'
 
 const locale = i18n.global.locale
 
@@ -37,49 +37,49 @@ const toggleDropdown = () => {
 }
 
 const languageMap = {
-  "en": "english",
-  "ar": "arabic",
-  "ru": "russian",
-  "id": "indonesian",
-  "ms": "malay",
-  "tr": "turkish",
-  "uz": "uzbek",
-  "tj": "tajik",
-  "tab": "tabasaran",
-  "cv": "chuvash",
-  "ur": "urdu",
-  "inh": "ingush",
-  "tt": "tatar",
-  "lak": "lak",
-  "kum": "qumuq",
-  "krc": "balkarian",
-  "am": "amharic",
-  "lez": "lezgin"
-};
+  en: 'english',
+  ar: 'arabic',
+  ru: 'russian',
+  id: 'indonesian',
+  ms: 'malay',
+  tr: 'turkish',
+  uz: 'uzbek',
+  tj: 'tajik',
+  tab: 'tabasaran',
+  cv: 'chuvash',
+  ur: 'urdu',
+  inh: 'ingush',
+  tt: 'tatar',
+  lak: 'lak',
+  kum: 'qumuq',
+  krc: 'balkarian',
+  am: 'amharic',
+  lez: 'lezgin'
+}
 
 const getLanguageByLocale = (currentLocale) => {
-  return languageMap[currentLocale] || '';
-};
+  return languageMap[currentLocale] || ''
+}
 
 const categoryItems = ref([])
 const selectedCategories = ref([])
 const fetchCategories = async () => {
   const payload = getFormData({
-    server_key: process.env.VUE_APP_SERVER_KEY,
+    server_key: import.meta.env.VITE_SERVER_KEY,
     page: '',
     lang: getLanguageByLocale(locale)
   })
 
   const accessToken = localStorage.getItem('access_token')
-  const params = {access_token: accessToken}
+  const params = { access_token: accessToken }
 
   try {
-    const response = await axios.post('/categories', payload, {params})
+    const response = await axios.post('/categories', payload, { params })
     categoryItems.value = response.data.data
   } catch (error) {
     console.error('Error fetching categories:', error)
   }
-};
+}
 
 const toggleCategory = (category) => {
   if (isSelected(category)) {
@@ -106,11 +106,6 @@ onMounted(() => {
 .fade-leave-active {
   animation: scale-up-top-left 0.2s reverse;
 }
-
-//.scale-up-top-left {
-//  animation: scale-up-top-left 0.5s;
-//}
-
 
 @keyframes scale-up-top-left {
   0% {
@@ -201,7 +196,7 @@ onMounted(() => {
     svg {
       color: var(--color-mine-shaft);
       width: 20px;
-      height: 20px
+      height: 20px;
     }
   }
 }

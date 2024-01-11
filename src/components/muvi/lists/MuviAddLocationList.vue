@@ -96,7 +96,7 @@ import LoupeIcon from '@/components/icons/LoupeIcon.vue'
 import ArrowLeftIcon from '@/components/icons/shorts/ArrowLeftIcon.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 
-const apiKey = process.env.VUE_APP_GAPI_KEY
+const apiKey = import.meta.env.VITE_GAPI_KEY
 const center = ref({ lat: 41.015137, lng: 28.97953 })
 const isRendered = ref(false)
 const isMapOpen = ref(false)

@@ -68,7 +68,7 @@ export default {
     async getChats({ commit }) {
       try {
         const payload = getFormData({
-          server_key: process.env.VUE_APP_SERVER_KEY
+          server_key: import.meta.env.VITE_SERVER_KEY
         })
 
         const { data } = await axios.post('/get-chats', payload, {
@@ -87,7 +87,7 @@ export default {
     async getChatMessages({ state, commit }, { chat_id, direction, page }) {
       try {
         const payload = getFormData({
-          server_key: process.env.VUE_APP_SERVER_KEY,
+          server_key: import.meta.env.VITE_SERVER_KEY,
           chat_id,
           chat_type: 'user',
           page,

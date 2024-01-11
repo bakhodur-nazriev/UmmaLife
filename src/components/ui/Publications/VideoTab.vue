@@ -1,10 +1,6 @@
 <template>
   <div class="video-block">
-    <article
-      class="video-block__article"
-      v-for="(item, i) in video"
-      :key="i"
-    >
+    <article class="video-block__article" v-for="(item, i) in video" :key="i">
       <PostHeader
         :is-menu-open="isMenuOpen"
         @toggle-menu="toggleMenu"
@@ -14,12 +10,9 @@
         :post-id="item.post_id"
       />
 
-      <VideoContent
-        :video-content="item"
-        :video-reactions="item.reaction"
-      />
+      <VideoContent :video-content="item" :video-reactions="item.reaction" />
 
-      <SampleDivider class="divider"/>
+      <SampleDivider class="divider" />
 
       <PostFooter
         :posts-item="item"
@@ -35,7 +28,7 @@ import SampleDivider from '@/components/ui/SampleDivider.vue'
 import VideoContent from '@/components/ui/Publications/Video/VideoContent.vue'
 import PostHeader from '@/components/ui/Post/PostHeader.vue'
 import PostFooter from '@/components/ui/Post/PostFooter.vue'
-import {getFormData} from '@/utils'
+import { getFormData } from '@/utils'
 import axios from 'axios'
 
 export default {
@@ -63,20 +56,20 @@ export default {
       this.isMenuOpen = !this.isMenuOpen
     },
     async translatePost(text) {
-      return await this.fetchTranslation(text);
+      return await this.fetchTranslation(text)
     },
     async fetchTranslation(text) {
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         text: text
       })
 
-      const headers = {'Content-Type': 'multipart/form-data'}
+      const headers = { 'Content-Type': 'multipart/form-data' }
       const accessToken = localStorage.getItem('access_token')
-      const params = {access_token: accessToken}
+      const params = { access_token: accessToken }
 
       try {
-        const response = await axios.post('/translate', payload, {params, headers})
+        const response = await axios.post('/translate', payload, { params, headers })
         if (response.data.api_status === 200) {
           return response.data?.data
         }
@@ -85,7 +78,7 @@ export default {
       }
     },
     async handleTranslation(item) {
-      item.Orginaltext = await this.translatePost(item.Orginaltext);
+      item.Orginaltext = await this.translatePost(item.Orginaltext)
     }
   }
 }
@@ -145,7 +138,7 @@ export default {
     cursor: pointer;
     padding: 2px;
     border: none;
-    background-color: rgba(0, 0, 0, 0.2)
+    background-color: rgba(0, 0, 0, 0.2);
   }
 
   .video__time {

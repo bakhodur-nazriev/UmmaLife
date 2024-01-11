@@ -62,7 +62,7 @@ import RegisterCategoryInterestsStep6View from '@/views/Auth/Register/RegisterCa
 import { getFormData } from '@/utils'
 import axios from 'axios'
 
-const isProduction = process.env.NODE_ENV === 'production'
+const isProduction = import.meta.env.NODE_ENV === 'production'
 const baseDomain = isProduction ? 'front1.ummalife.dev' : 'localhost'
 
 const routes = [
@@ -575,7 +575,7 @@ const routes = [
     ]
   },
   {
-    path: '/:lang?/my-page',
+    path: '/:lang?/:profile_name',
     name: 'my-page',
     component: MyPageView,
     meta: {
@@ -745,7 +745,7 @@ if (isProduction) {
 }
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(import.meta.env.VITE_BASE_URL),
   mode: 'history',
   routes
 })
@@ -756,7 +756,7 @@ const isUserAuthenticated = () => {
 }
 const checkResetPasswordLink = async (email, code) => {
   const payload = getFormData({
-    server_key: process.env.VUE_APP_SERVER_KEY,
+    server_key: import.meta.env.VITE_SERVER_KEY,
     email: email,
     code: code
   })
@@ -811,7 +811,7 @@ router.beforeEach(async (to, from, next) => {
     })
   }
 
-  document.title = `${to.meta.title} | ${process.env.VUE_APP_TITLE}`
+  document.title = `${to.meta.title} | ${import.meta.env.VITE_TITLE}`
 
   const isAuthenticated = isUserAuthenticated() // Проверка авторизации в localStorage
 

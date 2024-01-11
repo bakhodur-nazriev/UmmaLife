@@ -7,7 +7,7 @@
     >
       <div class="form__left--side">
         <a :href="`/${$i18n.locale}/profile`">
-          <img :src="user.avatar" alt=""/>
+          <img :src="user.avatar" alt="" />
         </a>
         <textarea
           :placeholder="$t('placeholders.publications_input')"
@@ -18,27 +18,27 @@
       </div>
 
       <div class="form__buttons--section" v-if="isTextAreaActive">
-        <AccessDropDown/>
-        <SelectCategory/>
+        <AccessDropDown />
+        <SelectCategory />
       </div>
 
       <div v-if="!isTextAreaActive" class="form__inputs--block">
         <FileUpload label="image" accept="image/*">
-          <ImageIcon/>
+          <ImageIcon />
         </FileUpload>
 
         <FileUpload label="video" accept="video/*">
-          <VideoPublicationsIcon/>
+          <VideoPublicationsIcon />
         </FileUpload>
 
         <FileUpload label="audio" accept="audio/*">
-          <AudioPublicationIcon/>
+          <AudioPublicationIcon />
         </FileUpload>
 
         <div class="vertical__divider"></div>
 
         <FileUpload label="file">
-          <ClipIcon/>
+          <ClipIcon />
         </FileUpload>
       </div>
       <div v-if="isTextAreaActive" class="textarea__active--buttons">
@@ -52,7 +52,7 @@
               :title="`${$t('buttons.mood')}`"
               @click="isMoodActive"
             >
-              <SmallSmileIcon/>
+              <SmallSmileIcon />
             </SampleButton>
             <SampleButton
               icon="traveling"
@@ -60,7 +60,7 @@
               :title="`${$t('buttons.traveling')}`"
               @click="isTravelingActive"
             >
-              <MapIcon/>
+              <MapIcon />
             </SampleButton>
             <SampleButton
               icon="watching"
@@ -68,7 +68,7 @@
               :title="`${$t('buttons.watching')}`"
               @click="isWatchingActive"
             >
-              <CinemaIcon/>
+              <CinemaIcon />
             </SampleButton>
             <SampleButton
               icon="playing"
@@ -76,7 +76,7 @@
               :title="`${$t('buttons.playing')}`"
               @click="isPlayingActive"
             >
-              <GamingIcon/>
+              <GamingIcon />
             </SampleButton>
             <SampleButton
               icon="listening"
@@ -84,7 +84,7 @@
               :title="`${$t('buttons.listening')}`"
               @click="isListeningActive"
             >
-              <ListeningIcon/>
+              <ListeningIcon />
             </SampleButton>
           </div>
         </div>
@@ -99,110 +99,110 @@
 
           <div class="emotions__section--buttons">
             <SampleButton color="tertiary" icon="happy" :title="`${$t('buttons.emotions.happy')}`">
-              <HappyIcon/>
+              <HappyIcon />
             </SampleButton>
             <SampleButton
               color="tertiary"
               icon="in_love"
               :title="`${$t('buttons.emotions.in_love')}`"
             >
-              <InLoveIcon/>
+              <InLoveIcon />
             </SampleButton>
             <SampleButton
               color="tertiary"
               icon="outraged"
               :title="`${$t('buttons.emotions.outraged')}`"
             >
-              <OutragedIcon/>
+              <OutragedIcon />
             </SampleButton>
             <SampleButton
               color="tertiary"
               icon="celebrate"
               :title="`${$t('buttons.emotions.celebrate')}`"
             >
-              <CelebrateIcon/>
+              <CelebrateIcon />
             </SampleButton>
             <SampleButton
               color="tertiary"
               icon="giggle"
               :title="`${$t('buttons.emotions.giggle')}`"
             >
-              <GiggleIcon/>
+              <GiggleIcon />
             </SampleButton>
             <SampleButton color="tertiary" icon="crazy" :title="`${$t('buttons.emotions.crazy')}`">
-              <CrazyIcon/>
+              <CrazyIcon />
             </SampleButton>
             <SampleButton
               color="tertiary"
               icon="falling_asleep"
               :title="`${$t('buttons.emotions.falling_asleep')}`"
             >
-              <FallingAsleepIcon/>
+              <FallingAsleepIcon />
             </SampleButton>
             <SampleButton
               color="tertiary"
               icon="shocked"
               :title="`${$t('buttons.emotions.shocked')}`"
             >
-              <ShockedIcon/>
+              <ShockedIcon />
             </SampleButton>
             <SampleButton
               color="tertiary"
               icon="excited"
               :title="`${$t('buttons.emotions.excited')}`"
             >
-              <ExcitedIcon/>
+              <ExcitedIcon />
             </SampleButton>
             <SampleButton color="tertiary" icon="angry" :title="`${$t('buttons.emotions.angry')}`">
-              <AngryIcon/>
+              <AngryIcon />
             </SampleButton>
             <SampleButton
               color="tertiary"
               icon="masked"
               :title="`${$t('buttons.emotions.masked')}`"
             >
-              <MaskedIcon/>
+              <MaskedIcon />
             </SampleButton>
             <SampleButton color="tertiary" icon="think" :title="`${$t('buttons.emotions.think')}`">
-              <ThinkIcon/>
+              <ThinkIcon />
             </SampleButton>
             <SampleButton
               color="tertiary"
               icon="laughing_out_loud"
               :title="`${$t('buttons.emotions.laughing_out_loud')}`"
             >
-              <LaughingOutLoudIcon/>
+              <LaughingOutLoudIcon />
             </SampleButton>
             <SampleButton
               color="tertiary"
               icon="wonder"
               :title="`${$t('buttons.emotions.wonder')}`"
             >
-              <WonderIcon/>
+              <WonderIcon />
             </SampleButton>
             <SampleButton color="tertiary" icon="sick" :title="`${$t('buttons.emotions.sick')}`">
-              <SickIcon/>
+              <SickIcon />
             </SampleButton>
             <SampleButton
               color="tertiary"
               icon="embarrassed"
               :title="`${$t('buttons.emotions.embarrassed')}`"
             >
-              <EmbarrassedIcon/>
+              <EmbarrassedIcon />
             </SampleButton>
             <SampleButton
               color="tertiary"
               icon="ignore"
               :title="`${$t('buttons.emotions.ignore')}`"
             >
-              <IgnoreIcon/>
+              <IgnoreIcon />
             </SampleButton>
             <SampleButton
               color="tertiary"
               icon="frozen"
               :title="`${$t('buttons.emotions.frozen')}`"
             >
-              <FrozenIcon/>
+              <FrozenIcon />
             </SampleButton>
           </div>
         </div>
@@ -254,10 +254,10 @@
               v-for="(item, index) in addedAudioItems"
               :key="index"
             >
-              <AudioPublicationIcon/>
-              <input readonly type="text" class="audio__title" :value="item.title"/>
+              <AudioPublicationIcon />
+              <input readonly type="text" class="audio__title" :value="item.title" />
               <button type="button" class="remove__audio--button" @click="removeAudioItem(index)">
-                <RemoveAudioIcon/>
+                <RemoveAudioIcon />
               </button>
             </div>
           </div>
@@ -272,10 +272,10 @@
               v-for="(item, index) in audioItems"
               :key="index"
             >
-              <AudioPublicationIcon/>
-              <input readonly type="text" class="audio__title" :value="item.title"/>
+              <AudioPublicationIcon />
+              <input readonly type="text" class="audio__title" :value="item.title" />
               <button type="button" class="add__audio--button" @click="addAudioItem">
-                <AddAudioIcon/>
+                <AddAudioIcon />
               </button>
             </div>
           </div>
@@ -284,17 +284,17 @@
         <div class="textarea__active" :class="{ active: isTextAreaActive }">
           <div class="textarea__active--left--side">
             <button class="poll__button" type="button" @click="openPollModal">
-              <PollIcon/>
+              <PollIcon />
             </button>
 
-            <PollModal v-if="showPollModal" @close="closePollModal"/>
+            <PollModal v-if="showPollModal" @close="closePollModal" />
 
             <button class="smile__button" type="button" @click="activeSmileSection">
-              <SmileIcon/>
+              <SmileIcon />
             </button>
 
             <button class="audio__button" type="button" @click="activeAudioSection">
-              <AudioPublicationIcon/>
+              <AudioPublicationIcon />
             </button>
 
             <div class="vertical__divider"></div>
@@ -352,8 +352,8 @@ import MapIcon from '@/components/icons/MapIcon.vue'
 import CinemaIcon from '@/components/icons/CinemaIcon.vue'
 import GamingIcon from '@/components/icons/GamingIcon.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
-import {getFormData} from "@/utils";
-import SelectCategory from "@/components/ui/Post/SelectCategory.vue";
+import { getFormData } from '@/utils'
+import SelectCategory from '@/components/ui/Post/SelectCategory.vue'
 
 export default {
   components: {
@@ -443,14 +443,14 @@ export default {
         title: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
       }
     ],
-    user: JSON.parse(localStorage.getItem('user')) || {},
+    user: JSON.parse(localStorage.getItem('user')) || {}
   }),
   methods: {
     addPost() {
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         postText: '',
-        postPrivacy: 1,
+        postPrivacy: 1
       })
     },
     backToMoodSection() {
@@ -577,10 +577,12 @@ export default {
 
   a {
     margin-right: 16px;
+    width: 48px;
+    height: 48px;
 
     img {
-      width: 48px;
-      height: 48px;
+      min-width: 48px;
+      min-height: 48px;
       border-radius: 50%;
     }
   }

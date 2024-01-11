@@ -41,7 +41,7 @@ const fetchViewedMovies = async (last_id = null) => {
   isLoading.value = true
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       last_id
     })
     const { data } = await axios.post('/muvi-viewed-videos', payload, {

@@ -32,22 +32,24 @@
 
       <div :class="['input-wrapper', { error: hasError.gender }]">
         <div class="genders" ref="container">
-          <button
-            type="button"
-            class="genders__button"
-            @click="handleButtonClick"
-          >
-            <span :class="{'genders-title': !selectedGender, 'selected-gender': selectedGender}">
+          <button type="button" class="genders__button" @click="handleButtonClick">
+            <span :class="{ 'genders-title': !selectedGender, 'selected-gender': selectedGender }">
               {{ displayGender || $t('register.placeholders.gender.title') }}
             </span>
-            <dropdown-icon class="genders__icon genders__icon--dropdown"/>
+            <dropdown-icon class="genders__icon genders__icon--dropdown" />
           </button>
 
           <ul class="genders__list" :data-genders="$t('languages.title')" ref="list">
-            <li class="genders__item" @click="selectGender(`${$t('register.placeholders.gender.male')}`)">
+            <li
+              class="genders__item"
+              @click="selectGender(`${$t('register.placeholders.gender.male')}`)"
+            >
               {{ $t('register.placeholders.gender.male') }}
             </li>
-            <li class="genders__item" @click="selectGender(`${$t('register.placeholders.gender.female')}`)">
+            <li
+              class="genders__item"
+              @click="selectGender(`${$t('register.placeholders.gender.female')}`)"
+            >
               {{ $t('register.placeholders.gender.female') }}
             </li>
           </ul>
@@ -67,9 +69,9 @@
       <SampleButton
         type="submit"
         class="login-button__section-next"
-        :title="`${ $t('buttons.next') }`"
+        :title="`${$t('buttons.next')}`"
         :disabled="isSubmitDisabled"
-        :class="{'disabled-button': isSubmitDisabled}"
+        :class="{ 'disabled-button': isSubmitDisabled }"
       />
     </div>
   </FormAuth>
@@ -82,7 +84,7 @@ import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import DropdownIcon from '@/components/icons/DropdownIcon.vue'
 import axios from 'axios'
-import {getFormData} from '@/utils'
+import { getFormData } from '@/utils'
 
 export default {
   components: {
@@ -119,20 +121,17 @@ export default {
   computed: {
     isSubmitDisabled() {
       return (
-        this.firstName.trim() === '' ||
-        this.lastName.trim() === '' ||
-        this.selectedGender === null
+        this.firstName.trim() === '' || this.lastName.trim() === '' || this.selectedGender === null
       )
     },
     displayGender() {
       if (this.selectedGender === 'male') {
-        return this.$t('register.placeholders.gender.male');
+        return this.$t('register.placeholders.gender.male')
       } else if (this.selectedGender === 'female') {
-        return this.$t('register.placeholders.gender.female');
+        return this.$t('register.placeholders.gender.female')
       }
-      return null;
+      return null
     }
-
   },
   methods: {
     async handleSubmit(event) {
@@ -149,7 +148,7 @@ export default {
         const response = await this.sendRequest()
 
         if (response.data.api_status === 200) {
-          this.$router.push({name: 'RegisterAddPhoneStep5View'})
+          this.$router.push({ name: 'RegisterAddPhoneStep5View' })
         } else {
           this.errorText = response.data.errors.error_text
         }
@@ -159,19 +158,19 @@ export default {
     },
     async sendRequest() {
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         first_name: this.firstName,
         last_name: this.lastName,
         gender: this.selectedGender
       })
 
-      const headers = {'Content-Type': 'multipart/form-data'}
+      const headers = { 'Content-Type': 'multipart/form-data' }
 
       const accessToken = localStorage.getItem('access_token')
-      const params = {access_token: accessToken}
+      const params = { access_token: accessToken }
 
       try {
-        return await axios.post('/create-account-more', payload, {params, headers})
+        return await axios.post('/create-account-more', payload, { params, headers })
       } catch (error) {
         throw error
       }
@@ -186,7 +185,9 @@ export default {
       if (!container) {
         return
       }
-      !this.$refs.container.classList.contains('genders--shown') ? this.openDropdown() : this.closeDropdown()
+      !this.$refs.container.classList.contains('genders--shown')
+        ? this.openDropdown()
+        : this.closeDropdown()
     },
     openDropdown() {
       this.$refs.container.classList.add('genders--shown')
@@ -208,7 +209,7 @@ export default {
       return !evt.target.closest('.genders') && this.closeDropdown()
     },
     handleEscapeKeydown(evt) {
-      return (evt.keyCode === 27) && this.closeDropdown()
+      return evt.keyCode === 27 && this.closeDropdown()
     },
     selectGender(gender) {
       if (gender === this.$t('register.placeholders.gender.male')) {

@@ -34,7 +34,7 @@ const cardClickHandler = (index) => {
 const fetchSavedMuvies = async () => {
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY
+      server_key: import.meta.env.VITE_SERVER_KEY
     })
     const { data } = await axios.post('/get-saved-short-videos', payload, {
       headers: {

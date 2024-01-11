@@ -110,7 +110,7 @@ const handleSelect = async (index, category) => {
 const fetchRecommendations = async (category_code) => {
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       last_id: null,
       filter: category_code
     })
@@ -130,7 +130,7 @@ const fetchRecommendations = async (category_code) => {
 const fetchCategorieVideos = async (category_id) => {
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       last_id: null,
       category_id
     })
@@ -151,7 +151,7 @@ const fetchCategorieVideos = async (category_id) => {
 const fetchCategories = async () => {
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       page: 1
     })
     const { data } = await axios.post('/categories', payload, {
@@ -175,7 +175,7 @@ const searchMuvie = async (query) => {
   }
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       query
     })
     const { data } = await axios.post('/muvi-search-videos', payload, {

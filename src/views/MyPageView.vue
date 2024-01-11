@@ -1,18 +1,46 @@
 <template>
   <div class="page__container">
     <div class="page__wrapper">
-      <MyPosts/>
-      <MyProfile/>
+      <MyPosts />
+      <MyProfile />
     </div>
   </div>
 </template>
 
 <script setup>
-/* eslint-disable */
-import {onMounted} from 'vue'
+import { onMounted, ref } from 'vue'
 import MyProfile from '@/components/profile/MyProfile.vue'
 import MyPosts from '@/components/profile/MyPosts.vue'
 import StickySidebar from 'sticky-sidebar-v2'
+
+import axios from 'axios'
+import { getFormData } from '@/utils.js'
+
+const userData = ref(null)
+
+async function getUserData() {
+  try {
+    const payload = getFormData({
+      server_key: import.meta.env.VITE_SERVER_KEY,
+      user_id: localStorage.getItem('user_id')
+    })
+
+    const { data } = await axios.post('/get-user-data', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      params: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+
+    userData.value = data.data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+getUserData()
 
 onMounted(() => {
   new StickySidebar('.profile', {
@@ -48,7 +76,7 @@ onMounted(() => {
     grid-template-columns: 60% 40%;
   }
 
-  @media (max-width: 1377px) {
+  @media (max-width: 767px) {
     display: flex;
     flex-direction: column-reverse;
     grid-template-columns: 100%;

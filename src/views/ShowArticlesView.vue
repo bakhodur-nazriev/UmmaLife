@@ -245,61 +245,61 @@ export default {
       news: [
         {
           id: 1,
-          image: require('@/assets/images/articles/popular_articles/article_1.png'),
+          image: import('@/assets/images/articles/popular_articles/article_1.png'),
           title: 'Как я сьездил в Саудовскую Аравию. Маршрут, цены и впечатл',
           author: 'Ибрагим Ибрагимов'
         },
         {
           id: 2,
-          image: require('@/assets/images/articles/popular_articles/article_2.png'),
+          image: import('@/assets/images/articles/popular_articles/article_2.png'),
           title: 'Изучаем природу',
           author: 'Ибрагим Ибрагимов'
         },
         {
           id: 3,
-          image: require('@/assets/images/articles/popular_articles/article_3.png'),
+          image: import('@/assets/images/articles/popular_articles/article_3.png'),
           title: 'Как я сьездил в Саудовскую Аравию. Маршрут, цены и впечатл',
           author: 'Ибрагим Ибрагимов'
         },
         {
           id: 4,
-          image: require('@/assets/images/articles/popular_articles/article_4.png'),
+          image: import('@/assets/images/articles/popular_articles/article_4.png'),
           title: 'Как я сьездил в Саудовскую Аравию. Маршрут, цены и впечатл',
           author: 'Ибрагим Ибрагимов'
         },
         {
           id: 5,
-          image: require('@/assets/images/articles/popular_articles/article_5.png'),
+          image: import('@/assets/images/articles/popular_articles/article_5.png'),
           title: 'Как я сьездил в Саудовскую Аравию. Маршрут, цены и впечатл',
           author: 'Ибрагим Ибрагимов'
         },
         {
           id: 6,
-          image: require('@/assets/images/articles/popular_articles/article_6.png'),
+          image: import('@/assets/images/articles/popular_articles/article_6.png'),
           title: 'Как я сьездил в Саудовскую Аравию. Маршрут, цены и впечатл',
           author: 'Ибрагим Ибрагимов'
         },
         {
           id: 7,
-          image: require('@/assets/images/articles/popular_articles/article_7.png'),
+          image: import('@/assets/images/articles/popular_articles/article_7.png'),
           title: 'Как я сьездил в Саудовскую Аравию. Маршрут, цены и впечатл',
           author: 'Ибрагим Ибрагимов'
         },
         {
           id: 8,
-          image: require('@/assets/images/articles/popular_articles/article_8.png'),
+          image: import('@/assets/images/articles/popular_articles/article_8.png'),
           title: 'Как я сьездил в Саудовскую Аравию. Маршрут, цены и впечатл',
           author: 'Ибрагим Ибрагимов'
         },
         {
           id: 9,
-          image: require('@/assets/images/articles/popular_articles/article_9.png'),
+          image: import('@/assets/images/articles/popular_articles/article_9.png'),
           title: 'Как я сьездил в Саудовскую Аравию. Маршрут, цены и впечатл',
           author: 'Ибрагим Ибрагимов'
         },
         {
           id: 10,
-          image: require('@/assets/images/articles/popular_articles/article_10.png'),
+          image: import('@/assets/images/articles/popular_articles/article_10.png'),
           title: 'Как я сьездил в Саудовскую Аравию. Маршрут, цены и впечатл',
           author: 'Ибрагим Ибрагимов'
         }

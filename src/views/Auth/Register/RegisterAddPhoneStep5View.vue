@@ -3,7 +3,9 @@
     <TitleSample>{{ $t('register.title') }}</TitleSample>
 
     <h5 class="subhead medium">{{ $t('register.messages.enter_your_phone') }}</h5>
-    <label class="login__with-phone-label">{{ $t('register.messages.can_login_with_phone_number') }}</label>
+    <label class="login__with-phone-label">{{
+      $t('register.messages.can_login_with_phone_number')
+    }}</label>
 
     <div :class="['input-wrapper', { error: hasError }]">
       <div class="phone-field__section">
@@ -29,17 +31,14 @@
       <SampleButton
         type="submit"
         class="login-button__section-button"
-        :title="`${ $t('buttons.login') }`"
+        :title="`${$t('buttons.login')}`"
         :disabled="isSubmitDisabled"
-        :class="{'disabled-button': isSubmitDisabled}"
+        :class="{ 'disabled-button': isSubmitDisabled }"
       />
     </div>
 
     <div class="skip-section">
-      <button
-        class="skip-section__link"
-        @click="skipPhoneStep"
-      >
+      <button class="skip-section__link" @click="skipPhoneStep">
         {{ $t('links.skip') }}
       </button>
     </div>
@@ -47,13 +46,12 @@
 </template>
 
 <script>
-/* eslint-disable */
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import axios from 'axios'
-import {VueTelInput} from 'vue-tel-input'
-import {getFormData} from '@/utils'
+import { VueTelInput } from 'vue-tel-input'
+import { getFormData } from '@/utils'
 
 export default {
   components: {
@@ -79,7 +77,7 @@ export default {
           showFlags: true,
           showDialCodeInList: true,
           showDialCodeInSelection: true
-        },
+        }
       },
       country: null,
       responseErrorText: null,
@@ -121,17 +119,17 @@ export default {
     async sendRequest() {
       const phoneNumberWithCountryCode = `+${this.selectedCountryCode + this.phoneNumber}`
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         phone: phoneNumberWithCountryCode
       })
 
-      const headers = {'Content-Type': 'multipart/form-data'}
+      const headers = { 'Content-Type': 'multipart/form-data' }
 
       const accessToken = localStorage.getItem('access_token')
-      const params = {access_token: accessToken}
+      const params = { access_token: accessToken }
 
       try {
-        return axios.post('/check-phone', payload, {params, headers})
+        return axios.post('/check-phone', payload, { params, headers })
       } catch (error) {
         throw error
       }
@@ -143,8 +141,8 @@ export default {
       this.selectedCountryCode = country.dialCode
     },
     skipPhoneStep() {
-      this.$router.push({name: 'RegisterCategoryInterestsStep6View'})
-    },
+      this.$router.push({ name: 'RegisterCategoryInterestsStep6View' })
+    }
   },
   mounted() {
     this.handleCountrySelected()

@@ -95,7 +95,7 @@ const scrollToBottom = () => {
 const clickReactionHandler = async (reactionPayload) => {
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       ...reactionPayload
     })
 
@@ -124,7 +124,7 @@ const submitComment = async (video_id) => {
   if (!commentText.value) return
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       video_id,
       text: commentText.value.trim()
     })
@@ -148,7 +148,7 @@ const submitUpdateComment = async (video_id) => {
   if (!commentText.value) return
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       comment_id: passedComment.value.id,
       text: commentText.value.trim()
     })
@@ -181,7 +181,7 @@ const getComments = async (video_id) => {
   try {
     isLoading.value = true
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       video_id,
       reaction: '1'
     })

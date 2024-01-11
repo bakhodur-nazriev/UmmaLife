@@ -80,7 +80,7 @@ const handleMuvieOpen = (index) => {
 const getUserProfile = async () => {
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY
+      server_key: import.meta.env.VITE_SERVER_KEY
     })
     const { data } = await axios.post('/muvi-user-profile', payload, {
       headers: {
@@ -99,7 +99,7 @@ const getUserProfile = async () => {
 const fetchMyMuvies = async () => {
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       user_id: user.value?.user_id,
       page: page.value
     })

@@ -73,7 +73,7 @@ const props = defineProps({
 const setMuvieViewed = async (video_id) => {
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       video_id
     })
     await axios.post('/set-view-short-video', payload, {

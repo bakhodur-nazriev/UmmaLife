@@ -1,10 +1,6 @@
 <template>
   <div class="photo-block">
-    <article
-      class="photo-block__article"
-      v-for="(item, i) in photos"
-      :key="i"
-    >
+    <article class="photo-block__article" v-for="(item, i) in photos" :key="i">
       <PostHeader
         :is-menu-open="isMenuOpen"
         @toggle-menu="toggleMenu"
@@ -14,12 +10,9 @@
         :post-id="item.post_id"
       />
 
-      <PhotoContent
-        :photo-content="item"
-        :photo-reactions="item.reaction"
-      />
+      <PhotoContent :photo-content="item" :photo-reactions="item.reaction" />
 
-      <SampleDivider class="divider"/>
+      <SampleDivider class="divider" />
 
       <PostFooter
         :posts-item="item"
@@ -35,8 +28,8 @@ import PhotoContent from '@/components/ui/Publications/Photo/PhotoContent.vue'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
 import PostFooter from '@/components/ui/Post/PostFooter.vue'
 import PostHeader from '@/components/ui/Post/PostHeader.vue'
-import {getFormData} from "@/utils";
-import axios from "axios";
+import { getFormData } from '@/utils'
+import axios from 'axios'
 
 export default {
   components: {
@@ -55,7 +48,7 @@ export default {
     return {
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
-      isMenuOpen: false,
+      isMenuOpen: false
     }
   },
   methods: {
@@ -63,20 +56,20 @@ export default {
       this.isMenuOpen = !this.isMenuOpen
     },
     async translatePost(text) {
-      return await this.fetchTranslation(text);
+      return await this.fetchTranslation(text)
     },
     async fetchTranslation(text) {
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         text: text
       })
 
-      const headers = {'Content-Type': 'multipart/form-data'}
+      const headers = { 'Content-Type': 'multipart/form-data' }
       const accessToken = localStorage.getItem('access_token')
-      const params = {access_token: accessToken}
+      const params = { access_token: accessToken }
 
       try {
-        const response = await axios.post('/translate', payload, {params, headers})
+        const response = await axios.post('/translate', payload, { params, headers })
         if (response.data.api_status === 200) {
           return response.data?.data
         }
@@ -85,7 +78,7 @@ export default {
       }
     },
     async handleTranslation(item) {
-      item.Orginaltext = await this.translatePost(item.Orginaltext);
+      item.Orginaltext = await this.translatePost(item.Orginaltext)
     }
   }
 }

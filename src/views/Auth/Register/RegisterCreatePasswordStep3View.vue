@@ -7,17 +7,17 @@
     <div class="main-input__block">
       <div class="main-input__block-with-eye" :class="['input-wrapper', { error: hasError }]">
         <input
-            name="password"
-            :type="isPasswordVisible ? 'text' : 'password'"
-            v-model="password"
-            class="base-input"
-            :class="{ 'input-field': true, error: passwordError }"
-            :placeholder="$t('register.placeholders.your_password')"
+          name="password"
+          :type="isPasswordVisible ? 'text' : 'password'"
+          v-model="password"
+          class="base-input"
+          :class="{ 'input-field': true, error: passwordError }"
+          :placeholder="$t('register.placeholders.your_password')"
         />
 
         <button type="button" class="eye-button" @click="togglePasswordVisibility">
-          <EyeSlashIcon class="eye-button__icon" v-if="isPasswordVisible"/>
-          <EyeIcon class="eye-button__icon" v-else/>
+          <EyeSlashIcon class="eye-button__icon" v-if="isPasswordVisible" />
+          <EyeIcon class="eye-button__icon" v-else />
         </button>
         <div class="error-message__block">
           <small v-if="hasError" class="error-message">
@@ -32,11 +32,11 @@
 
     <div class="login-button__section">
       <SampleButton
-          type="submit"
-          class="login-button__section-next"
-          :title="`${$t('buttons.next')}`"
-          :disabled="isSubmitDisabled"
-          :class="{'disabled-button': isSubmitDisabled}"
+        type="submit"
+        class="login-button__section-next"
+        :title="`${$t('buttons.next')}`"
+        :disabled="isSubmitDisabled"
+        :class="{ 'disabled-button': isSubmitDisabled }"
       />
     </div>
   </FormAuth>
@@ -50,7 +50,7 @@ import SampleButton from '@/components/ui/SampleButton.vue'
 import EyeSlashIcon from '@/components/icons/EyeSlashIcon.vue'
 import EyeIcon from '@/components/icons/EyeIcon.vue'
 import axios from 'axios'
-import {getFormData} from '@/utils'
+import { getFormData } from '@/utils'
 
 export default {
   components: {
@@ -97,7 +97,7 @@ export default {
 
         if (response.data.api_status === 200) {
           localStorage.setItem('access_token', response.data.access_token)
-          this.$router.push({name: 'RegisterAddInfoStep4View'})
+          this.$router.push({ name: 'RegisterAddInfoStep4View' })
         } else {
           this.errorText = response.data.errors.error_text
         }
@@ -107,15 +107,15 @@ export default {
     },
     async sendRequest() {
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         email: localStorage.getItem('email'),
         password: this.password
       })
 
-      const headers = {'Content-Type': 'multipart/form-data'}
+      const headers = { 'Content-Type': 'multipart/form-data' }
 
       try {
-        return await axios.post('/create-account', payload, {headers})
+        return await axios.post('/create-account', payload, { headers })
       } catch (error) {
         throw error
       }

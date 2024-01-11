@@ -55,6 +55,8 @@ const updateChecked = (event) => {
   display: flex;
   align-items: center;
   gap: 12px;
+  width: max-content;
+  user-select: none;
 
   &.text-size {
     &__small {
@@ -90,7 +92,7 @@ const updateChecked = (event) => {
 
       &__transparent {
         background: transparent;
-        border: 1ps solid var(--color-silver-chalice)
+        border: 1px solid var(--color-silver-chalice)
       }
     }
 
@@ -98,8 +100,8 @@ const updateChecked = (event) => {
       &__small {
         width: 16px;
         height: 16px;
-        padding: 2px;
-        border-radius: 4px;
+        padding: 3px;
+        border-radius: 5px;
       }
 
       &__medium {
@@ -119,5 +121,7 @@ const updateChecked = (event) => {
 .checkbox__input:checked + .checkbox__icon {
   background: #49a399;
   color: white;
+  border: 1px solid var(--color-hippie-blue);
+  border-radius: 5px;
 }
 </style>

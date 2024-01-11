@@ -1,8 +1,14 @@
 <template>
   <FormAuth @submit="handleSubmit">
     <div class="buttons-back__section">
-      <SampleButton @click="goBack" icon="back" :size="20" color="none" :title="`${ $t('buttons.prev') }`">
-        <ArrowLeftIcon/>
+      <SampleButton
+        @click="goBack"
+        icon="back"
+        :size="20"
+        color="none"
+        :title="`${$t('buttons.prev')}`"
+      >
+        <ArrowLeftIcon />
       </SampleButton>
     </div>
 
@@ -15,13 +21,13 @@
     <div :class="['input-wrapper', { error: hasError }]">
       <div class="verify__number-section">
         <SampleCodeNumberInput
-            v-for="(inputValue, index) in code"
-            :key="index"
-            :code="code"
-            :index="index"
-            @next="focusNextInput"
-            @backspace="handleBackspace"
-            @update:code="updateCode"
+          v-for="(inputValue, index) in code"
+          :key="index"
+          :code="code"
+          :index="index"
+          @next="focusNextInput"
+          @backspace="handleBackspace"
+          @update:code="updateCode"
         />
       </div>
       <div class="error-message__block">
@@ -68,8 +74,8 @@ import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import SampleCodeNumberInput from '@/components/ui/SampleCodeNumberInput.vue'
 import axios from 'axios'
-import {getFormData} from '@/utils'
-import ArrowLeftIcon from "@/components/icons/shorts/ArrowLeftIcon.vue";
+import { getFormData } from '@/utils'
+import ArrowLeftIcon from '@/components/icons/shorts/ArrowLeftIcon.vue'
 
 export default {
   components: {
@@ -110,7 +116,7 @@ export default {
       const response = await this.sendRequest()
       if (response.status === 200) {
         this.notificationMessage = response.data.message
-        this.$router.push({name: 'news'})
+        this.$router.push({ name: 'news' })
       } else {
         this.errorText = response.data.errors.error_text
       }
@@ -119,15 +125,15 @@ export default {
       const fullCode = this.code.join('')
 
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         phone: this.phoneNumber,
         code: fullCode
       })
 
-      const headers = {'Content-Type': 'multipart/form-data'}
+      const headers = { 'Content-Type': 'multipart/form-data' }
 
       try {
-        return await axios.post('/confirm-phone', payload, {headers})
+        return await axios.post('/confirm-phone', payload, { headers })
       } catch (error) {
         throw error
       }
@@ -135,13 +141,13 @@ export default {
     async resendRequest() {
       try {
         const payload = getFormData({
-          server_key: process.env.VUE_APP_SERVER_KEY,
+          server_key: import.meta.env.VITE_SERVER_KEY,
           phone: localStorage.getItem('phone_number')
         })
 
-        const headers = {'Content-Type': 'multipart/form-data'}
+        const headers = { 'Content-Type': 'multipart/form-data' }
 
-        const response = await axios.post('/auth-phone', payload, {headers})
+        const response = await axios.post('/auth-phone', payload, { headers })
 
         if (response.data.api_status === 200) {
           this.countDown = 60
@@ -196,7 +202,7 @@ export default {
       return `${formattedMinutes}:${formattedSeconds}`
     },
     goBack() {
-      return this.$router.push({name: 'LoginByPhoneStep1View'})
+      return this.$router.push({ name: 'LoginByPhoneStep1View' })
     },
     updateCode(payload) {
       const { index, value } = payload

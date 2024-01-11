@@ -2,14 +2,13 @@
   <FormAuth>
     <TitleSample>{{ $t('login.title') }}</TitleSample>
     <div class="sample__phone-input">
-
       <div :class="['input-wrapper', { error: hasError }]">
         <div class="phone__field-section">
           <vue-tel-input
-              ref="vueTelInput"
-              v-model="phoneNumber"
-              v-bind="bindProps"
-              @country-changed="countryChanged"
+            ref="vueTelInput"
+            v-model="phoneNumber"
+            v-bind="bindProps"
+            @country-changed="countryChanged"
           >
           </vue-tel-input>
 
@@ -22,33 +21,26 @@
     </div>
     <div class="login-button__section">
       <SampleButton
-          class="login-button__section-button"
-          @click="handleSubmit"
-          :title="`${ $t('buttons.login') }`"
-          :disabled="isSubmitDisabled"
-          :class="{ 'disabled-button': isSubmitDisabled }"
+        class="login-button__section-button"
+        @click="handleSubmit"
+        :title="`${$t('buttons.login')}`"
+        :disabled="isSubmitDisabled"
+        :class="{ 'disabled-button': isSubmitDisabled }"
       />
     </div>
-    <router-link
-        class="link create-account-link"
-        :to="`/${$i18n.locale}/register`"
-    >
+    <router-link class="link create-account-link" :to="`/${$i18n.locale}/register`">
       {{ $t('login.create_account') }}
     </router-link>
   </FormAuth>
 
   <div class="login-with-phone-section">
-    <router-link
-        :to="`/${$i18n.locale}/login-by-email`"
-        class="link-with-phone-number"
-    >
+    <router-link :to="`/${$i18n.locale}/login-by-email`" class="link-with-phone-number">
       {{ $t('login.with_email') }}
     </router-link>
   </div>
 </template>
 
 <script>
-/* eslint-disable */
 import SampleButton from '@/components/ui/SampleButton.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import FormAuth from '@/components/ui/FormAuth.vue'
@@ -82,7 +74,7 @@ export default {
           showFlags: true,
           showDialCodeInList: true,
           showDialCodeInSelection: true
-        },
+        }
       },
       country: null,
       responseErrorText: ''
@@ -98,7 +90,7 @@ export default {
           const authPhoneResponse = await this.sendAuthPhoneRequest()
 
           if (authPhoneResponse.data.api_status === 200) {
-            this.$router.push({name: 'LoginByPhoneStep2View'});
+            this.$router.push({name: 'LoginByPhoneStep2View'})
           } else {
             this.responseErrorText = authPhoneResponse.data.errors.error_text
             console.error(authPhoneResponse.data)
@@ -116,7 +108,7 @@ export default {
       localStorage.setItem('phone_number', fullPhoneNumber)
 
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         phone: fullPhoneNumber
       })
 
@@ -129,12 +121,11 @@ export default {
       localStorage.setItem('phone_number', fullPhoneNumber)
 
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         phone: fullPhoneNumber
       })
 
       const headers = {
-
         'Content-Type': 'multipart/form-data'
       }
 
@@ -142,7 +133,7 @@ export default {
     },
     countryChanged(country) {
       this.selectedCountryCode = '+' + country.dialCode
-    },
+    }
   },
   computed: {
     isSubmitDisabled() {
@@ -272,16 +263,6 @@ export default {
       .vti__flag {
         width: 16px;
       }
-
-      //.vti__dropdown-arrow {
-      //  background-image: url('data:image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.3707 6.5L8.06035 9.81035L4.75 6.5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>');
-      //  width: 16px;
-      //  height: 16px;
-      //
-      //  font-size: 0;
-      //  color: transparent;
-      //  text-indent: -9999px;
-      //}
     }
   }
 

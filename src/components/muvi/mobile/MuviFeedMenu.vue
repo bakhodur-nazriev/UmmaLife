@@ -169,7 +169,7 @@ const options = ref([
 const selectedOption = ref(options.value[0])
 
 const payload = reactive({
-  server_key: process.env.VUE_APP_SERVER_KEY,
+  server_key: import.meta.env.VITE_SERVER_KEY,
   video_id: props.muvi?.id,
   description: '',
   privacy_type: 0 //0 - Available to everyone * 1 - Who is following me * 2 - Who am I
@@ -241,7 +241,7 @@ const deleteShortVideo = async () => {
   try {
     isLoading.value = true
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       video_id: props.muvi?.id
     })
 
@@ -264,7 +264,7 @@ const deleteShortVideo = async () => {
 const reportMuvi = async () => {
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       video_id: props.muvi?.id,
       text: 'test',
       type: 'spam'

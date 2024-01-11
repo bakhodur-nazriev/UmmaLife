@@ -2,14 +2,14 @@
   <div class="dropdown">
     <button type="button" class="dropdown__toggle" @click="toggleDropdown">
       <AccessIcon class="access__icon"/>
-      <span>{{ selectedTitle }}</span>
+      <span>{{ $t('buttons.available_everyone') }}</span>
       <DropdownIcon/>
     </button>
 
     <Transition name="fade">
       <div v-if="isOpen" class="dropdown__list">
         <div class="first__section">
-          <SampleRadio :index="0">
+          <SampleRadio :checked="true" :index="0">
             {{ $t('buttons.available_everyone') }}
           </SampleRadio>
           <SampleRadio :index="1">
@@ -18,15 +18,20 @@
         </div>
         <div class="second__section">
           <CheckBox
-            name="only_subscribers"
-            color="primary"
-            text-size="small"
-            size="small"
+              name="only_subscribers"
+              color="transparent"
+              text-size="small"
+              size="small"
           >
             {{ $t('buttons.only_subscribers') }}
           </CheckBox>
 
-          <CheckBox name="anonymously" color="primary" text-size="small" size="small">
+          <CheckBox
+              name="anonymously"
+              color="transparent"
+              text-size="small"
+              size="small"
+          >
             {{ $t('buttons.anonymously') }}
           </CheckBox>
         </div>
@@ -65,59 +70,13 @@ export default {
   data() {
     return {
       isOpen: true,
-      selectedItemId: null,
-      items: [
-        {
-          id: 1,
-          title: this.$t('buttons.available_everyone'),
-          icon: 'AccessIcon'
-        },
-        {
-          id: 2,
-          title: this.$t('buttons.who_am_i_following'),
-          icon: 'ToWhomImSubscribeIcon'
-        },
-        {
-          id: 3,
-          title: this.$t('buttons.who_is_following_me'),
-          icon: 'WhoIsFollowMeIcon'
-        },
-        {
-          id: 4,
-          title: this.$t('buttons.anonymously'),
-          icon: 'AnonymousIcon'
-        }
-      ],
-      icons: {
-        AccessIcon,
-        ToWhomImSubscribeIcon,
-        WhoIsFollowMeIcon,
-        AnonymousIcon
-      },
-
     }
   },
   mounted() {
-    this.selectedItemId = this.items.length > 0 ? this.items[0].id : null
   },
   methods: {
     toggleDropdown() {
       this.isOpen = !this.isOpen
-    }
-  },
-  computed: {
-    selectedTitle() {
-      const selectedItem = this.dropdownItems.find((item) => item.id === this.selectedItemId)
-      if (selectedItem) {
-        return selectedItem.title
-      }
-      return ''
-    },
-    dropdownItems() {
-      return this.items.map((item) => ({
-        ...item,
-        icon: this.icons[item.icon]
-      }))
     }
   }
 }

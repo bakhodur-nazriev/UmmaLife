@@ -4,14 +4,20 @@
 
     <div :class="['input-wrapper', { error: hasError || isInvalidEmail }]">
       <input
-          type="email"
-          v-model="email"
-          class="base-input"
-          :placeholder="$t('register.placeholders.email')"
+        type="email"
+        v-model="email"
+        class="base-input"
+        :placeholder="$t('register.placeholders.email')"
       />
       <div class="error-message__block">
         <small v-if="hasError || isInvalidEmail" class="error-message">
-          {{ $t(isInvalidEmail ? 'register.validation.incorrect_email' : 'register.validation.empty_email') }}
+          {{
+            $t(
+              isInvalidEmail
+                ? 'register.validation.incorrect_email'
+                : 'register.validation.empty_email'
+            )
+          }}
         </small>
         <small v-if="errorText" class="error-message">
           {{ errorText }}
@@ -20,44 +26,35 @@
     </div>
 
     <CheckBox
-        class="register-checkbox"
-        color="secondary"
-        text-size="small"
-        :isChecked="isAgreementChecked"
-        @update:checked="handleCheckBoxUpdate"
+      class="register-checkbox"
+      color="secondary"
+      text-size="small"
+      :isChecked="isAgreementChecked"
+      @update:checked="handleCheckBoxUpdate"
     >
-      {{ $t('register.messages.agreement_to_creating_account') }} <br>
-      <router-link
-          class="link register-checkbox__link"
-          :to="`/${$i18n.locale}/terms`"
-      >
+      {{ $t('register.messages.agreement_to_creating_account') }} <br />
+      <router-link class="link register-checkbox__link" :to="`/${$i18n.locale}/terms`">
         {{ $t('links.terms') }}
       </router-link>
       <span class="symbol__ampersand">&</span>
-      <router-link
-          class="link register-checkbox__link"
-          :to="`/${$i18n.locale}/privacy-policy`"
-      >
+      <router-link class="link register-checkbox__link" :to="`/${$i18n.locale}/privacy-policy`">
         {{ $t('links.privacy_policy') }}
       </router-link>
     </CheckBox>
 
     <div class="login-button-section">
       <SampleButton
-          type="submit"
-          :title="$t('buttons.get_code_by_email')"
-          :disabled="isSubmitDisabled"
-          :class="{ 'disabled-button': isSubmitDisabled }"
+        type="submit"
+        :title="$t('buttons.get_code_by_email')"
+        :disabled="isSubmitDisabled"
+        :class="{ 'disabled-button': isSubmitDisabled }"
       >
       </SampleButton>
     </div>
 
     <div class="login-section">
       <label class="login-section__label">{{ $t('register.label') }}</label>
-      <router-link
-          class="login-section__link"
-          :to="`/${$i18n.locale}/login-by-email`"
-      >
+      <router-link class="login-section__link" :to="`/${$i18n.locale}/login-by-email`">
         {{ $t('login.title') }}
       </router-link>
     </div>
@@ -71,7 +68,7 @@ import FormAuth from '@/components/ui/FormAuth.vue'
 import CheckBox from '@/components/ui/CheckBox.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import axios from 'axios'
-import {getFormData} from '@/utils'
+import { getFormData } from '@/utils'
 
 export default {
   components: {
@@ -113,21 +110,21 @@ export default {
     },
     async sendRequest() {
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         email: this.email
       })
 
-      const headers = {'Content-Type': 'multipart/form-data'}
+      const headers = { 'Content-Type': 'multipart/form-data' }
 
       try {
-        return await axios.post('/check-email', payload, {headers})
+        return await axios.post('/check-email', payload, { headers })
       } catch (error) {
         throw error
       }
     },
     async handleSubmit(event) {
       event.preventDefault()
-      localStorage.setItem('email', this.email);
+      localStorage.setItem('email', this.email)
 
       if (!this.email.trim()) {
         this.hasError = true
@@ -143,7 +140,7 @@ export default {
         const response = await this.sendRequest()
 
         if (response.data.api_status === 200) {
-          this.$router.push({name: 'RegisterConfirmEmailStep2View'})
+          this.$router.push({ name: 'RegisterConfirmEmailStep2View' })
         } else {
           this.errorText = response.data.errors.error_text
         }

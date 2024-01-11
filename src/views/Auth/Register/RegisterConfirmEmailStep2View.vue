@@ -1,8 +1,14 @@
 <template>
   <FormAuth @submit="handleSubmit">
     <div class="buttons-back__section">
-      <SampleButton @click="goBack" icon="back" :size="20" color="none" :title="`${ $t('buttons.prev') }`">
-        <ArrowLeftIcon/>
+      <SampleButton
+        @click="goBack"
+        icon="back"
+        :size="20"
+        color="none"
+        :title="`${$t('buttons.prev')}`"
+      >
+        <ArrowLeftIcon />
       </SampleButton>
     </div>
 
@@ -15,13 +21,13 @@
     <div :class="['input-wrapper', { error: hasError }]">
       <div class="verify__number-section">
         <SampleCodeNumberInput
-            v-for="(inputValue, index) in code"
-            :key="index"
-            :code="code"
-            :index="index"
-            @next="focusNextInput"
-            @backspace="handleBackspace"
-            @update:code="updateCode"
+          v-for="(inputValue, index) in code"
+          :key="index"
+          :code="code"
+          :index="index"
+          @next="focusNextInput"
+          @backspace="handleBackspace"
+          @update:code="updateCode"
         />
       </div>
       <div class="error-message__block">
@@ -36,20 +42,20 @@
 
     <div class="login__button-section">
       <SampleButton
-          type="submit"
-          :title="`${$t('buttons.next')}`"
-          :disabled="isSubmitDisabled"
-          :class="{ 'disabled-submit__button': isSubmitDisabled }"
+        type="submit"
+        :title="`${$t('buttons.next')}`"
+        :disabled="isSubmitDisabled"
+        :class="{ 'disabled-submit__button': isSubmitDisabled }"
       />
     </div>
 
     <div class="resend__code">
       <label>{{ $t('login.messages.didnt_receive_code') }}</label>
       <button
-          type="button"
-          @click="resendRequest"
-          :disabled="isResendDisabled"
-          :class="{ 'disabled-button': isResendDisabled, 'active-button':  !isResendDisabled}"
+        type="button"
+        @click="resendRequest"
+        :disabled="isResendDisabled"
+        :class="{ 'disabled-button': isResendDisabled, 'active-button': !isResendDisabled }"
       >
         {{ $t('links.resend') }} {{ formatTime(countDown) }}
       </button>
@@ -58,14 +64,13 @@
 </template>
 
 <script>
-/* eslint-disable */
 import FormAuth from '@/components/ui/FormAuth.vue'
 import TitleSample from '@/components/ui/TitleSample.vue'
 import SampleButton from '@/components/ui/SampleButton.vue'
 import SampleCodeNumberInput from '@/components/ui/SampleCodeNumberInput.vue'
 import axios from 'axios'
-import {getFormData} from '@/utils'
-import ArrowLeftIcon from "@/components/icons/shorts/ArrowLeftIcon.vue";
+import { getFormData } from '@/utils'
+import ArrowLeftIcon from '@/components/icons/shorts/ArrowLeftIcon.vue'
 
 export default {
   components: {
@@ -81,7 +86,7 @@ export default {
       code: Array(6).fill(''),
       hasError: false,
       countDown: 60,
-      errorText: null,
+      errorText: null
     }
   },
   computed: {
@@ -107,7 +112,7 @@ export default {
         const response = await this.sendRequest()
 
         if (response.data.api_status === 200) {
-          this.$router.push({name: 'RegisterCreatePasswordStep3View'})
+          this.$router.push({ name: 'RegisterCreatePasswordStep3View' })
         } else {
           this.errorText = response.data.errors.error_text
         }
@@ -117,15 +122,15 @@ export default {
     },
     async sendRequest() {
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         email: this.mainEmail,
         code: this.code.join('')
       })
 
-      const headers = {'Content-Type': 'multipart/form-data'}
+      const headers = { 'Content-Type': 'multipart/form-data' }
 
       try {
-        return await axios.post('/confirm-email', payload, {headers})
+        return await axios.post('/confirm-email', payload, { headers })
       } catch (error) {
         throw error
       }
@@ -133,13 +138,13 @@ export default {
     async resendRequest() {
       try {
         const payload = getFormData({
-          server_key: process.env.VUE_APP_SERVER_KEY,
+          server_key: import.meta.env.VITE_SERVER_KEY,
           email: localStorage.getItem('email')
         })
 
-        const headers = {'Content-Type': 'multipart/form-data'}
+        const headers = { 'Content-Type': 'multipart/form-data' }
 
-        const response = await axios.post('/check-email', payload, {headers})
+        const response = await axios.post('/check-email', payload, { headers })
 
         if (response.data.api_status === 200) {
           this.countDown = 60
@@ -147,7 +152,6 @@ export default {
         } else {
           this.errorText = response.data.errors.error_text
         }
-
       } catch (error) {
         console.error('Error occurred:', error)
       }
@@ -195,7 +199,7 @@ export default {
       return `${formattedMinutes}:${formattedSeconds}`
     },
     goBack() {
-      return this.$router.push({name: 'RegisterAddEmailStep1View'})
+      return this.$router.push({ name: 'RegisterAddEmailStep1View' })
     },
     updateCode(payload) {
       const { index, value } = payload
@@ -354,7 +358,6 @@ a {
     font-size: 24px;
   }
 }
-
 
 @media (max-width: 767px) {
   .reminder-message {

@@ -55,7 +55,7 @@ const setReaction = async (video_id) => {
   isLiked.value = !isLiked.value
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       video_id,
       reaction: '1'
     })
@@ -76,7 +76,7 @@ const setReaction = async (video_id) => {
 const getSingleMovi = async (video_id) => {
   try {
     const payload = getFormData({
-      server_key: process.env.VUE_APP_SERVER_KEY,
+      server_key: import.meta.env.VITE_SERVER_KEY,
       video_id
     })
     const { data } = await axios.post('/get-short-video', payload, {

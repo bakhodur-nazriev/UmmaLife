@@ -2,7 +2,7 @@
   <div class="block-button__back">
     <section class="button-back__section">
       <router-link class="back-to__articles" :to="`/${$i18n.locale}/articles`">
-        <ArrowLeft/>
+        <ArrowLeft />
         {{ $t('buttons.back_to_articles') }}
       </router-link>
     </section>
@@ -12,7 +12,7 @@
     <main>
       <header class="article-header">
         <div class="article-header__left-side">
-          <img src="@/assets/images/articles/avatars/avatar_1.png" alt="">
+          <img src="@/assets/images/articles/avatars/avatar_1.png" alt="" />
           <div class="article-header__left-side-details">
             <span>Ибрагим Ибрагим</span>
             <small>14 августа 2023</small>
@@ -20,36 +20,38 @@
         </div>
         <div class="article-header__right-side">
           <SampleButton class="comment-button" color="seashell" icon="comment">
-            <SmallCommentIcon/>
+            <SmallCommentIcon />
             <span>25 комментариев</span>
           </SampleButton>
           <SampleButton class="show-button" color="seashell" icon="eye">
-            <EyeIcon/>
+            <EyeIcon />
             <span>543</span>
           </SampleButton>
           <SampleButton class="favourite-button" color="seashell" icon="favorite">
-            <FavouriteIcon/>
+            <FavouriteIcon />
           </SampleButton>
         </div>
       </header>
 
       <div class="main-content__block">
         <h1 class="article-title">
-          POLARIS начнет испытания четвертого демонстратора космического самолета с
-          сентября </h1>
-        <img src="@/assets/images/articles/content-photo/article-photo.png" alt="">
+          POLARIS начнет испытания четвертого демонстратора космического самолета с сентября
+        </h1>
+        <img src="@/assets/images/articles/content-photo/article-photo.png" alt="" />
 
         <span class="article-description">
-            Немецкий стартап POLARIS Spaceplanes получил разрешение на временное ограниченное воздушное пространство
-            (ED-R) для начала испытаний своего демонстрационного космического самолета MIRA над водами Балтийского моря
-          </span>
+          Немецкий стартап POLARIS Spaceplanes получил разрешение на временное ограниченное
+          воздушное пространство (ED-R) для начала испытаний своего демонстрационного космического
+          самолета MIRA над водами Балтийского моря
+        </span>
 
         <div class="inset-block">
-          <h3>MIRA имеет длину 4,25 метра и взлетную массу 210 килограммов. Армированный волокном корпус фюзеляжа
-            демонстратора был построен для POLARIS компанией Up2-Tec из Аахена. Это четвертый демонстратор компании, и
-            он будет первым, оснащенным линейным ракетным двигателем с аэродинамическими шипами. Космоплан также
-            оснащен
-            четырьмя газотурбинными двигателями, работающими на керосине.
+          <h3>
+            MIRA имеет длину 4,25 метра и взлетную массу 210 килограммов. Армированный волокном
+            корпус фюзеляжа демонстратора был построен для POLARIS компанией Up2-Tec из Аахена. Это
+            четвертый демонстратор компании, и он будет первым, оснащенным линейным ракетным
+            двигателем с аэродинамическими шипами. Космоплан также оснащен четырьмя газотурбинными
+            двигателями, работающими на керосине.
           </h3>
         </div>
 
@@ -57,26 +59,28 @@
           <div class="link-block__left-side">
             <h3>POLARIS receives Bundeswehr Study Contract for Linear Aerospike</h3>
             <p>
-              The German aerospace start-up POLARIS Raumflugzeuge GmbH is developing a revolutionary reusable space
-              launch
-              and hypersonic transport system that operates like an aircraft.
+              The German aerospace start-up POLARIS Raumflugzeuge GmbH is developing a revolutionary
+              reusable space launch and hypersonic transport system that operates like an aircraft.
             </p>
-            <a href="https://www.polaris-raumflugzeuge.de/">https://www.polaris-raumflugzeuge.de/</a>
+            <a href="https://www.polaris-raumflugzeuge.de/"
+              >https://www.polaris-raumflugzeuge.de/</a
+            >
           </div>
           <div class="link-block__right-side">
-            <img src="@/assets/images/articles/link-images/link-image.png" alt="">
+            <img src="@/assets/images/articles/link-images/link-image.png" alt="" />
           </div>
         </div>
 
         <div class="quote-block">
           <h3>Когда будет запуск</h3>
           <p>
-            <QuoteIcon/>
+            <QuoteIcon />
             <span>
-                Запрос компании ED-R был одобрен Федеральным министерством цифровых технологий и транспорта Германии и
-                Deutsche Flugsicherung (немецкий поставщик аэронавигационных услуг). Зона ограниченного доступа охватывает 260
-                квадратных километров, включая небо над аэродромом Пенемюнде и над водами Балтийского моря к северу от аэродрома.
-              </span>
+              Запрос компании ED-R был одобрен Федеральным министерством цифровых технологий и
+              транспорта Германии и Deutsche Flugsicherung (немецкий поставщик аэронавигационных
+              услуг). Зона ограниченного доступа охватывает 260 квадратных километров, включая небо
+              над аэродромом Пенемюнде и над водами Балтийского моря к северу от аэродрома.
+            </span>
           </p>
         </div>
 
@@ -88,10 +92,12 @@
 
         <div class="audio-block">
           <div class="play-button">
-            <VideoPlayIcon/>
+            <VideoPlayIcon />
           </div>
           <div class="audio-block__details">
-            <span class="audio-block__details-title">Название какого-то аудио, которое прикрепил юзеklamsdckls</span>
+            <span class="audio-block__details-title"
+              >Название какого-то аудио, которое прикрепил юзеklamsdckls</span
+            >
             <span class="audio-block__details-time">14:25</span>
           </div>
         </div>
@@ -102,24 +108,27 @@
 
           <div class="radio-button-group">
             <div class="radio-button-group__item">
-              <input type="radio" name="poll" value="answer first" id="answer_first">
+              <input type="radio" name="poll" value="answer first" id="answer_first" />
               <label for="answer_first">Ответ 1</label>
             </div>
 
             <div class="radio-button-group__item">
-              <input type="radio" name="poll" value="second answer" id="answer_second">
-              <label for="answer_second">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                tempor</label>
+              <input type="radio" name="poll" value="second answer" id="answer_second" />
+              <label for="answer_second"
+                >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                tempor</label
+              >
             </div>
 
             <div class="radio-button-group__item">
-              <input type="radio" name="poll" value="other" id="other">
-              <label for="other">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+              <input type="radio" name="poll" value="other" id="other" />
+              <label for="other"
+                >Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
               </label>
             </div>
 
             <div class="radio-button-group__item">
-              <input type="radio" name="poll" value="answer fourth" id="answer_fourth">
+              <input type="radio" name="poll" value="answer fourth" id="answer_fourth" />
               <label for="answer_fourth">Ответ 4</label>
             </div>
           </div>
@@ -139,7 +148,7 @@
           </div>
         </div>
 
-        <SampleDivider/>
+        <SampleDivider />
 
         <div class="comments-block">
           <div class="comment-form__title">
@@ -153,9 +162,9 @@
         </form> -->
 
           <SampleTextarea
-              class="form__textarea"
-              :placeholder="`${$t('placeholders.comment_input')}`"
-              @input="adjustTextareaHeight"
+            class="form__textarea"
+            :placeholder="`${$t('placeholders.comment_input')}`"
+            @input="adjustTextareaHeight"
           />
         </div>
       </div>
@@ -164,9 +173,7 @@
 </template>
 
 <script setup>
-/* eslint-disable */
-import {ref} from 'vue'
-// import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 
 import ArrowLeft from '@/components/icons/ArrowLeft.vue'
 import FavouriteIcon from '@/components/icons/FavouriteIcon.vue'
@@ -201,61 +208,61 @@ const categories = ref([
 let news = ref([
   {
     id: 1,
-    image: require('@/assets/images/articles/popular_articles/article_1.png'),
+    image: import('@/assets/images/articles/popular_articles/article_1.png'),
     title: 'Как я сьездил в Саудовскую Аравию. Маршрут, цены и впечатл',
     author: 'Ибрагим Ибрагимов'
   },
   {
     id: 2,
-    image: require('@/assets/images/articles/popular_articles/article_2.png'),
+    image: import('@/assets/images/articles/popular_articles/article_2.png'),
     title: 'Изучаем природу',
     author: 'Ибрагим Ибрагимов'
   },
   {
     id: 3,
-    image: require('@/assets/images/articles/popular_articles/article_3.png'),
+    image: import('@/assets/images/articles/popular_articles/article_3.png'),
     title: 'Как я сьездил в Саудовскую Аравию. Маршрут, цены и впечатл',
     author: 'Ибрагим Ибрагимов'
   },
   {
     id: 4,
-    image: require('@/assets/images/articles/popular_articles/article_4.png'),
+    image: import('@/assets/images/articles/popular_articles/article_4.png'),
     title: 'Как я сьездил в Саудовскую Аравию. Маршрут, цены и впечатл',
     author: 'Ибрагим Ибрагимов'
   },
   {
     id: 5,
-    image: require('@/assets/images/articles/popular_articles/article_5.png'),
+    image: import('@/assets/images/articles/popular_articles/article_5.png'),
     title: 'Как я сьездил в Саудовскую Аравию. Маршрут, цены и впечатл',
     author: 'Ибрагим Ибрагимов'
   },
   {
     id: 6,
-    image: require('@/assets/images/articles/popular_articles/article_6.png'),
+    image: import('@/assets/images/articles/popular_articles/article_6.png'),
     title: 'Как я сьездил в Саудовскую Аравию. Маршрут, цены и впечатл',
     author: 'Ибрагим Ибрагимов'
   },
   {
     id: 7,
-    image: require('@/assets/images/articles/popular_articles/article_7.png'),
+    image: import('@/assets/images/articles/popular_articles/article_7.png'),
     title: 'Как я сьездил в Саудовскую Аравию. Маршрут, цены и впечатл',
     author: 'Ибрагим Ибрагимов'
   },
   {
     id: 8,
-    image: require('@/assets/images/articles/popular_articles/article_8.png'),
+    image: import('@/assets/images/articles/popular_articles/article_8.png'),
     title: 'Как я сьездил в Саудовскую Аравию. Маршрут, цены и впечатл',
     author: 'Ибрагим Ибрагимов'
   },
   {
     id: 9,
-    image: require('@/assets/images/articles/popular_articles/article_9.png'),
+    image: import('@/assets/images/articles/popular_articles/article_9.png'),
     title: 'Как я сьездил в Саудовскую Аравию. Маршрут, цены и впечатл',
     author: 'Ибрагим Ибрагимов'
   },
   {
     id: 10,
-    image: require('@/assets/images/articles/popular_articles/article_10.png'),
+    image: import('@/assets/images/articles/popular_articles/article_10.png'),
     title: 'Как я сьездил в Саудовскую Аравию. Маршрут, цены и впечатл',
     author: 'Ибрагим Ибрагимов'
   }
@@ -495,7 +502,7 @@ let news = ref([
 
     &::after {
       position: absolute;
-      content: "";
+      content: '';
       top: 2px;
       left: 0;
       width: 3px;

@@ -43,7 +43,7 @@ import SampleButton from '@/components/ui/SampleButton.vue'
 import EyeSlashIcon from '@/components/icons/EyeSlashIcon.vue'
 import EyeIcon from '@/components/icons/EyeIcon.vue'
 import axios from 'axios'
-import {getFormData} from '@/utils'
+import { getFormData } from '@/utils'
 
 export default {
   components: {
@@ -78,18 +78,18 @@ export default {
       event.preventDefault()
 
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         new_password: this.password,
         email: localStorage.getItem('resetPasswordEmail'),
         code: localStorage.getItem('resetPasswordCode')
       })
 
-      const headers = {'Content-Type': 'multipart/form-data'}
+      const headers = { 'Content-Type': 'multipart/form-data' }
 
       try {
-        const response = await axios.post('/reset-password', payload, {headers})
+        const response = await axios.post('/reset-password', payload, { headers })
         if (response.data.api_status === 200) {
-          this.$router.push({name: 'LoginByEmailView'})
+          this.$router.push({ name: 'LoginByEmailView' })
         } else {
           console.log(response.data)
         }

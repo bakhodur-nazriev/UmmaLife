@@ -5,11 +5,11 @@
       <div
         v-for="(tab, index) in tabs"
         :key="index"
-        :class="['tabs-header__item', { 'active': activeTab === index }]"
+        :class="['tabs-header__item', { active: activeTab === index }]"
         @click="changeTab(index)"
       >
         <span class="tabs-header__title">{{ tab.title }}</span>
-        <CheckMarkSmallIcon v-if="index === activeTab"/>
+        <CheckMarkSmallIcon v-if="index === activeTab" />
       </div>
     </div>
     <div
@@ -21,14 +21,14 @@
       @scroll="loadMoreData"
     >
       <template v-if="isLoading">
-        <PulseLoader color="#49a399" size="12px" class="speener-block"/>
+        <PulseLoader color="#49a399" size="12px" class="speener-block" />
       </template>
       <template v-else>
-        <PublicationTab v-if="i === 0" :posts="posts"/>
-        <ArticleTab v-if="i === 1" :articles="articles"/>
-        <PhotoTab v-if="i === 2" :photos="photos"/>
-        <VideoTab v-if="i === 3" :video="video"/>
-        <AudioTab v-if="i === 4" :audio="audio"/>
+        <PublicationTab v-if="i === 0" :posts="posts" />
+        <ArticleTab v-if="i === 1" :articles="articles" />
+        <PhotoTab v-if="i === 2" :photos="photos" />
+        <VideoTab v-if="i === 3" :video="video" />
+        <AudioTab v-if="i === 4" :audio="audio" />
       </template>
     </div>
   </div>
@@ -41,7 +41,7 @@ import PhotoTab from '@/components/ui/Publications/PhotoTab.vue'
 import VideoTab from '@/components/ui/Publications/VideoTab.vue'
 import AudioTab from '@/components/ui/Publications/AudioTab.vue'
 import CheckMarkSmallIcon from '@/components/icons/CheckMarkSmallIcon.vue'
-import {getFormData} from '@/utils'
+import { getFormData } from '@/utils'
 import axios from 'axios'
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
@@ -87,29 +87,29 @@ export default {
   methods: {
     changeTab(index) {
       this.$store.commit('setPublicationTabs', this.tabs[index].title)
-      this.activeTab = index;
-      const methodName = this.tabMethods[index];
+      this.activeTab = index
+      const methodName = this.tabMethods[index]
       if (methodName && typeof this[methodName] === 'function') {
-        this[methodName]();
+        this[methodName]()
       }
       sessionStorage.setItem('activePublicationTab', index.toString())
     },
     async getPublications() {
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         page: this.page
       })
 
-      const headers = {'Content-Type': 'multipart/form-data'}
+      const headers = { 'Content-Type': 'multipart/form-data' }
 
       const accessToken = localStorage.getItem('access_token')
-      const params = {access_token: accessToken}
+      const params = { access_token: accessToken }
 
       try {
-        this.isLoading = true;
-        const response = await axios.post('/posts', payload, {params, headers})
+        this.isLoading = true
+        const response = await axios.post('/posts', payload, { params, headers })
         if (response.data.api_status === 200) {
-          this.isLoading = false;
+          this.isLoading = false
           this.posts = response.data?.data
         } else {
           console.log('error')
@@ -120,19 +120,19 @@ export default {
     },
     async getArticles() {
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         post_type: 'text',
         page: 1
       })
 
-      const headers = {'Content-Type': 'multipart/form-data'}
+      const headers = { 'Content-Type': 'multipart/form-data' }
 
       const accessToken = localStorage.getItem('access_token')
-      const params = {access_token: accessToken}
+      const params = { access_token: accessToken }
 
       try {
-        this.isLoading = true;
-        const response = await axios.post('/posts', payload, {params, headers})
+        this.isLoading = true
+        const response = await axios.post('/posts', payload, { params, headers })
         if (response.data.api_status === 200) {
           this.isLoading = false
           this.articles = response.data?.data
@@ -145,19 +145,19 @@ export default {
     },
     async getPhoto() {
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         post_type: 'photos',
         page: 1
       })
 
-      const headers = {'Content-Type': 'multipart/form-data'}
+      const headers = { 'Content-Type': 'multipart/form-data' }
 
       const accessToken = localStorage.getItem('access_token')
-      const params = {access_token: accessToken}
+      const params = { access_token: accessToken }
 
       try {
         this.isLoading = true
-        const response = await axios.post('/posts', payload, {params, headers})
+        const response = await axios.post('/posts', payload, { params, headers })
         if (response.data.api_status === 200) {
           this.isLoading = false
           this.photos = response.data?.data
@@ -170,21 +170,21 @@ export default {
     },
     async getVideo() {
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         post_type: 'video',
         page: 1
       })
 
-      const headers = {'Content-Type': 'multipart/form-data'}
+      const headers = { 'Content-Type': 'multipart/form-data' }
 
       const accessToken = localStorage.getItem('access_token')
-      const params = {access_token: accessToken}
+      const params = { access_token: accessToken }
 
       try {
-        this.isLoading = true;
-        const response = await axios.post('/posts', payload, {params, headers})
+        this.isLoading = true
+        const response = await axios.post('/posts', payload, { params, headers })
         if (response.data.api_status === 200) {
-          this.isLoading = false;
+          this.isLoading = false
           this.video = response.data?.data
         } else {
           console.log(response.data)
@@ -195,21 +195,21 @@ export default {
     },
     async getAudio() {
       const payload = getFormData({
-        server_key: process.env.VUE_APP_SERVER_KEY,
+        server_key: import.meta.env.VITE_SERVER_KEY,
         post_type: 'music',
         page: 1
       })
 
-      const headers = {'Content-Type': 'multipart/form-data'}
+      const headers = { 'Content-Type': 'multipart/form-data' }
 
       const accessToken = localStorage.getItem('access_token')
-      const params = {access_token: accessToken}
+      const params = { access_token: accessToken }
 
       try {
-        this.isLoading = true;
-        const response = await axios.post('/posts', payload, {params, headers})
+        this.isLoading = true
+        const response = await axios.post('/posts', payload, { params, headers })
         if (response.data.api_status === 200) {
-          this.isLoading = false;
+          this.isLoading = false
           this.audio = response.data?.data
         } else {
           console.log(response.data)
@@ -248,10 +248,10 @@ export default {
     }))
 
     if (savedTab) {
-      this.activeTab = parseInt(savedTab);
-      const methodName = this.tabMethods[this.activeTab];
+      this.activeTab = parseInt(savedTab)
+      const methodName = this.tabMethods[this.activeTab]
       if (methodName && typeof this[methodName] === 'function') {
-        this[methodName]();
+        this[methodName]()
       }
     }
   }
@@ -284,7 +284,7 @@ export default {
     &__title {
       &:hover {
         color: var(--color-mine-shaft);
-        transition: all .15s ease-in-out;
+        transition: all 0.15s ease-in-out;
       }
     }
 
@@ -309,7 +309,7 @@ export default {
         }
 
         &::after {
-          content: "";
+          content: '';
           position: absolute;
           width: 100%;
           height: 3px;
@@ -340,8 +340,8 @@ export default {
 
     &-bg {
       display: none;
-      content: "";
-      background: rgba(0, 0, 0, .4);
+      content: '';
+      background: rgba(0, 0, 0, 0.4);
       position: fixed;
       height: 100vh;
       width: 100%;
