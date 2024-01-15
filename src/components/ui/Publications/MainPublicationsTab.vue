@@ -25,10 +25,10 @@
       </template>
       <template v-else>
         <PublicationTab v-if="i === 0" :posts="posts"/>
-        <!--<ArticleTab v-if="i === 1" :articles="articles" />-->
-        <PhotoTab v-if="i === 2" :photos="photos"/>
-        <VideoTab v-if="i === 3" :video="video"/>
-        <AudioTab v-if="i === 4" :audio="audio"/>
+<!--        <ArticleTab v-if="i === 1" :articles="articles" />-->
+        <PhotoTab v-if="i === 1" :photos="photos"/>
+        <VideoTab v-if="i === 2" :video="video"/>
+        <AudioTab v-if="i === 3" :audio="audio"/>
       </template>
     </div>
   </div>
@@ -36,7 +36,7 @@
 
 <script>
 import PublicationTab from '@/components/ui/Publications/PublicationTab.vue'
-// import ArticleTab from '@/components/ui/Publications/ArticleTab.vue'
+import ArticleTab from '@/components/ui/Publications/ArticleTab.vue'
 import PhotoTab from '@/components/ui/Publications/PhotoTab.vue'
 import VideoTab from '@/components/ui/Publications/VideoTab.vue'
 import AudioTab from '@/components/ui/Publications/AudioTab.vue'
@@ -52,7 +52,7 @@ export default {
     AudioTab,
     VideoTab,
     PhotoTab,
-    // ArticleTab,
+    ArticleTab,
     PulseLoader
   },
   props: {
@@ -65,10 +65,10 @@ export default {
     return {
       tabMethods: {
         0: 'getPublications',
-        1: 'getArticles',
-        2: 'getPhoto',
-        3: 'getVideo',
-        4: 'getAudio'
+        // 1: 'getArticles',
+        1: 'getPhoto',
+        2: 'getVideo',
+        3: 'getAudio'
       },
       activeTab: 0,
       tabs: [],
