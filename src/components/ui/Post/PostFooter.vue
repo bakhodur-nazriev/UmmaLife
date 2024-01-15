@@ -7,32 +7,32 @@
             <ul class="reaction__menu">
               <li v-for="(reaction, index) in reactionsIcon" :key="index" class="reaction__item">
                 <span class="reaction__item--tooltip">{{ reaction.tooltip }}</span>
-                <component :is="reaction.icon" />
+                <component :is="reaction.icon"/>
               </li>
             </ul>
           </div>
         </div>
         <div class="like__button open-reaction-button" @click="openReactionWindow">
-          <HeartIcon />
+          <HeartIcon/>
           <span>{{ $t('buttons.like') }}</span>
         </div>
       </div>
 
       <div class="comment__button" @click="toggleForm">
-        <CommentIcon />
+        <CommentIcon/>
         <span>{{ $t('buttons.comment') }}</span>
       </div>
 
       <div class="share__section" ref="shareWindow">
         <div class="share__button open-share-button" @click="openShareWindow">
-          <ShareIcon />
+          <ShareIcon/>
           <span>{{ $t('buttons.share') }}</span>
         </div>
       </div>
-      <ShareComponent v-if="isShareWindowOpen" />
+      <ShareComponent v-if="isShareWindowOpen"/>
     </div>
 
-    <SampleDivider v-if="isFormOpen && comments.length" />
+    <SampleDivider v-if="isFormOpen && comments.length"/>
 
     <div
       ref="commentForm"
@@ -46,7 +46,7 @@
       />
 
       <div class="enter-comment__form">
-        <CommentForm />
+        <CommentForm/>
       </div>
     </div>
   </footer>
@@ -70,7 +70,7 @@ import ShareMenuIcon from '@/components/icons/MenuDetails/ShareMenuIcon.vue'
 import BigScaredIcon from '@/components/icons/reactions/men/big/BigScaredIcon.vue'
 import BigLaughIcon from '@/components/icons/reactions/men/big/BigLaughIcon.vue'
 import ReplyCommentForm from '@/components/ui/Comment/ReplyCommentForm.vue'
-import { getFormData } from '@/utils'
+import {getFormData} from '@/utils'
 import axios from 'axios'
 import ShareComponent from '@/components/share/ShareComponent.vue'
 
@@ -99,15 +99,15 @@ export default {
   data() {
     return {
       reactionsIcon: [
-        { id: 1, icon: BigLikeIcon, tooltip: this.$t('reaction_tooltip.like') },
-        { id: 2, icon: BigDislikeIcon, tooltip: this.$t('reaction_tooltip.dislike') },
-        { id: 3, icon: BigLoveIcon, tooltip: this.$t('reaction_tooltip.love') },
-        { id: 4, icon: BigFireIcon, tooltip: this.$t('reaction_tooltip.fire') },
-        { id: 5, icon: BigAngryIcon, tooltip: this.$t('reaction_tooltip.angry') },
-        { id: 6, icon: BigScaredIcon, tooltip: this.$t('reaction_tooltip.scared') },
-        { id: 7, icon: BigLaughIcon, tooltip: this.$t('reaction_tooltip.laugh') },
-        { id: 8, icon: BigThinkIcon, tooltip: this.$t('reaction_tooltip.think') },
-        { id: 9, icon: BigSadIcon, tooltip: this.$t('reaction_tooltip.sad') }
+        {id: 1, icon: BigLikeIcon, tooltip: this.$t('reaction_tooltip.like')},
+        {id: 2, icon: BigDislikeIcon, tooltip: this.$t('reaction_tooltip.dislike')},
+        {id: 3, icon: BigLoveIcon, tooltip: this.$t('reaction_tooltip.love')},
+        {id: 4, icon: BigFireIcon, tooltip: this.$t('reaction_tooltip.fire')},
+        {id: 5, icon: BigAngryIcon, tooltip: this.$t('reaction_tooltip.angry')},
+        {id: 6, icon: BigScaredIcon, tooltip: this.$t('reaction_tooltip.scared')},
+        {id: 7, icon: BigLaughIcon, tooltip: this.$t('reaction_tooltip.laugh')},
+        {id: 8, icon: BigThinkIcon, tooltip: this.$t('reaction_tooltip.think')},
+        {id: 9, icon: BigSadIcon, tooltip: this.$t('reaction_tooltip.sad')}
       ],
       isReactionWindowOpen: false,
       isShareWindowOpen: false,
@@ -147,24 +147,33 @@ export default {
       }
     },
     async getComments() {
-      const payload = getFormData({
-        server_key: import.meta.env.VITE_SERVER_KEY,
-        post_id: this.postsItem.id
-      })
+      if (this.isFormOpen) {
+        const payload = getFormData({
+          server_key: import.meta.env.VITE_SERVER_KEY,
+          post_id: this.postsItem.id
+        })
 
-      const headers = { 'Content-Type': 'multipart/form-data' }
-      const accessToken = localStorage.getItem('access_token')
-      const params = { access_token: accessToken }
+        const headers = {'Content-Type': 'multipart/form-data'}
+        const accessToken = localStorage.getItem('access_token')
+        const params = {access_token: accessToken}
 
-      try {
-        const response = await axios.post('/comments', payload, { params, headers })
-        if (response.data.api_status === 200) {
-          this.comments = response.data?.data
+        try {
+          const response = await axios.post('/comments', payload, {params, headers})
+          if (response.data.api_status === 200) {
+            this.comments = response.data?.data
+          }
+        } catch (error) {
+          console.error(error)
         }
-      } catch (error) {
-        console.error(error)
       }
     }
+  },
+  watch: {
+    isFormOpen(newValue) {
+      if (newValue) {
+        this.getComments();
+      }
+    },
   },
   mounted() {
     document.addEventListener('click', this.closeReactionWindow)
