@@ -38,7 +38,6 @@ export default {
     tabLabels() {
       return [
         this.$t('tabs.publications_inside.publications'),
-        this.$t('tabs.publications_inside.articles'),
         this.$t('tabs.publications_inside.photo'),
         this.$t('tabs.publications_inside.video'),
         this.$t('tabs.publications_inside.audio')

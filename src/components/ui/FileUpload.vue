@@ -14,7 +14,8 @@
 </template>
 
 <script>
-import { v4 as uuidv4 } from 'uuid'
+import {v4 as uuidv4} from 'uuid'
+
 export default {
   props: {
     label: {
@@ -24,17 +25,23 @@ export default {
     accept: {
       type: String,
       default: ''
+    },
+    onFileSelected: {
+      type: Function,
+      required: true
     }
   },
-  data () {
+  data() {
     return {
-      inputId: uuidv4()
+      inputId: uuidv4(),
+      selectedFile: null
     }
   },
   methods: {
-    handleFileChange (event) {
-      // const file = event.target.files[0]
-      // Выполните необходимую обработку файла здесь, например, отправка на сервер или обновление данных в родительском компоненте
+    handleFileChange(event) {
+      this.selectedFile = event.target.files[0];
+      // Emit the event to the parent component
+      this.onFileSelected(this.selectedFile);
     }
   }
 }

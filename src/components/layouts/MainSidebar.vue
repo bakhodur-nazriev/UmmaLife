@@ -5,15 +5,15 @@
   >
     <div class="sidebar__main--links">
       <div class="sidebar-theme__toggle-button">
-        <ToggleTheme :is-sidebar-collapsed="isSidebarCollapsed" />
+        <ToggleTheme :is-sidebar-collapsed="isSidebarCollapsed"/>
       </div>
 
-      <SampleDivider />
+      <SampleDivider/>
 
       <ul class="sidebar__links--list">
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/news`) }">
           <router-link :to="`/${$i18n.locale}/news`">
-            <NewsIcon class="sidebar__item--icon" />
+            <NewsIcon class="sidebar__item--icon"/>
             <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.news') }}</span>
           </router-link>
         </li>
@@ -22,90 +22,90 @@
           :class="{ active: isActive(`/${$i18n.locale}/${this.currentUser?.username}`) }"
         >
           <router-link :to="`/${$i18n.locale}/${this.currentUser?.username}`">
-            <MyPageIcon class="sidebar__item--icon" />
+            <MyPageIcon class="sidebar__item--icon"/>
             <span :class="{ 'collapse-active': isSidebarCollapsed }">{{
-              $t('links.my_page')
-            }}</span>
+                $t('links.my_page')
+              }}</span>
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/messenger`) }">
           <router-link :to="`/${$i18n.locale}/messenger`">
-            <MessengerIcon class="sidebar__item--icon" />
+            <MessengerIcon class="sidebar__item--icon"/>
             <span :class="{ 'collapse-active': isSidebarCollapsed }">{{
-              $t('links.messenger')
-            }}</span>
+                $t('links.messenger')
+              }}</span>
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/my-groups`) }">
           <router-link :to="`/${$i18n.locale}/my-groups`">
-            <MyGroupIcon class="sidebar__item--icon" />
+            <MyGroupIcon class="sidebar__item--icon"/>
             <span :class="{ 'collapse-active': isSidebarCollapsed }">{{
-              $t('links.my_groups')
-            }}</span>
+                $t('links.my_groups')
+              }}</span>
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/my-audio`) }">
           <router-link :to="`/${$i18n.locale}/my-audio`">
-            <MyAudioIcon class="sidebar__item--icon" />
+            <MyAudioIcon class="sidebar__item--icon"/>
             <span :class="{ 'collapse-active': isSidebarCollapsed }">{{
-              $t('links.my_audio')
-            }}</span>
+                $t('links.my_audio')
+              }}</span>
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/muvi`) }">
           <router-link :to="`/${$i18n.locale}/muvi`">
-            <MuviIcon class="sidebar__item--icon" />
+            <MuviIcon class="sidebar__item--icon"/>
             <span :class="{ 'collapse-active': isSidebarCollapsed }">{{
-              $t('tabs.profile_tabs.muvi')
-            }}</span>
+                $t('tabs.profile_tabs.muvi')
+              }}</span>
           </router-link>
         </li>
 
-        <SampleDivider />
+        <SampleDivider/>
 
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/saved`) }">
           <router-link :to="`/${$i18n.locale}/saved`">
-            <SavedIcon class="sidebar__item--icon" />
+            <SavedIcon class="sidebar__item--icon"/>
             <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.saved') }}</span>
           </router-link>
         </li>
-        <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/articles`) }">
-          <router-link :to="`/${$i18n.locale}/articles`">
-            <ArticlesIcon class="sidebar__item--icon" />
-            <span :class="{ 'collapse-active': isSidebarCollapsed }">{{
-              $t('links.articles')
-            }}</span>
-          </router-link>
-        </li>
+        <!--        <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/articles`) }">
+                  <router-link :to="`/${$i18n.locale}/articles`">
+                    <ArticlesIcon class="sidebar__item&#45;&#45;icon" />
+                    <span :class="{ 'collapse-active': isSidebarCollapsed }">{{
+                        $t('links.articles')
+                      }}</span>
+                  </router-link>
+                </li>-->
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/video`) }">
           <router-link :to="`/${$i18n.locale}/video`">
-            <VideoIcon class="sidebar__item--icon" />
+            <VideoIcon class="sidebar__item--icon"/>
             <span :class="{ 'collapse-active': isSidebarCollapsed }">{{ $t('links.video') }}</span>
           </router-link>
         </li>
 
-        <SampleDivider />
+        <SampleDivider/>
 
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/library`) }">
           <router-link :to="`/${$i18n.locale}/library`">
-            <LibraryIcon class="sidebar__item--icon" />
+            <LibraryIcon class="sidebar__item--icon"/>
             <span :class="{ 'collapse-active': isSidebarCollapsed }">{{
-              $t('links.library')
-            }}</span>
+                $t('links.library')
+              }}</span>
           </router-link>
         </li>
         <li class="sidebar__item" :class="{ active: isActive(`/${$i18n.locale}/marriage-agency`) }">
           <router-link :to="`/${$i18n.locale}/marriage-agency`">
-            <MarriageAgencyIcon class="sidebar__item--icon" />
+            <MarriageAgencyIcon class="sidebar__item--icon"/>
             <span :class="{ 'collapse-active': isSidebarCollapsed }">{{
-              $t('links.marriage_agency')
-            }}</span>
+                $t('links.marriage_agency')
+              }}</span>
           </router-link>
         </li>
       </ul>
     </div>
     <div class="sidebar__locales">
-      <MainSidebarLocalesDropdown :is-sidebar-collapsed="isSidebarCollapsed" />
+      <MainSidebarLocalesDropdown :is-sidebar-collapsed="isSidebarCollapsed"/>
     </div>
   </aside>
 </template>
@@ -216,6 +216,7 @@ export default {
 
   &__item {
     border-radius: 20px;
+
     &:hover {
       background-color: var(--color-seashell);
       cursor: pointer;
