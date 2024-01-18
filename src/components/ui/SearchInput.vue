@@ -5,7 +5,7 @@
       class="base__search--input"
       :placeholder="placeholder"
       @click="openSearchInput"
-      @input="$emit('input', $event)"
+      v-model="searchQuery" @input="handleInput"
     />
   </div>
 </template>
@@ -22,10 +22,20 @@ export default {
       default: false
     }
   },
+  data() {
+    return{
+      searchQuery: '',
+    }
+  },
   emits: ['input'],
   methods: {
     openSearchInput() {
       this.$emit('open-search-input')
+    },
+    handleInput() {
+      if (this.searchQuery.length >= 3) {
+        this.$emit('search-query', this.searchQuery);
+      }
     }
   }
 }

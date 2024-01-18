@@ -3,13 +3,14 @@
     <nav class="navbar">
       <div class="right__nav--side">
         <button type="button" class="menu__button" @click="toggleSidebar">
-          <MenuIcon />
+          <MenuIcon/>
         </button>
-        <MainPageLogo class="main__logo" />
+        <MainPageLogo class="main__logo"/>
       </div>
       <div class="main__nav--side">
-        <SampleButton class="create__button" :title="`${$t('buttons.create')}`" />
+        <SampleButton class="create__button" :title="`${$t('buttons.create')}`"/>
         <SearchInput
+          @search-query="search"
           @open-search-input="isSearchInputOpen = true"
           :placeholder="$t('placeholders.search_input')"
         />
@@ -17,29 +18,29 @@
       <div class="left__nav--side">
         <ul class="navbar__right--buttons">
           <li class="music__button" :class="{ active: isPlayerOpen }" @click="playerClickHandler">
-            <MusicIcon />
+            <MusicIcon/>
           </li>
           <li class="email__button">
-            <EmailIcon />
+            <EmailIcon/>
           </li>
           <li
             class="notification__button"
             @click="isNotificationOpen = !isNotificationOpen"
             :class="{ active: isNotificationOpen }"
           >
-            <NotificationIcon />
+            <NotificationIcon/>
           </li>
           <router-link :to="`/${$i18n.locale}/settings`">
             <li class="settings__button">
-              <SettingIcon />
+              <SettingIcon/>
             </li>
           </router-link>
         </ul>
         <div class="user__menu--block">
           <div class="profile__image" @click="toggleProfile">
-            <img :src="userData.avatar" alt="avatar-logo" />
+            <img :src="userData.avatar" alt="avatar-logo"/>
           </div>
-          <ArrowIcon class="dropdown__icon" />
+          <ArrowIcon class="dropdown__icon"/>
         </div>
       </div>
 
@@ -49,7 +50,7 @@
             <li class="menu-list__item">
               <a href="/profile" class="user-item">
                 <span class="user-name">{{ userData.name }}</span>
-                <img :src="userData.avatar" alt="" />
+                <img :src="userData.avatar" alt=""/>
               </a>
             </li>
             <li class="menu-list__item">
@@ -66,20 +67,20 @@
           </ul>
           <div class="profile-wallet">
             <div class="profile-wallet__first-item">
-              <WalletSmallIcon />
+              <WalletSmallIcon/>
               <span>{{ $t('profile.wallet.title') }}</span>
               <span>$0.00</span>
             </div>
             <div class="profile-wallet__second-item">
               <span>0x1276...5c9c</span>
-              <CopyWalletIcon />
+              <CopyWalletIcon/>
             </div>
             <div class="profile-wallet__third-item">
               <span>0.00</span>
               <span>umma</span>
             </div>
             <div class="bg-wallet">
-              <WalletBgIcon />
+              <WalletBgIcon/>
             </div>
           </div>
         </div>
@@ -90,7 +91,7 @@
         <ul class="top__nav--list">
           <li class="top__nav--left-item">
             <router-link v-if="!isSearchForm" to="/news">
-              <SmallLogo />
+              <SmallLogo/>
             </router-link>
             <button
               v-if="isSearchForm"
@@ -98,213 +99,213 @@
               @click="isSearchFormClose"
               class="close-search__form"
             >
-              <ArrowLeftIcon />
+              <ArrowLeftIcon/>
             </button>
           </li>
           <li class="top__nav--search-item" v-if="isSearchForm">
             <div class="main__search--block">
-              <LoupeInputIcon class="search__icon" />
-              <input class="base__search--input" :placeholder="$t('placeholders.search_input')" />
+              <LoupeInputIcon class="search__icon"/>
+              <input v-model="searchQuery" class="base__search--input" :placeholder="$t('placeholders.search_input')"/>
             </div>
           </li>
           <li class="top__nav--right-item" v-if="!isSearchForm">
             <div v-if="!isSearchForm" @click="isSearchFormOpen">
-              <LoupeIcon />
+              <LoupeIcon/>
             </div>
             <div>
-              <SmallMenuIcon />
+              <SmallMenuIcon/>
             </div>
           </li>
         </ul>
       </div>
       <SearchTab :tabs="tabData" v-if="isSearchForm">
         <template v-for="(tab, i) in tabData" v-slot:[tab.label]="" :key="i">
-          <TabAll v-if="i === 0" />
-          <TabPeople v-if="i === 1" />
-          <TabCommunities v-if="i === 2" />
-          <TabMUVI v-if="i === 3" />
-          <TabArticle v-if="i === 4" />
-          <TabVideo v-if="i === 5" />
-          <TabAudio v-if="i === 6" />
-          <TabHashtags v-if="i === 7" />
+          <TabAll v-if="i === 0"/>
+          <TabPeople v-if="i === 1"/>
+          <TabCommunities v-if="i === 2"/>
+          <TabMUVI v-if="i === 3"/>
+          <TabArticle v-if="i === 4"/>
+          <TabVideo v-if="i === 5"/>
+          <TabAudio v-if="i === 6"/>
+          <TabHashtags v-if="i === 7"/>
         </template>
       </SearchTab>
       <div class="bottom__nav">
         <ul class="bottom__nav--list" v-if="!$route.name.includes('messenger-chat')">
           <li class="bottom__nav--item">
             <router-link :to="`/${$i18n.locale}/news`">
-              <NewsIcon />
+              <NewsIcon/>
             </router-link>
           </li>
           <li class="bottom__nav--item">
             <router-link :to="`/${$i18n.locale}/messenger`">
-              <MessagesIcon />
+              <MessagesIcon/>
             </router-link>
           </li>
           <li class="bottom__nav--item">
             <router-link :to="`/${$i18n.locale}/muvi`">
-              <MuviNavIcon />
+              <MuviNavIcon/>
             </router-link>
           </li>
           <li class="bottom__nav--item">
             <router-link :to="`/${$i18n.locale}/notifications`">
-              <BellIcon />
+              <BellIcon/>
             </router-link>
           </li>
           <li class="bottom__nav--item">
             <router-link :to="`/${$i18n.locale}/settings`">
-              <MyPageIcon />
+              <MyPageIcon/>
             </router-link>
           </li>
         </ul>
       </div>
     </nav>
     <div class="search-outside__block" v-if="isSearchInputOpen">
-      <div class="search-inside__block">
-        <section class="all-recommendation__block">
-          <router-link :to="`/${$i18n.locale}/search-article`">
-            {{ $t('labels.search.show_all_recommendation') }}
-            <ArrowLeftIcon />
-          </router-link>
-        </section>
-        <SampleDivider />
+<!--      <div class="search-inside__block">-->
+<!--        <section class="all-recommendation__block">-->
+<!--          <router-link :to="`/${$i18n.locale}/search-article`">-->
+<!--            {{ $t('labels.search.show_all_recommendation') }}-->
+<!--            <ArrowLeftIcon/>-->
+<!--          </router-link>-->
+<!--        </section>-->
+<!--        <SampleDivider/>-->
 
-        <section class="recent-section">
-          <div class="recent-section__labels">
-            <h3>{{ $t('labels.search.recent') }}</h3>
-            <router-link :to="`/${$i18n.locale}/search-article`">
-              {{ $t('labels.search.see_all') }}
-            </router-link>
-          </div>
-          <ul class="recent-list">
-            <li class="recent-list__item">
-              <div class="recent-list__item-left-block">
-                <img src="@/assets/images/navbar/recent_1.png" alt="" />
-                <div>
-                  <p>Мухаммад Мухаммадов</p>
-                  <span>Istanbul, 24 года</span>
-                </div>
-              </div>
-              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
-            </li>
-            <li class="recent-list__item">
-              <div class="recent-list__item-left-block">
-                <img src="@/assets/images/navbar/recent_2.png" alt="" />
-                <div>
-                  <p>Архитектура и дизайн</p>
-                  <span>15896 подписчиков</span>
-                </div>
-              </div>
-              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
-            </li>
-            <li class="recent-list__item">
-              <div class="recent-list__item-left-block">
-                <img src="@/assets/images/navbar/recent_3.png" alt="" />
-                <div>
-                  <p>Айжан Тумухамбетова</p>
-                  <span>Мадрид, 28 лет</span>
-                </div>
-              </div>
-              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
-            </li>
-          </ul>
-        </section>
-        <SampleDivider />
+<!--        <section class="recent-section">-->
+<!--          <div class="recent-section__labels">-->
+<!--            <h3>{{ $t('labels.search.recent') }}</h3>-->
+<!--            <router-link :to="`/${$i18n.locale}/search-article`">-->
+<!--              {{ $t('labels.search.see_all') }}-->
+<!--            </router-link>-->
+<!--          </div>-->
+<!--          <ul class="recent-list">-->
+<!--            <li class="recent-list__item">-->
+<!--              <div class="recent-list__item-left-block">-->
+<!--                <img src="@/assets/images/navbar/recent_1.png" alt=""/>-->
+<!--                <div>-->
+<!--                  <p>Мухаммад Мухаммадов</p>-->
+<!--                  <span>Istanbul, 24 года</span>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`"/>-->
+<!--            </li>-->
+<!--            <li class="recent-list__item">-->
+<!--              <div class="recent-list__item-left-block">-->
+<!--                <img src="@/assets/images/navbar/recent_2.png" alt=""/>-->
+<!--                <div>-->
+<!--                  <p>Архитектура и дизайн</p>-->
+<!--                  <span>15896 подписчиков</span>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`"/>-->
+<!--            </li>-->
+<!--            <li class="recent-list__item">-->
+<!--              <div class="recent-list__item-left-block">-->
+<!--                <img src="@/assets/images/navbar/recent_3.png" alt=""/>-->
+<!--                <div>-->
+<!--                  <p>Айжан Тумухамбетова</p>-->
+<!--                  <span>Мадрид, 28 лет</span>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`"/>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </section>-->
+<!--        <SampleDivider/>-->
 
-        <section class="people-section">
-          <div class="people-section__labels">
-            <h3>{{ $t('labels.search.people') }}</h3>
-            <router-link :to="`/${$i18n.locale}/search-people`">
-              {{ $t('labels.search.see_all') }}
-            </router-link>
-          </div>
-          <ul class="people-list">
-            <li class="people-list__item">
-              <div class="people-list__item-left-block">
-                <img src="@/assets/images/navbar/people_1.png" alt="" />
-                <div>
-                  <p>Мухаммад Мухаммадов</p>
-                  <span>Istanbul, 24 года</span>
-                </div>
-              </div>
-              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
-            </li>
-            <li class="people-list__item">
-              <div class="people-list__item-left-block">
-                <img src="@/assets/images/navbar/people_2.png" alt="" />
-                <div>
-                  <p>Магомед Оздоев</p>
-                  <span>Грузия, 27 лет</span>
-                </div>
-              </div>
-              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
-            </li>
-            <li class="people-list__item">
-              <div class="people-list__item-left-block">
-                <img src="@/assets/images/navbar/people_3.png" alt="" />
-                <div>
-                  <p>Айжан Тумухамбетова</p>
-                  <span>Мадрид, 28 лет</span>
-                </div>
-              </div>
-              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
-            </li>
-          </ul>
-        </section>
-        <SampleDivider />
+<!--        <section class="people-section">-->
+<!--          <div class="people-section__labels">-->
+<!--            <h3>{{ $t('labels.search.people') }}</h3>-->
+<!--            <router-link :to="`/${$i18n.locale}/search-people`">-->
+<!--              {{ $t('labels.search.see_all') }}-->
+<!--            </router-link>-->
+<!--          </div>-->
+<!--          <ul class="people-list">-->
+<!--            <li class="people-list__item">-->
+<!--              <div class="people-list__item-left-block">-->
+<!--                <img src="@/assets/images/navbar/people_1.png" alt=""/>-->
+<!--                <div>-->
+<!--                  <p>Мухаммад Мухаммадов</p>-->
+<!--                  <span>Istanbul, 24 года</span>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`"/>-->
+<!--            </li>-->
+<!--            <li class="people-list__item">-->
+<!--              <div class="people-list__item-left-block">-->
+<!--                <img src="@/assets/images/navbar/people_2.png" alt=""/>-->
+<!--                <div>-->
+<!--                  <p>Магомед Оздоев</p>-->
+<!--                  <span>Грузия, 27 лет</span>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`"/>-->
+<!--            </li>-->
+<!--            <li class="people-list__item">-->
+<!--              <div class="people-list__item-left-block">-->
+<!--                <img src="@/assets/images/navbar/people_3.png" alt=""/>-->
+<!--                <div>-->
+<!--                  <p>Айжан Тумухамбетова</p>-->
+<!--                  <span>Мадрид, 28 лет</span>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`"/>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </section>-->
+<!--        <SampleDivider/>-->
 
-        <section class="groups-section">
-          <div class="groups-section__labels">
-            <h3>{{ $t('tabs.search.groups') }}</h3>
-            <router-link :to="`/${$i18n.locale}/search-groups`">
-              {{ $t('labels.search.see_all') }}
-            </router-link>
-          </div>
-          <ul class="groups-list">
-            <li class="groups-list__item">
-              <div class="groups-list__item-left-block">
-                <img src="@/assets/images/navbar/people_1.png" alt="" />
-                <div>
-                  <p>Мухаммад Мухаммадов</p>
-                  <span>Istanbul, 24 года</span>
-                </div>
-              </div>
-              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
-            </li>
-            <li class="groups-list__item">
-              <div class="groups-list__item-left-block">
-                <img src="@/assets/images/navbar/people_2.png" alt="" />
-                <div>
-                  <p>Магомед Оздоев</p>
-                  <span>Грузия, 27 лет</span>
-                </div>
-              </div>
-              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
-            </li>
-            <li class="groups-list__item">
-              <div class="groups-list__item-left-block">
-                <img src="@/assets/images/navbar/people_3.png" alt="" />
-                <div>
-                  <p>Айжан Тумухамбетова</p>
-                  <span>Мадрид, 28 лет</span>
-                </div>
-              </div>
-              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`" />
-            </li>
-          </ul>
-        </section>
-        <SampleDivider />
+<!--        <section class="groups-section">-->
+<!--          <div class="groups-section__labels">-->
+<!--            <h3>{{ $t('tabs.search.groups') }}</h3>-->
+<!--            <router-link :to="`/${$i18n.locale}/search-groups`">-->
+<!--              {{ $t('labels.search.see_all') }}-->
+<!--            </router-link>-->
+<!--          </div>-->
+<!--          <ul class="groups-list">-->
+<!--            <li class="groups-list__item">-->
+<!--              <div class="groups-list__item-left-block">-->
+<!--                <img src="@/assets/images/navbar/people_1.png" alt=""/>-->
+<!--                <div>-->
+<!--                  <p>Мухаммад Мухаммадов</p>-->
+<!--                  <span>Istanbul, 24 года</span>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`"/>-->
+<!--            </li>-->
+<!--            <li class="groups-list__item">-->
+<!--              <div class="groups-list__item-left-block">-->
+<!--                <img src="@/assets/images/navbar/people_2.png" alt=""/>-->
+<!--                <div>-->
+<!--                  <p>Магомед Оздоев</p>-->
+<!--                  <span>Грузия, 27 лет</span>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`"/>-->
+<!--            </li>-->
+<!--            <li class="groups-list__item">-->
+<!--              <div class="groups-list__item-left-block">-->
+<!--                <img src="@/assets/images/navbar/people_3.png" alt=""/>-->
+<!--                <div>-->
+<!--                  <p>Айжан Тумухамбетова</p>-->
+<!--                  <span>Мадрид, 28 лет</span>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <SampleButton class="subscribe-button" :title="`${$t('buttons.subscribe')}`"/>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </section>-->
+<!--        <SampleDivider/>-->
 
-        <section class="advanced-search__section">
-          <router-link to="/search-all-recommendations">
-            <div class="advanced-search__section-left">
-              <LoupeInputIcon />
-              <span>{{ $t('labels.search.advanced_search') }}</span>
-            </div>
-            <ArrowLeftIcon />
-          </router-link>
-        </section>
-      </div>
+<!--        <section class="advanced-search__section">-->
+<!--          <router-link to="/search-all-recommendations">-->
+<!--            <div class="advanced-search__section-left">-->
+<!--              <LoupeInputIcon/>-->
+<!--              <span>{{ $t('labels.search.advanced_search') }}</span>-->
+<!--            </div>-->
+<!--            <ArrowLeftIcon/>-->
+<!--          </router-link>-->
+<!--        </section>-->
+<!--      </div>-->
     </div>
   </header>
   <teleport to="body">
@@ -344,12 +345,12 @@ import TabArticle from '@/components/layouts/SearchComponents/TabArticle.vue'
 import TabVideo from '@/components/layouts/SearchComponents/TabVideo.vue'
 import TabAudio from '@/components/layouts/SearchComponents/TabAudio.vue'
 import TabHashtags from '@/components/layouts/SearchComponents/TabHashtags.vue'
-import { mapState, mapMutations } from 'vuex'
-import { audios } from '@/dummy'
+import {mapState, mapMutations} from 'vuex'
+import {audios} from '@/dummy'
 import SampleDivider from '@/components/ui/SampleDivider.vue'
 import NotificationContainer from '@/components/notification/NotificationContainer.vue'
 import MuviNavIcon from '@/components/icons/shorts/MuviNavIcon.vue'
-import { getFormData } from '@/utils'
+import {getFormData} from '@/utils'
 import axios from 'axios'
 import CopyWalletIcon from '@/components/icons/profile/CopyWalletIcon.vue'
 import WalletSmallIcon from '@/components/icons/profile/WalletSmallIcon.vue'
@@ -394,6 +395,7 @@ export default {
   },
   data() {
     return {
+      searchQuery: '',
       isMenuOpen: false,
       isSearchForm: false,
       isNotificationOpen: false,
@@ -475,17 +477,17 @@ export default {
         user_id: this.userId
       })
 
-      const headers = { 'Content-Type': 'multipart/form-data' }
+      const headers = {'Content-Type': 'multipart/form-data'}
 
       const accessToken = localStorage.getItem('access_token')
-      const params = { access_token: accessToken }
+      const params = {access_token: accessToken}
 
       try {
-        const response = await axios.post('/get-user-data', payload, { params, headers })
+        const response = await axios.post('/get-user-data', payload, {params, headers})
         if (response.data.api_status === 200) {
           localStorage.setItem('user', JSON.stringify(response.data?.data))
         } else {
-          this.$router.push({ name: 'LoginByEmailView' })
+          this.$router.push({name: 'LoginByEmailView'})
         }
       } catch (error) {
         console.error(error)
@@ -497,16 +499,16 @@ export default {
       })
 
       const accessToken = localStorage.getItem('access_token')
-      const params = { access_token: accessToken }
+      const params = {access_token: accessToken}
 
-      const headers = { 'Content-Type': 'multipart/form-data' }
+      const headers = {'Content-Type': 'multipart/form-data'}
 
       try {
-        const response = await axios.post('/delete-access-token', payload, { params, headers })
+        const response = await axios.post('/delete-access-token', payload, {params, headers})
         if (response.data.api_status === 200) {
           localStorage.removeItem('access_token')
           localStorage.removeItem('user')
-          this.$router.push({ name: 'LoginByEmailView' })
+          this.$router.push({name: 'LoginByEmailView'})
         }
       } catch (error) {
         console.error(error)
@@ -514,6 +516,24 @@ export default {
     },
     toggleProfile() {
       this.isProfileOpen = !this.isProfileOpen
+    },
+    async search(query) {
+      const payload = getFormData({
+        server_key: '7c5940661c603657d973782cfdff94c2',
+        query,
+        page: '',
+        type: 'users'
+      })
+
+      const accessToken = localStorage.getItem('access_token')
+      const params = {access_token: accessToken}
+
+      try {
+        const response = await axios.post('/search', payload, {params})
+        console.log(response.data)
+      } catch (err) {
+        console.error(err)
+      }
     }
   },
   mounted() {
@@ -1039,8 +1059,10 @@ export default {
     background-color: var(--color-white);
     margin: 0;
     z-index: 5;
+
     a {
       color: var(--color-silver-chalice);
+
       &.router-link-active {
         color: var(--color-hippie-blue);
       }
